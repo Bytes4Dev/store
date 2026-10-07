@@ -1,4 +1,4 @@
-const data= [
+return [
   {
     id: "introduction",
     description:
@@ -560,5 +560,3 @@ padding: 20px 10px;</code></pre>
     ],
   },
 ];
-
-export default data
