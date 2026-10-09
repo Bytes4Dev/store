@@ -1,13 +1,14 @@
 [
   {
     course: "HTML",
-    description: "A structured HTML course for beginners, working developers and interview preparation. Learn HTML through a small number of progressive stages with detailed explanations, practical examples, common mistakes, accessibility guidance, real-world workflows and interview questions.",
-    keywords: "HTML, HTML tutorial, HTML course, HTML interview questions, semantic HTML, accessibility, HTML forms, responsive images, SEO, HTML5, web development, beginner HTML, advanced HTML",
+    description:
+      "A structured HTML course for beginners, working developers and interview preparation. Learn HTML through a small number of progressive stages with detailed explanations, practical examples, common mistakes, accessibility guidance, real-world workflows and interview questions.",
+    keywords:
+      "HTML, HTML tutorial, HTML course, HTML interview questions, semantic HTML, accessibility, HTML forms, responsive images, SEO, HTML5, web development, beginner HTML, advanced HTML",
     id: "HTMLTags",
     title: "HTML Complete Course",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;background:#fff;color:#292631;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 10px;color:#514276;font-size:32px;letter-spacing:-0.02em;line-height:1.2;">Complete HTML Learning Path</h2>
 <p style="font-size:17px;margin:0 0 10px;">This course is designed to work for three situations: learning HTML properly for the first time, refreshing HTML as an experienced developer, and preparing for an interview at short notice. The goal is understanding rather than memorizing dozens of isolated tags.</p>
 <p style="margin:0;"><strong>Learning principle:</strong> understand the meaning of an element, see a realistic example, learn the common mistake, and then use the concept in a small project.</p>
 </div>
@@ -35,7 +36,6 @@
     title: "1. HTML Foundations & Document Structure",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">1. HTML Foundations & Document Structure</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Build the mental model first. Understand what HTML is, how a browser reads it, and how elements, attributes, nesting and document structure fit together.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> You should be able to write a clean HTML document from memory and explain every major line in it.</div>
 </div>
@@ -89,21 +89,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlFoundations_1",
-    "title": "1. HTML Foundations & Document Structure",
-    "images": [
-      "https://upload.wikimedia.org/wikipedia/commons/5/55/HTML_element_structure.svg"
-    ]
-  }
-],
+      {
+        id: "htmlFoundations_1",
+        title: "1. HTML Foundations & Document Structure",
+        images: ["https://upload.wikimedia.org/wikipedia/commons/5/55/HTML_element_structure.svg"],
+      },
+    ],
   },
   {
     id: "htmlContentNavigation",
     title: "2. Text, Links, Lists & Navigation",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">2. Text, Links, Lists & Navigation</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Learn to express content meaningfully and build navigation that remains understandable without relying on CSS or JavaScript.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Practice choosing the correct element before thinking about its visual appearance.</div>
 </div>
@@ -154,19 +151,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlContentNavigation_1",
-    "title": "2. Text, Links, Lists & Navigation",
-    "images": []
-  }
-],
+      {
+        id: "htmlContentNavigation_1",
+        title: "2. Text, Links, Lists & Navigation",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlMedia",
     title: "3. Images, Responsive Images & Media",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">3. Images, Responsive Images & Media</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Learn when and how to use images, responsive image candidates, audio, video, captions and media fallbacks without adding unnecessary complexity.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Be able to explain alt text, srcset, sizes, picture, loading and captions in a real project.</div>
 </div>
@@ -216,19 +212,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlMedia_1",
-    "title": "3. Images, Responsive Images & Media",
-    "images": []
-  }
-],
+      {
+        id: "htmlMedia_1",
+        title: "3. Images, Responsive Images & Media",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlSemantic",
     title: "4. Semantic HTML & Page Architecture",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">4. Semantic HTML & Page Architecture</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Move from “HTML tags” to meaningful documents. Learn landmarks, articles, sections, dates, quotations and language-aware markup.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Given a real page design, be able to map it to semantic HTML before writing CSS.</div>
 </div>
@@ -278,19 +273,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlSemantic_1",
-    "title": "4. Semantic HTML & Page Architecture",
-    "images": []
-  }
-],
+      {
+        id: "htmlSemantic_1",
+        title: "4. Semantic HTML & Page Architecture",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlTables",
     title: "5. Tables & Accessible Tabular Data",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">5. Tables & Accessible Tabular Data</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Learn tables as relationships between data, including captions, headers, scopes and more complex associations.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Know when a table is appropriate and how to make it understandable with a screen reader.</div>
 </div>
@@ -343,19 +337,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlTables_1",
-    "title": "5. Tables & Accessible Tabular Data",
-    "images": []
-  }
-],
+      {
+        id: "htmlTables_1",
+        title: "5. Tables & Accessible Tabular Data",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlForms",
     title: "6. Forms, Controls & Validation",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">6. Forms, Controls & Validation</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Master the HTML forms you will use in almost every application: labels, controls, input types, validation, autocomplete, submission and encoding.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Be able to build an accessible registration or search form without JavaScript for basic browser validation.</div>
 </div>
@@ -452,21 +445,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlForms_1",
-    "title": "6. Forms, Controls & Validation",
-    "images": [
-      "https://commons.wikimedia.org/wiki/Special:Redirect/file/HTMLFormTutorial.sections.png"
-    ]
-  }
-],
+      {
+        id: "htmlForms_1",
+        title: "6. Forms, Controls & Validation",
+        images: ["https://commons.wikimedia.org/wiki/Special:Redirect/file/HTMLFormTutorial.sections.png"],
+      },
+    ],
   },
   {
     id: "htmlAccessibility",
     title: "7. Accessibility, Keyboard Support & ARIA",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">7. Accessibility, Keyboard Support & ARIA</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Learn how native HTML provides accessibility by default and where ARIA is appropriate. Accessibility should be part of markup decisions from the beginning.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> For every interactive element, ask what its name, role, state, keyboard behavior and focus behavior should be.</div>
 </div>
@@ -514,19 +504,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlAccessibility_1",
-    "title": "7. Accessibility, Keyboard Support & ARIA",
-    "images": []
-  }
-],
+      {
+        id: "htmlAccessibility_1",
+        title: "7. Accessibility, Keyboard Support & ARIA",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlMetadata",
     title: "8. Head, Metadata, SEO & Structured Information",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">8. Head, Metadata, SEO & Structured Information</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Understand the document head, metadata, icons, canonical URLs, crawler-related metadata and structured information without confusing SEO with a guarantee of ranking.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Be able to produce a sensible production head and explain what each metadata item is actually for.</div>
 </div>
@@ -573,19 +562,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlMetadata_1",
-    "title": "8. Head, Metadata, SEO & Structured Information",
-    "images": []
-  }
-],
+      {
+        id: "htmlMetadata_1",
+        title: "8. Head, Metadata, SEO & Structured Information",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlInteractive",
     title: "9. Modern Interactive HTML",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">9. Modern Interactive HTML</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Use browser-native interactive features such as button, details, summary, dialog and popover where they match the user experience.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Prefer native interaction when it provides the behavior you need instead of recreating it with divs and JavaScript.</div>
 </div>
@@ -639,19 +627,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlInteractive_1",
-    "title": "9. Modern Interactive HTML",
-    "images": []
-  }
-],
+      {
+        id: "htmlInteractive_1",
+        title: "9. Modern Interactive HTML",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlAdvanced",
     title: "10. Advanced HTML: DOM, Loading, Performance & Security",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">10. Advanced HTML: DOM, Loading, Performance & Security</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Connect markup to browser internals and production concerns. This is the bridge from comfortable HTML usage to experienced-developer and senior-interview knowledge.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Understand not just what the markup looks like, but what the browser does with it and what trade-offs it creates.</div>
 </div>
@@ -761,19 +748,18 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlAdvanced_1",
-    "title": "10. Advanced HTML: DOM, Loading, Performance & Security",
-    "images": []
-  }
-],
+      {
+        id: "htmlAdvanced_1",
+        title: "10. Advanced HTML: DOM, Loading, Performance & Security",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlPractice",
     title: "11. Practical Workflow, Debugging & Revision",
     about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
 <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<h2 style="margin:0 0 9px;color:#5d4e86;font-size:32px;letter-spacing:-0.02em;">11. Practical Workflow, Debugging & Revision</h2>
 <p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Turn knowledge into repeatable skill. Use projects for regular learning, debugging checklists for work, and focused revision when an interview is close.</p>
 <div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Build, inspect, validate, test with keyboard navigation, and explain why you selected each important HTML element.</div>
 </div>
@@ -833,12 +819,12 @@
 </section>
 </div>`,
     contents: [
-  {
-    "id": "htmlPractice_1",
-    "title": "11. Practical Workflow, Debugging & Revision",
-    "images": []
-  }
-],
+      {
+        id: "htmlPractice_1",
+        title: "11. Practical Workflow, Debugging & Revision",
+        images: [],
+      },
+    ],
   },
   {
     id: "htmlInterview",
@@ -936,11 +922,11 @@
       </div>
     `,
     contents: [
-  {
-    "id": "htmlInterview_1",
-    "title": "56 Interview Questions and Answers",
-    "images": []
-  }
-],
-  }
+      {
+        id: "htmlInterview_1",
+        title: "56 Interview Questions and Answers",
+        images: [],
+      },
+    ],
+  },
 ];
