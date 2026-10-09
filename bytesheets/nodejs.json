@@ -1,5 +1,6 @@
 {
   "courseId": "node-js-mastery",
+  "courseName": "Node.js",
   "title": "Node.js Mastery: From Fundamentals to Advanced Backend Development",
   "subtitle": "Learn Node.js from the ground up and progress through asynchronous programming, APIs, databases, security, streams, performance, scalability, testing, and advanced production architecture.",
   "category": "Backend Development",
