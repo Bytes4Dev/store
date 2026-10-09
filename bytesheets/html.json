@@ -1,0 +1,1684 @@
+{
+  "courseId": "html-mastery",
+  "courseName": "HTML",
+  "title": "HTML Mastery: From Fundamentals to Advanced Web Development",
+  "subtitle": "Learn modern HTML from the basics through semantic markup, forms, accessibility, multimedia, SEO, performance, and advanced browser capabilities.",
+  "category": "Web Development",
+  "level": "Beginner",
+  "estimatedTime": "12 Hours",
+  "accentColor": "#e34f26",
+  "keywords": [
+    "HTML",
+    "HTML5",
+    "Web Development",
+    "Semantic HTML",
+    "Accessibility",
+    "Forms",
+    "SEO",
+    "Web APIs",
+    "Responsive Web",
+    "Frontend Development"
+  ],
+  "chapters": [
+    {
+      "id": "html-fundamentals",
+      "title": "HTML Fundamentals",
+      "summary": "Understand what HTML is, how documents are structured, and how browsers interpret HTML.",
+      "estimatedMinutes": 55,
+      "mediaImages": ["https://developer.mozilla.org/en-US/docs/Web/HTML"],
+      "sections": [
+        {
+          "id": "what-is-html",
+          "title": "What Is HTML?",
+          "content": "HTML stands for **HyperText Markup Language**. It is the standard markup language used to describe the structure and meaning of content on the web. HTML is not a programming language because it does not provide general-purpose control flow or algorithms. Instead, it uses **elements** and **attributes** to describe content. A browser parses HTML and builds a document tree called the DOM (Document Object Model).",
+          "callout": {
+            "type": "info",
+            "title": "HTML Provides Structure",
+            "message": "HTML defines what content is and how it is structured. CSS controls presentation, while JavaScript controls behavior."
+          },
+          "codeExample": {
+            "title": "A Minimal HTML Document",
+            "language": "html",
+            "code": "<!doctype html>\\n<html lang=\"en\">\\n  <head>\\n    <meta charset=\"UTF-8\">\\n    <title>Hello HTML</title>\\n  </head>\\n  <body>\\n    <h1>Hello World</h1>\\n    <p>My first HTML page.</p>\\n  </body>\\n</html>",
+            "explanation": "The document type declaration enables standards mode. The html element contains the document, head contains metadata, and body contains visible content."
+          },
+          "keyTakeaways": ["HTML describes document structure and semantics.", "Browsers convert HTML into a DOM tree."],
+          "interactiveQuiz": {
+            "question": "What does HTML primarily provide?",
+            "options": ["Application logic", "Document structure and semantics", "Database storage", "Server-side execution"],
+            "correctIndex": 1,
+            "explanation": "HTML primarily defines the structure and meaning of web content."
+          }
+        },
+        {
+          "id": "html-elements-and-tags",
+          "title": "Elements, Tags, and Attributes",
+          "content": "An HTML **element** usually consists of an opening tag, content, and a closing tag. Attributes provide additional information about an element. For example, `<a href=\"/about\">About</a>` contains an anchor element with an `href` attribute. Some elements are **void elements**, meaning they do not have closing tags, such as `<img>`, `<br>`, `<hr>`, `<input>`, and `<meta>`.",
+          "codeExample": {
+            "title": "Elements and Attributes",
+            "language": "html",
+            "code": "<a href=\"https://example.com\" target=\"_blank\">Visit Example</a>\\n<img src=\"profile.jpg\" alt=\"Profile photo\">",
+            "explanation": "The anchor uses href and target attributes. The image uses src to identify its resource and alt to provide alternative text."
+          },
+          "keyTakeaways": ["Tags are syntax used to create HTML elements.", "Attributes configure or provide metadata for elements."],
+          "interactiveQuiz": {
+            "question": "Which is a void HTML element?",
+            "options": ["<p>", "<div>", "<img>", "<section>"],
+            "correctIndex": 2,
+            "explanation": "The img element is a void element and does not use a closing tag."
+          }
+        },
+        {
+          "id": "document-structure",
+          "title": "HTML Document Structure",
+          "content": "A well-formed HTML document generally contains `<!doctype html>`, an `<html>` root element, a `<head>` containing metadata, and a `<body>` containing document content. The `lang` attribute on `<html>` should identify the primary language of the document.",
+          "codeExample": {
+            "title": "Document Skeleton",
+            "language": "html",
+            "code": "<!doctype html>\\n<html lang=\"en\">\\n<head>\\n  <meta charset=\"UTF-8\">\\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\\n  <title>My Page</title>\\n</head>\\n<body>\\n  <h1>Welcome</h1>\\n</body>\\n</html>",
+            "explanation": "This structure gives browsers the required document context and includes important metadata for encoding, responsive rendering, and the page title."
+          },
+          "keyTakeaways": ["The html element is the document root.", "The head contains metadata while body contains page content."],
+          "interactiveQuiz": {
+            "question": "Where should visible page content normally be placed?",
+            "options": ["<head>", "<meta>", "<body>", "<title>"],
+            "correctIndex": 2,
+            "explanation": "Visible document content belongs inside the body element."
+          }
+        },
+        {
+          "id": "doctype-and-standards-mode",
+          "title": "DOCTYPE and Standards Mode",
+          "content": "The `<!doctype html>` declaration tells the browser to use modern standards mode. It is not an HTML element. Omitting the declaration can cause browsers to enter quirks mode, where historical rendering behavior may affect layout and CSS.",
+          "callout": {
+            "type": "warning",
+            "title": "Always Include DOCTYPE",
+            "message": "Start modern HTML documents with <!doctype html> to avoid accidental quirks-mode rendering."
+          },
+          "keyTakeaways": ["DOCTYPE is a declaration, not an HTML element.", "Modern documents should use <!doctype html>."],
+          "interactiveQuiz": {
+            "question": "What is the purpose of <!doctype html>?",
+            "options": ["Loads JavaScript", "Enables standards mode", "Creates the body", "Defines page styling"],
+            "correctIndex": 1,
+            "explanation": "The HTML5 doctype tells browsers to use standards mode."
+          }
+        }
+      ]
+    },
+    {
+      "id": "text-and-content",
+      "title": "Text and Content",
+      "summary": "Master headings, paragraphs, links, lists, quotations, code, and inline semantic elements.",
+      "estimatedMinutes": 65,
+      "mediaImages": ["https://developer.mozilla.org/en-US/docs/Web/HTML/Element"],
+      "sections": [
+        {
+          "id": "headings",
+          "title": "Headings",
+          "content": "HTML provides six heading levels from `<h1>` through `<h6>`. Headings create a hierarchy for the document. Use headings based on semantic importance rather than visual size. CSS should control visual sizing.",
+          "codeExample": {
+            "title": "Heading Hierarchy",
+            "language": "html",
+            "code": "<h1>Web Development</h1>\\n<h2>Frontend</h2>\\n<h3>HTML</h3>\\n<h3>CSS</h3>\\n<h2>Backend</h2>",
+            "explanation": "The hierarchy communicates the relationship between major sections and subsections."
+          },
+          "keyTakeaways": [
+            "Use headings to represent document hierarchy.",
+            "Do not choose headings merely because they look visually large."
+          ],
+          "interactiveQuiz": {
+            "question": "Which element represents the highest-level heading?",
+            "options": ["<h6>", "<heading>", "<h1>", "<head>"],
+            "correctIndex": 2,
+            "explanation": "h1 is the highest-level HTML heading."
+          }
+        },
+        {
+          "id": "paragraphs-and-line-breaks",
+          "title": "Paragraphs and Line Breaks",
+          "content": "Use `<p>` for paragraphs. Use `<br>` only when a line break is semantically meaningful, such as within an address or poem. Do not use repeated `<br>` elements to create layout spacing; CSS is designed for that purpose.",
+          "codeExample": {
+            "title": "Paragraph and Line Break",
+            "language": "html",
+            "code": "<p>This is the first paragraph.</p>\\n<p>This is another paragraph.</p>\\n<address>123 Main Street<br>Chennai, India</address>",
+            "explanation": "Paragraphs represent blocks of prose, while br creates an intentional line break within content."
+          },
+          "keyTakeaways": ["Use p for paragraphs.", "Use br for meaningful line breaks rather than layout."],
+          "interactiveQuiz": {
+            "question": "What should normally be used for spacing between sections?",
+            "options": ["Repeated br elements", "CSS", "Empty paragraphs", "Multiple spaces"],
+            "correctIndex": 1,
+            "explanation": "CSS should control layout and spacing."
+          }
+        },
+        {
+          "id": "links",
+          "title": "Links and Navigation",
+          "content": "The `<a>` element creates hyperlinks. Its `href` attribute identifies the destination. Links can point to absolute URLs, relative paths, fragments, email addresses, or telephone numbers. Meaningful link text helps users and assistive technologies understand the destination.",
+          "codeExample": {
+            "title": "Different Link Types",
+            "language": "html",
+            "code": "<a href=\"/about\">About Us</a>\\n<a href=\"#contact\">Contact Section</a>\\n<a href=\"mailto:hello@example.com\">Email Us</a>\\n<a href=\"tel:+919999999999\">Call Us</a>",
+            "explanation": "The href value determines the type and destination of the link."
+          },
+          "keyTakeaways": [
+            "Use a elements for navigation between resources.",
+            "Use descriptive link text instead of vague text such as 'click here'."
+          ],
+          "interactiveQuiz": {
+            "question": "Which attribute specifies the destination of an anchor?",
+            "options": ["src", "href", "link", "target"],
+            "correctIndex": 1,
+            "explanation": "The href attribute defines the hyperlink destination."
+          }
+        },
+        {
+          "id": "lists",
+          "title": "Ordered, Unordered, and Description Lists",
+          "content": "Use `<ul>` for unordered lists, `<ol>` for ordered lists, and `<li>` for list items. `<dl>`, `<dt>`, and `<dd>` are useful for terms and their descriptions.",
+          "codeExample": {
+            "title": "HTML Lists",
+            "language": "html",
+            "code": "<ul>\\n  <li>HTML</li>\\n  <li>CSS</li>\\n</ul>\\n\\n<ol>\\n  <li>Install Node.js</li>\\n  <li>Create the project</li>\\n</ol>\\n\\n<dl>\\n  <dt>HTML</dt>\\n  <dd>Structures web content.</dd>\\n</dl>",
+            "explanation": "Each list type communicates a different relationship between items."
+          },
+          "keyTakeaways": ["Use ul when order does not matter.", "Use ol when sequence matters."],
+          "interactiveQuiz": {
+            "question": "Which element represents an ordered list?",
+            "options": ["<ul>", "<list>", "<ol>", "<dl>"],
+            "correctIndex": 2,
+            "explanation": "The ol element represents an ordered list."
+          }
+        },
+        {
+          "id": "inline-semantics",
+          "title": "Inline Semantic Elements",
+          "content": "HTML provides inline semantic elements such as `<strong>`, `<em>`, `<mark>`, `<small>`, `<abbr>`, `<time>`, `<code>`, `<kbd>`, `<samp>`, and `<var>`. These elements communicate meaning rather than simply controlling appearance.",
+          "codeExample": {
+            "title": "Inline Semantics",
+            "language": "html",
+            "code": "<p><strong>Important:</strong> Save your work.</p>\\n<p>Press <kbd>Ctrl</kbd> + <kbd>S</kbd>.</p>\\n<p>Use the <code>fetch()</code> API.</p>\\n<p>The event occurs at <time datetime=\"2026-10-09\">October 9, 2026</time>.</p>",
+            "explanation": "These elements encode meaning that browsers and assistive technologies can interpret."
+          },
+          "keyTakeaways": [
+            "Prefer semantic elements over styling-oriented markup.",
+            "Meaningful HTML improves accessibility and maintainability."
+          ],
+          "interactiveQuiz": {
+            "question": "Which element represents strong importance?",
+            "options": ["<b>", "<strong>", "<important>", "<emphasis>"],
+            "correctIndex": 1,
+            "explanation": "strong communicates strong importance, while b is primarily a stylistic offset."
+          }
+        }
+      ]
+    },
+    {
+      "id": "semantic-html",
+      "title": "Semantic HTML",
+      "summary": "Build meaningful page structures using semantic layout elements.",
+      "estimatedMinutes": 60,
+      "sections": [
+        {
+          "id": "semantic-elements",
+          "title": "Why Semantic HTML Matters",
+          "content": "Semantic HTML uses elements whose names communicate their purpose. Examples include `<header>`, `<nav>`, `<main>`, `<section>`, `<article>`, `<aside>`, and `<footer>`. Semantic markup improves accessibility, search-engine understanding, maintainability, and document structure.",
+          "codeExample": {
+            "title": "Semantic Page",
+            "language": "html",
+            "code": "<header>\\n  <h1>Tech Blog</h1>\\n</header>\\n<nav>\\n  <a href=\"/\">Home</a>\\n</nav>\\n<main>\\n  <article>\\n    <h2>Understanding HTML</h2>\\n    <p>HTML provides document structure.</p>\\n  </article>\\n</main>\\n<footer>Copyright 2026</footer>",
+            "explanation": "The elements communicate the purpose of different regions instead of relying entirely on generic div containers."
+          },
+          "keyTakeaways": ["Semantic HTML describes the purpose of content.", "Semantic elements reduce unnecessary div usage."],
+          "interactiveQuiz": {
+            "question": "Which element should normally contain the primary content of a page?",
+            "options": ["<main>", "<footer>", "<aside>", "<head>"],
+            "correctIndex": 0,
+            "explanation": "The main element represents the dominant content of the document."
+          }
+        },
+        {
+          "id": "header-nav-footer",
+          "title": "Header, Navigation, and Footer",
+          "content": "The `<header>` represents introductory content for a page or section. `<nav>` identifies a major navigation block. `<footer>` represents footer information for a page or section. These elements can appear at different levels of the document where semantically appropriate.",
+          "keyTakeaways": [
+            "Semantic layout elements communicate structural roles.",
+            "A page can contain multiple semantic headers or footers for nested sections."
+          ],
+          "interactiveQuiz": {
+            "question": "Which element identifies a major navigation block?",
+            "options": ["<navigate>", "<links>", "<nav>", "<menu-bar>"],
+            "correctIndex": 2,
+            "explanation": "The nav element represents a section containing navigation links."
+          }
+        },
+        {
+          "id": "article-section-aside",
+          "title": "Article, Section, and Aside",
+          "content": "`<article>` represents a self-contained piece of content that could stand independently. `<section>` represents a thematic grouping of content, usually with a heading. `<aside>` contains content tangentially related to the surrounding content.",
+          "codeExample": {
+            "title": "Content Grouping",
+            "language": "html",
+            "code": "<article>\\n  <h2>HTML Accessibility</h2>\\n  <section>\\n    <h3>Keyboard Access</h3>\\n    <p>Interactive controls should be keyboard accessible.</p>\\n  </section>\\n  <aside>Related accessibility resources</aside>\\n</article>",
+            "explanation": "The article is self-contained, section groups a topic, and aside provides related but secondary information."
+          },
+          "keyTakeaways": [
+            "Use article for independently distributable content.",
+            "Use section for thematic grouping and aside for tangential content."
+          ],
+          "interactiveQuiz": {
+            "question": "Which element is best for a self-contained blog post?",
+            "options": ["<article>", "<span>", "<aside>", "<section>"],
+            "correctIndex": 0,
+            "explanation": "A blog post is commonly an independently meaningful article."
+          }
+        }
+      ]
+    },
+    {
+      "id": "images-media",
+      "title": "Images and Multimedia",
+      "summary": "Learn images, responsive images, audio, video, captions, and embedded content.",
+      "estimatedMinutes": 70,
+      "sections": [
+        {
+          "id": "images",
+          "title": "Images with img",
+          "content": "The `<img>` element embeds an image resource. The `src` attribute identifies the image, while `alt` provides alternative text. Decorative images can use an empty `alt=\"\"` so assistive technologies can ignore them.",
+          "codeExample": {
+            "title": "Accessible Image",
+            "language": "html",
+            "code": "<img src=\"developer.jpg\" alt=\"Developer working at a laptop\" width=\"800\" height=\"500\">",
+            "explanation": "The alt text communicates the image's purpose. Explicit dimensions can help browsers reserve layout space before the image loads."
+          },
+          "callout": {
+            "type": "tip",
+            "title": "Always Consider alt",
+            "message": "Ask whether the image communicates information. If it does, describe that information; if it is purely decorative, an empty alt attribute is often appropriate."
+          },
+          "keyTakeaways": ["Meaningful images should have useful alternative text.", "Decorative images can use alt=\"\"."],
+          "interactiveQuiz": {
+            "question": "Which attribute provides alternative text for an image?",
+            "options": ["title", "description", "alt", "text"],
+            "correctIndex": 2,
+            "explanation": "The alt attribute provides alternative text for images."
+          }
+        },
+        {
+          "id": "responsive-images",
+          "title": "Responsive Images",
+          "content": "The `srcset` and `sizes` attributes allow browsers to choose an appropriate image resource based on viewport and device characteristics. The `<picture>` element allows art direction and format selection.",
+          "codeExample": {
+            "title": "Responsive Image",
+            "language": "html",
+            "code": "<img\\n  src=\"photo-800.jpg\"\\n  srcset=\"photo-400.jpg 400w, photo-800.jpg 800w, photo-1200.jpg 1200w\"\\n  sizes=\"(max-width: 600px) 100vw, 800px\"\\n  alt=\"Mountain landscape\">",
+            "explanation": "The browser can select an appropriate resource rather than downloading the largest image for every device."
+          },
+          "keyTakeaways": ["srcset can provide multiple image candidates.", "Responsive images can reduce unnecessary bandwidth."],
+          "interactiveQuiz": {
+            "question": "Which attribute provides multiple image candidates?",
+            "options": ["srcset", "images", "candidates", "responsive"],
+            "correctIndex": 0,
+            "explanation": "srcset defines a set of image candidates."
+          }
+        },
+        {
+          "id": "audio-video",
+          "title": "Audio and Video",
+          "content": "HTML provides native `<audio>` and `<video>` elements. The `controls` attribute exposes browser-provided playback controls. Multiple `<source>` elements can provide alternative media formats.",
+          "codeExample": {
+            "title": "Video",
+            "language": "html",
+            "code": "<video controls width=\"800\" poster=\"preview.jpg\">\\n  <source src=\"lesson.mp4\" type=\"video/mp4\">\\n  <source src=\"lesson.webm\" type=\"video/webm\">\\n  Your browser does not support HTML video.\\n</video>",
+            "explanation": "The browser can choose a supported source. The fallback text provides information when video is unavailable."
+          },
+          "keyTakeaways": ["HTML supports native audio and video playback.", "Multiple source formats can improve compatibility."],
+          "interactiveQuiz": {
+            "question": "Which attribute displays native video controls?",
+            "options": ["buttons", "controls", "player", "interface"],
+            "correctIndex": 1,
+            "explanation": "The controls attribute requests browser-provided media controls."
+          }
+        },
+        {
+          "id": "figure-and-caption",
+          "title": "Figure and Figcaption",
+          "content": "`<figure>` groups self-contained content such as an image, diagram, chart, or code example. `<figcaption>` provides a caption for the figure.",
+          "codeExample": {
+            "title": "Figure Caption",
+            "language": "html",
+            "code": "<figure>\\n  <img src=\"architecture.png\" alt=\"Three-tier web architecture\">\\n  <figcaption>Figure 1: A typical three-tier web application.</figcaption>\\n</figure>",
+            "explanation": "The figure groups the visual and its caption into a meaningful unit."
+          },
+          "keyTakeaways": ["Use figure for self-contained illustrative content.", "Use figcaption for its associated caption."],
+          "interactiveQuiz": {
+            "question": "Which element provides a caption for a figure?",
+            "options": ["<caption>", "<figcaption>", "<label>", "<description>"],
+            "correctIndex": 1,
+            "explanation": "figcaption provides the caption associated with a figure."
+          }
+        }
+      ]
+    },
+    {
+      "id": "forms-inputs",
+      "title": "Forms and User Input",
+      "summary": "Build accessible forms with labels, inputs, validation, controls, and submission behavior.",
+      "estimatedMinutes": 90,
+      "sections": [
+        {
+          "id": "form-basics",
+          "title": "Form Fundamentals",
+          "content": "The `<form>` element represents an interactive section for submitting information. Its `action` specifies where data is sent and `method` determines the HTTP method used for submission. Common methods include GET and POST.",
+          "codeExample": {
+            "title": "Basic Form",
+            "language": "html",
+            "code": "<form action=\"/search\" method=\"get\">\\n  <label for=\"query\">Search</label>\\n  <input id=\"query\" name=\"q\" type=\"search\">\\n  <button type=\"submit\">Search</button>\\n</form>",
+            "explanation": "The form submits the named input to the specified action using GET."
+          },
+          "keyTakeaways": [
+            "The name attribute determines the submitted field name.",
+            "GET commonly represents retrieval-oriented submissions while POST is commonly used for creating or changing data."
+          ],
+          "interactiveQuiz": {
+            "question": "Which attribute identifies the destination URL of a form submission?",
+            "options": ["target", "action", "destination", "url"],
+            "correctIndex": 1,
+            "explanation": "The form action attribute specifies where the form data is submitted."
+          }
+        },
+        {
+          "id": "labels-and-inputs",
+          "title": "Labels and Input Controls",
+          "content": "Every user-facing form control should have an accessible label. A `<label>` can be associated with an input through matching `for` and `id` attributes, or by wrapping the input.",
+          "codeExample": {
+            "title": "Accessible Label",
+            "language": "html",
+            "code": "<label for=\"email\">Email address</label>\\n<input id=\"email\" name=\"email\" type=\"email\" autocomplete=\"email\">",
+            "explanation": "The label's for value matches the input id, creating an explicit association."
+          },
+          "callout": {
+            "type": "danger",
+            "title": "Do Not Use Placeholder as a Label",
+            "message": "Placeholder text is a hint, not a replacement for an accessible label."
+          },
+          "keyTakeaways": ["Associate labels with their controls.", "Do not rely on placeholder text as the only label."],
+          "interactiveQuiz": {
+            "question": "Which label attribute associates a label with an input id?",
+            "options": ["for", "input", "control", "name"],
+            "correctIndex": 0,
+            "explanation": "The label for attribute matches the associated control's id."
+          }
+        },
+        {
+          "id": "input-types",
+          "title": "HTML Input Types",
+          "content": "HTML provides specialized input types such as `email`, `password`, `number`, `date`, `url`, `tel`, `search`, `checkbox`, `radio`, and `file`. Using the appropriate type improves native validation, mobile keyboards, and accessibility.",
+          "codeExample": {
+            "title": "Input Types",
+            "language": "html",
+            "code": "<input type=\"email\" name=\"email\">\\n<input type=\"password\" name=\"password\">\\n<input type=\"date\" name=\"birthday\">\\n<input type=\"number\" name=\"age\" min=\"1\" max=\"120\">\\n<input type=\"file\" name=\"resume\" accept=\".pdf\">",
+            "explanation": "Specialized types provide browser-level behavior appropriate to the expected data."
+          },
+          "keyTakeaways": [
+            "Choose input types according to the expected data.",
+            "Correct input types improve user experience and native validation."
+          ],
+          "interactiveQuiz": {
+            "question": "Which input type is intended for email addresses?",
+            "options": ["mail", "email", "text-email", "address"],
+            "correctIndex": 1,
+            "explanation": "type=\"email\" is designed for email address input."
+          }
+        },
+        {
+          "id": "form-validation",
+          "title": "Native Form Validation",
+          "content": "HTML provides native validation attributes including `required`, `minlength`, `maxlength`, `min`, `max`, `pattern`, and type-specific constraints. Native validation improves basic client-side feedback but must not replace server-side validation.",
+          "codeExample": {
+            "title": "Validated Form",
+            "language": "html",
+            "code": "<form>\\n  <label for=\"username\">Username</label>\\n  <input id=\"username\" name=\"username\" required minlength=\"3\" maxlength=\"20\">\\n\\n  <label for=\"age\">Age</label>\\n  <input id=\"age\" name=\"age\" type=\"number\" min=\"18\" max=\"100\" required>\\n\\n  <button>Submit</button>\\n</form>",
+            "explanation": "The browser can prevent submission when the controls violate their declared constraints."
+          },
+          "callout": {
+            "type": "warning",
+            "title": "Client Validation Is Not Security",
+            "message": "Attackers can bypass browser validation. Always validate and sanitize untrusted input on the server."
+          },
+          "keyTakeaways": [
+            "Native validation improves user experience.",
+            "Server-side validation is still required for security and data integrity."
+          ],
+          "interactiveQuiz": {
+            "question": "Which attribute makes an input mandatory?",
+            "options": ["mandatory", "required", "needed", "validate"],
+            "correctIndex": 1,
+            "explanation": "The required attribute prevents submission when the control has no value."
+          }
+        },
+        {
+          "id": "select-textarea-button",
+          "title": "Select, Textarea, and Button",
+          "content": "Use `<select>` for choosing from predefined options, `<textarea>` for multiline text, and `<button>` for actions. Buttons should have an explicit or contextually correct type such as `submit`, `button`, or `reset`.",
+          "codeExample": {
+            "title": "Common Form Controls",
+            "language": "html",
+            "code": "<label for=\"country\">Country</label>\\n<select id=\"country\" name=\"country\">\\n  <option value=\"in\">India</option>\\n  <option value=\"us\">United States</option>\\n</select>\\n\\n<label for=\"message\">Message</label>\\n<textarea id=\"message\" name=\"message\" rows=\"5\"></textarea>\\n\\n<button type=\"submit\">Send</button>",
+            "explanation": "These controls provide native semantics and keyboard interaction."
+          },
+          "keyTakeaways": [
+            "Use button for actions instead of clickable div elements.",
+            "Give form controls meaningful names when their values need to be submitted."
+          ],
+          "interactiveQuiz": {
+            "question": "Which element is intended for multiline user input?",
+            "options": ["<input multiline>", "<multiline>", "<textarea>", "<text>"],
+            "correctIndex": 2,
+            "explanation": "textarea is designed for multiline text input."
+          }
+        }
+      ]
+    },
+    {
+      "id": "tables-embedded-content",
+      "title": "Tables and Embedded Content",
+      "summary": "Represent tabular information correctly and understand embedded resources.",
+      "estimatedMinutes": 50,
+      "sections": [
+        {
+          "id": "tables",
+          "title": "HTML Tables",
+          "content": "Tables represent data with meaningful row and column relationships. Core elements include `<table>`, `<tr>`, `<th>`, and `<td>`. Additional structural elements include `<caption>`, `<thead>`, `<tbody>`, `<tfoot>`, and `<colgroup>`.",
+          "codeExample": {
+            "title": "Accessible Data Table",
+            "language": "html",
+            "code": "<table>\\n  <caption>Developer Salaries</caption>\\n  <thead>\\n    <tr><th scope=\"col\">Role</th><th scope=\"col\">Salary</th></tr>\\n  </thead>\\n  <tbody>\\n    <tr><th scope=\"row\">Frontend Developer</th><td>₹12 LPA</td></tr>\\n    <tr><th scope=\"row\">Backend Developer</th><td>₹15 LPA</td></tr>\\n  </tbody>\\n</table>",
+            "explanation": "Header cells and scope attributes help assistive technologies understand table relationships."
+          },
+          "keyTakeaways": ["Use tables for data, not page layout.", "Use th for headers and scope when appropriate."],
+          "interactiveQuiz": {
+            "question": "Which element represents a table header cell?",
+            "options": ["<header>", "<th>", "<thead-cell>", "<headcell>"],
+            "correctIndex": 1,
+            "explanation": "th represents a header cell within a table."
+          }
+        },
+        {
+          "id": "iframe",
+          "title": "Embedding External Content",
+          "content": "The `<iframe>` element embeds another browsing context inside a page. Common uses include maps, videos, and trusted external applications. When embedding untrusted content, use security controls such as `sandbox` where appropriate.",
+          "codeExample": {
+            "title": "Sandboxed iframe",
+            "language": "html",
+            "code": "<iframe\\n  src=\"https://example.com/widget\"\\n  title=\"Example widget\"\\n  sandbox=\"allow-scripts\">\\n</iframe>",
+            "explanation": "The iframe embeds another document. The title helps identify it to assistive technologies and sandbox can restrict capabilities."
+          },
+          "keyTakeaways": [
+            "Give iframes meaningful titles.",
+            "Consider sandboxing when embedding content from external or untrusted sources."
+          ],
+          "interactiveQuiz": {
+            "question": "Which attribute describes an iframe to assistive technology?",
+            "options": ["description", "label", "title", "alt"],
+            "correctIndex": 2,
+            "explanation": "The title attribute provides an accessible name for an iframe."
+          }
+        }
+      ]
+    },
+    {
+      "id": "head-metadata-seo",
+      "title": "Head, Metadata, and SEO",
+      "summary": "Understand document metadata, search-engine signals, social sharing metadata, and resource hints.",
+      "estimatedMinutes": 75,
+      "sections": [
+        {
+          "id": "head-metadata",
+          "title": "The Head Element",
+          "content": "The `<head>` contains metadata and resource references that describe the document. Common children include `<title>`, `<meta>`, `<link>`, `<style>`, and `<script>`.",
+          "codeExample": {
+            "title": "Useful Head Metadata",
+            "language": "html",
+            "code": "<head>\\n  <meta charset=\"UTF-8\">\\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\\n  <meta name=\"description\" content=\"Learn modern HTML from fundamentals to advanced concepts.\">\\n  <title>HTML Mastery</title>\\n</head>",
+            "explanation": "These elements define character encoding, responsive viewport behavior, search description metadata, and the browser tab title."
+          },
+          "keyTakeaways": [
+            "The head contains metadata rather than normal visible page content.",
+            "A meaningful title is important for users, browsers, and search engines."
+          ],
+          "interactiveQuiz": {
+            "question": "Which element defines the browser document title?",
+            "options": ["<name>", "<title>", "<heading>", "<meta-title>"],
+            "correctIndex": 1,
+            "explanation": "The title element defines the document title."
+          }
+        },
+        {
+          "id": "meta-tags",
+          "title": "Meta Tags",
+          "content": "The `<meta>` element represents metadata that cannot be expressed through other head elements. Common examples include character encoding, viewport configuration, description metadata, and robots directives.",
+          "codeExample": {
+            "title": "Meta Tags",
+            "language": "html",
+            "code": "<meta charset=\"UTF-8\">\\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\\n<meta name=\"description\" content=\"HTML course for modern web developers.\">\\n<meta name=\"robots\" content=\"index,follow\">",
+            "explanation": "Each meta element provides metadata through attributes such as name, content, or charset."
+          },
+          "keyTakeaways": ["Meta tags provide document metadata.", "Do not expect every meta tag to directly improve search ranking."],
+          "interactiveQuiz": {
+            "question": "Which meta configuration is commonly used for responsive viewport behavior?",
+            "options": ["name=\"screen\"", "name=\"viewport\"", "name=\"responsive\"", "name=\"mobile\""],
+            "correctIndex": 1,
+            "explanation": "The viewport meta tag controls how the page is sized and scaled on mobile browsers."
+          }
+        },
+        {
+          "id": "canonical-and-links",
+          "title": "Link Relations",
+          "content": "The `<link>` element connects the document to external resources or describes relationships. Common examples include stylesheets, canonical URLs, icons, alternate versions, and preload resources.",
+          "codeExample": {
+            "title": "Link Relations",
+            "language": "html",
+            "code": "<link rel=\"stylesheet\" href=\"styles.css\">\\n<link rel=\"canonical\" href=\"https://example.com/articles/html\">\\n<link rel=\"icon\" href=\"/favicon.ico\">",
+            "explanation": "The rel attribute describes the relationship between the current document and the referenced resource."
+          },
+          "keyTakeaways": [
+            "rel communicates the relationship of a linked resource.",
+            "Canonical links can help search engines identify a preferred URL."
+          ],
+          "interactiveQuiz": {
+            "question": "Which rel value identifies a preferred URL for a page?",
+            "options": ["primary", "canonical", "preferred", "main"],
+            "correctIndex": 1,
+            "explanation": "rel=\"canonical\" identifies the canonical URL."
+          }
+        }
+      ]
+    },
+    {
+      "id": "accessibility",
+      "title": "HTML Accessibility",
+      "summary": "Build accessible HTML using semantic elements, labels, keyboard-friendly controls, and appropriate ARIA.",
+      "estimatedMinutes": 80,
+      "sections": [
+        {
+          "id": "accessibility-foundations",
+          "title": "Accessibility Fundamentals",
+          "content": "Accessible HTML allows people with different abilities and assistive technologies to understand and interact with web content. Native semantic HTML should be the first choice because browsers already expose meaningful accessibility information for standard elements.",
+          "callout": {
+            "type": "tip",
+            "title": "Native HTML First",
+            "message": "Before adding ARIA, ask whether a native HTML element already provides the required semantics and behavior."
+          },
+          "keyTakeaways": [
+            "Semantic HTML is a major accessibility foundation.",
+            "Native controls generally provide built-in keyboard and accessibility behavior."
+          ],
+          "interactiveQuiz": {
+            "question": "What should generally be preferred before adding custom ARIA semantics?",
+            "options": ["More div elements", "Native HTML semantics", "CSS classes", "JavaScript click handlers"],
+            "correctIndex": 1,
+            "explanation": "Native HTML semantics provide reliable browser and assistive technology behavior."
+          }
+        },
+        {
+          "id": "keyboard-accessibility",
+          "title": "Keyboard Accessibility",
+          "content": "Interactive functionality must be usable without a mouse. Native buttons, links, inputs, and form controls already provide keyboard interaction. Avoid replacing these controls with clickable generic elements unless there is a strong reason and all required behavior is implemented.",
+          "codeExample": {
+            "title": "Use a Button for Actions",
+            "language": "html",
+            "code": "<button type=\"button\" id=\"saveButton\">Save</button>",
+            "explanation": "A button is inherently interactive and supports keyboard interaction and accessibility semantics."
+          },
+          "keyTakeaways": [
+            "Native interactive elements are keyboard accessible by default.",
+            "Do not use a div as a button merely because it is easy to style."
+          ],
+          "interactiveQuiz": {
+            "question": "Which is the best native element for triggering an action?",
+            "options": ["<div>", "<span>", "<button>", "<section>"],
+            "correctIndex": 2,
+            "explanation": "button is the semantic native control for user actions."
+          }
+        },
+        {
+          "id": "aria-basics",
+          "title": "ARIA Basics",
+          "content": "ARIA (Accessible Rich Internet Applications) provides additional semantics when native HTML cannot adequately represent a custom interface. Common attributes include `aria-label`, `aria-labelledby`, `aria-describedby`, `aria-expanded`, and `aria-hidden`.",
+          "codeExample": {
+            "title": "ARIA Expanded State",
+            "language": "html",
+            "code": "<button aria-expanded=\"false\" aria-controls=\"menu\">Menu</button>\\n<nav id=\"menu\" hidden>\\n  <a href=\"/docs\">Docs</a>\\n</nav>",
+            "explanation": "aria-expanded communicates the state of a collapsible control and aria-controls identifies the controlled region."
+          },
+          "callout": {
+            "type": "warning",
+            "title": "ARIA Does Not Add Behavior",
+            "message": "ARIA communicates semantics and state. JavaScript must still implement the actual interaction behavior."
+          },
+          "keyTakeaways": [
+            "ARIA supplements HTML semantics rather than replacing them.",
+            "ARIA attributes do not automatically implement functionality."
+          ],
+          "interactiveQuiz": {
+            "question": "Does aria-expanded automatically open and close a menu?",
+            "options": ["Yes", "Only in Chrome", "Only with CSS", "No"],
+            "correctIndex": 3,
+            "explanation": "aria-expanded communicates state; JavaScript or another mechanism must implement the behavior."
+          }
+        }
+      ]
+    },
+    {
+      "id": "advanced-html",
+      "title": "Advanced HTML",
+      "summary": "Explore dialogs, templates, details, custom data attributes, content editing, and browser-integrated HTML features.",
+      "estimatedMinutes": 75,
+      "sections": [
+        {
+          "id": "details-summary",
+          "title": "Details and Summary",
+          "content": "The `<details>` element creates a disclosure widget. `<summary>` provides the visible control used to open and close it. These elements provide native behavior without requiring JavaScript for basic disclosure interactions.",
+          "codeExample": {
+            "title": "Native Disclosure",
+            "language": "html",
+            "code": "<details>\\n  <summary>What is HTML?</summary>\\n  <p>HTML is the standard markup language for web documents.</p>\\n</details>",
+            "explanation": "The browser provides the basic expand and collapse interaction."
+          },
+          "keyTakeaways": ["details provides native disclosure behavior.", "summary defines the visible disclosure label."],
+          "interactiveQuiz": {
+            "question": "Which element provides the label for a details disclosure?",
+            "options": ["<label>", "<summary>", "<caption>", "<legend>"],
+            "correctIndex": 1,
+            "explanation": "summary is the interactive summary for a details element."
+          }
+        },
+        {
+          "id": "dialog",
+          "title": "The Dialog Element",
+          "content": "The `<dialog>` element represents a dialog box or other interactive subwindow. It can be shown non-modally with `show()` or modally with `showModal()` through JavaScript. The `open` attribute indicates that a dialog is currently open.",
+          "codeExample": {
+            "title": "Dialog Markup",
+            "language": "html",
+            "code": "<dialog id=\"settingsDialog\">\\n  <h2>Settings</h2>\\n  <p>Configure your preferences.</p>\\n  <form method=\"dialog\">\\n    <button>Close</button>\\n  </form>\\n</dialog>\\n\\n<button onclick=\"settingsDialog.showModal()\">Open Settings</button>",
+            "explanation": "The dialog can provide a native modal experience and the method=dialog form can close it."
+          },
+          "keyTakeaways": ["dialog provides native semantics for dialogs.", "showModal() opens a modal dialog."],
+          "interactiveQuiz": {
+            "question": "Which method opens a dialog as a modal?",
+            "options": ["openModal()", "showModal()", "modal()", "displayModal()"],
+            "correctIndex": 1,
+            "explanation": "HTMLDialogElement.showModal() opens the dialog modally."
+          }
+        },
+        {
+          "id": "template-element",
+          "title": "Template Element",
+          "content": "The `<template>` element stores HTML that is not rendered immediately. Its contents can be cloned and inserted into the document using JavaScript. Templates are useful for reusable client-side fragments and Web Components.",
+          "codeExample": {
+            "title": "HTML Template",
+            "language": "html",
+            "code": "<template id=\"userCardTemplate\">\\n  <article class=\"user-card\">\\n    <h2 class=\"name\"></h2>\\n  </article>\\n</template>",
+            "explanation": "The template's content remains inert until JavaScript clones and inserts it."
+          },
+          "keyTakeaways": ["Template content is inert until instantiated.", "Templates are useful for reusable DOM fragments."],
+          "interactiveQuiz": {
+            "question": "Is template content immediately rendered as normal page content?",
+            "options": ["Yes", "No", "Only in Firefox", "Only when CSS is disabled"],
+            "correctIndex": 1,
+            "explanation": "Template contents are inert and are not rendered until instantiated."
+          }
+        },
+        {
+          "id": "data-attributes",
+          "title": "Custom Data Attributes",
+          "content": "The `data-*` attribute convention allows developers to attach custom data to HTML elements. JavaScript can access these values through the element's `dataset` property.",
+          "codeExample": {
+            "title": "Using data-*",
+            "language": "html",
+            "code": "<button data-user-id=\"42\" data-role=\"admin\">View User</button>\\n\\n<script>\\n  const button = document.querySelector('button');\\n  console.log(button.dataset.userId);\\n  console.log(button.dataset.role);\\n</script>",
+            "explanation": "data-user-id becomes dataset.userId and data-role becomes dataset.role."
+          },
+          "keyTakeaways": ["Custom attributes should use the data-* convention.", "JavaScript accesses data-* values through dataset."],
+          "interactiveQuiz": {
+            "question": "How is data-user-id accessed through dataset?",
+            "options": ["dataset.data-user-id", "dataset.userId", "dataset.user-id", "dataset.dataUserId"],
+            "correctIndex": 1,
+            "explanation": "Hyphenated data attributes are converted to camelCase properties on dataset."
+          }
+        }
+      ]
+    },
+    {
+      "id": "performance-security",
+      "title": "Performance and Security",
+      "summary": "Optimize HTML loading and understand important security considerations for links, forms, iframes, and resources.",
+      "estimatedMinutes": 65,
+      "sections": [
+        {
+          "id": "script-loading",
+          "title": "Script Loading",
+          "content": "Scripts can block HTML parsing depending on how they are included. `defer` downloads scripts while allowing parsing to continue and executes them after parsing. `async` downloads independently and executes as soon as available, so execution order should not be relied upon between async scripts.",
+          "codeExample": {
+            "title": "Defer and Async",
+            "language": "html",
+            "code": "<script src=\"app.js\" defer></script>\\n<script src=\"analytics.js\" async></script>",
+            "explanation": "defer is often useful for application scripts that depend on the document being parsed. async is useful for independent scripts."
+          },
+          "keyTakeaways": [
+            "defer preserves document parsing and executes after parsing.",
+            "async scripts execute independently when ready."
+          ],
+          "interactiveQuiz": {
+            "question": "Which attribute is generally appropriate for scripts that should execute after HTML parsing?",
+            "options": ["delay", "defer", "wait", "after"],
+            "correctIndex": 1,
+            "explanation": "defer allows HTML parsing to continue and schedules execution after parsing."
+          }
+        },
+        {
+          "id": "lazy-loading",
+          "title": "Lazy Loading",
+          "content": "The `loading=\"lazy\"` attribute can allow images and iframes to be deferred until they are near the viewport. This can reduce initial network and rendering work, particularly on pages with many below-the-fold resources.",
+          "codeExample": {
+            "title": "Lazy Image",
+            "language": "html",
+            "code": "<img src=\"large-photo.jpg\" loading=\"lazy\" width=\"1200\" height=\"800\" alt=\"Mountain view\">",
+            "explanation": "The browser may delay loading the image until it approaches the viewport."
+          },
+          "keyTakeaways": [
+            "Lazy loading can reduce unnecessary initial resource loading.",
+            "Do not lazy-load critical above-the-fold images indiscriminately."
+          ],
+          "interactiveQuiz": {
+            "question": "Which attribute requests lazy loading for an image?",
+            "options": ["load=\"lazy\"", "loading=\"lazy\"", "lazy=\"true\"", "defer=\"image\""],
+            "correctIndex": 1,
+            "explanation": "loading=\"lazy\" requests lazy loading behavior."
+          }
+        },
+        {
+          "id": "noopener-security",
+          "title": "noopener and External Links",
+          "content": "When opening external content in a new browsing context, developers should understand the security implications of `target=\"_blank\"`. The `rel=\"noopener\"` relationship prevents the opened document from accessing the opener through `window.opener`.",
+          "codeExample": {
+            "title": "Safer New-Tab Link",
+            "language": "html",
+            "code": "<a href=\"https://example.com\" target=\"_blank\" rel=\"noopener\">\\n  Open Example\\n</a>",
+            "explanation": "noopener prevents the newly opened page from using the opener reference to interact with the original page."
+          },
+          "keyTakeaways": [
+            "Understand opener relationships when opening new browsing contexts.",
+            "Use appropriate rel values for external links."
+          ],
+          "interactiveQuiz": {
+            "question": "What does rel=\"noopener\" primarily prevent?",
+            "options": ["CSS loading", "Image loading", "Access through window.opener", "Form submission"],
+            "correctIndex": 2,
+            "explanation": "noopener prevents the opened document from accessing the opener through window.opener."
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-html-patterns",
+      "title": "Modern HTML Patterns",
+      "summary": "Apply HTML knowledge to build maintainable, accessible, SEO-friendly modern pages.",
+      "estimatedMinutes": 70,
+      "sections": [
+        {
+          "id": "html-component-pattern",
+          "title": "Reusable HTML Structures",
+          "content": "Even without a frontend framework, HTML can be organized into reusable conceptual components such as navigation, cards, forms, articles, and footers. Good component boundaries should follow meaningful content or behavior rather than arbitrary wrapper elements.",
+          "codeExample": {
+            "title": "Reusable Card Structure",
+            "language": "html",
+            "code": "<article class=\"card\">\\n  <img src=\"course.jpg\" alt=\"HTML course cover\">\\n  <div class=\"card-content\">\\n    <h2>HTML Mastery</h2>\\n    <p>Learn modern HTML from fundamentals to advanced topics.</p>\\n    <a href=\"/courses/html\">View course</a>\\n  </div>\\n</article>",
+            "explanation": "The article creates a meaningful independent content unit that can be styled or reused."
+          },
+          "keyTakeaways": ["Choose structural boundaries based on semantics and behavior.", "Avoid unnecessary wrapper elements."],
+          "interactiveQuiz": {
+            "question": "Which element is appropriate for a self-contained course card?",
+            "options": ["<article>", "<br>", "<meta>", "<title>"],
+            "correctIndex": 0,
+            "explanation": "A card containing independently meaningful content can often be represented as an article."
+          }
+        },
+        {
+          "id": "progress-meter",
+          "title": "Progress and Meter",
+          "content": "The `<progress>` element represents completion progress, while `<meter>` represents a scalar measurement within a known range. These elements communicate different semantics and should not be used interchangeably.",
+          "codeExample": {
+            "title": "Progress and Meter",
+            "language": "html",
+            "code": "<label for=\"course-progress\">Course progress</label>\\n<progress id=\"course-progress\" value=\"70\" max=\"100\">70%</progress>\\n\\n<label for=\"disk\">Disk usage</label>\\n<meter id=\"disk\" min=\"0\" max=\"100\" value=\"80\">80%</meter>",
+            "explanation": "Progress represents completion of a task, while meter represents a measurement within a defined range."
+          },
+          "keyTakeaways": ["Use progress for task completion.", "Use meter for scalar measurements."],
+          "interactiveQuiz": {
+            "question": "Which element represents completion progress?",
+            "options": ["<meter>", "<progress>", "<completion>", "<status>"],
+            "correctIndex": 1,
+            "explanation": "progress represents the completion state of a task."
+          }
+        },
+        {
+          "id": "html-validation",
+          "title": "Validating HTML",
+          "content": "HTML validation tools can identify syntax and structural problems. Validation is useful, but valid markup alone does not guarantee accessibility, good UX, security, or correct application behavior. Testing should include keyboard navigation, screen readers where appropriate, responsive layouts, and real user workflows.",
+          "callout": {
+            "type": "tip",
+            "title": "Validation Is Only One Layer",
+            "message": "Treat HTML validation as one part of a broader quality process rather than as proof that a page is fully correct."
+          },
+          "keyTakeaways": ["Validate HTML during development.", "Combine validation with accessibility and functional testing."],
+          "interactiveQuiz": {
+            "question": "Does valid HTML automatically guarantee accessibility?",
+            "options": ["Yes", "No", "Only in Chrome", "Only with CSS"],
+            "correctIndex": 1,
+            "explanation": "Valid syntax does not guarantee that the page is accessible or usable."
+          }
+        }
+      ]
+    },
+    {
+      "id": "interview-questions",
+      "title": "HTML Interview Questions",
+      "summary": "Test your HTML knowledge with 60 interview-style questions covering fundamentals, semantics, forms, accessibility, SEO, performance, and advanced HTML.",
+      "estimatedMinutes": 120,
+      "sections": [
+        {
+          "id": "interview-q01",
+          "title": "1. What is HTML?",
+          "content": "HTML stands for HyperText Markup Language. It is the standard markup language used to structure content and describe its semantics on the web. HTML defines elements such as headings, paragraphs, links, forms, images, tables, and semantic page regions.",
+          "interactiveQuiz": {
+            "question": "What is HTML primarily used for?",
+            "options": ["Styling web pages", "Structuring and describing web content", "Executing server-side code", "Managing databases"],
+            "correctIndex": 1,
+            "explanation": "HTML provides the structure and semantics of web documents. CSS handles presentation and JavaScript handles application behavior."
+          },
+          "keyTakeaways": ["HTML is a markup language.", "HTML defines structure and semantics rather than application logic."]
+        },
+        {
+          "id": "interview-q02",
+          "title": "2. Is HTML a programming language?",
+          "content": "No. HTML is a markup language. It describes document structure and semantics but does not provide the general-purpose programming constructs associated with programming languages, such as functions, loops, and algorithmic control flow.",
+          "interactiveQuiz": {
+            "question": "Why is HTML not generally classified as a programming language?",
+            "options": [
+              "It cannot display text",
+              "It does not provide general-purpose programming logic",
+              "It cannot contain attributes",
+              "It only works on servers"
+            ],
+            "correctIndex": 1,
+            "explanation": "HTML describes document structure rather than implementing general-purpose algorithms."
+          },
+          "keyTakeaways": ["HTML is declarative markup.", "JavaScript is commonly used when programming behavior is required."]
+        },
+        {
+          "id": "interview-q03",
+          "title": "3. What is HTML5?",
+          "content": "HTML5 refers to the modern evolution of HTML and the collection of web platform capabilities standardized around HTML. It introduced or standardized many semantic elements and native capabilities such as audio, video, canvas, forms improvements, and more.",
+          "interactiveQuiz": {
+            "question": "Which is associated with modern HTML capabilities?",
+            "options": ["video", "SELECT DATABASE", "server threads", "SQL joins"],
+            "correctIndex": 0,
+            "explanation": "Native video support is one of the capabilities associated with modern HTML."
+          },
+          "keyTakeaways": ["Modern HTML includes semantic and multimedia capabilities.", "HTML continues to evolve as a web standard."]
+        },
+        {
+          "id": "interview-q04",
+          "title": "4. What is the purpose of <!DOCTYPE html>?",
+          "content": "It tells the browser to use standards mode for the document. The modern HTML doctype is intentionally simple: `<!doctype html>`.",
+          "interactiveQuiz": {
+            "question": "What does <!doctype html> primarily do?",
+            "options": ["Creates an HTML element", "Enables standards mode", "Loads CSS", "Loads JavaScript"],
+            "correctIndex": 1,
+            "explanation": "The doctype tells the browser how to interpret the document mode."
+          },
+          "keyTakeaways": ["DOCTYPE is a declaration.", "Use the modern HTML doctype in HTML documents."]
+        },
+        {
+          "id": "interview-q05",
+          "title": "5. What is the difference between an element and a tag?",
+          "content": "A tag is the markup syntax such as `<p>` or `</p>`. An element is the complete construct, including its opening tag, content, and closing tag when applicable. For example, `<p>Hello</p>` is a paragraph element.",
+          "interactiveQuiz": {
+            "question": "Which represents the complete HTML element?",
+            "options": ["<p>", "</p>", "<p>Hello</p>", "p"],
+            "correctIndex": 2,
+            "explanation": "The complete construct containing the opening tag, content, and closing tag is the element."
+          },
+          "keyTakeaways": ["Tags are syntax.", "Elements represent document nodes and their semantics."]
+        },
+        {
+          "id": "interview-q06",
+          "title": "6. What are void elements?",
+          "content": "Void elements are HTML elements that cannot have child content and do not use closing tags. Examples include `<img>`, `<input>`, `<br>`, `<hr>`, `<meta>`, and `<link>`.",
+          "interactiveQuiz": {
+            "question": "Which is a void element?",
+            "options": ["<div>", "<section>", "<input>", "<article>"],
+            "correctIndex": 2,
+            "explanation": "input is a void HTML element."
+          },
+          "keyTakeaways": ["Void elements do not contain child nodes.", "Do not add unnecessary closing tags to void elements."]
+        },
+        {
+          "id": "interview-q07",
+          "title": "7. What is the DOM?",
+          "content": "The Document Object Model is an object representation of a document that scripts and browser APIs can interact with. The browser parses HTML and creates a tree of nodes representing the document.",
+          "interactiveQuiz": {
+            "question": "What does the DOM represent?",
+            "options": ["A database schema", "An object representation of the document", "A CSS compiler", "A server process"],
+            "correctIndex": 1,
+            "explanation": "The DOM represents the document as a tree of objects that scripts can inspect and manipulate."
+          },
+          "keyTakeaways": ["The DOM represents document structure.", "JavaScript commonly interacts with the DOM."]
+        },
+        {
+          "id": "interview-q08",
+          "title": "8. What is semantic HTML?",
+          "content": "Semantic HTML uses elements that communicate the meaning or role of content. Examples include `<article>`, `<nav>`, `<main>`, `<header>`, and `<footer>`. Semantic markup improves structure, accessibility, maintainability, and machine understanding.",
+          "interactiveQuiz": {
+            "question": "Which is a semantic HTML element?",
+            "options": ["<div>", "<span>", "<article>", "<box>"],
+            "correctIndex": 2,
+            "explanation": "article has a defined semantic meaning, while div is a generic container."
+          },
+          "keyTakeaways": ["Semantics communicate meaning.", "Prefer meaningful HTML over generic containers when appropriate."]
+        },
+        {
+          "id": "interview-q09",
+          "title": "9. What is the difference between div and span?",
+          "content": "Both are generic containers. `<div>` is normally used as a block-level structural container, while `<span>` is an inline phrasing container. Neither adds meaningful semantics by itself.",
+          "interactiveQuiz": {
+            "question": "Which statement is correct?",
+            "options": [
+              "div and span have identical default structural behavior",
+              "div is generally block-level and span is generally inline",
+              "span is always semantic",
+              "div is an input control"
+            ],
+            "correctIndex": 1,
+            "explanation": "div is generally block-level while span is generally inline by default."
+          },
+          "keyTakeaways": ["div and span are generic.", "Use semantic elements when one accurately describes the content."]
+        },
+        {
+          "id": "interview-q10",
+          "title": "10. What is the purpose of the lang attribute?",
+          "content": "The `lang` attribute identifies the language of the element's content. Setting it on the root `<html>` element helps browsers, search engines, translation tools, and assistive technologies interpret the document correctly.",
+          "interactiveQuiz": {
+            "question": "Where is the primary document language commonly declared?",
+            "options": ["<body lang>", "<html lang>", "<head language>", "<meta language>"],
+            "correctIndex": 1,
+            "explanation": "The primary language is commonly declared on the html element."
+          },
+          "keyTakeaways": ["Declare the document's language.", "Language metadata supports accessibility and user agents."]
+        },
+        {
+          "id": "interview-q11",
+          "title": "11. What is the difference between strong and b?",
+          "content": "`<strong>` conveys strong importance, while `<b>` draws attention without necessarily implying additional importance. Both may appear bold by default, but their semantics differ.",
+          "interactiveQuiz": {
+            "question": "Which element communicates strong importance?",
+            "options": ["<b>", "<strong>", "<bold>", "<important>"],
+            "correctIndex": 1,
+            "explanation": "strong communicates importance as part of the document semantics."
+          },
+          "keyTakeaways": ["Choose elements according to meaning.", "Visual boldness is not the same as semantic importance."]
+        },
+        {
+          "id": "interview-q12",
+          "title": "12. What is the difference between em and i?",
+          "content": "`<em>` represents stress emphasis, while `<i>` represents text set apart from normal prose for a reason such as a technical term, idiom, taxonomy, or alternate voice. Both may appear italic by default, but their meanings differ.",
+          "interactiveQuiz": {
+            "question": "Which element represents stress emphasis?",
+            "options": ["<i>", "<em>", "<italic>", "<stress>"],
+            "correctIndex": 1,
+            "explanation": "em represents stress emphasis."
+          },
+          "keyTakeaways": [
+            "Use em when stress emphasis is meaningful.",
+            "Do not choose semantic elements solely based on default appearance."
+          ]
+        },
+        {
+          "id": "interview-q13",
+          "title": "13. What is the difference between section and article?",
+          "content": "`<section>` represents a thematic grouping of content, usually with a heading. `<article>` represents a self-contained piece of content that could potentially be distributed or understood independently.",
+          "interactiveQuiz": {
+            "question": "Which element is commonly appropriate for an independently distributable blog post?",
+            "options": ["<article>", "<section>", "<span>", "<aside>"],
+            "correctIndex": 0,
+            "explanation": "A blog post is typically a self-contained article."
+          },
+          "keyTakeaways": ["article is independently meaningful content.", "section groups related content thematically."]
+        },
+        {
+          "id": "interview-q14",
+          "title": "14. What is the purpose of the main element?",
+          "content": "`<main>` represents the dominant content of the document. Content repeated across pages such as primary navigation and site-wide footers generally should not be placed inside main.",
+          "interactiveQuiz": {
+            "question": "What does main represent?",
+            "options": ["Document metadata", "Dominant page content", "Browser controls", "Only navigation"],
+            "correctIndex": 1,
+            "explanation": "main represents the primary content of the document."
+          },
+          "keyTakeaways": ["Use main for the dominant document content.", "Avoid putting repeated site-wide content inside main."]
+        },
+        {
+          "id": "interview-q15",
+          "title": "15. Why is alt text important?",
+          "content": "Alternative text provides a textual replacement for meaningful images when the image cannot be perceived or loaded. Screen readers can announce it, and it can communicate the image's purpose.",
+          "interactiveQuiz": {
+            "question": "Which attribute provides alternative text?",
+            "options": ["title", "alt", "description", "label"],
+            "correctIndex": 1,
+            "explanation": "The alt attribute provides the alternative text for an image."
+          },
+          "keyTakeaways": ["Describe meaningful image information.", "Use alt=\"\" for images that are purely decorative when appropriate."]
+        },
+        {
+          "id": "interview-q16",
+          "title": "16. What is the difference between GET and POST in forms?",
+          "content": "GET submits form data as part of the request URL, making it suitable for many retrieval/search operations. POST sends the data in the request body and is commonly used for operations that create or modify server-side state. Neither should be treated as a substitute for authentication or authorization.",
+          "interactiveQuiz": {
+            "question": "Which method commonly places form data in the URL?",
+            "options": ["POST", "GET", "PUT", "PATCH"],
+            "correctIndex": 1,
+            "explanation": "A GET form submission commonly encodes successful controls into the URL query string."
+          },
+          "keyTakeaways": ["GET is commonly used for retrieval-oriented submissions.", "POST commonly sends form data in the request body."]
+        },
+        {
+          "id": "interview-q17",
+          "title": "17. Why is the name attribute important in forms?",
+          "content": "The `name` attribute identifies a successful form control in submitted form data. An input may have an id for DOM and label association, but without a suitable name its value generally will not be included in standard form submission.",
+          "interactiveQuiz": {
+            "question": "Which attribute commonly determines the field name in submitted form data?",
+            "options": ["id", "name", "for", "field"],
+            "correctIndex": 1,
+            "explanation": "The name attribute identifies the form control's submitted field name."
+          },
+          "keyTakeaways": ["id and name serve different purposes.", "Use meaningful names for submitted form fields."]
+        },
+        {
+          "id": "interview-q18",
+          "title": "18. Why should labels be associated with inputs?",
+          "content": "Labels provide an accessible name for form controls and improve usability. Explicitly associating a label with an input also allows users to activate the input by selecting its label.",
+          "interactiveQuiz": {
+            "question": "How can a label be explicitly associated with an input?",
+            "options": ["Match label for with input id", "Match label class with input class", "Use CSS", "Use placeholder only"],
+            "correctIndex": 0,
+            "explanation": "The label for attribute should match the input's id."
+          },
+          "keyTakeaways": [
+            "Every user-facing control should have an appropriate accessible label.",
+            "Placeholder text should not replace labels."
+          ]
+        },
+        {
+          "id": "interview-q19",
+          "title": "19. What is the purpose of placeholder?",
+          "content": "The placeholder attribute provides a short hint about the expected value of a form control. It disappears when the user enters data and should not be treated as a permanent label.",
+          "interactiveQuiz": {
+            "question": "Should placeholder normally replace a visible label?",
+            "options": ["Yes", "No", "Only for email fields", "Only on mobile"],
+            "correctIndex": 1,
+            "explanation": "A placeholder is a hint and should not be the only accessible label."
+          },
+          "keyTakeaways": ["Use labels for identification.", "Use placeholders for supplementary hints."]
+        },
+        {
+          "id": "interview-q20",
+          "title": "20. What does the required attribute do?",
+          "content": "The `required` attribute indicates that a form control must have a value before the browser allows normal form submission. It provides native client-side validation.",
+          "interactiveQuiz": {
+            "question": "What does required do?",
+            "options": ["Makes a field read-only", "Makes a field mandatory", "Encrypts the field", "Hides the field"],
+            "correctIndex": 1,
+            "explanation": "required indicates that the control must have a value for successful validation."
+          },
+          "keyTakeaways": ["required enables native mandatory-field validation.", "Server-side validation is still necessary."]
+        },
+        {
+          "id": "interview-q21",
+          "title": "21. What is the difference between disabled and readonly?",
+          "content": "A disabled control is generally not editable, focusable, or included in normal form submission. A readonly control cannot normally be edited by the user but can remain focusable and its value can be submitted when applicable.",
+          "interactiveQuiz": {
+            "question": "Which control is generally excluded from form submission?",
+            "options": ["readonly", "disabled", "required", "autofocus"],
+            "correctIndex": 1,
+            "explanation": "Disabled form controls are generally not successful controls and are excluded from submission."
+          },
+          "keyTakeaways": [
+            "disabled and readonly have different interaction and submission behavior.",
+            "Choose based on the intended user experience."
+          ]
+        },
+        {
+          "id": "interview-q22",
+          "title": "22. What is the difference between button types?",
+          "content": "A button inside a form defaults to submit behavior in common HTML usage unless another type is specified. `type=\"submit\"` submits the form, `type=\"button\"` is a generic action button, and `type=\"reset\"` resets form controls to their initial values.",
+          "interactiveQuiz": {
+            "question": "Which button type prevents a button from acting as a form submitter?",
+            "options": ["type=\"action\"", "type=\"button\"", "type=\"none\"", "type=\"click\""],
+            "correctIndex": 1,
+            "explanation": "type=\"button\" creates a non-submitting button."
+          },
+          "keyTakeaways": [
+            "Explicitly specify button types when clarity matters.",
+            "Use button for actions rather than clickable div elements."
+          ]
+        },
+        {
+          "id": "interview-q23",
+          "title": "23. What is the difference between checkbox and radio inputs?",
+          "content": "Checkboxes represent independent binary or multi-select choices. Radio buttons represent mutually exclusive choices within a group sharing the same name.",
+          "interactiveQuiz": {
+            "question": "Which control is appropriate when exactly one option should be selected from a group?",
+            "options": ["Checkbox", "Radio", "Textarea", "Range"],
+            "correctIndex": 1,
+            "explanation": "Radio inputs with the same name form a mutually exclusive group."
+          },
+          "keyTakeaways": ["Checkboxes support independent selection.", "Radio groups support one selection among alternatives."]
+        },
+        {
+          "id": "interview-q24",
+          "title": "24. What is the purpose of autocomplete?",
+          "content": "The `autocomplete` attribute provides hints about the type of information expected in a form control and allows browsers or password managers to provide appropriate stored values. Correct autocomplete tokens can improve usability.",
+          "interactiveQuiz": {
+            "question": "What is autocomplete mainly intended to improve?",
+            "options": ["CSS performance", "Form completion and user experience", "Server security by itself", "Image quality"],
+            "correctIndex": 1,
+            "explanation": "autocomplete helps browsers and credential managers identify and fill known types of user information."
+          },
+          "keyTakeaways": ["Use appropriate autocomplete tokens.", "Autocomplete can improve both usability and completion speed."]
+        },
+        {
+          "id": "interview-q25",
+          "title": "25. What is the purpose of the viewport meta tag?",
+          "content": "The viewport meta tag controls how the layout viewport is configured on mobile browsers. A common configuration is `width=device-width, initial-scale=1.0`, which helps pages use the device viewport appropriately.",
+          "interactiveQuiz": {
+            "question": "Which value is commonly used for responsive viewport configuration?",
+            "options": ["width=device-width", "width=responsive", "screen=mobile", "viewport=auto"],
+            "correctIndex": 0,
+            "explanation": "width=device-width tells the browser to use the device's CSS viewport width."
+          },
+          "keyTakeaways": ["Viewport configuration is important for responsive pages.", "Responsive design also requires appropriate CSS."]
+        },
+        {
+          "id": "interview-q26",
+          "title": "26. What is the difference between id and class?",
+          "content": "An `id` identifies a particular element and should be unique within a document. A `class` represents membership in a reusable group and can be assigned to multiple elements.",
+          "interactiveQuiz": {
+            "question": "Which is intended to identify a unique element within a document?",
+            "options": ["class", "id", "group", "name"],
+            "correctIndex": 1,
+            "explanation": "An id is intended to uniquely identify an element within its document."
+          },
+          "keyTakeaways": ["Use id for unique document identity.", "Use classes for reusable grouping and styling or scripting hooks."]
+        },
+        {
+          "id": "interview-q27",
+          "title": "27. What is the difference between href and src?",
+          "content": "`href` generally identifies a referenced destination or relationship, such as a hyperlink or stylesheet. `src` generally identifies an external resource that an element embeds or loads, such as an image or script.",
+          "interactiveQuiz": {
+            "question": "Which attribute is used by an anchor to identify its destination?",
+            "options": ["src", "href", "target", "link"],
+            "correctIndex": 1,
+            "explanation": "Anchor elements use href for their hyperlink destination."
+          },
+          "keyTakeaways": ["href and src serve different resource-loading semantics.", "Use the attribute appropriate to the HTML element."]
+        },
+        {
+          "id": "interview-q28",
+          "title": "28. What is the purpose of srcset?",
+          "content": "`srcset` allows developers to provide multiple image resource candidates. The browser can choose an appropriate candidate based on factors such as viewport size and device pixel density.",
+          "interactiveQuiz": {
+            "question": "Why is srcset useful?",
+            "options": ["It defines CSS", "It provides image resource candidates", "It creates forms", "It defines page titles"],
+            "correctIndex": 1,
+            "explanation": "srcset allows the browser to choose among image candidates."
+          },
+          "keyTakeaways": [
+            "srcset can improve image delivery efficiency.",
+            "Use sizes when providing width-based responsive image candidates."
+          ]
+        },
+        {
+          "id": "interview-q29",
+          "title": "29. What is the picture element?",
+          "content": "`<picture>` provides a container for multiple image sources and supports responsive art direction and source selection. Each `<source>` can specify conditions such as media queries or supported image formats, with `<img>` serving as the fallback image.",
+          "interactiveQuiz": {
+            "question": "Which element is commonly used as the fallback inside picture?",
+            "options": ["<image>", "<img>", "<fallback>", "<source>"],
+            "correctIndex": 1,
+            "explanation": "The img element is required as the fallback/rendering element in a picture structure."
+          },
+          "keyTakeaways": ["picture supports art direction and source selection.", "img remains the fallback image element."]
+        },
+        {
+          "id": "interview-q30",
+          "title": "30. What is lazy loading?",
+          "content": "Lazy loading delays loading certain resources until they are likely to be needed. HTML supports this for images and iframes through `loading=\"lazy\"`. It can reduce initial network usage and improve page loading performance.",
+          "interactiveQuiz": {
+            "question": "Which attribute requests lazy loading?",
+            "options": ["loading=\"lazy\"", "lazy=\"true\"", "load=\"defer\"", "defer=\"lazy\""],
+            "correctIndex": 0,
+            "explanation": "loading=\"lazy\" requests lazy loading behavior for supported elements."
+          },
+          "keyTakeaways": [
+            "Lazy loading can reduce initial resource work.",
+            "Do not delay resources that are immediately critical to the page experience."
+          ]
+        },
+        {
+          "id": "interview-q31",
+          "title": "31. What is the difference between async and defer?",
+          "content": "Both allow external scripts to download without blocking HTML parsing in the same way as a normal parser-blocking script. `defer` scripts execute after parsing and preserve document order. `async` scripts execute as soon as they are ready, so their execution order is not guaranteed relative to other async scripts.",
+          "interactiveQuiz": {
+            "question": "Which preserves execution order among deferred classic scripts?",
+            "options": ["async", "defer", "lazy", "parallel"],
+            "correctIndex": 1,
+            "explanation": "Deferred classic scripts execute after parsing and maintain their document order."
+          },
+          "keyTakeaways": [
+            "Use defer when script order and post-parse execution matter.",
+            "Use async for independent scripts that do not rely on execution order."
+          ]
+        },
+        {
+          "id": "interview-q32",
+          "title": "32. What is the purpose of the title element?",
+          "content": "The `<title>` element defines the document title. It is displayed in browser tabs and can be used by bookmarks, history interfaces, and search-engine results.",
+          "interactiveQuiz": {
+            "question": "Where does the document title normally appear?",
+            "options": ["Inside body as visible content", "In the title element inside head", "Inside footer", "Inside nav"],
+            "correctIndex": 1,
+            "explanation": "The title element belongs in the head."
+          },
+          "keyTakeaways": ["Every important HTML document should have a meaningful title.", "The title is different from the visible h1."]
+        },
+        {
+          "id": "interview-q33",
+          "title": "33. What is the difference between title and h1?",
+          "content": "`<title>` defines the document's browser-level title and belongs in the head. `<h1>` is visible document content representing the primary heading of a page or section hierarchy.",
+          "interactiveQuiz": {
+            "question": "Which is normally visible as page content?",
+            "options": ["<title>", "<h1>", "<meta>", "<link>"],
+            "correctIndex": 1,
+            "explanation": "h1 is visible document content, while title is document metadata."
+          },
+          "keyTakeaways": ["title and h1 have different roles.", "Both should be meaningful and relevant to the page."]
+        },
+        {
+          "id": "interview-q34",
+          "title": "34. What is the purpose of meta charset?",
+          "content": "The charset declaration specifies the character encoding of the document. UTF-8 is the standard modern choice and supports a broad range of characters.",
+          "interactiveQuiz": {
+            "question": "Which encoding is commonly recommended for modern HTML documents?",
+            "options": ["ASCII only", "UTF-8", "UTF-1", "Binary"],
+            "correctIndex": 1,
+            "explanation": "UTF-8 supports a very broad range of characters and is the standard choice for modern web documents."
+          },
+          "keyTakeaways": ["Declare character encoding early in the document.", "UTF-8 is the common modern encoding."]
+        },
+        {
+          "id": "interview-q35",
+          "title": "35. What is the purpose of the canonical link?",
+          "content": "A canonical link identifies the preferred URL for a page when multiple URLs may represent substantially similar content. It provides a signal to search engines about which URL should be considered canonical.",
+          "interactiveQuiz": {
+            "question": "Which rel value identifies a canonical URL?",
+            "options": ["main", "canonical", "primary", "preferred"],
+            "correctIndex": 1,
+            "explanation": "rel=\"canonical\" identifies the canonical URL."
+          },
+          "keyTakeaways": ["Canonical is a search-engine signal.", "It does not automatically redirect users."]
+        },
+        {
+          "id": "interview-q36",
+          "title": "36. What is ARIA?",
+          "content": "ARIA stands for Accessible Rich Internet Applications. It provides attributes that communicate roles, states, and properties to assistive technologies when native HTML semantics are insufficient.",
+          "interactiveQuiz": {
+            "question": "What is ARIA primarily used for?",
+            "options": ["Styling elements", "Adding accessibility semantics", "Creating database queries", "Compressing HTML"],
+            "correctIndex": 1,
+            "explanation": "ARIA provides accessibility semantics for interactive interfaces."
+          },
+          "keyTakeaways": ["Use native HTML first.", "ARIA should supplement rather than unnecessarily replace native semantics."]
+        },
+        {
+          "id": "interview-q37",
+          "title": "37. What does aria-label do?",
+          "content": "`aria-label` provides an accessible name for an element when a suitable visible text label or other naming mechanism is not available. It should be used carefully because it can override other accessible naming mechanisms.",
+          "interactiveQuiz": {
+            "question": "What does aria-label primarily provide?",
+            "options": ["CSS styling", "An accessible name", "A URL", "A tooltip only"],
+            "correctIndex": 1,
+            "explanation": "aria-label provides an accessible name for an element."
+          },
+          "keyTakeaways": ["Use visible labels when possible.", "Do not add aria-label indiscriminately to every element."]
+        },
+        {
+          "id": "interview-q38",
+          "title": "38. What is aria-labelledby?",
+          "content": "`aria-labelledby` identifies another element or elements whose text provides the accessible name. It is useful when a visible heading or label already exists in the document.",
+          "interactiveQuiz": {
+            "question": "What does aria-labelledby reference?",
+            "options": ["CSS classes", "Element IDs containing naming text", "URLs", "JavaScript functions"],
+            "correctIndex": 1,
+            "explanation": "aria-labelledby references one or more element IDs whose text provides the accessible name."
+          },
+          "keyTakeaways": [
+            "aria-labelledby can reuse visible text as an accessible name.",
+            "The referenced IDs must identify appropriate naming content."
+          ]
+        },
+        {
+          "id": "interview-q39",
+          "title": "39. What does aria-hidden do?",
+          "content": "`aria-hidden=\"true\"` removes an element and its descendants from the accessibility tree. It should not normally be applied to content that is still required for users of assistive technology.",
+          "interactiveQuiz": {
+            "question": "What does aria-hidden=\"true\" generally do?",
+            "options": ["Visually hides an element", "Removes it from the accessibility tree", "Deletes it from the DOM", "Disables CSS"],
+            "correctIndex": 1,
+            "explanation": "aria-hidden affects exposure to assistive technologies; it does not itself visually hide the element."
+          },
+          "keyTakeaways": [
+            "ARIA visibility and CSS visibility are different concepts.",
+            "Do not hide essential interactive content from assistive technologies."
+          ]
+        },
+        {
+          "id": "interview-q40",
+          "title": "40. What is the purpose of the nav element?",
+          "content": "`<nav>` represents a section containing navigation links. It should generally be used for major navigation blocks rather than every arbitrary collection of links.",
+          "interactiveQuiz": {
+            "question": "What does nav represent?",
+            "options": ["Any text", "A major navigation section", "A database table", "A form control"],
+            "correctIndex": 1,
+            "explanation": "nav identifies a section intended for navigation."
+          },
+          "keyTakeaways": ["Use nav for significant navigation blocks.", "Not every group of links needs a nav element."]
+        },
+        {
+          "id": "interview-q41",
+          "title": "41. What is the purpose of figure and figcaption?",
+          "content": "`<figure>` groups self-contained content such as an illustration, diagram, chart, image, or code example. `<figcaption>` provides its caption.",
+          "interactiveQuiz": {
+            "question": "Which element provides a figure's caption?",
+            "options": ["<caption>", "<figcaption>", "<legend>", "<label>"],
+            "correctIndex": 1,
+            "explanation": "figcaption is the semantic caption element for figure."
+          },
+          "keyTakeaways": ["figure groups self-contained illustrative content.", "figcaption provides associated explanatory text."]
+        },
+        {
+          "id": "interview-q42",
+          "title": "42. What is the purpose of the details element?",
+          "content": "`<details>` creates a native disclosure widget. The `<summary>` child acts as the visible control. It can provide expandable information without custom JavaScript for the basic interaction.",
+          "interactiveQuiz": {
+            "question": "Which element is used as the control inside details?",
+            "options": ["<summary>", "<label>", "<toggle>", "<header>"],
+            "correctIndex": 0,
+            "explanation": "summary provides the interactive summary for a details element."
+          },
+          "keyTakeaways": ["details provides native disclosure behavior.", "summary labels the disclosure."]
+        },
+        {
+          "id": "interview-q43",
+          "title": "43. What is the dialog element?",
+          "content": "`<dialog>` represents a dialog box or subwindow. JavaScript can use `show()` for non-modal display and `showModal()` for modal display. A form using `method=\"dialog\"` can close the dialog.",
+          "interactiveQuiz": {
+            "question": "Which method opens a modal dialog?",
+            "options": ["showModal()", "openModal()", "displayModal()", "modal()"],
+            "correctIndex": 0,
+            "explanation": "showModal() displays a dialog as a modal."
+          },
+          "keyTakeaways": ["dialog provides native dialog semantics.", "showModal() creates modal dialog behavior."]
+        },
+        {
+          "id": "interview-q44",
+          "title": "44. What is the template element?",
+          "content": "`<template>` stores inert HTML that is not rendered immediately. Its contents can be cloned and inserted using JavaScript. It is useful for reusable DOM fragments and Web Components.",
+          "interactiveQuiz": {
+            "question": "When is template content normally rendered?",
+            "options": ["Immediately", "When instantiated or inserted", "Only after CSS loads", "Only after refresh"],
+            "correctIndex": 1,
+            "explanation": "Template content is inert until it is cloned or otherwise instantiated into the document."
+          },
+          "keyTakeaways": ["template content is initially inert.", "Templates are useful for reusable client-side structures."]
+        },
+        {
+          "id": "interview-q45",
+          "title": "45. What are data attributes?",
+          "content": "Data attributes use the `data-*` naming convention to store custom data associated with an element. JavaScript can read them through the element's `dataset` property.",
+          "interactiveQuiz": {
+            "question": "How is data-user-id commonly accessed?",
+            "options": ["dataset.userId", "dataset.dataUserId", "dataset.user-id", "data.userId"],
+            "correctIndex": 0,
+            "explanation": "data-user-id maps to dataset.userId."
+          },
+          "keyTakeaways": ["Use data-* for custom element data.", "dataset provides convenient JavaScript access."]
+        },
+        {
+          "id": "interview-q46",
+          "title": "46. What is the difference between hidden and display:none?",
+          "content": "The `hidden` HTML attribute indicates that an element is not currently relevant and should not be presented. CSS `display:none` also removes an element from normal visual layout. The mechanisms differ in semantics and CSS interaction, and the hidden state can be overridden by CSS rules in some circumstances.",
+          "interactiveQuiz": {
+            "question": "Which is an HTML global attribute for indicating hidden content?",
+            "options": ["invisible", "hidden", "display", "collapsed"],
+            "correctIndex": 1,
+            "explanation": "hidden is a standard HTML global attribute."
+          },
+          "keyTakeaways": [
+            "hidden expresses an HTML-level hidden state.",
+            "CSS display controls presentation and can interact with HTML state."
+          ]
+        },
+        {
+          "id": "interview-q47",
+          "title": "47. What is the purpose of the autocomplete attribute on forms?",
+          "content": "It tells user agents whether and how they may provide stored values for form controls. More specific autocomplete tokens can identify fields such as email, name, address, username, and credit-card-related data.",
+          "interactiveQuiz": {
+            "question": "What is one benefit of correct autocomplete tokens?",
+            "options": ["They improve form completion", "They encrypt form data", "They replace HTTPS", "They prevent all spam"],
+            "correctIndex": 0,
+            "explanation": "Correct autocomplete metadata helps browsers and password managers provide appropriate stored values."
+          },
+          "keyTakeaways": ["Autocomplete improves user experience.", "Autocomplete does not replace security controls."]
+        },
+        {
+          "id": "interview-q48",
+          "title": "48. What is the purpose of the sandbox attribute on iframe?",
+          "content": "The iframe `sandbox` attribute applies restrictions to the embedded document. Individual capabilities can be selectively enabled using sandbox tokens. It is a useful defense-in-depth mechanism when embedding content that should operate with limited privileges.",
+          "interactiveQuiz": {
+            "question": "What is sandbox primarily used for?",
+            "options": ["Styling an iframe", "Restricting iframe capabilities", "Making images responsive", "Adding captions"],
+            "correctIndex": 1,
+            "explanation": "sandbox restricts capabilities of the embedded browsing context."
+          },
+          "keyTakeaways": ["sandbox provides restrictions for embedded content.", "Only grant required capabilities."]
+        },
+        {
+          "id": "interview-q49",
+          "title": "49. What is the purpose of rel=noopener?",
+          "content": "`rel=\"noopener\"` prevents a newly opened browsing context from using `window.opener` to access the opening document. It is relevant when links open another browsing context.",
+          "interactiveQuiz": {
+            "question": "What relationship does noopener protect against?",
+            "options": ["CSS inheritance", "window.opener access", "Form validation", "Image caching"],
+            "correctIndex": 1,
+            "explanation": "noopener prevents the opened document from accessing the opener through window.opener."
+          },
+          "keyTakeaways": [
+            "Understand opener relationships when using target=_blank.",
+            "Use appropriate security-related link relationships."
+          ]
+        },
+        {
+          "id": "interview-q50",
+          "title": "50. Why should tables not be used for page layout?",
+          "content": "Tables are designed to represent relationships between data rows and columns. Using them for layout produces misleading semantics and can make the document harder to understand and navigate with assistive technologies. CSS layout systems are better suited for page layout.",
+          "interactiveQuiz": {
+            "question": "What should tables primarily represent?",
+            "options": ["Page layout", "Tabular data", "Navigation", "Spacing"],
+            "correctIndex": 1,
+            "explanation": "Tables should represent data with meaningful row and column relationships."
+          },
+          "keyTakeaways": ["Use tables for tabular data.", "Use CSS Grid or Flexbox for layout."]
+        },
+        {
+          "id": "interview-q51",
+          "title": "51. What is the purpose of scope on table headers?",
+          "content": "The `scope` attribute on a table header helps communicate whether the header applies to a column or row. Values such as `col` and `row` can improve the programmatic understanding of table relationships.",
+          "interactiveQuiz": {
+            "question": "What does scope=\"col\" indicate?",
+            "options": ["The cell is a row header", "The header applies to a column", "The table is responsive", "The column is hidden"],
+            "correctIndex": 1,
+            "explanation": "scope=\"col\" indicates that a header cell applies to a column."
+          },
+          "keyTakeaways": ["Use table semantics to communicate relationships.", "scope is useful for accessible data tables."]
+        },
+        {
+          "id": "interview-q52",
+          "title": "52. What is progressive enhancement?",
+          "content": "Progressive enhancement starts with a functional baseline using broadly supported web technologies and then adds richer presentation and behavior for capable environments. Semantic HTML often forms the foundation, followed by CSS and JavaScript enhancements.",
+          "interactiveQuiz": {
+            "question": "What is the core idea of progressive enhancement?",
+            "options": [
+              "JavaScript must always load first",
+              "Start with a functional baseline and enhance it",
+              "Use only old browsers",
+              "Avoid semantic HTML"
+            ],
+            "correctIndex": 1,
+            "explanation": "Progressive enhancement builds a baseline experience and layers additional capabilities on top."
+          },
+          "keyTakeaways": [
+            "Semantic HTML provides a strong baseline.",
+            "Enhance behavior without unnecessarily breaking basic functionality."
+          ]
+        },
+        {
+          "id": "interview-q53",
+          "title": "53. What is progressive loading?",
+          "content": "Progressive loading is a broad performance strategy where important content and resources are delivered first while less critical resources are loaded later. HTML techniques such as lazy loading and appropriate script loading can support this strategy.",
+          "interactiveQuiz": {
+            "question": "Which HTML feature can help delay below-the-fold images?",
+            "options": ["loading=\"lazy\"", "defer=\"image\"", "delay=\"true\"", "async=\"image\""],
+            "correctIndex": 0,
+            "explanation": "loading=\"lazy\" can defer loading supported images until they are closer to the viewport."
+          },
+          "keyTakeaways": ["Prioritize critical resources.", "Use native loading controls where appropriate."]
+        },
+        {
+          "id": "interview-q54",
+          "title": "54. What is the difference between article and aside?",
+          "content": "`<article>` represents self-contained content that can stand independently. `<aside>` represents content tangentially related to the surrounding content, such as a sidebar, related links, or supporting information.",
+          "interactiveQuiz": {
+            "question": "Which is more appropriate for a related-links sidebar?",
+            "options": ["<aside>", "<article>", "<main>", "<title>"],
+            "correctIndex": 0,
+            "explanation": "Tangentially related supporting content is a common use for aside."
+          },
+          "keyTakeaways": ["article is independently meaningful.", "aside is complementary or tangential content."]
+        },
+        {
+          "id": "interview-q55",
+          "title": "55. What is the purpose of the time element?",
+          "content": "The `<time>` element represents a specific period in time or a date. Its `datetime` attribute can provide a machine-readable representation, making dates easier for software to interpret.",
+          "interactiveQuiz": {
+            "question": "Which attribute provides a machine-readable value for time?",
+            "options": ["value", "datetime", "date-value", "timestamp"],
+            "correctIndex": 1,
+            "explanation": "The datetime attribute provides a machine-readable representation."
+          },
+          "keyTakeaways": ["Use time for dates and times.", "datetime can provide standardized machine-readable values."]
+        },
+        {
+          "id": "interview-q56",
+          "title": "56. What is the difference between progress and meter?",
+          "content": "`<progress>` represents completion progress for a task. `<meter>` represents a scalar measurement within a known range, such as disk usage, a score, or a measurement.",
+          "interactiveQuiz": {
+            "question": "Which element represents task completion?",
+            "options": ["<meter>", "<progress>", "<status>", "<range>"],
+            "correctIndex": 1,
+            "explanation": "progress represents completion of a task."
+          },
+          "keyTakeaways": ["Use progress for task completion.", "Use meter for measurements within a range."]
+        },
+        {
+          "id": "interview-q57",
+          "title": "57. Why should server-side validation still be performed?",
+          "content": "Client-side HTML validation can be bypassed because users control the client. Server-side validation is required to protect application integrity and enforce security rules. Browser validation is mainly a user-experience feature and an early validation layer.",
+          "interactiveQuiz": {
+            "question": "Can an attacker bypass browser-side form validation?",
+            "options": ["No", "Yes", "Only with CSS", "Only in Safari"],
+            "correctIndex": 1,
+            "explanation": "Client-side validation can be bypassed, so servers must independently validate untrusted input."
+          },
+          "keyTakeaways": ["Never trust client-side validation for security.", "Validate untrusted input on the server."]
+        },
+        {
+          "id": "interview-q58",
+          "title": "58. What makes HTML accessible?",
+          "content": "Accessible HTML uses correct semantics, meaningful headings, associated labels, useful alternative text, keyboard-accessible controls, logical structure, sufficient information for assistive technologies, and appropriate ARIA only when necessary.",
+          "interactiveQuiz": {
+            "question": "Which approach is generally best for accessibility?",
+            "options": [
+              "Use div for everything",
+              "Use native semantic HTML first",
+              "Use ARIA on every element",
+              "Hide labels visually and remove them from accessibility APIs"
+            ],
+            "correctIndex": 1,
+            "explanation": "Native semantic HTML provides reliable accessibility semantics and behavior."
+          },
+          "keyTakeaways": [
+            "Semantic HTML is the foundation of accessible pages.",
+            "Accessibility should be considered during markup design, not added only at the end."
+          ]
+        },
+        {
+          "id": "interview-q59",
+          "title": "59. What are common HTML SEO best practices?",
+          "content": "Use a meaningful title, accurate headings, semantic structure, descriptive link text, useful content, appropriate language metadata, correct canonical URLs where needed, descriptive image alt text, and structured metadata when appropriate. Avoid keyword stuffing and misleading markup.",
+          "interactiveQuiz": {
+            "question": "Which HTML element is especially important for the document's browser/search title?",
+            "options": ["<title>", "<footer>", "<span>", "<aside>"],
+            "correctIndex": 0,
+            "explanation": "The title element provides the document title and is an important search and browser signal."
+          },
+          "keyTakeaways": [
+            "SEO benefits from clear semantics and useful content.",
+            "HTML structure should serve users first rather than manipulating search engines."
+          ]
+        },
+        {
+          "id": "interview-q60",
+          "title": "60. How would you build a production-quality HTML page?",
+          "content": "Start with a valid document structure and correct language declaration. Use meaningful semantic elements, accessible headings and forms, descriptive links and image alternatives, responsive images, appropriate metadata, secure external links and embeds, efficient script loading, and progressive enhancement. Then validate the markup and test the page with keyboard navigation, accessibility tools, responsive layouts, performance tools, and real user workflows.",
+          "interactiveQuiz": {
+            "question": "Which approach best describes production-quality HTML?",
+            "options": [
+              "Use as many div elements as possible",
+              "Focus only on visual appearance",
+              "Combine semantic HTML, accessibility, performance, security, SEO, and testing",
+              "Use JavaScript for all content"
+            ],
+            "correctIndex": 2,
+            "explanation": "High-quality HTML requires more than valid syntax or visual appearance. Semantics, accessibility, performance, security, SEO, and testing all contribute to production quality."
+          },
+          "keyTakeaways": [
+            "Production HTML should be semantic, accessible, performant, and maintainable.",
+            "HTML quality should be evaluated through both automated validation and real user interaction."
+          ]
+        }
+      ]
+    }
+  ]
+}
