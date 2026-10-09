@@ -1,0 +1,2146 @@
+{
+  "courseId": "javascript-mastery",
+  "courseName": "JavaScript",
+  "title": "JavaScript — From Fundamentals to Advanced Internals",
+  "subtitle": "Build a deep mental model of JavaScript, from syntax and objects to closures, prototypes, asynchronous execution, the event loop, modules, memory, performance, and real-world patterns.",
+  "category": "Web Development",
+  "level": "Advanced",
+  "estimatedTime": "18 Hours",
+  "accentColor": "#f7df1e",
+  "keywords": [
+    "javascript",
+    "ecmascript",
+    "es6",
+    "web development",
+    "frontend",
+    "node.js",
+    "async javascript",
+    "event loop",
+    "closures",
+    "prototypes",
+    "promises",
+    "performance"
+  ],
+  "chapters": [
+    {
+      "id": "javascript-runtime-and-fundamentals",
+      "title": "JavaScript Runtime and Fundamentals",
+      "summary": "Understand what JavaScript actually is, how source code becomes executable behavior, and the fundamentals that everything else builds upon.",
+      "estimatedMinutes": 55,
+      "mediaImages": ["https://images.unsplash.com/photo-1627398242454-45a1465c2479?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "what-is-javascript",
+          "title": "What JavaScript Actually Is",
+          "content": "JavaScript is a dynamically typed, garbage-collected, multi-paradigm programming language standardized as ECMAScript. The language itself does not define the DOM, `fetch()`, timers, or browser APIs. Those capabilities are provided by the host environment. A browser embeds a JavaScript engine such as V8, SpiderMonkey, or JavaScriptCore and exposes Web APIs around that engine. Node.js similarly embeds V8 but provides server-oriented APIs such as filesystem, networking, streams, and process management.\n\nA useful mental model is: **JavaScript is the language; the runtime is the language engine plus host-provided capabilities.** This distinction explains why some APIs exist in browsers but not Node.js.",
+          "callout": {
+            "type": "info",
+            "title": "Language vs Runtime",
+            "message": "ECMAScript defines language behavior. The browser or Node.js provides the surrounding runtime APIs."
+          },
+          "keyTakeaways": [
+            "JavaScript and the browser are not the same thing.",
+            "ECMAScript specifies the language standard.",
+            "Runtime APIs such as DOM and timers come from the host environment."
+          ],
+          "interactiveQuiz": {
+            "question": "Which statement best describes JavaScript?",
+            "options": [
+              "It is a browser-only scripting language",
+              "It is a programming language standardized as ECMAScript",
+              "It is the same thing as the DOM",
+              "It is a database query language"
+            ],
+            "correctIndex": 1,
+            "explanation": "JavaScript is standardized through ECMAScript. Browsers and other runtimes provide additional APIs around the language."
+          }
+        },
+        {
+          "id": "execution-contexts",
+          "title": "Execution Contexts and the Call Stack",
+          "content": "When JavaScript executes code, it does so inside execution contexts. The global execution context is created when a script starts. Function calls create function execution contexts, and modern JavaScript also has lexical environments associated with blocks and modules.\n\nThe call stack tracks active execution. Calling a function pushes a frame onto the stack. Returning from the function removes that frame. JavaScript code running on a single agent executes one piece of synchronous JavaScript at a time, which is why an expensive synchronous loop can block other work.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Basic Call Stack Flow",
+            "code": "flowchart TD\nA[Global Context] --> B[call firstFunction]\nB --> C[call secondFunction]\nC --> D[return]\nD --> E[return]\nE --> F[Global continues]"
+          },
+          "codeExample": {
+            "title": "Reading the Call Stack",
+            "language": "javascript",
+            "code": "function third() {\n  console.log('third');\n}\n\nfunction second() {\n  third();\n  console.log('second');\n}\n\nfunction first() {\n  second();\n  console.log('first');\n}\n\nfirst();",
+            "explanation": "Calling first pushes first onto the stack. Calling second pushes another frame, and calling third pushes another. The frames unwind in reverse order as each function returns."
+          },
+          "keyTakeaways": [
+            "Function calls create execution frames.",
+            "The call stack follows last-in-first-out behavior.",
+            "Long synchronous work blocks the current JavaScript execution agent."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens when a function calls another function synchronously?",
+            "options": [
+              "The current function is deleted from memory",
+              "The new function is pushed onto the call stack",
+              "The new function automatically becomes asynchronous",
+              "The browser creates a new JavaScript process"
+            ],
+            "correctIndex": 1,
+            "explanation": "A synchronous function call creates a new execution frame and pushes it onto the call stack. The caller remains underneath it until the callee returns."
+          }
+        },
+        {
+          "id": "strict-mode",
+          "title": "Strict Mode",
+          "content": "Strict mode changes several historically permissive JavaScript behaviors. It can be enabled with `\"use strict\"`, although ECMAScript modules are automatically strict. Strict mode prevents accidental global variable creation, changes some `this` behavior, rejects certain duplicate or restricted constructs, and makes several silent failures become errors.\n\nStrict mode is not a security sandbox. Its purpose is to make language semantics safer and less error-prone.",
+          "codeExample": {
+            "title": "Strict Mode Prevents Accidental Globals",
+            "language": "javascript",
+            "code": "\"use strict\";\n\nfunction createUser() {\n  username = 'Suriya';\n}\n\ncreateUser();",
+            "explanation": "Without strict mode, assigning to an undeclared identifier in older non-module code could create or attempt to create a global property. Strict mode throws a ReferenceError instead."
+          },
+          "keyTakeaways": [
+            "ES modules execute in strict mode automatically.",
+            "Strict mode catches several classes of accidental programming errors.",
+            "Strict mode is not equivalent to a security boundary."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens when an undeclared variable is assigned inside strict-mode code?",
+            "options": [
+              "A global variable is silently created",
+              "The assignment is ignored",
+              "A ReferenceError is thrown",
+              "The value becomes undefined"
+            ],
+            "correctIndex": 2,
+            "explanation": "Strict mode disallows implicit creation of global variables through assignment to undeclared identifiers."
+          }
+        },
+        {
+          "id": "comments-and-automatic-semicolon-insertion",
+          "title": "Comments and Automatic Semicolon Insertion",
+          "content": "JavaScript allows line comments with `//` and block comments with `/* ... */`. Semicolons are generally optional because ECMAScript defines Automatic Semicolon Insertion (ASI). However, ASI does not simply insert a semicolon at every newline. It operates according to grammar rules and restricted productions.\n\nA classic example is a `return` followed by a newline. Because of the grammar rules, the newline can terminate the return statement before the expression.",
+          "codeExample": {
+            "title": "The Return-Newline Trap",
+            "language": "javascript",
+            "code": "function getUser() {\n  return\n  {\n    name: 'Suriya'\n  };\n}\n\nconsole.log(getUser());",
+            "explanation": "The newline after `return` causes the statement to terminate, so the function returns undefined. Formatting can therefore affect behavior in specific JavaScript grammar situations."
+          },
+          "keyTakeaways": [
+            "ASI is grammar-driven rather than simply newline-driven.",
+            "Be especially careful after `return`, `throw`, `break`, and `continue`.",
+            "Consistent formatting and semicolon conventions reduce ambiguity."
+          ],
+          "interactiveQuiz": {
+            "question": "What does the function in the example return?",
+            "options": ["The object", "null", "undefined", "A syntax error"],
+            "correctIndex": 2,
+            "explanation": "The newline immediately following return triggers automatic semicolon insertion, so the function executes `return;` and returns undefined."
+          }
+        }
+      ]
+    },
+    {
+      "id": "types-values-and-coercion",
+      "title": "Types, Values, Equality, and Coercion",
+      "summary": "Go beyond primitive type lists and understand JavaScript's value model, coercion rules, equality algorithms, and the surprising cases that appear in real applications.",
+      "estimatedMinutes": 70,
+      "mediaImages": ["https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "primitive-types",
+          "title": "Primitive Values",
+          "content": "JavaScript has seven primitive data types: `string`, `number`, `bigint`, `boolean`, `undefined`, `symbol`, and `null`. Primitives are immutable values. Objects, functions, arrays, dates, maps, sets, and other compound structures are objects.\n\n`number` uses IEEE 754 double-precision floating-point representation, which means integers and fractional values share the same type. `bigint` exists for integers outside the safe integer range of `number`.",
+          "codeExample": {
+            "title": "Inspecting Primitive Types",
+            "language": "javascript",
+            "code": "console.log(typeof 'hello');\nconsole.log(typeof 42);\nconsole.log(typeof 42n);\nconsole.log(typeof true);\nconsole.log(typeof undefined);\nconsole.log(typeof Symbol('id'));\nconsole.log(typeof null);",
+            "explanation": "Most typeof results match the conceptual type. The famous exception is `typeof null`, which returns `\"object\"` for historical compatibility."
+          },
+          "keyTakeaways": [
+            "Primitive values are immutable.",
+            "BigInt is intended for arbitrary-size integers.",
+            "`typeof null` returning object is a historical language quirk."
+          ],
+          "interactiveQuiz": {
+            "question": "How many primitive data types does modern JavaScript define?",
+            "options": ["5", "6", "7", "8"],
+            "correctIndex": 2,
+            "explanation": "The seven primitive types are string, number, bigint, boolean, undefined, symbol, and null."
+          }
+        },
+        {
+          "id": "number-precision",
+          "title": "Numbers, NaN, Infinity, and Precision",
+          "content": "JavaScript's `number` type is a 64-bit IEEE 754 floating-point value. This means many decimal fractions cannot be represented exactly in binary. Therefore `0.1 + 0.2` is not exactly `0.3`.\n\nThe largest integer that can be represented safely as an integer by `number` is `Number.MAX_SAFE_INTEGER`. For exact arithmetic involving larger integers, use `BigInt`. `NaN` means the result is not a valid numeric value and has the unusual property that it is not equal to itself.",
+          "codeExample": {
+            "title": "Floating-Point Precision",
+            "language": "javascript",
+            "code": "console.log(0.1 + 0.2);\nconsole.log(Number.isNaN(NaN));\nconsole.log(Number.isSafeInteger(Number.MAX_SAFE_INTEGER));\nconsole.log(9007199254740993n);",
+            "explanation": "Floating-point representation creates rounding behavior for some decimals. BigInt provides exact integer arithmetic for values beyond the safe integer range, although BigInt cannot be freely mixed with Number."
+          },
+          "keyTakeaways": [
+            "Do not assume decimal arithmetic is exact.",
+            "Use Number.isNaN rather than global isNaN when validating actual NaN values.",
+            "Use BigInt for integer calculations that exceed Number's safe range."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does `0.1 + 0.2 === 0.3` evaluate to false?",
+            "options": [
+              "Because addition is asynchronous",
+              "Because decimals are represented using binary floating point",
+              "Because 0.3 is a string",
+              "Because JavaScript randomly rounds numbers"
+            ],
+            "correctIndex": 1,
+            "explanation": "Many decimal fractions cannot be represented exactly in binary floating-point format, so the computed result can contain a tiny rounding error."
+          }
+        },
+        {
+          "id": "truthy-and-falsy",
+          "title": "Truthy and Falsy Values",
+          "content": "JavaScript converts values to boolean in contexts such as `if`, logical operators, and conditional expressions. Falsy values include `false`, `0`, `-0`, `0n`, `\"\"`, `null`, `undefined`, and `NaN`. Everything else is truthy, including empty arrays and empty objects.\n\nThis distinction is important because developers often incorrectly assume that an empty array or object is falsy.",
+          "codeExample": {
+            "title": "Truthy Does Not Mean Non-Empty",
+            "language": "javascript",
+            "code": "if ([]) {\n  console.log('empty array is truthy');\n}\n\nif ({}) {\n  console.log('empty object is truthy');\n}",
+            "explanation": "Objects are truthy regardless of whether they contain properties or elements."
+          },
+          "keyTakeaways": [
+            "Empty arrays and objects are truthy.",
+            "Falsy is a specific set of values, not a general concept of emptiness.",
+            "Use explicit checks when zero, empty strings, or null-like values have different meanings."
+          ],
+          "interactiveQuiz": {
+            "question": "Which value is falsy?",
+            "options": ["[]", "{}", "\"0\"", "0n"],
+            "correctIndex": 3,
+            "explanation": "BigInt zero (`0n`) is falsy. Empty arrays, empty objects, and non-empty strings are truthy."
+          }
+        },
+        {
+          "id": "strict-and-loose-equality",
+          "title": "Strict Equality vs Loose Equality",
+          "content": "`===` uses strict equality and does not perform the ordinary type coercion associated with `==`. For most application code, strict equality makes intent easier to understand. Loose equality has a defined coercion algorithm and is not random, but its behavior is sufficiently complex that it should be used deliberately.\n\nRemember that `NaN !== NaN`, while `Object.is(NaN, NaN)` is true. `Object.is` also distinguishes `0` and `-0`.",
+          "codeExample": {
+            "title": "Equality Algorithms",
+            "language": "javascript",
+            "code": "console.log(1 === '1');\nconsole.log(1 == '1');\nconsole.log(NaN === NaN);\nconsole.log(Object.is(NaN, NaN));\nconsole.log(Object.is(0, -0));",
+            "explanation": "Strict equality does not coerce 1 and '1'. Loose equality does. Object.is uses SameValue semantics, making NaN equal to itself and distinguishing positive and negative zero."
+          },
+          "keyTakeaways": [
+            "Prefer `===` for ordinary equality checks.",
+            "`==` performs a defined but sometimes surprising coercion process.",
+            "`Object.is` differs from `===` for NaN and signed zero."
+          ],
+          "interactiveQuiz": {
+            "question": "Which expression evaluates to true?",
+            "options": ["NaN === NaN", "Object.is(NaN, NaN)", "Object.is(0, -0)", "1 === '1'"],
+            "correctIndex": 1,
+            "explanation": "Object.is treats NaN as equal to itself. The other expressions are false."
+          }
+        },
+        {
+          "id": "nullish-coalescing",
+          "title": "Nullish Coalescing and Optional Chaining",
+          "content": "The nullish coalescing operator `??` chooses the right-hand value only when the left-hand side is `null` or `undefined`. This differs from `||`, which treats every falsy value as a reason to use the fallback.\n\nOptional chaining `?.` allows property, method, and element access to stop safely when the preceding value is nullish.",
+          "codeExample": {
+            "title": "Why ?? Can Be Better Than ||",
+            "language": "javascript",
+            "code": "const pageSize = 0;\n\nconsole.log(pageSize || 20);\nconsole.log(pageSize ?? 20);\n\nconst user = {};\nconsole.log(user.profile?.address?.city ?? 'Unknown');",
+            "explanation": "The `||` expression treats zero as falsy and returns 20. The `??` expression preserves zero because zero is not nullish."
+          },
+          "keyTakeaways": [
+            "Use `??` when only null and undefined should trigger a fallback.",
+            "Use `||` when any falsy value should trigger a fallback.",
+            "Optional chaining prevents errors while traversing nullish values."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `0 ?? 10` return?",
+            "options": ["10", "0", "null", "undefined"],
+            "correctIndex": 1,
+            "explanation": "Zero is falsy but it is not nullish. Therefore nullish coalescing preserves zero."
+          }
+        }
+      ]
+    },
+    {
+      "id": "variables-scope-and-hoisting",
+      "title": "Variables, Scope, Hoisting, and Temporal Dead Zones",
+      "summary": "Build a precise understanding of var, let, const, lexical environments, scope chains, hoisting, and why declarations behave differently.",
+      "estimatedMinutes": 60,
+      "mediaImages": ["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "var-let-const",
+          "title": "var, let, and const",
+          "content": "`var` is function-scoped, while `let` and `const` are block-scoped. `const` prevents reassignment of the binding, but it does not make referenced objects immutable. This distinction between binding immutability and object immutability is essential.\n\nModern JavaScript generally favors `const` by default and `let` when reassignment is actually required.",
+          "codeExample": {
+            "title": "Binding vs Object Mutation",
+            "language": "javascript",
+            "code": "const user = { name: 'Suriya' };\n\nuser.name = 'Alex';\nconsole.log(user.name);\n\n// user = {}; // TypeError",
+            "explanation": "The const binding cannot point to another object, but the object itself remains mutable unless you explicitly enforce immutability."
+          },
+          "keyTakeaways": [
+            "`var` is function-scoped.",
+            "`let` and `const` are block-scoped.",
+            "`const` protects a binding, not the contents of an object."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `const` guarantee?",
+            "options": [
+              "The referenced object can never change",
+              "The binding cannot be reassigned",
+              "The value is deeply immutable",
+              "The variable is global"
+            ],
+            "correctIndex": 1,
+            "explanation": "Const creates a binding that cannot be reassigned. Properties of a referenced object can still be mutated."
+          }
+        },
+        {
+          "id": "scope-chain",
+          "title": "Lexical Scope and the Scope Chain",
+          "content": "JavaScript uses lexical scoping: where a function is written determines which outer variables it can access. When an identifier is referenced, JavaScript searches the current lexical environment and then walks outward through enclosing environments until it finds the binding or reaches the global environment.\n\nThis lexical relationship is the foundation for closures.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Scope Lookup",
+            "code": "flowchart LR\nA[Inner Function] --> B[Outer Function Scope]\nB --> C[Module or Global Scope]\nC --> D[Identifier Found or ReferenceError]"
+          },
+          "keyTakeaways": [
+            "Scope is determined by lexical structure.",
+            "Identifier lookup proceeds through enclosing environments.",
+            "Closures depend on lexical environments remaining accessible."
+          ],
+          "interactiveQuiz": {
+            "question": "What primarily determines which outer variables a function can access?",
+            "options": [
+              "Where the function is written",
+              "Where the function is called",
+              "The CPU architecture",
+              "The variable's data type"
+            ],
+            "correctIndex": 0,
+            "explanation": "JavaScript uses lexical scoping, so the function's source location determines its enclosing scopes."
+          }
+        },
+        {
+          "id": "hoisting",
+          "title": "Hoisting Is Not Moving Code",
+          "content": "Hoisting is a useful informal term for the fact that declarations are processed before execution of their surrounding code. It does not mean JavaScript literally moves source lines to the top.\n\nFunction declarations can generally be called before their declaration. `var` declarations are initialized with `undefined`, while `let` and `const` bindings exist but cannot be accessed before initialization because of the Temporal Dead Zone.",
+          "codeExample": {
+            "title": "Different Declaration Behavior",
+            "language": "javascript",
+            "code": "sayHello();\n\nfunction sayHello() {\n  console.log('Hello');\n}\n\nconsole.log(value);\nvar value = 10;\n\n// console.log(count); // ReferenceError\nlet count = 10;",
+            "explanation": "The function declaration is available during execution. The var binding exists with undefined before its assignment. The let binding exists but cannot be accessed before initialization."
+          },
+          "keyTakeaways": [
+            "Hoisting is about declaration instantiation, not textual movement.",
+            "`var` can be observed as undefined before assignment.",
+            "`let` and `const` have a Temporal Dead Zone before initialization."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens when code accesses a `let` variable before its declaration is initialized?",
+            "options": ["It returns undefined", "It returns null", "It throws a ReferenceError", "It creates a global variable"],
+            "correctIndex": 2,
+            "explanation": "The binding is in the Temporal Dead Zone until execution reaches its initialization."
+          }
+        },
+        {
+          "id": "temporal-dead-zone",
+          "title": "Temporal Dead Zone",
+          "content": "The Temporal Dead Zone (TDZ) is the period between entering a scope where a lexical binding exists and reaching the declaration's initialization. During that period, reading or accessing the binding results in a `ReferenceError`.\n\nThe TDZ is a runtime concept, not merely a parser restriction. This explains why `typeof someLetVariable` can throw when the variable is in the TDZ.",
+          "codeExample": {
+            "title": "TDZ in Action",
+            "language": "javascript",
+            "code": "{\n  // console.log(typeof name); // ReferenceError\n  let name = 'Suriya';\n  console.log(typeof name);\n}",
+            "explanation": "The lexical binding exists when the block begins, but it is uninitialized until the let declaration executes."
+          },
+          "keyTakeaways": [
+            "TDZ applies to let, const, and class declarations.",
+            "A lexical binding can exist without being initialized.",
+            "TDZ helps prevent accidental use of variables before initialization."
+          ],
+          "interactiveQuiz": {
+            "question": "Which declaration is subject to the Temporal Dead Zone?",
+            "options": ["var", "let", "Only function declarations", "Only global properties"],
+            "correctIndex": 1,
+            "explanation": "Lexical declarations such as let and const are subject to the TDZ. Class declarations also have TDZ behavior."
+          }
+        }
+      ]
+    },
+    {
+      "id": "functions-closures-and-this",
+      "title": "Functions, Closures, this, and Function Composition",
+      "summary": "Understand JavaScript functions as first-class values, closures, callback behavior, this binding, arrow functions, and advanced function patterns.",
+      "estimatedMinutes": 80,
+      "mediaImages": ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "functions-as-values",
+          "title": "Functions Are First-Class Values",
+          "content": "Functions can be assigned to variables, stored in objects, passed as arguments, returned from other functions, and dynamically constructed. This enables callbacks, higher-order functions, event handlers, middleware, composition, and functional programming techniques.\n\nA function declaration and a function expression both create callable functions, but their declaration and initialization behavior differs.",
+          "codeExample": {
+            "title": "Passing Functions Around",
+            "language": "javascript",
+            "code": "function double(value) {\n  return value * 2;\n}\n\nfunction transform(value, operation) {\n  return operation(value);\n}\n\nconsole.log(transform(5, double));",
+            "explanation": "The transform function receives another function as an argument. This is the basis of higher-order functions."
+          },
+          "keyTakeaways": [
+            "Functions are values in JavaScript.",
+            "Functions can be passed, returned, stored, and composed.",
+            "Higher-order functions accept or return functions."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a higher-order function?",
+            "options": [
+              "A function with more than ten lines",
+              "A function that accepts or returns another function",
+              "A function that only runs asynchronously",
+              "A function declared globally"
+            ],
+            "correctIndex": 1,
+            "explanation": "A higher-order function operates on functions by accepting them as arguments, returning them, or both."
+          }
+        },
+        {
+          "id": "closures-deep-dive",
+          "title": "Closures: The Real Mental Model",
+          "content": "A closure is created when a function retains access to variables from its lexical environment even after the outer function has finished executing. The important concept is not merely 'a function inside another function'; it is that the inner function retains access to the relevant lexical bindings.\n\nClosures are used for private state, factories, memoization, callbacks, module patterns, and asynchronous code.",
+          "codeExample": {
+            "title": "Private State with a Closure",
+            "language": "javascript",
+            "code": "function createCounter() {\n  let count = 0;\n\n  return function increment() {\n    count += 1;\n    return count;\n  };\n}\n\nconst counter = createCounter();\nconsole.log(counter());\nconsole.log(counter());",
+            "explanation": "createCounter returns after creating the inner function, but the returned function still has access to count. The binding remains reachable through the closure."
+          },
+          "keyTakeaways": [
+            "Closures preserve access to lexical bindings.",
+            "Closures are useful for encapsulation and state.",
+            "A closure retains reachable bindings, not necessarily every variable from the entire outer scope."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does `count` remain available after `createCounter()` returns?",
+            "options": [
+              "It becomes a global variable",
+              "The closure retains access to its lexical environment",
+              "JavaScript copies it into the call stack forever",
+              "The browser stores it in localStorage"
+            ],
+            "correctIndex": 1,
+            "explanation": "The returned function closes over the lexical binding, keeping it reachable for as long as the closure remains reachable."
+          }
+        },
+        {
+          "id": "this-binding",
+          "title": "How `this` Is Determined",
+          "content": "Unlike lexical variables, `this` is generally determined by how a function is called. With a normal function, the call site matters. `obj.method()` gives `this` as `obj`. A standalone call in strict mode gives `undefined`. `call`, `apply`, and `bind` can explicitly control `this`.\n\nArrow functions are different: they do not create their own `this`; they capture `this` lexically from their surrounding context.",
+          "codeExample": {
+            "title": "Method vs Detached Function",
+            "language": "javascript",
+            "code": "const user = {\n  name: 'Suriya',\n  greet() {\n    return this.name;\n  }\n};\n\nconsole.log(user.greet());\n\nconst greet = user.greet;\nconsole.log(greet());",
+            "explanation": "The first call has user as its receiver. The detached call no longer has that receiver, so in strict mode this is undefined and accessing this.name throws."
+          },
+          "keyTakeaways": [
+            "`this` is not simply the same thing as lexical scope.",
+            "Normal function this depends on invocation.",
+            "Arrow functions capture this lexically."
+          ],
+          "interactiveQuiz": {
+            "question": "What does an arrow function do with `this`?",
+            "options": [
+              "Creates a new dynamic this",
+              "Always sets this to globalThis",
+              "Lexically captures this from its surrounding context",
+              "Always sets this to the object before the dot"
+            ],
+            "correctIndex": 2,
+            "explanation": "Arrow functions do not have their own this binding. They resolve this from the surrounding lexical context."
+          }
+        },
+        {
+          "id": "call-apply-bind",
+          "title": "call, apply, and bind",
+          "content": "`call` invokes a function immediately with a specified `this` and individual arguments. `apply` does the same but receives arguments as an array-like collection. `bind` does not invoke immediately; it creates a new function with a permanently bound `this` and optionally pre-filled arguments.\n\nThese methods are especially useful when adapting APIs, creating callbacks, or working with methods that need an explicit receiver.",
+          "codeExample": {
+            "title": "Binding a Method",
+            "language": "javascript",
+            "code": "const user = {\n  name: 'Suriya'\n};\n\nfunction greet(prefix) {\n  return `${prefix}, ${this.name}`;\n}\n\nconst greetUser = greet.bind(user, 'Hello');\nconsole.log(greetUser());",
+            "explanation": "bind returns a new function. The new function uses user as this and pre-fills the prefix argument."
+          },
+          "keyTakeaways": [
+            "`call` invokes immediately with individual arguments.",
+            "`apply` invokes immediately with an argument collection.",
+            "`bind` returns a new function for later invocation."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method returns a new function instead of immediately invoking the original function?",
+            "options": ["call", "apply", "bind", "invoke"],
+            "correctIndex": 2,
+            "explanation": "bind creates a new bound function. call and apply invoke the target function immediately."
+          }
+        },
+        {
+          "id": "higher-order-functions",
+          "title": "Map, Filter, Reduce, and Function Composition",
+          "content": "Methods such as `map`, `filter`, and `reduce` are higher-order operations over collections. `map` transforms every element, `filter` selects elements, and `reduce` combines values into an accumulator. They are not merely shortcuts; they express different computational intentions.\n\nComposition becomes especially useful when small pure functions are combined into larger transformations.",
+          "codeExample": {
+            "title": "A Collection Pipeline",
+            "language": "javascript",
+            "code": "const numbers = [1, 2, 3, 4, 5, 6];\n\nconst result = numbers\n  .filter(n => n % 2 === 0)\n  .map(n => n * n)\n  .reduce((sum, n) => sum + n, 0);\n\nconsole.log(result);",
+            "explanation": "The pipeline first selects even values, then squares them, and finally sums the resulting values."
+          },
+          "keyTakeaways": ["map transforms elements.", "filter selects elements.", "reduce models accumulation into one result."],
+          "interactiveQuiz": {
+            "question": "Which method is most directly intended to transform every element into another value?",
+            "options": ["filter", "map", "find", "some"],
+            "correctIndex": 1,
+            "explanation": "map calls a callback for each element and constructs a new array containing the returned values."
+          }
+        }
+      ]
+    },
+    {
+      "id": "objects-prototypes-and-classes",
+      "title": "Objects, Prototypes, Classes, and Inheritance",
+      "summary": "Understand JavaScript's object model instead of treating classes as traditional class-based inheritance. Learn property descriptors, prototype chains, constructors, and class syntax.",
+      "estimatedMinutes": 85,
+      "mediaImages": ["https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "object-property-model",
+          "title": "Objects and Property Keys",
+          "content": "JavaScript objects are collections of properties. Property keys are strings or symbols. When a non-symbol key is used, JavaScript generally converts it to a string. Properties have more than just values: they can have descriptors such as writable, enumerable, and configurable.\n\nThis descriptor model explains behavior that ordinary object literal syntax hides.",
+          "codeExample": {
+            "title": "Inspecting Property Descriptors",
+            "language": "javascript",
+            "code": "const user = {\n  name: 'Suriya'\n};\n\nconsole.log(Object.getOwnPropertyDescriptor(user, 'name'));",
+            "explanation": "The descriptor reveals attributes such as writable, enumerable, and configurable in addition to the property's value."
+          },
+          "keyTakeaways": [
+            "Object properties have descriptors.",
+            "Property keys are strings or symbols.",
+            "Object literals are convenient syntax over a richer property model."
+          ],
+          "interactiveQuiz": {
+            "question": "Which of these can be an object property key?",
+            "options": ["Only strings", "Only numbers", "Strings and symbols", "Only symbols"],
+            "correctIndex": 2,
+            "explanation": "Property keys are either strings or symbols. Numeric-looking keys are converted to strings in ordinary object property access."
+          }
+        },
+        {
+          "id": "prototype-chain",
+          "title": "The Prototype Chain",
+          "content": "Every ordinary JavaScript object has an internal `[[Prototype]]` link, which can point to another object or null. When a property is not found directly on an object, JavaScript searches its prototype, then that prototype's prototype, and so on.\n\nThis delegation chain is JavaScript's fundamental inheritance mechanism. Class syntax is built on top of this system.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Prototype Lookup",
+            "code": "flowchart LR\nA[object] --> B[prototype]\nB --> C[prototype of prototype]\nC --> D[null]\nA --> E{property found?}\nE -->|No| B"
+          },
+          "keyTakeaways": [
+            "Prototype lookup is property delegation.",
+            "The chain ends at null.",
+            "Class syntax ultimately relies on prototypes."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens when a property is not found directly on an object?",
+            "options": [
+              "JavaScript searches the prototype chain",
+              "JavaScript always returns null",
+              "JavaScript creates the property automatically",
+              "JavaScript searches localStorage"
+            ],
+            "correctIndex": 0,
+            "explanation": "Ordinary property lookup continues through the object's prototype chain until the property is found or the chain reaches null."
+          }
+        },
+        {
+          "id": "prototype-methods",
+          "title": "Prototype Methods vs Instance Methods",
+          "content": "Putting a method on a prototype allows all instances sharing that prototype to access the same function. Defining a function separately on every instance creates separate function objects and can increase memory usage.\n\nThis distinction matters when creating large numbers of objects or designing reusable object abstractions.",
+          "codeExample": {
+            "title": "Shared Prototype Method",
+            "language": "javascript",
+            "code": "function User(name) {\n  this.name = name;\n}\n\nUser.prototype.greet = function () {\n  return `Hello ${this.name}`;\n};\n\nconst a = new User('A');\nconst b = new User('B');\n\nconsole.log(a.greet === b.greet);",
+            "explanation": "Both instances resolve greet through User.prototype, so they reference the same function."
+          },
+          "keyTakeaways": [
+            "Prototype methods can be shared by instances.",
+            "Instance-created methods create separate function objects.",
+            "Prototype delegation can reduce duplication."
+          ],
+          "interactiveQuiz": {
+            "question": "Why can prototype methods be memory-efficient for many instances?",
+            "options": [
+              "They are converted to strings",
+              "Instances can share the same function through the prototype",
+              "They are stored in the database",
+              "They disable garbage collection"
+            ],
+            "correctIndex": 1,
+            "explanation": "Instances can resolve the same method through their shared prototype instead of storing a separate function on every instance."
+          }
+        },
+        {
+          "id": "classes",
+          "title": "JavaScript Classes",
+          "content": "Classes provide cleaner syntax for creating constructor/prototype relationships. A class constructor runs when an instance is created with `new`. Methods defined in the class body are placed on the prototype rather than copied as own properties onto every instance.\n\nClasses also support `extends`, `super`, private fields using `#`, static members, getters, and setters.",
+          "codeExample": {
+            "title": "Class and Prototype Relationship",
+            "language": "javascript",
+            "code": "class User {\n  constructor(name) {\n    this.name = name;\n  }\n\n  greet() {\n    return `Hello ${this.name}`;\n  }\n}\n\nconst user = new User('Suriya');\nconsole.log(user.greet());\nconsole.log(User.prototype.greet === user.greet);",
+            "explanation": "The greet method is defined on User.prototype. The instance resolves it through the prototype chain."
+          },
+          "keyTakeaways": [
+            "Classes are syntax built around JavaScript's prototype model.",
+            "Class methods normally live on the prototype.",
+            "`new` creates an instance and establishes the prototype relationship."
+          ],
+          "interactiveQuiz": {
+            "question": "Where is a normal method defined in a JavaScript class placed?",
+            "options": ["Directly on every instance", "On the class prototype", "In localStorage", "Only in the call stack"],
+            "correctIndex": 1,
+            "explanation": "Class methods are normally installed on the class's prototype and are shared through prototype lookup."
+          }
+        },
+        {
+          "id": "getters-setters-and-private-fields",
+          "title": "Getters, Setters, and Private Fields",
+          "content": "Getters and setters allow property-like syntax around custom behavior. Private class fields use the `#` syntax and are enforced by the language, unlike naming conventions such as `_value`.\n\nPrivate fields cannot be accessed with normal property syntax from outside the class. This provides stronger encapsulation than convention-based private properties.",
+          "codeExample": {
+            "title": "Private State",
+            "language": "javascript",
+            "code": "class BankAccount {\n  #balance = 0;\n\n  deposit(amount) {\n    if (amount <= 0) throw new Error('Invalid amount');\n    this.#balance += amount;\n  }\n\n  get balance() {\n    return this.#balance;\n  }\n}\n\nconst account = new BankAccount();\naccount.deposit(100);\nconsole.log(account.balance);",
+            "explanation": "The balance field is private to the class body. External code can use the public getter but cannot directly access #balance."
+          },
+          "keyTakeaways": [
+            "Getters and setters provide controlled property access.",
+            "Private fields use `#` and are enforced by the language.",
+            "Encapsulation can protect invariants such as valid account balances."
+          ],
+          "interactiveQuiz": {
+            "question": "Which syntax defines a JavaScript private class field?",
+            "options": ["_balance", "private balance", "#balance", "private.balance"],
+            "correctIndex": 2,
+            "explanation": "A field beginning with # is a private class element and can only be accessed from the class's relevant private scope."
+          }
+        }
+      ]
+    },
+    {
+      "id": "arrays-collections-and-iterators",
+      "title": "Arrays, Collections, Iterables, and Iterators",
+      "summary": "Learn how arrays actually behave, when to use Map and Set, how iteration protocols work, and how generators provide lazy iteration.",
+      "estimatedMinutes": 65,
+      "mediaImages": ["https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "arrays",
+          "title": "Arrays Are Objects with Special Behavior",
+          "content": "JavaScript arrays are objects with indexed properties and a special `length` property. They can contain values of different types and can be sparse. Array methods such as `push`, `pop`, `slice`, and `splice` differ in whether they mutate the original array.\n\nUnderstanding mutation matters when working with React state, functional programming, caching, and shared data structures.",
+          "codeExample": {
+            "title": "slice vs splice",
+            "language": "javascript",
+            "code": "const values = [1, 2, 3, 4];\n\nconst copy = values.slice(1, 3);\nconsole.log(copy);\nconsole.log(values);\n\nvalues.splice(1, 2);\nconsole.log(values);",
+            "explanation": "slice creates a new array without changing the source. splice removes or replaces elements in the original array."
+          },
+          "keyTakeaways": [
+            "Arrays are objects with special indexed and length behavior.",
+            "`slice` does not mutate the source array.",
+            "`splice` mutates the original array."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method mutates an array by removing or replacing elements?",
+            "options": ["slice", "map", "splice", "filter"],
+            "correctIndex": 2,
+            "explanation": "splice modifies the original array. slice creates a new array from a range."
+          }
+        },
+        {
+          "id": "map-and-set",
+          "title": "Map and Set",
+          "content": "`Map` stores key-value pairs and allows keys of any value type. Unlike ordinary objects, a Map does not convert keys to strings. `Set` stores unique values and is useful for membership checks and deduplication.\n\nMaps and Sets are often preferable to objects and arrays when their semantics match the problem.",
+          "codeExample": {
+            "title": "Map and Set",
+            "language": "javascript",
+            "code": "const users = new Map();\nusers.set(101, { name: 'Suriya' });\n\nconst ids = new Set([1, 1, 2, 3, 3]);\n\nconsole.log(users.get(101));\nconsole.log([...ids]);",
+            "explanation": "Map preserves the numeric key 101 as a numeric key. Set automatically keeps only unique values."
+          },
+          "keyTakeaways": [
+            "Map supports arbitrary key types.",
+            "Set stores unique values.",
+            "Use collection types according to the semantics you need."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a key advantage of Map over a plain object?",
+            "options": [
+              "Map only accepts string keys",
+              "Map supports arbitrary key types",
+              "Map cannot be iterated",
+              "Map automatically serializes to JSON"
+            ],
+            "correctIndex": 1,
+            "explanation": "Map keys can be objects, functions, numbers, symbols, or other values without converting them to strings."
+          }
+        },
+        {
+          "id": "iterables-and-symbol-iterator",
+          "title": "The Iterable Protocol",
+          "content": "An object is iterable when it provides a method at `Symbol.iterator` that returns an iterator. The iterator provides a `next()` method returning objects shaped like `{ value, done }`.\n\nThe `for...of` loop, spread syntax, array destructuring, and many collection APIs consume iterables. This is why custom objects can participate in standard iteration without being arrays.",
+          "codeExample": {
+            "title": "Custom Iterable",
+            "language": "javascript",
+            "code": "const range = {\n  start: 1,\n  end: 3,\n  *[Symbol.iterator]() {\n    for (let value = this.start; value <= this.end; value++) {\n      yield value;\n    }\n  }\n};\n\nconsole.log([...range]);",
+            "explanation": "The object defines Symbol.iterator using a generator, making it compatible with the iterable protocol."
+          },
+          "keyTakeaways": [
+            "Iterable objects expose Symbol.iterator.",
+            "Iterators expose next().",
+            "for...of consumes iterables rather than requiring arrays specifically."
+          ],
+          "interactiveQuiz": {
+            "question": "Which symbol is used to define an object's default iteration behavior?",
+            "options": ["Symbol.iterator", "Symbol.iterate", "Symbol.loop", "Symbol.next"],
+            "correctIndex": 0,
+            "explanation": "Symbol.iterator identifies the method that returns an iterator for an iterable object."
+          }
+        },
+        {
+          "id": "generators",
+          "title": "Generators and Lazy Evaluation",
+          "content": "A generator function is declared using `function*` and can pause execution with `yield`. Calling a generator function returns a generator object rather than immediately executing the entire body.\n\nGenerators are useful for lazy sequences, custom iteration, and controlling incremental computation. They can also receive values through subsequent `next(value)` calls.",
+          "codeExample": {
+            "title": "A Generator Sequence",
+            "language": "javascript",
+            "code": "function* ids() {\n  let id = 1;\n  while (true) {\n    yield id++;\n  }\n}\n\nconst iterator = ids();\nconsole.log(iterator.next().value);\nconsole.log(iterator.next().value);",
+            "explanation": "The generator pauses at each yield. Each call to next resumes it until another yield or completion."
+          },
+          "keyTakeaways": [
+            "Generators pause and resume execution.",
+            "Generator functions return iterator-like generator objects.",
+            "Generators enable lazy computation."
+          ],
+          "interactiveQuiz": {
+            "question": "What does calling a generator function return?",
+            "options": ["The final yielded value", "A generator object", "A Promise", "A regular array"],
+            "correctIndex": 1,
+            "explanation": "Calling a generator function creates a generator object. Its body begins executing when next() is called."
+          }
+        }
+      ]
+    },
+    {
+      "id": "asynchronous-javascript-and-event-loop",
+      "title": "Asynchronous JavaScript and the Event Loop",
+      "summary": "Develop a deep understanding of promises, microtasks, macrotasks, timers, async/await, event-loop ordering, and concurrency.",
+      "estimatedMinutes": 100,
+      "mediaImages": ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "synchronous-vs-asynchronous",
+          "title": "Synchronous vs Asynchronous Work",
+          "content": "Synchronous code executes as part of the current call stack. Asynchronous APIs allow work to be initiated without forcing the current JavaScript execution to wait for completion. The actual mechanism depends on the host environment.\n\nAsynchrony does not mean JavaScript suddenly executes multiple JavaScript statements simultaneously on the same agent. Instead, completed asynchronous operations schedule callbacks or promise reactions to be processed later.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Asynchronous Scheduling",
+            "code": "flowchart TD\nA[JavaScript starts operation] --> B[Host handles asynchronous work]\nB --> C[Completion queues continuation]\nC --> D[Event loop selects work]\nD --> E[JavaScript executes callback]"
+          },
+          "keyTakeaways": [
+            "Asynchronous APIs prevent the current operation from waiting unnecessarily.",
+            "Completion callbacks run later.",
+            "Asynchrony and parallel JavaScript execution are different concepts."
+          ],
+          "interactiveQuiz": {
+            "question": "Does an asynchronous API necessarily mean JavaScript executes two pieces of JS simultaneously on one event-loop agent?",
+            "options": ["Yes, always", "No", "Only when using promises", "Only when using arrow functions"],
+            "correctIndex": 1,
+            "explanation": "Asynchronous operations can allow other work to proceed, but JavaScript execution on a single agent still processes one selected job at a time."
+          }
+        },
+        {
+          "id": "promise-state-machine",
+          "title": "Promises as State Machines",
+          "content": "A Promise represents the eventual result of an asynchronous operation. It starts pending and transitions to either fulfilled or rejected. Once settled, its state does not change again.\n\nCalling `then`, `catch`, or `finally` creates promise reactions that are scheduled asynchronously. A promise does not itself perform background work; it represents and coordinates eventual completion.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Promise States",
+            "code": "flowchart LR\nA[Pending] --> B[Fulfilled]\nA --> C[Rejected]\nB --> D[Settled]\nC --> D"
+          },
+          "keyTakeaways": [
+            "A Promise can be pending, fulfilled, or rejected.",
+            "Settled promises cannot transition again.",
+            "Promises represent eventual outcomes and chain asynchronous operations."
+          ],
+          "interactiveQuiz": {
+            "question": "Which transition is valid for a Promise?",
+            "options": ["Fulfilled back to pending", "Rejected back to fulfilled", "Pending to fulfilled", "Fulfilled to rejected"],
+            "correctIndex": 2,
+            "explanation": "A pending Promise can settle as fulfilled or rejected. Once settled, it remains settled."
+          }
+        },
+        {
+          "id": "microtasks-and-macrotasks",
+          "title": "Microtasks vs Tasks",
+          "content": "Promise reactions and `queueMicrotask()` use the microtask queue. Timers and many host callbacks are scheduled as tasks. After the current JavaScript job completes, the runtime processes available microtasks before moving on to another task.\n\nThis is why a resolved Promise can run before a zero-delay timer.",
+          "codeExample": {
+            "title": "Promise vs setTimeout",
+            "language": "javascript",
+            "code": "console.log('A');\n\nsetTimeout(() => {\n  console.log('B');\n}, 0);\n\nPromise.resolve().then(() => {\n  console.log('C');\n});\n\nconsole.log('D');",
+            "explanation": "The synchronous logs A and D execute first. The Promise reaction is processed as a microtask before the timer task, producing C before B."
+          },
+          "keyTakeaways": [
+            "Synchronous code runs before queued asynchronous callbacks.",
+            "Promise reactions are microtasks.",
+            "Microtasks are processed before the runtime proceeds to another task."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the output order of the example?",
+            "options": ["A B C D", "A D C B", "C A D B", "A C D B"],
+            "correctIndex": 1,
+            "explanation": "A and D are synchronous. The Promise reaction C runs as a microtask before the timer callback B."
+          }
+        },
+        {
+          "id": "async-await",
+          "title": "async/await Is Promise Syntax",
+          "content": "An `async` function always returns a Promise. `await` pauses the execution of that async function until the awaited Promise settles, but it does not block the JavaScript thread. The rest of the async function becomes a continuation that resumes later.\n\nThis distinction is critical: `await` makes asynchronous code easier to read without turning asynchronous operations into synchronous blocking operations.",
+          "codeExample": {
+            "title": "Async Function",
+            "language": "javascript",
+            "code": "async function loadUser() {\n  const response = await fetch('/api/user');\n  const user = await response.json();\n  return user;\n}\n\nloadUser().then(console.log);",
+            "explanation": "The async function returns a Promise. Each await suspends that function's continuation until the awaited operation settles."
+          },
+          "keyTakeaways": [
+            "Every async function returns a Promise.",
+            "`await` pauses the async function, not the entire JavaScript runtime.",
+            "Async/await is built around Promise semantics."
+          ],
+          "interactiveQuiz": {
+            "question": "What does an async function always return?",
+            "options": ["The raw value", "A Promise", "A callback", "An iterator"],
+            "correctIndex": 1,
+            "explanation": "An async function wraps its returned value in a fulfilled Promise or produces a rejected Promise when an uncaught error occurs."
+          }
+        },
+        {
+          "id": "promise-combinators",
+          "title": "Promise.all, allSettled, race, and any",
+          "content": "`Promise.all` waits for every input to fulfill and rejects as soon as one rejects. `Promise.allSettled` waits for every input and reports each outcome. `Promise.race` settles when the first input settles. `Promise.any` fulfills when the first input fulfills and rejects only when every input rejects.\n\nChoosing the correct combinator is about business semantics, not just syntax.",
+          "codeExample": {
+            "title": "Parallel Independent Requests",
+            "language": "javascript",
+            "code": "const [user, posts] = await Promise.all([\n  fetch('/api/user').then(r => r.json()),\n  fetch('/api/posts').then(r => r.json())\n]);\n\nconsole.log(user, posts);",
+            "explanation": "Both requests begin without waiting for each other. Promise.all waits for both successful results."
+          },
+          "keyTakeaways": [
+            "Promise.all is appropriate when every operation must succeed.",
+            "Promise.allSettled is useful when every result matters regardless of success.",
+            "Promise.any is useful when any successful source is sufficient."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Promise combinator waits for all inputs regardless of whether they fulfill or reject?",
+            "options": ["Promise.all", "Promise.race", "Promise.any", "Promise.allSettled"],
+            "correctIndex": 3,
+            "explanation": "Promise.allSettled waits until every input has settled and reports each result status."
+          }
+        },
+        {
+          "id": "event-loop-deep-dive",
+          "title": "A Deeper Event Loop Mental Model",
+          "content": "The event loop should be understood as coordination between execution jobs and host scheduling mechanisms rather than as one universal queue. Browsers and Node.js have different host-level details, but the common model is that JavaScript executes jobs, asynchronous operations complete in the host, and continuations become eligible for later execution.\n\nA long-running synchronous task prevents queued work from running. Likewise, repeatedly scheduling microtasks can delay tasks because the runtime must process the microtask queue before moving to another task.",
+          "codeExample": {
+            "title": "Microtask Starvation",
+            "language": "javascript",
+            "code": "let count = 0;\n\nfunction loop() {\n  count++;\n  if (count < 100000) {\n    queueMicrotask(loop);\n  }\n}\n\nsetTimeout(() => console.log('timer'), 0);\nloop();",
+            "explanation": "The timer cannot execute until the currently scheduled microtasks have been processed. Excessive microtask scheduling can therefore delay ordinary tasks."
+          },
+          "keyTakeaways": [
+            "The event loop coordinates JavaScript jobs with host scheduling.",
+            "Long synchronous work blocks subsequent JavaScript execution.",
+            "Excessive microtasks can delay task execution."
+          ],
+          "interactiveQuiz": {
+            "question": "Why can a long chain of microtasks delay a timer?",
+            "options": [
+              "Timers have higher priority",
+              "Microtasks are processed before moving to another task",
+              "Timers are synchronous",
+              "Promises disable timers"
+            ],
+            "correctIndex": 1,
+            "explanation": "The runtime processes the microtask queue before proceeding to another task, so an effectively endless microtask chain can delay timers."
+          }
+        }
+      ]
+    },
+    {
+      "id": "error-handling-and-control-flow",
+      "title": "Error Handling and Robust Control Flow",
+      "summary": "Learn how JavaScript errors propagate, how try/catch/finally interact with async code, how custom errors work, and how to design reliable error boundaries.",
+      "estimatedMinutes": 45,
+      "mediaImages": ["https://images.unsplash.com/photo-1516321165247-4aa89a48be28?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "throw-and-catch",
+          "title": "throw and try/catch",
+          "content": "JavaScript uses exceptions for abrupt control flow. `throw` can throw any value, although throwing an `Error` object is strongly preferred because it provides a stack trace and standardized error metadata. `try/catch` intercepts exceptions thrown during execution of the protected block.\n\nCatch blocks should add useful context or recover when appropriate rather than blindly swallowing failures.",
+          "codeExample": {
+            "title": "Catching an Error",
+            "language": "javascript",
+            "code": "function parseUser(input) {\n  try {\n    return JSON.parse(input);\n  } catch (error) {\n    throw new Error('Invalid user payload', { cause: error });\n  }\n}\n\ntry {\n  parseUser('{invalid}');\n} catch (error) {\n  console.error(error.message);\n  console.error(error.cause);\n}",
+            "explanation": "The original parsing failure is preserved as the cause of a more domain-specific error."
+          },
+          "keyTakeaways": [
+            "Prefer throwing Error objects.",
+            "Use catch blocks to recover or add meaningful context.",
+            "Error causes can preserve the original failure."
+          ],
+          "interactiveQuiz": {
+            "question": "What is generally the best thing to throw for an application error?",
+            "options": ["An arbitrary number", "An Error object", "A random string only", "undefined"],
+            "correctIndex": 1,
+            "explanation": "Error objects provide useful information such as message and stack and integrate better with debugging and logging."
+          }
+        },
+        {
+          "id": "finally",
+          "title": "finally and Cleanup",
+          "content": "A `finally` block executes after the try/catch path regardless of whether the operation succeeds or throws, making it useful for cleanup. Be careful when returning from `finally`: a return there can override a return or exception from the try/catch block.",
+          "codeExample": {
+            "title": "Resource Cleanup",
+            "language": "javascript",
+            "code": "let connection;\n\ntry {\n  connection = openConnection();\n  useConnection(connection);\n} catch (error) {\n  console.error(error);\n} finally {\n  connection?.close();\n}",
+            "explanation": "The finally block provides a reliable place to perform cleanup regardless of success or failure."
+          },
+          "keyTakeaways": [
+            "finally is designed for cleanup.",
+            "Cleanup should happen even when an exception occurs.",
+            "Avoid returning from finally unless you intentionally want to override control flow."
+          ],
+          "interactiveQuiz": {
+            "question": "When is finally useful?",
+            "options": [
+              "Only when no exception occurs",
+              "For cleanup that should happen regardless of success or failure",
+              "Only for asynchronous functions",
+              "Only for loops"
+            ],
+            "correctIndex": 1,
+            "explanation": "finally executes after the try/catch processing and is commonly used for cleanup."
+          }
+        },
+        {
+          "id": "custom-error-types",
+          "title": "Custom Error Classes",
+          "content": "Custom error classes allow applications to distinguish categories of failures. Extending `Error` allows code to use `instanceof` or other properties to make decisions without parsing human-readable messages.\n\nFor example, a REST API might distinguish validation errors, authentication errors, and infrastructure errors.",
+          "codeExample": {
+            "title": "Custom Validation Error",
+            "language": "javascript",
+            "code": "class ValidationError extends Error {\n  constructor(message, field) {\n    super(message);\n    this.name = 'ValidationError';\n    this.field = field;\n  }\n}\n\nthrow new ValidationError('Email is required', 'email');",
+            "explanation": "A custom error class carries structured domain information while retaining normal Error behavior."
+          },
+          "keyTakeaways": [
+            "Custom errors make error categories explicit.",
+            "Structured error properties are better than parsing messages.",
+            "Error classes can be checked using instanceof."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a major benefit of custom Error classes?",
+            "options": [
+              "They prevent all exceptions",
+              "They provide structured error categories",
+              "They make JavaScript synchronous",
+              "They disable stack traces"
+            ],
+            "correctIndex": 1,
+            "explanation": "Custom errors allow code to identify and handle specific categories of failures in a structured way."
+          }
+        }
+      ]
+    },
+    {
+      "id": "modules-and-modern-javascript",
+      "title": "Modules, Imports, Exports, and Modern JavaScript",
+      "summary": "Understand ES modules, CommonJS, module boundaries, live bindings, dynamic imports, and modern language features used in production applications.",
+      "estimatedMinutes": 60,
+      "mediaImages": ["https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "es-modules",
+          "title": "ES Modules",
+          "content": "ES modules provide a standardized module system using `import` and `export`. Modules have their own top-level scope, execute in strict mode, and can expose selected bindings.\n\nNamed exports and default exports have different semantics. Named exports are often preferable when a module exposes several independent concepts because import names can communicate intent.",
+          "codeExample": {
+            "title": "Named and Default Exports",
+            "language": "javascript",
+            "code": "export function add(a, b) {\n  return a + b;\n}\n\nexport const version = '1.0.0';\n\n// another file\nimport { add, version } from './math.js';",
+            "explanation": "The module exports named bindings. Another module imports those bindings explicitly."
+          },
+          "keyTakeaways": [
+            "ES modules create their own scope.",
+            "Modules execute in strict mode.",
+            "Named exports communicate specific module capabilities."
+          ],
+          "interactiveQuiz": {
+            "question": "What keyword is used to expose a binding from an ES module?",
+            "options": ["publish", "export", "expose", "module"],
+            "correctIndex": 1,
+            "explanation": "The export keyword makes declarations or bindings available to other modules."
+          }
+        },
+        {
+          "id": "module-live-bindings",
+          "title": "Live Bindings",
+          "content": "ES module imports are live bindings rather than copied snapshots. An imported binding reflects changes made to the exported binding by the exporting module. However, the importing module cannot directly reassign the imported binding.\n\nThis behavior is important for understanding shared module state and circular dependencies.",
+          "codeExample": {
+            "title": "Live Export",
+            "language": "javascript",
+            "code": "// counter.js\nexport let count = 0;\nexport function increment() {\n  count++;\n}\n\n// app.js\nimport { count, increment } from './counter.js';\nconsole.log(count);\nincrement();\nconsole.log(count);",
+            "explanation": "The imported count binding reflects the current exported binding after increment changes it."
+          },
+          "keyTakeaways": [
+            "ES module imports are live bindings.",
+            "Imported bindings cannot be reassigned by the importer.",
+            "Live bindings influence circular dependency behavior."
+          ],
+          "interactiveQuiz": {
+            "question": "Are ES module imports simple copied values?",
+            "options": ["Yes, always", "No, they are live bindings", "Only for numbers", "Only in Node.js"],
+            "correctIndex": 1,
+            "explanation": "ES module imports reference live exported bindings rather than creating ordinary copied variables."
+          }
+        },
+        {
+          "id": "dynamic-import",
+          "title": "Dynamic import()",
+          "content": "Dynamic `import()` loads a module asynchronously and returns a Promise for its module namespace object. It is useful for lazy loading, conditional functionality, and reducing initial application work.\n\nUnlike a static import declaration, dynamic import can be placed inside expressions and functions.",
+          "codeExample": {
+            "title": "Lazy Loading",
+            "language": "javascript",
+            "code": "async function openEditor() {\n  const module = await import('./editor.js');\n  module.startEditor();\n}\n\nopenEditor();",
+            "explanation": "The editor module is requested only when openEditor runs. The Promise resolves to the module namespace."
+          },
+          "keyTakeaways": [
+            "dynamic import returns a Promise.",
+            "It enables lazy loading.",
+            "It can reduce initial loading work in large applications."
+          ],
+          "interactiveQuiz": {
+            "question": "What does dynamic `import()` return?",
+            "options": ["A module object synchronously", "A Promise", "A string containing source code", "An iterator"],
+            "correctIndex": 1,
+            "explanation": "Dynamic import asynchronously loads the module and returns a Promise resolving to its module namespace."
+          }
+        },
+        {
+          "id": "commonjs-vs-esm",
+          "title": "CommonJS vs ES Modules",
+          "content": "CommonJS uses `require()` and `module.exports`, while ES modules use `import` and `export`. Node.js supports both systems, but they have different loading and interoperability semantics.\n\nES modules are standardized by ECMAScript and support static structure that tooling can analyze. CommonJS is historically important in the Node.js ecosystem and uses a runtime-oriented loading model.",
+          "codeExample": {
+            "title": "CommonJS and ESM",
+            "language": "javascript",
+            "code": "// CommonJS\nconst path = require('node:path');\nmodule.exports = { path };\n\n// ES Modules\nimport path from 'node:path';\nexport { path };",
+            "explanation": "The examples demonstrate the two module systems. Exact interoperability behavior depends on the runtime and package configuration."
+          },
+          "keyTakeaways": [
+            "CommonJS and ES modules are distinct module systems.",
+            "ES modules use import/export syntax.",
+            "Node.js supports both with configuration-dependent interoperability."
+          ],
+          "interactiveQuiz": {
+            "question": "Which syntax belongs to CommonJS?",
+            "options": ["import x from './x.js'", "export const value = 1", "const x = require('./x')", "export default function() {}"],
+            "correctIndex": 2,
+            "explanation": "require is the traditional CommonJS loading mechanism."
+          }
+        }
+      ]
+    },
+    {
+      "id": "web-apis-and-browser-javascript",
+      "title": "Browser JavaScript, DOM, Events, and Web APIs",
+      "summary": "Understand how JavaScript interacts with the browser through the DOM, event propagation, storage, networking, and other host APIs.",
+      "estimatedMinutes": 75,
+      "mediaImages": ["https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "dom-tree",
+          "title": "The DOM as a Tree",
+          "content": "The Document Object Model represents an HTML document as a tree of nodes. JavaScript can query and modify this structure. DOM manipulation is host functionality supplied by browsers; it is not part of ECMAScript itself.\n\nEfficient DOM work often means minimizing unnecessary layout, style recalculation, and rendering work rather than simply minimizing JavaScript statements.",
+          "codeExample": {
+            "title": "Selecting and Updating the DOM",
+            "language": "javascript",
+            "code": "const heading = document.querySelector('h1');\n\nif (heading) {\n  heading.textContent = 'JavaScript';\n}",
+            "explanation": "querySelector returns the first matching element. textContent updates its text without interpreting the value as HTML."
+          },
+          "keyTakeaways": [
+            "The DOM is a browser-provided representation of the document.",
+            "JavaScript can query and mutate DOM nodes.",
+            "textContent is generally safer than innerHTML for plain text."
+          ],
+          "interactiveQuiz": {
+            "question": "Is the DOM part of the ECMAScript language specification?",
+            "options": ["Yes", "No", "Only in Node.js", "Only in TypeScript"],
+            "correctIndex": 1,
+            "explanation": "The DOM is a Web API provided by browsers and standardized separately from ECMAScript."
+          }
+        },
+        {
+          "id": "event-propagation",
+          "title": "Event Capturing, Targeting, and Bubbling",
+          "content": "DOM events propagate through phases. During capture, the event travels from ancestors toward the target. The target phase occurs at the target. During bubbling, the event travels back outward through ancestors.\n\nEvent delegation uses bubbling to attach a listener to a stable ancestor rather than creating listeners for every child.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Event Propagation",
+            "code": "flowchart TD\nA[Window] --> B[Document]\nB --> C[Ancestor]\nC --> D[Target]\nD --> C\nC --> B\nB --> A"
+          },
+          "codeExample": {
+            "title": "Event Delegation",
+            "language": "javascript",
+            "code": "document.querySelector('#list').addEventListener('click', event => {\n  const item = event.target.closest('[data-id]');\n  if (!item) return;\n\n  console.log(item.dataset.id);\n});",
+            "explanation": "One listener on the list handles clicks from dynamically created child elements by examining the event target."
+          },
+          "keyTakeaways": [
+            "Events have capture and bubble phases.",
+            "Event delegation can reduce listener count.",
+            "event.target identifies the originating target while currentTarget identifies the listener's element."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a major benefit of event delegation?",
+            "options": [
+              "It disables event propagation",
+              "It allows one ancestor listener to handle events from many descendants",
+              "It makes all events synchronous",
+              "It removes the DOM"
+            ],
+            "correctIndex": 1,
+            "explanation": "Event delegation uses event propagation so a parent can handle events originating from many child elements."
+          }
+        },
+        {
+          "id": "fetch-and-abortcontroller",
+          "title": "fetch and AbortController",
+          "content": "`fetch()` provides a Promise-based interface for HTTP requests. It resolves when a response is available, including many HTTP error status codes; a 404 or 500 does not automatically reject the Promise. Applications should inspect `response.ok` or status explicitly.\n\n`AbortController` can cancel fetch operations and other APIs that support AbortSignal.",
+          "codeExample": {
+            "title": "Fetch with Cancellation",
+            "language": "javascript",
+            "code": "const controller = new AbortController();\n\nasync function load() {\n  const response = await fetch('/api/users', {\n    signal: controller.signal\n  });\n\n  if (!response.ok) {\n    throw new Error(`HTTP ${response.status}`);\n  }\n\n  return response.json();\n}\n\nload().catch(console.error);\n\n// Cancel when appropriate\ncontroller.abort();",
+            "explanation": "The AbortSignal connects the controller to fetch. Aborting causes the request Promise to reject with an abort-related error."
+          },
+          "keyTakeaways": [
+            "fetch does not reject merely because the HTTP status is 4xx or 5xx.",
+            "Check response.ok or response.status.",
+            "AbortController provides cooperative cancellation for supported APIs."
+          ],
+          "interactiveQuiz": {
+            "question": "Does fetch reject its Promise automatically for a 404 response?",
+            "options": ["Yes", "No", "Only in Chrome", "Only when using await"],
+            "correctIndex": 1,
+            "explanation": "fetch generally resolves with a Response even for HTTP error status codes. Application code must inspect the response status."
+          }
+        },
+        {
+          "id": "web-storage",
+          "title": "localStorage and sessionStorage",
+          "content": "Web Storage provides simple string key-value storage. `localStorage` persists across browser sessions for an origin, while `sessionStorage` is scoped to the browser page session. Values are strings, so objects require serialization with JSON.\n\nStorage is synchronous, so large or frequent operations can affect responsiveness. It should not be treated as a secure secret store.",
+          "codeExample": {
+            "title": "Persisting JSON",
+            "language": "javascript",
+            "code": "const settings = {\n  theme: 'dark',\n  compact: true\n};\n\nlocalStorage.setItem('settings', JSON.stringify(settings));\n\nconst restored = JSON.parse(\n  localStorage.getItem('settings') ?? '{}'\n);\n\nconsole.log(restored);",
+            "explanation": "Web Storage stores strings. JSON serialization converts the object into a string and JSON.parse restores the object structure."
+          },
+          "keyTakeaways": [
+            "Web Storage stores strings.",
+            "localStorage persists across sessions for the origin.",
+            "Do not store highly sensitive secrets in Web Storage merely because it is convenient."
+          ],
+          "interactiveQuiz": {
+            "question": "What type of value does localStorage fundamentally store?",
+            "options": ["JavaScript objects", "Strings", "Binary buffers", "Promises"],
+            "correctIndex": 1,
+            "explanation": "Web Storage exposes string key-value storage, so structured values generally need serialization."
+          }
+        }
+      ]
+    },
+    {
+      "id": "memory-garbage-collection-and-performance",
+      "title": "Memory, Garbage Collection, and Performance",
+      "summary": "Understand reachability, garbage collection, memory leaks, object allocation, hidden performance costs, and practical optimization techniques.",
+      "estimatedMinutes": 80,
+      "mediaImages": ["https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "memory-and-reachability",
+          "title": "Memory Is About Reachability",
+          "content": "JavaScript engines automatically manage memory using garbage collection. A simplified but powerful mental model is reachability: an object is collectible when it is no longer reachable from roots used by the runtime.\n\nCreating an object does not guarantee it remains forever. Conversely, an object can become a memory leak if an application unintentionally keeps a reference to it.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Reachability Model",
+            "code": "flowchart TD\nA[GC Roots] --> B[Object A]\nB --> C[Object B]\nD[Unreferenced Object] --> E[Eligible for Collection]"
+          },
+          "keyTakeaways": [
+            "Garbage collection is based on reachability rather than a simple time limit.",
+            "Unreachable objects can eventually be reclaimed.",
+            "A memory leak occurs when unwanted objects remain reachable."
+          ],
+          "interactiveQuiz": {
+            "question": "When is an object generally eligible for garbage collection?",
+            "options": [
+              "Immediately after creation",
+              "When it is no longer reachable",
+              "After exactly one minute",
+              "Only when manually deleted"
+            ],
+            "correctIndex": 1,
+            "explanation": "Garbage collectors can reclaim objects that are no longer reachable from the runtime's relevant roots."
+          }
+        },
+        {
+          "id": "common-memory-leaks",
+          "title": "Common JavaScript Memory Leaks",
+          "content": "Common leak patterns include accidentally retained global references, event listeners that remain attached unnecessarily, timers that keep closures alive, caches that grow without bounds, and long-lived data structures retaining objects that should have been released.\n\nClosures themselves are not memory leaks. They become problematic when a long-lived object retains a closure that in turn retains a large object graph unnecessarily.",
+          "codeExample": {
+            "title": "An Unbounded Cache",
+            "language": "javascript",
+            "code": "const cache = new Map();\n\nfunction remember(key, value) {\n  cache.set(key, value);\n}\n\n// If keys continuously grow and entries are never removed,\n// the cache can retain more and more memory.",
+            "explanation": "The Map itself remains reachable, so entries remain reachable through it. An unbounded cache can therefore create sustained memory growth."
+          },
+          "keyTakeaways": [
+            "Closures are not inherently memory leaks.",
+            "Long-lived references can retain large object graphs.",
+            "Caches should have eviction or bounded lifetime when appropriate."
+          ],
+          "interactiveQuiz": {
+            "question": "Which pattern can cause a memory leak?",
+            "options": [
+              "A bounded local variable",
+              "An unbounded global cache",
+              "A short-lived primitive",
+              "A function returning normally"
+            ],
+            "correctIndex": 1,
+            "explanation": "An unbounded cache remains reachable and can continuously retain more objects if entries are never removed."
+          }
+        },
+        {
+          "id": "weakmap-and-weakset",
+          "title": "WeakMap and WeakSet",
+          "content": "`WeakMap` and `WeakSet` allow garbage collection of objects when there are no other strong references to those objects. WeakMap keys must be objects or non-registered symbols. Weak collections are not enumerable because their contents can disappear as garbage collection occurs.\n\nThey are useful for metadata associated with object lifetimes, private associations, and certain caching strategies.",
+          "codeExample": {
+            "title": "WeakMap Metadata",
+            "language": "javascript",
+            "code": "const metadata = new WeakMap();\n\nlet element = {};\nmetadata.set(element, { createdAt: Date.now() });\n\nconsole.log(metadata.get(element));\n\nelement = null;\n// The original object can now become collectible.",
+            "explanation": "WeakMap does not create a strong reference from the collection to its object key, so once the key is otherwise unreachable, the key and associated entry can eventually be collected."
+          },
+          "keyTakeaways": [
+            "WeakMap keys do not keep their objects alive by themselves.",
+            "Weak collections are intentionally not enumerable.",
+            "WeakMap is useful for object-associated metadata."
+          ],
+          "interactiveQuiz": {
+            "question": "Why can WeakMap help avoid retaining an object?",
+            "options": ["It serializes the object", "Its keys are weakly held", "It copies the object", "It disables garbage collection"],
+            "correctIndex": 1,
+            "explanation": "WeakMap does not strongly retain object keys, allowing them to become collectible when otherwise unreachable."
+          }
+        },
+        {
+          "id": "performance-optimization",
+          "title": "Performance: Measure Before Optimizing",
+          "content": "JavaScript performance depends on many factors: algorithmic complexity, allocations, DOM work, network latency, parsing, compilation, garbage collection, and host behavior. Micro-optimizing syntax without measurement often produces complexity without meaningful gains.\n\nStart with profiling and identify the actual bottleneck. Improve algorithms and architecture first, then optimize hot paths supported by measurements.",
+          "codeExample": {
+            "title": "Avoid Repeated Expensive Work",
+            "language": "javascript",
+            "code": "const users = getUsers();\n\nconst usersById = new Map(\n  users.map(user => [user.id, user])\n);\n\nconst user = usersById.get(500);",
+            "explanation": "Building an index can change repeated lookup from scanning the array each time to efficient Map lookup, which can be significant when many lookups are performed."
+          },
+          "keyTakeaways": [
+            "Measure before optimizing.",
+            "Algorithmic improvements usually matter more than syntax-level micro-optimizations.",
+            "Use appropriate data structures for access patterns."
+          ],
+          "interactiveQuiz": {
+            "question": "What should usually happen before a performance optimization?",
+            "options": [
+              "Rewrite the entire application",
+              "Measure or profile the bottleneck",
+              "Replace JavaScript with assembly",
+              "Add more caching everywhere"
+            ],
+            "correctIndex": 1,
+            "explanation": "Profiling helps identify where time or memory is actually being spent so optimization targets real bottlenecks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "advanced-javascript-patterns",
+      "title": "Advanced JavaScript Patterns",
+      "summary": "Explore symbols, proxies, reflection, property descriptors, currying, memoization, debouncing, throttling, and metaprogramming.",
+      "estimatedMinutes": 80,
+      "mediaImages": ["https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "symbols",
+          "title": "Symbols and Well-Known Symbols",
+          "content": "Symbols provide unique primitive values that can be used as property keys. Two separately created symbols are different even if they have the same description. Well-known symbols such as `Symbol.iterator` allow JavaScript objects to participate in language protocols.\n\nSymbols are useful when you need non-string property keys or want to integrate with built-in language behavior.",
+          "codeExample": {
+            "title": "Unique Symbol Keys",
+            "language": "javascript",
+            "code": "const id = Symbol('id');\nconst user = {\n  name: 'Suriya',\n  [id]: 123\n};\n\nconsole.log(user[id]);",
+            "explanation": "The symbol becomes a unique property key. Bracket notation is required to access a computed symbol key."
+          },
+          "keyTakeaways": [
+            "Symbols are unique primitive values.",
+            "Symbols can be object property keys.",
+            "Well-known symbols customize language protocols."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a key property of Symbol values?",
+            "options": [
+              "Every symbol has the same value",
+              "Symbols are unique primitives",
+              "Symbols are always strings",
+              "Symbols cannot be object keys"
+            ],
+            "correctIndex": 1,
+            "explanation": "Each Symbol() call creates a unique symbol value, even when descriptions match."
+          }
+        },
+        {
+          "id": "property-descriptors",
+          "title": "Property Descriptors and Object.defineProperty",
+          "content": "Property descriptors control attributes such as `writable`, `enumerable`, and `configurable` for data properties. Accessor properties use `get` and `set` instead of a direct value.\n\n`Object.defineProperty` exposes this lower-level object model and is useful for libraries, polyfills, and controlled APIs.",
+          "codeExample": {
+            "title": "Non-Writable Property",
+            "language": "javascript",
+            "code": "const config = {};\n\nObject.defineProperty(config, 'version', {\n  value: '1.0.0',\n  writable: false,\n  enumerable: true,\n  configurable: false\n});\n\nconsole.log(config.version);",
+            "explanation": "The descriptor creates a property whose value cannot be reassigned through ordinary assignment."
+          },
+          "keyTakeaways": [
+            "Property descriptors control property behavior.",
+            "Data descriptors and accessor descriptors have different fields.",
+            "defineProperty enables precise object API design."
+          ],
+          "interactiveQuiz": {
+            "question": "Which descriptor controls whether a data property's value can be changed by assignment?",
+            "options": ["enumerable", "configurable", "writable", "visible"],
+            "correctIndex": 2,
+            "explanation": "The writable descriptor determines whether a data property's value can be changed."
+          }
+        },
+        {
+          "id": "proxy-and-reflect",
+          "title": "Proxy and Reflect",
+          "content": "A `Proxy` wraps an object and intercepts operations such as property reads, writes, function calls, and construction. `Reflect` provides standardized methods for performing many fundamental object operations.\n\nProxies power advanced abstractions such as reactive systems, validation layers, and virtualization, but they can also make behavior harder to reason about and may introduce performance overhead.",
+          "codeExample": {
+            "title": "Intercepting Property Access",
+            "language": "javascript",
+            "code": "const user = {\n  name: 'Suriya'\n};\n\nconst proxy = new Proxy(user, {\n  get(target, property, receiver) {\n    console.log('Reading', property);\n    return Reflect.get(target, property, receiver);\n  }\n});\n\nconsole.log(proxy.name);",
+            "explanation": "The get trap intercepts property access and delegates the actual operation to Reflect.get."
+          },
+          "keyTakeaways": [
+            "Proxy intercepts fundamental object operations.",
+            "Reflect provides standard mechanisms for performing those operations.",
+            "Proxies are powerful but should be used intentionally."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a Proxy primarily used for?",
+            "options": [
+              "Compiling JavaScript",
+              "Intercepting operations on an object",
+              "Encrypting strings automatically",
+              "Creating database connections"
+            ],
+            "correctIndex": 1,
+            "explanation": "Proxy allows interception of operations such as get, set, apply, construct, and others."
+          }
+        },
+        {
+          "id": "memoization",
+          "title": "Memoization",
+          "content": "Memoization caches the result of a function based on its inputs. It is most useful for deterministic or pure computations where repeated inputs are common and the cost of computing the result is significant.\n\nMemoization has a tradeoff: it exchanges memory for computation. An unbounded memoization cache can itself become a memory problem.",
+          "codeExample": {
+            "title": "Simple Memoization",
+            "language": "javascript",
+            "code": "function memoize(fn) {\n  const cache = new Map();\n\n  return function (...args) {\n    const key = JSON.stringify(args);\n    if (cache.has(key)) return cache.get(key);\n\n    const result = fn(...args);\n    cache.set(key, result);\n    return result;\n  };\n}\n\nconst square = memoize(n => n * n);\nconsole.log(square(10));\nconsole.log(square(10));",
+            "explanation": "The second call with the same serialized arguments retrieves the cached result instead of recomputing it."
+          },
+          "keyTakeaways": [
+            "Memoization trades memory for computation.",
+            "It works best for deterministic computations.",
+            "Cache growth and key design must be considered."
+          ],
+          "interactiveQuiz": {
+            "question": "What does memoization primarily trade for faster repeated calculations?",
+            "options": ["CPU for memory", "Memory for computation", "Network for disk", "Syntax for compilation"],
+            "correctIndex": 1,
+            "explanation": "Memoization stores previous results, using memory to avoid repeating expensive computations."
+          }
+        },
+        {
+          "id": "debounce-and-throttle",
+          "title": "Debouncing and Throttling",
+          "content": "Debouncing delays execution until a burst of calls stops for a specified period. It is useful for search inputs and resize handling. Throttling limits execution to at most a certain frequency, useful for scroll or pointer events.\n\nThe correct choice depends on whether you care about the final event after a burst or continuous periodic updates.",
+          "codeExample": {
+            "title": "Debounce Utility",
+            "language": "javascript",
+            "code": "function debounce(fn, delay) {\n  let timer;\n\n  return (...args) => {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn(...args), delay);\n  };\n}\n\nconst search = debounce(query => {\n  console.log('Searching:', query);\n}, 300);",
+            "explanation": "Each invocation resets the timer. The function executes only after calls stop arriving for the configured delay."
+          },
+          "keyTakeaways": [
+            "Debounce waits for inactivity.",
+            "Throttle limits execution frequency.",
+            "Both are useful for high-frequency events."
+          ],
+          "interactiveQuiz": {
+            "question": "Which technique is best suited to run a search only after the user stops typing briefly?",
+            "options": ["Throttle", "Debounce", "Reduce", "Memoization"],
+            "correctIndex": 1,
+            "explanation": "Debouncing delays execution until calls stop for the specified interval, making it suitable for search-as-you-type behavior."
+          }
+        }
+      ]
+    },
+    {
+      "id": "javascript-design-patterns-and-real-world-code",
+      "title": "Production JavaScript Patterns",
+      "summary": "Apply JavaScript knowledge to real applications through immutability, composition, dependency injection, state management, concurrency control, and maintainable architecture.",
+      "estimatedMinutes": 65,
+      "mediaImages": ["https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "immutability",
+          "title": "Immutability and Structural Updates",
+          "content": "Immutability means treating existing data as unchanged and producing new values when state changes. JavaScript does not make objects immutable by default, so application code must choose appropriate techniques.\n\nImmutability is particularly valuable in state management because reference identity can efficiently signal that something changed.",
+          "codeExample": {
+            "title": "Immutable Object Update",
+            "language": "javascript",
+            "code": "const user = {\n  name: 'Suriya',\n  preferences: {\n    theme: 'light'\n  }\n};\n\nconst updatedUser = {\n  ...user,\n  preferences: {\n    ...user.preferences,\n    theme: 'dark'\n  }\n};\n\nconsole.log(user.preferences.theme);\nconsole.log(updatedUser.preferences.theme);",
+            "explanation": "The original nested object remains unchanged. New objects are created along the path that changed."
+          },
+          "keyTakeaways": [
+            "Spread syntax creates shallow copies.",
+            "Nested updates require copying each changed level.",
+            "Immutability makes state transitions easier to reason about."
+          ],
+          "interactiveQuiz": {
+            "question": "Does object spread perform a deep clone?",
+            "options": ["Yes", "No, it performs a shallow copy", "Only for arrays", "Only for primitives"],
+            "correctIndex": 1,
+            "explanation": "Object spread copies own enumerable properties into a new object, but nested referenced objects remain shared."
+          }
+        },
+        {
+          "id": "dependency-injection",
+          "title": "Dependency Injection with Plain JavaScript",
+          "content": "Dependency injection means providing dependencies to a component rather than having it construct them internally. This improves testability, flexibility, and separation of concerns.\n\nJavaScript's functions and objects make dependency injection straightforward without requiring a framework.",
+          "codeExample": {
+            "title": "Injecting a Repository",
+            "language": "javascript",
+            "code": "function createUserService(userRepository) {\n  return {\n    async getUser(id) {\n      return userRepository.findById(id);\n    }\n  };\n}\n\nconst service = createUserService({\n  findById: async id => ({ id, name: 'Suriya' })\n});",
+            "explanation": "The service does not create the repository. A caller supplies it, making the service easier to test with a fake repository."
+          },
+          "keyTakeaways": [
+            "Dependency injection separates construction from behavior.",
+            "Functions can receive dependencies directly.",
+            "Injected dependencies simplify unit testing."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the primary benefit of dependency injection?",
+            "options": [
+              "It removes all dependencies",
+              "It makes dependencies explicit and replaceable",
+              "It makes all code asynchronous",
+              "It prevents object creation"
+            ],
+            "correctIndex": 1,
+            "explanation": "Dependency injection makes collaborators explicit and allows callers or tests to provide different implementations."
+          }
+        },
+        {
+          "id": "concurrency-limits",
+          "title": "Controlling Async Concurrency",
+          "content": "Starting thousands of asynchronous operations simultaneously can overwhelm APIs, memory, sockets, or downstream systems. Concurrency limiting restricts how many operations are active at once.\n\n`Promise.all` is useful for independent work but should not automatically be used for unbounded collections. Production systems often need batching, queues, backpressure, retries, timeouts, and cancellation.",
+          "codeExample": {
+            "title": "Simple Batch Processing",
+            "language": "javascript",
+            "code": "async function processInBatches(items, size, worker) {\n  const results = [];\n\n  for (let i = 0; i < items.length; i += size) {\n    const batch = items.slice(i, i + size);\n    results.push(...await Promise.all(batch.map(worker)));\n  }\n\n  return results;\n}\n\nconst results = await processInBatches(items, 10, processItem);",
+            "explanation": "Only one batch of at most ten operations is active at a time, reducing pressure on external resources."
+          },
+          "keyTakeaways": [
+            "Unlimited Promise concurrency can overload systems.",
+            "Batching is a simple concurrency-control strategy.",
+            "Production async systems often require backpressure and cancellation."
+          ],
+          "interactiveQuiz": {
+            "question": "Why can blindly using Promise.all over thousands of items be problematic?",
+            "options": [
+              "Promise.all is synchronous",
+              "It can create too much concurrent work",
+              "Promise.all disables garbage collection",
+              "It only supports two promises"
+            ],
+            "correctIndex": 1,
+            "explanation": "Starting a very large number of operations simultaneously can exhaust application or downstream resources."
+          }
+        },
+        {
+          "id": "pure-functions-and-side-effects",
+          "title": "Pure Functions and Side Effects",
+          "content": "A pure function produces the same output for the same inputs and does not cause observable side effects. Pure functions are easier to test, cache, compose, and reason about.\n\nSide effects are not inherently bad; applications need I/O, logging, network calls, DOM changes, and state updates. The important architectural technique is to isolate side effects from deterministic business logic where practical.",
+          "codeExample": {
+            "title": "Pure vs Side-Effecting Code",
+            "language": "javascript",
+            "code": "function calculateTotal(items) {\n  return items.reduce((sum, item) => sum + item.price, 0);\n}\n\nfunction saveOrder(order) {\n  return fetch('/api/orders', {\n    method: 'POST',\n    body: JSON.stringify(order)\n  });\n}",
+            "explanation": "calculateTotal is deterministic for the same input and has no external effect. saveOrder interacts with the network and therefore has a side effect."
+          },
+          "keyTakeaways": [
+            "Pure functions are deterministic and side-effect free.",
+            "Side effects are necessary but should be controlled.",
+            "Separating calculation from I/O improves testability."
+          ],
+          "interactiveQuiz": {
+            "question": "Which function is most likely pure?",
+            "options": [
+              "A function that writes to a database",
+              "A function that sends an HTTP request",
+              "A function that calculates a total from supplied values",
+              "A function that modifies global state"
+            ],
+            "correctIndex": 2,
+            "explanation": "A deterministic calculation based only on supplied inputs can be pure if it does not mutate external state."
+          }
+        }
+      ]
+    },
+    {
+      "id": "interview-questions",
+      "title": "Top Interview Questions & Practice",
+      "summary": "Master 50+ essential interview questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "estimatedMinutes": 180,
+      "mediaImages": ["https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "junior-fundamentals-01",
+          "title": "Junior Fundamentals — Question 1",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "Which keyword declares a block-scoped variable that can be reassigned?",
+            "options": ["var", "let", "const", "static"],
+            "correctIndex": 1,
+            "explanation": "let creates a block-scoped binding and permits reassignment. const is also block-scoped but does not permit reassignment."
+          }
+        },
+        {
+          "id": "junior-fundamentals-02",
+          "title": "Junior Fundamentals — Question 2",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "What is the result of `typeof null`?",
+            "options": ["null", "undefined", "object", "boolean"],
+            "correctIndex": 2,
+            "explanation": "typeof null returns object due to a historical behavior in JavaScript. It does not mean null is actually an object."
+          }
+        },
+        {
+          "id": "junior-fundamentals-03",
+          "title": "Junior Fundamentals — Question 3",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "Which value is falsy?",
+            "options": ["[]", "{}", "\"false\"", "NaN"],
+            "correctIndex": 3,
+            "explanation": "NaN is falsy. Empty arrays, empty objects, and non-empty strings are truthy."
+          }
+        },
+        {
+          "id": "junior-fundamentals-04",
+          "title": "Junior Fundamentals — Question 4",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "What is the main difference between `==` and `===`?",
+            "options": [
+              "=== performs type coercion but == does not",
+              "== can perform type coercion while === uses strict equality",
+              "They are identical",
+              "== only works with objects"
+            ],
+            "correctIndex": 1,
+            "explanation": "Loose equality can perform coercion according to the equality algorithm. Strict equality does not perform that ordinary type coercion."
+          }
+        },
+        {
+          "id": "junior-fundamentals-05",
+          "title": "Junior Fundamentals — Question 5",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "What does `const` prevent?",
+            "options": ["Object mutation", "Property access", "Reassignment of the binding", "Garbage collection"],
+            "correctIndex": 2,
+            "explanation": "const prevents reassignment of the binding. If the value references an object, the object's properties can still be changed."
+          }
+        },
+        {
+          "id": "junior-fundamentals-06",
+          "title": "Junior Fundamentals — Question 6",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "Which declaration is function-scoped?",
+            "options": ["let", "const", "var", "class"],
+            "correctIndex": 2,
+            "explanation": "var is function-scoped, whereas let and const are block-scoped."
+          }
+        },
+        {
+          "id": "junior-fundamentals-07",
+          "title": "Junior Fundamentals — Question 7",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "What does `Object.is(NaN, NaN)` return?",
+            "options": ["true", "false", "undefined", "null"],
+            "correctIndex": 0,
+            "explanation": "Object.is uses SameValue semantics and considers NaN equal to itself."
+          }
+        },
+        {
+          "id": "junior-fundamentals-08",
+          "title": "Junior Fundamentals — Question 8",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "Which operator should generally be used when you want a fallback only for null or undefined?",
+            "options": ["||", "??", "&&", "?:"],
+            "correctIndex": 1,
+            "explanation": "The nullish coalescing operator returns the right-hand side only when the left-hand side is null or undefined."
+          }
+        },
+        {
+          "id": "junior-fundamentals-09",
+          "title": "Junior Fundamentals — Question 9",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "What does `typeof 10n` return?",
+            "options": ["number", "integer", "bigint", "object"],
+            "correctIndex": 2,
+            "explanation": "BigInt values have the typeof result bigint."
+          }
+        },
+        {
+          "id": "junior-fundamentals-10",
+          "title": "Junior Fundamentals — Question 10",
+          "content": "Core language fundamentals.",
+          "interactiveQuiz": {
+            "question": "Which statement about arrays is correct?",
+            "options": [
+              "Arrays cannot contain mixed types",
+              "Arrays are a special kind of object",
+              "Arrays are primitive values",
+              "Arrays cannot have custom properties"
+            ],
+            "correctIndex": 1,
+            "explanation": "Arrays are objects with special indexed property and length behavior."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-01",
+          "title": "Core Functions & Objects — Question 11",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "What is a closure?",
+            "options": [
+              "A function that has no parameters",
+              "A function retaining access to its lexical environment",
+              "A class with private fields",
+              "A Promise that has settled"
+            ],
+            "correctIndex": 1,
+            "explanation": "A closure occurs when a function retains access to bindings from its surrounding lexical environment."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-02",
+          "title": "Core Functions & Objects — Question 12",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "How is `this` generally determined for a normal function?",
+            "options": [
+              "Only by where the function is declared",
+              "By how the function is called",
+              "By the return type",
+              "By the function name"
+            ],
+            "correctIndex": 1,
+            "explanation": "Normal function this is determined by the invocation context, with special rules for strict mode, constructors, call/apply/bind, and methods."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-03",
+          "title": "Core Functions & Objects — Question 13",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "How do arrow functions handle `this`?",
+            "options": [
+              "They create their own dynamic this",
+              "They always use globalThis",
+              "They lexically capture this",
+              "They always use null"
+            ],
+            "correctIndex": 2,
+            "explanation": "Arrow functions do not have their own this binding and instead resolve this lexically from their surrounding scope."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-04",
+          "title": "Core Functions & Objects — Question 14",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "What does `bind()` return?",
+            "options": ["The result of the function", "A new bound function", "A Promise", "The original object"],
+            "correctIndex": 1,
+            "explanation": "bind creates and returns a new function with a bound this value and optionally bound leading arguments."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-05",
+          "title": "Core Functions & Objects — Question 15",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "What happens when an object property is not found directly on the object?",
+            "options": [
+              "JavaScript searches the prototype chain",
+              "JavaScript returns false",
+              "JavaScript always throws",
+              "JavaScript searches the DOM"
+            ],
+            "correctIndex": 0,
+            "explanation": "Ordinary property lookup continues through the object's prototype chain."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-06",
+          "title": "Core Functions & Objects — Question 16",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "Where are normal class methods stored?",
+            "options": [
+              "On each instance as separate functions",
+              "On the class prototype",
+              "In localStorage",
+              "Only inside the constructor"
+            ],
+            "correctIndex": 1,
+            "explanation": "Methods defined in a class body are normally placed on the prototype and shared through prototype lookup."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-07",
+          "title": "Core Functions & Objects — Question 17",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "What does `new` generally do when used with a constructor function?",
+            "options": [
+              "Creates an object and establishes its prototype relationship",
+              "Converts the function to an arrow function",
+              "Makes the function asynchronous",
+              "Deletes the prototype"
+            ],
+            "correctIndex": 0,
+            "explanation": "The new operation creates an object, links it to the constructor's prototype, invokes the constructor with that object as this, and returns an appropriate result."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-08",
+          "title": "Core Functions & Objects — Question 18",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "Which syntax creates a private class field?",
+            "options": ["_value", "#value", "private value", "@value"],
+            "correctIndex": 1,
+            "explanation": "Private class fields use the # prefix."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-09",
+          "title": "Core Functions & Objects — Question 19",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "What does `map()` normally return?",
+            "options": ["The original array only", "A new array containing transformed values", "A Promise", "A single boolean"],
+            "correctIndex": 1,
+            "explanation": "map creates a new array containing the result of calling the callback for each element."
+          }
+        },
+        {
+          "id": "core-functions-and-objects-10",
+          "title": "Core Functions & Objects — Question 20",
+          "content": "Functions, closures, objects, and prototypes.",
+          "interactiveQuiz": {
+            "question": "Which collection guarantees unique values?",
+            "options": ["Array", "Map", "Set", "Object"],
+            "correctIndex": 2,
+            "explanation": "Set stores unique values according to JavaScript's Set equality semantics."
+          }
+        },
+        {
+          "id": "async-and-event-loop-01",
+          "title": "Async & Event Loop — Question 21",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "What are the three main Promise states?",
+            "options": ["new, running, complete", "pending, fulfilled, rejected", "open, closed, failed", "waiting, active, stopped"],
+            "correctIndex": 1,
+            "explanation": "A Promise starts pending and eventually becomes fulfilled or rejected."
+          }
+        },
+        {
+          "id": "async-and-event-loop-02",
+          "title": "Async & Event Loop — Question 22",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "What does an async function return?",
+            "options": ["Always a Promise", "Always undefined", "Always an iterator", "Always a callback"],
+            "correctIndex": 0,
+            "explanation": "Async functions always return Promises, even when the function returns an ordinary value."
+          }
+        },
+        {
+          "id": "async-and-event-loop-03",
+          "title": "Async & Event Loop — Question 23",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "Which queue processes Promise reactions?",
+            "options": ["Microtask queue", "CSS queue", "DOM queue", "Storage queue"],
+            "correctIndex": 0,
+            "explanation": "Promise reactions are scheduled as microtasks."
+          }
+        },
+        {
+          "id": "async-and-event-loop-04",
+          "title": "Async & Event Loop — Question 24",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "What is the output order?",
+            "options": ["A B C D", "A D C B", "B A D C", "C A B D"],
+            "correctIndex": 1,
+            "explanation": "For console.log('A'); setTimeout(...B); Promise.resolve().then(...C); console.log('D'), synchronous A and D run first, then the Promise microtask C, then the timer task B."
+          }
+        },
+        {
+          "id": "async-and-event-loop-05",
+          "title": "Async & Event Loop — Question 25",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "Does await block the entire JavaScript runtime?",
+            "options": ["Yes", "No, it suspends the async function's continuation", "Only for fetch", "Only in browsers"],
+            "correctIndex": 1,
+            "explanation": "await pauses execution of the current async function until the awaited Promise settles. It does not block unrelated JavaScript execution."
+          }
+        },
+        {
+          "id": "async-and-event-loop-06",
+          "title": "Async & Event Loop — Question 26",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "Which combinator waits for every Promise to settle regardless of outcome?",
+            "options": ["Promise.all", "Promise.race", "Promise.any", "Promise.allSettled"],
+            "correctIndex": 3,
+            "explanation": "Promise.allSettled waits for every input and returns an array describing each fulfillment or rejection."
+          }
+        },
+        {
+          "id": "async-and-event-loop-07",
+          "title": "Async & Event Loop — Question 27",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "What happens to Promise.all when one input rejects?",
+            "options": ["It waits forever", "It rejects", "It converts the rejection into null", "It automatically retries"],
+            "correctIndex": 1,
+            "explanation": "Promise.all rejects when one of its input Promises rejects, although other operations may still continue independently."
+          }
+        },
+        {
+          "id": "async-and-event-loop-08",
+          "title": "Async & Event Loop — Question 28",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "Which Promise combinator fulfills when the first input fulfills?",
+            "options": ["Promise.all", "Promise.any", "Promise.allSettled", "Promise.wait"],
+            "correctIndex": 1,
+            "explanation": "Promise.any fulfills as soon as any input fulfills and only rejects when all inputs reject."
+          }
+        },
+        {
+          "id": "async-and-event-loop-09",
+          "title": "Async & Event Loop — Question 29",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "Why does a zero-delay timer not necessarily execute immediately?",
+            "options": [
+              "Timers are disabled by default",
+              "The callback must wait for the current job and relevant queued work",
+              "JavaScript ignores zero",
+              "setTimeout is synchronous"
+            ],
+            "correctIndex": 1,
+            "explanation": "A timer schedules a future task. Current synchronous execution and microtasks must be processed before the runtime reaches that task."
+          }
+        },
+        {
+          "id": "async-and-event-loop-10",
+          "title": "Async & Event Loop — Question 30",
+          "content": "Promises, async/await, queues, and event-loop behavior.",
+          "interactiveQuiz": {
+            "question": "Can excessive microtask scheduling delay ordinary tasks?",
+            "options": ["Yes", "No", "Only in Node.js", "Only when using setInterval"],
+            "correctIndex": 0,
+            "explanation": "The runtime processes microtasks before moving to another task, so an excessive chain can delay timers and other task-level work."
+          }
+        },
+        {
+          "id": "advanced-runtime-01",
+          "title": "Advanced Runtime — Question 31",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "What does garbage collection fundamentally care about?",
+            "options": ["Variable names", "Object reachability", "Number of functions", "Source-code length"],
+            "correctIndex": 1,
+            "explanation": "Garbage collectors determine which objects remain reachable from roots and can reclaim unreachable objects."
+          }
+        },
+        {
+          "id": "advanced-runtime-02",
+          "title": "Advanced Runtime — Question 32",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "Which can cause a memory leak?",
+            "options": ["An unbounded cache retaining objects", "A primitive local variable", "A completed function", "A finite loop"],
+            "correctIndex": 0,
+            "explanation": "An unbounded cache can keep objects strongly reachable indefinitely, causing memory usage to grow."
+          }
+        },
+        {
+          "id": "advanced-runtime-03",
+          "title": "Advanced Runtime — Question 33",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "What is a major property of WeakMap keys?",
+            "options": ["They are always strings", "They are weakly held", "They are copied deeply", "They prevent garbage collection"],
+            "correctIndex": 1,
+            "explanation": "WeakMap does not strongly retain object keys, allowing keys to become collectible when no other strong references remain."
+          }
+        },
+        {
+          "id": "advanced-runtime-04",
+          "title": "Advanced Runtime — Question 34",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "Why is profiling important before optimization?",
+            "options": [
+              "It guarantees faster code",
+              "It identifies actual bottlenecks",
+              "It removes garbage collection",
+              "It changes JavaScript syntax"
+            ],
+            "correctIndex": 1,
+            "explanation": "Profiling provides evidence about where CPU time, memory, or other resources are actually being consumed."
+          }
+        },
+        {
+          "id": "advanced-runtime-05",
+          "title": "Advanced Runtime — Question 35",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "What is a major risk of an unbounded memoization cache?",
+            "options": ["Syntax errors", "Memory growth", "Automatic Promise rejection", "Loss of lexical scope"],
+            "correctIndex": 1,
+            "explanation": "Memoization stores previous results. Without an eviction strategy, the cache can grow indefinitely."
+          }
+        },
+        {
+          "id": "advanced-runtime-06",
+          "title": "Advanced Runtime — Question 36",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "What does a Proxy allow you to do?",
+            "options": ["Intercept operations on an object", "Compile TypeScript", "Create database tables", "Disable the prototype chain"],
+            "correctIndex": 0,
+            "explanation": "Proxy lets code intercept fundamental operations such as property access, assignment, calls, and construction."
+          }
+        },
+        {
+          "id": "advanced-runtime-07",
+          "title": "Advanced Runtime — Question 37",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "What does Symbol.iterator enable?",
+            "options": [
+              "Custom iteration behavior",
+              "Automatic JSON serialization",
+              "Automatic garbage collection",
+              "Promise cancellation"
+            ],
+            "correctIndex": 0,
+            "explanation": "Symbol.iterator identifies the method used to obtain an iterator from an iterable object."
+          }
+        },
+        {
+          "id": "advanced-runtime-08",
+          "title": "Advanced Runtime — Question 38",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "What does Object.freeze() primarily do?",
+            "options": [
+              "Deep-freezes every nested object automatically",
+              "Prevents modifications to an object's own properties at the top level",
+              "Converts an object into a primitive",
+              "Deletes all properties"
+            ],
+            "correctIndex": 1,
+            "explanation": "Object.freeze prevents adding, deleting, or changing the object's own properties according to the freeze semantics. It is shallow, so nested objects can remain mutable."
+          }
+        },
+        {
+          "id": "advanced-runtime-09",
+          "title": "Advanced Runtime — Question 39",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "What does Object.create(proto) do?",
+            "options": ["Creates an object with proto as its prototype", "Copies proto deeply", "Freezes proto", "Converts proto to JSON"],
+            "correctIndex": 0,
+            "explanation": "Object.create creates a new object whose internal prototype is the supplied object."
+          }
+        },
+        {
+          "id": "advanced-runtime-10",
+          "title": "Advanced Runtime — Question 40",
+          "content": "Senior-level JavaScript runtime concepts.",
+          "interactiveQuiz": {
+            "question": "Which statement about closures and memory is most accurate?",
+            "options": [
+              "Every closure is a memory leak",
+              "Closures never retain memory",
+              "Closures can retain reachable data for as long as the closure remains reachable",
+              "Closures are automatically converted to globals"
+            ],
+            "correctIndex": 2,
+            "explanation": "A closure can retain access to lexical bindings. This is useful, but if the closure remains reachable unnecessarily it can also retain substantial data."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-01",
+          "title": "Tricky Outputs & Edge Cases — Question 41",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What is the output of `console.log([] == false)`?",
+            "options": ["true", "false", "undefined", "TypeError"],
+            "correctIndex": 0,
+            "explanation": "Loose equality performs coercion. The empty array is converted through primitive conversion and eventually to an empty string, which converts to numeric zero, matching false's numeric conversion."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-02",
+          "title": "Tricky Outputs & Edge Cases — Question 42",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What does `console.log(NaN === NaN)` print?",
+            "options": ["true", "false", "NaN", "undefined"],
+            "correctIndex": 1,
+            "explanation": "NaN is not equal to itself under strict equality. Use Number.isNaN or Object.is when appropriate."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-03",
+          "title": "Tricky Outputs & Edge Cases — Question 43",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What is the result of `0.1 + 0.2 === 0.3`?",
+            "options": ["true", "false", "0.3", "TypeError"],
+            "correctIndex": 1,
+            "explanation": "Binary floating-point representation means the computed sum is not represented as exactly the same numeric value as the literal 0.3."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-04",
+          "title": "Tricky Outputs & Edge Cases — Question 44",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What does this print: `console.log(typeof function() {})`?",
+            "options": ["object", "function", "callable", "undefined"],
+            "correctIndex": 1,
+            "explanation": "typeof has a special result of function for callable function objects."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-05",
+          "title": "Tricky Outputs & Edge Cases — Question 45",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What does `const a = {}; const b = {}; console.log(a === b)` print?",
+            "options": ["true", "false", "undefined", "null"],
+            "correctIndex": 1,
+            "explanation": "Objects are compared by reference identity. Two separately created object literals are different objects."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-06",
+          "title": "Tricky Outputs & Edge Cases — Question 46",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What happens here: `const a = { x: 1 }; const b = a; b.x = 2;`?",
+            "options": ["a.x remains 1", "a.x becomes 2", "a becomes null", "b becomes a primitive"],
+            "correctIndex": 1,
+            "explanation": "a and b reference the same object. Mutating the object through b is observable through a."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-07",
+          "title": "Tricky Outputs & Edge Cases — Question 47",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What does `[1, 2, 3].map(parseInt)` produce?",
+            "options": ["[1, 2, 3]", "[1, NaN, NaN]", "[1, 2, 3, 4]", "[NaN, NaN, NaN]"],
+            "correctIndex": 1,
+            "explanation": "map passes value, index, and array. parseInt receives the index as its radix: parseInt(1,0)=1, parseInt(2,1)=NaN, and parseInt(3,2)=NaN."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-08",
+          "title": "Tricky Outputs & Edge Cases — Question 48",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What does `console.log([] === [])` print?",
+            "options": ["true", "false", "undefined", "TypeError"],
+            "correctIndex": 1,
+            "explanation": "Each array literal creates a distinct object. Object and array equality uses reference identity."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-09",
+          "title": "Tricky Outputs & Edge Cases — Question 49",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What happens when a function has `return` followed immediately by a newline and then an expression?",
+            "options": [
+              "The expression is always returned",
+              "The function can return undefined because of ASI",
+              "A Promise is returned",
+              "The expression becomes a global"
+            ],
+            "correctIndex": 1,
+            "explanation": "A restricted production allows automatic semicolon insertion after return, causing the function to return undefined before the following expression."
+          }
+        },
+        {
+          "id": "tricky-output-and-edge-cases-10",
+          "title": "Tricky Outputs & Edge Cases — Question 50",
+          "content": "Reason about JavaScript execution precisely.",
+          "interactiveQuiz": {
+            "question": "What is the output order of `console.log(1); Promise.resolve().then(() => console.log(2)); console.log(3);`?",
+            "options": ["1, 2, 3", "1, 3, 2", "2, 1, 3", "3, 1, 2"],
+            "correctIndex": 1,
+            "explanation": "The first and third logs are synchronous. The Promise callback is a microtask and runs after the current synchronous job completes."
+          }
+        }
+      ]
+    }
+  ]
+}
