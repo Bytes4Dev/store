@@ -1,0 +1,1476 @@
+{
+  "courseId": "react-mastery",
+  "courseName": "React",
+  "title": "React Mastery: From Fundamentals to Production Architecture",
+  "subtitle": "A deep, example-driven React course covering rendering, state, effects, hooks, forms, context, performance, routing, testing, accessibility, and senior-level architecture.",
+  "category": "Frontend Development",
+  "level": "Advanced",
+  "estimatedTime": "18 Hours",
+  "accentColor": "#61DAFB",
+  "keywords": [
+    "React",
+    "JavaScript",
+    "JSX",
+    "components",
+    "props",
+    "state",
+    "hooks",
+    "useEffect",
+    "useMemo",
+    "useCallback",
+    "context",
+    "Redux",
+    "performance",
+    "React Router",
+    "testing",
+    "accessibility",
+    "concurrent rendering",
+    "Suspense",
+    "Server Components",
+    "architecture"
+  ],
+  "chapters": [
+    {
+      "id": "react-mental-model",
+      "title": "React Mental Model and Rendering",
+      "summary": "Build the correct mental model for React before learning APIs: declarative UI, component trees, renders, reconciliation, identity, and the browser commit phase.",
+      "estimatedMinutes": 75,
+      "mediaImages": ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "why-react-exists",
+          "title": "Why React Exists",
+          "content": "React is primarily a way to describe how UI should look for a given application state. Instead of manually finding DOM nodes and issuing a sequence of mutations, you describe the desired UI as a function of data.\n\nThe important shift is from **imperative UI programming** to **declarative UI programming**.\n\nIn an imperative approach you might say: find the counter element, read its text, add one, and write the result back. In React, you store the count as state and describe that the heading should contain the current count. When state changes, React determines what needs to change in the DOM.\n\nReact does not mean that the browser is rebuilt on every update. React creates and compares representations of the UI, then commits the necessary DOM changes. Understanding this distinction becomes important when reasoning about performance.",
+          "codeExample": {
+            "title": "Why React Exists — Example",
+            "language": "javascript",
+            "code": "import { useState } from \"react\";\n\nexport default function Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <button onClick={() => setCount(count + 1)}>\n      Clicked {count} times\n    </button>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "React lets you describe UI from state rather than manually synchronizing DOM nodes.",
+            "A render calculates what the UI should be; the commit phase applies necessary host changes.",
+            "Declarative code reduces the amount of synchronization logic you have to maintain."
+          ]
+        },
+        {
+          "id": "component-tree-and-render",
+          "title": "Components, Trees, and Rendering",
+          "content": "A React application can be understood as a tree of components. A parent component returns elements that may contain child components, and those children can return further elements.\n\nA **render** means React calls the relevant component functions to calculate the next UI description. A render does not automatically mean the browser DOM changed. React can render, compare the result, and discover that no host mutation is required.\n\nA useful debugging question is therefore: “What caused this component to render?” rather than “What changed in the DOM?” The answer might be state, changed props, a parent render, context, or another mechanism.\n\nComponent functions should be treated as calculations. During render, avoid side effects such as network requests, subscriptions, timers, or direct DOM mutations.",
+          "codeExample": {
+            "title": "Components, Trees, and Rendering — Example",
+            "language": "javascript",
+            "code": "function UserCard({ user }) {\n  return (\n    <article>\n      <h2>{user.name}</h2>\n      <p>{user.role}</p>\n    </article>\n  );\n}\n\nexport default function App() {\n  const user = { name: \"Asha\", role: \"Frontend Engineer\" };\n\n  return (\n    <main>\n      <UserCard user={user} />\n    </main>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Component functions describe UI and should remain free of side effects during render.",
+            "A render is not synonymous with a DOM update.",
+            "Think of React as maintaining a tree of UI descriptions whose output is committed to the host environment."
+          ]
+        },
+        {
+          "id": "reconciliation-and-identity",
+          "title": "Reconciliation, Identity, and Keys",
+          "content": "When React receives a new element tree, it needs to determine which existing elements can be reused and which need to be replaced. Element type and identity are central to this process.\n\nKeys are especially important for arrays. A key tells React which item is which across renders. A stable key such as a database ID allows React to preserve the identity of an item even when its position changes.\n\nUsing an array index as a key is not always wrong, but it becomes dangerous when the list can be reordered, filtered, inserted into, or deleted from. In those situations the index describes a position, not the identity of the underlying item.",
+          "diagram": {
+            "type": "mermaid",
+            "title": "Render to Commit",
+            "code": "flowchart LR\nA[State or Props Change] --> B[Render Components]\nB --> C[Element Tree]\nC --> D[Reconciliation]\nD --> E[Commit Necessary Host Changes]\nE --> F[Browser UI]"
+          },
+          "codeExample": {
+            "title": "Reconciliation, Identity, and Keys — Example",
+            "language": "javascript",
+            "code": "function TodoList({ todos }) {\n  return (\n    <ul>\n      {todos.map(todo => (\n        <li key={todo.id}>\n          {todo.title}\n        </li>\n      ))}\n    </ul>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Keys represent item identity within a sibling list.",
+            "Stable keys help React preserve component state when list positions change.",
+            "Do not choose a key merely because it is convenient; choose one that identifies the data item."
+          ]
+        },
+        {
+          "id": "strict-mode-and-purity",
+          "title": "Strict Mode and Render Purity",
+          "content": "`StrictMode` enables development-time checks that help expose unsafe assumptions. One of the most useful effects is making certain render/effect behavior more visible during development.\n\nThis can make code appear to run more than once, but it is not a reason to add arbitrary guards such as `hasRunRef.current`. Instead, make rendering pure and make effects safe to start, clean up, and restart.\n\nA pure component produces the same JSX for the same inputs and does not mutate external state while rendering. Event handlers and effects are appropriate places for interactions and synchronization.",
+          "callout": {
+            "type": "tip",
+            "title": "Debugging habit",
+            "message": "If an effect behaves incorrectly when setup is followed immediately by cleanup and setup again, the effect usually has a lifecycle bug rather than React having a bug."
+          },
+          "codeExample": {
+            "title": "Strict Mode and Render Purity — Example",
+            "language": "javascript",
+            "code": "import { StrictMode } from \"react\";\nimport { createRoot } from \"react-dom/client\";\nimport App from \"./App\";\n\ncreateRoot(document.getElementById(\"root\")).render(\n  <StrictMode>\n    <App />\n  </StrictMode>\n);",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Development behavior under Strict Mode is intended to reveal unsafe patterns.",
+            "Do not solve Strict Mode behavior with arbitrary one-time flags.",
+            "Render should be pure; effects should be resilient to setup and cleanup."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jsx-components-props",
+      "title": "JSX, Components, Props, and Composition",
+      "summary": "Learn how JSX maps to JavaScript, how components receive data, and how composition produces reusable UI without creating rigid component APIs.",
+      "estimatedMinutes": 80,
+      "mediaImages": ["https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "jsx-is-javascript",
+          "title": "JSX Is a JavaScript Syntax Extension",
+          "content": "JSX is not HTML embedded in a separate language runtime. It is syntax that is transformed into JavaScript calls that describe elements.\n\nJSX attributes use JavaScript expressions inside `{}`. Most values that are not strings are passed as expressions. `className` is used instead of HTML's `class`, and event props use camelCase names such as `onClick`.\n\nUnderstanding JSX as JavaScript makes advanced patterns less mysterious: conditional expressions, mapping arrays, spreading props, fragments, and component composition all follow normal JavaScript rules.",
+          "codeExample": {
+            "title": "JSX Is a JavaScript Syntax Extension — Example",
+            "language": "javascript",
+            "code": "const name = \"Suriya\";\n\nfunction Welcome() {\n  const message = `Hello, ${name}`;\n\n  return (\n    <>\n      <h1>{message}</h1>\n      <p>{2 + 3} is calculated by JavaScript.</p>\n    </>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "JSX expressions inside braces are evaluated as JavaScript.",
+            "JSX produces React elements; it is not a template language that directly mutates the DOM.",
+            "Normal JavaScript concepts such as arrays, expressions, and functions remain central to JSX."
+          ]
+        },
+        {
+          "id": "props-and-one-way-data-flow",
+          "title": "Props and One-Way Data Flow",
+          "content": "Props are inputs supplied by a parent to a child. A child should generally treat props as read-only values and communicate user actions upward through callbacks.\n\nThis creates a predictable data flow: parent state flows down, events flow up. If multiple components need to coordinate around the same piece of state, move that state to their closest common owner rather than duplicating it.\n\nA common beginner mistake is copying props into state without a synchronization strategy. That creates two sources of truth and can easily produce stale UI.",
+          "codeExample": {
+            "title": "Props and One-Way Data Flow — Example",
+            "language": "javascript",
+            "code": "function SearchBox({ value, onChange, placeholder = \"Search\" }) {\n  return (\n    <input\n      value={value}\n      onChange={event => onChange(event.target.value)}\n      placeholder={placeholder}\n    />\n  );\n}\n\nfunction SearchPage() {\n  const [query, setQuery] = React.useState(\"\");\n\n  return (\n    <SearchBox\n      value={query}\n      onChange={setQuery}\n    />\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Props flow from parent to child.",
+            "Callbacks are a common way for children to request changes owned by a parent.",
+            "Avoid duplicating a prop in state unless there is a deliberate reason and synchronization model."
+          ]
+        },
+        {
+          "id": "composition-over-configuration",
+          "title": "Composition and the `children` Prop",
+          "content": "Reusable components become easier to maintain when they expose extension points rather than dozens of boolean or configuration props.\n\nReact's `children` prop lets a component wrap arbitrary content. More advanced composition can use named props containing elements, render functions, or compound component patterns.\n\nThe goal is to keep ownership clear. A `Card` should own card layout, while the caller can decide what content belongs inside it. This avoids creating a separate prop for every possible variation.",
+          "codeExample": {
+            "title": "Composition and the `children` Prop — Example",
+            "language": "javascript",
+            "code": "function Card({ title, children, footer }) {\n  return (\n    <section className=\"card\">\n      <header>\n        <h2>{title}</h2>\n      </header>\n\n      <div className=\"card-body\">\n        {children}\n      </div>\n\n      {footer && (\n        <footer>{footer}</footer>\n      )}\n    </section>\n  );\n}\n\nfunction Profile() {\n  return (\n    <Card\n      title=\"Profile\"\n      footer={<button>Save</button>}\n    >\n      <p>Content can be composed by the caller.</p>\n    </Card>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Composition lets reusable components control structure without owning every piece of content.",
+            "`children` is simply a prop containing nested React content.",
+            "Prefer composable APIs when a component is accumulating many mutually interacting configuration props."
+          ]
+        },
+        {
+          "id": "conditional-and-list-rendering",
+          "title": "Conditional and List Rendering",
+          "content": "React uses normal JavaScript expressions for conditional rendering. Use ternaries when there are two explicit alternatives and logical `&&` when a value should be shown only when a condition is truthy.\n\nWhen rendering collections, `map()` transforms data into elements. Always consider what happens when the collection is empty and whether the key is stable.\n\nBe careful with `condition && value`: if `condition` can be `0`, the number `0` may be rendered. For numeric conditions, an explicit comparison is often clearer.",
+          "codeExample": {
+            "title": "Conditional and List Rendering — Example",
+            "language": "javascript",
+            "code": "function Notifications({ count, items }) {\n  return (\n    <section>\n      <h2>Notifications</h2>\n\n      {count > 0 ? (\n        <p>You have {count} unread notifications.</p>\n      ) : (\n        <p>You are all caught up.</p>\n      )}\n\n      <ul>\n        {items.map(item => (\n          <li key={item.id}>{item.message}</li>\n        ))}\n      </ul>\n    </section>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Conditional rendering is ordinary JavaScript combined with JSX.",
+            "Use stable keys when rendering collections.",
+            "Explicit conditions are safer when falsy values such as `0` or an empty string have meaning."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "state-events-forms",
+      "title": "State, Events, and Interactive UI",
+      "summary": "Understand state as React-managed memory, event handling, functional updates, batching, immutable updates, and controlled inputs.",
+      "estimatedMinutes": 90,
+      "mediaImages": ["https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "use-state-fundamentals",
+          "title": "State Is Component Memory",
+          "content": "`useState` gives a component a value that persists between renders and a setter that requests a new render.\n\nCalling a state setter does not immediately change the current render's variable. The current render is a snapshot. The next render receives the new state.\n\nThis explains why code such as `setCount(count + 1); setCount(count + 1);` usually results in one increment: both calculations read the same `count` from the current render. When the next value depends on the previous value, use the functional updater form.",
+          "codeExample": {
+            "title": "State Is Component Memory — Example",
+            "language": "javascript",
+            "code": "import { useState } from \"react\";\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  function incrementThreeTimes() {\n    setCount(c => c + 1);\n    setCount(c => c + 1);\n    setCount(c => c + 1);\n  }\n\n  return (\n    <>\n      <p>{count}</p>\n      <button onClick={incrementThreeTimes}>\n        +3\n      </button>\n    </>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Each render sees a snapshot of state.",
+            "Use functional updates when calculating new state from previous state.",
+            "A setter schedules an update; it does not mutate the current render's variable."
+          ]
+        },
+        {
+          "id": "state-objects-and-immutability",
+          "title": "Updating Objects and Arrays Immutably",
+          "content": "React state should be treated as immutable. The practical reason is not that JavaScript objects are magically immutable; it is that replacing values with new references gives React and your code a reliable way to reason about changes.\n\nFor objects, create a new object with spread syntax. For arrays, use methods such as `map`, `filter`, and spread rather than mutating methods like `push` or `splice` on the existing state array.\n\nImmer can make immutable updates easier for complex state, but the underlying model remains the same: produce the next state without mutating the existing snapshot.",
+          "codeExample": {
+            "title": "Updating Objects and Arrays Immutably — Example",
+            "language": "javascript",
+            "code": "function TodoEditor() {\n  const [todo, setTodo] = React.useState({\n    title: \"Learn React\",\n    done: false\n  });\n\n  function toggle() {\n    setTodo(previous => ({\n      ...previous,\n      done: !previous.done\n    }));\n  }\n\n  return (\n    <button onClick={toggle}>\n      {todo.done ? \"Done\" : \"Pending\"}: {todo.title}\n    </button>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Do not mutate existing state objects or arrays in place.",
+            "Create new references for changed structures.",
+            "Functional updates are useful when the next state depends on the previous snapshot."
+          ]
+        },
+        {
+          "id": "event-handling",
+          "title": "Event Handling and Event Boundaries",
+          "content": "React event props receive functions. Pass the function reference rather than calling it during render.\n\nEvent handlers are an appropriate place for imperative actions that directly respond to user interaction: opening a dialog, starting a request, changing state, or calling a browser API.\n\nKeep the event handler focused on the interaction. If the same business operation can happen from multiple entry points, extract the underlying operation so the event handler is not the only place where important domain logic exists.",
+          "codeExample": {
+            "title": "Event Handling and Event Boundaries — Example",
+            "language": "javascript",
+            "code": "function SaveButton({ onSave }) {\n  function handleClick(event) {\n    event.preventDefault();\n    onSave();\n  }\n\n  return (\n    <button type=\"button\" onClick={handleClick}>\n      Save\n    </button>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Pass event handlers as functions such as `onClick={handleClick}`.",
+            "Do not use `onClick={handleClick()}` unless the function call itself is intentionally part of rendering.",
+            "Separate UI event handling from reusable domain operations when complexity grows."
+          ]
+        },
+        {
+          "id": "controlled-inputs",
+          "title": "Controlled Inputs and Form State",
+          "content": "A controlled input gets its current value from React state and reports changes through an event handler. This makes React the source of truth for the input.\n\nControlled forms are useful when validation, conditional fields, formatting, or submission state needs to be coordinated. For very large forms, libraries can reduce repetitive state management, but understanding controlled inputs is still essential.\n\nFor numeric inputs, remember that `event.target.value` is still a string. Parse it deliberately rather than assuming it is already a number.",
+          "codeExample": {
+            "title": "Controlled Inputs and Form State — Example",
+            "language": "javascript",
+            "code": "function LoginForm() {\n  const [email, setEmail] = React.useState(\"\");\n  const [password, setPassword] = React.useState(\"\");\n\n  function submit(event) {\n    event.preventDefault();\n    console.log({ email, password });\n  }\n\n  return (\n    <form onSubmit={submit}>\n      <input\n        type=\"email\"\n        value={email}\n        onChange={e => setEmail(e.target.value)}\n      />\n      <input\n        type=\"password\"\n        value={password}\n        onChange={e => setPassword(e.target.value)}\n      />\n      <button type=\"submit\">Sign in</button>\n    </form>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "A controlled input gets its value from React state.",
+            "Prevent default form submission when handling submission in React.",
+            "Input values are strings unless you explicitly parse them."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "effects-refs-dom",
+      "title": "Effects, Refs, and External Systems",
+      "summary": "Learn when effects are actually needed, how dependency arrays work, how cleanup prevents leaks, and how refs bridge React with imperative systems.",
+      "estimatedMinutes": 100,
+      "mediaImages": ["https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "what-effects-are-for",
+          "title": "Effects Synchronize With External Systems",
+          "content": "An Effect is for synchronizing React with something outside React: a WebSocket, browser subscription, timer, imperative widget, network synchronization process, or another external system.\n\nEffects are often overused for derived data. If a value can be calculated from props or state during render, calculate it during render instead of storing it in state and updating it from an Effect.\n\nA strong rule is: **if there is no external system to synchronize with, you probably do not need an Effect.**",
+          "callout": {
+            "type": "warning",
+            "title": "Common anti-pattern",
+            "message": "Avoid `const [fullName, setFullName] = useState(...)` followed by an Effect that recalculates fullName from firstName and lastName. That value can be derived during render."
+          },
+          "codeExample": {
+            "title": "Effects Synchronize With External Systems — Example",
+            "language": "javascript",
+            "code": "function DocumentTitle({ count }) {\n  React.useEffect(() => {\n    document.title = `Count: ${count}`;\n  }, [count]);\n\n  return <p>{count}</p>;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Effects are synchronization mechanisms, not general-purpose lifecycle callbacks.",
+            "Derived values should normally be calculated during render.",
+            "An Effect should have a clear external system or imperative boundary it synchronizes with."
+          ]
+        },
+        {
+          "id": "dependencies-and-closures",
+          "title": "Dependency Arrays and Closures",
+          "content": "An Effect closes over values from the render in which it was created. The dependency array tells React which reactive values the Effect uses and therefore when it must be synchronized again.\n\nA missing dependency can create stale closures. For example, an interval callback can keep reading an old state value if that state is omitted from the dependencies.\n\nDo not treat the dependency array as a performance knob where dependencies are removed until an Effect runs less often. Instead, restructure the code so the Effect has correct dependencies and a clear synchronization boundary.",
+          "codeExample": {
+            "title": "Dependency Arrays and Closures — Example",
+            "language": "javascript",
+            "code": "function Clock() {\n  const [seconds, setSeconds] = React.useState(0);\n\n  React.useEffect(() => {\n    const id = setInterval(() => {\n      setSeconds(s => s + 1);\n    }, 1000);\n\n    return () => clearInterval(id);\n  }, []);\n\n  return <p>{seconds}s</p>;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Effect callbacks capture values from their render.",
+            "Dependencies should represent the reactive values used by the Effect.",
+            "Functional state updates can avoid unnecessary dependencies when only the previous state is needed."
+          ]
+        },
+        {
+          "id": "cleanup-and-race-conditions",
+          "title": "Cleanup, Cancellation, and Race Conditions",
+          "content": "Effects that create resources must clean them up. Timers need clearing, subscriptions need unsubscribing, and browser listeners need removal.\n\nData fetching introduces another issue: an older request may finish after a newer request. If its result is applied unconditionally, stale data can overwrite current data. An `AbortController` can cancel fetches when an Effect is cleaned up.\n\nCleanup is not only about preventing memory leaks. It also prevents obsolete work from affecting current UI state.",
+          "codeExample": {
+            "title": "Cleanup, Cancellation, and Race Conditions — Example",
+            "language": "javascript",
+            "code": "function User({ id }) {\n  const [user, setUser] = React.useState(null);\n\n  React.useEffect(() => {\n    const controller = new AbortController();\n\n    fetch(`/api/users/${id}`, { signal: controller.signal })\n      .then(response => response.json())\n      .then(setUser)\n      .catch(error => {\n        if (error.name !== \"AbortError\") {\n          console.error(error);\n        }\n      });\n\n    return () => controller.abort();\n  }, [id]);\n\n  return <pre>{JSON.stringify(user, null, 2)}</pre>;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Cleanup should reverse the resource acquisition performed by the Effect.",
+            "Abort or otherwise invalidate obsolete asynchronous work.",
+            "Race conditions are correctness bugs, not merely performance issues."
+          ]
+        },
+        {
+          "id": "use-ref-and-dom-access",
+          "title": "Refs: Persistent Mutable Values and DOM Access",
+          "content": "`useRef` returns a stable object whose `.current` property can change without causing a render.\n\nA ref is appropriate for values that must survive renders but do not themselves determine what should be displayed: DOM nodes, timer IDs, previous values, or imperative library instances.\n\nA ref is not a replacement for state. If changing the value should update the UI, use state. If the value is an implementation detail that should not trigger rendering, a ref can be appropriate.",
+          "codeExample": {
+            "title": "Refs: Persistent Mutable Values and DOM Access — Example",
+            "language": "javascript",
+            "code": "function SearchInput() {\n  const inputRef = React.useRef(null);\n\n  function focusInput() {\n    inputRef.current?.focus();\n  }\n\n  return (\n    <>\n      <input ref={inputRef} />\n      <button onClick={focusInput}>\n        Focus\n      </button>\n    </>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Refs persist values between renders without scheduling renders when `.current` changes.",
+            "Use refs for imperative DOM access and non-visual mutable values.",
+            "Use state for values that participate in rendered output."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hooks-deep-dive",
+      "title": "Hooks Deep Dive and Custom Hooks",
+      "summary": "Master the rules of hooks, memoization hooks, reducers, stable callbacks, custom hooks, and how to design hook APIs around behavior.",
+      "estimatedMinutes": 100,
+      "mediaImages": ["https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "rules-of-hooks",
+          "title": "Rules of Hooks",
+          "content": "Hooks must be called at the top level of a React function component or another custom Hook. Do not call them conditionally, inside loops, or inside nested callbacks.\n\nReact relies on the consistent ordering of Hook calls to associate each call with its stored state. Changing the order between renders breaks that association.\n\nA custom Hook is simply a function whose name begins with `use` and that can call other Hooks. It is a way to reuse stateful behavior, not a special component type.",
+          "codeExample": {
+            "title": "Rules of Hooks — Example",
+            "language": "javascript",
+            "code": "function useOnlineStatus() {\n  const [online, setOnline] = React.useState(navigator.onLine);\n\n  React.useEffect(() => {\n    const onlineHandler = () => setOnline(true);\n    const offlineHandler = () => setOnline(false);\n\n    window.addEventListener(\"online\", onlineHandler);\n    window.addEventListener(\"offline\", offlineHandler);\n\n    return () => {\n      window.removeEventListener(\"online\", onlineHandler);\n      window.removeEventListener(\"offline\", offlineHandler);\n    };\n  }, []);\n\n  return online;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Hooks must be called consistently at the top level.",
+            "Custom Hooks reuse behavior and stateful logic.",
+            "Hook rules are structural requirements, not stylistic preferences."
+          ]
+        },
+        {
+          "id": "use-reducer",
+          "title": "When `useReducer` Fits Better Than Multiple State Setters",
+          "content": "`useReducer` centralizes transitions for related state. It is useful when state changes have meaningful events or when several values must change together.\n\nA reducer should be a pure function: `(state, action) => nextState`. It should not perform network requests, access the DOM, or mutate external systems.\n\nReducers make state transitions explicit and testable. They can also make complex components easier to reason about because event handlers dispatch domain-level actions instead of manually updating several fields.",
+          "codeExample": {
+            "title": "When `useReducer` Fits Better Than Multiple State Setters — Example",
+            "language": "javascript",
+            "code": "function reducer(state, action) {\n  switch (action.type) {\n    case \"started\":\n      return { ...state, status: \"loading\", error: null };\n    case \"succeeded\":\n      return { ...state, status: \"success\", data: action.data };\n    case \"failed\":\n      return { ...state, status: \"error\", error: action.error };\n    default:\n      throw new Error(`Unknown action: ${action.type}`);\n  }\n}\n\nfunction DataView() {\n  const [state, dispatch] = React.useReducer(reducer, {\n    status: \"idle\",\n    data: null,\n    error: null\n  });\n\n  return <pre>{JSON.stringify(state, null, 2)}</pre>;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Reducers make related state transitions explicit.",
+            "Keep reducers pure and deterministic.",
+            "Actions should describe events or domain transitions rather than UI implementation details."
+          ]
+        },
+        {
+          "id": "use-memo-use-callback",
+          "title": "Memoization with `useMemo` and `useCallback`",
+          "content": "`useMemo` caches a calculated value and `useCallback` caches a function identity. Neither should be used simply because a component has many renders.\n\nMemoization helps when a calculation is genuinely expensive or when stable identity matters to a memoized child or another dependency boundary.\n\nAdding memoization everywhere increases cognitive complexity. Measure first, then optimize the specific render or computation that matters.",
+          "codeExample": {
+            "title": "Memoization with `useMemo` and `useCallback` — Example",
+            "language": "javascript",
+            "code": "const ProductList = React.memo(function ProductList({ products, onSelect }) {\n  return products.map(product => (\n    <button key={product.id} onClick={() => onSelect(product)}>\n      {product.name}\n    </button>\n  ));\n});\n\nfunction Catalog({ products }) {\n  const visibleProducts = React.useMemo(\n    () => products.filter(product => product.inStock),\n    [products]\n  );\n\n  const handleSelect = React.useCallback(\n    product => console.log(product.id),\n    []\n  );\n\n  return (\n    <ProductList\n      products={visibleProducts}\n      onSelect={handleSelect}\n    />\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "`useMemo` caches a value; `useCallback` caches a function identity.",
+            "Memoization is useful when it removes measurable work or prevents meaningful downstream rerenders.",
+            "Do not use memoization as a substitute for understanding why a component renders."
+          ]
+        },
+        {
+          "id": "custom-hook-design",
+          "title": "Designing Useful Custom Hooks",
+          "content": "A good custom Hook exposes a behavior-oriented API. It should hide implementation details while returning the smallest useful interface.\n\nFor example, `useDebouncedValue(value, delay)` communicates intent better than exposing timer IDs and internal state. A Hook can combine state, effects, refs, and callbacks behind a simple contract.\n\nCustom Hooks should not secretly introduce surprising global behavior. Document ownership, cleanup, and whether the Hook creates a shared or per-component resource.",
+          "codeExample": {
+            "title": "Designing Useful Custom Hooks — Example",
+            "language": "javascript",
+            "code": "function useDebouncedValue(value, delay) {\n  const [debounced, setDebounced] = React.useState(value);\n\n  React.useEffect(() => {\n    const id = setTimeout(() => {\n      setDebounced(value);\n    }, delay);\n\n    return () => clearTimeout(id);\n  }, [value, delay]);\n\n  return debounced;\n}\n\nfunction Search({ query }) {\n  const debouncedQuery = useDebouncedValue(query, 300);\n\n  return <p>Searching for: {debouncedQuery}</p>;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Expose intent and behavior, not internal Hook machinery.",
+            "Custom Hooks should have predictable cleanup semantics.",
+            "A focused Hook is easier to test and reuse than a giant all-purpose Hook."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "context-state-architecture",
+      "title": "Context, Global State, and Application Architecture",
+      "summary": "Understand when state belongs locally, when to lift it, when Context is appropriate, and when a dedicated state library becomes valuable.",
+      "estimatedMinutes": 90,
+      "mediaImages": ["https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "state-ownership",
+          "title": "Choosing the Owner of State",
+          "content": "The most important state-management decision is ownership. Keep state as close as possible to the components that need it.\n\nIf two siblings need the same value, lift the state to their common parent. If unrelated areas need it across a large tree, consider Context or an external store.\n\nNot every shared value is global state. Server data, URL state, form state, UI state, and durable client preferences have different lifecycles and often deserve different solutions.",
+          "codeExample": {
+            "title": "Choosing the Owner of State — Example",
+            "language": "javascript",
+            "code": "function ProductPage() {\n  const [selectedId, setSelectedId] = React.useState(null);\n\n  return (\n    <>\n      <ProductList\n        selectedId={selectedId}\n        onSelect={setSelectedId}\n      />\n      <ProductDetails productId={selectedId} />\n    </>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Prefer the narrowest state owner that satisfies the sharing requirement.",
+            "Different categories of state often need different storage strategies.",
+            "Avoid making every value global just because global state is available."
+          ]
+        },
+        {
+          "id": "context",
+          "title": "Context: Dependency Injection for React Trees",
+          "content": "Context lets a component read a value supplied by a provider higher in the tree without passing it through every intermediate component.\n\nIt is excellent for values such as theme, locale, authenticated user information, or service configuration that many descendants need.\n\nContext is not automatically a replacement for every state library. When a context value changes, consumers that read it can rerender. Splitting contexts by responsibility and keeping provider values stable can reduce unnecessary work.",
+          "codeExample": {
+            "title": "Context: Dependency Injection for React Trees — Example",
+            "language": "javascript",
+            "code": "const ThemeContext = React.createContext(\"light\");\n\nfunction App() {\n  return (\n    <ThemeContext.Provider value=\"dark\">\n      <Toolbar />\n    </ThemeContext.Provider>\n  );\n}\n\nfunction Toolbar() {\n  const theme = React.useContext(ThemeContext);\n\n  return <button className={theme}>Save</button>;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Context removes prop drilling for values shared through a tree.",
+            "Context consumers subscribe to the context value they read.",
+            "Separate unrelated contexts rather than creating one giant application context."
+          ]
+        },
+        {
+          "id": "external-store-pattern",
+          "title": "External Stores and `useSyncExternalStore`",
+          "content": "React can subscribe to data that lives outside React. `useSyncExternalStore` provides a standard subscription model that lets React safely read an external store.\n\nThis is useful for libraries or application infrastructure where state is intentionally maintained outside component state.\n\nThe store should expose a current snapshot and a subscription function. React can then coordinate reads and updates correctly with its rendering model.",
+          "codeExample": {
+            "title": "External Stores and `useSyncExternalStore` — Example",
+            "language": "javascript",
+            "code": "const store = {\n  value: 0,\n  listeners: new Set(),\n\n  getSnapshot() {\n    return this.value;\n  },\n\n  subscribe(listener) {\n    this.listeners.add(listener);\n    return () => this.listeners.delete(listener);\n  },\n\n  increment() {\n    this.value += 1;\n    this.listeners.forEach(listener => listener());\n  }\n};\n\nfunction Counter() {\n  const value = React.useSyncExternalStore(\n    store.subscribe.bind(store),\n    store.getSnapshot.bind(store)\n  );\n\n  return <button onClick={() => store.increment()}>{value}</button>;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "External stores are useful when state ownership intentionally lives outside React.",
+            "`useSyncExternalStore` provides a React-aware subscription contract.",
+            "Do not build an external store simply to avoid learning React state."
+          ]
+        },
+        {
+          "id": "server-state-vs-client-state",
+          "title": "Server State Is Not the Same as Client State",
+          "content": "Server data has characteristics that ordinary UI state does not: caching, freshness, deduplication, retries, pagination, invalidation, optimistic updates, and synchronization with a remote authority.\n\nA common architecture mistake is copying every API response into a global Redux-like store and manually recreating a cache. Data-fetching libraries can provide those semantics directly.\n\nKeep UI concerns such as selected tabs and dialog visibility separate from remote-resource concerns such as product lists and user profiles.",
+          "codeExample": {
+            "title": "Server State Is Not the Same as Client State — Example",
+            "language": "javascript",
+            "code": "function ProductFilters() {\n  const [sort, setSort] = React.useState(\"price\");\n\n  // Remote product data would normally be handled by\n  // a dedicated server-state/cache solution.\n  return (\n    <select value={sort} onChange={e => setSort(e.target.value)}>\n      <option value=\"price\">Price</option>\n      <option value=\"rating\">Rating</option>\n    </select>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Server state has caching and synchronization requirements beyond ordinary UI state.",
+            "Separate server-resource lifecycle from local UI state.",
+            "Choose a state solution based on the problem rather than popularity."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "async-data-fetching",
+      "title": "Data Fetching, Loading States, and Suspense",
+      "summary": "Build resilient async UI with loading, error, empty, and success states, understand request lifecycles, and learn where Suspense fits.",
+      "estimatedMinutes": 95,
+      "mediaImages": ["https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "async-ui-state-machine",
+          "title": "Model Async UI as States",
+          "content": "A network request is not just “data or no data.” The UI may be idle, loading, successful, empty, failed, refreshing, or partially available.\n\nRepresenting these states explicitly prevents contradictory combinations such as showing a success message while an old error remains visible.\n\nFor more complex resources, a reducer or server-state library can model transitions more clearly than a collection of unrelated boolean states such as `isLoading`, `hasError`, and `isEmpty`.",
+          "codeExample": {
+            "title": "Model Async UI as States — Example",
+            "language": "javascript",
+            "code": "const states = {\n  idle: { status: \"idle\" },\n  loading: { status: \"loading\" },\n  success: data => ({ status: \"success\", data }),\n  error: error => ({ status: \"error\", error })\n};\n\nfunction Result({ state }) {\n  switch (state.status) {\n    case \"loading\":\n      return <p>Loading…</p>;\n    case \"error\":\n      return <p role=\"alert\">{state.error.message}</p>;\n    case \"success\":\n      return <pre>{JSON.stringify(state.data, null, 2)}</pre>;\n    default:\n      return <p>Start a search.</p>;\n  }\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Explicit async states prevent impossible UI combinations.",
+            "Loading, error, empty, success, and refreshing are distinct UX states.",
+            "As complexity grows, model transitions explicitly instead of adding more booleans."
+          ]
+        },
+        {
+          "id": "fetching-in-effects",
+          "title": "Fetching in Effects: Correctness First",
+          "content": "Directly fetching from an Effect is possible, but the component must handle cancellation, stale responses, loading state, errors, and caching if needed.\n\nFor application-scale fetching, a dedicated server-state solution is often preferable because it solves many of these problems systematically.\n\nIf you do fetch in an Effect, make the request lifecycle explicit and avoid setting state after the request is no longer relevant.",
+          "codeExample": {
+            "title": "Fetching in Effects: Correctness First — Example",
+            "language": "javascript",
+            "code": "function UserProfile({ userId }) {\n  const [state, setState] = React.useState({\n    status: \"loading\",\n    data: null,\n    error: null\n  });\n\n  React.useEffect(() => {\n    const controller = new AbortController();\n\n    setState({ status: \"loading\", data: null, error: null });\n\n    fetch(`/api/users/${userId}`, { signal: controller.signal })\n      .then(response => {\n        if (!response.ok) {\n          throw new Error(`HTTP ${response.status}`);\n        }\n        return response.json();\n      })\n      .then(data => setState({ status: \"success\", data, error: null }))\n      .catch(error => {\n        if (error.name !== \"AbortError\") {\n          setState({ status: \"error\", data: null, error });\n        }\n      });\n\n    return () => controller.abort();\n  }, [userId]);\n\n  return <Result state={state} />;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Check HTTP success explicitly; `fetch` does not reject for normal HTTP error statuses.",
+            "Abort obsolete requests when the resource identity changes.",
+            "Prefer established server-state abstractions when caching and synchronization become complex."
+          ]
+        },
+        {
+          "id": "suspense",
+          "title": "Suspense as a Rendering Coordination Primitive",
+          "content": "`Suspense` lets a part of the tree declare a fallback while something it depends on is not ready according to a Suspense-aware mechanism.\n\nIt is useful for coordinating loading UI around lazy-loaded components and, in frameworks that support it deeply, data and server rendering.\n\nSuspense should not be confused with a universal replacement for loading state. Its usefulness depends on the data-fetching and rendering architecture around it.",
+          "codeExample": {
+            "title": "Suspense as a Rendering Coordination Primitive — Example",
+            "language": "javascript",
+            "code": "import { Suspense, lazy } from \"react\";\n\nconst Reports = lazy(() => import(\"./Reports\"));\n\nexport default function Dashboard() {\n  return (\n    <Suspense fallback={<p>Loading reports…</p>}>\n      <Reports />\n    </Suspense>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Suspense coordinates fallback UI around Suspense-enabled work.",
+            "`React.lazy` is a common client-side Suspense use case.",
+            "Suspense is an architectural primitive, not merely a prettier spinner."
+          ]
+        },
+        {
+          "id": "error-boundaries",
+          "title": "Error Boundaries",
+          "content": "Render-time errors in a subtree can be isolated with an Error Boundary. This lets an application display fallback UI instead of losing the entire interface.\n\nError boundaries are different from `try/catch` around JSX. A `try/catch` in a component does not generally catch errors thrown later during rendering of child components.\n\nA production application should decide where failures should be isolated: at route boundaries, feature boundaries, or other meaningful recovery units.",
+          "codeExample": {
+            "title": "Error Boundaries — Example",
+            "language": "javascript",
+            "code": "class ErrorBoundary extends React.Component {\n  state = { hasError: false };\n\n  static getDerivedStateFromError() {\n    return { hasError: true };\n  }\n\n  componentDidCatch(error, info) {\n    console.error(\"UI failure\", error, info);\n  }\n\n  render() {\n    if (this.state.hasError) {\n      return <p>Something went wrong.</p>;\n    }\n\n    return this.props.children;\n  }\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Error boundaries isolate rendering failures in descendant trees.",
+            "Use boundaries at meaningful recovery boundaries rather than only at the application root.",
+            "Log enough context to diagnose the failed feature without exposing sensitive data."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "performance-optimization",
+      "title": "React Performance and Rendering Optimization",
+      "summary": "Learn how to diagnose slow renders, reduce unnecessary work, use memoization intelligently, virtualize large lists, and avoid accidental performance regressions.",
+      "estimatedMinutes": 105,
+      "mediaImages": [
+        "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "sections": [
+        {
+          "id": "performance-model",
+          "title": "What Actually Makes a React App Slow?",
+          "content": "React performance problems usually come from one of several categories: expensive calculations, too many components rendering, large DOM trees, excessive network work, large JavaScript bundles, or expensive browser layout/paint.\n\nDo not start with `useMemo` and `useCallback`. First identify whether the bottleneck is rendering, computation, network, JavaScript execution, or browser work.\n\nReact DevTools Profiler can show which components rendered and how much time was spent. Browser Performance tools can reveal long tasks, layout, paint, and scripting costs.",
+          "codeExample": {
+            "title": "What Actually Makes a React App Slow? — Example",
+            "language": "javascript",
+            "code": "function ExpensiveReport({ rows }) {\n  const totals = rows.reduce(\n    (sum, row) => sum + row.amount,\n    0\n  );\n\n  return <strong>Total: {totals}</strong>;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Measure the bottleneck before choosing an optimization.",
+            "React render time is only one part of browser performance.",
+            "Performance work should reduce a measured cost without making the code unnecessarily difficult to maintain."
+          ]
+        },
+        {
+          "id": "react-memo",
+          "title": "Memoized Components and Referential Equality",
+          "content": "`React.memo` can skip a child render when its props are considered equal to the previous props.\n\nThis makes referential equality important. A newly created object, array, or function is a new reference even if it contains the same values.\n\nMemoization can therefore fail when a parent creates new object props every render. But stabilizing every object and callback is not automatically beneficial; it can add complexity and memory overhead.",
+          "codeExample": {
+            "title": "Memoized Components and Referential Equality — Example",
+            "language": "javascript",
+            "code": "const UserRow = React.memo(function UserRow({ user }) {\n  return <li>{user.name}</li>;\n});\n\nfunction Users({ users }) {\n  return (\n    <ul>\n      {users.map(user => (\n        <UserRow key={user.id} user={user} />\n      ))}\n    </ul>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "`React.memo` is based on prop comparison.",
+            "Object and function identity can affect whether memoized children rerender.",
+            "Use memoization where it addresses a measured rendering cost."
+          ]
+        },
+        {
+          "id": "large-lists-and-virtualization",
+          "title": "Large Lists and Virtualization",
+          "content": "Rendering thousands of DOM nodes at once can be expensive even if React itself is efficient.\n\nVirtualization renders only the items currently visible or near the viewport. This can dramatically reduce DOM size and layout work for large collections.\n\nThe key architectural idea is that the user cannot interact with thousands of visible rows simultaneously. Render the useful window, not the entire dataset.",
+          "codeExample": {
+            "title": "Large Lists and Virtualization — Example",
+            "language": "javascript",
+            "code": "function VirtualRow({ index, style, data }) {\n  const item = data[index];\n\n  return (\n    <div style={style}>\n      {item.name}\n    </div>\n  );\n}\n\n// In production, use a maintained virtualization library\n// rather than implementing viewport math from scratch. \nfunction LargeList({ items }) {\n  return (\n    <div style={{ height: 400, overflow: \"auto\" }}>\n      {/* Virtualization library would render only visible rows. */}\n      {items.slice(0, 50).map(item => (\n        <div key={item.id}>{item.name}</div>\n      ))}\n    </div>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Large DOM trees can become a browser performance problem.",
+            "Virtualization reduces the number of mounted rows.",
+            "For production, prefer a well-tested virtualization implementation over ad hoc scroll math."
+          ]
+        },
+        {
+          "id": "code-splitting",
+          "title": "Code Splitting and Lazy Loading",
+          "content": "A large JavaScript bundle delays startup because the browser must download, parse, and execute code before the application becomes interactive.\n\nDynamic imports let bundlers split code into chunks that can be loaded when needed. React's `lazy` works naturally with Suspense for component-level code splitting.\n\nRoute-level splitting is often a strong default because users do not need every feature's JavaScript on the first screen.",
+          "codeExample": {
+            "title": "Code Splitting and Lazy Loading — Example",
+            "language": "javascript",
+            "code": "import { lazy, Suspense } from \"react\";\n\nconst AdminPage = lazy(() => import(\"./AdminPage\"));\n\nfunction App() {\n  const isAdminRoute = window.location.pathname === \"/admin\";\n\n  return (\n    <Suspense fallback={<p>Loading…</p>}>\n      {isAdminRoute ? <AdminPage /> : <HomePage />}\n    </Suspense>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Code splitting reduces initial JavaScript work.",
+            "Route and feature boundaries are natural split points.",
+            "A smaller initial bundle can improve startup even when total downloaded code remains similar."
+          ]
+        },
+        {
+          "id": "transition-and-deferred-work",
+          "title": "Transitions and Deferred Rendering",
+          "content": "Some updates are urgent because they directly respond to typing or clicking. Other updates are expensive and can be allowed to yield to more urgent interactions.\n\nReact transitions let you mark certain updates as non-urgent. `useDeferredValue` can also let an expensive part of the UI lag behind an urgent input.\n\nThese tools do not make expensive computations intrinsically faster. They improve responsiveness by giving React more flexibility over when non-urgent work is rendered.",
+          "codeExample": {
+            "title": "Transitions and Deferred Rendering — Example",
+            "language": "javascript",
+            "code": "function Search({ items }) {\n  const [query, setQuery] = React.useState(\"\");\n  const deferredQuery = React.useDeferredValue(query);\n\n  const results = items.filter(item =>\n    item.name.toLowerCase().includes(\n      deferredQuery.toLowerCase()\n    )\n  );\n\n  return (\n    <>\n      <input\n        value={query}\n        onChange={e => setQuery(e.target.value)}\n      />\n      <Results items={results} />\n    </>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Transitions prioritize responsiveness; they do not reduce the algorithmic cost of work.",
+            "`useDeferredValue` allows a value consumer to lag behind an urgent value.",
+            "Use scheduling primitives when the problem is responsiveness rather than raw computation."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "routing-accessibility",
+      "title": "Routing, Accessibility, and UI Architecture",
+      "summary": "Design route-aware React applications and build interfaces that work with keyboards, screen readers, focus management, and semantic HTML.",
+      "estimatedMinutes": 90,
+      "mediaImages": ["https://images.unsplash.com/photo-1496171367470-9ed9a91ea931?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "routing-concepts",
+          "title": "Client-Side Routing",
+          "content": "A client-side router maps URLs to UI states. Routing is not merely a navigation component: it affects data loading, code splitting, error boundaries, authorization, document metadata, and browser history.\n\nA route should represent a meaningful application state. Nested routes can mirror nested UI, while route parameters identify resources.\n\nAlways consider direct navigation and browser refresh. A production server must be configured to serve the application's entry point for client-managed routes when using an SPA architecture.",
+          "codeExample": {
+            "title": "Client-Side Routing — Example",
+            "language": "javascript",
+            "code": "import { BrowserRouter, Routes, Route } from \"react-router-dom\";\n\nfunction App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path=\"/\" element={<Home />} />\n        <Route path=\"/users/:id\" element={<User />} />\n        <Route path=\"*\" element={<NotFound />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "URLs should represent meaningful application states.",
+            "Dynamic route parameters identify resources.",
+            "SPA deployments need server fallback handling for direct route requests."
+          ]
+        },
+        {
+          "id": "protected-routes",
+          "title": "Authentication and Authorization Boundaries",
+          "content": "Authentication answers “who is this user?” Authorization answers “what may this user do?”\n\nA client-side protected route is useful for user experience, but it is not a security boundary. A malicious client can modify JavaScript or directly call APIs.\n\nReal authorization must be enforced on the server or trusted backend. The frontend should still hide unavailable UI and redirect users to appropriate screens, but that is a presentation concern.",
+          "callout": {
+            "type": "danger",
+            "title": "Security rule",
+            "message": "Never treat a React conditional such as `if (user.isAdmin)` as proof that an operation is authorized. The backend must validate permissions."
+          },
+          "codeExample": {
+            "title": "Authentication and Authorization Boundaries — Example",
+            "language": "javascript",
+            "code": "function AdminRoute({ user, children }) {\n  if (!user) {\n    return <Navigate to=\"/login\" replace />;\n  }\n\n  if (!user.roles.includes(\"admin\")) {\n    return <Navigate to=\"/forbidden\" replace />;\n  }\n\n  return children;\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Frontend route guards improve UX but do not secure backend resources.",
+            "Authorization must be enforced at the API or trusted server boundary.",
+            "Separate authentication from authorization in both architecture and code."
+          ]
+        },
+        {
+          "id": "semantic-html",
+          "title": "Semantic HTML Before ARIA",
+          "content": "Accessibility starts with choosing the correct HTML element. A `<button>` already provides keyboard behavior and semantics that a clickable `<div>` does not.\n\nUse headings in a meaningful hierarchy, labels for form controls, lists for lists, navigation landmarks for navigation, and buttons for actions.\n\nARIA is valuable when native HTML cannot express the required widget semantics, but adding ARIA to poorly structured HTML does not automatically make the interface accessible.",
+          "codeExample": {
+            "title": "Semantic HTML Before ARIA — Example",
+            "language": "javascript",
+            "code": "function SearchForm() {\n  return (\n    <form role=\"search\">\n      <label htmlFor=\"site-search\">Search the site</label>\n      <input id=\"site-search\" name=\"q\" />\n      <button type=\"submit\">Search</button>\n    </form>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Use native semantic elements whenever possible.",
+            "Every form control should have an accessible name.",
+            "ARIA supplements HTML semantics; it does not replace correct HTML."
+          ]
+        },
+        {
+          "id": "focus-management",
+          "title": "Keyboard Navigation and Focus Management",
+          "content": "Single-page applications can change content without a full browser navigation. That means focus can remain on a removed element or fail to move to the meaningful new content.\n\nDialogs, menus, route changes, and validation failures often need explicit focus management.\n\nWhen building a dialog, manage focus into the dialog, keep keyboard interaction predictable, and return focus to the triggering element when the dialog closes.",
+          "codeExample": {
+            "title": "Keyboard Navigation and Focus Management — Example",
+            "language": "javascript",
+            "code": "function Dialog({ open, onClose }) {\n  const closeButtonRef = React.useRef(null);\n\n  React.useEffect(() => {\n    if (open) {\n      closeButtonRef.current?.focus();\n    }\n  }, [open]);\n\n  if (!open) return null;\n\n  return (\n    <div role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"title\">\n      <h2 id=\"title\">Confirm action</h2>\n      <button ref={closeButtonRef} onClick={onClose}>\n        Close\n      </button>\n    </div>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Focus is part of application state and must be managed intentionally in dynamic UIs.",
+            "Keyboard users must be able to reach and operate interactive controls.",
+            "Dialogs should have a clear accessible name and predictable focus behavior."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "testing-react-applications",
+      "title": "Testing React Applications",
+      "summary": "Learn what to test, how to test behavior rather than implementation details, and how unit, integration, component, and end-to-end tests fit together.",
+      "estimatedMinutes": 90,
+      "mediaImages": ["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "testing-philosophy",
+          "title": "Test Behavior, Not Component Internals",
+          "content": "A robust React test asks what a user can observe or what a system boundary guarantees. It should avoid coupling itself to private state variables or implementation-specific component structure.\n\nIf a button says “Save”, a useful test clicks it and verifies the resulting behavior. A fragile test may inspect the component's internal state or require a specific DOM nesting that users do not care about.\n\nThis style makes refactoring safer because implementation can change while behavior remains constant.",
+          "codeExample": {
+            "title": "Test Behavior, Not Component Internals — Example",
+            "language": "javascript",
+            "code": "import { render, screen } from \"@testing-library/react\";\nimport userEvent from \"@testing-library/user-event\";\n\ntest(\"submits the form\", async () => {\n  const user = userEvent.setup();\n  const onSubmit = vi.fn();\n\n  render(<LoginForm onSubmit={onSubmit} />);\n\n  await user.type(\n    screen.getByLabelText(/email/i),\n    \"user@example.com\"\n  );\n\n  await user.click(screen.getByRole(\"button\", { name: /sign in/i }));\n\n  expect(onSubmit).toHaveBeenCalled();\n});",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Prefer user-visible behavior over implementation details.",
+            "Accessible queries often produce resilient tests.",
+            "Tests should give confidence against regressions without blocking harmless refactors."
+          ]
+        },
+        {
+          "id": "unit-integration-e2e",
+          "title": "Unit, Integration, and End-to-End Tests",
+          "content": "Unit tests isolate small pieces of logic. Integration tests verify that multiple pieces work together. End-to-end tests exercise the application through a browser-like user journey.\n\nReact applications benefit from a balanced test pyramid. Pure domain logic can be tested cheaply. Important component interactions deserve integration coverage. Critical journeys such as login, checkout, or permissions deserve end-to-end coverage.\n\nDo not maximize test count. Maximize confidence per test.",
+          "codeExample": {
+            "title": "Unit, Integration, and End-to-End Tests — Example",
+            "language": "javascript",
+            "code": "function calculateTotal(items) {\n  return items.reduce(\n    (total, item) => total + item.price * item.quantity,\n    0\n  );\n}\n\n// Unit test example:\n// expect(calculateTotal([{ price: 10, quantity: 2 }])).toBe(20);",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Use unit tests for isolated deterministic logic.",
+            "Use integration tests for important component and service interactions.",
+            "Use end-to-end tests for critical user journeys and deployment-level behavior."
+          ]
+        },
+        {
+          "id": "async-testing",
+          "title": "Testing Async UI",
+          "content": "Async UI should be tested by waiting for observable results rather than forcing implementation-specific timing.\n\nAvoid arbitrary sleeps such as `await new Promise(resolve => setTimeout(resolve, 1000))`. They make tests slow and flaky.\n\nInstead, trigger the interaction and wait for the UI to reach the expected state. Mock network boundaries where appropriate, but preserve realistic request and response behavior in integration tests.",
+          "codeExample": {
+            "title": "Testing Async UI — Example",
+            "language": "javascript",
+            "code": "test(\"shows loaded profile\", async () => {\n  render(<Profile userId=\"42\" />);\n\n  expect(screen.getByText(/loading/i)).toBeInTheDocument();\n\n  expect(\n    await screen.findByRole(\"heading\", { name: /suriya/i })\n  ).toBeInTheDocument();\n});",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Wait for observable UI states instead of arbitrary timeouts.",
+            "Test loading, success, error, and empty states deliberately.",
+            "Keep network mocking at a clear boundary so tests remain understandable."
+          ]
+        },
+        {
+          "id": "testable-architecture",
+          "title": "Designing React Code for Testability",
+          "content": "Testability is an architecture property. Components become easier to test when domain logic is separated from presentation and external services are accessed through explicit boundaries.\n\nA component that directly contains validation, API calls, transformation logic, navigation, analytics, and rendering can become difficult to test and change.\n\nExtract pure functions and domain services where they represent meaningful concepts. Keep components responsible primarily for translating state and user interactions into UI.",
+          "codeExample": {
+            "title": "Designing React Code for Testability — Example",
+            "language": "javascript",
+            "code": "function validatePassword(password) {\n  if (password.length < 8) {\n    return \"Password must contain at least 8 characters.\";\n  }\n\n  return null;\n}\n\nfunction PasswordField({ value, onChange }) {\n  const error = validatePassword(value);\n\n  return (\n    <div>\n      <input\n        type=\"password\"\n        value={value}\n        onChange={e => onChange(e.target.value)}\n        aria-invalid={Boolean(error)}\n      />\n      {error && <p role=\"alert\">{error}</p>}\n    </div>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Separate pure domain rules from UI rendering.",
+            "Explicit boundaries make dependencies easier to replace in tests.",
+            "Do not create abstractions merely for testing; extract concepts that are useful in production architecture."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced-react-architecture",
+      "title": "Advanced React Architecture",
+      "summary": "Explore concurrent rendering concepts, server/client boundaries, framework architecture, hydration, design systems, feature organization, and production patterns.",
+      "estimatedMinutes": 115,
+      "mediaImages": ["https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "concurrent-rendering",
+          "title": "Concurrent Rendering as Scheduling",
+          "content": "Concurrent rendering allows React to work on rendering without assuming every render must finish synchronously before other work can be considered.\n\nThe practical takeaway is not that React runs components on multiple CPU threads. Instead, React can schedule and interrupt rendering work so urgent interactions can remain responsive.\n\nAPIs such as transitions communicate priority. This is especially useful when an interaction starts expensive UI work that should not block typing or direct manipulation.",
+          "codeExample": {
+            "title": "Concurrent Rendering as Scheduling — Example",
+            "language": "javascript",
+            "code": "function SearchPage({ results }) {\n  const [query, setQuery] = React.useState(\"\");\n  const [isPending, startTransition] = React.useTransition();\n\n  function handleChange(event) {\n    const value = event.target.value;\n    setQuery(value);\n\n    startTransition(() => {\n      // Non-urgent update.\n      // In a real application this could update a large result view.\n      console.log(\"Update results for\", value);\n    });\n  }\n\n  return (\n    <>\n      <input value={query} onChange={handleChange} />\n      {isPending && <span>Updating…</span>}\n      <Results items={results} />\n    </>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Concurrent rendering is primarily about scheduling and responsiveness.",
+            "A transition marks updates as non-urgent.",
+            "Concurrency does not mean component functions execute simultaneously on multiple threads."
+          ]
+        },
+        {
+          "id": "hydration",
+          "title": "Server Rendering and Hydration",
+          "content": "With server rendering, HTML can be generated before the browser executes the client JavaScript. Hydration then attaches React behavior to the server-rendered output.\n\nHydration requires the client render to agree with the server-rendered markup. Non-deterministic values such as random numbers, current timestamps, or environment-dependent branches can create mismatches.\n\nFrameworks can manage much of this complexity, but the mental model remains important when debugging hydration warnings.",
+          "codeExample": {
+            "title": "Server Rendering and Hydration — Example",
+            "language": "javascript",
+            "code": "function Greeting({ name }) {\n  return <h1>Hello, {name}</h1>;\n}\n\n// Server and client must agree on the rendered structure.\n// Avoid rendering different random/time-based values on each side\n// unless the architecture explicitly handles the difference.",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Hydration connects client React behavior to existing server-rendered markup.",
+            "Server and client output must be compatible.",
+            "Avoid non-deterministic rendering that changes markup between environments."
+          ]
+        },
+        {
+          "id": "server-client-boundaries",
+          "title": "Server and Client Component Boundaries",
+          "content": "Modern React frameworks can split work between server-rendered components and interactive client components. A server component can keep server-only concerns away from the browser bundle, while a client component handles state, events, and browser APIs.\n\nThe boundary should be intentional. Data can often be fetched closer to where it is available, while interactivity is isolated to smaller client components.\n\nDo not treat server/client boundaries as a replacement for application architecture. They are another dimension of the architecture that affects data flow, bundling, and execution environment.",
+          "codeExample": {
+            "title": "Server and Client Component Boundaries — Example",
+            "language": "javascript",
+            "code": "// Server-oriented component:\nasync function ProductPage({ id }) {\n  const product = await getProduct(id);\n\n  return (\n    <main>\n      <h1>{product.name}</h1>\n      <AddToCartButton productId={product.id} />\n    </main>\n  );\n}\n\n// AddToCartButton would be a client component because it\n// needs browser interaction and state.",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Server/client boundaries determine where code executes and what reaches the browser.",
+            "Keep interactive behavior in client components where the framework requires it.",
+            "Move data access toward the environment that can perform it securely and efficiently."
+          ]
+        },
+        {
+          "id": "feature-oriented-architecture",
+          "title": "Feature-Oriented Project Structure",
+          "content": "As an application grows, organizing everything by technical type can create huge folders such as `components`, `hooks`, `services`, and `utils` with unrelated features mixed together.\n\nFeature-oriented organization keeps UI, state, API adapters, tests, and domain logic near the feature that owns them.\n\nThe exact structure should reflect team boundaries and deployment needs. The goal is discoverability and ownership, not following a universal folder template.",
+          "codeExample": {
+            "title": "Feature-Oriented Project Structure — Example",
+            "language": "javascript",
+            "code": "src/\n  app/\n  features/\n    billing/\n      components/\n      hooks/\n      api/\n      billing.test.js\n    profile/\n      components/\n      api/\n  shared/\n    ui/\n    lib/\n  routes/",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Organize code around ownership and business boundaries as complexity grows.",
+            "Keep feature-specific code close to the feature.",
+            "Use shared folders for genuinely shared concepts, not as a dumping ground."
+          ]
+        },
+        {
+          "id": "design-system-architecture",
+          "title": "Design Systems and Component APIs",
+          "content": "A design system should provide stable primitives such as Button, Input, Dialog, Stack, and Text while allowing product features to compose them.\n\nGood component APIs encode constraints that should be consistent across the product, such as focus behavior, disabled semantics, keyboard interactions, and visual variants.\n\nAvoid turning the design system into a universal component with hundreds of props. When a component has too many unrelated responsibilities, split it into primitives and compositions.",
+          "codeExample": {
+            "title": "Design Systems and Component APIs — Example",
+            "language": "javascript",
+            "code": "function Button({\n  variant = \"primary\",\n  loading = false,\n  children,\n  ...props\n}) {\n  return (\n    <button\n      {...props}\n      data-variant={variant}\n      disabled={loading || props.disabled}\n      aria-busy={loading || undefined}\n    >\n      {loading ? \"Saving…\" : children}\n    </button>\n  );\n}",
+            "explanation": "The example demonstrates the core idea described in this section."
+          },
+          "keyTakeaways": [
+            "Design-system components should provide reliable semantics and interaction behavior.",
+            "Keep component APIs constrained around coherent responsibilities.",
+            "Composition is usually more scalable than an enormous prop matrix."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interview-questions",
+      "title": "Top Interview Questions & Practice",
+      "summary": "Master 50+ essential React interview questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "estimatedMinutes": 180,
+      "mediaImages": ["https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "junior-fundamentals",
+          "title": "Junior Fundamentals",
+          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "interactiveQuiz": [
+            {
+              "id": "react-interview-01",
+              "question": "What is the primary programming model React encourages?",
+              "options": [
+                "Imperative DOM mutation",
+                "Declarative UI based on state",
+                "Database-driven templates only",
+                "CSS-only rendering"
+              ],
+              "correctIndex": 1,
+              "explanation": "React encourages declarative UI: describe what the UI should look like for the current state and let React reconcile that description with the host environment."
+            },
+            {
+              "id": "react-interview-02",
+              "question": "What is JSX?",
+              "options": [
+                "A browser API",
+                "A CSS preprocessor",
+                "JavaScript syntax for describing UI elements",
+                "A replacement for JavaScript"
+              ],
+              "correctIndex": 2,
+              "explanation": "JSX is syntax that is transformed into JavaScript representations of React elements. It is not HTML executed directly by the browser."
+            },
+            {
+              "id": "react-interview-03",
+              "question": "Why are keys needed when rendering lists?",
+              "options": [
+                "To encrypt list data",
+                "To identify list items across renders",
+                "To make CSS selectors unique",
+                "To prevent all events"
+              ],
+              "correctIndex": 1,
+              "explanation": "Keys provide identity for sibling elements in a collection so React can reason about which items were inserted, removed, or moved."
+            },
+            {
+              "id": "react-interview-04",
+              "question": "What is the recommended source of truth for a controlled input?",
+              "options": ["The DOM only", "React state", "The browser history", "A CSS variable"],
+              "correctIndex": 1,
+              "explanation": "A controlled input gets its value from React state and reports changes through an event handler."
+            },
+            {
+              "id": "react-interview-05",
+              "question": "What happens when a state setter is called?",
+              "options": [
+                "The current render variable is mutated immediately",
+                "React requests an update and a future render can observe the new state",
+                "The browser reloads",
+                "All components are always unmounted"
+              ],
+              "correctIndex": 1,
+              "explanation": "State is associated with renders. Calling a setter schedules an update; the current render's state variable remains its existing snapshot."
+            },
+            {
+              "id": "react-interview-06",
+              "question": "Which is the correct way to update state based on previous state?",
+              "options": ["setCount(count + 1) in every situation", "setCount(previous => previous + 1)", "count++", "state = state + 1"],
+              "correctIndex": 1,
+              "explanation": "The functional updater receives the latest queued state value, making it correct when multiple updates depend on previous state."
+            },
+            {
+              "id": "react-interview-07",
+              "question": "What does a component normally return?",
+              "options": ["A SQL query", "A description of UI such as React elements", "A browser tab", "A CSS file only"],
+              "correctIndex": 1,
+              "explanation": "A React component returns a description of the UI it wants React to render."
+            },
+            {
+              "id": "react-interview-08",
+              "question": "Why should state objects generally not be mutated directly?",
+              "options": [
+                "JavaScript forbids objects from changing",
+                "Immutable updates make state transitions and identity changes predictable",
+                "React cannot read objects",
+                "Objects cannot be passed as props"
+              ],
+              "correctIndex": 1,
+              "explanation": "Creating new references for changed state makes updates predictable and avoids mutating snapshots that other code may still reference."
+            },
+            {
+              "id": "react-interview-09",
+              "question": "What is a prop?",
+              "options": ["A value passed from a component to its descendant", "A CSS class", "A browser event", "A database table"],
+              "correctIndex": 0,
+              "explanation": "Props are inputs supplied by a parent component to a child component."
+            },
+            {
+              "id": "react-interview-10",
+              "question": "What is `children` in React?",
+              "options": ["A special DOM element", "A prop containing nested content", "A global state variable", "A hook"],
+              "correctIndex": 1,
+              "explanation": "`children` is a normal React prop populated by content placed between a component's opening and closing tags."
+            }
+          ],
+          "keyTakeaways": [
+            "Explain the underlying React model, not just the API name.",
+            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+          ]
+        },
+        {
+          "id": "core-hooks-and-apis",
+          "title": "Core APIs & Hooks",
+          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "interactiveQuiz": [
+            {
+              "id": "react-interview-11",
+              "question": "When should you generally use `useEffect`?",
+              "options": [
+                "For every calculated value",
+                "To synchronize with an external system",
+                "To replace all event handlers",
+                "To make JSX valid"
+              ],
+              "correctIndex": 1,
+              "explanation": "Effects are intended for synchronization with external systems such as subscriptions, timers, browser APIs, and imperative widgets."
+            },
+            {
+              "id": "react-interview-12",
+              "question": "What is a stale closure in a React Effect?",
+              "options": ["A CSS animation", "A callback reading values from an older render", "A deleted DOM node", "A failed import"],
+              "correctIndex": 1,
+              "explanation": "Functions created during a render close over that render's values. If synchronization is incorrect, an asynchronous callback can keep reading an outdated value."
+            },
+            {
+              "id": "react-interview-13",
+              "question": "What should cleanup from an Effect normally do?",
+              "options": [
+                "Reverse or cancel the resource created by the Effect",
+                "Force a page reload",
+                "Set every state variable to null",
+                "Delete React"
+              ],
+              "correctIndex": 0,
+              "explanation": "Cleanup should undo the external synchronization: unsubscribe, clear a timer, abort a request, remove a listener, and so on."
+            },
+            {
+              "id": "react-interview-14",
+              "question": "What does `useRef` return?",
+              "options": [
+                "A stable ref object whose current value can change without causing a render",
+                "A state setter",
+                "A reducer",
+                "A router"
+              ],
+              "correctIndex": 0,
+              "explanation": "A ref object persists across renders. Changing `.current` does not itself trigger a React render."
+            },
+            {
+              "id": "react-interview-15",
+              "question": "When is `useReducer` especially useful?",
+              "options": ["For every boolean", "For related state with explicit transitions", "Only for CSS", "Only for server components"],
+              "correctIndex": 1,
+              "explanation": "Reducers are useful when state transitions are related and can be expressed as explicit actions."
+            },
+            {
+              "id": "react-interview-16",
+              "question": "What is the main purpose of a custom Hook?",
+              "options": ["Create a new HTML tag", "Reuse stateful behavior", "Replace CSS", "Create a database"],
+              "correctIndex": 1,
+              "explanation": "Custom Hooks encapsulate reusable stateful behavior and can combine React's built-in Hooks."
+            },
+            {
+              "id": "react-interview-17",
+              "question": "Why must Hooks not be called conditionally?",
+              "options": [
+                "Because JSX cannot contain if statements",
+                "React relies on consistent Hook call order",
+                "Browsers do not support functions",
+                "Hooks only work in class components"
+              ],
+              "correctIndex": 1,
+              "explanation": "React associates Hook state with call order. Conditional calls can change that order between renders."
+            },
+            {
+              "id": "react-interview-18",
+              "question": "What does `useMemo` return?",
+              "options": ["A memoized calculation result", "A DOM node", "A network request", "A CSS module"],
+              "correctIndex": 0,
+              "explanation": "`useMemo` caches the result of a calculation until its dependencies change."
+            },
+            {
+              "id": "react-interview-19",
+              "question": "What does `useCallback` primarily memoize?",
+              "options": ["A function identity", "A database result", "A DOM tree", "A stylesheet"],
+              "correctIndex": 0,
+              "explanation": "`useCallback` returns a cached function reference based on its dependencies."
+            },
+            {
+              "id": "react-interview-20",
+              "question": "Which statement about memoization is best?",
+              "options": [
+                "Every component should use all memoization Hooks",
+                "Memoization should address measurable work or identity-sensitive boundaries",
+                "Memoization always makes applications faster",
+                "Memoization replaces profiling"
+              ],
+              "correctIndex": 1,
+              "explanation": "Memoization has a cost. It is most useful when it prevents meaningful work or stabilizes identity across an important boundary."
+            }
+          ],
+          "keyTakeaways": [
+            "Explain the underlying React model, not just the API name.",
+            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+          ]
+        },
+        {
+          "id": "state-and-async-architecture",
+          "title": "State Management & Async Operations",
+          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "interactiveQuiz": [
+            {
+              "id": "react-interview-21",
+              "question": "Where should state usually live?",
+              "options": [
+                "Always at the root",
+                "As close as possible to the components that need it",
+                "Always in Context",
+                "Always in Redux"
+              ],
+              "correctIndex": 1,
+              "explanation": "Keeping state close to its consumers minimizes unnecessary sharing and makes ownership easier to understand."
+            },
+            {
+              "id": "react-interview-22",
+              "question": "What is Context primarily useful for?",
+              "options": [
+                "Removing all state management",
+                "Passing shared values through a component tree without prop drilling",
+                "Replacing HTTP",
+                "Optimizing every render"
+              ],
+              "correctIndex": 1,
+              "explanation": "Context provides values to descendants without manually threading props through intermediate components."
+            },
+            {
+              "id": "react-interview-23",
+              "question": "Why can a single giant Context become problematic?",
+              "options": [
+                "Context cannot contain objects",
+                "Unrelated consumers can be coupled to the same changing value",
+                "Context only works with strings",
+                "It prevents JSX"
+              ],
+              "correctIndex": 1,
+              "explanation": "A large context can cause broad invalidation and makes unrelated state concerns depend on one provider value."
+            },
+            {
+              "id": "react-interview-24",
+              "question": "Which is an example of server state?",
+              "options": [
+                "Whether a modal is open",
+                "The currently selected tab",
+                "A cached list of products fetched from an API",
+                "Whether a button is hovered"
+              ],
+              "correctIndex": 2,
+              "explanation": "Server state is owned by a remote system and brings concerns such as caching, freshness, retries, and invalidation."
+            },
+            {
+              "id": "react-interview-25",
+              "question": "What is a key problem with naive fetching in Effects?",
+              "options": [
+                "JSX stops working",
+                "You must handle cancellation, races, loading, errors, and caching concerns yourself",
+                "HTTP cannot be used",
+                "Effects cannot call functions"
+              ],
+              "correctIndex": 1,
+              "explanation": "A basic Effect fetch can work, but production data fetching quickly requires lifecycle, caching, cancellation, and synchronization logic."
+            },
+            {
+              "id": "react-interview-26",
+              "question": "Does `fetch()` reject automatically for HTTP 404?",
+              "options": ["Yes, always", "No, you normally need to check `response.ok` or status", "Only in React", "Only for POST"],
+              "correctIndex": 1,
+              "explanation": "Fetch rejects for network-level failures, not ordinary HTTP error statuses such as 404 or 500."
+            },
+            {
+              "id": "react-interview-27",
+              "question": "Why can request cancellation matter when a component's input changes?",
+              "options": [
+                "It prevents CSS parsing",
+                "An older response can otherwise overwrite newer data",
+                "It disables React",
+                "It changes the browser URL"
+              ],
+              "correctIndex": 1,
+              "explanation": "If request A is slower than request B, A can finish later and overwrite B unless obsolete work is canceled or otherwise ignored."
+            },
+            {
+              "id": "react-interview-28",
+              "question": "What does Suspense provide?",
+              "options": [
+                "A database",
+                "A mechanism for fallback UI around Suspense-enabled work",
+                "Automatic authorization",
+                "A replacement for CSS"
+              ],
+              "correctIndex": 1,
+              "explanation": "Suspense coordinates fallback rendering around work that integrates with React's Suspense mechanism."
+            },
+            {
+              "id": "react-interview-29",
+              "question": "What is an Error Boundary for?",
+              "options": [
+                "Catching every JavaScript error everywhere",
+                "Isolating rendering errors in a descendant tree",
+                "Validating CSS",
+                "Replacing HTTP status codes"
+              ],
+              "correctIndex": 1,
+              "explanation": "Error boundaries provide fallback UI for errors thrown during rendering and related lifecycle work in descendants."
+            },
+            {
+              "id": "react-interview-30",
+              "question": "What is an async UI state machine useful for?",
+              "options": [
+                "Generating CSS",
+                "Representing valid loading, success, error, and related transitions explicitly",
+                "Removing all network requests",
+                "Replacing HTML"
+              ],
+              "correctIndex": 1,
+              "explanation": "Explicit state models prevent contradictory UI states and make asynchronous transitions easier to reason about."
+            }
+          ],
+          "keyTakeaways": [
+            "Explain the underlying React model, not just the API name.",
+            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+          ]
+        },
+        {
+          "id": "performance-and-architecture",
+          "title": "Performance & Architecture",
+          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "interactiveQuiz": [
+            {
+              "id": "react-interview-31",
+              "question": "What should you do before adding a performance optimization?",
+              "options": ["Add useMemo everywhere", "Measure or profile the bottleneck", "Rewrite the app", "Remove all state"],
+              "correctIndex": 1,
+              "explanation": "Profiling identifies whether the actual problem is rendering, computation, network, bundle size, layout, or another source."
+            },
+            {
+              "id": "react-interview-32",
+              "question": "What does `React.memo` attempt to avoid?",
+              "options": ["All state updates", "A child render when its props compare equal", "Network requests", "Browser painting"],
+              "correctIndex": 1,
+              "explanation": "`React.memo` can skip rendering a component when its incoming props are equal according to its comparison."
+            },
+            {
+              "id": "react-interview-33",
+              "question": "Why can inline object props defeat memoization?",
+              "options": [
+                "Objects cannot be passed as props",
+                "A newly created object has a new reference",
+                "React converts objects to strings",
+                "Memo only supports numbers"
+              ],
+              "correctIndex": 1,
+              "explanation": "Even if object contents are equal, a newly created object is a different reference, so shallow comparison sees a change."
+            },
+            {
+              "id": "react-interview-34",
+              "question": "What is virtualization used for?",
+              "options": [
+                "Encrypting lists",
+                "Reducing the number of DOM rows rendered for very large collections",
+                "Replacing keys",
+                "Caching images"
+              ],
+              "correctIndex": 1,
+              "explanation": "Virtualization renders only a visible window of a large collection, reducing DOM, layout, and rendering work."
+            },
+            {
+              "id": "react-interview-35",
+              "question": "What is code splitting?",
+              "options": [
+                "Removing JavaScript",
+                "Dividing application code into loadable chunks",
+                "Splitting CSS selectors",
+                "Splitting database tables"
+              ],
+              "correctIndex": 1,
+              "explanation": "Code splitting lets the application load only the JavaScript needed for a particular route or feature at a given time."
+            },
+            {
+              "id": "react-interview-36",
+              "question": "What is the main purpose of a React transition?",
+              "options": [
+                "Make an algorithm faster",
+                "Mark an update as non-urgent so urgent interactions can remain responsive",
+                "Create a CSS transition",
+                "Prevent all rerenders"
+              ],
+              "correctIndex": 1,
+              "explanation": "Transitions communicate update priority. They do not inherently make the underlying computation cheaper."
+            },
+            {
+              "id": "react-interview-37",
+              "question": "Does concurrent rendering mean React renders on multiple JavaScript threads?",
+              "options": [
+                "Yes, always",
+                "No; it is primarily about scheduling and interruptible rendering work",
+                "Only in Node.js",
+                "Only in Web Workers"
+              ],
+              "correctIndex": 1,
+              "explanation": "Concurrent React is about scheduling rendering work and responsiveness, not automatically running component functions on multiple threads."
+            },
+            {
+              "id": "react-interview-38",
+              "question": "Why is a frontend route guard not a security boundary?",
+              "options": [
+                "React has no router",
+                "Users can modify client code or call the backend directly",
+                "CSS can bypass it",
+                "Keys disable it"
+              ],
+              "correctIndex": 1,
+              "explanation": "Authorization must be enforced by the trusted backend because client code is under the user's control."
+            },
+            {
+              "id": "react-interview-39",
+              "question": "What makes a feature-oriented folder structure useful?",
+              "options": [
+                "It guarantees zero bugs",
+                "It groups code around ownership and business capabilities",
+                "It removes all shared code",
+                "It prevents testing"
+              ],
+              "correctIndex": 1,
+              "explanation": "Feature-oriented structure improves discoverability and ownership as applications grow."
+            },
+            {
+              "id": "react-interview-40",
+              "question": "What is a good design-system component API generally optimized for?",
+              "options": [
+                "Maximum number of props",
+                "Consistent semantics, behavior, and composability",
+                "Avoiding HTML",
+                "Making every component global"
+              ],
+              "correctIndex": 1,
+              "explanation": "A design system should encode reliable interaction and visual contracts while remaining composable rather than becoming a giant prop matrix."
+            }
+          ],
+          "keyTakeaways": [
+            "Explain the underlying React model, not just the API name.",
+            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+          ]
+        },
+        {
+          "id": "senior-real-world-scenarios",
+          "title": "Senior Real-World Scenarios",
+          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "interactiveQuiz": [
+            {
+              "id": "react-interview-41",
+              "question": "A search page becomes sluggish while typing because a large result table rerenders. What is the most React-aligned first approach?",
+              "options": [
+                "Block typing until the table finishes",
+                "Separate urgent input state from non-urgent result rendering",
+                "Put everything in one Effect",
+                "Disable React Strict Mode"
+              ],
+              "correctIndex": 1,
+              "explanation": "Keeping the input responsive while deferring expensive result rendering is a good use case for transitions or deferred values."
+            },
+            {
+              "id": "react-interview-42",
+              "question": "A component calculates `fullName` from `firstName` and `lastName` in an Effect and stores it in state. What is the better design?",
+              "options": ["Add a second Effect", "Calculate fullName during render", "Move it to localStorage", "Use a ref"],
+              "correctIndex": 1,
+              "explanation": "A derived value does not need an Effect. Calculating it during render avoids redundant state and synchronization."
+            },
+            {
+              "id": "react-interview-43",
+              "question": "A list item has local input state, and the list is reordered. Which key choice best preserves each item's identity?",
+              "options": ["Array index", "Random number generated each render", "Stable item ID", "Item's current position as a string"],
+              "correctIndex": 2,
+              "explanation": "A stable data ID tracks the item across reordering. Indexes track positions and can associate state with the wrong item after changes."
+            },
+            {
+              "id": "react-interview-44",
+              "question": "An Effect subscribes to a WebSocket and omits the URL prop from its dependency list to avoid reconnecting. What is the real issue?",
+              "options": [
+                "The URL cannot be a prop",
+                "The Effect can keep synchronizing with a stale URL",
+                "React forbids WebSockets",
+                "The component must be a class"
+              ],
+              "correctIndex": 1,
+              "explanation": "Removing a reactive dependency to control frequency can make the Effect incorrect. The synchronization design should be fixed instead."
+            },
+            {
+              "id": "react-interview-45",
+              "question": "A team stores every API response in Redux, including cached product lists with expiration requirements. What architectural concern should they consider?",
+              "options": [
+                "Redux cannot store arrays",
+                "Server state has caching and synchronization semantics that a dedicated server-state layer may handle better",
+                "React cannot read Redux",
+                "APIs should be replaced by Context"
+              ],
+              "correctIndex": 1,
+              "explanation": "Server state often needs caching, invalidation, deduplication, retries, and freshness policies that are better modeled explicitly."
+            },
+            {
+              "id": "react-interview-46",
+              "question": "A modal opens, but keyboard focus remains behind it. Which concern is missing?",
+              "options": ["List keys", "Focus management and accessible dialog behavior", "Memoization", "Code splitting"],
+              "correctIndex": 1,
+              "explanation": "Accessible dialogs need predictable focus movement, keyboard behavior, naming, and often focus restoration."
+            },
+            {
+              "id": "react-interview-47",
+              "question": "A developer wraps every callback in `useCallback` but profiling shows no improvement. What is the best conclusion?",
+              "options": [
+                "The app needs more useCallback",
+                "The memoization may not address a real bottleneck and should be reconsidered",
+                "useCallback is broken",
+                "All state should be removed"
+              ],
+              "correctIndex": 1,
+              "explanation": "Memoization is not inherently beneficial. If it does not remove meaningful work or stabilize a necessary boundary, it adds complexity without value."
+            },
+            {
+              "id": "react-interview-48",
+              "question": "A server-rendered page sometimes produces hydration warnings because it displays `new Date()` directly during render. Why?",
+              "options": [
+                "Dates are not allowed in JSX",
+                "Server and client can produce different values",
+                "React cannot render strings",
+                "Hydration only works for images"
+              ],
+              "correctIndex": 1,
+              "explanation": "The server and browser can render at different times, so the generated timestamp may differ and produce mismatched markup."
+            },
+            {
+              "id": "react-interview-49",
+              "question": "A protected React route hides an admin button for non-admin users, but the API accepts the same admin request from a modified client. What is wrong?",
+              "options": [
+                "The button needs useMemo",
+                "Authorization is missing at the trusted backend boundary",
+                "Context should be used",
+                "The route needs a different key"
+              ],
+              "correctIndex": 1,
+              "explanation": "UI checks improve experience but cannot enforce security. The backend must validate the user's authorization for the operation."
+            },
+            {
+              "id": "react-interview-50",
+              "question": "A component has 900 lines containing fetching, validation, formatting, analytics, navigation, and rendering. What is the strongest architectural direction?",
+              "options": [
+                "Add more comments only",
+                "Separate meaningful domain and integration responsibilities while keeping the component focused on UI behavior",
+                "Move everything into one global Context",
+                "Convert every function to useMemo"
+              ],
+              "correctIndex": 1,
+              "explanation": "Large components become difficult to test and change when unrelated responsibilities are coupled. Extract meaningful boundaries based on domain ownership."
+            }
+          ],
+          "keyTakeaways": [
+            "Explain the underlying React model, not just the API name.",
+            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+          ]
+        }
+      ]
+    }
+  ]
+}
