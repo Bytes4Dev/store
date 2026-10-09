@@ -1,93 +1,71 @@
 [
   {
     course: "HTML",
-    description:
-      "A structured HTML course for beginners, working developers and interview preparation. Learn HTML through a small number of progressive stages with detailed explanations, practical examples, common mistakes, accessibility guidance, real-world workflows and interview questions.",
-    keywords:
-      "HTML, HTML tutorial, HTML course, HTML interview questions, semantic HTML, accessibility, HTML forms, responsive images, SEO, HTML5, web development, beginner HTML, advanced HTML",
+    description: `A comprehensive HTML course covering document structure, text, links, media, semantics, tables, forms, accessibility, metadata, interactive HTML, browser behavior, performance, security, graphics, Web Components, internationalization, standards-aware development, practical projects and 100 interview questions.`,
+    keywords: `HTML, HTML tutorial, HTML course, HTML interview questions, semantic HTML, accessibility, HTML forms, responsive images, SEO, HTML5, web development, beginner HTML, advanced HTML, DOM, Web Components, SVG, Canvas`,
     id: "HTMLTags",
     title: "HTML Complete Course",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;background:#fff;color:#292631;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="font-size:17px;margin:0 0 10px;">This course is designed to work for three situations: learning HTML properly for the first time, refreshing HTML as an experienced developer, and preparing for an interview at short notice. The goal is understanding rather than memorizing dozens of isolated tags.</p>
-<p style="margin:0;"><strong>Learning principle:</strong> understand the meaning of an element, see a realistic example, learn the common mistake, and then use the concept in a small project.</p>
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:34px;">HTML Complete Course</h2>
+<p style="font-size:17px;color:#4c4852;margin:0 0 12px;">A complete, progressive HTML course for beginners, working developers and interview preparation. Every major topic is taught through multiple lesson blocks: explanation → example → why it matters → common mistake → practice.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:13px 16px;border-radius:7px;"><strong>Learning rule:</strong> Do not memorize tags in isolation. Understand what problem each element solves, type the examples yourself, change them, inspect the DOM, and explain your choices.</div>
 </div>
 <div style="background:#fff;border:1px solid #e7e3df;border-radius:12px;padding:24px 28px;margin-bottom:22px;">
-<h2 style="color:#5d4e86;margin-top:0;">Choose Your Mode</h2>
-<ul>
-<li><strong>New learner:</strong> follow sections 1–6 in order, then complete accessibility and the practical projects.</li>
-<li><strong>Regular developer:</strong> skim the fundamentals and spend more time on forms, accessibility, metadata, media, browser behavior and performance.</li>
-<li><strong>Last-minute interview:</strong> review the Focus box of each section, study the examples, then go directly to the final 56 questions.</li>
-<li><strong>Experienced developer:</strong> use the advanced section to refresh parsing, content models, loading, security, templates and browser behavior.</li>
-</ul>
+<h2 style="color:#5d4e86;margin-top:0;">Who this is for</h2><ul style="color:#4c4852;"><li>New learners who want a structured HTML foundation.</li><li>Frontend developers who need a deeper browser, accessibility and performance refresher.</li><li>MERN/React developers who want strong HTML fundamentals behind component-based UI.</li><li>Interview candidates preparing from beginner through senior-level HTML questions.</li><li>Experienced developers who want a standards-aware checklist for production HTML.</li></ul>
 </div>
 <div style="background:#fff;border:1px solid #e7e3df;border-radius:12px;padding:24px 28px;">
 <h2 style="color:#5d4e86;margin-top:0;">Roadmap</h2>
-<ol><li>HTML Foundations & Document Structure</li><li>Text, Links, Lists & Navigation</li><li>Images, Responsive Images & Media</li><li>Semantic HTML & Page Architecture</li><li>Tables & Accessible Tabular Data</li><li>Forms, Controls & Validation</li><li>Accessibility, Keyboard Support & ARIA</li><li>Head, Metadata, SEO & Structured Information</li><li>Modern Interactive HTML</li><li>Advanced HTML: DOM, Loading, Performance & Security</li><li>Practical Workflow, Debugging & Revision</li><li>Interview questions — Beginner → Intermediate → Advanced → Expert</li></ol>
+<ol style="color:#4c4852;"><li>1. HTML Foundations & Document Structure</li><li>2. Text, Links, Lists & Navigation</li><li>3. Images, Responsive Images & Media</li><li>4. Semantic HTML & Page Architecture</li><li>5. Tables & Accessible Tabular Data</li><li>6. Forms, Controls & Validation</li><li>7. Accessibility, Keyboard Support & ARIA</li><li>8. Head, Metadata, SEO & Structured Information</li><li>9. Modern Interactive HTML</li><li>10. Advanced HTML: DOM, Loading, Performance & Security</li><li>11. SVG, Canvas, MathML & Graphics in HTML</li><li>12. Web Components, Templates & Reusable HTML</li><li>13. Internationalization, Language, Direction & Specialized Content</li><li>14. Deprecated HTML, Compatibility & Standards-Aware Development</li><li>15. Practical Projects, Debugging, Review & Production Checklist</li><li>16. HTML Interview Preparation — 100 Questions & Answers</li></ol>
 </div>
-<div style="background:#fbf8ef;border-left:4px solid #c79a4a;padding:15px 17px;border-radius:8px;margin:22px 0 0;">
-<strong>How to study:</strong> First read the explanation, then type the example yourself, change one part of it, and explain the result in your own words. For interviews, use the examples to build your answer instead of memorizing definitions.
-</div>
+<div style="background:#fbf8ef;border-left:4px solid #c79a4a;padding:15px 17px;border-radius:8px;margin:22px 0 0;"><strong>Study workflow:</strong> Read → type → modify → inspect → test with keyboard → validate → explain. After every major stage, build a small project rather than immediately moving to the next list of tags.</div>
 </div>`,
     contents: [],
   },
   {
     id: "htmlFoundations",
     title: "1. HTML Foundations & Document Structure",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Build the mental model first. Understand what HTML is, how a browser reads it, and how elements, attributes, nesting and document structure fit together.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> You should be able to write a clean HTML document from memory and explain every major line in it.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">1. Elements, Tags and Content</h2>
-      <p style="color:#4c4852;">An <strong>element</strong> is the complete construct, while tags are the markup that starts and ends many elements. Learn opening tags, closing tags, element content, attributes and nesting.</p>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p class="intro"&gt;Hello HTML&lt;/p&gt;</code></pre>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">2. Void Elements</h2>
-      <p style="color:#4c4852;">Learn elements that do not contain child content, such as <code>&lt;img&gt;</code>, <code>&lt;br&gt;</code>, <code>&lt;hr&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;meta&gt;</code>, <code>&lt;link&gt;</code> and <code>&lt;source&gt;</code>. Do not invent closing tags for them.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">3. Correct Nesting</h2>
-      <p style="color:#4c4852;">Elements should be nested according to the HTML rules. Avoid crossing structures such as opening one element, opening another, and closing them in the wrong order.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">4. DOCTYPE and Standards Mode</h2>
-      <p style="color:#4c4852;">Start normal HTML documents with <code>&lt;!doctype html&gt;</code>. Its modern purpose is to trigger standards mode rather than the historical long doctypes used by older HTML and XHTML versions.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">5. The Basic Document</h2>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!doctype html&gt;
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">1. HTML Foundations & Document Structure</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Build the mental model before memorizing tags. Learn how source markup becomes a document, how elements are nested, and what the browser expects from a modern HTML document.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Write a valid document from memory and explain every major line.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">1.1 What HTML actually is</h2>
+<p style="color:#4c4852;">HTML is a markup language for describing the structure and meaning of a document. It is not a programming language and it is not the styling layer. Browsers parse HTML into a document tree that CSS and JavaScript can work with.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Separating structure, presentation and behavior makes pages easier to maintain and more accessible.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;h1&gt;Developer Portfolio&lt;/h1&gt;
+&lt;p&gt;I build web applications.&lt;/p&gt;</code></pre></div><div style="background:#fff5f3;border-left:4px solid #c56b55;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Common mistake:</strong> Thinking of HTML as “a list of tags that make things look right.” Visual appearance is primarily CSS’s job.</div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">1.2 Elements, tags, content and nesting</h2>
+<p style="color:#4c4852;">An element is the complete construct; tags are the markup syntax used by many elements. Elements can contain text, other elements, or both. Nesting must form a valid hierarchy.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p class="intro"&gt;Hello &lt;strong&gt;HTML&lt;/strong&gt;&lt;/p&gt;</code></pre></div><div style="background:#f7f5f1;border-left:4px solid #c79a4a;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Practice:</strong> Take the example and add an emphasized word inside the strong element, then explain which element is the parent and which is the child.</div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">1.3 Void elements</h2>
+<p style="color:#4c4852;">Void elements do not have closing tags because they cannot contain child content. Common examples include img, input, br, hr, meta, link, source, track, area and base.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Understanding void elements prevents malformed markup and helps distinguish HTML syntax from XML-style syntax.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;img src="avatar.jpg" alt="Profile photo" width="160" height="160"&gt;
+&lt;input type="email" name="email"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">1.4 DOCTYPE, html, head and body</h2>
+<p style="color:#4c4852;">The modern doctype is short and primarily switches browsers into standards mode. The html element is the document root; head contains metadata and resource relationships; body contains document content.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Standards mode avoids legacy browser quirks and the lang declaration helps assistive technology and language-aware tools.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!doctype html&gt;
 &lt;html lang="en"&gt;
   &lt;head&gt;
     &lt;meta charset="utf-8"&gt;
-    &lt;title&gt;My Page&lt;/title&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+    &lt;title&gt;My page&lt;/title&gt;
   &lt;/head&gt;
   &lt;body&gt;
     &lt;h1&gt;Hello&lt;/h1&gt;
   &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-      <p style="color:#4c4852;">Understand what belongs in <code>&lt;head&gt;</code> versus what belongs in <code>&lt;body&gt;</code>, and why the <code>lang</code> attribute is important for accessibility and language-aware software.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Comments</h2>
-      <p style="color:#4c4852;">Use <code>&lt;!-- comment --&gt;</code> for notes that should not be rendered as page content. Do not put secrets, passwords or API keys in comments because comments are still delivered to the browser.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Character References</h2>
-      <p style="color:#4c4852;">Learn named and numeric character references when markup characters need to appear as text, such as <code>&amp;lt;</code>, <code>&amp;gt;</code>, <code>&amp;amp;</code>, <code>&amp;quot;</code> and numeric references.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Unicode and Encoding</h2>
-      <p style="color:#4c4852;">Understand UTF-8, why <code>&lt;meta charset="utf-8"&gt;</code> belongs early in the document head, and how encoding mistakes can produce broken characters.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Whitespace</h2>
-      <p style="color:#4c4852;">HTML source whitespace is generally collapsed in normal phrasing content. Use CSS for layout and <code>&lt;pre&gt;</code> when preserving text formatting is part of the content.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Attributes configure elements and expose information or behavior to the browser.</p>
-      <ul>
-        <li>Learn attribute syntax: <code>name="value"</code>, spacing between attributes, quoting and case conventions.</li>
-        <li>Understand common attributes such as <code>id</code>, <code>class</code>, <code>title</code>, <code>style</code>, <code>lang</code>, <code>dir</code> and <code>hidden</code>.</li>
-        <li>Understand URL attributes such as <code>href</code>, <code>src</code>, <code>action</code> and <code>poster</code>.</li>
-        <li>Learn Boolean attributes such as <code>disabled</code>, <code>checked</code>, <code>required</code>, <code>multiple</code>, <code>autofocus</code> and <code>readonly</code>.</li>
-        <li>Learn enumerated attributes and why strings that look true or false do not always behave like JavaScript booleans.</li>
-        <li>Understand attribute reflection conceptually: many HTML attributes correspond to properties on DOM objects.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;input type="email" name="email" required autocomplete="email"&gt;</code></pre>
-</section>
-</div>`,
+&lt;/html&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">1.5 Attributes and attribute values</h2>
+<p style="color:#4c4852;">Attributes configure elements. Learn quoted values, boolean attributes, global attributes, URL-valued attributes and the difference between an HTML attribute and a live DOM property.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Boolean attributes are presence-based: required="false" still means required because the attribute exists.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;input type="email" name="email" required autocomplete="email"&gt;
+&lt;button type="button" disabled&gt;Unavailable&lt;/button&gt;</code></pre></div><div style="background:#fff5f3;border-left:4px solid #c56b55;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Common mistake:</strong> Treating every attribute value as a JavaScript boolean.</div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">1.6 Comments, whitespace and character references</h2>
+<p style="color:#4c4852;">Comments are source notes and are still delivered to the browser, so they are not a place for secrets. Normal HTML whitespace in phrasing content is generally collapsed. Character references let markup characters appear as text.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!-- Internal note: this section is temporary --&gt;
+&lt;p&gt;Use &amp;lt;strong&amp;gt; for strong importance.&lt;/p&gt;</code></pre></div><div style="background:#f7f5f1;border-left:4px solid #c79a4a;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Practice:</strong> Write examples containing <, >, &, quotes and multiple spaces. Explain which characters need references and why.</div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">1.7 Encoding and Unicode</h2>
+<p style="color:#4c4852;">UTF-8 can represent the characters used by most modern web content. Put the charset declaration early in the head so the browser can decode the document correctly.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;meta charset="utf-8"&gt;
+&lt;p&gt;தமிழ் · हिन्दी · 日本語 · العربية · 😀&lt;/p&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">1.8 Global attributes</h2>
+<p style="color:#4c4852;">Global attributes can apply to many HTML elements. Know id, class, title, lang, dir, hidden, inert, data-*, contenteditable, draggable, spellcheck, translate, tabindex and accesskey, including when not to use them.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Global attributes are powerful, but adding them without a semantic reason can create confusing behavior.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p id="intro" class="lead" lang="en" data-topic="html"&gt;Welcome.&lt;/p&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">You should now understand the document as a structured tree rather than a visual canvas.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Create a standards-mode document without copying a template.</li><li>Explain head versus body.</li><li>Explain boolean attributes.</li><li>Identify void elements.</li><li>Explain why comments cannot protect secrets.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Create a personal profile page containing a title, metadata, headings, paragraphs, a list and an image. Inspect the resulting DOM in DevTools.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlFoundations_1",
@@ -99,57 +77,51 @@
   {
     id: "htmlContentNavigation",
     title: "2. Text, Links, Lists & Navigation",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Learn to express content meaningfully and build navigation that remains understandable without relying on CSS or JavaScript.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Practice choosing the correct element before thinking about its visual appearance.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Master content-oriented text elements instead of styling everything with generic containers.</p>
-      <ul>
-        <li><code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code> for document headings.</li>
-        <li><code>&lt;p&gt;</code> for paragraphs and <code>&lt;br&gt;</code> only where a line break is actually meaningful.</li>
-        <li><code>&lt;strong&gt;</code> for strong importance and <code>&lt;em&gt;</code> for stress emphasis.</li>
-        <li><code>&lt;mark&gt;</code> for highlighted relevance, <code>&lt;small&gt;</code> for side comments or fine print, and <code>&lt;s&gt;</code> for content no longer accurate.</li>
-        <li><code>&lt;del&gt;</code> and <code>&lt;ins&gt;</code> for editorial changes; <code>&lt;sub&gt;</code> and <code>&lt;sup&gt;</code> for subscripts and superscripts.</li>
-        <li><code>&lt;code&gt;</code>, <code>&lt;kbd&gt;</code>, <code>&lt;samp&gt;</code> and <code>&lt;var&gt;</code> for technical text.</li>
-        <li><code>&lt;pre&gt;</code> for preformatted text and preserving whitespace patterns.</li>
-        <li><code>&lt;abbr&gt;</code> for abbreviations, <code>&lt;cite&gt;</code> for references to works, <code>&lt;q&gt;</code> for short inline quotations and <code>&lt;dfn&gt;</code> for terms being defined.</li>
-        <li><code>&lt;time&gt;</code> for machine-readable dates and times using <code>datetime</code>.</li>
-      </ul>
-      <p style="color:#4c4852;">Learn when an element communicates meaning and when CSS should handle visual presentation.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">The <code>&lt;a&gt;</code> element is one of HTML's most important interactive elements. Learn both the markup and the URL model behind it.</p>
-      <ul>
-        <li>Absolute URLs versus relative URLs.</li>
-        <li>Root-relative paths such as <code>/images/logo.png</code> and document-relative paths such as <code>../assets/app.css</code>.</li>
-        <li>Fragments such as <code>#pricing</code> and linking to an element with a matching <code>id</code>.</li>
-        <li>Protocols such as <code>https:</code>, <code>mailto:</code>, <code>tel:</code> and other valid URL schemes.</li>
-        <li><code>target="_blank"</code>, tab behavior, and when <code>rel="noopener"</code> is appropriate.</li>
-        <li><code>download</code>, <code>hreflang</code>, <code>type</code>, <code>referrerpolicy</code> and link relationship values.</li>
-        <li>Navigation menus, skip links and meaningful link text instead of vague labels such as “click here”.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;a href="/docs/accessibility#forms"&gt;Form accessibility guide&lt;/a&gt;</code></pre>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Choose list structures based on the meaning of the content.</p>
-      <ul>
-        <li><code>&lt;ul&gt;</code> for unordered collections.</li>
-        <li><code>&lt;ol&gt;</code> for ordered sequences where the order is meaningful.</li>
-        <li><code>&lt;li&gt;</code> for individual list items inside <code>ul</code> or <code>ol</code>.</li>
-        <li><code>start</code>, <code>reversed</code> and <code>type</code> for ordered lists when there is a real semantic need.</li>
-        <li><code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code> and <code>&lt;dd&gt;</code> for name-value or term-description relationships. These are not limited to dictionaries.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;dl&gt;
-  &lt;dt&gt;HTTP&lt;/dt&gt;
-  &lt;dd&gt;The protocol used to transfer resources on the web.&lt;/dd&gt;
-&lt;/dl&gt;</code></pre>
-</section>
-</div>`,
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">2. Text, Links, Lists & Navigation</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Learn the vocabulary of documents and the URL model behind links. The goal is semantic content that remains meaningful even before CSS is applied.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Choose elements based on meaning rather than their default appearance.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">2.1 Headings and document hierarchy</h2>
+<p style="color:#4c4852;">Use h1–h6 to express heading levels. Heading level is a structural relationship, not simply a font-size choice. A page can have one main topic and many nested subsections.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Headings help readers scan content and help assistive technology expose a useful outline.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;h1&gt;HTML Course&lt;/h1&gt;
+&lt;h2&gt;Forms&lt;/h2&gt;
+&lt;h3&gt;Validation&lt;/h3&gt;
+&lt;h2&gt;Accessibility&lt;/h2&gt;</code></pre></div><div style="background:#fff5f3;border-left:4px solid #c56b55;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Common mistake:</strong> Choosing h4 because it “looks the right size” and then using CSS to fix the hierarchy.</div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">2.2 Paragraphs, line breaks and thematic breaks</h2>
+<p style="color:#4c4852;">Use p for paragraphs. Use br when a line break is part of the content, such as an address or poem, not as a spacing tool. hr represents a thematic break between topics.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p&gt;Line one&lt;br&gt;Line two&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;A new topic starts here.&lt;/p&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">2.3 Inline semantics</h2>
+<p style="color:#4c4852;">Strong conveys strong importance; em conveys stress emphasis; mark highlights relevance; small is for side comments or fine print; s marks content that is no longer accurate. Use del/ins for editorial changes and sub/sup for subscripts and superscripts.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p&gt;&lt;strong&gt;Important:&lt;/strong&gt; Back up your data.&lt;/p&gt;
+&lt;p&gt;Water is H&lt;sub&gt;2&lt;/sub&gt;O.&lt;/p&gt;
+&lt;p&gt;2&lt;sup&gt;10&lt;/sup&gt; = 1024.&lt;/p&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">2.4 Technical text and quotations</h2>
+<p style="color:#4c4852;">Use code for code fragments, kbd for user input, samp for program output, var for variables, pre for preserved whitespace, q for short quotations, blockquote for longer quotations, cite for the title of a work, abbr for abbreviations and dfn when defining a term.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p&gt;Run &lt;code&gt;npm test&lt;/code&gt; in the terminal.&lt;/p&gt;
+&lt;p&gt;Press &lt;kbd&gt;Ctrl&lt;/kbd&gt; + &lt;kbd&gt;C&lt;/kbd&gt;.&lt;/p&gt;
+&lt;blockquote cite="https://example.com/article"&gt;A short quoted passage.&lt;/blockquote&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">2.5 Links and the URL model</h2>
+<p style="color:#4c4852;">The a element creates hyperlinks. Understand absolute, root-relative and document-relative URLs, fragments, URL schemes and query strings.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Good link text tells users what they will reach. A URL is data with structure, not merely a string to paste into href.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;a href="/docs/forms#validation?mode=basic"&gt;Form validation&lt;/a&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">2.6 Link targets and relationships</h2>
+<p style="color:#4c4852;">target controls where navigation occurs. When opening a new browsing context, understand rel values such as noopener, noreferrer and external. Use download only when a resource should be offered as a download and the browser permits it.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> New-window behavior should be intentional and understandable.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;a href="https://example.com" target="_blank" rel="noopener"&gt;External documentation&lt;/a&gt;</code></pre></div><div style="background:#fff5f3;border-left:4px solid #c56b55;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Common mistake:</strong> Using target="_blank" everywhere without considering user expectations or relationship metadata.</div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">2.7 Lists</h2>
+<p style="color:#4c4852;">Use ul for unordered collections, ol when sequence matters, and dl for term-description or name-value relationships. Ordered lists support start, reversed and type when those semantics are genuinely needed.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;ol&gt;
+  &lt;li&gt;Install dependencies&lt;/li&gt;
+  &lt;li&gt;Run tests&lt;/li&gt;
+  &lt;li&gt;Deploy&lt;/li&gt;
+&lt;/ol&gt;
+&lt;dl&gt;&lt;dt&gt;HTTP&lt;/dt&gt;&lt;dd&gt;A protocol for transferring resources.&lt;/dd&gt;&lt;/dl&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">2.8 Navigation and skip links</h2>
+<p style="color:#4c4852;">Navigation is usually a group of important links. A skip link lets keyboard users bypass repeated navigation and move directly to main content.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Skip links solve a real keyboard-navigation problem without requiring custom JavaScript.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;a href="#main" class="skip-link"&gt;Skip to main content&lt;/a&gt;
+&lt;nav aria-label="Primary"&gt;
+  &lt;a href="/"&gt;Home&lt;/a&gt;
+  &lt;a href="/docs"&gt;Docs&lt;/a&gt;
+&lt;/nav&gt;
+&lt;main id="main"&gt;...&lt;/main&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">You should be able to read a page as a meaningful document even if all CSS is removed.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Build a correct heading hierarchy.</li><li>Explain a relative URL and a fragment.</li><li>Choose ul, ol or dl intentionally.</li><li>Use native links instead of clickable divs.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Build a documentation page with a sidebar navigation, skip link, headings, code samples, ordered steps and a glossary using dl.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlContentNavigation_1",
@@ -161,56 +133,65 @@
   {
     id: "htmlMedia",
     title: "3. Images, Responsive Images & Media",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Learn when and how to use images, responsive image candidates, audio, video, captions and media fallbacks without adding unnecessary complexity.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Be able to explain alt text, srcset, sizes, picture, loading and captions in a real project.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Learn <code>&lt;img&gt;</code> as a semantic content element, not just a way to place pictures on a page.</p>
-      <ul>
-        <li><code>src</code>, <code>alt</code>, <code>width</code>, <code>height</code>, <code>loading</code>, <code>decoding</code> and <code>fetchpriority</code>.</li>
-        <li>Use meaningful <code>alt</code> text for informative images and <code>alt=""</code> for purely decorative images where appropriate.</li>
-        <li>Reserve <code>&lt;figure&gt;</code> and <code>&lt;figcaption&gt;</code> for independent content that benefits from a caption.</li>
-        <li>Understand replaced elements and why dimensions can help the browser reserve space and reduce layout movement.</li>
-        <li>Learn image licensing basics, hotlinking concerns, and why production sites should normally host assets they are permitted to use.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;figure&gt;
-  &lt;img src="team.jpg" alt="Three engineers discussing a design" width="900" height="600"&gt;
-  &lt;figcaption&gt;The team during the design review.&lt;/figcaption&gt;
-&lt;/figure&gt;</code></pre>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Learn how HTML can let the browser choose an appropriate image resource instead of sending one large image to every device.</p>
-      <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">srcset + sizes</h3>
-      <p style="color:#4c4852;">Use width descriptors such as <code>400w</code> and <code>800w</code> with <code>sizes</code> to describe available image widths and the expected display width.</p>
-      <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">picture + source</h3>
-      <p style="color:#4c4852;">Use <code>&lt;picture&gt;</code> for art direction or format selection. The fallback <code>&lt;img&gt;</code> remains essential.</p>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;picture&gt;
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">3. Images, Responsive Images, Audio, Video & Embedded Content</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Learn how media affects semantics, accessibility, bandwidth and layout. Production HTML should give the browser enough information to choose sensible resources.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Be able to explain alt text, dimensions, srcset, sizes, picture, captions, loading and media fallbacks.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.1 img fundamentals</h2>
+<p style="color:#4c4852;">img is a replaced element that embeds an image resource. src identifies the resource; alt supplies a text alternative when appropriate; width and height communicate intrinsic dimensions and help reserve layout space.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Dimensions can reduce layout movement because the browser can reserve the expected aspect ratio before the image arrives.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;img src="team.jpg" alt="Three engineers reviewing a design" width="900" height="600"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.2 Writing useful alt text</h2>
+<p style="color:#4c4852;">Informative images need concise text alternatives that communicate the relevant purpose. Decorative images can use alt="". Do not describe every visual detail if it does not matter to the surrounding content.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> The correct alt depends on context. The same image may need different alternatives in different pages.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;img src="chart.png" alt="Revenue increased from ₹4.2 lakh in Q1 to ₹5.1 lakh in Q2"&gt;</code></pre></div><div style="background:#fff5f3;border-left:4px solid #c56b55;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Common mistake:</strong> Writing “image of” for every image or repeating text that is already present beside the image.</div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.3 figure and figcaption</h2>
+<p style="color:#4c4852;">Use figure when content is self-contained or independently referenced and a caption adds useful context. It can contain images, code, diagrams or other content.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;figure&gt;
+  &lt;img src="architecture.png" alt="Three-tier application architecture" width="1200" height="700"&gt;
+  &lt;figcaption&gt;Application architecture used by the platform.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.4 Responsive images with srcset and sizes</h2>
+<p style="color:#4c4852;">srcset lets the browser choose among candidate resources. Width descriptors such as 400w describe intrinsic resource widths. sizes tells the browser how wide the image is expected to display under different viewport conditions.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Responsive images can save bandwidth on smaller displays while still serving sharp assets to larger displays.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;img
+  src="card-800.jpg"
+  srcset="card-400.jpg 400w, card-800.jpg 800w, card-1200.jpg 1200w"
+  sizes="(max-width: 700px) 100vw, 50vw"
+  alt="Product dashboard"
+  width="1200"
+  height="800"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.5 picture and art direction</h2>
+<p style="color:#4c4852;">picture is useful when the actual composition should change at a breakpoint or when you want source selection by media condition or image format. The img element remains the fallback and carries the alternative text.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;picture&gt;
   &lt;source media="(min-width: 900px)" srcset="hero-wide.webp"&gt;
+  &lt;source srcset="hero-mobile.webp"&gt;
   &lt;img src="hero-mobile.jpg" alt="Mountain landscape" width="800" height="600"&gt;
-&lt;/picture&gt;</code></pre>
-      <p style="color:#4c4852;">Also understand format fallbacks, intrinsic dimensions, lazy loading and how responsive media affects bandwidth and performance.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Use HTML media elements when the browser should present or control audio and video content.</p>
-      <ul>
-        <li><code>&lt;audio&gt;</code> and <code>&lt;video&gt;</code> with <code>controls</code>, <code>autoplay</code>, <code>muted</code>, <code>loop</code>, <code>poster</code> and sizing attributes.</li>
-        <li><code>&lt;source&gt;</code> for multiple media files and codec fallbacks.</li>
-        <li><code>&lt;track&gt;</code> with WebVTT for captions, subtitles, descriptions and other timed text tracks.</li>
-        <li>Why autoplay is commonly restricted and why muted autoplay is treated differently by browsers.</li>
-        <li>Accessibility: captions, transcripts, controls, keyboard access, visible alternatives and meaningful fallback text.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;video controls poster="cover.jpg" width="960" height="540"&gt;
+&lt;/picture&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.6 Loading and fetch hints for images</h2>
+<p style="color:#4c4852;">loading="lazy" can defer off-screen images. decoding can provide a hint about decoding strategy. fetchpriority can express relative importance when supported. These are hints, not commands, so measure real performance.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Do not lazy-load content that is immediately visible and important to the initial view without measuring the impact.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;img src="hero.jpg" alt="Product overview" width="1600" height="900" fetchpriority="high"&gt;
+&lt;img src="gallery-1.jpg" alt="Gallery item" width="800" height="600" loading="lazy"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.7 Audio and video</h2>
+<p style="color:#4c4852;">audio and video provide native media playback. Understand controls, muted, autoplay, loop, poster, preload, source fallbacks and accessible alternatives.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;video controls poster="cover.jpg" width="960" height="540"&gt;
   &lt;source src="lesson.webm" type="video/webm"&gt;
   &lt;source src="lesson.mp4" type="video/mp4"&gt;
+  Your browser does not support this video.
+&lt;/video&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.8 Captions, subtitles and transcripts</h2>
+<p style="color:#4c4852;">track connects timed text such as subtitles, captions, descriptions and metadata. Captions are especially important when speech or meaningful audio is part of the experience.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> A transcript is often useful even when a timed track exists because it provides a searchable, copyable text representation.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;video controls&gt;
+  &lt;source src="lesson.mp4" type="video/mp4"&gt;
   &lt;track src="lesson-en.vtt" kind="subtitles" srclang="en" label="English" default&gt;
-&lt;/video&gt;</code></pre>
-</section>
-</div>`,
+&lt;/video&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.9 iframe and embedded documents</h2>
+<p style="color:#4c4852;">iframe embeds another browsing context. Understand src, title, loading, sandbox, referrerpolicy and permission-related attributes. Give iframes a useful title and avoid embedding untrusted content without appropriate isolation.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> An iframe can have a different security and origin context from the parent page; sandboxing can reduce capabilities.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;iframe
+  src="https://example.com/widget"
+  title="Weather widget"
+  loading="lazy"
+  sandbox="allow-scripts"&gt;
+&lt;/iframe&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">3.10 object, embed, map and area</h2>
+<p style="color:#4c4852;">object and embed support embedded external resources but are less common in modern application UI. map and area create image maps for interactive regions. Know them as part of the platform, while recognizing when simpler links or SVG are better choices.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;img src="office-map.png" alt="Office floor map" usemap="#office"&gt;
+&lt;map name="office"&gt;
+  &lt;area shape="rect" coords="0,0,200,150" href="/rooms/1" alt="Meeting room 1"&gt;
+&lt;/map&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">Media markup is successful when the browser can select an appropriate resource and users can understand the content without depending on visual presentation alone.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Write meaningful alt text.</li><li>Explain srcset versus picture.</li><li>Know when lazy loading helps.</li><li>Provide captions or alternatives for media.</li><li>Give embedded browsing contexts meaningful titles and appropriate restrictions.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Build an accessible media gallery using figure, picture, responsive images, audio, video, captions and a transcript link.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlMedia_1",
@@ -222,56 +203,57 @@
   {
     id: "htmlSemantic",
     title: "4. Semantic HTML & Page Architecture",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Move from “HTML tags” to meaningful documents. Learn landmarks, articles, sections, dates, quotations and language-aware markup.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Given a real page design, be able to map it to semantic HTML before writing CSS.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<div>
-        <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Why Semantic HTML Matters</h2>
-        <p style="color:#4c4852;">Semantic HTML gives content a meaning that browsers, assistive technologies, search engines and developers can use. Prefer the native element whose meaning matches the content or interaction.</p>
-        <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">1. &lt;header&gt;</h3>
-        <p style="color:#4c4852;">Introductory content for a page or section, commonly containing headings, branding and navigation-related content.</p>
-        <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">2. &lt;nav&gt;</h3>
-        <p style="color:#4c4852;">A navigation section containing groups of important navigation links.</p>
-        <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">3. &lt;main&gt;</h3>
-        <p style="color:#4c4852;">The dominant content of the document. Normally there should be one main document content region.</p>
-        <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">4. &lt;article&gt;</h3>
-        <p style="color:#4c4852;">Self-contained content that could make sense independently, such as a post, news item, review or forum entry.</p>
-        <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">5. &lt;section&gt;</h3>
-        <p style="color:#4c4852;">A thematic grouping of content, typically with a heading. Do not use section simply because you need a CSS wrapper.</p>
-        <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">6. &lt;aside&gt;</h3>
-        <p style="color:#4c4852;">Content related indirectly to the surrounding content, such as a sidebar, related links or pull quote.</p>
-        <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">7. &lt;footer&gt;</h3>
-        <p style="color:#4c4852;">Footer information for a page or section such as author information, copyright or related navigation.</p>
-        <h3 style="color:#6a5b91;font-size:20px;line-height:1.4;margin:20px 0 8px;">8. Other Semantic Elements</h3>
-        <p style="color:#4c4852;">Also learn <code>&lt;address&gt;</code>, <code>&lt;search&gt;</code>, <code>&lt;figure&gt;</code>, <code>&lt;time&gt;</code>, <code>&lt;details&gt;</code>, headings, lists, tables and form landmarks.</p>
-      </div>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">time</h2>
-      <p style="color:#4c4852;">Use <code>&lt;time&gt;</code> to expose a machine-readable date or time using <code>datetime</code>. This is especially useful for applications that need to parse or identify dates.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">ins and del</h2>
-      <p style="color:#4c4852;">Use <code>&lt;ins&gt;</code> for inserted content and <code>&lt;del&gt;</code> for deleted content. Optional <code>datetime</code> and <code>cite</code> metadata can explain changes.</p>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p&gt;Release date: &lt;time datetime="2026-10-07"&gt;October 7, 2026&lt;/time&gt;&lt;/p&gt;
-&lt;p&gt;Price: &lt;del&gt;₹999&lt;/del&gt; &lt;ins&gt;₹799&lt;/ins&gt;&lt;/p&gt;</code></pre>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">HTML includes several features for multilingual and bidirectional content.</p>
-      <ul>
-        <li><code>lang</code> identifies the language of content using a BCP 47 language tag.</li>
-        <li><code>dir="ltr"</code>, <code>dir="rtl"</code> and <code>dir="auto"</code> control text direction.</li>
-        <li><code>&lt;bdi&gt;</code> isolates bidirectional text such as user-generated names that may contain scripts in different directions.</li>
-        <li><code>&lt;bdo&gt;</code> forces a direction for text where that is genuinely required.</li>
-        <li><code>&lt;ruby&gt;</code>, <code>&lt;rt&gt;</code> and related markup support pronunciation annotations used in some writing systems.</li>
-        <li><code>translate="no"</code> can indicate content that should not be translated by translation tools.</li>
-      </ul>
-</section>
-</div>`,
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">4. Semantic HTML & Page Architecture</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Move from isolated elements to page-level structure. Semantic HTML communicates regions, relationships and content roles to browsers, assistive technology, search systems and other developers.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Given a visual design, map it to semantic HTML before thinking about CSS.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">4.1 header and footer</h2>
+<p style="color:#4c4852;">header contains introductory or navigational content for a page or section. footer contains information about its nearest section or the document, such as author, copyright or related links.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;header&gt;
+  &lt;a href="/"&gt;Bytes4Dev&lt;/a&gt;
+  &lt;nav aria-label="Primary"&gt;...&lt;/nav&gt;
+&lt;/header&gt;
+&lt;footer&gt;© 2026 Bytes4Dev&lt;/footer&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">4.2 main and the page’s dominant content</h2>
+<p style="color:#4c4852;">main represents the dominant content of the document. A normal document has one main content region. It should not be used for repeated site-wide navigation or sidebars.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> A meaningful main landmark gives keyboard and assistive-technology users a reliable way to reach the page’s primary content.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;main id="main-content"&gt;
+  &lt;h1&gt;HTML Forms&lt;/h1&gt;
+  &lt;p&gt;...&lt;/p&gt;
+&lt;/main&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">4.3 nav and search</h2>
+<p style="color:#4c4852;">nav identifies a section whose purpose is navigation. search can identify a search or filtering region. Not every collection of links needs nav; use it for important navigation groups.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;search aria-label="Site search"&gt;
+  &lt;form action="/search"&gt;
+    &lt;label for="q"&gt;Search&lt;/label&gt;
+    &lt;input id="q" name="q" type="search"&gt;
+    &lt;button&gt;Search&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/search&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">4.4 article, section and aside</h2>
+<p style="color:#4c4852;">article is self-contained content that could stand on its own. section is a thematic grouping, generally with a heading. aside is content related indirectly to the surrounding content. A div is appropriate when no semantic element fits.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Choosing section because “I need a wrapper” is a common semantic mistake. Use div when the grouping has no particular document meaning.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;article&gt;
+  &lt;h2&gt;Understanding Forms&lt;/h2&gt;
+  &lt;p&gt;...&lt;/p&gt;
+  &lt;aside&gt;Related: Validation&lt;/aside&gt;
+&lt;/article&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">4.5 Address, time, data and semantic metadata</h2>
+<p style="color:#4c4852;">address is for contact information for the relevant article or page author/owner. time exposes machine-readable dates or times. data can associate human-readable content with a machine-readable value.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;address&gt;Written by Asha · &lt;a href="mailto:asha@example.com"&gt;Email&lt;/a&gt;&lt;/address&gt;
+&lt;time datetime="2026-10-09"&gt;October 9, 2026&lt;/time&gt;
+&lt;data value="499"&gt;₹499&lt;/data&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">4.6 Details, summary and disclosure</h2>
+<p style="color:#4c4852;">details and summary provide a native disclosure widget. The summary is the visible control. This is often preferable to recreating a simple accordion with divs and JavaScript.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Native controls bring built-in semantics and keyboard behavior.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;details&gt;
+  &lt;summary&gt;What is semantic HTML?&lt;/summary&gt;
+  &lt;p&gt;HTML that communicates the meaning of the content.&lt;/p&gt;
+&lt;/details&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">4.7 Quotations, definitions and editorial markup</h2>
+<p style="color:#4c4852;">Use blockquote for longer quotations, q for short inline quotations, cite for the title of a work, dfn for a term being defined, ins for inserted text and del for deleted text.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p&gt;&lt;dfn&gt;Semantic HTML&lt;/dfn&gt; means choosing markup that expresses meaning.&lt;/p&gt;
+&lt;p&gt;Old price: &lt;del&gt;₹999&lt;/del&gt; New price: &lt;ins&gt;₹799&lt;/ins&gt;&lt;/p&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">4.8 Language, direction and bidirectional text</h2>
+<p style="color:#4c4852;">lang identifies language. dir can be ltr, rtl or auto. bdi isolates bidirectional user content; bdo forces direction when truly necessary. Ruby markup can represent pronunciation annotations.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Correct language and direction metadata improves pronunciation, reading order and text handling.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p lang="ta"&gt;வணக்கம்&lt;/p&gt;
+&lt;p dir="rtl"&gt;مرحبا&lt;/p&gt;
+&lt;p&gt;User: &lt;bdi&gt;محمد&lt;/bdi&gt;&lt;/p&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">A semantic page should still make sense if every CSS class name is deleted.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Identify header, nav, main, article, section, aside and footer.</li><li>Explain why div is not “bad” but should not replace meaningful elements.</li><li>Use time and lang where they add machine-readable meaning.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Take a common blog or dashboard design and write only the HTML skeleton first. Add CSS only after the semantic structure is complete.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlSemantic_1",
@@ -283,59 +265,45 @@
   {
     id: "htmlTables",
     title: "5. Tables & Accessible Tabular Data",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Learn tables as relationships between data, including captions, headers, scopes and more complex associations.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Know when a table is appropriate and how to make it understandable with a screen reader.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Tables are for genuinely tabular data, not for page layout.</p>
-      <ul>
-        <li><code>&lt;table&gt;</code>, <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code> and <code>&lt;td&gt;</code>.</li>
-        <li>Use <code>&lt;caption&gt;</code> to provide the table's visible title or purpose.</li>
-        <li>Use <code>scope="col"</code> and <code>scope="row"</code> for straightforward header relationships.</li>
-        <li>Use <code>colspan</code> and <code>rowspan</code> only when the data relationship truly spans multiple cells.</li>
-        <li>For complex tables, understand <code>id</code>/<code>headers</code> relationships and why accessible associations matter.</li>
-        <li>Do not rely on deprecated presentation attributes such as <code>border</code>, <code>cellspacing</code> and <code>cellpadding</code>; use CSS for presentation.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;table&gt;
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">5. Tables & Accessible Tabular Data</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Tables represent relationships between data. Learn simple and complex header associations and understand why visual alignment alone is not enough.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Be able to explain a table to a screen reader user, not just make it look aligned.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">5.1 When to use a table</h2>
+<p style="color:#4c4852;">Use table for tabular relationships, such as schedules, financial reports, inventories or comparison matrices. Do not use tables for page layout.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;table&gt;
   &lt;caption&gt;Quarterly revenue&lt;/caption&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;&lt;th scope="col"&gt;Quarter&lt;/th&gt;&lt;th scope="col"&gt;Revenue&lt;/th&gt;&lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;...&lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">Reading Complex Tables</h2>
-<p style="color:#4c4852;">Simple tables usually need a clear caption, column headers and row headers. More complex reports may have multiple header levels. In those cases, make the relationships explicit rather than relying on visual position alone.</p>
-<pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;table&gt;
-  &lt;caption&gt;Sales by region and quarter&lt;/caption&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th scope="col"&gt;Region&lt;/th&gt;
-      &lt;th scope="col"&gt;Q1&lt;/th&gt;
-      &lt;th scope="col"&gt;Q2&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  ...
-&lt;/table&gt;</code></pre>
-<p style="color:#4c4852;"><strong>Practice:</strong> Take a spreadsheet-like report and identify what is a row header, what is a column header, and what information belongs in the caption.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">Common Table Mistakes</h2>
-<ul>
-<li style="color:#4c4852;">Using tables to create page layout instead of representing data relationships.</li>
-<li style="color:#4c4852;">Leaving data cells without meaningful headers.</li>
-<li style="color:#4c4852;">Using CSS-looking legacy attributes such as <code>border</code>, <code>cellspacing</code> and <code>cellpadding</code> for presentation.</li>
-<li style="color:#4c4852;">Creating visually complex tables without considering how the relationships are exposed to assistive technology.</li>
-</ul>
-<p style="color:#4c4852;"><strong>Interview focus:</strong> Be ready to explain why a visually correct table can still be inaccessible, and how <code>caption</code>, <code>scope</code>, <code>headers</code> and good structure improve the data model.</p>
-</section>
-</section>
-</div>`,
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Quarter&lt;/th&gt;&lt;th scope="col"&gt;Revenue&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;&lt;tr&gt;&lt;th scope="row"&gt;Q1&lt;/th&gt;&lt;td&gt;₹4.2L&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+&lt;/table&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">5.2 Table anatomy</h2>
+<p style="color:#4c4852;">Know table, caption, thead, tbody, tfoot, tr, th and td. caption describes purpose; header cells describe row or column dimensions; data cells contain values.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> A correct semantic structure gives assistive technologies enough information to understand relationships between cells.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;table&gt;
+  &lt;caption&gt;Team capacity&lt;/caption&gt;
+  &lt;thead&gt;&lt;tr&gt;&lt;th scope="col"&gt;Team&lt;/th&gt;&lt;th scope="col"&gt;Members&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+  &lt;tbody&gt;&lt;tr&gt;&lt;th scope="row"&gt;Frontend&lt;/th&gt;&lt;td&gt;6&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;
+&lt;/table&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">5.3 scope and header relationships</h2>
+<p style="color:#4c4852;">scope="col" and scope="row" are useful for straightforward header relationships. Complex tables may need id on headers and headers on data cells to explicitly list the applicable headers.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Do not use headers="..." casually; it is most valuable when the table has relationships that scope alone cannot express.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;th id="sales" scope="col"&gt;Sales&lt;/th&gt;
+&lt;td headers="sales"&gt;₹4.2L&lt;/td&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">5.4 colspan, rowspan and complex reports</h2>
+<p style="color:#4c4852;">colspan and rowspan express structural spanning, not visual decoration. Multi-level reports should preserve the relationship between dimensions and values.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;tr&gt;
+  &lt;th colspan="2"&gt;2026&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+  &lt;th scope="col"&gt;Q1&lt;/th&gt;&lt;th scope="col"&gt;Q2&lt;/th&gt;
+&lt;/tr&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">5.5 Responsive tables</h2>
+<p style="color:#4c4852;">Do not destroy the data relationships merely to make a table fit a narrow viewport. Common approaches include horizontal scrolling, responsive transformations with care, or a purpose-built mobile representation. Keep headers associated with values.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> A visually transformed table can become confusing if row and column labels disappear.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;div style="overflow-x:auto"&gt;
+  &lt;table&gt;...&lt;/table&gt;
+&lt;/div&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">5.6 Common table mistakes</h2>
+<p style="color:#4c4852;">Avoid layout tables, missing headers, vague captions, presentation attributes such as border/cellpadding/cellspacing, and visually complex tables without explicit relationships.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!-- Prefer CSS for presentation --&gt;
+&lt;table class="report"&gt;...&lt;/table&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">A good data table communicates relationships even when visual styling is unavailable.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Use caption for purpose.</li><li>Use th for headers and td for values.</li><li>Use scope for simple relationships.</li><li>Know when complex tables require explicit headers.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Create a sales report with row and column headers, a caption, a footer total, and a responsive container. Test it with keyboard navigation and an accessibility tree.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlTables_1",
@@ -347,103 +315,79 @@
   {
     id: "htmlForms",
     title: "6. Forms, Controls & Validation",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Master the HTML forms you will use in almost every application: labels, controls, input types, validation, autocomplete, submission and encoding.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Be able to build an accessible registration or search form without JavaScript for basic browser validation.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Forms connect user interface controls to data submission. Learn the structure first, then the many controls and validation rules built on top of it.</p>
-      <ul>
-        <li><code>&lt;form&gt;</code> groups controls and defines submission behavior.</li>
-        <li><code>action</code> selects the submission URL; <code>method</code> commonly chooses <code>get</code> or <code>post</code>.</li>
-        <li><code>&lt;label&gt;</code> gives a form control an accessible label. Use a matching <code>for</code>/<code>id</code> pair or wrap the control.</li>
-        <li><code>name</code> controls the successful form-control name sent during form submission.</li>
-        <li><code>&lt;button type="submit"&gt;</code> is preferred over clickable generic elements for submitting a form.</li>
-        <li>Understand form ownership, associated controls, <code>form</code> attributes and buttons outside the form.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;form action="/signup" method="post"&gt;
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">6. Forms, Controls, Validation & Submission</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Forms are one of the most important HTML skills for application developers. Learn controls, labels, constraints, submission encoding, browser behavior and the difference between UX validation and security validation.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Build an accessible registration form using native HTML before adding JavaScript.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.1 Form structure and ownership</h2>
+<p style="color:#4c4852;">form groups controls and defines submission behavior. Controls can be associated by nesting or by a form attribute. The label element provides an accessible name.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> The name attribute is especially important because it determines the key used for successful form submission.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;form action="/signup" method="post"&gt;
   &lt;label for="email"&gt;Email&lt;/label&gt;
   &lt;input id="email" name="email" type="email" required&gt;
   &lt;button type="submit"&gt;Create account&lt;/button&gt;
-&lt;/form&gt;</code></pre>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Learn the purpose and browser behavior of the major <code>&lt;input&gt;</code> types:</p>
-      <ul>
-        <li><code>text</code>, <code>password</code>, <code>email</code>, <code>tel</code>, <code>url</code> and <code>search</code>.</li>
-        <li><code>number</code> and <code>range</code> for numeric controls.</li>
-        <li><code>date</code>, <code>month</code>, <code>week</code>, <code>time</code> and <code>datetime-local</code> for date/time inputs.</li>
-        <li><code>checkbox</code> for independent selections and <code>radio</code> for mutually exclusive choices that share a <code>name</code>.</li>
-        <li><code>file</code> with <code>accept</code> and <code>multiple</code> where needed.</li>
-        <li><code>color</code>, <code>hidden</code>, <code>submit</code>, <code>reset</code>, <code>button</code> and <code>image</code>.</li>
-      </ul>
-      <p style="color:#4c4852;">Also learn how <code>name</code>, <code>value</code>, <code>checked</code>, <code>selected</code>, <code>placeholder</code>, <code>inputmode</code> and <code>autocomplete</code> affect usability.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<ul>
-        <li><code>&lt;select&gt;</code> with <code>&lt;option&gt;</code> for predefined choices.</li>
-        <li><code>&lt;optgroup&gt;</code> for grouping options into categories.</li>
-        <li><code>&lt;datalist&gt;</code> for suggested options while allowing user-entered values.</li>
-        <li><code>&lt;textarea&gt;</code> for multi-line text input.</li>
-        <li><code>&lt;output&gt;</code> for displaying a calculated result associated with controls.</li>
-        <li><code>&lt;progress&gt;</code> for task progress and <code>&lt;meter&gt;</code> for measurements within a known range.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;label for="country"&gt;Country&lt;/label&gt;
+&lt;/form&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.2 Input types</h2>
+<p style="color:#4c4852;">Know text, password, email, tel, url, search, number, range, date, month, week, time, datetime-local, checkbox, radio, file, color, hidden, submit, reset, button and image. The type changes browser behavior, validation and available UI.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Choosing the right input type improves validation, mobile keyboards, autofill and usability.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;label for="age"&gt;Age&lt;/label&gt;
+&lt;input id="age" name="age" type="number" min="18" max="120"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.3 Labels, fieldsets and legends</h2>
+<p style="color:#4c4852;">Every interactive form control should have a useful accessible name. fieldset groups related controls and legend names the group, especially useful for radio buttons and related checkbox choices.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;fieldset&gt;
+  &lt;legend&gt;Preferred contact&lt;/legend&gt;
+  &lt;label&gt;&lt;input type="radio" name="contact" value="email"&gt; Email&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="contact" value="phone"&gt; Phone&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.4 Select, option, optgroup and datalist</h2>
+<p style="color:#4c4852;">select restricts choices to provided options. optgroup organizes choices. datalist supplies suggestions while still allowing free-form input.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;label for="country"&gt;Country&lt;/label&gt;
 &lt;select id="country" name="country"&gt;
-  &lt;option value="in"&gt;India&lt;/option&gt;
-  &lt;option value="sg"&gt;Singapore&lt;/option&gt;
+  &lt;optgroup label="Asia"&gt;
+    &lt;option value="in"&gt;India&lt;/option&gt;
+    &lt;option value="sg"&gt;Singapore&lt;/option&gt;
+  &lt;/optgroup&gt;
 &lt;/select&gt;
 
-&lt;label for="notes"&gt;Notes&lt;/label&gt;
-&lt;textarea id="notes" name="notes" rows="5"&gt;&lt;/textarea&gt;</code></pre>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Master the attributes that make forms robust and usable:</p>
-      <ul>
-        <li><code>autocomplete</code> for browser-supported autofill and credential/payment information categories.</li>
-        <li><code>autofocus</code>, <code>disabled</code>, <code>readonly</code>, <code>required</code>, <code>multiple</code>, <code>checked</code> and <code>selected</code>.</li>
-        <li><code>min</code>, <code>max</code>, <code>step</code>, <code>minlength</code>, <code>maxlength</code>, <code>pattern</code> and <code>size</code>.</li>
-        <li><code>placeholder</code> as a hint, not a replacement for a visible label.</li>
-        <li><code>inputmode</code> to hint the preferred virtual keyboard on supporting devices.</li>
-        <li><code>accept</code> and <code>capture</code> for appropriate file input scenarios.</li>
-        <li><code>formaction</code>, <code>formenctype</code>, <code>formmethod</code>, <code>formnovalidate</code> and <code>formtarget</code> on submit buttons.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">HTML provides native constraint validation before JavaScript is involved.</p>
-      <ul>
-        <li><code>required</code>, type-specific validation, <code>min</code>/<code>max</code>, lengths and <code>pattern</code>.</li>
-        <li>Understand the difference between <code>valid</code>, <code>invalid</code> and browser validation UI.</li>
-        <li>Learn how <code>novalidate</code> and <code>formnovalidate</code> bypass native validation when intentionally required.</li>
-        <li>Use accessible visible error messages and associate them with the relevant field.</li>
-        <li>Client-side validation improves user experience but is not a security boundary; the server must validate submitted data as well.</li>
-        <li>Know <code>checkValidity()</code>, <code>reportValidity()</code> and <code>setCustomValidity()</code> as JavaScript APIs that work with HTML form constraints.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Understand what the browser actually submits when a form is activated.</p>
-      <ul>
-        <li><code>GET</code> generally encodes successful controls into the URL query string.</li>
-        <li><code>POST</code> sends form data in the request body.</li>
-        <li><code>application/x-www-form-urlencoded</code> is the common default encoding.</li>
-        <li><code>multipart/form-data</code> is required for file uploads.</li>
-        <li><code>text/plain</code> exists but is rarely the appropriate choice for production applications.</li>
-        <li>Learn successful controls, omitted disabled controls, checkbox/radio values, repeated names and submit-button values.</li>
-        <li>Understand <code>action</code>, <code>method</code>, <code>enctype</code>, <code>target</code> and submitter-specific overrides.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;form action="/upload" method="post" enctype="multipart/form-data"&gt;
-  &lt;input type="file" name="avatar" accept="image/*"&gt;
+&lt;label for="browser"&gt;Browser&lt;/label&gt;
+&lt;input id="browser" name="browser" list="browsers"&gt;
+&lt;datalist id="browsers"&gt;&lt;option value="Chrome"&gt;&lt;option value="Firefox"&gt;&lt;/datalist&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.5 textarea, button, output, progress and meter</h2>
+<p style="color:#4c4852;">textarea handles multi-line input. button creates actions. output represents a calculated result associated with controls. progress represents task progress; meter represents a measurement within a known range.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;label for="quantity"&gt;Quantity&lt;/label&gt;
+&lt;input id="quantity" type="number" value="2"&gt;
+&lt;output for="quantity"&gt;2&lt;/output&gt;
+&lt;progress value="70" max="100"&gt;70%&lt;/progress&gt;
+&lt;meter min="0" max="100" value="82"&gt;82&lt;/meter&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.6 Validation constraints</h2>
+<p style="color:#4c4852;">Native constraints include required, type-specific syntax, min/max, minlength/maxlength, step and pattern. checkValidity, reportValidity and setCustomValidity expose the browser’s constraint-validation API.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Native validation is a user-experience aid, not a security boundary. The server must validate again.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;input
+  name="username"
+  required
+  minlength="3"
+  maxlength="30"
+  pattern="[A-Za-z0-9_]+"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.7 Placeholder, autocomplete and inputmode</h2>
+<p style="color:#4c4852;">placeholder is a hint, not a replacement for a label. autocomplete enables browser autofill categories. inputmode hints at an appropriate virtual keyboard on supporting devices.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;label for="phone"&gt;Phone number&lt;/label&gt;
+&lt;input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="e.g. +91 98765 43210"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.8 File inputs and uploads</h2>
+<p style="color:#4c4852;">input type=file selects local files. accept filters the chooser’s suggested file types; multiple permits several files; capture can hint at capture sources on supported devices. The server must validate type, size and content rather than trusting the client.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;label for="avatar"&gt;Profile photo&lt;/label&gt;
+&lt;input id="avatar" name="avatar" type="file" accept="image/*"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.9 GET versus POST</h2>
+<p style="color:#4c4852;">GET commonly places successful form data into the URL query string and is appropriate for retrieval/search. POST sends the data in the request body and is common for state-changing operations.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> The method should reflect the operation, not merely personal preference.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;form action="/search" method="get"&gt;
+  &lt;label for="q"&gt;Search&lt;/label&gt;
+  &lt;input id="q" name="q" type="search"&gt;
+  &lt;button&gt;Search&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.10 Form encoding and successful controls</h2>
+<p style="color:#4c4852;">The default encoding is application/x-www-form-urlencoded. multipart/form-data is required for file uploads. Disabled controls are not successful controls; unchecked checkboxes normally submit nothing; controls need names to contribute data.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;form action="/upload" method="post" enctype="multipart/form-data"&gt;
+  &lt;input type="file" name="avatar"&gt;
   &lt;button type="submit"&gt;Upload&lt;/button&gt;
-&lt;/form&gt;</code></pre>
-</section>
-</div>`,
+&lt;/form&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.11 Buttons and accidental submissions</h2>
+<p style="color:#4c4852;">A button inside a form defaults to submit in many contexts, so explicitly set type="button" for non-submitting actions. submit and reset have distinct semantics.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Unexpected submissions are a common source of bugs in forms containing multiple buttons.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button type="button"&gt;Open help&lt;/button&gt;
+&lt;button type="submit"&gt;Save&lt;/button&gt;
+&lt;button type="reset"&gt;Reset&lt;/button&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">6.12 Advanced form attributes</h2>
+<p style="color:#4c4852;">Know autocomplete, autofocus, disabled, readonly, required, multiple, checked, selected, min, max, step, minlength, maxlength, pattern, size, inputmode, accept, capture and submit-button overrides such as formaction, formmethod and formnovalidate.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button type="submit" formaction="/draft" formmethod="post"&gt;Save draft&lt;/button&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">You should be able to predict the request generated by a form without JavaScript.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Build labels correctly.</li><li>Explain name versus id.</li><li>Choose GET or POST intentionally.</li><li>Explain successful controls.</li><li>Know native validation constraints and their limits.</li><li>Use multipart/form-data for file uploads.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Build a complete account form with profile data, password, contact preference, file upload, terms checkbox, native validation and a server-friendly submission structure.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlForms_1",
@@ -455,54 +399,51 @@
   {
     id: "htmlAccessibility",
     title: "7. Accessibility, Keyboard Support & ARIA",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Learn how native HTML provides accessibility by default and where ARIA is appropriate. Accessibility should be part of markup decisions from the beginning.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> For every interactive element, ask what its name, role, state, keyboard behavior and focus behavior should be.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">A large amount of web accessibility can be achieved by choosing the correct native HTML element and using it according to its intended meaning.</p>
-      <ul>
-        <li>Use semantic elements instead of generic <code>div</code> elements whenever an appropriate native element exists.</li>
-        <li>Give images appropriate text alternatives with <code>alt</code>.</li>
-        <li>Use proper form labels, field grouping and useful error messages.</li>
-        <li>Use headings as a meaningful content hierarchy rather than as visual font-size choices.</li>
-        <li>Make links descriptive and buttons action-oriented.</li>
-        <li>Use table headers and scope appropriately for data tables.</li>
-        <li>Maintain meaningful DOM source order so keyboard and assistive technology users encounter content logically.</li>
-        <li>Preserve keyboard accessibility. Avoid making interactions depend only on mouse events.</li>
-        <li>Use <code>lang</code> and direction attributes where necessary for correct pronunciation and text interpretation.</li>
-        <li>Prefer native HTML before ARIA because native controls provide built-in semantics and interaction behavior.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">ARIA supplements HTML; it should not be the first choice when a native HTML element already represents the desired semantics and interaction.</p>
-      <ul>
-        <li>Know roles, states and properties conceptually.</li>
-        <li>Use <code>aria-label</code> or <code>aria-labelledby</code> when an element needs an accessible name and native visible naming is unavailable or insufficient.</li>
-        <li>Use <code>aria-describedby</code> to associate additional descriptions, hints or error text.</li>
-        <li>Use live-region concepts carefully for dynamic status messages.</li>
-        <li>Do not add redundant ARIA where native HTML already exposes the correct role and name.</li>
-        <li>Do not create custom interactive widgets with a role alone and forget keyboard behavior, focus management and state updates.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button aria-describedby="password-help"&gt;Create password&lt;/button&gt;
-&lt;p id="password-help"&gt;Use at least 12 characters.&lt;/p&gt;</code></pre>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Keyboard accessibility should be built into the HTML whenever possible.</p>
-      <ul>
-        <li>Native links, buttons, form controls and interactive elements already participate in keyboard interaction.</li>
-        <li>Use <code>tabindex="0"</code> sparingly when a custom element genuinely needs to enter the sequential focus order.</li>
-        <li>Avoid positive tabindex values such as <code>tabindex="5"</code> because they create difficult-to-maintain focus order.</li>
-        <li>Do not remove focus outlines without providing an equally visible alternative.</li>
-        <li>Keep DOM order aligned with the visual and reading order.</li>
-        <li>When using dialogs, popovers and other overlays, understand focus movement and what should be inert while the overlay is active.</li>
-      </ul>
-</section>
-</div>`,
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">7. Accessibility, Keyboard Support & ARIA</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Accessibility starts with native HTML. Learn accessible names, roles, states, keyboard behavior, focus order, text alternatives and when ARIA is appropriate.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> For every interactive element, ask: what is its name, role, state, keyboard behavior and focus behavior?</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.1 Native HTML first</h2>
+<p style="color:#4c4852;">Native buttons, links, inputs, headings, lists, tables and landmarks already expose useful semantics and interaction patterns. Prefer them before custom roles.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Replacing a button with div role="button" means you must recreate keyboard behavior, focus handling and state semantics yourself.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button type="button"&gt;Open menu&lt;/button&gt;
+&lt;a href="/pricing"&gt;View pricing&lt;/a&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.2 Accessible names</h2>
+<p style="color:#4c4852;">A control needs a name that communicates its purpose. Labels, visible text, alt text and appropriate ARIA naming mechanisms can provide names depending on the element.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> A visual icon alone may not provide a useful accessible name.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button type="button" aria-label="Close dialog"&gt;×&lt;/button&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.3 Images and alternative text</h2>
+<p style="color:#4c4852;">Use alt according to purpose. Decorative images generally use empty alt. Functional images need alt describing the action or destination; informative images need the relevant information; complex charts may need surrounding explanation or a data table.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;a href="/profile"&gt;&lt;img src="avatar.jpg" alt="Asha's profile"&gt;&lt;/a&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.4 Keyboard access and focus</h2>
+<p style="color:#4c4852;">Native controls participate in keyboard interaction. Use tabindex="0" only when a genuinely custom element needs sequential focus. Avoid positive tabindex values. Never remove focus indicators without providing an equally visible alternative.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button type="button"&gt;Save&lt;/button&gt;
+&lt;!-- Prefer native focus behavior over tabindex="5". --&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.5 ARIA roles, states and properties</h2>
+<p style="color:#4c4852;">ARIA can supplement semantics when native HTML cannot express a required pattern. Common mechanisms include aria-label, aria-labelledby, aria-describedby, aria-expanded, aria-current, aria-controls, aria-live and role.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> ARIA changes what assistive technology may perceive; it does not automatically implement keyboard behavior, focus management or visual state changes.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button aria-expanded="false" aria-controls="filters"&gt;Filters&lt;/button&gt;
+&lt;div id="filters" hidden&gt;...&lt;/div&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.6 Forms and accessible errors</h2>
+<p style="color:#4c4852;">Associate labels with controls, group related choices, provide instructions and make errors understandable. Error text should be programmatically associated where appropriate and should not rely on color alone.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;label for="email"&gt;Email&lt;/label&gt;
+&lt;input id="email" name="email" aria-describedby="email-help email-error" aria-invalid="true"&gt;
+&lt;p id="email-help"&gt;Use your work email.&lt;/p&gt;
+&lt;p id="email-error"&gt;Enter a valid email address.&lt;/p&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.7 Tables and accessibility</h2>
+<p style="color:#4c4852;">Use table headers and relationships rather than relying on bold text or visual position. scope is often enough for simple tables; complex tables need explicit relationships.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;th scope="col"&gt;Price&lt;/th&gt;
+&lt;td&gt;₹799&lt;/td&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.8 Dialogs, popovers and focus management</h2>
+<p style="color:#4c4852;">Native dialog and popover features can provide better platform integration than custom overlays. When an overlay opens, users must understand where focus goes and how it closes.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Accessibility is an interaction problem, not just an attribute problem.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;dialog open&gt;
+  &lt;h2&gt;Confirm deletion&lt;/h2&gt;
+  &lt;form method="dialog"&gt;&lt;button&gt;Cancel&lt;/button&gt;&lt;/form&gt;
+&lt;/dialog&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">7.9 Accessibility testing workflow</h2>
+<p style="color:#4c4852;">Combine automated checks with manual testing. Inspect the accessibility tree, navigate with keyboard only, test zoom/reflow, verify headings and landmarks, inspect labels/names, test media alternatives and use a screen reader when possible.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>Checklist:
+1. Keyboard only
+2. Focus visible
+3. Headings/landmarks
+4. Form names/errors
+5. Images/alt
+6. Tables
+7. Zoom/reflow</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">The strongest accessibility implementation often looks like ordinary, well-chosen HTML.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Prefer native semantics.</li><li>Test keyboard navigation.</li><li>Verify accessible names.</li><li>Use ARIA only when necessary.</li><li>Test errors, dynamic updates and focus movement.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Take an existing form or modal from a project and perform an accessibility audit. Record every issue and fix it using native HTML where possible.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlAccessibility_1",
@@ -514,53 +455,58 @@
   {
     id: "htmlMetadata",
     title: "8. Head, Metadata, SEO & Structured Information",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Understand the document head, metadata, icons, canonical URLs, crawler-related metadata and structured information without confusing SEO with a guarantee of ranking.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Be able to produce a sensible production head and explain what each metadata item is actually for.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">The <code>&lt;head&gt;</code> contains machine-readable information about the document and links to resources.</p>
-      <ul>
-        <li><code>&lt;title&gt;</code> for the document title shown in browser tabs, bookmarks and commonly search results.</li>
-        <li><code>&lt;meta charset="utf-8"&gt;</code> for the document encoding.</li>
-        <li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> for the mobile viewport.</li>
-        <li><code>description</code>, author-related metadata where relevant, theme and other application metadata.</li>
-        <li><code>&lt;link&gt;</code> for stylesheets, icons and many resource relationships.</li>
-        <li><code>&lt;base&gt;</code> for the base URL used to resolve relative URLs; understand why it should be used deliberately because it affects all relative links in the document.</li>
-        <li><code>&lt;style&gt;</code>, <code>&lt;script&gt;</code> and <code>&lt;noscript&gt;</code> placement and behavior.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">SEO is not a magic set of tags; it starts with clear, crawlable, meaningful HTML.</p>
-      <ul>
-        <li>Write a unique, descriptive <code>&lt;title&gt;</code>.</li>
-        <li>Use useful headings in a sensible content hierarchy.</li>
-        <li>Write descriptive link text and meaningful image <code>alt</code> text when images convey content.</li>
-        <li>Use canonical URLs where the application needs to identify the preferred URL through the appropriate <code>link rel="canonical"</code>.</li>
-        <li>Use language declarations with <code>lang</code>.</li>
-        <li>Use semantic structure so crawlers and assistive technologies can more easily interpret content.</li>
-        <li>Structured data can be embedded using formats such as JSON-LD, usually in a <code>&lt;script type="application/ld+json"&gt;</code> block. Treat structured data as a description of content that should also be genuinely present on the page.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">HTML can carry machine-readable annotations through microdata attributes.</p>
-      <ul>
-        <li><code>itemscope</code> starts an item scope.</li>
-        <li><code>itemtype</code> identifies the vocabulary/type of the item.</li>
-        <li><code>itemprop</code> names a property inside the item.</li>
-        <li><code>itemid</code> can identify an item when supported by the vocabulary.</li>
-        <li><code>itemref</code> allows additional properties to be referenced outside the item's subtree.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;div itemscope itemtype="https://schema.org/Person"&gt;
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">8. Head, Metadata, SEO, Social Metadata & Structured Information</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">The head controls important document metadata, resource relationships and hints. Learn what each item actually does instead of treating metadata as a collection of SEO magic spells.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Produce a sensible production head and explain every important line.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.1 title, charset and viewport</h2>
+<p style="color:#4c4852;">title identifies the document in browser UI and other contexts. charset declares encoding. viewport tells mobile browsers how to size the layout viewport.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;HTML Forms — Bytes4Dev&lt;/title&gt;
+&lt;/head&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.2 description and robots metadata</h2>
+<p style="color:#4c4852;">meta name=description can provide a summary used by search systems, though search engines choose their own presentation. robots metadata can communicate crawler directives supported by the relevant crawler.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Metadata is a hint to consuming systems, not a guarantee that they will display or obey it in every context.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;meta name="description" content="Learn accessible HTML forms with practical examples and validation."&gt;
+&lt;meta name="robots" content="index,follow"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.3 link relationships</h2>
+<p style="color:#4c4852;">link connects the document to related resources. Common relationships include stylesheet, icon, canonical, alternate, preload, preconnect and manifest.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;link rel="stylesheet" href="/styles.css"&gt;
+&lt;link rel="icon" href="/favicon.svg" type="image/svg+xml"&gt;
+&lt;link rel="canonical" href="https://example.com/html/forms"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.4 Canonical and alternate URLs</h2>
+<p style="color:#4c4852;">canonical identifies a preferred URL when multiple URLs represent substantially the same resource. alternate can represent language variants or other representations depending on the relationship and attributes.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;link rel="canonical" href="https://example.com/docs/html"&gt;
+&lt;link rel="alternate" hreflang="ta" href="https://example.com/ta/docs/html"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.5 Open Graph and social previews</h2>
+<p style="color:#4c4852;">Social platforms can use metadata such as og:title, og:description, og:image and og:url to build previews. These are social-consumer conventions, not core HTML semantics.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;meta property="og:title" content="HTML Complete Course"&gt;
+&lt;meta property="og:description" content="A practical HTML course."&gt;
+&lt;meta property="og:type" content="website"&gt;
+&lt;meta property="og:url" content="https://example.com/html"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.6 JSON-LD structured data</h2>
+<p style="color:#4c4852;">Structured data can describe content in machine-readable form. JSON-LD is commonly placed in a script element. The data should accurately represent content that is genuinely present on the page.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Structured data is descriptive metadata, not a replacement for clear visible content.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;script type="application/ld+json"&gt;
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Learning HTML"
+}
+&lt;/script&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.7 Microdata</h2>
+<p style="color:#4c4852;">Microdata uses itemscope, itemtype and itemprop to annotate elements. It is still part of HTML but JSON-LD is often easier to maintain for structured data.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;div itemscope itemtype="https://schema.org/Person"&gt;
   &lt;span itemprop="name"&gt;Asha&lt;/span&gt;
-&lt;/div&gt;</code></pre>
-      <p style="color:#4c4852;">Compare microdata with JSON-LD and understand that structured data should accurately describe the page content.</p>
-</section>
-</div>`,
+&lt;/div&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.8 base, style, script and noscript</h2>
+<p style="color:#4c4852;">base changes how relative URLs are resolved throughout the document and should be used deliberately. style contains CSS. script loads or embeds JavaScript. noscript provides content for contexts where scripting is unavailable or disabled.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> A base element can unexpectedly change every relative URL, so it deserves special care.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;base href="https://example.com/app/"&gt;
+&lt;style&gt;body { margin: 0; }&lt;/style&gt;
+&lt;script src="/app.js" defer&gt;&lt;/script&gt;
+&lt;noscript&gt;Please enable JavaScript for enhanced features.&lt;/noscript&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">8.9 SEO fundamentals from HTML</h2>
+<p style="color:#4c4852;">Good SEO-oriented HTML starts with crawlable links, meaningful text, descriptive titles, coherent headings, canonical URLs where needed, language metadata and accurate structured data. No tag guarantees ranking.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;h1&gt;HTML Forms and Validation&lt;/h1&gt;
+&lt;p&gt;Learn native form controls...&lt;/p&gt;
+&lt;a href="/html/accessibility"&gt;Accessibility guide&lt;/a&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">A production head should be intentional, minimal and accurate.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Explain charset and viewport.</li><li>Know canonical and alternate.</li><li>Distinguish HTML semantics from social metadata.</li><li>Understand JSON-LD versus microdata.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Create the complete head for an article page including title, description, icon, canonical URL, social metadata and JSON-LD. Verify every value against the visible page.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlMetadata_1",
@@ -572,60 +518,44 @@
   {
     id: "htmlInteractive",
     title: "9. Modern Interactive HTML",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Use browser-native interactive features such as button, details, summary, dialog and popover where they match the user experience.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Prefer native interaction when it provides the behavior you need instead of recreating it with divs and JavaScript.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">button</h2>
-      <p style="color:#4c4852;">Use <code>&lt;button&gt;</code> for actions. Inside a form, explicitly set <code>type="button"</code>, <code>type="submit"</code> or <code>type="reset"</code> to avoid accidental submission behavior.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">details and summary</h2>
-      <p style="color:#4c4852;"><code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> provide a native disclosure component. Learn the <code>open</code> state and accessible keyboard interaction.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">dialog</h2>
-      <p style="color:#4c4852;"><code>&lt;dialog&gt;</code> provides a native dialog element. Learn the distinction between <code>show()</code> and modal behavior through <code>showModal()</code>, as well as <code>method="dialog"</code> for dialog form submission.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">hidden and inert</h2>
-      <p style="color:#4c4852;"><code>hidden</code> removes content from normal rendering, while <code>inert</code> prevents interaction and focus within a subtree.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">The HTML popover feature provides declarative popover relationships without requiring a full JavaScript widget implementation for basic show/hide behavior.</p>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button popovertarget="help"&gt;Help&lt;/button&gt;
-&lt;div id="help" popover&gt;
-  Helpful information goes here.
-&lt;/div&gt;</code></pre>
-      <ul>
-        <li><code>popover="auto"</code> supports light dismissal and normal popover behavior.</li>
-        <li><code>popover="manual"</code> allows independently controlled popovers.</li>
-        <li><code>popover="hint"</code> is designed for hint-like popovers.</li>
-        <li><code>popovertarget</code> points a button or button-like control at the popover.</li>
-        <li><code>popovertargetaction</code> can toggle, show or hide the target.</li>
-      </ul>
-      <p style="color:#4c4852;">Learn progressive enhancement: use declarative HTML for the baseline interaction and JavaScript only when application-specific behavior is required.</p>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">Choosing Native Interactive Elements</h2>
-<p style="color:#4c4852;">Modern HTML gives you useful behavior without immediately reaching for JavaScript. <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> provide disclosure, <code>&lt;dialog&gt;</code> represents a dialog, and popovers provide a declarative way to show floating content.</p>
-<pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;details&gt;
-  &lt;summary&gt;What is HTML?&lt;/summary&gt;
-  &lt;p&gt;HTML describes the structure and meaning of web content.&lt;/p&gt;
-&lt;/details&gt;</code></pre>
-<p style="color:#4c4852;"><strong>Rule of thumb:</strong> prefer a native element when it already provides the semantics, keyboard behavior and browser integration you need.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">Progressive Enhancement</h2>
-<p style="color:#4c4852;">Think of HTML as the foundation. A useful page should still communicate its essential information when advanced JavaScript is delayed, unavailable, or fails. JavaScript can then enhance the interaction rather than replacing the underlying document structure.</p>
-<ul>
-<li style="color:#4c4852;">Start with meaningful headings, links, forms and content.</li>
-<li style="color:#4c4852;">Add CSS for presentation and responsive layout.</li>
-<li style="color:#4c4852;">Add JavaScript only where behavior cannot be provided by the platform itself.</li>
-</ul>
-<p style="color:#4c4852;"><strong>Practice:</strong> Build a FAQ first with headings and links, then enhance it with <code>details</code> or a richer interactive component.</p>
-</section>
-</section>
-</div>`,
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">9. Modern Interactive HTML</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Use platform-native interactive features before reaching for custom JavaScript widgets. Learn button, details, dialog, popover, inert and disclosure patterns.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Prefer native behavior when it already solves the interaction problem.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">9.1 button</h2>
+<p style="color:#4c4852;">button represents an action. Inside a form, explicitly choose type=button, submit or reset. A button can be disabled and can expose state through ARIA when needed.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button type="button"&gt;Open filters&lt;/button&gt;
+&lt;button type="submit"&gt;Save&lt;/button&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">9.2 details and summary</h2>
+<p style="color:#4c4852;">details creates a disclosure widget and summary is its control. The open state is represented by the open attribute.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Use this for simple disclosure rather than rebuilding a keyboard-accessible accordion from scratch.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;details&gt;
+  &lt;summary&gt;Shipping information&lt;/summary&gt;
+  &lt;p&gt;Orders ship within two business days.&lt;/p&gt;
+&lt;/details&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">9.3 dialog</h2>
+<p style="color:#4c4852;">dialog represents a dialog box. It can be opened non-modally or modally using the corresponding APIs. Forms with method=dialog can close a dialog and expose a return value through the DOM APIs.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;dialog id="confirm"&gt;
+  &lt;h2&gt;Delete project?&lt;/h2&gt;
+  &lt;form method="dialog"&gt;
+    &lt;button value="cancel"&gt;Cancel&lt;/button&gt;
+    &lt;button value="delete"&gt;Delete&lt;/button&gt;
+  &lt;/form&gt;
+&lt;/dialog&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">9.4 popover</h2>
+<p style="color:#4c4852;">The popover feature provides a declarative mechanism for showing floating content. Understand popover attributes, invokers and light-dismiss behavior as supported by modern browsers.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Native popovers can reduce custom positioning, focus and dismissal code, but you should still test browser support for your target audience.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;button popovertarget="help"&gt;Help&lt;/button&gt;
+&lt;div id="help" popover&gt;Use the search box to find a lesson.&lt;/div&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">9.5 inert</h2>
+<p style="color:#4c4852;">inert makes a subtree unavailable to user interaction and removes it from relevant accessibility interaction while active. It is useful when an overlay is active and background content should not be interacted with.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;main inert&gt;Background content&lt;/main&gt;
+&lt;dialog open&gt;Active dialog&lt;/dialog&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">9.6 Progressive enhancement</h2>
+<p style="color:#4c4852;">Start with meaningful content and native navigation. Add CSS for presentation and JavaScript for behavior that genuinely needs it. A robust page should not become meaningless merely because an enhancement fails.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> This approach improves resilience, accessibility, testability and often performance.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;form action="/search" method="get"&gt;
+  &lt;label for="q"&gt;Search&lt;/label&gt;
+  &lt;input id="q" name="q"&gt;
+  &lt;button&gt;Search&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">Native interactive elements give you a strong baseline before custom components are introduced.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Know button types.</li><li>Use details for simple disclosure.</li><li>Understand dialog and popover at a conceptual level.</li><li>Know why inert exists.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Build an FAQ and confirmation flow first with native HTML. Enhance it with CSS and JavaScript only where the product actually needs richer behavior.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlInteractive_1",
@@ -637,116 +567,54 @@
   {
     id: "htmlAdvanced",
     title: "10. Advanced HTML: DOM, Loading, Performance & Security",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Connect markup to browser internals and production concerns. This is the bridge from comfortable HTML usage to experienced-developer and senior-interview knowledge.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Understand not just what the markup looks like, but what the browser does with it and what trade-offs it creates.</div>
-</div>
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">10. Advanced HTML: DOM, Parsing, Loading, Performance & Security</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Connect markup to browser internals and production concerns. This section is the bridge from comfortable HTML usage to senior-developer knowledge.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Explain what the browser does with HTML, not only what the source code looks like.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.1 Source HTML versus the DOM</h2>
+<p style="color:#4c4852;">The browser parses source text into a DOM tree. Error recovery and implied elements mean the DOM shown in DevTools may not exactly match the source file. Attributes and DOM properties are related but not identical concepts.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Understanding parsing explains why invalid markup can still render while producing surprising trees.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!-- Source --&gt;
+&lt;table&gt;&lt;tr&gt;&lt;td&gt;One&lt;/table&gt;
+&lt;!-- Browser constructs a complete table structure in the DOM. --&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.2 Parsing and implied structure</h2>
+<p style="color:#4c4852;">HTML has parsing rules that can insert or close elements implicitly. For predictable behavior, write valid, well-nested markup instead of depending on error recovery.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Some end tags may be optional in HTML syntax, but explicit structure is often easier for humans to maintain.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;ul&gt;
+  &lt;li&gt;One
+  &lt;li&gt;Two
+&lt;/ul&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.3 Content models</h2>
+<p style="color:#4c4852;">Elements have content models describing what kinds of descendants are permitted. Think in terms of categories such as flow, phrasing, interactive and sectioning content.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Content-model rules explain why some seemingly reasonable nesting combinations are invalid.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p&gt;Text and &lt;strong&gt;phrasing content&lt;/strong&gt; belong here.&lt;/p&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.4 Script loading</h2>
+<p style="color:#4c4852;">Classic scripts can block parsing when encountered. defer downloads while parsing and executes after parsing before DOMContentLoaded. async executes as soon as available and does not preserve order. Module scripts are deferred by default and have their own dependency semantics.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Choosing the loading mode is about execution timing, dependency order and user-visible performance.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;script src="app.js" defer&gt;&lt;/script&gt;
+&lt;script src="analytics.js" async&gt;&lt;/script&gt;
+&lt;script type="module" src="main.js"&gt;&lt;/script&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.5 Resource hints</h2>
+<p style="color:#4c4852;">preconnect can establish connections early; dns-prefetch hints at DNS resolution; preload requests a resource that will be needed soon; prefetch expresses a lower-priority future navigation/resource hint. Use hints based on measured need.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Overusing preload can compete with genuinely critical resources and hurt performance.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;link rel="preconnect" href="https://cdn.example.com"&gt;
+&lt;link rel="preload" href="/fonts/app.woff2" as="font" type="font/woff2" crossorigin&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.6 Performance and layout stability</h2>
+<p style="color:#4c4852;">HTML affects performance through resource discovery, image dimensions, loading priority, DOM size and critical content. Reserve media space, avoid unnecessary wrappers and lazy-load suitable off-screen resources.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;img src="hero.jpg" width="1600" height="900" alt="Product hero"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.7 Security boundaries in HTML</h2>
+<p style="color:#4c4852;">HTML alone cannot secure an application. Important controls include HTTPS, appropriate response headers, CSP, safe URL handling, sandboxing untrusted frames, avoiding unsafe HTML injection and validating data server-side.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Never treat client-side HTML validation, hidden fields or HTML comments as security controls.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;iframe src="https://untrusted.example" sandbox="allow-scripts" title="Embedded content"&gt;&lt;/iframe&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.8 Cross-origin and embedded content</h2>
+<p style="color:#4c4852;">Different origins have security boundaries. iframe, resource loading, CORS-related behavior and permissions can affect what embedded or fetched content can do. HTML attributes such as crossorigin, referrerpolicy, sandbox and allow can participate in these controls.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;iframe
+  src="https://widget.example"
+  title="Payment widget"
+  sandbox="allow-scripts allow-forms"
+  referrerpolicy="strict-origin-when-cross-origin"&gt;
+&lt;/iframe&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.9 DOM size and maintainability</h2>
+<p style="color:#4c4852;">Large, deeply nested DOM trees can increase parsing, styling and layout work. More importantly, unnecessary structure makes accessibility and maintenance harder. Prefer the smallest semantic structure that accurately models the content.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!-- Prefer --&gt;
+&lt;article&gt;&lt;h2&gt;Title&lt;/h2&gt;&lt;p&gt;Text&lt;/p&gt;&lt;/article&gt;
 
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">SVG is a vector graphics language that can be embedded in HTML or referenced as an external resource.</p>
-      <ul>
-        <li>Use <code>&lt;img src="icon.svg"&gt;</code> when an SVG is treated as an external image.</li>
-        <li>Use inline <code>&lt;svg&gt;</code> when the document needs to interact with the graphic as part of the DOM.</li>
-        <li>Learn SVG elements such as <code>svg</code>, <code>path</code>, <code>circle</code>, <code>rect</code>, <code>line</code>, <code>text</code> and <code>g</code>.</li>
-        <li>Understand the difference between vector graphics and raster images.</li>
-        <li>Consider accessibility: meaningful SVG content may need an accessible name or text alternative depending on how it is used.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;"><code>&lt;canvas&gt;</code> provides a drawable bitmap surface whose pixels are typically manipulated with JavaScript.</p>
-      <ul>
-        <li>Understand <code>width</code> and <code>height</code> as the canvas drawing buffer dimensions, not merely CSS size.</li>
-        <li>Provide fallback content inside the canvas for environments or users that cannot access the drawing.</li>
-        <li>Know the common 2D drawing context and how it differs from SVG's DOM-based vector model.</li>
-        <li>Remember that Canvas drawing itself does not automatically provide the same semantic structure as ordinary HTML.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;canvas width="800" height="400"&gt;
-  Your browser or assistive technology should be given a useful alternative here.
-&lt;/canvas&gt;</code></pre>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">script</h2>
-      <p style="color:#4c4852;">Learn how JavaScript is connected to the document using <code>&lt;script&gt;</code>, including <code>src</code>, modules, <code>async</code>, <code>defer</code>, integrity and referrer-related options.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">link</h2>
-      <p style="color:#4c4852;"><code>&lt;link&gt;</code> describes relationships with external resources, most commonly stylesheets, icons and resource hints.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">style</h2>
-      <p style="color:#4c4852;"><code>&lt;style&gt;</code> contains CSS directly in the document. Learn when it is useful and why external stylesheets are usually easier to maintain for larger applications.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">noscript</h2>
-      <p style="color:#4c4852;"><code>&lt;noscript&gt;</code> can provide alternate content for environments where scripting is disabled or unavailable, depending on where it appears.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">HTML itself is usually small; the larger performance costs often come from images, video, third-party embeds and resource-loading choices.</p>
-      <ul>
-        <li><code>loading="lazy"</code> can defer offscreen images or iframes where appropriate.</li>
-        <li>Use <code>width</code> and <code>height</code> for images when practical to reserve layout space.</li>
-        <li>Use responsive images to avoid downloading resources that are much larger than the rendered size.</li>
-        <li>Understand <code>async</code> versus <code>defer</code> for scripts.</li>
-        <li>Learn resource hints such as <code>preload</code>, <code>prefetch</code>, <code>preconnect</code>, <code>dns-prefetch</code> and <code>modulepreload</code>.</li>
-        <li>Preload only genuinely important resources; excessive preloading can compete with more useful network work.</li>
-        <li>Third-party iframes and media can be expensive, so load them intentionally.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">HTML cannot replace server-side security, but markup choices can reduce common risks and accidental privilege.</p>
-      <ul>
-        <li>Use HTTPS URLs for application resources and links wherever possible.</li>
-        <li>For new-tab links and untrusted contexts, understand <code>rel="noopener"</code> and related relationship controls.</li>
-        <li>Use iframe <code>sandbox</code> to restrict embedded capabilities.</li>
-        <li>Understand <code>referrerpolicy</code> as a way to control how much referrer information is sent with requests.</li>
-        <li>Use Subresource Integrity (<code>integrity</code> plus a suitable <code>crossorigin</code> setup) when consuming supported external scripts or stylesheets where appropriate.</li>
-        <li>Never put secrets in HTML, attributes, hidden fields or comments. Anything delivered to the browser should be treated as observable by the user.</li>
-        <li>Learn the relationship between HTML attributes and Content Security Policy, including nonces for allowed inline scripts when a CSP is configured.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Understanding HTML content models helps you predict which elements can contain which other elements and why some markup combinations are invalid.</p>
-      <ul>
-        <li>Flow content.</li>
-        <li>Sectioning content and sectioning roots.</li>
-        <li>Heading content.</li>
-        <li>Phrasing content.</li>
-        <li>Embedded content.</li>
-        <li>Interactive content.</li>
-        <li>Palpable content.</li>
-        <li>Transparent content models for elements such as <code>&lt;a&gt;</code> in appropriate contexts.</li>
-      </ul>
-      <p style="color:#4c4852;">Learn practical rules such as why headings belong in structural content, why interactive elements should not be nested arbitrarily, and why a semantic element is not automatically a generic wrapper.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">HTML source text is parsed into a DOM tree. Learn the difference between the source text you write and the DOM that the browser constructs.</p>
-      <ul>
-        <li>The browser uses HTML parsing rules to create the document tree.</li>
-        <li>Some omissions are allowed by the HTML syntax, and browsers may infer missing nodes or implied structure during parsing.</li>
-        <li>Malformed markup does not necessarily prevent a page from rendering; browser error recovery is one reason valid markup still matters for predictable behavior.</li>
-        <li>Understand the difference between attributes and live DOM properties at a conceptual level.</li>
-        <li>Learn how the DOM tree becomes the basis for CSS styling, layout and JavaScript interaction.</li>
-      </ul>
-      <p style="color:#4c4852;">This topic is essential for understanding why the Elements panel in developer tools may not look exactly like the raw HTML source file.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Modern HTML also participates in Web Components and reusable component systems.</p>
-      <ul>
-        <li><code>&lt;template&gt;</code> stores markup that is not rendered immediately as normal document content.</li>
-        <li><code>&lt;slot&gt;</code> defines insertion points for content supplied to a component's shadow tree.</li>
-        <li>Learn <code>slot</code> as a global attribute and the difference between light DOM content and shadow DOM rendering.</li>
-        <li>Understand that custom elements are primarily a JavaScript platform feature, while HTML provides the markup hooks and content structures used by components.</li>
-        <li>Learn why semantic native HTML should still be preferred inside components whenever possible.</li>
-      </ul>
-      <pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;template id="user-card-template"&gt;
-  &lt;article&gt;
-    &lt;slot name="name"&gt;Unknown user&lt;/slot&gt;
-  &lt;/article&gt;
-&lt;/template&gt;</code></pre>
-</section>
-</div>`,
+&lt;!-- Avoid wrappers with no purpose --&gt;
+&lt;div&gt;&lt;div&gt;&lt;div&gt;&lt;article&gt;...&lt;/article&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">10.10 Browser developer tools</h2>
+<p style="color:#4c4852;">Use Elements to inspect the live DOM, view accessibility information, inspect properties and attributes, and trace source locations. Use Network to inspect document/resource requests and timing. Use Lighthouse or equivalent audits as a starting point, not as the complete test.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>DevTools workflow:
+Elements → Accessibility → Network → Performance → Console</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">Senior HTML knowledge is largely about relationships: source to DOM, markup to accessibility tree, resources to loading, and elements to security boundaries.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Explain source versus DOM.</li><li>Explain async versus defer.</li><li>Know what preload is for.</li><li>Understand why HTML validation is not security.</li><li>Relate HTML decisions to performance and accessibility.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Take a slow-loading page and audit it from the HTML outward: reduce unnecessary DOM, fix image dimensions, review script loading, inspect resource priorities, and document security-sensitive embeds.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlAdvanced_1",
@@ -756,175 +624,466 @@
     ],
   },
   {
+    id: "htmlGraphics",
+    title: "11. SVG, Canvas, MathML & Graphics in HTML",
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">11. SVG, Canvas, MathML & Graphics in HTML</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Understand the platform’s graphics options and choose the right one for semantics, scalability, accessibility and interaction.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Know when to use an external image, inline SVG, canvas or MathML.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">11.1 SVG as an image</h2>
+<p style="color:#4c4852;">An SVG can be referenced as an external image when it behaves like a graphic resource. alt belongs on the img element when the image is meaningful.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;img src="logo.svg" alt="Bytes4Dev"&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">11.2 Inline SVG</h2>
+<p style="color:#4c4852;">Inline svg becomes part of the document tree and can be styled or manipulated. Meaningful graphics may need an accessible name and supporting text.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Inline SVG is useful when the graphic itself needs DOM interaction or fine-grained styling.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;svg viewBox="0 0 100 100" role="img" aria-labelledby="title"&gt;
+  &lt;title id="title"&gt;Progress circle&lt;/title&gt;
+  &lt;circle cx="50" cy="50" r="40"&gt;&lt;/circle&gt;
+&lt;/svg&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">11.3 Canvas</h2>
+<p style="color:#4c4852;">canvas provides a bitmap drawing surface, commonly manipulated with JavaScript. Its pixels do not automatically expose semantic structure like HTML elements. Provide fallback content and consider accessible alternatives for meaningful information.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;canvas width="400" height="200"&gt;
+  Sales chart: Q1 ₹4L, Q2 ₹5L.
+&lt;/canvas&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">11.4 SVG versus canvas</h2>
+<p style="color:#4c4852;">SVG is retained-mode/vector and its shapes are represented as elements. Canvas is an immediate-mode drawing surface where your script paints pixels. SVG is often better for interactive diagrams; canvas can be useful for large dynamic drawings, games and pixel operations.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!-- SVG: semantic-ish DOM objects --&gt;
+&lt;svg&gt;&lt;rect x="10" y="10" width="80" height="40"&gt;&lt;/rect&gt;&lt;/svg&gt;
+
+&lt;!-- Canvas: drawing surface --&gt;
+&lt;canvas id="chart"&gt;&lt;/canvas&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">11.5 MathML</h2>
+<p style="color:#4c4852;">MathML provides markup for mathematical notation. Modern HTML documents can embed MathML where supported. Use it when mathematical structure itself is content, rather than converting formulas into screenshots.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;math&gt;
+  &lt;mrow&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;/mfrac&gt;&lt;/mrow&gt;
+&lt;/math&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">Graphics are not automatically accessible just because they are visible. Choose a representation that preserves the information users need.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Explain external versus inline SVG.</li><li>Know canvas limitations for semantics.</li><li>Compare SVG and canvas.</li><li>Recognize MathML as structured mathematical content.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Create a small analytics graphic twice: once with accessible SVG and once with canvas plus a text/data fallback. Compare maintainability and accessibility.</p>
+</section></div>`,
+    contents: [
+      {
+        id: "htmlGraphics_1",
+        title: "11. SVG, Canvas, MathML & Graphics in HTML",
+        images: [],
+      },
+    ],
+  },
+  {
+    id: "htmlWebComponents",
+    title: "12. Web Components, Templates & Reusable HTML",
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">12. Web Components, Templates & Reusable HTML</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Learn the HTML pieces that support component architectures: template, slot and custom elements. Keep native semantics inside components whenever possible.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Understand light DOM, shadow DOM, templates and slots conceptually.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">12.1 template</h2>
+<p style="color:#4c4852;">template stores inert markup that is not rendered as ordinary document content until JavaScript clones and inserts its content.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Templates separate reusable markup from the live document tree.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;template id="user-card-template"&gt;
+  &lt;article class="user-card"&gt;
+    &lt;h2&gt;&lt;slot name="name"&gt;Unknown user&lt;/slot&gt;&lt;/h2&gt;
+  &lt;/article&gt;
+&lt;/template&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">12.2 slot</h2>
+<p style="color:#4c4852;">slot defines insertion points for content supplied to a shadow tree. Named slots let component consumers place content into specific regions.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;my-card&gt;
+  &lt;span slot="name"&gt;Asha&lt;/span&gt;
+&lt;/my-card&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">12.3 Custom elements</h2>
+<p style="color:#4c4852;">Custom elements let JavaScript define new HTML-like elements. Their names contain a hyphen. HTML provides the markup surface while JavaScript supplies behavior and lifecycle.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> A custom element is not automatically accessible. Its internal implementation still needs correct native controls, names, focus behavior and states.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;user-card&gt;&lt;/user-card&gt;
+&lt;script&gt;
+  customElements.define('user-card', class extends HTMLElement {});
+&lt;/script&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">12.4 Shadow DOM and semantics</h2>
+<p style="color:#4c4852;">Shadow DOM encapsulates a component’s internal DOM and styling. Learn the difference between light DOM content supplied by the page and shadow DOM content rendered inside the component.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>class UserCard extends HTMLElement {
+  connectedCallback() {
+    const root = this.attachShadow({ mode: 'open' });
+    root.innerHTML = '&lt;article&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/article&gt;';
+  }
+}</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">12.5 Progressive enhancement with components</h2>
+<p style="color:#4c4852;">A robust component can start with meaningful HTML and enhance it after JavaScript loads. Avoid making a custom element the only place where essential content exists if failure would make the page unusable.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;details class="faq"&gt;
+  &lt;summary&gt;Shipping&lt;/summary&gt;
+  &lt;p&gt;Ships in two days.&lt;/p&gt;
+&lt;/details&gt;
+&lt;!-- JavaScript may enhance this later. --&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">Component systems should improve reuse without throwing away the strengths of HTML.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Explain template and slot.</li><li>Know why custom elements need a hyphen.</li><li>Understand light versus shadow DOM.</li><li>Keep native semantics inside components.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Create a user-card component that accepts a name and image but uses native article, heading, img and button semantics internally.</p>
+</section></div>`,
+    contents: [
+      {
+        id: "htmlWebComponents_1",
+        title: "12. Web Components, Templates & Reusable HTML",
+        images: [],
+      },
+    ],
+  },
+  {
+    id: "htmlI18n",
+    title: "13. Internationalization, Language, Direction & Specialized Content",
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">13. Internationalization, Language, Direction & Specialized Content</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">HTML carries important information about language, direction, pronunciation and machine-readable values. These details matter for global applications.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Write markup that behaves correctly for multilingual and bidirectional content.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">13.1 lang at the document level</h2>
+<p style="color:#4c4852;">Set lang on the html element using a BCP 47 language tag. Override it on descendants when a passage changes language.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Language metadata helps screen readers choose pronunciation and helps software process text correctly.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;html lang="en"&gt;
+  &lt;body&gt;
+    &lt;p&gt;Hello &lt;span lang="ta"&gt;வணக்கம்&lt;/span&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">13.2 dir and bidirectional text</h2>
+<p style="color:#4c4852;">Use dir="ltr", dir="rtl" or dir="auto". User-generated mixed-direction content can be isolated with bdi. bdo can force a direction for specific content.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p dir="rtl"&gt;مرحبا&lt;/p&gt;
+&lt;p&gt;User: &lt;bdi&gt;محمد&lt;/bdi&gt;&lt;/p&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">13.3 Ruby annotations</h2>
+<p style="color:#4c4852;">ruby, rt and related elements can represent pronunciation or annotation text used in some writing systems.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;ruby&gt;漢&lt;rt&gt;かん&lt;/rt&gt;&lt;/ruby&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">13.4 translate and localized values</h2>
+<p style="color:#4c4852;">translate="no" can tell translation tools that a string should not be translated. data and time can expose machine-readable values while preserving localized human-readable text.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;p translate="no"&gt;Bytes4Dev&lt;/p&gt;
+&lt;time datetime="2026-10-09T08:30:00+05:30"&gt;9 October, 8:30 AM&lt;/time&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">13.5 Dates, numbers and localization strategy</h2>
+<p style="color:#4c4852;">HTML can expose machine-readable values, but formatting and localization decisions often belong to application code. Do not assume one date format or decimal convention works globally.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;data value="1234.50"&gt;₹1,234.50&lt;/data&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">Internationalization is easier when the markup carries correct language and direction metadata from the beginning.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Set document language.</li><li>Override language for mixed-language text.</li><li>Know bdi versus bdo.</li><li>Use machine-readable date/value attributes appropriately.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Create a multilingual profile page containing English, Tamil and Arabic text, a localized date, and a user-generated name that must remain directionally isolated.</p>
+</section></div>`,
+    contents: [
+      {
+        id: "htmlI18n_1",
+        title: "13. Internationalization, Language, Direction & Specialized Content",
+        images: [],
+      },
+    ],
+  },
+  {
+    id: "htmlStandards",
+    title: "14. Deprecated HTML, Compatibility & Standards-Aware Development",
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">14. Deprecated HTML, Compatibility & Standards-Aware Development</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Learn what not to use, how browser compatibility affects decisions, and how to build HTML that remains understandable over time.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Distinguish modern semantic HTML from legacy presentation markup and vendor-specific habits.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">14.1 Presentation belongs in CSS</h2>
+<p style="color:#4c4852;">Avoid legacy presentation attributes and elements such as font, center, bgcolor, align and layout tables. Use semantic HTML for meaning and CSS for presentation.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!-- Better --&gt;
+&lt;p class="notice"&gt;Important update&lt;/p&gt;
+
+&lt;!-- Avoid legacy presentation --&gt;
+&lt;center&gt;&lt;font color="red"&gt;Important update&lt;/font&gt;&lt;/center&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">14.2 Deprecated and obsolete patterns</h2>
+<p style="color:#4c4852;">Do not introduce obsolete tags such as font, center, big, strike, tt, frameset and similar legacy constructs into new projects. Know that browser support for old markup does not make it a good engineering choice.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!-- Modern --&gt;
+&lt;strong&gt;Important&lt;/strong&gt;
+&lt;em&gt;Emphasis&lt;/em&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">14.3 Browser compatibility</h2>
+<p style="color:#4c4852;">HTML features have varying support across browsers and versions. Use progressive enhancement, feature detection and compatibility references when a feature matters to your target audience.</p><div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;margin:14px 0;"><strong>Why it matters:</strong> Do not avoid a useful platform feature merely because an old browser once lacked it; base the decision on your actual support matrix.</div><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;details&gt;
+  &lt;summary&gt;Native disclosure&lt;/summary&gt;
+  &lt;p&gt;Enhanced where supported.&lt;/p&gt;
+&lt;/details&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">14.4 Validation and conformance</h2>
+<p style="color:#4c4852;">Use HTML validators and linters to catch syntax and conformance problems, but remember that validation does not guarantee accessibility, security, usability or correct business behavior.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+  ...
+&lt;/html&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">14.5 Maintainability conventions</h2>
+<p style="color:#4c4852;">Use consistent casing, quoted attributes, meaningful class/id names, sensible source order and minimal wrappers. Keep comments useful and remove stale notes.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;main class="course-content"&gt;
+  &lt;section class="lesson"&gt;
+    &lt;h2&gt;Forms&lt;/h2&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">Standards-aware HTML is not about using every new feature; it is about choosing stable semantics and verifying behavior for the browsers you support.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Avoid obsolete presentation markup.</li><li>Use CSS for presentation.</li><li>Validate but do not equate validation with quality.</li><li>Know your browser support target.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Take an old HTML page and modernize it without changing its visible design: replace deprecated markup, add semantic structure, improve labels and remove unnecessary wrappers.</p>
+</section></div>`,
+    contents: [
+      {
+        id: "htmlStandards_1",
+        title: "14. Deprecated HTML, Compatibility & Standards-Aware Development",
+        images: [],
+      },
+    ],
+  },
+  {
     id: "htmlPractice",
-    title: "11. Practical Workflow, Debugging & Revision",
-    about: `<div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-<div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;">
-<p style="margin:0 0 10px;font-size:17px;color:#6b6670;">Turn knowledge into repeatable skill. Use projects for regular learning, debugging checklists for work, and focused revision when an interview is close.</p>
-<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:6px;"><strong>Focus:</strong> Build, inspect, validate, test with keyboard navigation, and explain why you selected each important HTML element.</div>
-</div>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<ul>
-        <li>Use lowercase element and attribute names consistently and quote attribute values.</li>
-        <li>Choose semantic HTML based on meaning, not on default browser appearance.</li>
-        <li>Keep HTML valid and properly nested; use a validator during development.</li>
-        <li>Keep CSS responsible for presentation and JavaScript responsible for behavior that cannot be expressed declaratively.</li>
-        <li>Give forms labels, required-state explanations and useful validation feedback.</li>
-        <li>Provide meaningful document titles, language declarations and text alternatives.</li>
-        <li>Prefer real buttons and links over clickable <code>div</code> elements.</li>
-        <li>Avoid deprecated tags and presentation-only attributes.</li>
-        <li>Use descriptive IDs and classes while avoiding unnecessary wrapper elements.</li>
-        <li>Write HTML that remains understandable without looking at the CSS first.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Recognize older markup that may appear in legacy applications but should not be used in modern HTML authoring.</p>
-      <ul>
-        <li>Presentation-era tags such as <code>&lt;font&gt;</code>, <code>&lt;center&gt;</code> and <code>&lt;big&gt;</code>.</li>
-        <li>Old frame-based systems such as <code>&lt;frameset&gt;</code>, <code>&lt;frame&gt;</code> and <code>&lt;noframes&gt;</code>.</li>
-        <li>Legacy document-era elements such as <code>&lt;acronym&gt;</code>, <code>&lt;tt&gt;</code>, <code>&lt;strike&gt;</code> and other obsolete features.</li>
-        <li>Deprecated table presentation attributes such as <code>border</code>, <code>cellspacing</code> and <code>cellpadding</code>.</li>
-      </ul>
-      <p style="color:#4c4852;">Know what these features mean when maintaining old code, but prefer current semantic HTML and CSS for new development.</p>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<p style="color:#4c4852;">Good HTML work includes a repeatable debugging workflow.</p>
-      <ul>
-        <li>Use browser developer tools to inspect the DOM, not just the source file.</li>
-        <li>Check the Console for parser-related hints, script errors and warnings.</li>
-        <li>Inspect accessibility information where browser tooling provides it.</li>
-        <li>Use an HTML validator to catch structural and conformance problems.</li>
-        <li>Inspect Network requests when images, CSS, scripts, iframes or media do not load.</li>
-        <li>When an image fails, check the URL, relative path, HTTP status, MIME type, permissions, CSP and whether the external host permits embedding.</li>
-        <li>When a form behaves unexpectedly, inspect the control's <code>name</code>, disabled state, validation state and the actual submitted request.</li>
-      </ul>
-</section>
-
-<section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;border-radius:0;padding:6px 0 34px;margin:0 0 34px;box-shadow:none;">
-<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Project 1: Personal Profile</h2>
-      <p style="color:#4c4852;">Build a profile page with a title, heading hierarchy, image, bio, skills list, links and semantic structure.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Project 2: Accessible Registration Form</h2>
-      <p style="color:#4c4852;">Build a complete form using labels, fieldsets, legends, input types, autocomplete, validation attributes, error text and a useful submission structure.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Project 3: Product Page</h2>
-      <p style="color:#4c4852;">Use semantic sections, responsive images, product information, a specification table, price/time markup, forms and a footer.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Project 4: Documentation Site</h2>
-      <p style="color:#4c4852;">Build a documentation page with header, nav, main, articles, headings, code blocks, links, lists, tables and skip navigation.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Project 5: Media Gallery</h2>
-      <p style="color:#4c4852;">Combine figure, picture, audio, video, subtitles and captions with accessible alternatives.</p>
-      <h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;letter-spacing:-0.01em;">Project 6: Data Dashboard Markup</h2>
-      <p style="color:#4c4852;">Build the HTML layer of a dashboard with data tables, headings, forms, status text, progress indicators and semantic grouping.</p>
-</section>
-</div>`,
+    title: "15. Practical Projects, Debugging, Review & Production Checklist",
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">15. Practical Projects, Debugging, Review & Production Checklist</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Turn the course into repeatable engineering skill. Each project focuses on a different cluster of HTML decisions.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Build first, inspect the DOM, test with keyboard navigation, validate, then explain why each important element was chosen.</div>
+</div><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.1 Project 1 — Personal profile</h2>
+<p style="color:#4c4852;">Build a semantic profile page with header, nav, main, article, aside, footer, headings, links, image alternative text and contact information.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;header&gt;...&lt;/header&gt;
+&lt;main&gt;
+  &lt;article&gt;...&lt;/article&gt;
+  &lt;aside&gt;...&lt;/aside&gt;
+&lt;/main&gt;
+&lt;footer&gt;...&lt;/footer&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.2 Project 2 — Registration form</h2>
+<p style="color:#4c4852;">Create an accessible registration form with labels, password, email, date, radio buttons, checkboxes, select, file upload, validation constraints and useful instructions.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;form action="/register" method="post"&gt;
+  &lt;fieldset&gt;...&lt;/fieldset&gt;
+  &lt;button type="submit"&gt;Create account&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.3 Project 3 — Product page</h2>
+<p style="color:#4c4852;">Use semantic sections, responsive images, price data, product specifications, a table, purchase form, delivery information and footer.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;main&gt;
+  &lt;article&gt;
+    &lt;h1&gt;Product&lt;/h1&gt;
+    &lt;figure&gt;...&lt;/figure&gt;
+    &lt;data value="799"&gt;₹799&lt;/data&gt;
+  &lt;/article&gt;
+&lt;/main&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.4 Project 4 — Documentation site</h2>
+<p style="color:#4c4852;">Build a documentation page with skip navigation, nav, main, articles, headings, code blocks, lists, tables, related links and a search form.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;a href="#main"&gt;Skip to content&lt;/a&gt;
+&lt;nav aria-label="Documentation"&gt;...&lt;/nav&gt;
+&lt;main id="main"&gt;...&lt;/main&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.5 Project 5 — Media gallery</h2>
+<p style="color:#4c4852;">Combine figure, picture, responsive images, video, captions and a transcript. Test the page with images disabled and without audio.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;picture&gt;...&lt;/picture&gt;
+&lt;figure&gt;...&lt;/figure&gt;
+&lt;video controls&gt;...&lt;/video&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.6 Project 6 — Data dashboard markup</h2>
+<p style="color:#4c4852;">Create a dashboard’s HTML layer with headings, status text, progress/meter, filters, accessible tables and semantic grouping. Do not use layout tables.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>&lt;main&gt;
+  &lt;h1&gt;Sales dashboard&lt;/h1&gt;
+  &lt;section&gt;...&lt;/section&gt;
+  &lt;table&gt;...&lt;/table&gt;
+&lt;/main&gt;</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.7 Debugging workflow</h2>
+<p style="color:#4c4852;">When something is wrong, inspect the live DOM, check the accessibility tree, inspect network requests, verify resource URLs, validate the document and test keyboard behavior.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>1. Reproduce
+2. Inspect DOM
+3. Check console/network
+4. Check accessibility
+5. Fix semantic root cause
+6. Retest</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.8 Production HTML checklist</h2>
+<p style="color:#4c4852;">Before shipping, review document metadata, semantics, headings, links, forms, media, accessibility, resource loading, embeds, security-sensitive markup and compatibility.</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>Production checklist:
+✓ doctype/lang/title
+✓ headings/landmarks
+✓ labels/errors
+✓ alt/captions
+✓ responsive images
+✓ safe embeds
+✓ loading behavior</code></pre></div></section><section style="background:#fff;border:0;border-bottom:1px solid #e7e3df;padding:8px 0 34px;margin:0 0 34px;">
+<h2 style="color:#514276;font-size:23px;line-height:1.35;margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid #e7e0f0;">15.9 Code review questions</h2>
+<p style="color:#4c4852;">Review HTML by asking: Does the element express meaning? Is there a native control? Is the source order logical? Does every form control have a name and label? Are images alternatives correct? Are tables truly tabular? Could a user operate it with a keyboard?</p><div style="margin:16px 0;"><div style="font-weight:700;color:#6a5b91;margin-bottom:7px;">Example</div><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:18px 20px;border-radius:10px;overflow:auto;font-size:14px;line-height:1.7;white-space:pre-wrap;"><code>Review question: “If CSS and JavaScript disappeared, would the core information and navigation still make sense?”</code></pre></div></section><section style="background:#fbf8ef;border:1px solid #eadfc9;border-radius:12px;padding:22px 24px;margin-top:12px;">
+<h2 style="color:#6b552f;margin-top:0;">Checkpoint</h2><p style="color:#4c4852;">The goal is not perfect-looking markup. The goal is predictable, semantic, accessible and maintainable documents.</p>
+<h3 style="color:#6a5b91;">Before moving on</h3><ul style="color:#4c4852;"><li>Inspect both source and live DOM.</li><li>Test keyboard-only operation.</li><li>Check mobile and zoom behavior.</li><li>Validate forms and table relationships.</li><li>Review performance and security-sensitive embeds.</li></ul>
+<h3 style="color:#6a5b91;">Mini project</h3><p style="color:#4c4852;">Final capstone: build an accessible product/documentation portal using at least 10 course topics. Write a short architecture note explaining each semantic choice.</p>
+</section></div>`,
     contents: [
       {
         id: "htmlPractice_1",
-        title: "11. Practical Workflow, Debugging & Revision",
+        title: "15. Practical Projects, Debugging, Review & Production Checklist",
         images: [],
       },
     ],
   },
   {
     id: "htmlInterview",
-    title: "12. Interview Preparation — 56 HTML Questions & Answers",
-    about: `
-      <div style="font-family:"Inter","Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;color:#302d35;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
-        <div style="background:#fff;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;background:#fcfbf9;"><h2 style="color:#5d4e86;margin:0 0 8px;font-size:32px;letter-spacing:-0.02em;">HTML Interview Questions &amp; Answers</h2>
-        <p style="color:#4c4852;">Use this section as an interview revision guide. The questions progress from fundamentals to browser behavior, accessibility, forms, performance, parsing, security and standards-level concepts.</p>
-        <p style="color:#4c4852;"><strong>Format:</strong> 56 questions divided into Beginner, Intermediate, Advanced and Expert levels. Each answer includes a practical example where it helps explain the concept.</p></div>
-
-        <h2 style="color:#5d4e86;font-size:25px;border-bottom:2px solid #e7e3df;padding-bottom:9px;margin:30px 0 18px;">Beginner</h2>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">1. What is HTML?</h3><p style="color:#4c4852;"><strong>Answer:</strong> HTML (HyperText Markup Language) is the markup language used to describe the structure and meaning of content on a web page. It tells the browser what is a heading, paragraph, link, image, form control, table, and so on.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;h1&gt;My Portfolio&lt;/h1&gt;
-&lt;p&gt;I am a web developer.&lt;/p&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">2. What is the difference between an element and a tag?</h3><p style="color:#4c4852;"><strong>Answer:</strong> A tag is markup such as <code>&lt;p&gt;</code> or <code>&lt;/p&gt;</code>. An element is the complete construct, including its content and tags when applicable.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;p&gt;Hello&lt;/p&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">3. What does &lt;!doctype html&gt; do?</h3><p style="color:#4c4852;"><strong>Answer:</strong> It tells the browser to use standards mode for the document. In modern HTML it is intentionally short and is not a version declaration like old HTML doctypes.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;!doctype html&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">4. What is a void element?</h3><p style="color:#4c4852;"><strong>Answer:</strong> A void element cannot contain child content and does not have an HTML closing tag. Examples include <code>img</code>, <code>input</code>, <code>br</code>, <code>hr</code>, <code>meta</code>, <code>link</code> and <code>source</code>.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">5. What is the purpose of the html, head and body elements?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>html</code> is the document root, <code>head</code> contains metadata and resource information, and <code>body</code> contains the document content rendered as the page.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">6. What is the difference between block and inline elements?</h3><p style="color:#4c4852;"><strong>Answer:</strong> This is a useful historical description of layout behavior, but modern HTML is better understood by each element's content model and CSS display. CSS controls layout. For example, a <code>div</code> is flow content while <code>span</code> is phrasing content.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">7. What is semantic HTML?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Semantic HTML uses elements according to their meaning rather than their appearance. For example, use <code>nav</code> for navigation and <code>button</code> for an action instead of generic <code>div</code> elements.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">8. What is the difference between id and class?</h3><p style="color:#4c4852;"><strong>Answer:</strong> An <code>id</code> identifies an element uniquely within a document and is useful for fragment links and scripting. A <code>class</code> groups elements so the same styling or behavior can apply to multiple elements.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;section id="profile" class="card featured"&gt;...&lt;/section&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">9. Why is the alt attribute important on images?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Alternative text communicates the purpose or meaning of an image when it cannot be perceived. Screen readers can announce it, and it can appear when the image cannot be loaded. Decorative images should normally use an empty <code>alt=""</code>.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">10. What is the difference between strong and b?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>strong</code> expresses strong importance, while <code>b</code> draws attention without adding that same semantic importance. CSS should be used for purely visual bold styling.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">11. What is the difference between em and i?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>em</code> represents stress emphasis. <code>i</code> represents text set apart from the surrounding text for a different reason, such as a technical term or alternate voice, depending on context.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">12. What is the difference between div and span?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Both are generic containers. <code>div</code> is a flow-content container commonly used for larger structural grouping, while <code>span</code> is a phrasing-content container for inline text or small inline groups.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">13. Why should the lang attribute be set?</h3><p style="color:#4c4852;"><strong>Answer:</strong> It identifies the language of the document or a portion of content. Assistive technologies, spell checkers, translation tools and other user agents can use it.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;html lang="en"&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">14. What is the difference between HTML and CSS?</h3><p style="color:#4c4852;"><strong>Answer:</strong> HTML describes document structure and meaning. CSS controls presentation and layout. A good implementation keeps meaningful structure in HTML and visual rules in CSS.</p></article>
-
-        <h2 style="color:#5d4e86;font-size:25px;border-bottom:2px solid #e7e3df;padding-bottom:9px;margin:30px 0 18px;">Intermediate</h2>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">15. Why is the name attribute important on form controls?</h3><p style="color:#4c4852;"><strong>Answer:</strong> The <code>name</code> identifies the control's field when successful form controls are serialized for submission. An input with an <code>id</code> but no <code>name</code> generally does not contribute a name/value pair to form submission.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;input name="email" type="email"&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">16. GET vs POST in HTML forms?</h3><p style="color:#4c4852;"><strong>Answer:</strong> With <code>GET</code>, form data is encoded into the target URL's query string. With <code>POST</code>, data is sent in the request body. GET is commonly used for safe retrieval/search; POST is commonly used when submitting data that changes server state.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">17. Why should a form input have a label?</h3><p style="color:#4c4852;"><strong>Answer:</strong> A label gives the control a human-readable purpose and improves usability and accessibility. Explicit association is made with matching <code>for</code> and <code>id</code> values.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;label for="email"&gt;Email&lt;/label&gt;
-&lt;input id="email" name="email" type="email"&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">18. What are Boolean attributes?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Boolean attributes represent an enabled/disabled or true/false state by their presence. For example, <code>required</code> means the control is required; its presence is what matters.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;input required&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">19. What is the difference between disabled and readonly?</h3><p style="color:#4c4852;"><strong>Answer:</strong> A disabled form control cannot normally be edited or focused and is excluded from form submission. A readonly text-like control cannot be edited by the user but can generally be focused and submitted.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">20. What is srcset used for?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>srcset</code> lets an image provide multiple candidate resources so the browser can select an appropriate resource based on resolution or display conditions.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;img src="photo-800.jpg"
-     srcset="photo-400.jpg 400w, photo-800.jpg 800w, photo-1200.jpg 1200w"
-     sizes="(max-width: 600px) 100vw, 800px"
-     alt="Mountain landscape"&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">21. When should picture be used?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Use <code>picture</code> when you need art direction or alternative image formats/resources selected using conditions. It still requires an <code>img</code> fallback.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">22. What is the difference between section and article?</h3><p style="color:#4c4852;"><strong>Answer:</strong> A <code>section</code> is a thematic grouping of content, usually with a heading. An <code>article</code> represents a self-contained composition that could be distributed or reused independently, such as a news story or blog post.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">23. What is the difference between section and div?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>section</code> communicates a thematic section of a document. <code>div</code> carries no semantic meaning and should be used when a generic container is actually needed.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">24. What are thead, tbody and tfoot?</h3><p style="color:#4c4852;"><strong>Answer:</strong> They group table rows into header, body and footer sections. They improve structure and make complex tables easier to understand and manipulate.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">25. What is the purpose of scope in a table header?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>scope</code> helps identify what cells a header describes, such as a column or row. This improves the association between headers and data cells for assistive technologies.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;th scope="col"&gt;Price&lt;/th&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">26. What is the difference between button and anchor?</h3><p style="color:#4c4852;"><strong>Answer:</strong> An anchor navigates to a URL or document location. A button performs an action such as submitting a form, opening a dialog or triggering application behavior. Use the element that matches the user's intent.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">27. What does autocomplete do on forms?</h3><p style="color:#4c4852;"><strong>Answer:</strong> It gives the browser hints about whether and how it may autofill fields. Values such as <code>email</code>, <code>name</code>, <code>postal-code</code> and <code>current-password</code> provide semantic hints.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">28. What is native constraint validation?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Browsers can validate controls using attributes such as <code>required</code>, <code>type="email"</code>, <code>min</code>, <code>max</code>, <code>minlength</code>, <code>maxlength</code> and <code>pattern</code> before submission.</p></article>
-
-        <h2 style="color:#5d4e86;font-size:25px;border-bottom:2px solid #e7e3df;padding-bottom:9px;margin:30px 0 18px;">Advanced</h2>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">29. What is the difference between async and defer on scripts?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Both allow classic external scripts to download without blocking HTML parsing. <code>defer</code> scripts execute after parsing and preserve document order. <code>async</code> scripts execute as soon as they finish downloading, so execution order is not guaranteed.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">30. Why can a script in the head block rendering/parsing?</h3><p style="color:#4c4852;"><strong>Answer:</strong> A classic parser-inserted script without appropriate loading behavior can pause HTML parsing while the browser fetches and executes it. This is why script placement and loading attributes matter for performance.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">31. What is the purpose of meta viewport?</h3><p style="color:#4c4852;"><strong>Answer:</strong> It provides viewport behavior information for mobile browsers so the page can be laid out appropriately on device-sized viewports.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">32. What is an iframe sandbox?</h3><p style="color:#4c4852;"><strong>Answer:</strong> The <code>sandbox</code> attribute applies restrictions to content loaded in an iframe. Specific capabilities can be selectively enabled with sandbox tokens. It is useful for isolating untrusted embedded content.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">33. Why is target="_blank" often paired with rel="noopener"?</h3><p style="color:#4c4852;"><strong>Answer:</strong> A newly opened browsing context can otherwise have an opener relationship. <code>noopener</code> prevents the opened page from accessing the opener through <code>window.opener</code>. Modern browsers provide additional protections in many cases, but explicit intent is still clear.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">34. What is the difference between hidden and CSS display:none?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>hidden</code> expresses that the content is not currently relevant or should not be presented. CSS can also hide content visually, but it represents a presentation rule. Be careful not to use hiding mechanisms to remove information that assistive technology should receive.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">35. When should ARIA be used?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Prefer native HTML semantics first. Use ARIA when native HTML cannot express the required role, state or property. ARIA changes accessibility semantics; it does not automatically provide keyboard behavior, focus management or interaction logic.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">36. Why is a native button better than a clickable div?</h3><p style="color:#4c4852;"><strong>Answer:</strong> A native button already has semantics, keyboard interaction, focus behavior and expected browser accessibility behavior. A clickable <code>div</code> requires developers to recreate much of that behavior correctly.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">37. What is the purpose of the dialog element?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>dialog</code> represents a dialog box or other interactive subwindow. With JavaScript it can be opened as a modal using <code>showModal()</code>, allowing the browser to provide native dialog behavior.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">38. What are details and summary used for?</h3><p style="color:#4c4852;"><strong>Answer:</strong> They provide a native disclosure widget. <code>summary</code> is the visible control and the remaining <code>details</code> content can be expanded or collapsed.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">39. What is the popover attribute?</h3><p style="color:#4c4852;"><strong>Answer:</strong> The popover feature provides declarative support for temporary overlay UI such as menus, hints and popovers. A trigger can use attributes such as <code>popovertarget</code> to control a popover element.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">40. What is the difference between loading="lazy" and eager loading?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Lazy loading allows suitable resources such as images or iframes to be deferred until they are near the viewport. Eager loading requests the resource normally. Use lazy loading for non-critical off-screen content, not important above-the-fold images by default.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">41. Why should width and height be specified on images?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Providing dimensions allows the browser to reserve the correct aspect-ratio space earlier, reducing layout shifts while the image loads.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">42. What is the difference between SVG and Canvas?</h3><p style="color:#4c4852;"><strong>Answer:</strong> SVG is a retained-mode vector document made of elements that can participate in the DOM and accessibility tree. Canvas is a bitmap drawing surface controlled mainly through JavaScript. SVG is often convenient for scalable UI graphics; Canvas is useful for pixel-oriented or frequently redrawn graphics.</p></article>
-
-        <h2 style="color:#514276;font-size:25px;border-bottom:2px solid #e7e3df;padding-bottom:9px;margin:30px 0 18px;">Expert</h2>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">43. What happens conceptually when the browser parses HTML?</h3><p style="color:#4c4852;"><strong>Answer:</strong> The browser tokenizes the HTML and constructs a DOM tree according to the HTML parsing algorithm. The resulting DOM can differ from the literal source because the parser performs error recovery and inserts or closes elements according to the specification.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">44. Why can invalid HTML still appear to work?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Browsers implement standardized error-recovery rules. Invalid markup may therefore produce a usable DOM, but relying on recovery makes behavior harder to reason about and can cause accessibility, styling or scripting problems.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">45. What is the DOM versus HTML source?</h3><p style="color:#4c4852;"><strong>Answer:</strong> The source is the serialized document received or authored. The DOM is the browser's in-memory document tree after parsing. JavaScript manipulates the DOM, and the DOM is not always a byte-for-byte representation of the original source.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">46. What are content categories in HTML?</h3><p style="color:#4c4852;"><strong>Answer:</strong> HTML defines categories such as flow, phrasing, heading, interactive, embedded and metadata content. They describe what kinds of elements can participate in particular contexts and help determine valid parent/child relationships.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">47. Why can the same element be valid in one parent but invalid in another?</h3><p style="color:#4c4852;"><strong>Answer:</strong> HTML defines permitted content for each element. For example, an element may allow phrasing content but not arbitrary flow content. Correct nesting is therefore determined by the content model, not just by whether a browser happens to render the markup.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">48. What is the purpose of template?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>template</code> holds inert markup that is not rendered as part of the document immediately. Its contents can later be cloned and inserted using JavaScript, making it useful for reusable client-side markup and Web Components.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">49. What is the slot element?</h3><p style="color:#4c4852;"><strong>Answer:</strong> <code>slot</code> is used with Shadow DOM to define insertion points for light-DOM content supplied by a component consumer.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">50. What is declarative versus imperative HTML behavior?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Declarative HTML describes desired structure or behavior through markup, such as <code>details</code>, <code>dialog</code> and popovers. Imperative behavior is explicitly performed by JavaScript, such as calling methods, changing properties or registering event handlers.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">51. What security considerations exist for external links and embeds?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Treat external content as untrusted. Consider <code>noopener</code> for opened contexts, iframe <code>sandbox</code>, appropriate <code>referrerpolicy</code>, safe URL schemes, Content Security Policy, and whether third-party content actually needs to execute scripts or access capabilities.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">52. What is the difference between preload, prefetch and normal loading?</h3><p style="color:#4c4852;"><strong>Answer:</strong> They communicate different resource priorities and intended use. <code>preload</code> asks the browser to fetch a resource needed soon; <code>prefetch</code> is a lower-priority hint for a resource likely to be needed later. Incorrect hints can waste bandwidth, so they should be used deliberately.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">53. How can HTML affect Core Web Vitals?</h3><p style="color:#4c4852;"><strong>Answer:</strong> HTML controls what resources are discovered and their loading hints. Image dimensions can reduce layout shifts, correct image sizing can reduce download cost, and script/resource placement can affect how quickly the page becomes usable. HTML is therefore part of performance engineering, not just structure.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">54. How would you build an accessible custom control?</h3><p style="color:#4c4852;"><strong>Answer:</strong> First ask whether a native control can meet the requirement. If not, define the correct semantic role/state, make it keyboard accessible, implement expected focus behavior, expose state changes to assistive technology, and test with keyboard and screen-reader workflows. ARIA alone is not enough.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">55. How do you debug an HTML accessibility issue?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Inspect the DOM and accessibility tree in browser DevTools, check headings and landmarks, verify labels and names for controls, test keyboard navigation, inspect focus order, check image alternatives and table associations, then validate with automated tools and manual testing.</p></article>
-        <article style="background:#fff;border:1px solid #e6e1dc;border-radius:12px;padding:24px 28px;margin:0 0 20px;box-shadow:none;background:#fffdfb;"><h3 style="margin:0 0 10px;color:#28242c;font-size:20px;line-height:1.4;">56. What makes HTML production-ready?</h3><p style="color:#4c4852;"><strong>Answer:</strong> Production-ready HTML is valid and maintainable, uses semantic elements appropriately, has correct document metadata, accessible names and relationships, responsive media, sensible loading behavior, safe external links and embeds, predictable form behavior, and minimal reliance on browser error recovery.</p><pre style="background:#f7f5f1;color:#28242c;border:1px solid #e6e1dc;padding:14px 16px;border-radius:8px;overflow:auto;line-height:1.65;"><code>&lt;!doctype html&gt;
-&lt;html lang="en"&gt;
-  &lt;head&gt;
-    &lt;meta charset="utf-8"&gt;
-    &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
-    &lt;title&gt;Accessible Product Page&lt;/title&gt;
-  &lt;/head&gt;
-  &lt;body&gt;
-    &lt;header&gt;...&lt;/header&gt;
-    &lt;main&gt;...&lt;/main&gt;
-    &lt;footer&gt;...&lt;/footer&gt;
-  &lt;/body&gt;
-&lt;/html&gt;</code></pre></article>
-
-        <div style="margin-top:24px;padding:16px 18px;background:#f7f5f1;border-left:4px solid #5d4e86;border-radius:8px;">
-          <strong>Interview tip:</strong> For senior HTML questions, do not stop at the definition. Explain <em>why</em> the element exists, what problem it solves, what the accessible behavior should be, and when you would choose an alternative.
-        </div>
-      </div>
-    `,
+    title: "16. HTML Interview Preparation — 100 Questions & Answers",
+    about: `<div style="font-family:Inter,"Avenir Next","Segoe UI",sans-serif;color:#302d35;background:#fff;width:100%;max-width:none;margin:0;box-sizing:border-box;padding:30px 2vw 42px;line-height:1.82;font-size:16.5px;letter-spacing:0;">
+<div style="background:#fcfbf9;border:1px solid #e7e0f0;border-radius:16px;padding:28px 30px;margin-bottom:26px;">
+<h2 style="color:#5d4e86;margin:0 0 10px;font-size:31px;letter-spacing:-0.02em;">16. HTML Interview Preparation — 100 Questions & Answers</h2>
+<p style="margin:0 0 12px;color:#4c4852;font-size:17px;">Use this as a revision guide. Questions progress from fundamentals to browser behavior, accessibility, forms, performance, parsing, security and standards-level concepts.</p>
+<div style="background:#f4f0f9;border-left:4px solid #5d4e86;padding:12px 15px;border-radius:7px;"><strong>Focus:</strong> Do not memorize one-line definitions. Explain the problem, the semantic choice, the browser behavior and the trade-off.</div>
+</div><h2 style="color:#5d4e86;font-size:27px;border-bottom:2px solid #e7e3df;padding-bottom:9px;margin:34px 0 18px;">Beginner</h2><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is HTML?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> HTML is the markup language used to describe the structure and meaning of web content. It defines elements such as headings, paragraphs, links, forms and tables.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between an element and a tag?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A tag is markup syntax such as an opening or closing tag. An element is the complete construct including its content and attributes.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What does <!doctype html> do?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It tells the browser to use standards mode for the document.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the purpose of the html element?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It is the root element of the document and commonly carries document-wide metadata such as lang.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What belongs in head versus body?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> head contains metadata, resource relationships and document-level information; body contains the document content users interact with or read.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is a void element?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> An element that cannot contain child content and therefore has no closing tag, such as img or input.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why is lang important?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It identifies the language so assistive technology and other software can interpret or pronounce text appropriately.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between id and class?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> id identifies an element uniquely within a document; class groups elements and can be reused.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What are boolean attributes?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Attributes whose presence represents true, such as disabled, checked and required. disabled="false" is still disabled because the attribute is present.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why should attributes normally be quoted?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Quoted values are unambiguous, easier to read and robust when values contain spaces or special characters.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is semantic HTML?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> HTML that expresses the meaning and structure of content using appropriate elements rather than generic containers chosen only for appearance.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">When should you use div?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> When no more specific semantic element represents the grouping or when a generic container is genuinely needed for styling or scripting.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between strong and b?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> strong conveys strong importance; b is a generic offset of attention without adding the same importance semantics.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between em and i?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> em conveys stress emphasis; i is used for text set off from the normal prose for reasons such as a technical term or alternate voice, depending on context.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">When should br be used?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> When a line break is part of the content, such as an address or poem. It should not be used for layout spacing.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is an anchor element?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> a creates a hyperlink when it has an href or can represent a link destination/context as defined by HTML.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between ul and ol?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> ul is an unordered collection; ol represents a sequence where order matters.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is dl used for?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It represents name-value or term-description groups, not only traditional dictionaries.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is alt text?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It is the text alternative associated with an image when the image conveys information or function.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the purpose of label?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It provides an accessible name for a form control and can enlarge the activation target when associated correctly.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the name attribute used for in forms?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It identifies the field in form submission data. A control generally needs a name to contribute a successful value.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What does required do?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It makes a form control fail native constraint validation when no acceptable value is provided.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why is placeholder not a label?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Placeholder is a temporary hint and can disappear or have insufficient contrast; it does not reliably provide a persistent accessible name.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between button and a link?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A button performs an action; a link navigates to a resource or location.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is a table used for?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Representing relationships between tabular data, not page layout.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is caption in a table?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It gives the table a visible title or description of its purpose.</p></article><h2 style="color:#5d4e86;font-size:27px;border-bottom:2px solid #e7e3df;padding-bottom:9px;margin:34px 0 18px;">Intermediate</h2><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between src and href?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> src identifies a resource embedded or loaded by an element such as img or script; href identifies a destination or related resource such as an anchor or stylesheet.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is a relative URL?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A URL resolved against a base URL, usually the current document URL unless a base element changes resolution.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is a fragment identifier?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> The portion after # that can identify a location within a resource, commonly matching an element id on a page.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why use rel="noopener" with target="_blank"?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It prevents the newly opened page from receiving an opener reference in contexts where that relationship matters, reducing a class of window-opener attacks.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is responsive imagery?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Serving or selecting image resources appropriate to the device or display size, often with srcset, sizes and picture.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between srcset and picture?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> srcset/sizes describe candidate resources for a given image display; picture can select different sources for art direction or format/media conditions.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why specify image width and height?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> They communicate intrinsic dimensions/aspect ratio and help reserve layout space before the resource loads.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is loading="lazy"?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A hint that suitable resources, commonly off-screen images or iframes, may be deferred until closer to use.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is figure used for?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Self-contained content that can be referenced independently and may have an associated figcaption.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is semantic page structure?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Using elements such as header, nav, main, article, section, aside and footer to communicate page regions and relationships.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between article and section?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> article is self-contained content that could stand independently; section groups related content thematically and generally has a heading.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the purpose of main?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It identifies the dominant content of the document.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is scope in a table?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It indicates whether a header cell describes a row or column in straightforward table relationships.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">When do you need headers and id on table cells?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> When table relationships are complex enough that scope alone cannot express which headers apply to a data cell.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is a fieldset?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It groups related form controls, with legend providing the group’s name.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between radio and checkbox?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Radio buttons choose one option from a same-named group; checkboxes represent independent selections.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is datalist?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A source of suggestions for an input while still allowing a value outside the suggestions.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between progress and meter?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> progress represents task completion; meter represents a scalar measurement within a known range.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is native constraint validation?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> The browser’s built-in validation system driven by attributes such as required, type, min, max and pattern.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why is client-side validation not security?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Users can bypass or modify the browser and send requests directly, so the server must validate and authorize independently.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">When is multipart/form-data needed?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> When a form submits files.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What are successful form controls?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Controls whose names and states cause them to contribute name/value pairs during form submission; for example, disabled controls are omitted and unchecked checkboxes normally contribute nothing.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is progressive enhancement?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Building a useful baseline with HTML and then enhancing presentation and behavior with CSS and JavaScript.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is ARIA?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A set of accessibility semantics used to communicate roles, states and properties when native HTML does not provide the required semantics.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why prefer native HTML over ARIA?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Native controls already implement semantics and interaction behavior, reducing the amount of custom accessibility behavior developers must reproduce.</p></article><h2 style="color:#5d4e86;font-size:27px;border-bottom:2px solid #e7e3df;padding-bottom:9px;margin:34px 0 18px;">Advanced</h2><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What happens when a browser parses HTML?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It tokenizes the source and applies HTML parsing rules to construct a DOM tree, including error recovery and implied structure.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why can DevTools DOM differ from source HTML?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> The parser can insert implied elements, normalize markup and recover from malformed source before exposing the live DOM.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What are content models?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Rules describing what kinds of content or descendants an element may contain. They help determine valid nesting and semantic relationships.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between async and defer?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Both allow downloading without blocking the parser; async executes as soon as available without preserving script order, while defer preserves order and executes after parsing.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Are module scripts deferred?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Module scripts are deferred by default in modern browsers, while also following module dependency semantics.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What does preload do?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It tells the browser that a resource is expected to be needed soon and can be fetched early when correctly configured.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why can excessive preload hurt performance?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It can compete for bandwidth and connection priority with more important resources.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is fetchpriority?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A hint expressing relative fetch importance for certain resources; it should complement, not replace, good resource loading strategy.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is an iframe security concern?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Embedded content may have capabilities or origins you do not control. sandbox, permissions and referrer policies can reduce exposure depending on the use case.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is sandbox on iframe?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A set of restrictions applied to an embedded browsing context, with selected capabilities re-enabled using tokens.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is CSP?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Content Security Policy is primarily a response-header/browser security mechanism that can restrict sources and dangerous execution patterns; HTML alone cannot substitute for it.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between inline SVG and img SVG?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Inline SVG participates in the document DOM and can be styled/manipulated directly; an SVG referenced by img is treated as an external image resource.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is canvas?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A bitmap drawing surface typically controlled through JavaScript; its visual pixels do not automatically expose the same semantics as HTML elements.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is SVG versus canvas?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> SVG represents graphics as retained DOM-like vector objects; canvas is an immediate drawing surface. SVG is often convenient for interactive diagrams, canvas for high-frequency drawing and pixel operations.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is template?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> An inert HTML fragment that can be cloned and inserted by script without being rendered as ordinary document content immediately.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is slot?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> An insertion point in a shadow tree where light-DOM content can be projected into a component.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is shadow DOM?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> An encapsulated DOM tree associated with a host element, often used to isolate component internals and styling.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What makes a custom element accessible?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Its implementation must still provide native semantics where possible, correct names, keyboard interaction, focus behavior and accurate state communication.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is inert?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It makes a subtree non-interactive and removes it from relevant user interaction while active, useful for background content behind an overlay.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is a machine-readable date in HTML?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A time element can expose a datetime value while displaying localized human-readable text.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is canonical metadata?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A link relationship that identifies a preferred URL when multiple URLs represent substantially the same resource.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is JSON-LD?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A JSON-based linked-data format commonly embedded in a script element to describe structured information about page content.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the accessibility tree?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A browser-exposed representation of accessible roles, names, states and relationships used by assistive technologies.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How would you debug an accessibility issue?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Inspect the DOM and accessibility tree, verify names/roles/states, test keyboard navigation and focus, check headings/landmarks/forms/images/tables, then use automated and manual testing.</p></article><h2 style="color:#5d4e86;font-size:27px;border-bottom:2px solid #e7e3df;padding-bottom:9px;margin:34px 0 18px;">Expert</h2><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why can invalid HTML still render?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> HTML defines error-recovery parsing rules. Browsers attempt to construct a usable document even when source markup is malformed, but relying on recovery creates unpredictable or maintenance-heavy results.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why does source order matter for accessibility?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> DOM order influences reading order, keyboard navigation, focus movement and the logical sequence consumed by assistive technology.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How would you design HTML for progressive enhancement?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Start with semantic content and native navigation/forms, ensure core tasks work without advanced scripting, then add CSS and JavaScript enhancements without replacing the underlying meaning.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How does HTML affect Core Web Vitals?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Markup affects resource discovery, image sizing, layout stability, DOM complexity and script/resource loading. HTML is one part of the performance system, not the whole system.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why can lazy-loading the wrong image hurt performance?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Deferring an image that is immediately visible or important can delay meaningful visual content and degrade perceived loading performance.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How would you optimize a large HTML document?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Remove unnecessary wrappers, keep semantic structure shallow, reduce repeated markup where possible, paginate or virtualize appropriate application data, defer non-critical resources and measure DOM/style/layout cost.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How should HTML and server validation interact?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> HTML constraints provide immediate user feedback; the server independently validates, sanitizes where appropriate and authorizes operations because requests cannot be trusted to originate from the browser UI.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How would you secure an untrusted iframe?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Define the required capabilities, use sandbox with the smallest necessary allowances, review permissions and origin behavior, use suitable referrer policy, and enforce broader security with response headers.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">When should you use a custom element instead of native HTML?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> When the product needs a reusable behavior or abstraction that cannot reasonably be expressed with existing elements. Native controls should remain the internal foundation where applicable.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How would you review a PR containing only HTML changes?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Check semantics, source order, content models, accessibility names, keyboard behavior, form submission, responsive media, metadata, resource loading, security-sensitive embeds, validation and maintainability.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between HTML semantics and CSS appearance?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Semantics describe meaning and relationships; CSS controls presentation. A heading remains a heading regardless of font size.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why is a clickable div usually a code smell?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It has no native link/button semantics or keyboard behavior. Replacing it with the correct native element usually provides accessibility and interaction behavior for free.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What should a senior developer say when asked “How do you make HTML accessible?”</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Start with semantic native elements, correct names and labels, meaningful source order, text alternatives, keyboard support, visible focus, accessible errors and states, then test manually and with tools. ARIA is a supplement, not the starting point.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What makes HTML production-ready?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Valid and maintainable structure, correct metadata, semantic landmarks, accessible names and relationships, responsive media, sensible loading, safe embeds, predictable forms, appropriate internationalization and minimal dependence on parser error recovery.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the difference between an attribute and a DOM property?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> An attribute is part of the element markup/content model; a DOM property is an object property exposed by the browser. They can reflect each other for some attributes, but reflection is not universal and their values can diverge.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why should source order generally match reading order?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It keeps keyboard navigation, screen-reader reading and logical comprehension aligned. Visual reordering with CSS should not create a confusing interaction order.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is a successful control in a GET form?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> A form-associated control with a name and an eligible value contributes a name/value pair to the query string according to the form submission algorithm.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why should hidden form fields not be trusted?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Hidden fields are visible to and modifiable by the client, so they can carry state but cannot establish authorization or trusted business values.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is referrerpolicy used for?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It controls how much referrer information the browser sends with requests from a document or resource, helping balance analytics needs and privacy/security.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is crossorigin on a resource element?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> It controls the CORS mode used when fetching certain cross-origin resources and can be important for resources such as fonts, images, scripts or media depending on the element and use case.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why is accessibility not just adding ARIA labels?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Accessibility also depends on semantic structure, keyboard behavior, focus order, states, contrast, alternatives, errors, dynamic updates and actual usability. Labels solve only one part of the problem.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How do you decide between a link and button in a design?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> If activating it navigates to another URL or document location, use a link. If it performs an action without navigation, use a button.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">Why can a visually hidden element still affect accessibility?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Different hiding techniques have different semantics. CSS clipping, hidden, display:none and visibility:hidden do not all produce the same accessibility behavior, so the technique must match the intended purpose.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">How would you make a data visualization accessible?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Provide a meaningful accessible name, summarize the key insight in text, and when the underlying data matters provide a text or tabular representation rather than relying only on pixels.</p></article><article style="background:#fffdfb;border:1px solid #e6e1dc;border-radius:12px;padding:22px 26px;margin:0 0 18px;">
+<h3 style="margin:0 0 9px;color:#28242c;font-size:19px;line-height:1.45;">What is the most important HTML principle for senior developers?</h3>
+<p style="color:#4c4852;margin:0 0 10px;"><strong>Answer:</strong> Choose the simplest native element that accurately expresses the content or interaction, then enhance it only as necessary while preserving accessibility, performance and resilience.</p></article><div style="margin-top:24px;padding:18px 20px;background:#f4f0f9;border-left:4px solid #5d4e86;border-radius:8px;"><strong>Senior interview pattern:</strong> A strong answer usually covers four layers: what the feature means, why it exists, a practical example, and when you would choose an alternative.</div></div>`,
     contents: [
       {
         id: "htmlInterview_1",
-        title: "56 Interview Questions and Answers",
+        title: "16. HTML Interview Preparation — 100 Questions & Answers",
         images: [],
       },
     ],
