@@ -1,0 +1,2627 @@
+{
+  "courseId": "css-mastery",
+  "courseName": "CSS",
+  "title": "CSS Mastery: From Fundamentals to Advanced Layouts",
+  "subtitle": "A deep, practical CSS course covering fundamentals, layout systems, responsive design, animations, architecture, accessibility, performance, modern CSS, and real-world interview preparation.",
+  "category": "Frontend Development",
+  "level": "Advanced",
+  "estimatedTime": "18 Hours",
+  "accentColor": "#2563eb",
+  "keywords": [
+    "CSS",
+    "Cascading Style Sheets",
+    "HTML CSS",
+    "Flexbox",
+    "CSS Grid",
+    "Responsive Design",
+    "Media Queries",
+    "Animations",
+    "Transitions",
+    "CSS Variables",
+    "Container Queries",
+    "CSS Architecture",
+    "Accessibility",
+    "Performance",
+    "Modern CSS",
+    "Frontend Development"
+  ],
+  "chapters": [
+    {
+      "id": "css-fundamentals",
+      "title": "CSS Fundamentals",
+      "summary": "Understand what CSS is, how styles are applied, how the cascade works, and how browsers turn CSS into a rendered page.",
+      "estimatedMinutes": 55,
+      "sections": [
+        {
+          "id": "what-is-css",
+          "title": "What Is CSS?",
+          "content": "CSS, or Cascading Style Sheets, is the language used to describe the presentation of HTML documents. HTML provides structure while CSS controls appearance, spacing, positioning, typography, colors, responsive behavior, and visual effects.\n\nCSS is not a programming language in the traditional sense. It is a declarative styling language: you describe the visual result you want and the browser determines how to render it.\n\nA CSS rule normally contains a selector and a declaration block. The selector determines which elements are targeted, while declarations define the styles applied to those elements.\n\nThe browser does not simply read CSS from top to bottom. It resolves competing declarations using the cascade, specificity, source order, inheritance, and importance.",
+          "callout": {
+            "type": "info",
+            "title": "Think in layers",
+            "message": "HTML describes what an element is, CSS describes how it should look and behave visually, and JavaScript generally handles application behavior and interaction."
+          },
+          "codeExample": {
+            "title": "A Basic CSS Rule",
+            "language": "css",
+            "code": "p {\n  color: #2563eb;\n  font-size: 18px;\n  line-height: 1.6;\n}",
+            "explanation": "The selector `p` targets paragraph elements. Each declaration consists of a property and value."
+          },
+          "keyTakeaways": [
+            "CSS controls presentation and visual layout.",
+            "A CSS rule consists of a selector and declarations.",
+            "The browser resolves conflicting rules through the cascade."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the primary purpose of CSS?",
+            "options": [
+              "To define the structure of a webpage",
+              "To control the presentation and layout of a webpage",
+              "To communicate with databases",
+              "To execute server-side code"
+            ],
+            "correctIndex": 1,
+            "explanation": "CSS controls presentation, including colors, typography, spacing, layout, responsiveness, and visual effects. HTML provides structure and JavaScript provides programming behavior."
+          }
+        },
+        {
+          "id": "adding-css-to-html",
+          "title": "Ways to Add CSS",
+          "content": "CSS can be applied using inline styles, internal stylesheets, or external stylesheets. External stylesheets are generally preferred for production applications because they separate presentation from HTML and can be cached by the browser.\n\nInline styles are useful for highly localized dynamic styling but become difficult to maintain at scale. Internal styles can be useful for isolated documents or prototypes.",
+          "codeExample": {
+            "title": "Three CSS Application Methods",
+            "language": "html",
+            "code": "<!-- External stylesheet -->\n<link rel=\"stylesheet\" href=\"styles.css\">\n\n<!-- Internal stylesheet -->\n<style>\n  .title { color: blue; }\n</style>\n\n<!-- Inline style -->\n<h1 style=\"color: red\">Hello CSS</h1>",
+            "explanation": "All three methods can apply CSS, but external stylesheets usually provide the cleanest architecture for larger applications."
+          },
+          "keyTakeaways": [
+            "Prefer external stylesheets for maintainability.",
+            "Inline styles have high precedence but should not become the default architecture."
+          ],
+          "interactiveQuiz": {
+            "question": "Which approach is generally best for a large application?",
+            "options": [
+              "Inline styles everywhere",
+              "External stylesheets or a structured CSS architecture",
+              "Only HTML attributes",
+              "Duplicating styles in every component"
+            ],
+            "correctIndex": 1,
+            "explanation": "External stylesheets and structured styling systems provide better reuse, caching, organization, and maintainability."
+          }
+        },
+        {
+          "id": "css-syntax",
+          "title": "CSS Syntax and Declarations",
+          "content": "A declaration consists of a property followed by a colon and a value. Multiple declarations are enclosed inside braces. CSS allows comments using `/* ... */`.\n\nValues may be keywords, numbers, lengths, percentages, colors, functions, or compound expressions.",
+          "codeExample": {
+            "title": "CSS Declaration Syntax",
+            "language": "css",
+            "code": "/* Card styling */\n.card {\n  width: 320px;\n  padding: 24px;\n  background-color: white;\n  border-radius: 12px;\n  box-shadow: 0 10px 30px rgb(0 0 0 / 0.12);\n}",
+            "explanation": "Each property-value pair forms a declaration. CSS functions such as `rgb()` can also be used to express values."
+          },
+          "keyTakeaways": [
+            "Property names and values form declarations.",
+            "CSS supports functions such as `rgb()`, `calc()`, `min()`, `max()`, and `clamp()`."
+          ],
+          "interactiveQuiz": {
+            "question": "Which part of `color: blue` is the property?",
+            "options": ["blue", "color", ":", "The entire declaration"],
+            "correctIndex": 1,
+            "explanation": "`color` is the property and `blue` is its value."
+          }
+        },
+        {
+          "id": "css-comments",
+          "title": "Comments and Organization",
+          "content": "CSS comments are ignored by the browser but are valuable for documenting complex sections, design decisions, browser workarounds, or architecture boundaries.\n\nGood comments explain why unusual code exists rather than restating obvious declarations.",
+          "codeExample": {
+            "title": "CSS Comments",
+            "language": "css",
+            "code": "/* Layout container */\n.container {\n  width: min(100% - 2rem, 1200px);\n  margin-inline: auto;\n}\n\n/* Keep this fallback for older embedded browsers. */\n.card {\n  margin-left: auto;\n  margin-right: auto;\n}",
+            "explanation": "Comments can document intent and compatibility decisions without affecting rendering."
+          },
+          "keyTakeaways": ["CSS comments use `/* */` syntax.", "Prefer comments that explain intent rather than obvious code."],
+          "interactiveQuiz": {
+            "question": "Which syntax creates a CSS comment?",
+            "options": ["// comment", "<!-- comment -->", "/* comment */", "# comment"],
+            "correctIndex": 2,
+            "explanation": "CSS comments use `/* comment */` syntax."
+          }
+        }
+      ]
+    },
+    {
+      "id": "selectors-specificity-cascade",
+      "title": "Selectors, Specificity and the Cascade",
+      "summary": "Master selector types, combinators, pseudo-classes, pseudo-elements, specificity, inheritance, and cascade resolution.",
+      "estimatedMinutes": 75,
+      "sections": [
+        {
+          "id": "basic-selectors",
+          "title": "Element, Class, ID and Universal Selectors",
+          "content": "CSS selectors determine which elements receive declarations. The universal selector `*` matches every element. Type selectors target HTML elements, class selectors target elements with a class, and ID selectors target a specific ID.\n\nClasses are generally preferred for reusable styling. IDs have high specificity and are better reserved for unique document identities or application hooks when appropriate.",
+          "codeExample": {
+            "title": "Basic Selectors",
+            "language": "css",
+            "code": "* {\n  box-sizing: border-box;\n}\n\np {\n  color: #334155;\n}\n\n.card {\n  padding: 1rem;\n}\n\n#main-header {\n  min-height: 64px;\n}",
+            "explanation": "These selectors target all elements, paragraphs, elements with the `card` class, and the element with a specific ID."
+          },
+          "keyTakeaways": [
+            "Classes are the primary reusable styling hook.",
+            "IDs have higher specificity than classes and element selectors."
+          ],
+          "interactiveQuiz": {
+            "question": "Which selector targets elements with the class `card`?",
+            "options": ["#card", ".card", "card", "*card"],
+            "correctIndex": 1,
+            "explanation": "A period followed by the class name creates a class selector: `.card`."
+          }
+        },
+        {
+          "id": "attribute-selectors",
+          "title": "Attribute Selectors",
+          "content": "Attribute selectors target elements based on their attributes or attribute values. They are particularly useful for form controls, data attributes, links, and state represented through attributes.",
+          "codeExample": {
+            "title": "Attribute Selector Examples",
+            "language": "css",
+            "code": "input[type=\"email\"] {\n  border-color: steelblue;\n}\n\nbutton[disabled] {\n  opacity: 0.5;\n}\n\n[data-theme=\"dark\"] {\n  color-scheme: dark;\n}\n\n[href^=\"https://\"] {\n  text-decoration: underline;\n}",
+            "explanation": "CSS supports exact matching and operators such as starts-with `^=`, ends-with `$=`, and contains `*=`."
+          },
+          "keyTakeaways": [
+            "Attribute selectors can target both presence and values.",
+            "They are useful when styling semantic states represented through attributes."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `[disabled]` select?",
+            "options": [
+              "Only elements with class disabled",
+              "Elements containing the word disabled in their text",
+              "Elements having a disabled attribute",
+              "Only disabled CSS classes"
+            ],
+            "correctIndex": 2,
+            "explanation": "An attribute selector without a value checks whether the attribute exists."
+          }
+        },
+        {
+          "id": "combinators",
+          "title": "Combinators",
+          "content": "Combinators describe relationships between elements. A descendant selector uses whitespace, a child combinator uses `>`, an adjacent sibling uses `+`, and a general sibling uses `~`.\n\nUnderstanding relationships is important because overly broad descendant selectors can create unexpected styling and make CSS harder to maintain.",
+          "codeExample": {
+            "title": "Combinators",
+            "language": "css",
+            "code": ".card p {\n  margin-block: 0.5rem;\n}\n\n.card > header {\n  padding: 1rem;\n}\n\nh2 + p {\n  margin-top: 0;\n}\n\nh2 ~ p {\n  color: #64748b;\n}",
+            "explanation": "Each combinator expresses a different structural relationship."
+          },
+          "keyTakeaways": [
+            "Whitespace means descendant.",
+            "`>` means direct child.",
+            "`+` means immediately following sibling.",
+            "`~` means later sibling."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `.card > p` select?",
+            "options": [
+              "All paragraphs anywhere inside `.card`",
+              "Only paragraphs that are direct children of `.card`",
+              "All paragraphs before `.card`",
+              "Only paragraphs after `.card`"
+            ],
+            "correctIndex": 1,
+            "explanation": "The child combinator `>` requires the paragraph to be an immediate child."
+          }
+        },
+        {
+          "id": "pseudo-classes",
+          "title": "Pseudo-Classes",
+          "content": "Pseudo-classes represent element states or structural conditions. Common examples include `:hover`, `:focus-visible`, `:active`, `:disabled`, `:checked`, `:first-child`, `:nth-child()`, and `:not()`.\n\nInteractive states should consider keyboard users. For example, replacing a visible focus indicator with only `:hover` creates an accessibility problem.",
+          "codeExample": {
+            "title": "State-Based Styling",
+            "language": "css",
+            "code": "button:hover {\n  transform: translateY(-1px);\n}\n\nbutton:focus-visible {\n  outline: 3px solid currentColor;\n  outline-offset: 3px;\n}\n\nli:nth-child(2n) {\n  background: #f8fafc;\n}\n\ninput:not(:placeholder-shown) {\n  border-color: green;\n}",
+            "explanation": "Pseudo-classes allow styles to respond to interaction and document state."
+          },
+          "keyTakeaways": [
+            "Use `:focus-visible` for accessible keyboard focus indicators.",
+            "Structural pseudo-classes can reduce unnecessary classes in markup."
+          ],
+          "interactiveQuiz": {
+            "question": "Which pseudo-class is specifically useful for keyboard-visible focus styling?",
+            "options": [":hover", ":active", ":focus-visible", ":visited"],
+            "correctIndex": 2,
+            "explanation": "`:focus-visible` lets browsers display focus styling when focus indication is particularly relevant, especially for keyboard navigation."
+          }
+        },
+        {
+          "id": "pseudo-elements",
+          "title": "Pseudo-Elements",
+          "content": "Pseudo-elements style conceptual parts of an element rather than actual DOM elements. Common examples include `::before`, `::after`, `::first-letter`, `::first-line`, `::selection`, and `::marker`.\n\nGenerated content using `::before` and `::after` should not be used as the only place to store essential information because generated content may not provide the same semantic guarantees as real HTML content.",
+          "codeExample": {
+            "title": "Pseudo-Element Decoration",
+            "language": "css",
+            "code": ".badge::before {\n  content: \"\";\n  display: inline-block;\n  width: 0.5rem;\n  height: 0.5rem;\n  margin-inline-end: 0.5rem;\n  border-radius: 50%;\n  background: currentColor;\n}",
+            "explanation": "The pseudo-element adds a decorative dot without requiring another HTML element."
+          },
+          "keyTakeaways": [
+            "Pseudo-elements represent conceptual parts of an element.",
+            "Do not hide critical semantic content exclusively inside generated content."
+          ],
+          "interactiveQuiz": {
+            "question": "Which syntax represents a pseudo-element?",
+            "options": [":hover", "::before", ".before", "#before"],
+            "correctIndex": 1,
+            "explanation": "Modern CSS convention uses double colons for pseudo-elements such as `::before`."
+          }
+        },
+        {
+          "id": "specificity",
+          "title": "Specificity Calculation",
+          "content": "Specificity determines which competing selectors have greater priority. A useful mental model is a four-part weight: inline styles, IDs, classes/attributes/pseudo-classes, and elements/pseudo-elements.\n\nFor example, `#app .card p` is more specific than `.card p`. Specificity should be kept manageable because deeply specific selectors make overrides difficult.\n\nThe `!important` flag overrides normal declarations but should be used sparingly because it makes the cascade harder to reason about.",
+          "codeExample": {
+            "title": "Specificity Example",
+            "language": "css",
+            "code": "p {\n  color: black;\n}\n\n.card p {\n  color: blue;\n}\n\n#article .card p {\n  color: red;\n}",
+            "explanation": "The third selector has the highest specificity because it contains an ID, a class, and an element selector."
+          },
+          "keyTakeaways": [
+            "IDs carry much more specificity than classes.",
+            "Avoid escalating specificity to solve architecture problems.",
+            "Use `!important` only when there is a clear reason."
+          ],
+          "interactiveQuiz": {
+            "question": "Which selector has greater specificity?",
+            "options": ["p", ".card", ".card p", "#app .card p"],
+            "correctIndex": 3,
+            "explanation": "The selector containing an ID has greater specificity than selectors containing only classes and elements."
+          }
+        },
+        {
+          "id": "inheritance-and-cascade",
+          "title": "Inheritance and the Cascade",
+          "content": "Some CSS properties naturally inherit from parent elements, while others do not. Typography properties such as `color` and `font-family` commonly inherit, whereas properties such as `margin`, `padding`, and `border` generally do not.\n\nThe cascade resolves conflicts by considering origin and importance, specificity, scoping rules, and source order. Modern CSS also introduces layers through `@layer`, providing an explicit mechanism for organizing cascade precedence.",
+          "codeExample": {
+            "title": "Cascade Layers",
+            "language": "css",
+            "code": "@layer reset, base, components, utilities;\n\n@layer base {\n  body {\n    font-family: system-ui, sans-serif;\n  }\n}\n\n@layer utilities {\n  .hidden {\n    display: none;\n  }\n}",
+            "explanation": "Cascade layers allow authors to define a predictable order between groups of styles."
+          },
+          "keyTakeaways": [
+            "Inheritance passes certain properties from parent to child.",
+            "Cascade layers can make large CSS systems more predictable."
+          ],
+          "interactiveQuiz": {
+            "question": "Which property commonly inherits from a parent?",
+            "options": ["margin", "padding", "color", "border"],
+            "correctIndex": 2,
+            "explanation": "`color` normally inherits, while margin, padding, and border do not."
+          }
+        }
+      ]
+    },
+    {
+      "id": "box-model-sizing",
+      "title": "Box Model and Sizing",
+      "summary": "Understand content boxes, padding, borders, margins, box sizing, dimensions, overflow, and intrinsic sizing.",
+      "estimatedMinutes": 65,
+      "sections": [
+        {
+          "id": "box-model",
+          "title": "The CSS Box Model",
+          "content": "Every normal CSS box consists conceptually of content, padding, border, and margin. With the default `content-box` sizing model, declared width applies to the content area only. Padding and borders are then added to the rendered dimensions.\n\nThis is why many projects use `box-sizing: border-box`, which makes declared width and height include padding and borders.",
+          "codeExample": {
+            "title": "Border Box Reset",
+            "language": "css",
+            "code": "*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\n.card {\n  width: 300px;\n  padding: 20px;\n  border: 4px solid #334155;\n}",
+            "explanation": "With `border-box`, the total outer width remains 300px instead of becoming 348px."
+          },
+          "keyTakeaways": [
+            "The box model consists of content, padding, border, and margin.",
+            "`border-box` makes sizing easier to reason about."
+          ],
+          "interactiveQuiz": {
+            "question": "With `box-sizing: border-box`, what does the declared width include?",
+            "options": ["Content only", "Content and margin", "Content, padding, and border", "Margin only"],
+            "correctIndex": 2,
+            "explanation": "`border-box` includes content, padding, and border inside the declared width or height."
+          }
+        },
+        {
+          "id": "width-height",
+          "title": "Width and Height",
+          "content": "CSS supports fixed dimensions such as `px`, relative dimensions such as `%`, viewport units such as `vw` and `vh`, and intrinsic keywords such as `auto`, `min-content`, `max-content`, and `fit-content`.\n\nAvoid forcing fixed heights on content-heavy components unless the design genuinely requires them. Content can vary due to localization, user settings, and responsive layouts.",
+          "codeExample": {
+            "title": "Flexible Sizing",
+            "language": "css",
+            "code": ".container {\n  width: min(100% - 2rem, 1200px);\n  min-height: 100dvh;\n}\n\n.card {\n  width: min(100%, 420px);\n  min-height: 200px;\n}",
+            "explanation": "Functions such as `min()` allow CSS to express responsive constraints without many media queries."
+          },
+          "keyTakeaways": [
+            "Prefer intrinsic and fluid sizing where appropriate.",
+            "Use fixed dimensions only when the component genuinely needs fixed geometry."
+          ],
+          "interactiveQuiz": {
+            "question": "Which function is useful for selecting the smaller of multiple sizing constraints?",
+            "options": ["choose()", "min()", "smaller()", "limit()"],
+            "correctIndex": 1,
+            "explanation": "`min()` returns the smallest computed value among its arguments."
+          }
+        },
+        {
+          "id": "margin-padding-border",
+          "title": "Margin, Padding and Border",
+          "content": "Padding creates space between content and the border. Margin creates space outside the border. Borders visually surround the padding and content areas.\n\nLogical properties such as `margin-inline`, `padding-block`, and `border-inline-start` are preferable when building interfaces that may support different writing directions.",
+          "codeExample": {
+            "title": "Logical Spacing",
+            "language": "css",
+            "code": ".panel {\n  padding-block: 1.5rem;\n  padding-inline: 2rem;\n  margin-inline: auto;\n  border-inline-start: 4px solid currentColor;\n}",
+            "explanation": "Logical properties describe relationships such as inline and block direction rather than hardcoding left and right."
+          },
+          "keyTakeaways": ["Padding is inside the border; margin is outside.", "Logical properties improve internationalization support."],
+          "interactiveQuiz": {
+            "question": "Which property creates space inside an element's border?",
+            "options": ["margin", "padding", "outline", "gap"],
+            "correctIndex": 1,
+            "explanation": "`padding` creates space between content and the border."
+          }
+        },
+        {
+          "id": "overflow",
+          "title": "Overflow and Clipping",
+          "content": "Overflow occurs when content exceeds the available box. The `overflow`, `overflow-x`, and `overflow-y` properties control whether overflowing content is visible, clipped, or scrollable.\n\n`overflow: hidden` is sometimes useful, but blindly hiding overflow can make content inaccessible. For scrollable regions, consider keyboard access and visible scroll affordances.",
+          "codeExample": {
+            "title": "Scrollable Content",
+            "language": "css",
+            "code": ".code-panel {\n  max-height: 400px;\n  overflow: auto;\n  overscroll-behavior: contain;\n}",
+            "explanation": "The content becomes scrollable once it exceeds the maximum height."
+          },
+          "keyTakeaways": ["Use overflow intentionally.", "Avoid hiding content that users need to access."],
+          "interactiveQuiz": {
+            "question": "Which value allows scrolling when content overflows?",
+            "options": ["visible", "hidden", "auto", "static"],
+            "correctIndex": 2,
+            "explanation": "`auto` lets the browser provide scrolling when necessary."
+          }
+        }
+      ]
+    },
+    {
+      "id": "colors-backgrounds-typography",
+      "title": "Colors, Backgrounds and Typography",
+      "summary": "Build polished interfaces with modern color systems, gradients, backgrounds, fonts, text metrics, and readable typography.",
+      "estimatedMinutes": 70,
+      "sections": [
+        {
+          "id": "css-colors",
+          "title": "CSS Color Systems",
+          "content": "CSS supports named colors, hexadecimal notation, RGB, HSL, HWB, and modern color functions. Modern interfaces often benefit from relative color manipulation, alpha channels, and perceptual color spaces where browser support permits.\n\nUsing custom properties for semantic colors makes themes easier to maintain.",
+          "codeExample": {
+            "title": "Modern Colors",
+            "language": "css",
+            "code": ":root {\n  --color-primary: #2563eb;\n  --color-text: rgb(15 23 42);\n  --color-muted: hsl(215 16% 47%);\n  --color-overlay: rgb(0 0 0 / 0.5);\n}",
+            "explanation": "CSS supports multiple color representations. Semantic variables prevent colors from being scattered throughout the stylesheet."
+          },
+          "keyTakeaways": [
+            "Use semantic color variables for scalable design systems.",
+            "Alpha channels can be expressed directly in modern RGB syntax."
+          ],
+          "interactiveQuiz": {
+            "question": "Which notation represents an alpha channel in modern RGB syntax?",
+            "options": ["rgb(0, 0, 0, 50%)", "rgb(0 0 0 / 50%)", "rgb-opacity(0 0 0 50%)", "rgba-only(0 0 0 50%)"],
+            "correctIndex": 1,
+            "explanation": "Modern CSS color syntax supports the slash notation for alpha: `rgb(0 0 0 / 50%)`."
+          }
+        },
+        {
+          "id": "backgrounds-and-gradients",
+          "title": "Backgrounds and Gradients",
+          "content": "Backgrounds can use colors, images, gradients, multiple layers, positioning, sizing, repetition, and clipping. Gradients are generated by the browser and do not require image files.\n\nMultiple backgrounds are painted in layers, with the first background image generally appearing closest to the user.",
+          "codeExample": {
+            "title": "Layered Background",
+            "language": "css",
+            "code": ".hero {\n  background:\n    linear-gradient(rgb(15 23 42 / 0.72), rgb(15 23 42 / 0.72)),\n    url(\"hero.jpg\") center / cover no-repeat;\n}",
+            "explanation": "The gradient creates an overlay over the image, improving text readability."
+          },
+          "keyTakeaways": [
+            "CSS gradients can replace many decorative raster assets.",
+            "Multiple background layers can create sophisticated visual effects."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `background-size: cover` generally do?",
+            "options": [
+              "Makes the image exactly 100px wide",
+              "Repeats the image",
+              "Scales the image to cover the container while preserving its aspect ratio",
+              "Removes the image"
+            ],
+            "correctIndex": 2,
+            "explanation": "`cover` scales the image so the entire container is covered while maintaining the image's aspect ratio."
+          }
+        },
+        {
+          "id": "font-family",
+          "title": "Fonts and Font Stacks",
+          "content": "The `font-family` property defines the preferred typeface. A font stack provides fallbacks in case a preferred font is unavailable.\n\nSystem font stacks are often excellent for performance because they avoid downloading an additional web font.",
+          "codeExample": {
+            "title": "System Font Stack",
+            "language": "css",
+            "code": "body {\n  font-family:\n    system-ui,\n    -apple-system,\n    BlinkMacSystemFont,\n    \"Segoe UI\",\n    sans-serif;\n}",
+            "explanation": "The browser chooses the first available font in the stack."
+          },
+          "keyTakeaways": [
+            "Always provide reasonable fallback fonts.",
+            "System fonts can provide excellent performance and native appearance."
+          ],
+          "interactiveQuiz": {
+            "question": "Why are multiple fonts commonly specified in `font-family`?",
+            "options": [
+              "To make text bold automatically",
+              "To provide fallbacks when a preferred font is unavailable",
+              "To load every font simultaneously",
+              "To change HTML semantics"
+            ],
+            "correctIndex": 1,
+            "explanation": "A font stack allows the browser to select the next available font when earlier choices cannot be used."
+          }
+        },
+        {
+          "id": "font-sizing-and-line-height",
+          "title": "Font Size, Weight and Line Height",
+          "content": "Readable typography depends on more than font size. Weight, line height, letter spacing, measure, contrast, and responsive scaling all affect readability.\n\nUnitless line heights are often useful because the value scales naturally with the inherited font size.",
+          "codeExample": {
+            "title": "Readable Typography",
+            "language": "css",
+            "code": ".article {\n  font-size: 1rem;\n  line-height: 1.7;\n  letter-spacing: 0.01em;\n  max-inline-size: 70ch;\n}\n\n.article h1 {\n  font-size: clamp(2rem, 5vw, 4rem);\n  line-height: 1.05;\n}",
+            "explanation": "The `ch` unit can constrain reading width and `clamp()` creates responsive typography."
+          },
+          "keyTakeaways": [
+            "Line height has a major impact on readability.",
+            "`clamp()` is useful for fluid typography.",
+            "`ch` can help constrain text measure."
+          ],
+          "interactiveQuiz": {
+            "question": "Why can a unitless `line-height` be useful?",
+            "options": [
+              "It disables wrapping",
+              "It scales naturally with the element's font size",
+              "It always produces exactly 10px",
+              "It changes the font family"
+            ],
+            "correctIndex": 1,
+            "explanation": "A unitless line-height acts as a multiplier of the element's font size."
+          }
+        }
+      ]
+    },
+    {
+      "id": "display-positioning",
+      "title": "Display, Positioning and Stacking",
+      "summary": "Understand normal flow, display modes, positioning schemes, containing blocks, stacking contexts, z-index, and layering.",
+      "estimatedMinutes": 75,
+      "sections": [
+        {
+          "id": "normal-flow",
+          "title": "Normal Flow",
+          "content": "Normal flow is the browser's default layout behavior. Block-level elements generally occupy available inline space and stack vertically, while inline elements participate in line formatting.\n\nModern CSS layout systems such as Flexbox and Grid provide controlled alternatives when normal flow alone is insufficient.",
+          "codeExample": {
+            "title": "Normal Flow",
+            "language": "css",
+            "code": ".article {\n  max-width: 70ch;\n}\n\n.article p {\n  margin-block: 1rem;\n}",
+            "explanation": "Paragraphs naturally participate in document flow and stack according to their block formatting behavior."
+          },
+          "keyTakeaways": [
+            "Normal flow should generally be the starting point.",
+            "Avoid absolute positioning for ordinary document layout."
+          ],
+          "interactiveQuiz": {
+            "question": "What is normal flow?",
+            "options": [
+              "The default layout behavior of elements in the document",
+              "A JavaScript animation system",
+              "A database query mechanism",
+              "A special Grid mode"
+            ],
+            "correctIndex": 0,
+            "explanation": "Normal flow is the browser's default arrangement of elements before specialized positioning or layout rules alter it."
+          }
+        },
+        {
+          "id": "display-values",
+          "title": "Display Values",
+          "content": "The `display` property controls how an element participates in layout. Common values include `block`, `inline`, `inline-block`, `flex`, `grid`, `none`, `table`, and newer multi-keyword display syntax.\n\n`display: none` removes the element from layout and accessibility trees in typical browser behavior, while `visibility: hidden` generally keeps the element's layout space but hides it.",
+          "codeExample": {
+            "title": "Display Modes",
+            "language": "css",
+            "code": ".toolbar {\n  display: flex;\n}\n\n.badge {\n  display: inline-block;\n}\n\n.desktop-only {\n  display: none;\n}",
+            "explanation": "Different display values establish different formatting contexts and layout behaviors."
+          },
+          "keyTakeaways": [
+            "`display: none` removes an element from layout.",
+            "`inline-block` allows inline participation with block-like dimensions."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens to layout space when `display: none` is applied?",
+            "options": [
+              "The element remains and occupies the same space",
+              "The element is removed from the layout",
+              "The element becomes fixed",
+              "The element becomes transparent only"
+            ],
+            "correctIndex": 1,
+            "explanation": "`display: none` causes the element not to participate in layout."
+          }
+        },
+        {
+          "id": "position-property",
+          "title": "Positioning",
+          "content": "CSS positioning includes `static`, `relative`, `absolute`, `fixed`, and `sticky`.\n\n`relative` keeps an element in normal flow while establishing a positioning context for descendants. `absolute` removes the element from normal flow and positions it relative to a containing block. `fixed` typically positions an element relative to the viewport, while `sticky` combines normal flow with scroll-based sticking behavior.",
+          "codeExample": {
+            "title": "Relative and Absolute Positioning",
+            "language": "css",
+            "code": ".card {\n  position: relative;\n}\n\n.card__badge {\n  position: absolute;\n  inset-block-start: 1rem;\n  inset-inline-end: 1rem;\n}",
+            "explanation": "The card establishes a positioning context and the badge is positioned relative to it."
+          },
+          "keyTakeaways": [
+            "Use `relative` to establish a positioning context without removing the element from flow.",
+            "Absolute positioning should be used for overlays and anchored elements rather than ordinary page layout."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is `position: relative` commonly applied to a parent of an absolutely positioned child?",
+            "options": [
+              "To hide the child",
+              "To create a positioning context for the child",
+              "To make the child inline",
+              "To disable z-index"
+            ],
+            "correctIndex": 1,
+            "explanation": "A positioned ancestor can establish the containing block used by an absolutely positioned descendant."
+          }
+        },
+        {
+          "id": "z-index-and-stacking-contexts",
+          "title": "z-index and Stacking Contexts",
+          "content": "The `z-index` property controls stacking order within stacking contexts. A common mistake is assuming that a very large `z-index` always places an element above everything else. It does not cross stacking-context boundaries.\n\nStacking contexts can be created by several CSS conditions, including positioned elements with non-auto z-index, opacity below 1, transforms, isolation, and other properties.",
+          "codeExample": {
+            "title": "Layering",
+            "language": "css",
+            "code": ".modal {\n  position: fixed;\n  inset: 0;\n  z-index: 1000;\n}\n\n.modal__dialog {\n  position: relative;\n  z-index: 1;\n}",
+            "explanation": "A modal can establish a deliberate layering hierarchy, but application-wide z-index values should be organized rather than arbitrarily increased."
+          },
+          "keyTakeaways": [
+            "`z-index` is meaningful within stacking contexts.",
+            "Create a documented layering scale instead of using random huge values."
+          ],
+          "interactiveQuiz": {
+            "question": "Does `z-index: 999999` guarantee an element appears above every element on the page?",
+            "options": [
+              "Yes, always",
+              "Only on mobile",
+              "No, stacking contexts can isolate stacking order",
+              "Only if the element is inline"
+            ],
+            "correctIndex": 2,
+            "explanation": "An element's stacking order is constrained by its stacking context, so a huge number does not automatically escape that context."
+          }
+        }
+      ]
+    },
+    {
+      "id": "flexbox",
+      "title": "Flexbox Deep Dive",
+      "summary": "Master one-dimensional layouts with flex containers, axes, alignment, sizing, wrapping, ordering, and real-world patterns.",
+      "estimatedMinutes": 90,
+      "sections": [
+        {
+          "id": "flex-container",
+          "title": "Flex Container and Main Axis",
+          "content": "Flexbox is a one-dimensional layout system. A flex container distributes its direct children along a main axis and cross axis.\n\n`display: flex` creates the flex formatting context. `flex-direction` determines the main axis, while `justify-content` primarily operates along the main axis and `align-items` operates along the cross axis.",
+          "codeExample": {
+            "title": "Basic Flex Layout",
+            "language": "css",
+            "code": ".toolbar {\n  display: flex;\n  flex-direction: row;\n  justify-content: space-between;\n  align-items: center;\n  gap: 1rem;\n}",
+            "explanation": "The toolbar distributes its children horizontally and centers them vertically."
+          },
+          "keyTakeaways": ["Flexbox is primarily one-dimensional.", "The main axis depends on `flex-direction`."],
+          "interactiveQuiz": {
+            "question": "With `flex-direction: row`, which direction is the main axis?",
+            "options": ["Vertical", "Horizontal", "Diagonal", "It has no axis"],
+            "correctIndex": 1,
+            "explanation": "A row flex container has a horizontal main axis in the default writing direction."
+          }
+        },
+        {
+          "id": "flex-alignment",
+          "title": "Alignment with justify-content and align-items",
+          "content": "`justify-content` distributes free space along the main axis. `align-items` aligns flex items on the cross axis. `align-self` overrides the cross-axis alignment for an individual item.\n\nThe exact physical direction depends on writing mode and `flex-direction`, so thinking in terms of main and cross axes is more robust than memorizing left/right behavior.",
+          "codeExample": {
+            "title": "Centered Content",
+            "language": "css",
+            "code": ".center {\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  min-height: 300px;\n}",
+            "explanation": "When the default row direction is used, both axes are centered, producing a centered item."
+          },
+          "keyTakeaways": ["`justify-content` works primarily on the main axis.", "`align-items` works primarily on the cross axis."],
+          "interactiveQuiz": {
+            "question": "In a default row flex container, which property primarily controls horizontal free-space distribution?",
+            "options": ["align-items", "justify-content", "align-self", "flex-basis"],
+            "correctIndex": 1,
+            "explanation": "With a row direction, the main axis is horizontal, so `justify-content` controls its distribution."
+          }
+        },
+        {
+          "id": "flex-grow-shrink-basis",
+          "title": "flex-grow, flex-shrink and flex-basis",
+          "content": "The `flex` shorthand combines `flex-grow`, `flex-shrink`, and `flex-basis`.\n\n`flex-grow` determines how an item can receive positive free space. `flex-shrink` determines how it can shrink when insufficient space exists. `flex-basis` establishes the initial main-size contribution before free-space distribution.\n\nUnderstanding these three values is critical for avoiding mysterious width behavior.",
+          "codeExample": {
+            "title": "Flexible Columns",
+            "language": "css",
+            "code": ".sidebar {\n  flex: 0 0 240px;\n}\n\n.content {\n  flex: 1 1 auto;\n  min-width: 0;\n}",
+            "explanation": "The sidebar remains approximately 240px while the content absorbs available space. `min-width: 0` allows long content to shrink instead of forcing overflow."
+          },
+          "keyTakeaways": [
+            "`flex-basis` controls the initial main-size contribution.",
+            "`flex: 1` is a common way to distribute available space.",
+            "`min-width: 0` is frequently important inside flex layouts."
+          ],
+          "interactiveQuiz": {
+            "question": "Which flex property controls an item's initial main-size contribution?",
+            "options": ["flex-grow", "flex-shrink", "flex-basis", "flex-order"],
+            "correctIndex": 2,
+            "explanation": "`flex-basis` specifies the initial main size before remaining free space is distributed."
+          }
+        },
+        {
+          "id": "flex-wrap",
+          "title": "Wrapping and Gap",
+          "content": "By default, flex items remain on one line. `flex-wrap: wrap` allows them to form multiple lines when necessary. The `gap` property provides consistent spacing between flex items without requiring margins.\n\nFlexbox wrapping is useful for toolbars, tag lists, button groups, navigation items, and card rows where the number of items can change.",
+          "codeExample": {
+            "title": "Wrapping Card Row",
+            "language": "css",
+            "code": ".cards {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 1rem;\n}\n\n.card {\n  flex: 1 1 280px;\n}",
+            "explanation": "Cards attempt to use at least around 280px of basis and wrap when insufficient horizontal space remains."
+          },
+          "keyTakeaways": [
+            "`flex-wrap` allows items to move onto additional lines.",
+            "`gap` is cleaner than manually managing margins between items."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `flex-wrap: wrap` allow?",
+            "options": [
+              "Items to wrap onto additional flex lines",
+              "Text to become bold",
+              "The container to disappear",
+              "Items to become absolute"
+            ],
+            "correctIndex": 0,
+            "explanation": "Wrapping allows flex items to move onto additional lines when space is insufficient."
+          }
+        },
+        {
+          "id": "flexbox-patterns",
+          "title": "Real-World Flexbox Patterns",
+          "content": "Flexbox is excellent for navigation bars, media objects, vertically centered components, button groups, toolbars, and layouts where content needs to distribute along one primary axis.\n\nA common pattern is `margin-inline-start: auto`, which pushes an item toward the end of the main axis without requiring a hardcoded spacer.",
+          "codeExample": {
+            "title": "Push an Item to the End",
+            "language": "css",
+            "code": ".nav {\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n}\n\n.nav__actions {\n  margin-inline-start: auto;\n}",
+            "explanation": "Auto margin consumes available free space and pushes the actions to the end of the flex line."
+          },
+          "keyTakeaways": ["Flexbox is ideal for one-dimensional component layouts.", "Auto margins can be powerful alignment tools."],
+          "interactiveQuiz": {
+            "question": "What effect can `margin-inline-start: auto` have inside a horizontal flex container?",
+            "options": [
+              "It can push the item toward the end of the main axis",
+              "It disables Flexbox",
+              "It removes the item",
+              "It forces absolute positioning"
+            ],
+            "correctIndex": 0,
+            "explanation": "The auto margin absorbs available free space, pushing the item toward the end."
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-grid",
+      "title": "CSS Grid Deep Dive",
+      "summary": "Master two-dimensional layout using grid tracks, areas, auto-placement, responsive grids, alignment, and advanced sizing.",
+      "estimatedMinutes": 95,
+      "sections": [
+        {
+          "id": "grid-basics",
+          "title": "Grid Container and Tracks",
+          "content": "CSS Grid is a two-dimensional layout system designed to control rows and columns simultaneously. A grid container defines explicit or implicit tracks and places child elements into the resulting grid.\n\nThe `fr` unit represents a share of available grid space after fixed and intrinsic requirements are considered.",
+          "codeExample": {
+            "title": "Two-Column Grid",
+            "language": "css",
+            "code": ".layout {\n  display: grid;\n  grid-template-columns: 240px 1fr;\n  gap: 2rem;\n}",
+            "explanation": "The first column is 240px while the second consumes remaining available space."
+          },
+          "keyTakeaways": ["Grid is two-dimensional.", "`fr` distributes available space between flexible tracks."],
+          "interactiveQuiz": {
+            "question": "What is CSS Grid particularly suited for?",
+            "options": ["Two-dimensional row and column layouts", "Only text formatting", "Only animations", "Database layouts"],
+            "correctIndex": 0,
+            "explanation": "Grid is designed for simultaneous row and column layout control."
+          }
+        },
+        {
+          "id": "repeat-minmax",
+          "title": "repeat(), minmax() and auto-fit",
+          "content": "Functions such as `repeat()` reduce repetitive track definitions. `minmax()` defines lower and upper track limits. Combined with `auto-fit` or `auto-fill`, these features enable responsive grids that can adapt without explicit breakpoint definitions.\n\nA common pattern is `repeat(auto-fit, minmax(250px, 1fr))`.",
+          "codeExample": {
+            "title": "Responsive Grid Without Breakpoints",
+            "language": "css",
+            "code": ".products {\n  display: grid;\n  grid-template-columns: repeat(\n    auto-fit,\n    minmax(250px, 1fr)\n  );\n  gap: 1.5rem;\n}",
+            "explanation": "The browser automatically determines how many columns can fit while keeping each item within the defined size range."
+          },
+          "keyTakeaways": [
+            "`minmax()` expresses responsive track constraints.",
+            "`auto-fit` can create highly responsive grids without media queries."
+          ],
+          "interactiveQuiz": {
+            "question": "Which function is commonly paired with `auto-fit` to create responsive grid columns?",
+            "options": ["range()", "minmax()", "responsive()", "columns()"],
+            "correctIndex": 1,
+            "explanation": "`repeat(auto-fit, minmax(...))` is a common responsive Grid pattern."
+          }
+        },
+        {
+          "id": "grid-template-areas",
+          "title": "Grid Template Areas",
+          "content": "Named grid areas allow developers to describe a layout semantically. This is particularly useful for application shells containing headers, navigation, main content, and sidebars.\n\nNamed areas can be rearranged inside media queries without changing the HTML order.",
+          "codeExample": {
+            "title": "Application Shell",
+            "language": "css",
+            "code": ".app {\n  display: grid;\n  grid-template-columns: 240px 1fr;\n  grid-template-areas:\n    \"sidebar header\"\n    \"sidebar main\";\n}\n\n.header { grid-area: header; }\n.sidebar { grid-area: sidebar; }\n.main { grid-area: main; }",
+            "explanation": "The layout becomes readable directly from the CSS declaration."
+          },
+          "keyTakeaways": ["Named areas improve readability for complex layouts.", "Grid areas can be rearranged responsively."],
+          "interactiveQuiz": {
+            "question": "Which property assigns an element to a named grid area?",
+            "options": ["grid-name", "grid-area", "area-name", "grid-position"],
+            "correctIndex": 1,
+            "explanation": "`grid-area` assigns an element to a named area."
+          }
+        },
+        {
+          "id": "grid-alignment",
+          "title": "Grid Alignment",
+          "content": "Grid provides container-level alignment through `justify-items`, `align-items`, `justify-content`, and `align-content`, while individual items can use `justify-self` and `align-self`.\n\nAs with Flexbox, distinguishing item alignment from track distribution is essential.",
+          "codeExample": {
+            "title": "Grid Alignment",
+            "language": "css",
+            "code": ".grid {\n  display: grid;\n  place-items: center;\n  min-height: 400px;\n}",
+            "explanation": "`place-items` is shorthand for `align-items` and `justify-items`, centering each grid item within its grid area."
+          },
+          "keyTakeaways": [
+            "`place-items` combines `align-items` and `justify-items`.",
+            "Grid distinguishes item alignment from distribution of the entire grid."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `place-items: center` do in Grid?",
+            "options": [
+              "Centers the entire page only",
+              "Centers grid items in their grid areas",
+              "Deletes grid tracks",
+              "Changes the number of columns"
+            ],
+            "correctIndex": 1,
+            "explanation": "`place-items` controls item alignment in both axes."
+          }
+        },
+        {
+          "id": "implicit-explicit-grid",
+          "title": "Explicit and Implicit Grids",
+          "content": "Explicit tracks are created by declarations such as `grid-template-columns` and `grid-template-rows`. When items require additional tracks, the browser creates implicit tracks.\n\n`grid-auto-rows` and `grid-auto-columns` allow developers to control those automatically generated tracks.",
+          "codeExample": {
+            "title": "Implicit Row Sizing",
+            "language": "css",
+            "code": ".feed {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-auto-rows: minmax(150px, auto);\n  gap: 1rem;\n}",
+            "explanation": "Automatically created rows receive a minimum and flexible maximum size."
+          },
+          "keyTakeaways": [
+            "Explicit tracks are intentionally defined.",
+            "Implicit tracks are generated as needed.",
+            "Use `grid-auto-*` properties to control implicit tracks."
+          ],
+          "interactiveQuiz": {
+            "question": "What creates implicit grid tracks?",
+            "options": ["Tracks required beyond the explicitly defined grid", "Only media queries", "Only JavaScript", "CSS comments"],
+            "correctIndex": 0,
+            "explanation": "Implicit tracks are automatically generated when grid items require space not covered by explicit tracks."
+          }
+        }
+      ]
+    },
+    {
+      "id": "responsive-design",
+      "title": "Responsive Web Design",
+      "summary": "Build layouts that adapt to different viewport sizes, devices, input modes, and user preferences.",
+      "estimatedMinutes": 80,
+      "sections": [
+        {
+          "id": "responsive-principles",
+          "title": "Responsive Design Principles",
+          "content": "Responsive design means creating interfaces that adapt to available space and user conditions rather than designing separate fixed pages for every device.\n\nFluid layouts, flexible images, relative units, Grid, Flexbox, intrinsic sizing, and media queries work together to create resilient interfaces.\n\nA good responsive design is not simply a desktop layout that becomes smaller. Content hierarchy and interaction patterns may need to change.",
+          "codeExample": {
+            "title": "Fluid Container",
+            "language": "css",
+            "code": ".container {\n  width: min(100% - 2rem, 1200px);\n  margin-inline: auto;\n}",
+            "explanation": "The container remains fluid on small screens while respecting a maximum reading width on larger screens."
+          },
+          "keyTakeaways": [
+            "Responsive design adapts to constraints rather than specific device names.",
+            "Fluid sizing often reduces the need for many breakpoints."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the main goal of responsive design?",
+            "options": [
+              "Create a separate website for every phone",
+              "Adapt the interface to different available conditions",
+              "Disable desktop browsers",
+              "Use only fixed pixel dimensions"
+            ],
+            "correctIndex": 1,
+            "explanation": "Responsive design allows an interface to adapt to different viewport sizes and user conditions."
+          }
+        },
+        {
+          "id": "media-queries",
+          "title": "Media Queries",
+          "content": "Media queries apply styles based on environmental conditions such as viewport width, orientation, resolution, color scheme, reduced motion preference, and input capabilities.\n\nModern responsive design often uses content-driven breakpoints instead of copying popular device widths.",
+          "codeExample": {
+            "title": "Responsive Media Query",
+            "language": "css",
+            "code": ".navigation {\n  display: flex;\n}\n\n@media (max-width: 700px) {\n  .navigation {\n    flex-direction: column;\n  }\n}",
+            "explanation": "The layout changes when the available viewport width becomes constrained."
+          },
+          "keyTakeaways": [
+            "Choose breakpoints based on content needs.",
+            "Media queries can test many environmental features beyond width."
+          ],
+          "interactiveQuiz": {
+            "question": "What does a media query allow CSS to do?",
+            "options": [
+              "Apply styles conditionally based on environment characteristics",
+              "Execute SQL",
+              "Create HTML elements",
+              "Compile JavaScript"
+            ],
+            "correctIndex": 0,
+            "explanation": "Media queries conditionally apply CSS based on features such as viewport width or user preferences."
+          }
+        },
+        {
+          "id": "mobile-first",
+          "title": "Mobile-First CSS",
+          "content": "Mobile-first CSS starts with the constrained layout and progressively enhances it for larger screens. This often results in simpler base styles and clearer media queries.\n\nMobile-first does not mean mobile devices are more important. It means the stylesheet starts with the smallest practical layout constraints.",
+          "codeExample": {
+            "title": "Mobile-First Layout",
+            "language": "css",
+            "code": ".dashboard {\n  display: grid;\n  grid-template-columns: 1fr;\n}\n\n@media (min-width: 800px) {\n  .dashboard {\n    grid-template-columns: 240px 1fr;\n  }\n}",
+            "explanation": "The base layout works on narrow screens and the larger-screen layout is added progressively."
+          },
+          "keyTakeaways": ["Start with a resilient constrained layout.", "Use `min-width` queries for progressive enhancement."],
+          "interactiveQuiz": {
+            "question": "What is the typical direction of mobile-first responsive CSS?",
+            "options": [
+              "Start large and remove all styles later",
+              "Start constrained and progressively enhance for larger screens",
+              "Use JavaScript for every breakpoint",
+              "Use only fixed widths"
+            ],
+            "correctIndex": 1,
+            "explanation": "Mobile-first CSS generally starts with the constrained layout and adds enhancements at larger widths."
+          }
+        },
+        {
+          "id": "container-queries",
+          "title": "Container Queries",
+          "content": "Container queries allow a component to respond to the size of its containing element rather than the viewport. This is particularly valuable for reusable components that can appear in different parts of an application.\n\nA card can therefore change its layout based on the width of the card's container rather than the entire browser window.",
+          "codeExample": {
+            "title": "Container Query",
+            "language": "css",
+            "code": ".card-list {\n  container-type: inline-size;\n}\n\n.card {\n  display: grid;\n  gap: 1rem;\n}\n\n@container (min-width: 500px) {\n  .card {\n    grid-template-columns: 160px 1fr;\n  }\n}",
+            "explanation": "The card changes layout when its containing component becomes wide enough."
+          },
+          "keyTakeaways": [
+            "Container queries make components more context-aware.",
+            "They reduce coupling between components and viewport breakpoints."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the major advantage of container queries?",
+            "options": [
+              "They allow components to respond to their container size",
+              "They replace HTML",
+              "They execute JavaScript",
+              "They only work on mobile"
+            ],
+            "correctIndex": 0,
+            "explanation": "Container queries allow styles to respond to the size of a containing element rather than only the viewport."
+          }
+        },
+        {
+          "id": "responsive-images",
+          "title": "Responsive Images and Object Fit",
+          "content": "CSS controls how replaced elements such as images and videos fit within their boxes. `object-fit` and `object-position` are useful for cards, avatars, thumbnails, and media galleries.\n\nResponsive images also involve HTML features such as `srcset` and `sizes`; CSS alone cannot solve every image-delivery problem.",
+          "codeExample": {
+            "title": "Image Cropping",
+            "language": "css",
+            "code": ".avatar {\n  width: 64px;\n  aspect-ratio: 1;\n  object-fit: cover;\n  object-position: center;\n  border-radius: 50%;\n}",
+            "explanation": "`object-fit: cover` fills the box while preserving the image's aspect ratio and cropping excess content."
+          },
+          "keyTakeaways": [
+            "`object-fit` controls replaced-content fitting.",
+            "Responsive image delivery should also use appropriate HTML image attributes."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `object-fit: cover` do?",
+            "options": [
+              "Distorts the image to exactly match the box",
+              "Fills the box while preserving aspect ratio and potentially cropping",
+              "Removes the image",
+              "Makes the image transparent"
+            ],
+            "correctIndex": 1,
+            "explanation": "`cover` preserves the aspect ratio while ensuring the replaced content covers the entire box."
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-css-functions",
+      "title": "Modern CSS Functions and Units",
+      "summary": "Learn calc(), min(), max(), clamp(), custom properties, viewport units, logical units, aspect-ratio, and intrinsic sizing.",
+      "estimatedMinutes": 80,
+      "sections": [
+        {
+          "id": "calc-function",
+          "title": "calc()",
+          "content": "`calc()` allows CSS to perform arithmetic involving compatible values. It is particularly useful when combining relative and fixed units, such as creating a full-width container with a fixed gutter.\n\nThe browser resolves the expression during computed-value processing.",
+          "codeExample": {
+            "title": "Combining Relative and Fixed Units",
+            "language": "css",
+            "code": ".content {\n  width: calc(100% - 2rem);\n  margin-inline: auto;\n}\n\n.sidebar {\n  width: calc(100vw - 320px);\n}",
+            "explanation": "`calc()` lets fixed and relative values participate in the same expression."
+          },
+          "keyTakeaways": [
+            "`calc()` is useful for mixed-unit calculations.",
+            "Use it when a relationship cannot be expressed cleanly with simpler sizing functions."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a common use of `calc()`?",
+            "options": ["Combining relative and fixed dimensions", "Executing JavaScript", "Loading fonts", "Creating HTML"],
+            "correctIndex": 0,
+            "explanation": "`calc()` allows mathematical expressions using CSS values."
+          }
+        },
+        {
+          "id": "min-max-clamp",
+          "title": "min(), max() and clamp()",
+          "content": "`min()` chooses the smallest value, `max()` chooses the largest, and `clamp()` constrains a value between a minimum and maximum while allowing a preferred fluid value.\n\nThese functions are powerful for responsive typography, spacing, containers, and component dimensions.",
+          "codeExample": {
+            "title": "Fluid Typography",
+            "language": "css",
+            "code": "h1 {\n  font-size: clamp(2rem, 5vw, 4rem);\n}\n\n.container {\n  width: min(100% - 2rem, 1200px);\n}\n\n.panel {\n  padding: max(1rem, 3vw);\n}",
+            "explanation": "These functions encode responsive constraints directly in CSS."
+          },
+          "keyTakeaways": [
+            "`min()` chooses the smallest value.",
+            "`max()` chooses the largest value.",
+            "`clamp()` provides minimum, preferred, and maximum values."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the general syntax of `clamp()`?",
+            "options": [
+              "clamp(preferred, minimum, maximum)",
+              "clamp(minimum, preferred, maximum)",
+              "clamp(maximum, minimum, preferred)",
+              "clamp(value)"
+            ],
+            "correctIndex": 1,
+            "explanation": "`clamp(minimum, preferred, maximum)` constrains the preferred value between the lower and upper limits."
+          }
+        },
+        {
+          "id": "viewport-and-container-units",
+          "title": "Viewport and Container Units",
+          "content": "Viewport units include `vw`, `vh`, `vmin`, and `vmax`. Modern viewport units also include `svh`, `lvh`, and `dvh`, which address differences between small, large, and dynamic viewport states on mobile browsers.\n\nContainer query units such as `cqw` and `cqh` can size content relative to a query container.",
+          "codeExample": {
+            "title": "Modern Viewport Sizing",
+            "language": "css",
+            "code": ".hero {\n  min-height: 100dvh;\n  padding-block: 5svh;\n}",
+            "explanation": "`dvh` accounts for the dynamic viewport while `svh` represents the small viewport height."
+          },
+          "keyTakeaways": [
+            "Modern viewport units help handle mobile browser UI changes.",
+            "Container units allow sizing relative to query containers."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `dvh` represent?",
+            "options": ["Dynamic viewport height", "Desktop viewport height", "Document variable height", "Default vertical height"],
+            "correctIndex": 0,
+            "explanation": "`dvh` represents dynamic viewport height and can adapt as browser UI expands or collapses."
+          }
+        },
+        {
+          "id": "aspect-ratio",
+          "title": "aspect-ratio",
+          "content": "The `aspect-ratio` property defines a preferred width-to-height ratio for an element. It is useful for media cards, video containers, placeholders, and responsive components where stable geometry is important.",
+          "codeExample": {
+            "title": "Video Card Ratio",
+            "language": "css",
+            "code": ".video {\n  width: 100%;\n  aspect-ratio: 16 / 9;\n  object-fit: cover;\n}",
+            "explanation": "The element maintains a 16:9 ratio as its width changes."
+          },
+          "keyTakeaways": [
+            "`aspect-ratio` creates predictable proportions.",
+            "It can reduce layout shifts when media dimensions are known."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `aspect-ratio: 16 / 9` describe?",
+            "options": ["A font size", "A width-to-height ratio", "A margin scale", "A z-index"],
+            "correctIndex": 1,
+            "explanation": "The value defines the preferred ratio between an element's width and height."
+          }
+        }
+      ]
+    },
+    {
+      "id": "transitions-transformations",
+      "title": "Transitions and Transformations",
+      "summary": "Create smooth UI interactions using transitions, transforms, timing functions, and compositing-friendly animation properties.",
+      "estimatedMinutes": 65,
+      "sections": [
+        {
+          "id": "css-transitions",
+          "title": "CSS Transitions",
+          "content": "Transitions interpolate property changes over time. A transition typically specifies the property, duration, timing function, and optional delay.\n\nTransitions work when a property has a different computed value before and after a state change.",
+          "codeExample": {
+            "title": "Button Transition",
+            "language": "css",
+            "code": ".button {\n  background: #2563eb;\n  transition:\n    background-color 180ms ease,\n    transform 180ms ease;\n}\n\n.button:hover {\n  background: #1d4ed8;\n  transform: translateY(-2px);\n}",
+            "explanation": "The browser interpolates the supported property changes over 180 milliseconds."
+          },
+          "keyTakeaways": ["Transitions smooth state changes.", "Transition only the properties that need animation."],
+          "interactiveQuiz": {
+            "question": "What does a CSS transition primarily do?",
+            "options": [
+              "Creates smooth interpolation between property values",
+              "Changes HTML structure",
+              "Loads JavaScript modules",
+              "Creates database connections"
+            ],
+            "correctIndex": 0,
+            "explanation": "Transitions animate changes between computed property values."
+          }
+        },
+        {
+          "id": "transform",
+          "title": "Transform",
+          "content": "The `transform` property can translate, scale, rotate, or skew an element without changing normal document flow in the same way as layout properties. Transform functions can be composed.\n\nTransforms are commonly used for visual movement because they can often be handled efficiently by browser rendering pipelines.",
+          "codeExample": {
+            "title": "Transform Functions",
+            "language": "css",
+            "code": ".card:hover {\n  transform: translateY(-6px) scale(1.01);\n}\n\n.icon {\n  transform: rotate(45deg);\n}",
+            "explanation": "Multiple transform functions can be combined in a single transform declaration."
+          },
+          "keyTakeaways": [
+            "Transforms visually modify an element without normal-flow repositioning.",
+            "Translate and scale are common interaction effects."
+          ],
+          "interactiveQuiz": {
+            "question": "Which property is commonly used for visual movement without changing normal layout geometry?",
+            "options": ["transform", "margin", "float", "content"],
+            "correctIndex": 0,
+            "explanation": "`transform` can visually move an element without participating in layout calculations like margin or width changes."
+          }
+        },
+        {
+          "id": "timing-functions",
+          "title": "Timing Functions",
+          "content": "Timing functions control the rate at which an animation progresses. Common keywords include `linear`, `ease`, `ease-in`, `ease-out`, and `ease-in-out`. Custom cubic Bézier curves can provide more precise motion.\n\nGood motion usually has a purpose: communicating state, hierarchy, or spatial relationships.",
+          "codeExample": {
+            "title": "Custom Timing",
+            "language": "css",
+            "code": ".panel {\n  transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);\n}",
+            "explanation": "The cubic Bézier curve defines how quickly the animation progresses through its duration."
+          },
+          "keyTakeaways": [
+            "Timing functions control animation pacing.",
+            "Use motion to communicate interaction rather than decoration alone."
+          ],
+          "interactiveQuiz": {
+            "question": "What does a timing function control?",
+            "options": [
+              "The color of the element",
+              "The rate of progress during an animation",
+              "The HTML hierarchy",
+              "The number of DOM nodes"
+            ],
+            "correctIndex": 1,
+            "explanation": "Timing functions determine how the animation progresses over its duration."
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-animations",
+      "title": "CSS Animations and Motion",
+      "summary": "Learn keyframes, animation properties, sequencing, infinite animations, reduced-motion accessibility, and production motion practices.",
+      "estimatedMinutes": 70,
+      "sections": [
+        {
+          "id": "keyframes",
+          "title": "Keyframe Animations",
+          "content": "CSS animations use `@keyframes` to define intermediate states. An element can then reference the keyframe sequence through the `animation` property.\n\nUnlike transitions, animations can run independently of a direct state change and can contain multiple keyframes.",
+          "codeExample": {
+            "title": "Fade-In Animation",
+            "language": "css",
+            "code": "@keyframes fade-in {\n  from {\n    opacity: 0;\n    transform: translateY(10px);\n  }\n  to {\n    opacity: 1;\n    transform: translateY(0);\n  }\n}\n\n.card {\n  animation: fade-in 400ms ease-out both;\n}",
+            "explanation": "The keyframes define the beginning and ending states and the animation declaration controls how they are played."
+          },
+          "keyTakeaways": ["`@keyframes` defines animation states.", "CSS animations can run without a hover or focus state."],
+          "interactiveQuiz": {
+            "question": "Which at-rule defines CSS animation keyframes?",
+            "options": ["@frames", "@animation", "@keyframes", "@motion"],
+            "correctIndex": 2,
+            "explanation": "`@keyframes` defines the stages of a CSS animation."
+          }
+        },
+        {
+          "id": "animation-properties",
+          "title": "Animation Properties",
+          "content": "Important animation properties include `animation-name`, `animation-duration`, `animation-timing-function`, `animation-delay`, `animation-iteration-count`, `animation-direction`, `animation-fill-mode`, and `animation-play-state`.\n\nThe `animation` shorthand combines these properties.",
+          "codeExample": {
+            "title": "Animation Configuration",
+            "language": "css",
+            "code": ".loader {\n  animation:\n    spin 1s linear infinite;\n}\n\n@keyframes spin {\n  to {\n    transform: rotate(360deg);\n  }\n}",
+            "explanation": "The animation loops forever because the iteration count is `infinite`."
+          },
+          "keyTakeaways": [
+            "The animation shorthand combines multiple animation properties.",
+            "Infinite animations should be used carefully because continuous motion can be distracting."
+          ],
+          "interactiveQuiz": {
+            "question": "Which value makes an animation repeat indefinitely?",
+            "options": ["forever", "loop", "infinite", "repeat-all"],
+            "correctIndex": 2,
+            "explanation": "`animation-iteration-count: infinite` causes the animation to repeat indefinitely."
+          }
+        },
+        {
+          "id": "prefers-reduced-motion",
+          "title": "Reduced Motion Accessibility",
+          "content": "Some users request reduced motion through their operating-system accessibility preferences. CSS can respond using `prefers-reduced-motion: reduce`.\n\nDecorative motion should generally be reduced or removed for these users, while essential state transitions should remain understandable.",
+          "codeExample": {
+            "title": "Respect Reduced Motion",
+            "language": "css",
+            "code": "@media (prefers-reduced-motion: reduce) {\n  *,\n  *::before,\n  *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n    scroll-behavior: auto !important;\n  }\n}",
+            "explanation": "The media query detects a user preference for reduced motion."
+          },
+          "keyTakeaways": ["Respect user motion preferences.", "Do not use motion as the only way to communicate important information."],
+          "interactiveQuiz": {
+            "question": "Which media feature detects a user's reduced-motion preference?",
+            "options": ["prefers-motion", "prefers-reduced-motion", "reduce-animation", "motion-disabled"],
+            "correctIndex": 1,
+            "explanation": "`prefers-reduced-motion` is the standard media feature for detecting this user preference."
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-custom-properties",
+      "title": "Custom Properties and Theming",
+      "summary": "Build maintainable design systems using CSS variables, inheritance, fallback values, themes, and dynamic custom-property usage.",
+      "estimatedMinutes": 70,
+      "sections": [
+        {
+          "id": "css-variables",
+          "title": "CSS Custom Properties",
+          "content": "Custom properties are CSS variables whose names begin with `--`. They participate in the cascade and can be consumed using `var()`.\n\nUnlike preprocessor variables, custom properties exist at runtime and can be changed dynamically, including through JavaScript or different CSS states.",
+          "codeExample": {
+            "title": "Design Tokens",
+            "language": "css",
+            "code": ":root {\n  --space-md: 1rem;\n  --radius-md: 0.75rem;\n  --color-primary: #2563eb;\n}\n\n.button {\n  padding: var(--space-md);\n  border-radius: var(--radius-md);\n  background: var(--color-primary);\n}",
+            "explanation": "Centralized custom properties make repeated design decisions easier to change."
+          },
+          "keyTakeaways": ["Custom properties are runtime CSS values.", "They participate in inheritance and the cascade."],
+          "interactiveQuiz": {
+            "question": "How are CSS custom properties named?",
+            "options": ["They begin with `$`", "They begin with `--`", "They begin with `@`", "They begin with `##`"],
+            "correctIndex": 1,
+            "explanation": "Custom properties use names beginning with two hyphens, such as `--primary-color`."
+          }
+        },
+        {
+          "id": "var-fallbacks",
+          "title": "var() Fallbacks",
+          "content": "The `var()` function can provide a fallback value when a custom property is invalid or unavailable in the relevant context. Fallbacks can contain another custom property.\n\nThis is particularly useful for component APIs and progressive enhancement.",
+          "codeExample": {
+            "title": "Variable Fallback",
+            "language": "css",
+            "code": ".button {\n  color: var(--button-text, white);\n  background: var(--button-background, #2563eb);\n}",
+            "explanation": "If the custom properties are not available, the fallback values are used."
+          },
+          "keyTakeaways": [
+            "Fallbacks make custom-property APIs more resilient.",
+            "Custom properties can reference other custom properties."
+          ],
+          "interactiveQuiz": {
+            "question": "What does the second argument of `var(--color, blue)` represent?",
+            "options": ["A fallback value", "A selector", "A media query", "A property name"],
+            "correctIndex": 0,
+            "explanation": "The second argument is used as the fallback when the custom property cannot provide a valid value."
+          }
+        },
+        {
+          "id": "dark-mode",
+          "title": "Dark Mode and Theme Switching",
+          "content": "Themes can be implemented by changing semantic custom properties. The browser's `prefers-color-scheme` media feature can detect whether the user prefers light or dark appearance.\n\nA robust theme system separates semantic tokens such as `--surface` and `--text` from component implementation details.",
+          "codeExample": {
+            "title": "Theme Tokens",
+            "language": "css",
+            "code": ":root {\n  --surface: white;\n  --text: #0f172a;\n}\n\n@media (prefers-color-scheme: dark) {\n  :root {\n    --surface: #0f172a;\n    --text: #f8fafc;\n  }\n}\n\nbody {\n  background: var(--surface);\n  color: var(--text);\n}",
+            "explanation": "The same component styles consume semantic tokens while the token values change for dark mode."
+          },
+          "keyTakeaways": ["Separate semantic tokens from component rules.", "Use `prefers-color-scheme` for system preference detection."],
+          "interactiveQuiz": {
+            "question": "Which media feature detects a user's preferred color scheme?",
+            "options": ["prefers-theme", "prefers-color-scheme", "color-mode", "theme-preference"],
+            "correctIndex": 1,
+            "explanation": "`prefers-color-scheme` detects whether the user prefers light or dark appearance."
+          }
+        }
+      ]
+    },
+    {
+      "id": "advanced-css-layout",
+      "title": "Advanced Layout Techniques",
+      "summary": "Explore intrinsic sizing, subgrid, logical properties, writing modes, sticky layouts, and advanced component composition.",
+      "estimatedMinutes": 80,
+      "sections": [
+        {
+          "id": "intrinsic-sizing",
+          "title": "Intrinsic Sizing",
+          "content": "Intrinsic sizing describes how elements determine their dimensions based on their content. `min-content`, `max-content`, and `fit-content()` provide more expressive sizing than simple fixed dimensions.\n\nIntrinsic sizing is particularly useful for navigation labels, tables, cards, and responsive components.",
+          "codeExample": {
+            "title": "Intrinsic Grid Sizing",
+            "language": "css",
+            "code": ".layout {\n  display: grid;\n  grid-template-columns: max-content 1fr;\n}\n\n.sidebar {\n  width: fit-content;\n  max-width: 20rem;\n}",
+            "explanation": "The first column can size itself around its content while the second column consumes remaining space."
+          },
+          "keyTakeaways": [
+            "Intrinsic sizing lets content participate directly in layout decisions.",
+            "`min-content` and `max-content` represent different intrinsic constraints."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `max-content` generally represent?",
+            "options": [
+              "The smallest possible content size",
+              "The size needed to fit content without wrapping where possible",
+              "Exactly 100px",
+              "The viewport width"
+            ],
+            "correctIndex": 1,
+            "explanation": "`max-content` represents the preferred intrinsic size based on content without unnecessary wrapping."
+          }
+        },
+        {
+          "id": "subgrid",
+          "title": "Subgrid",
+          "content": "Subgrid allows a nested grid to participate in the track sizing of its parent grid. This is valuable when repeated cards need internal content aligned across the entire card collection.\n\nWithout subgrid, each card's internal grid may size independently, making cross-card alignment harder.",
+          "codeExample": {
+            "title": "Card Subgrid",
+            "language": "css",
+            "code": ".cards {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n.card {\n  display: grid;\n  grid-template-rows: subgrid;\n  grid-row: span 3;\n}",
+            "explanation": "The card can participate in the parent's row sizing, allowing corresponding content regions to align."
+          },
+          "keyTakeaways": [
+            "Subgrid allows nested layouts to inherit parent grid tracks.",
+            "It is useful for consistent alignment across repeated components."
+          ],
+          "interactiveQuiz": {
+            "question": "What problem does CSS Subgrid help solve?",
+            "options": [
+              "Server-side rendering",
+              "Aligning nested grid content with parent grid tracks",
+              "JavaScript state management",
+              "Image compression"
+            ],
+            "correctIndex": 1,
+            "explanation": "Subgrid lets a nested grid use the sizing of its parent grid tracks."
+          }
+        },
+        {
+          "id": "sticky-layouts",
+          "title": "Sticky Positioning",
+          "content": "`position: sticky` behaves like relatively positioned content until a scroll threshold is reached, after which it sticks within its containing scroll context.\n\nSticky positioning is useful for table headers, side navigation, filters, and section headings. Ancestor overflow settings can affect sticky behavior.",
+          "codeExample": {
+            "title": "Sticky Sidebar",
+            "language": "css",
+            "code": ".sidebar {\n  position: sticky;\n  inset-block-start: 1rem;\n  align-self: start;\n}",
+            "explanation": "The sidebar remains in normal flow but sticks when scrolling reaches the specified inset."
+          },
+          "keyTakeaways": [
+            "`sticky` combines normal-flow positioning with scroll-based sticking.",
+            "Containing blocks and ancestor overflow can affect sticky behavior."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a typical use case for `position: sticky`?",
+            "options": ["A persistent sidebar or table header", "Database access", "Font loading", "Changing HTML tags"],
+            "correctIndex": 0,
+            "explanation": "Sticky positioning is commonly used for elements that should remain visible while scrolling within a containing region."
+          }
+        },
+        {
+          "id": "logical-properties",
+          "title": "Logical Properties and Writing Modes",
+          "content": "Logical properties describe layout in terms of inline and block directions instead of physical left, right, top, and bottom directions. This supports writing modes such as right-to-left languages and vertical writing.\n\nExamples include `margin-inline`, `padding-block`, `inset-inline-start`, and `border-block-end`.",
+          "codeExample": {
+            "title": "Writing-Mode Friendly CSS",
+            "language": "css",
+            "code": ".card {\n  margin-inline: auto;\n  padding-block: 1.5rem;\n  padding-inline: 1rem;\n  border-block-end: 1px solid #cbd5e1;\n}",
+            "explanation": "Logical properties adapt to the document's writing direction."
+          },
+          "keyTakeaways": ["Logical properties improve internationalization.", "Think in terms of block and inline axes."],
+          "interactiveQuiz": {
+            "question": "Which is a logical alternative to `margin-left`?",
+            "options": ["margin-inline-start", "margin-horizontal", "margin-leading-only", "margin-side"],
+            "correctIndex": 0,
+            "explanation": "`margin-inline-start` refers to the beginning of the inline axis and adapts to writing direction."
+          }
+        }
+      ]
+    },
+    {
+      "id": "forms-accessibility",
+      "title": "Forms and CSS Accessibility",
+      "summary": "Style forms and interactive controls while preserving keyboard usability, focus visibility, contrast, semantics, and user preferences.",
+      "estimatedMinutes": 65,
+      "sections": [
+        {
+          "id": "accessible-form-styling",
+          "title": "Accessible Form Controls",
+          "content": "Form controls should remain recognizable, keyboard accessible, and readable. Styling should not remove browser affordances without providing an equivalent accessible alternative.\n\nLabels should be associated semantically in HTML, while CSS handles visual presentation.",
+          "codeExample": {
+            "title": "Form Control Styling",
+            "language": "css",
+            "code": ".field {\n  display: grid;\n  gap: 0.5rem;\n}\n\ninput,\ntextarea,\nselect {\n  width: 100%;\n  padding: 0.75rem 1rem;\n  border: 1px solid #94a3b8;\n  border-radius: 0.5rem;\n  font: inherit;\n}\n\ninput:focus-visible,\ntextarea:focus-visible,\nselect:focus-visible {\n  outline: 3px solid #2563eb;\n  outline-offset: 2px;\n}",
+            "explanation": "The controls use inherited typography and retain a strong keyboard focus indicator."
+          },
+          "keyTakeaways": [
+            "Do not remove focus indicators without replacing them.",
+            "Use `font: inherit` to make form controls match surrounding typography."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is `:focus-visible` important for form accessibility?",
+            "options": [
+              "It hides all focus",
+              "It provides visible focus styling for relevant keyboard interactions",
+              "It disables form controls",
+              "It prevents typing"
+            ],
+            "correctIndex": 1,
+            "explanation": "Visible focus is essential for keyboard navigation, and `:focus-visible` provides an appropriate styling hook."
+          }
+        },
+        {
+          "id": "focus-and-keyboard",
+          "title": "Keyboard Focus",
+          "content": "Keyboard users need to know which element currently has focus. A strong focus indicator should have sufficient contrast and should not depend exclusively on color.\n\nAvoid using `outline: none` globally. If the default outline is replaced, the replacement should remain clearly visible.",
+          "codeExample": {
+            "title": "Custom Focus Ring",
+            "language": "css",
+            "code": "a:focus-visible,\nbutton:focus-visible {\n  outline: 3px solid currentColor;\n  outline-offset: 4px;\n}",
+            "explanation": "The outline remains outside the element and provides a visible keyboard focus indicator."
+          },
+          "keyTakeaways": [
+            "Never remove keyboard focus visibility without replacement.",
+            "Focus indicators should be obvious and high contrast."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a major accessibility problem with `outline: none` without an alternative?",
+            "options": [
+              "The element becomes larger",
+              "Keyboard users may lose visible focus feedback",
+              "The element becomes semantic",
+              "It increases text size"
+            ],
+            "correctIndex": 1,
+            "explanation": "Removing the outline without a replacement makes keyboard navigation difficult to track."
+          }
+        },
+        {
+          "id": "contrast-and-color",
+          "title": "Contrast and Color",
+          "content": "Text and important UI components should have sufficient contrast against their backgrounds. Color should not be the only mechanism for communicating meaning because users may have color-vision deficiencies or different display conditions.\n\nUse icons, labels, patterns, position, or other visual cues alongside color when necessary.",
+          "codeExample": {
+            "title": "Error State",
+            "language": "css",
+            "code": ".field--error input {\n  border-color: #b91c1c;\n}\n\n.field--error .message {\n  color: #991b1b;\n  font-weight: 600;\n}",
+            "explanation": "The error state uses multiple visual cues rather than relying only on a red border."
+          },
+          "keyTakeaways": ["Do not rely on color alone.", "Test contrast for text and important controls."],
+          "interactiveQuiz": {
+            "question": "Why should color not be the only way to communicate an error?",
+            "options": [
+              "Color cannot be rendered by browsers",
+              "Some users may not distinguish the colors reliably",
+              "CSS does not support colors",
+              "Errors must always be black"
+            ],
+            "correctIndex": 1,
+            "explanation": "Color perception varies, so additional cues such as text or icons improve accessibility."
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-architecture",
+      "title": "CSS Architecture and Maintainability",
+      "summary": "Design scalable stylesheets using component boundaries, naming conventions, cascade layers, utility patterns, and predictable dependency management.",
+      "estimatedMinutes": 75,
+      "sections": [
+        {
+          "id": "component-css",
+          "title": "Component-Oriented CSS",
+          "content": "Component-oriented CSS organizes styles around reusable UI units rather than pages alone. A component should ideally own its structural styling while global styles establish foundations such as typography, tokens, and resets.\n\nGood boundaries reduce accidental dependencies between unrelated components.",
+          "codeExample": {
+            "title": "Component Structure",
+            "language": "css",
+            "code": ".card {\n  display: grid;\n  gap: 1rem;\n  padding: 1.5rem;\n  border: 1px solid var(--border-color);\n}\n\n.card__title {\n  margin: 0;\n}\n\n.card__actions {\n  display: flex;\n  gap: 0.75rem;\n}",
+            "explanation": "The component owns its internal layout rather than relying on unrelated page selectors."
+          },
+          "keyTakeaways": ["Keep component styles locally understandable.", "Avoid accidental dependencies on distant selectors."],
+          "interactiveQuiz": {
+            "question": "What is an advantage of component-oriented CSS?",
+            "options": [
+              "It increases global selector coupling",
+              "It creates clearer style ownership",
+              "It removes the need for HTML",
+              "It disables responsive design"
+            ],
+            "correctIndex": 1,
+            "explanation": "Component-oriented CSS makes it clearer which styles belong to which reusable UI unit."
+          }
+        },
+        {
+          "id": "bem-methodology",
+          "title": "BEM Naming",
+          "content": "BEM stands for Block, Element, Modifier. A block represents a component, an element is a meaningful child part, and a modifier represents a variation or state.\n\nBEM is not mandatory, but its naming principles can reduce ambiguity in large stylesheets.",
+          "codeExample": {
+            "title": "BEM Example",
+            "language": "css",
+            "code": ".card {}\n.card__title {}\n.card__actions {}\n.card--featured {}\n.card--compact {}",
+            "explanation": "The naming structure communicates component ownership and variation."
+          },
+          "keyTakeaways": [
+            "Blocks represent independent components.",
+            "Elements represent component parts.",
+            "Modifiers represent variations."
+          ],
+          "interactiveQuiz": {
+            "question": "In BEM, what does `.card__title` usually represent?",
+            "options": ["A separate unrelated block", "An element belonging to the card block", "A global reset", "A media query"],
+            "correctIndex": 1,
+            "explanation": "The double underscore convention represents an element within a BEM block."
+          }
+        },
+        {
+          "id": "cascade-layers",
+          "title": "Cascade Layers for Large Systems",
+          "content": "Cascade layers provide explicit ordering between groups of CSS rules. A scalable architecture may define layers such as reset, base, components, utilities, and overrides.\n\nThis reduces the need to win specificity battles between unrelated styles.",
+          "codeExample": {
+            "title": "Layered CSS Architecture",
+            "language": "css",
+            "code": "@layer reset, base, components, utilities;\n\n@layer reset {\n  *, *::before, *::after {\n    box-sizing: border-box;\n  }\n}\n\n@layer components {\n  .button {\n    padding: 0.75rem 1rem;\n  }\n}\n\n@layer utilities {\n  .hidden {\n    display: none !important;\n  }\n}",
+            "explanation": "Layers create an explicit cascade hierarchy."
+          },
+          "keyTakeaways": [
+            "Layers can control precedence without excessive selector specificity.",
+            "Define a clear layer strategy before a project becomes difficult to restructure."
+          ],
+          "interactiveQuiz": {
+            "question": "What problem can `@layer` help solve?",
+            "options": ["Managing precedence between groups of styles", "Executing JavaScript", "Loading images", "Generating HTML"],
+            "correctIndex": 0,
+            "explanation": "Cascade layers provide explicit ordering between groups of CSS declarations."
+          }
+        },
+        {
+          "id": "css-reset-normalize",
+          "title": "Resets and Base Styles",
+          "content": "Browsers provide default user-agent styles. A CSS reset or carefully designed base layer establishes predictable defaults.\n\nModern resets often avoid removing useful accessibility behavior and instead focus on box sizing, margin consistency, typography inheritance, responsive media, and sensible defaults.",
+          "codeExample": {
+            "title": "Minimal Reset",
+            "language": "css",
+            "code": "*,\n*::before,\n*::after {\n  box-sizing: border-box;\n}\n\nhtml {\n  line-height: 1.5;\n  -webkit-text-size-adjust: 100%;\n}\n\nbody {\n  margin: 0;\n}\n\nimg,\npicture,\nvideo,\ncanvas,\nsvg {\n  display: block;\n  max-width: 100%;\n}",
+            "explanation": "A minimal reset establishes useful baseline behavior without aggressively removing browser features."
+          },
+          "keyTakeaways": [
+            "Resets should establish intentional defaults.",
+            "Do not blindly copy large resets without understanding their consequences."
+          ],
+          "interactiveQuiz": {
+            "question": "Why are CSS resets used?",
+            "options": [
+              "To remove JavaScript",
+              "To reduce inconsistent browser default styles",
+              "To create database schemas",
+              "To compress images"
+            ],
+            "correctIndex": 1,
+            "explanation": "Resets or base styles establish a more predictable starting point across browsers."
+          }
+        }
+      ]
+    },
+    {
+      "id": "css-performance-debugging",
+      "title": "CSS Performance and Debugging",
+      "summary": "Learn how browsers process styles, how to debug layout problems, and how to avoid unnecessary rendering and stylesheet complexity.",
+      "estimatedMinutes": 75,
+      "sections": [
+        {
+          "id": "browser-rendering",
+          "title": "How Browsers Render CSS",
+          "content": "A simplified rendering pipeline includes parsing HTML and CSS, constructing internal representations, calculating styles, building layout information, painting visual output, and compositing layers. The exact implementation differs between browser engines.\n\nChanging some properties can require layout recalculation, while others may only require painting or compositing. This is why animation choices matter.",
+          "codeExample": {
+            "title": "Prefer Transform for Motion",
+            "language": "css",
+            "code": ".item {\n  transition: transform 200ms ease;\n}\n\n.item:hover {\n  transform: translateY(-4px);\n}",
+            "explanation": "Transforms are commonly preferred for simple visual movement because they can avoid repeated layout changes in many situations."
+          },
+          "keyTakeaways": [
+            "CSS participates in style calculation, layout, painting, and compositing.",
+            "Not every CSS property has the same rendering cost."
+          ],
+          "interactiveQuiz": {
+            "question": "Why are transforms commonly preferred for simple UI movement?",
+            "options": [
+              "They always require JavaScript",
+              "They can often avoid expensive layout recalculation",
+              "They disable rendering",
+              "They only work on text"
+            ],
+            "correctIndex": 1,
+            "explanation": "Transform-based movement can often be handled without repeatedly recalculating layout."
+          }
+        },
+        {
+          "id": "css-devtools",
+          "title": "Debugging CSS with DevTools",
+          "content": "Browser DevTools are essential for understanding computed styles, box geometry, Flexbox, Grid, stacking contexts, responsive behavior, and inherited declarations.\n\nThe Styles panel shows matched rules and overridden declarations. The Computed panel shows the final resolved values. Layout tools can visualize Grid and Flexbox structures.",
+          "codeExample": {
+            "title": "Debugging Workflow",
+            "language": "css",
+            "code": "/* Temporarily expose unexpected box boundaries */\n.debug * {\n  outline: 1px solid rgb(255 0 0 / 0.15);\n}",
+            "explanation": "Temporary debugging styles can reveal unexpected dimensions and nesting relationships."
+          },
+          "keyTakeaways": ["Use Computed styles to understand final values.", "Use Grid and Flex overlays when debugging modern layouts."],
+          "interactiveQuiz": {
+            "question": "Which DevTools view is most useful for seeing the final resolved CSS values?",
+            "options": ["Console only", "Computed styles", "Network requests only", "Sources only"],
+            "correctIndex": 1,
+            "explanation": "The Computed panel shows the final values after the cascade and inheritance have been resolved."
+          }
+        },
+        {
+          "id": "layout-shifts",
+          "title": "Preventing Layout Shifts",
+          "content": "Unexpected layout movement can harm user experience. Images without known dimensions, dynamically inserted content, and late-loading fonts are common causes.\n\nCSS properties such as `aspect-ratio`, reserved dimensions, and stable layout structures can reduce visual movement.",
+          "codeExample": {
+            "title": "Reserve Image Space",
+            "language": "css",
+            "code": ".thumbnail {\n  width: 100%;\n  aspect-ratio: 16 / 9;\n  object-fit: cover;\n}",
+            "explanation": "The aspect ratio gives the browser a predictable box before the image is fully rendered."
+          },
+          "keyTakeaways": ["Reserve space for media whenever possible.", "Stable geometry reduces cumulative layout movement."],
+          "interactiveQuiz": {
+            "question": "Which CSS property can help reserve predictable media geometry?",
+            "options": ["aspect-ratio", "z-index", "font-style", "cursor"],
+            "correctIndex": 0,
+            "explanation": "`aspect-ratio` provides a predictable width-to-height relationship before content dimensions are fully known."
+          }
+        },
+        {
+          "id": "selector-performance",
+          "title": "Selector Complexity",
+          "content": "Modern browsers are highly optimized, so obsessing over tiny selector differences is usually less valuable than maintaining a clear architecture. However, enormous stylesheets, excessive DOM complexity, huge numbers of rules, and uncontrolled specificity can make systems harder to maintain and potentially more expensive to process.\n\nThe biggest performance wins usually come from reducing unnecessary work and avoiding architectural complexity rather than micro-optimizing simple selectors.",
+          "keyTakeaways": [
+            "Maintainability is usually more important than tiny selector micro-optimizations.",
+            "Control stylesheet size and architectural complexity."
+          ],
+          "interactiveQuiz": {
+            "question": "What is generally more important than micro-optimizing simple selectors?",
+            "options": [
+              "Maintaining a predictable CSS architecture",
+              "Using the longest selector possible",
+              "Adding more `!important` rules",
+              "Avoiding all classes"
+            ],
+            "correctIndex": 0,
+            "explanation": "Clear architecture, manageable CSS size, and predictable dependencies generally matter more than tiny selector performance differences."
+          }
+        }
+      ]
+    },
+    {
+      "id": "modern-css-features",
+      "title": "Modern CSS Features",
+      "summary": "Explore modern capabilities including nesting, cascade layers, :is(), :where(), :has(), color functions, scroll behavior, and progressive enhancement.",
+      "estimatedMinutes": 80,
+      "sections": [
+        {
+          "id": "css-nesting",
+          "title": "Native CSS Nesting",
+          "content": "Modern CSS supports nesting directly in stylesheets. Nesting can improve local readability when used carefully, but excessive nesting can recreate the specificity and coupling problems associated with deeply nested preprocessors.\n\nKeep nesting shallow and avoid using it as a substitute for clear component boundaries.",
+          "codeExample": {
+            "title": "Native Nesting",
+            "language": "css",
+            "code": ".card {\n  padding: 1rem;\n\n  & .title {\n    margin: 0;\n  }\n\n  &:hover {\n    transform: translateY(-2px);\n  }\n}",
+            "explanation": "The nested selectors are associated with the parent `.card` rule."
+          },
+          "keyTakeaways": ["Native nesting reduces the need for preprocessors in many cases.", "Keep nesting shallow to avoid complexity."],
+          "interactiveQuiz": {
+            "question": "What is a major benefit of native CSS nesting?",
+            "options": [
+              "It lets CSS express related rules together",
+              "It replaces JavaScript",
+              "It creates server routes",
+              "It disables the cascade"
+            ],
+            "correctIndex": 0,
+            "explanation": "Nesting can group related selectors and states while remaining part of the native CSS language."
+          }
+        },
+        {
+          "id": "is-where-selectors",
+          "title": ":is() and :where()",
+          "content": "`:is()` groups selectors and adopts the specificity of its most specific argument. `:where()` also groups selectors but always has zero specificity.\n\n`:where()` is particularly useful for framework or component defaults that should be easy for consumers to override.",
+          "codeExample": {
+            "title": "Grouping Selectors",
+            "language": "css",
+            "code": ":is(h1, h2, h3) {\n  line-height: 1.1;\n}\n\n:where(.card, .panel) {\n  border-radius: 1rem;\n}",
+            "explanation": "Both functions simplify selector grouping, but they differ in specificity behavior."
+          },
+          "keyTakeaways": [
+            "`:is()` contributes the specificity of its most specific argument.",
+            "`:where()` always contributes zero specificity."
+          ],
+          "interactiveQuiz": {
+            "question": "What is special about the specificity of `:where()`?",
+            "options": [
+              "It always has ID specificity",
+              "It always contributes zero specificity",
+              "It is always higher than `:is()`",
+              "It cannot contain selectors"
+            ],
+            "correctIndex": 1,
+            "explanation": "`:where()` intentionally contributes zero specificity, making its rules easier to override."
+          }
+        },
+        {
+          "id": "has-selector",
+          "title": ":has() Relational Selector",
+          "content": "The `:has()` pseudo-class allows a selector to match an element based on descendants or relative conditions. It enables patterns that historically required JavaScript or additional classes.\n\nFor example, a form field can be styled when it contains an invalid input.",
+          "codeExample": {
+            "title": "Parent Based on Child State",
+            "language": "css",
+            "code": ".field:has(input:invalid) {\n  border-color: #dc2626;\n}\n\n.card:has(img) {\n  padding-top: 0;\n}",
+            "explanation": "The parent is selected based on whether a relative selector matches inside it."
+          },
+          "keyTakeaways": ["`:has()` enables parent-aware styling.", "It can remove some JavaScript or state-class requirements."],
+          "interactiveQuiz": {
+            "question": "What makes `:has()` powerful?",
+            "options": [
+              "It can select an element based on a relative selector condition",
+              "It executes JavaScript",
+              "It changes HTML tags",
+              "It disables inheritance"
+            ],
+            "correctIndex": 0,
+            "explanation": "`:has()` allows CSS to conditionally match an element based on related descendants or relative selectors."
+          }
+        },
+        {
+          "id": "progressive-enhancement",
+          "title": "Progressive Enhancement",
+          "content": "Modern CSS features should be introduced in ways that preserve a useful experience when a feature is unavailable. Feature queries using `@supports` allow CSS to detect support before applying an enhancement.\n\nThis is especially useful for advanced layout features, modern color functions, and experimental capabilities.",
+          "codeExample": {
+            "title": "Feature Query",
+            "language": "css",
+            "code": ".layout {\n  display: flex;\n}\n\n@supports (display: grid) {\n  .layout {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n  }\n}",
+            "explanation": "The fallback works first and Grid is used when supported."
+          },
+          "keyTakeaways": [
+            "`@supports` enables feature-based progressive enhancement.",
+            "Provide a useful baseline before applying advanced capabilities."
+          ],
+          "interactiveQuiz": {
+            "question": "Which at-rule tests whether a CSS feature is supported?",
+            "options": ["@feature", "@supports", "@detect", "@browser"],
+            "correctIndex": 1,
+            "explanation": "`@supports` conditionally applies CSS based on browser feature support."
+          }
+        }
+      ]
+    },
+    {
+      "id": "practical-css-project",
+      "title": "Practical CSS System: Building a Responsive Dashboard",
+      "summary": "Combine modern CSS concepts into a realistic responsive dashboard architecture using Grid, Flexbox, custom properties, responsive design, and accessibility.",
+      "estimatedMinutes": 70,
+      "sections": [
+        {
+          "id": "dashboard-foundation",
+          "title": "Dashboard Foundation",
+          "content": "A production dashboard benefits from semantic design tokens, predictable layout primitives, responsive containers, and component boundaries. Start with global tokens and a page shell rather than styling every element independently.",
+          "codeExample": {
+            "title": "Dashboard Foundation",
+            "language": "css",
+            "code": ":root {\n  --surface: #ffffff;\n  --surface-muted: #f8fafc;\n  --text: #0f172a;\n  --text-muted: #64748b;\n  --border: #e2e8f0;\n  --primary: #2563eb;\n  --radius: 0.875rem;\n  --space: 1rem;\n}\n\nbody {\n  margin: 0;\n  background: var(--surface-muted);\n  color: var(--text);\n  font-family: system-ui, sans-serif;\n}",
+            "explanation": "The dashboard begins with semantic tokens instead of scattered literal values."
+          },
+          "keyTakeaways": ["Define semantic tokens before building many components.", "Keep global styles focused on foundations."],
+          "interactiveQuiz": {
+            "question": "Why are semantic tokens useful in a dashboard design system?",
+            "options": [
+              "They centralize visual decisions",
+              "They disable responsiveness",
+              "They replace HTML",
+              "They eliminate all selectors"
+            ],
+            "correctIndex": 0,
+            "explanation": "Semantic tokens centralize colors, spacing, radii, and other design decisions so they can be changed consistently."
+          }
+        },
+        {
+          "id": "dashboard-grid",
+          "title": "Dashboard Grid",
+          "content": "Use Grid for the overall two-dimensional application shell and Flexbox for internal one-dimensional component arrangements. This separation makes each layout system responsible for the problem it solves best.",
+          "codeExample": {
+            "title": "Responsive Dashboard Shell",
+            "language": "css",
+            "code": ".dashboard {\n  display: grid;\n  grid-template-columns: 240px minmax(0, 1fr);\n  min-height: 100dvh;\n}\n\n@media (max-width: 800px) {\n  .dashboard {\n    grid-template-columns: 1fr;\n  }\n}\n\n.dashboard__content {\n  min-width: 0;\n  padding: clamp(1rem, 3vw, 2rem);\n}",
+            "explanation": "The dashboard uses a sidebar on larger screens and collapses to one column on smaller screens."
+          },
+          "keyTakeaways": [
+            "Use Grid for page-level two-dimensional structure.",
+            "`minmax(0, 1fr)` helps prevent content from forcing unexpected overflow."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is `minmax(0, 1fr)` useful in a dashboard column?",
+            "options": [
+              "It prevents the column from ever shrinking",
+              "It allows the flexible track to shrink to zero when necessary",
+              "It makes the column fixed at 0px",
+              "It disables Grid"
+            ],
+            "correctIndex": 1,
+            "explanation": "The zero minimum prevents intrinsic content from forcing an otherwise flexible `1fr` track wider than intended."
+          }
+        },
+        {
+          "id": "dashboard-cards",
+          "title": "Responsive Dashboard Cards",
+          "content": "Dashboard cards are often ideal candidates for auto-fitting Grid layouts. Instead of defining separate desktop, tablet, and mobile card widths, intrinsic sizing can allow the browser to determine the number of columns.",
+          "codeExample": {
+            "title": "Auto-Fitting Cards",
+            "language": "css",
+            "code": ".stats {\n  display: grid;\n  grid-template-columns: repeat(\n    auto-fit,\n    minmax(min(100%, 220px), 1fr)\n  );\n  gap: 1rem;\n}\n\n.stat-card {\n  padding: 1.25rem;\n  border: 1px solid var(--border);\n  border-radius: var(--radius);\n  background: var(--surface);\n}",
+            "explanation": "The cards automatically adapt to available space while maintaining a practical minimum width."
+          },
+          "keyTakeaways": [
+            "Intrinsic responsive grids can reduce breakpoint complexity.",
+            "Use `min()` inside `minmax()` when narrow containers are possible."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `auto-fit` help the Grid do?",
+            "options": [
+              "Automatically fit as many tracks as the available space allows",
+              "Disable all columns",
+              "Create HTML elements",
+              "Force one fixed column"
+            ],
+            "correctIndex": 0,
+            "explanation": "`auto-fit` allows Grid to fit as many tracks as possible within the available space."
+          }
+        }
+      ]
+    },
+    {
+      "id": "interview-questions",
+      "title": "Top Interview Questions & Practice",
+      "summary": "Master 50+ essential CSS interview questions ranging from core fundamentals to advanced layout, browser behavior, accessibility, performance, and real-world scenarios.",
+      "estimatedMinutes": 180,
+      "sections": [
+        {
+          "id": "junior-fundamentals-question-01",
+          "title": "Junior Fundamentals — Question 1",
+          "content": "Test your understanding of the CSS box model.",
+          "interactiveQuiz": {
+            "question": "Which four areas make up the CSS box model?",
+            "options": [
+              "Content, padding, border, margin",
+              "Content, outline, shadow, margin",
+              "Width, height, color, margin",
+              "Display, position, padding, border"
+            ],
+            "correctIndex": 0,
+            "explanation": "The CSS box model is conceptually composed of content, padding, border, and margin."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-02",
+          "title": "Junior Fundamentals — Question 2",
+          "content": "Test your understanding of box sizing.",
+          "interactiveQuiz": {
+            "question": "What does `box-sizing: border-box` do?",
+            "options": [
+              "Includes padding and border inside the declared width and height",
+              "Includes margin inside width",
+              "Removes borders",
+              "Makes every element inline"
+            ],
+            "correctIndex": 0,
+            "explanation": "With `border-box`, the declared dimensions include content, padding, and border."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-03",
+          "title": "Junior Fundamentals — Question 3",
+          "content": "Test your knowledge of selectors.",
+          "interactiveQuiz": {
+            "question": "Which selector targets an element with class `button`?",
+            "options": ["#button", ".button", "button", "*button"],
+            "correctIndex": 1,
+            "explanation": "A class selector starts with a period, so `.button` targets elements whose class list contains `button`."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-04",
+          "title": "Junior Fundamentals — Question 4",
+          "content": "Test basic CSS inheritance.",
+          "interactiveQuiz": {
+            "question": "Which property normally inherits from a parent?",
+            "options": ["margin", "padding", "color", "border"],
+            "correctIndex": 2,
+            "explanation": "`color` normally inherits, while margin, padding, and border do not."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-05",
+          "title": "Junior Fundamentals — Question 5",
+          "content": "Test pseudo-class knowledge.",
+          "interactiveQuiz": {
+            "question": "Which selector targets an element while the pointer is over it?",
+            "options": ["::hover", ":hover", ".hover", "#hover"],
+            "correctIndex": 1,
+            "explanation": "`:hover` is the standard pseudo-class for pointer hover state."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-06",
+          "title": "Junior Fundamentals — Question 6",
+          "content": "Test pseudo-element knowledge.",
+          "interactiveQuiz": {
+            "question": "Which is a pseudo-element?",
+            "options": [":focus", ":checked", "::before", ":hover"],
+            "correctIndex": 2,
+            "explanation": "`::before` is a pseudo-element, whereas `:focus`, `:checked`, and `:hover` are pseudo-classes."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-07",
+          "title": "Junior Fundamentals — Question 7",
+          "content": "Test display behavior.",
+          "interactiveQuiz": {
+            "question": "What happens when an element has `display: none`?",
+            "options": [
+              "It remains in layout but becomes transparent",
+              "It is removed from normal layout",
+              "It becomes fixed",
+              "It becomes an inline element"
+            ],
+            "correctIndex": 1,
+            "explanation": "`display: none` prevents the element from participating in layout."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-08",
+          "title": "Junior Fundamentals — Question 8",
+          "content": "Test units.",
+          "interactiveQuiz": {
+            "question": "What does `rem` normally reference?",
+            "options": ["The current element's width", "The root element's font size", "The viewport width", "The parent element's height"],
+            "correctIndex": 1,
+            "explanation": "`rem` is based on the root element's computed font size."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-09",
+          "title": "Junior Fundamentals — Question 9",
+          "content": "Test color syntax.",
+          "interactiveQuiz": {
+            "question": "Which is valid modern CSS RGB syntax with alpha?",
+            "options": ["rgb(0 0 0 / 50%)", "rgb-alpha(0,0,0,50)", "color-rgb(0 0 0 50%)", "rgba-only(0 0 0)"],
+            "correctIndex": 0,
+            "explanation": "Modern CSS supports the space-separated RGB syntax with `/` for alpha."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-10",
+          "title": "Junior Fundamentals — Question 10",
+          "content": "Test cascade fundamentals.",
+          "interactiveQuiz": {
+            "question": "When two declarations have equal specificity, which normally wins?",
+            "options": [
+              "The earlier declaration",
+              "The later declaration in source order",
+              "The declaration with fewer properties",
+              "The declaration inside HTML comments"
+            ],
+            "correctIndex": 1,
+            "explanation": "When competing declarations have otherwise equal cascade priority and specificity, later source order wins."
+          }
+        },
+        {
+          "id": "core-layout-question-11",
+          "title": "Core Layout — Question 11",
+          "content": "Test Flexbox axis knowledge.",
+          "interactiveQuiz": {
+            "question": "With `flex-direction: row`, what is the main axis?",
+            "options": ["Horizontal in the default writing direction", "Vertical", "Diagonal", "There is no main axis"],
+            "correctIndex": 0,
+            "explanation": "A row flex container has a horizontal main axis in the default writing mode."
+          }
+        },
+        {
+          "id": "core-layout-question-12",
+          "title": "Core Layout — Question 12",
+          "content": "Test Flexbox alignment.",
+          "interactiveQuiz": {
+            "question": "Which property primarily distributes free space along the Flexbox main axis?",
+            "options": ["align-items", "justify-content", "align-self", "flex-basis"],
+            "correctIndex": 1,
+            "explanation": "`justify-content` operates primarily along the main axis."
+          }
+        },
+        {
+          "id": "core-layout-question-13",
+          "title": "Core Layout — Question 13",
+          "content": "Test Grid fundamentals.",
+          "interactiveQuiz": {
+            "question": "What is the primary distinction between Grid and Flexbox?",
+            "options": [
+              "Grid is two-dimensional while Flexbox is primarily one-dimensional",
+              "Grid only works on mobile",
+              "Flexbox cannot align items",
+              "Grid cannot create columns"
+            ],
+            "correctIndex": 0,
+            "explanation": "Grid controls rows and columns together, while Flexbox primarily lays items out along one axis."
+          }
+        },
+        {
+          "id": "core-layout-question-14",
+          "title": "Core Layout — Question 14",
+          "content": "Test Grid sizing.",
+          "interactiveQuiz": {
+            "question": "What does `1fr` represent in a Grid track?",
+            "options": ["One fixed pixel", "One fraction of available flexible space", "One font size", "One viewport"],
+            "correctIndex": 1,
+            "explanation": "`fr` represents a fraction of available grid space after other sizing requirements are accounted for."
+          }
+        },
+        {
+          "id": "core-layout-question-15",
+          "title": "Core Layout — Question 15",
+          "content": "Test responsive Grid knowledge.",
+          "interactiveQuiz": {
+            "question": "Which pattern is commonly used for automatically responsive Grid columns?",
+            "options": ["repeat(auto-fit, minmax(250px, 1fr))", "repeat(fixed, responsive)", "columns(auto)", "grid-responsive(true)"],
+            "correctIndex": 0,
+            "explanation": "The `repeat(auto-fit, minmax(...))` pattern lets the browser determine how many tracks can fit."
+          }
+        },
+        {
+          "id": "core-layout-question-16",
+          "title": "Core Layout — Question 16",
+          "content": "Test positioning.",
+          "interactiveQuiz": {
+            "question": "What is a common reason to set `position: relative` on a parent?",
+            "options": [
+              "To establish a positioning context for an absolute child",
+              "To remove it from flow",
+              "To make it fixed to the viewport",
+              "To disable inheritance"
+            ],
+            "correctIndex": 0,
+            "explanation": "A positioned ancestor can provide the containing block used by an absolutely positioned descendant."
+          }
+        },
+        {
+          "id": "core-layout-question-17",
+          "title": "Core Layout — Question 17",
+          "content": "Test sticky positioning.",
+          "interactiveQuiz": {
+            "question": "Which use case is suitable for `position: sticky`?",
+            "options": [
+              "A table header that remains visible while scrolling",
+              "A database transaction",
+              "A font fallback",
+              "An HTML parser"
+            ],
+            "correctIndex": 0,
+            "explanation": "Sticky positioning is well suited to elements that should stick within their scroll context."
+          }
+        },
+        {
+          "id": "core-layout-question-18",
+          "title": "Core Layout — Question 18",
+          "content": "Test z-index.",
+          "interactiveQuiz": {
+            "question": "Why does a huge `z-index` not always place an element above everything?",
+            "options": [
+              "z-index only works on images",
+              "Stacking contexts constrain stacking order",
+              "z-index only accepts values below 100",
+              "The browser ignores z-index"
+            ],
+            "correctIndex": 1,
+            "explanation": "An element's stacking order is constrained by the stacking context it participates in."
+          }
+        },
+        {
+          "id": "core-layout-question-19",
+          "title": "Core Layout — Question 19",
+          "content": "Test Flexbox sizing.",
+          "interactiveQuiz": {
+            "question": "What does `flex-basis` control?",
+            "options": [
+              "The initial main-size contribution of a flex item",
+              "The item's color",
+              "The cross-axis alignment only",
+              "The z-index"
+            ],
+            "correctIndex": 0,
+            "explanation": "`flex-basis` provides the initial main-size value before free-space distribution."
+          }
+        },
+        {
+          "id": "core-layout-question-20",
+          "title": "Core Layout — Question 20",
+          "content": "Test Grid areas.",
+          "interactiveQuiz": {
+            "question": "Which property assigns an element to a named Grid area?",
+            "options": ["grid-name", "grid-area", "area", "grid-position"],
+            "correctIndex": 1,
+            "explanation": "`grid-area` assigns an element to a named area declared with `grid-template-areas`."
+          }
+        },
+        {
+          "id": "responsive-modern-question-21",
+          "title": "Responsive & Modern CSS — Question 21",
+          "content": "Test responsive design principles.",
+          "interactiveQuiz": {
+            "question": "What should primarily determine a responsive breakpoint?",
+            "options": [
+              "The name of a specific phone model",
+              "Where the content or layout needs to change",
+              "A fixed universal device list",
+              "The developer's screen size"
+            ],
+            "correctIndex": 1,
+            "explanation": "Content-driven breakpoints are more resilient than targeting individual device models."
+          }
+        },
+        {
+          "id": "responsive-modern-question-22",
+          "title": "Responsive & Modern CSS — Question 22",
+          "content": "Test mobile-first design.",
+          "interactiveQuiz": {
+            "question": "What is mobile-first CSS?",
+            "options": [
+              "Writing CSS only for phones",
+              "Starting with a constrained layout and enhancing it for larger screens",
+              "Disabling desktop support",
+              "Using JavaScript for mobile layouts"
+            ],
+            "correctIndex": 1,
+            "explanation": "Mobile-first starts with a constrained base and progressively enhances the layout using larger-screen conditions."
+          }
+        },
+        {
+          "id": "responsive-modern-question-23",
+          "title": "Responsive & Modern CSS — Question 23",
+          "content": "Test container queries.",
+          "interactiveQuiz": {
+            "question": "What does a container query respond to?",
+            "options": ["Only the viewport width", "The size of a query container", "The user's CPU", "The document title"],
+            "correctIndex": 1,
+            "explanation": "Container queries allow a component to respond to the size of its containing query container."
+          }
+        },
+        {
+          "id": "responsive-modern-question-24",
+          "title": "Responsive & Modern CSS — Question 24",
+          "content": "Test clamp().",
+          "interactiveQuiz": {
+            "question": "What does `clamp(1rem, 3vw, 2rem)` mean?",
+            "options": ["Always use 3vw", "Use a preferred value constrained between 1rem and 2rem", "Always use 1rem", "Always use 2rem"],
+            "correctIndex": 1,
+            "explanation": "`clamp()` applies a preferred value while preventing it from going below the minimum or above the maximum."
+          }
+        },
+        {
+          "id": "responsive-modern-question-25",
+          "title": "Responsive & Modern CSS — Question 25",
+          "content": "Test viewport units.",
+          "interactiveQuiz": {
+            "question": "What does `100dvh` represent?",
+            "options": ["100 dynamic viewport heights", "100 document heights", "100 desktop heights", "100 default font heights"],
+            "correctIndex": 0,
+            "explanation": "`dvh` is the dynamic viewport-height unit."
+          }
+        },
+        {
+          "id": "responsive-modern-question-26",
+          "title": "Responsive & Modern CSS — Question 26",
+          "content": "Test aspect ratio.",
+          "interactiveQuiz": {
+            "question": "What does `aspect-ratio: 16 / 9` provide?",
+            "options": ["A preferred width-to-height ratio", "A fixed width of 16px", "A font ratio", "A z-index ratio"],
+            "correctIndex": 0,
+            "explanation": "The property defines a preferred ratio between width and height."
+          }
+        },
+        {
+          "id": "responsive-modern-question-27",
+          "title": "Responsive & Modern CSS — Question 27",
+          "content": "Test feature queries.",
+          "interactiveQuiz": {
+            "question": "What does `@supports` provide?",
+            "options": ["Conditional CSS based on feature support", "JavaScript execution", "HTML validation", "Network requests"],
+            "correctIndex": 0,
+            "explanation": "`@supports` enables progressive enhancement based on whether a browser supports a CSS feature."
+          }
+        },
+        {
+          "id": "responsive-modern-question-28",
+          "title": "Responsive & Modern CSS — Question 28",
+          "content": "Test modern pseudo-classes.",
+          "interactiveQuiz": {
+            "question": "What makes `:has()` different from many traditional selectors?",
+            "options": [
+              "It can match an element based on a relative selector condition",
+              "It only targets IDs",
+              "It disables descendants",
+              "It only works with images"
+            ],
+            "correctIndex": 0,
+            "explanation": "`:has()` provides relational selection based on related elements."
+          }
+        },
+        {
+          "id": "responsive-modern-question-29",
+          "title": "Responsive & Modern CSS — Question 29",
+          "content": "Test specificity of :where().",
+          "interactiveQuiz": {
+            "question": "What specificity does `:where()` contribute?",
+            "options": ["Zero", "One ID", "One class", "It depends on the selector"],
+            "correctIndex": 0,
+            "explanation": "`:where()` always contributes zero specificity regardless of the selectors inside it."
+          }
+        },
+        {
+          "id": "responsive-modern-question-30",
+          "title": "Responsive & Modern CSS — Question 30",
+          "content": "Test `:is()` specificity.",
+          "interactiveQuiz": {
+            "question": "How does `:is()` contribute specificity?",
+            "options": ["Always zero", "The specificity of its most specific argument", "Always one ID", "It has no specificity behavior"],
+            "correctIndex": 1,
+            "explanation": "`:is()` takes the specificity of its most specific selector argument."
+          }
+        },
+        {
+          "id": "advanced-css-question-31",
+          "title": "Advanced CSS — Question 31",
+          "content": "Test custom properties.",
+          "interactiveQuiz": {
+            "question": "Where do CSS custom properties participate?",
+            "options": [
+              "Only during build time",
+              "In the CSS cascade and runtime style system",
+              "Only inside JavaScript",
+              "Only inside HTML attributes"
+            ],
+            "correctIndex": 1,
+            "explanation": "Custom properties are runtime CSS values that participate in inheritance and the cascade."
+          }
+        },
+        {
+          "id": "advanced-css-question-32",
+          "title": "Advanced CSS — Question 32",
+          "content": "Test custom-property fallback syntax.",
+          "interactiveQuiz": {
+            "question": "What does `var(--primary, blue)` mean?",
+            "options": [
+              "Always use blue",
+              "Use `--primary`, falling back to blue if necessary",
+              "Create a variable named blue",
+              "Set the primary HTML attribute"
+            ],
+            "correctIndex": 1,
+            "explanation": "The second argument is the fallback value."
+          }
+        },
+        {
+          "id": "advanced-css-question-33",
+          "title": "Advanced CSS — Question 33",
+          "content": "Test cascade layers.",
+          "interactiveQuiz": {
+            "question": "Why are cascade layers useful?",
+            "options": [
+              "They provide explicit ordering between groups of styles",
+              "They remove the cascade",
+              "They replace Flexbox",
+              "They create DOM elements"
+            ],
+            "correctIndex": 0,
+            "explanation": "Cascade layers make precedence between style groups explicit."
+          }
+        },
+        {
+          "id": "advanced-css-question-34",
+          "title": "Advanced CSS — Question 34",
+          "content": "Test subgrid.",
+          "interactiveQuiz": {
+            "question": "What does `subgrid` allow?",
+            "options": [
+              "A child grid to participate in the parent's track sizing",
+              "A grid inside JavaScript",
+              "A second browser window",
+              "A new HTML document"
+            ],
+            "correctIndex": 0,
+            "explanation": "Subgrid lets nested grid content use the parent grid's tracks."
+          }
+        },
+        {
+          "id": "advanced-css-question-35",
+          "title": "Advanced CSS — Question 35",
+          "content": "Test intrinsic sizing.",
+          "interactiveQuiz": {
+            "question": "What does `min-content` generally represent?",
+            "options": [
+              "The smallest size the content can take without avoidable overflow",
+              "The viewport width",
+              "A fixed 1px size",
+              "The maximum content size"
+            ],
+            "correctIndex": 0,
+            "explanation": "`min-content` represents a minimum intrinsic size based on the content's wrapping constraints."
+          }
+        },
+        {
+          "id": "advanced-css-question-36",
+          "title": "Advanced CSS — Question 36",
+          "content": "Test logical properties.",
+          "interactiveQuiz": {
+            "question": "Why use `padding-inline` instead of always using `padding-left` and `padding-right`?",
+            "options": [
+              "It is semantic for writing direction and supports internationalization",
+              "It only works in Chrome",
+              "It disables RTL",
+              "It changes the HTML"
+            ],
+            "correctIndex": 0,
+            "explanation": "Logical properties adapt to writing modes and directions."
+          }
+        },
+        {
+          "id": "advanced-css-question-37",
+          "title": "Advanced CSS — Question 37",
+          "content": "Test animation accessibility.",
+          "interactiveQuiz": {
+            "question": "Which media query respects a user's reduced-motion preference?",
+            "options": [
+              "@media (reduce-motion)",
+              "@media (prefers-reduced-motion: reduce)",
+              "@media (motion: none)",
+              "@media (animation: disabled)"
+            ],
+            "correctIndex": 1,
+            "explanation": "`prefers-reduced-motion: reduce` detects users who request reduced motion."
+          }
+        },
+        {
+          "id": "advanced-css-question-38",
+          "title": "Advanced CSS — Question 38",
+          "content": "Test animation concepts.",
+          "interactiveQuiz": {
+            "question": "What is the purpose of `@keyframes`?",
+            "options": ["Define animation stages", "Define HTML attributes", "Create CSS variables", "Create Grid tracks"],
+            "correctIndex": 0,
+            "explanation": "`@keyframes` defines the intermediate and endpoint states of a CSS animation."
+          }
+        },
+        {
+          "id": "advanced-css-question-39",
+          "title": "Advanced CSS — Question 39",
+          "content": "Test performance concepts.",
+          "interactiveQuiz": {
+            "question": "Which property is generally preferred for simple visual movement?",
+            "options": ["transform", "margin-left", "width", "padding-left"],
+            "correctIndex": 0,
+            "explanation": "Transforms can often be animated without repeatedly recalculating layout, making them a strong choice for simple movement."
+          }
+        },
+        {
+          "id": "advanced-css-question-40",
+          "title": "Advanced CSS — Question 40",
+          "content": "Test layout shift prevention.",
+          "interactiveQuiz": {
+            "question": "Which technique can reduce image-related layout shifts?",
+            "options": ["Reserve dimensions or use aspect-ratio", "Hide every image", "Use random margins", "Remove all containers"],
+            "correctIndex": 0,
+            "explanation": "Predictable media dimensions let the browser reserve layout space before content is fully rendered."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-41",
+          "title": "Real-World Scenarios — Question 41",
+          "content": "Scenario: A flex child containing a long unbroken string refuses to shrink and causes horizontal overflow.",
+          "interactiveQuiz": {
+            "question": "Which declaration is commonly useful on the flex child?",
+            "options": ["min-width: 0", "max-width: none", "display: absolute", "position: shrink"],
+            "correctIndex": 0,
+            "explanation": "Flex items have an automatic minimum size behavior that can prevent shrinking. `min-width: 0` commonly allows the item to shrink within its flex container."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-42",
+          "title": "Real-World Scenarios — Question 42",
+          "content": "Scenario: A modal appears behind another component even though its z-index is very large.",
+          "interactiveQuiz": {
+            "question": "What should you investigate first?",
+            "options": ["Stacking contexts of ancestors", "Font family", "Line height", "Text decoration"],
+            "correctIndex": 0,
+            "explanation": "A stacking context created by an ancestor can constrain the modal's stacking order regardless of how large its local z-index is."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-43",
+          "title": "Real-World Scenarios — Question 43",
+          "content": "Scenario: A sidebar should remain visible as the user scrolls but stay within the page section.",
+          "interactiveQuiz": {
+            "question": "Which positioning mode is usually appropriate?",
+            "options": ["absolute", "sticky", "static-only", "float-fixed"],
+            "correctIndex": 1,
+            "explanation": "`position: sticky` is designed for elements that stick after reaching a scroll threshold while remaining constrained by their containing context."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-44",
+          "title": "Real-World Scenarios — Question 44",
+          "content": "Scenario: A reusable card is placed in both a narrow sidebar and a wide main-content region. It should change its internal layout based on the available card width.",
+          "interactiveQuiz": {
+            "question": "Which feature is most appropriate?",
+            "options": ["Viewport-only media queries", "Container queries", "JavaScript resize polling", "Fixed pixel widths"],
+            "correctIndex": 1,
+            "explanation": "Container queries allow the card to respond to its own available container size rather than the viewport."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-45",
+          "title": "Real-World Scenarios — Question 45",
+          "content": "Scenario: A design system needs utility styles that can easily override component defaults without increasing selector specificity.",
+          "interactiveQuiz": {
+            "question": "Which CSS feature can help establish predictable precedence?",
+            "options": ["Cascade layers", "More IDs", "Deep selector nesting", "More `!important` declarations"],
+            "correctIndex": 0,
+            "explanation": "Cascade layers can establish an explicit precedence hierarchy between component and utility styles."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-46",
+          "title": "Real-World Scenarios — Question 46",
+          "content": "Scenario: A button has hover styling but keyboard users cannot tell when it has focus.",
+          "interactiveQuiz": {
+            "question": "What should be added?",
+            "options": ["A visible `:focus-visible` style", "Only `:hover`", "outline: none", "display: none"],
+            "correctIndex": 0,
+            "explanation": "Keyboard users need a visible focus indicator. `:focus-visible` provides an appropriate CSS hook."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-47",
+          "title": "Real-World Scenarios — Question 47",
+          "content": "Scenario: A responsive card grid should use as many columns as fit while keeping cards at least 280px wide.",
+          "interactiveQuiz": {
+            "question": "Which declaration is a strong solution?",
+            "options": [
+              "grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));",
+              "display: flex; width: 280px;",
+              "grid-template-columns: fixed(280px);",
+              "columns: responsive(280px);"
+            ],
+            "correctIndex": 0,
+            "explanation": "The `auto-fit` and `minmax()` combination creates flexible responsive columns with a minimum size."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-48",
+          "title": "Real-World Scenarios — Question 48",
+          "content": "Scenario: A team repeatedly increases z-index values to fix modal and dropdown layering problems.",
+          "interactiveQuiz": {
+            "question": "What is a better long-term solution?",
+            "options": [
+              "Keep increasing z-index values",
+              "Establish a deliberate stacking-context and layering strategy",
+              "Use random negative z-index values",
+              "Remove all positioning"
+            ],
+            "correctIndex": 1,
+            "explanation": "Layering problems are usually architectural. A documented stacking strategy is more maintainable than arbitrary z-index escalation."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-49",
+          "title": "Real-World Scenarios — Question 49",
+          "content": "Scenario: A site uses large decorative animations, but some users experience motion sensitivity.",
+          "interactiveQuiz": {
+            "question": "What should the CSS implementation do?",
+            "options": [
+              "Ignore the preference",
+              "Use `prefers-reduced-motion` to reduce or disable nonessential motion",
+              "Increase animation speed",
+              "Use only infinite animations"
+            ],
+            "correctIndex": 1,
+            "explanation": "The reduced-motion media feature allows the design to respect user accessibility preferences."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-50",
+          "title": "Real-World Scenarios — Question 50",
+          "content": "Scenario: A CSS file contains many highly specific selectors and developers frequently add `!important` to override them.",
+          "interactiveQuiz": {
+            "question": "What is the best architectural response?",
+            "options": [
+              "Add even more `!important`",
+              "Reduce specificity and establish clearer component and cascade boundaries",
+              "Use only ID selectors",
+              "Put every style inline"
+            ],
+            "correctIndex": 1,
+            "explanation": "Specificity escalation creates a fragile stylesheet. Simplifying selectors and establishing clear ownership and cascade layers provides a more sustainable solution."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-51",
+          "title": "Senior CSS — Question 51",
+          "content": "Scenario: A developer uses `height: 100vh` for a mobile full-screen hero and sees layout problems when browser UI expands or collapses.",
+          "interactiveQuiz": {
+            "question": "Which modern unit may better represent the dynamic viewport height?",
+            "options": ["100px", "100dvh", "100em", "100ch"],
+            "correctIndex": 1,
+            "explanation": "`dvh` represents dynamic viewport height and is designed to respond to changes in the browser's visible viewport."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-52",
+          "title": "Senior CSS — Question 52",
+          "content": "Scenario: A component library should provide default styles that consumers can easily override.",
+          "interactiveQuiz": {
+            "question": "Which selector is useful when you intentionally want zero specificity?",
+            "options": [":where()", ":is()", "#root", "::before"],
+            "correctIndex": 0,
+            "explanation": "`:where()` always contributes zero specificity, making it useful for low-specificity defaults."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-53",
+          "title": "Senior CSS — Question 53",
+          "content": "Scenario: Several cards contain title, content, and action regions, but the action buttons should align across all cards even when titles have different lengths.",
+          "interactiveQuiz": {
+            "question": "Which modern Grid capability can help synchronize nested card tracks?",
+            "options": ["Subgrid", "Float", "Inline-block", "Only absolute positioning"],
+            "correctIndex": 0,
+            "explanation": "Subgrid allows nested card layouts to participate in parent grid track sizing, enabling cross-card alignment."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-54",
+          "title": "Senior CSS — Question 54",
+          "content": "Scenario: A developer wants a component to display a two-column layout only when its own container is wide enough.",
+          "interactiveQuiz": {
+            "question": "Which approach best matches this requirement?",
+            "options": ["A viewport media query", "A container query", "A fixed width", "A JavaScript interval"],
+            "correctIndex": 1,
+            "explanation": "Container queries directly express component behavior based on the size of the component's containing context."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-55",
+          "title": "Senior CSS — Question 55",
+          "content": "Scenario: A page has a visually complex header, but the developer uses absolute positioning for every element, causing content overlap on different screen sizes.",
+          "interactiveQuiz": {
+            "question": "What is the better general strategy?",
+            "options": [
+              "Use normal flow, Flexbox, or Grid for structural layout and reserve absolute positioning for anchored overlays",
+              "Make everything fixed",
+              "Add more absolute coordinates",
+              "Disable responsive behavior"
+            ],
+            "correctIndex": 0,
+            "explanation": "Structural layouts are more resilient when normal flow, Flexbox, and Grid handle geometry while absolute positioning is reserved for elements that genuinely need independent positioning."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-56",
+          "title": "Senior CSS — Question 56",
+          "content": "Scenario: A team wants to create a design system with spacing and color values that can change dynamically at runtime.",
+          "interactiveQuiz": {
+            "question": "Which CSS mechanism is most suitable?",
+            "options": ["CSS custom properties", "Only Sass variables", "HTML comments", "Hardcoded values everywhere"],
+            "correctIndex": 0,
+            "explanation": "CSS custom properties exist at runtime and participate in the cascade, making them suitable for dynamic theming and design tokens."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-57",
+          "title": "Senior CSS — Question 57",
+          "content": "Scenario: A developer wants a value to scale fluidly but never become smaller than 16px or larger than 32px.",
+          "interactiveQuiz": {
+            "question": "Which CSS function is most appropriate?",
+            "options": ["clamp()", "scale()", "limit()", "range()"],
+            "correctIndex": 0,
+            "explanation": "`clamp(minimum, preferred, maximum)` is specifically designed to constrain a fluid value."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-58",
+          "title": "Senior CSS — Question 58",
+          "content": "Scenario: A developer wants to select a card only when it contains an image.",
+          "interactiveQuiz": {
+            "question": "Which selector is appropriate?",
+            "options": [".card:has(img)", ".card::img", ".card img:parent", ".card > :contains(img)"],
+            "correctIndex": 0,
+            "explanation": "`:has(img)` allows the card to be selected based on the presence of an image descendant."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-59",
+          "title": "Senior CSS — Question 59",
+          "content": "Scenario: A layout works on desktop but a long text value causes an unexpected horizontal overflow inside a Grid or Flex child.",
+          "interactiveQuiz": {
+            "question": "Which combination is often useful when debugging and fixing this class of issue?",
+            "options": [
+              "Inspect intrinsic minimum sizing and consider `min-width: 0` or suitable Grid track constraints",
+              "Always add `z-index: 999999`",
+              "Use only `position: absolute`",
+              "Remove all text"
+            ],
+            "correctIndex": 0,
+            "explanation": "Intrinsic minimum sizing frequently explains unexpected overflow. `min-width: 0` in Flexbox and explicit Grid constraints can allow content to shrink correctly."
+          }
+        },
+        {
+          "id": "real-world-scenarios-question-60",
+          "title": "Senior CSS — Question 60",
+          "content": "Scenario: A CSS architecture has reset styles, base styles, components, and utilities. Developers frequently struggle with which category should override another.",
+          "interactiveQuiz": {
+            "question": "Which modern CSS feature can encode this precedence explicitly?",
+            "options": ["@layer", "@font-face", "@supports only", "::after"],
+            "correctIndex": 0,
+            "explanation": "Cascade layers allow an architecture to define explicit precedence between groups such as reset, base, components, and utilities."
+          }
+        }
+      ]
+    }
+  ]
+}
