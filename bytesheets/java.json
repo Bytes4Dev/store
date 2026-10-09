@@ -1,0 +1,1940 @@
+{
+  "courseId": "java-mastery",
+  "courseName": "Java",
+  "title": "Java Mastery: From Fundamentals to JVM and Production Engineering",
+  "subtitle": "A comprehensive path from Java syntax and object-oriented programming to collections, concurrency, JVM internals, performance, security, architecture, and senior-level interview preparation.",
+  "category": "Backend Development",
+  "level": "Advanced",
+  "estimatedTime": "24 Hours",
+  "accentColor": "#f97316",
+  "keywords": [
+    "java",
+    "jdk",
+    "jvm",
+    "oop",
+    "collections",
+    "generics",
+    "exceptions",
+    "streams",
+    "lambda",
+    "optional",
+    "concurrency",
+    "multithreading",
+    "virtual-threads",
+    "garbage-collection",
+    "jvm-performance",
+    "reflection",
+    "maven",
+    "gradle",
+    "jdbc",
+    "rest-api",
+    "security",
+    "design-patterns",
+    "architecture",
+    "testing",
+    "backend-development",
+    "interview-preparation"
+  ],
+  "chapters": [
+    {
+      "id": "java-foundations",
+      "title": "Java Foundations",
+      "summary": "Understand Java's history, platform model, source-to-bytecode pipeline, JDK/JRE/JVM roles, program structure, and the modern development workflow.",
+      "estimatedMinutes": 55,
+      "mediaImages": ["https://upload.wikimedia.org/wikipedia/commons/1/18/OpenJDK_logo.svg"],
+      "sections": [
+        {
+          "id": "what-is-java",
+          "title": "What Is Java?",
+          "content": "Java is a statically typed, class-based programming language and runtime platform designed around portability, safety, tooling, and a large standard library. Java source is normally compiled into JVM bytecode rather than directly into one operating system's machine code. A compatible Java Virtual Machine then executes that bytecode.\n\nThe important distinction is between the **language** and the **platform**. The language defines syntax and semantics such as classes, interfaces, generics, exceptions, and pattern matching. The platform supplies the JVM, standard libraries, command-line tools, garbage collection, monitoring facilities, and a mature ecosystem.\n\nJava is widely used for backend services, enterprise systems, data processing, financial software, developer tools, and high-throughput server applications.\n\n```java\npublic class HelloJava {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, Java!\");\n    }\n}\n```",
+          "callout": {
+            "type": "info",
+            "title": "Mental model",
+            "message": "Think of Java as a language plus a runtime ecosystem. The JVM is the execution engine; the JDK is the developer toolkit."
+          },
+          "keyTakeaways": [
+            "Java source is normally compiled to JVM bytecode.",
+            "Portability comes from the JVM abstraction and standardized runtime behavior.",
+            "The language, JVM, and JDK are related but are not the same thing."
+          ]
+        },
+        {
+          "id": "jdk-jre-jvm",
+          "title": "JDK, JRE, and JVM",
+          "content": "The **JVM** executes Java bytecode and provides runtime services such as class loading, memory management, garbage collection, synchronization, and JIT compilation. The **JDK** is the developer distribution: it includes the runtime plus tools such as `javac`, `java`, `jar`, and diagnostic utilities.\n\nThe term **JRE** historically referred to a runtime distribution containing the JVM and runtime libraries. Modern JDK distributions generally provide the complete runtime image themselves, so treating \"install a separate JRE\" as the normal development workflow is outdated.\n\nA useful hierarchy is:\n\n`JDK = development tools + runtime`\n\n`JVM = engine that executes JVM bytecode`\n\n```text\nJava source (.java)\n     |\n     | javac\n     v\nBytecode (.class)\n     |\n     | JVM class loader + verifier\n     v\nJVM execution engine\n     |\n     +--> Interpreter\n     +--> JIT compiler\n     +--> Garbage collector\n     +--> Runtime libraries\n```",
+          "callout": {
+            "type": "tip",
+            "title": "Interview shortcut",
+            "message": "Java source is compiled to bytecode, then the JVM can interpret and JIT-compile that bytecode at runtime."
+          },
+          "keyTakeaways": [
+            "`javac` compiles Java source into bytecode.",
+            "The JVM executes bytecode and may compile hot code to native instructions.",
+            "Modern Java development normally starts with a JDK."
+          ]
+        },
+        {
+          "id": "java-program-structure",
+          "title": "Program Structure and the Entry Point",
+          "content": "A Java program is organized around types such as classes, interfaces, enums, and records. A conventional executable application has a `main` method. The usual entry point is `public static void main(String[] args)`.\n\n`public` makes the method accessible to the launcher, `static` means the JVM can invoke it without creating an instance, `void` means it returns no value, and `String[] args` receives command-line arguments.\n\nJava identifiers are case-sensitive. Package names are conventionally lowercase, classes use PascalCase, methods and variables use camelCase, and constants commonly use `UPPER_SNAKE_CASE`.\n\n```java\npackage com.example.app;\n\npublic class Application {\n    private static final int DEFAULT_PORT = 8080;\n\n    public static void main(String[] args) {\n        System.out.println(\"Starting on port \" + DEFAULT_PORT);\n    }\n}\n```",
+          "keyTakeaways": [
+            "Java is case-sensitive.",
+            "The `main` method is a static entry point for conventional command-line applications.",
+            "Packages provide namespace organization and support access control."
+          ]
+        },
+        {
+          "id": "compile-run-workflow",
+          "title": "Compile, Run, Package, and Inspect",
+          "content": "A minimal workflow is: write source, compile it, run it, package it when needed, and inspect artifacts or diagnostics when something fails.\n\n```bash\njavac Application.java\njava Application\njar --create --file app.jar --main-class Application Application.class\njava -jar app.jar\n```\n\nFor real projects, Maven or Gradle normally handles dependency resolution, compilation, testing, packaging, code quality, and publishing. The command-line tools remain important because they reveal what the build tool is doing underneath.\n\nCompilation errors are caught before execution. Runtime failures such as `NullPointerException`, `ClassNotFoundException`, or an out-of-memory condition happen after compilation and require different debugging techniques.",
+          "callout": {
+            "type": "tip",
+            "title": "Build-tool principle",
+            "message": "Learn the JDK commands even if you use Maven or Gradle; they make build failures easier to reason about."
+          },
+          "keyTakeaways": [
+            "`javac` compiles source; `java` launches a class; `jar` packages artifacts.",
+            "Build tools automate repetitive workflows but do not replace understanding the JDK tools.",
+            "Compilation success does not guarantee runtime correctness."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "types-operators-control-flow",
+      "title": "Types, Variables, Operators, and Control Flow",
+      "summary": "Master Java primitive and reference types, conversions, operators, expressions, branching, loops, arrays, and command-line data.",
+      "estimatedMinutes": 70,
+      "sections": [
+        {
+          "id": "primitive-and-reference-types",
+          "title": "Primitive Types vs Reference Types",
+          "content": "Java has eight primitive types: `byte`, `short`, `int`, `long`, `float`, `double`, `char`, and `boolean`. Primitive variables hold values according to the language's rules. Reference variables hold references to objects, arrays, or `null`.\n\n`int` is the usual integral type. Use `long` for larger integer ranges, `double` for general floating-point calculations, and `boolean` for true/false state. `char` represents a UTF-16 code unit.\n\n```java\nint count = 42;\nlong population = 8_000_000_000L;\ndouble price = 19.95;\nboolean active = true;\nchar grade = 'A';\n\nString name = \"Suriya\";\nint[] scores = {90, 85, 95};\n```\n\nWrapper classes such as `Integer`, `Long`, and `Boolean` represent primitive values as objects and are required in many generic APIs.",
+          "keyTakeaways": [
+            "Primitive and reference types have different semantics.",
+            "`String` and arrays are reference types.",
+            "Choose numeric types based on range and precision requirements."
+          ]
+        },
+        {
+          "id": "type-conversion-and-boxing",
+          "title": "Conversions, Casting, Autoboxing, and Unboxing",
+          "content": "Java performs some conversions automatically when they are safe, such as widening `int` to `long`. Narrowing conversions require an explicit cast and can lose information.\n\n```java\nint n = 10;\nlong big = n;\nint smaller = (int) big;\n\nInteger boxed = n;\nint value = boxed;\n```\n\nBoxing is convenient but creates object values when an object representation is needed. It can also introduce `NullPointerException` during unboxing if a wrapper is `null`.\n\nNumeric promotion can produce surprising results. `5 / 2` is `2` because both operands are integers; `5 / 2.0` is `2.5`.",
+          "callout": {
+            "type": "warning",
+            "title": "Beware unboxing",
+            "message": "A nullable `Integer` is not interchangeable with an `int`; unboxing `null` throws `NullPointerException`."
+          },
+          "keyTakeaways": [
+            "Widening conversions generally preserve the value.",
+            "Narrowing casts may truncate or overflow.",
+            "Autoboxing is convenient but does not remove allocation and nullability concerns."
+          ]
+        },
+        {
+          "id": "operators-and-expressions",
+          "title": "Operators and Expressions",
+          "content": "Java supports arithmetic, comparison, logical, bitwise, shift, assignment, conditional, and increment/decrement operators.\n\n```java\nint a = 10;\nint b = 3;\n\nint sum = a + b;\nint remainder = a % b;\nboolean result = a > b && b > 0;\nint max = a > b ? a : b;\n```\n\n`&&` and `||` are short-circuiting operators. `==` compares primitive values directly but compares references by identity when both operands are references. Use `.equals()` for logical value equality when the type defines it appropriately.",
+          "keyTakeaways": [
+            "`&&` and `||` short-circuit.",
+            "`==` is not a general replacement for `.equals()`.",
+            "Use parentheses to make non-obvious precedence explicit."
+          ]
+        },
+        {
+          "id": "conditionals-and-loops",
+          "title": "Branching and Loops",
+          "content": "Java provides `if/else`, `switch`, `for`, enhanced `for`, `while`, and `do-while`. Modern Java also supports switch expressions, which can return a value.\n\n```java\nint score = 82;\n\nString result = switch (score / 10) {\n    case 10, 9 -> \"Excellent\";\n    case 8 -> \"Good\";\n    case 7 -> \"Average\";\n    default -> \"Needs improvement\";\n};\n\nfor (int i = 0; i < 5; i++) {\n    System.out.println(i);\n}\n```\n\nPrefer the construct that expresses intent most clearly. Enhanced `for` is ideal for straightforward iteration. Streams are useful when the operation is naturally a data transformation pipeline; they are not automatically better than a loop.",
+          "keyTakeaways": [
+            "Use switch expressions when a branch naturally produces a value.",
+            "Enhanced `for` improves readability for collection traversal.",
+            "Choose loops and streams based on clarity and semantics."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "object-oriented-programming",
+      "title": "Object-Oriented Programming",
+      "summary": "Build robust Java models using classes, constructors, encapsulation, inheritance, polymorphism, interfaces, composition, records, and sealed types.",
+      "estimatedMinutes": 85,
+      "sections": [
+        {
+          "id": "classes-objects-and-constructors",
+          "title": "Classes, Objects, Fields, and Constructors",
+          "content": "A class defines state and behavior; an object is a runtime instance. Constructors establish valid initial state. Fields should normally be private, with behavior exposed through methods rather than unrestricted mutation.\n\n```java\npublic final class User {\n    private final String id;\n    private String displayName;\n\n    public User(String id, String displayName) {\n        this.id = id;\n        this.displayName = displayName;\n    }\n\n    public String id() { return id; }\n    public String displayName() { return displayName; }\n}\n```\n\nFavor constructors that prevent invalid states. If a field must never change after construction, make it `final`.",
+          "keyTakeaways": [
+            "Constructors should establish invariants.",
+            "Encapsulation keeps object state under controlled mutation.",
+            "Prefer immutable fields when the domain allows it."
+          ]
+        },
+        {
+          "id": "encapsulation-inheritance-polymorphism",
+          "title": "Encapsulation, Inheritance, and Polymorphism",
+          "content": "Encapsulation hides implementation details behind a stable API. Inheritance should model a genuine \"is-a\" relationship. Polymorphism allows code to depend on an abstraction while the runtime object determines the implementation.\n\n```java\ninterface PaymentProcessor {\n    void pay(long cents);\n}\n\nfinal class CardPayment implements PaymentProcessor {\n    public void pay(long cents) {\n        System.out.println(\"Card: \" + cents);\n    }\n}\n\nfinal class Checkout {\n    private final PaymentProcessor processor;\n\n    Checkout(PaymentProcessor processor) {\n        this.processor = processor;\n    }\n\n    void complete(long cents) {\n        processor.pay(cents);\n    }\n}\n```\n\n`Checkout` does not care whether payment uses a card, wallet, or test double. This is dependency inversion through an interface.",
+          "callout": {
+            "type": "tip",
+            "title": "Prefer composition",
+            "message": "Inheritance creates tight coupling. Use composition when the relationship is really 'has-a' rather than 'is-a'."
+          },
+          "keyTakeaways": [
+            "Polymorphism reduces coupling to concrete implementations.",
+            "Interfaces are excellent boundaries for dependency injection and testing.",
+            "Composition is often more flexible than deep inheritance hierarchies."
+          ]
+        },
+        {
+          "id": "abstract-classes-interfaces",
+          "title": "Abstract Classes and Interfaces",
+          "content": "An abstract class can hold shared state and implementation while preventing direct instantiation. An interface primarily defines a capability or contract and can contain default, static, and private methods.\n\nA class can implement multiple interfaces but extend only one class.\n\n```java\ninterface Auditable {\n    String actor();\n}\n\nabstract class BaseCommand {\n    private final long createdAt = System.currentTimeMillis();\n    long createdAt() { return createdAt; }\n}\n\nfinal class CreateUserCommand extends BaseCommand implements Auditable {\n    public String actor() { return \"system\"; }\n}\n```",
+          "keyTakeaways": [
+            "A class has single inheritance but can implement multiple interfaces.",
+            "Abstract classes are useful when shared state or implementation is intrinsic.",
+            "Interfaces define capabilities and reduce dependency on concrete classes."
+          ]
+        },
+        {
+          "id": "records-sealed-types-enums",
+          "title": "Records, Sealed Classes, and Enums",
+          "content": "Modern Java provides concise tools for domain modeling. A **record** is ideal for transparent, mostly immutable data carriers. A **sealed type** restricts which types may extend or implement an abstraction. An enum models a fixed set of named constants.\n\n```java\npublic record Point(int x, int y) {}\n\npublic sealed interface Result\n        permits Success, Failure {}\n\npublic record Success(String value) implements Result {}\npublic record Failure(String reason) implements Result {}\n\nenum Status {\n    NEW, PROCESSING, COMPLETED, FAILED\n}\n```\n\nRecords generate accessors, a canonical constructor, `equals`, `hashCode`, and `toString`. They do not make referenced objects deeply immutable.",
+          "keyTakeaways": [
+            "Records reduce boilerplate for data-centric types.",
+            "Sealed types make an inheritance boundary explicit.",
+            "Records are shallowly immutable; referenced mutable objects can still change."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "methods-arrays-strings",
+      "title": "Methods, Arrays, Strings, and Object Contracts",
+      "summary": "Learn method design, varargs, recursion, arrays, String behavior, immutability, equals/hashCode, toString, and object-level contracts.",
+      "estimatedMinutes": 65,
+      "sections": [
+        {
+          "id": "method-design",
+          "title": "Methods, Parameters, Return Values, and Varargs",
+          "content": "A method should perform one coherent operation and expose a clear contract. Java passes arguments **by value**. For object arguments, the copied value is the reference itself.\n\n```java\nstatic int add(int a, int b) {\n    return a + b;\n}\n\nstatic int sum(int... values) {\n    int total = 0;\n    for (int value : values) total += value;\n    return total;\n}\n```\n\nVarargs are compiled as an array parameter and must be the final parameter.",
+          "callout": {
+            "type": "info",
+            "title": "Pass-by-value",
+            "message": "Java never passes variables by reference. A reference value can be copied, and both variables can point to the same object."
+          },
+          "keyTakeaways": [
+            "Java is strictly pass-by-value.",
+            "Varargs provide convenient variable-length arguments.",
+            "Method contracts should make inputs, outputs, and failure behavior explicit."
+          ]
+        },
+        {
+          "id": "arrays-and-multidimensional-data",
+          "title": "Arrays and Multidimensional Data",
+          "content": "Arrays are fixed-size objects with zero-based indexing.\n\n```java\nint[] values = new int[3];\nvalues[0] = 10;\n\nint[] scores = {90, 80, 95};\n\nint[][] matrix = {\n    {1, 2},\n    {3, 4}\n};\n```\n\nJava's multidimensional arrays are arrays of arrays, so rows can have different lengths. Arrays are efficient for indexed access, but collections are usually better when size or data-structure semantics vary.",
+          "keyTakeaways": [
+            "Arrays have fixed length.",
+            "Array indexing starts at zero.",
+            "A Java `T[][]` is an array whose elements are themselves arrays."
+          ]
+        },
+        {
+          "id": "strings-and-stringbuilder",
+          "title": "String Immutability and StringBuilder",
+          "content": "`String` is immutable. Operations such as concatenation produce a new string rather than changing the existing instance.\n\n```java\nString name = \"Java\";\nString upper = name.toUpperCase();\n\nStringBuilder builder = new StringBuilder();\nfor (int i = 0; i < 3; i++) {\n    builder.append(i).append(',');\n}\n\nString result = builder.toString();\n```\n\nRepeated concatenation in a large loop can create unnecessary temporary strings. `StringBuilder` is generally appropriate for incremental construction in one thread.",
+          "callout": {
+            "type": "warning",
+            "title": "String equality",
+            "message": "Use `equals()` for string content. `==` compares reference identity for objects."
+          },
+          "keyTakeaways": [
+            "Strings are immutable.",
+            "Use `StringBuilder` for repeated string construction.",
+            "String pooling is not a reason to use `==` for value comparison."
+          ]
+        },
+        {
+          "id": "equals-hashcode-tostring",
+          "title": "equals, hashCode, and toString Contracts",
+          "content": "`equals()` defines logical equality when overridden. `hashCode()` must be consistent with `equals`: equal objects must have equal hash codes. `toString()` provides a readable representation for logs and debugging.\n\n```java\npublic record UserKey(String tenantId, String userId) {}\n```\n\nFor mutable classes used as `HashMap` keys, changing fields involved in equality after insertion can make the entry effectively unreachable.\n\nThe equality relation should be reflexive, symmetric, transitive, consistent, and false for comparison with `null`.",
+          "keyTakeaways": [
+            "`equals` defines logical equality.",
+            "Equal objects must have equal hash codes.",
+            "Do not mutate equality-defining state of a key while it is stored in a hash-based collection."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "collections-generics",
+      "title": "Collections and Generics",
+      "summary": "Master List, Set, Map, Queue, Deque, iterators, sorting, generics, wildcards, type erasure, and collection selection.",
+      "estimatedMinutes": 90,
+      "sections": [
+        {
+          "id": "list-set-map",
+          "title": "List, Set, and Map",
+          "content": "The Collections Framework provides reusable data structures and algorithms. `List` preserves order and allows duplicates. `Set` models uniqueness. `Map` associates keys with values.\n\n```java\nList<String> names = new ArrayList<>();\nnames.add(\"A\");\nnames.add(\"B\");\n\nSet<String> unique = new HashSet<>(names);\n\nMap<String, Integer> counts = new HashMap<>();\ncounts.merge(\"java\", 1, Integer::sum);\n```\n\n`ArrayList` is usually the default list. `HashSet` and `HashMap` provide average constant-time lookup under good hashing behavior. `LinkedHashMap` preserves insertion order, while `TreeMap` keeps keys sorted.",
+          "keyTakeaways": [
+            "Choose collections based on required semantics.",
+            "`ArrayList` is a strong default for indexed/sequential lists.",
+            "Hash-based structures depend on correct `equals` and `hashCode`."
+          ]
+        },
+        {
+          "id": "queues-deques-priorityqueues",
+          "title": "Queues, Deques, and Priority Queues",
+          "content": "Queues represent ordered work. `ArrayDeque` is a strong general-purpose implementation for stack and queue operations. `PriorityQueue` orders elements according to priority.\n\n```java\nDeque<String> stack = new ArrayDeque<>();\nstack.push(\"first\");\nstack.push(\"second\");\nSystem.out.println(stack.pop());\n\nQueue<String> queue = new ArrayDeque<>();\nqueue.offer(\"job-1\");\nqueue.offer(\"job-2\");\nSystem.out.println(queue.poll());\n\nPriorityQueue<Integer> priorities = new PriorityQueue<>();\npriorities.offer(50);\npriorities.offer(10);\nSystem.out.println(priorities.poll());\n```\n\nA priority queue's internal array is not globally sorted; it maintains a heap property sufficient to retrieve the highest- or lowest-priority element efficiently.",
+          "keyTakeaways": [
+            "`ArrayDeque` can serve as both stack and queue.",
+            "`PriorityQueue` exposes priority order through removal/peek, not full iteration order.",
+            "Use queue APIs such as `offer` and `poll` for clear semantics."
+          ]
+        },
+        {
+          "id": "generics-and-wildcards",
+          "title": "Generics and Wildcards",
+          "content": "Generics provide compile-time type safety without repeated casts.\n\n```java\nList<String> names = new ArrayList<>();\nnames.add(\"Java\");\n\nstatic double sum(List<? extends Number> values) {\n    double total = 0;\n    for (Number value : values) {\n        total += value.doubleValue();\n    }\n    return total;\n}\n```\n\n`? extends T` is useful when a structure is primarily a producer of `T`. `? super T` is useful when it consumes `T`. This is commonly remembered as **PECS: Producer Extends, Consumer Super**.\n\nGeneric type information is largely erased at runtime.",
+          "callout": {
+            "type": "tip",
+            "title": "PECS",
+            "message": "Use `extends` when you mainly read values as a base type; use `super` when you mainly write values of a subtype."
+          },
+          "keyTakeaways": [
+            "Generics catch many type errors at compile time.",
+            "`? extends T` is producer-oriented; `? super T` is consumer-oriented.",
+            "Java generics use type erasure rather than fully reified generic types."
+          ]
+        },
+        {
+          "id": "sorting-comparators-iterators",
+          "title": "Sorting, Comparators, and Iterators",
+          "content": "Java separates natural ordering from custom ordering. `Comparable<T>` defines a type's natural order; `Comparator<T>` supplies an external ordering strategy.\n\n```java\nrecord Person(String name, int age) {}\n\nList<Person> people = new ArrayList<>();\npeople.sort(\n    Comparator.comparingInt(Person::age)\n              .thenComparing(Person::name)\n);\n```\n\nIterators allow controlled traversal and, where supported, removal. The enhanced `for` loop uses an iterator for iterable collections.\n\nComparators should obey their contract; inconsistent ordering can cause unpredictable sorting behavior.",
+          "keyTakeaways": [
+            "Use `Comparable` for natural order and `Comparator` for alternate orders.",
+            "Comparator contracts must be consistent.",
+            "Use collection APIs instead of reimplementing common traversal logic."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "exceptions-and-error-handling",
+      "title": "Exceptions and Error Handling",
+      "summary": "Understand checked and unchecked exceptions, try/catch/finally, try-with-resources, custom exceptions, propagation, and resilient error handling.",
+      "estimatedMinutes": 60,
+      "sections": [
+        {
+          "id": "exception-hierarchy",
+          "title": "Exception Hierarchy and Checked vs Unchecked",
+          "content": "Java exceptions derive from `Throwable`. `Error` generally represents serious JVM/runtime conditions. `Exception` represents conditions applications may handle; `RuntimeException` and subclasses are unchecked.\n\nChecked exceptions must be caught or declared. Neither category should be chosen mechanically; decide based on whether the API contract benefits from requiring callers to explicitly handle a recoverable condition.\n\n```java\ntry {\n    Files.readString(Path.of(\"config.txt\"));\n} catch (IOException e) {\n    throw new ConfigurationException(\"Cannot read configuration\", e);\n}\n```",
+          "keyTakeaways": [
+            "Checked exceptions are enforced by the compiler.",
+            "Unchecked exceptions include many invalid-state and programming failures.",
+            "Preserve the original cause when wrapping exceptions."
+          ]
+        },
+        {
+          "id": "try-catch-finally",
+          "title": "try, catch, finally, and Exception Propagation",
+          "content": "Exceptions propagate up the call stack until a matching handler is found. `finally` is intended for cleanup, although try-with-resources is usually safer for resources.\n\n```java\ntry {\n    process();\n} catch (IllegalArgumentException e) {\n    System.err.println(\"Invalid input: \" + e.getMessage());\n} finally {\n    auditCompletion();\n}\n```\n\nCatch specific exceptions rather than catching `Exception` everywhere. If an exception cannot be handled meaningfully at the current layer, propagate it with useful context.",
+          "callout": {
+            "type": "warning",
+            "title": "Avoid empty catches",
+            "message": "An empty catch block silently discards failures and makes production diagnosis extremely difficult."
+          },
+          "keyTakeaways": [
+            "Catch exceptions where you can make a meaningful decision.",
+            "Preserve context and causes when rethrowing.",
+            "Do not use exceptions as normal high-frequency control flow."
+          ]
+        },
+        {
+          "id": "try-with-resources",
+          "title": "Try-with-Resources",
+          "content": "Resources such as files, sockets, and database statements often implement `AutoCloseable`. Try-with-resources guarantees closure at the end of the statement's scope.\n\n```java\ntry (BufferedReader reader =\n         Files.newBufferedReader(Path.of(\"app.log\"))) {\n    String line;\n    while ((line = reader.readLine()) != null) {\n        System.out.println(line);\n    }\n} catch (IOException e) {\n    throw new RuntimeException(\"Unable to read log\", e);\n}\n```\n\nIf both the body and `close()` throw, Java preserves the close failure as a suppressed exception.",
+          "keyTakeaways": [
+            "Prefer try-with-resources for `AutoCloseable` resources.",
+            "Resources close in reverse declaration order.",
+            "Suppressed exceptions preserve cleanup failures without losing the original exception."
+          ]
+        },
+        {
+          "id": "custom-exceptions-and-error-strategy",
+          "title": "Custom Exceptions and Error Strategy",
+          "content": "Domain-specific exceptions communicate failure meaning to callers.\n\n```java\npublic final class InsufficientBalanceException\n        extends RuntimeException {\n    public InsufficientBalanceException(String message) {\n        super(message);\n    }\n}\n```\n\nAt service boundaries, convert low-level failures into domain-level errors when that improves the API contract. Avoid leaking secrets, SQL statements with sensitive values, access tokens, or personal data into exception messages and logs.",
+          "keyTakeaways": [
+            "Exceptions are part of an API's behavioral contract.",
+            "Wrap low-level failures when a higher-level abstraction has more meaning.",
+            "Keep sensitive information out of exception messages and logs."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jvm-class-loading-memory",
+      "title": "JVM, Class Loading, and Runtime Memory",
+      "summary": "Go beneath the language into class loading, bytecode, runtime data areas, stack frames, heap, metaspace, JIT compilation, and JVM diagnostics.",
+      "estimatedMinutes": 85,
+      "mediaImages": ["https://upload.wikimedia.org/wikipedia/commons/f/f4/Java%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%9E%B6%E6%9E%84.svg"],
+      "sections": [
+        {
+          "id": "class-loading-linking-initialization",
+          "title": "Class Loading, Linking, and Initialization",
+          "content": "Before a class can be used, the JVM loads its class representation, verifies and prepares it, resolves symbolic references as required, and initializes static state when initialization is triggered.\n\nClass loaders form a delegation hierarchy. Loader identity is part of a class's runtime identity, so the same binary name loaded by different defining loaders represents distinct runtime types.\n\n```java\nClass<?> type = Class.forName(\"java.lang.String\");\nSystem.out.println(type.getClassLoader());\n```\n\nThis enables plugins and isolation while also creating class-loader leak risks when long-lived references retain unloadable class loaders.",
+          "keyTakeaways": [
+            "Loading, linking, and initialization are distinct concepts.",
+            "Class identity includes the defining class loader.",
+            "Custom class loaders are powerful but add lifecycle complexity."
+          ]
+        },
+        {
+          "id": "runtime-data-areas",
+          "title": "JVM Runtime Data Areas",
+          "content": "The JVM specification describes runtime data areas such as the heap, JVM stacks, method area, program counter registers, and native method stacks.\n\nThe **heap** is shared among threads and stores objects and arrays. Each thread has its own JVM stack containing frames for active method invocations.\n\n```java\nstatic int calculate(int x) {\n    int doubled = x * 2;\n    return doubled + 1;\n}\n```\n\nEach call creates a frame on the executing thread's stack. Object values created by application code are generally managed on the heap.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Simplified JVM Runtime Areas",
+            "code": "flowchart TD\nA[Java Application] --> B[Class Loader]\nB --> C[Runtime Data Areas]\nC --> D[Heap]\nC --> E[Thread Stacks]\nC --> F[Class Metadata]\nC --> G[PC Register]\nC --> H[Native Method Stack]\nC --> I[Execution Engine]"
+          },
+          "keyTakeaways": [
+            "The heap is shared; each thread has its own JVM stack.",
+            "Stack frames represent active method invocations.",
+            "JVM specification concepts and HotSpot implementation details should not be conflated."
+          ]
+        },
+        {
+          "id": "interpreter-jit-compiler",
+          "title": "Interpreter, JIT, and Hot Code",
+          "content": "The JVM can interpret bytecode and compile frequently executed code to native machine instructions using JIT compilation. Runtime profiling allows optimizations such as inlining, dead-code elimination, escape analysis, and speculative optimization.\n\n```text\nBytecode\n   |\n   +--> Interpreter --> execution\n   |\n   +--> JIT compiler --> native code --> optimized hot path\n                              |\n                              +--> deoptimization if assumptions fail\n```\n\nThis means startup and steady-state performance can differ. Benchmarking Java requires warm-up, realistic workloads, and proper measurement.",
+          "callout": {
+            "type": "tip",
+            "title": "Benchmarking",
+            "message": "Do not conclude that one Java implementation is faster from a tiny cold-start benchmark; JIT warm-up matters."
+          },
+          "keyTakeaways": [
+            "JIT compilation is profile-guided and runtime-aware.",
+            "Optimized code can be deoptimized when assumptions fail.",
+            "Use proper benchmarking methodology."
+          ]
+        },
+        {
+          "id": "jvm-diagnostics",
+          "title": "JVM Diagnostics and Troubleshooting",
+          "content": "Production debugging should start with evidence. Useful tools include `jcmd`, `jstack`, `jmap`, Java Flight Recorder, Java Mission Control, and JVM logging facilities.\n\n```bash\njcmd <pid> VM.flags\njcmd <pid> GC.heap_info\njcmd <pid> Thread.print\njcmd <pid> JFR.start duration=60s filename=recording.jfr\n```\n\nThread dumps help identify deadlocks and blocked threads. Heap information helps investigate memory pressure. Flight Recorder captures runtime events for CPU, allocation, locks, I/O, and GC analysis.\n\nThe workflow is: observe, collect evidence, form a hypothesis, make a targeted change, and verify.",
+          "keyTakeaways": [
+            "Use thread dumps for thread-state problems.",
+            "Use heap/GC evidence for memory problems.",
+            "Java Flight Recorder is valuable for correlating CPU, allocation, locks, and GC behavior."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "functional-java-streams",
+      "title": "Lambdas, Functional Interfaces, Streams, and Optional",
+      "summary": "Use Java's functional programming features effectively with lambdas, method references, streams, collectors, parallel streams, and Optional.",
+      "estimatedMinutes": 90,
+      "sections": [
+        {
+          "id": "lambda-expressions-functional-interfaces",
+          "title": "Lambdas and Functional Interfaces",
+          "content": "A lambda is a compact implementation of a functional interface: an interface with one abstract method.\n\n```java\nPredicate<String> nonEmpty = value -> !value.isBlank();\nFunction<String, Integer> length = String::length;\nConsumer<String> log = System.out::println;\n```\n\nCommon functional interfaces include `Predicate<T>`, `Function<T,R>`, `Consumer<T>`, and `Supplier<T>`. Primitive-specialized forms can reduce boxing in hot numeric code.\n\nA lambda should generally be small. Complex behavior is often clearer as a named method.",
+          "keyTakeaways": [
+            "A lambda targets a functional interface.",
+            "Method references can improve readability.",
+            "Prefer small, intention-revealing lambdas."
+          ]
+        },
+        {
+          "id": "stream-pipeline",
+          "title": "Stream Pipelines",
+          "content": "Streams provide a declarative way to process sequences. A pipeline typically has a source, intermediate operations, and a terminal operation.\n\n```java\nList<String> names = List.of(\"Java\", \"Kotlin\", \"JavaScript\");\n\nList<String> result = names.stream()\n    .filter(name -> name.startsWith(\"J\"))\n    .map(String::toUpperCase)\n    .toList();\n```\n\nIntermediate operations such as `filter`, `map`, `sorted`, and `distinct` are generally lazy. A terminal operation such as `toList`, `count`, `findFirst`, or `forEach` drives execution.\n\nStreams are not collections and are usually single-use.",
+          "callout": {
+            "type": "info",
+            "title": "Lazy evaluation",
+            "message": "Calling `filter()` or `map()` alone does not process elements. A terminal operation drives the pipeline."
+          },
+          "keyTakeaways": [
+            "Streams are pipelines, not storage containers.",
+            "Intermediate operations are generally lazy.",
+            "A stream should normally be consumed once."
+          ]
+        },
+        {
+          "id": "collectors-grouping-reduction",
+          "title": "Collectors, Grouping, and Reduction",
+          "content": "Collectors turn streams into lists, sets, maps, grouped structures, and summaries.\n\n```java\nMap<Integer, List<String>> byLength =\n    names.stream()\n        .collect(Collectors.groupingBy(String::length));\n\nint totalLength =\n    names.stream()\n        .mapToInt(String::length)\n        .sum();\n```\n\n`groupingBy` is useful for classification. `partitioningBy` splits values into two groups. Reduction operations combine elements into a result.\n\nPrefer built-in collectors when they express the operation clearly. Custom collectors require careful supplier, accumulator, combiner, and finisher design.",
+          "keyTakeaways": [
+            "Use `groupingBy` for classification and aggregation.",
+            "Primitive streams can reduce boxing for numeric operations.",
+            "Custom collectors must account for sequential and parallel semantics."
+          ]
+        },
+        {
+          "id": "optional-best-practices",
+          "title": "Optional and Absence Modeling",
+          "content": "`Optional<T>` models a value that may be absent. It is most useful as a return type when absence is a meaningful outcome.\n\n```java\nOptional<String> username = findUsername();\n\nString display = username\n    .map(String::trim)\n    .filter(value -> !value.isEmpty())\n    .orElse(\"anonymous\");\n```\n\nAvoid using `Optional` as a field or parameter by default. `orElse` evaluates its fallback immediately, while `orElseGet` evaluates a supplier lazily.\n\nAvoid `get()` without first establishing presence.",
+          "callout": {
+            "type": "warning",
+            "title": "Optional is not a magic null killer",
+            "message": "Use Optional deliberately at API boundaries where absence is part of the contract."
+          },
+          "keyTakeaways": [
+            "Use Optional to model meaningful absence.",
+            "`orElseGet` is lazy; `orElse` evaluates its argument eagerly.",
+            "Avoid unsafe `Optional.get()` patterns."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "date-time-io-and-nio",
+      "title": "Date-Time, I/O, NIO, and Serialization",
+      "summary": "Work correctly with time zones, files, paths, channels, buffers, streams, serialization concepts, and data boundaries.",
+      "estimatedMinutes": 80,
+      "sections": [
+        {
+          "id": "java-time-api",
+          "title": "The java.time API",
+          "content": "Modern Java date-time APIs separate date, local date-time, instant, offset, and time zone.\n\n```java\nInstant now = Instant.now();\nLocalDate today = LocalDate.now();\nZonedDateTime india =\n    ZonedDateTime.now(ZoneId.of(\"Asia/Kolkata\"));\n\nDuration duration = Duration.between(\n    now, now.plusSeconds(30)\n);\n```\n\nUse `Instant` for machine-oriented points in time, `LocalDate` for a date without a zone, and `ZonedDateTime` when location matters.\n\nFor financial systems, `BigDecimal` is generally preferred when decimal arithmetic must be exact.",
+          "callout": {
+            "type": "warning",
+            "title": "Time zones are business data",
+            "message": "A timestamp without its intended time-zone semantics can be ambiguous."
+          },
+          "keyTakeaways": [
+            "Use `java.time` for new code.",
+            "Use `Instant` for absolute points in time.",
+            "Use explicit zones for human/business-local schedules."
+          ]
+        },
+        {
+          "id": "files-paths-streams",
+          "title": "Files, Paths, and I/O Streams",
+          "content": "NIO.2 provides `Path` and `Files` for modern file operations.\n\n```java\nPath path = Path.of(\"data\", \"users.txt\");\n\nFiles.writeString(\n    path,\n    \"Alice\\nBob\\n\",\n    StandardOpenOption.CREATE,\n    StandardOpenOption.TRUNCATE_EXISTING\n);\n\nString content = Files.readString(path);\n```\n\nByte streams handle binary data; character readers/writers handle text. Buffered APIs reduce the cost of many small operations. For large files, stream line-by-line instead of loading the entire file.",
+          "keyTakeaways": [
+            "`Path` and `Files` are modern NIO.2 APIs.",
+            "Choose byte vs character APIs based on data semantics.",
+            "Avoid loading huge files into memory when streaming is sufficient."
+          ]
+        },
+        {
+          "id": "channels-and-buffers",
+          "title": "Channels, Buffers, and Non-Blocking I/O",
+          "content": "NIO channels provide a lower-level I/O abstraction. Buffers hold data being transferred between application code and channels.\n\n```java\ntry (FileChannel channel =\n         FileChannel.open(Path.of(\"data.bin\"), StandardOpenOption.READ)) {\n\n    ByteBuffer buffer = ByteBuffer.allocate(4096);\n    int read = channel.read(buffer);\n    System.out.println(\"Read: \" + read);\n}\n```\n\nA `ByteBuffer` has position, limit, capacity, and remaining bytes. Calling `flip()` changes a buffer from writing mode to reading mode.",
+          "keyTakeaways": [
+            "Channels transfer data through buffers.",
+            "`flip()` prepares a written buffer for reading.",
+            "Use NIO directly when its control is valuable; otherwise prefer higher-level abstractions."
+          ]
+        },
+        {
+          "id": "serialization-and-data-boundaries",
+          "title": "Serialization and Data Boundaries",
+          "content": "Java's built-in object serialization has compatibility and security concerns. For network APIs, JSON, Protobuf, Avro, or other explicit formats are often better because the wire contract is visible and language interoperability is easier.\n\n```java\npublic record UserDto(String id, String name) {}\n```\n\nDTOs separate external representations from internal domain models. If a system consumes untrusted serialized data, treat deserialization as a security boundary and avoid arbitrary object construction.",
+          "callout": {
+            "type": "danger",
+            "title": "Untrusted deserialization",
+            "message": "Never treat untrusted serialized object data as harmless input. Prefer explicit, constrained data formats."
+          },
+          "keyTakeaways": [
+            "Wire formats are API contracts.",
+            "DTOs protect internal models from external coupling.",
+            "Security must be considered at every deserialization boundary."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "concurrency-and-threading",
+      "title": "Concurrency and Multithreading",
+      "summary": "Understand threads, executors, synchronization, locks, atomics, visibility, happens-before, concurrent collections, futures, and virtual threads.",
+      "estimatedMinutes": 110,
+      "mediaImages": ["https://upload.wikimedia.org/wikipedia/commons/5/5b/Block-thread.svg"],
+      "sections": [
+        {
+          "id": "threads-and-runnable",
+          "title": "Threads and Runnable Tasks",
+          "content": "A Java thread represents an execution path. Production applications generally benefit from executors that manage task scheduling and lifecycle.\n\n```java\nRunnable task = () ->\n    System.out.println(Thread.currentThread().getName());\n\nThread thread = new Thread(task);\nthread.start();\n```\n\nCalling `start()` creates a new execution path; calling `run()` directly is an ordinary method call on the current thread.\n\nShared mutable state is where concurrency becomes difficult. Ask who owns state, who can mutate it, and what synchronization establishes visibility and ordering.",
+          "callout": {
+            "type": "warning",
+            "title": "start vs run",
+            "message": "`start()` schedules a new thread. `run()` is just an ordinary method call when invoked directly."
+          },
+          "keyTakeaways": [
+            "Prefer task-based concurrency over many manually managed threads.",
+            "Thread safety is primarily about shared mutable state.",
+            "Know the difference between starting a thread and invoking run directly."
+          ]
+        },
+        {
+          "id": "synchronized-locks-visibility",
+          "title": "synchronized, Locks, and Visibility",
+          "content": "`synchronized` provides mutual exclusion and memory-visibility guarantees. `ReentrantLock` offers additional features such as timed acquisition.\n\n```java\nprivate final Object lock = new Object();\nprivate int count;\n\nvoid increment() {\n    synchronized (lock) {\n        count++;\n    }\n}\n\nint getCount() {\n    synchronized (lock) {\n        return count;\n    }\n}\n```\n\nA data race occurs when concurrent access includes a write without appropriate synchronization. The Java Memory Model defines happens-before relationships.\n\n`volatile` provides visibility and ordering guarantees but does not make compound operations such as `count++` atomic.",
+          "keyTakeaways": [
+            "`synchronized` provides mutual exclusion and visibility.",
+            "`volatile` does not make compound read-modify-write operations atomic.",
+            "The Java Memory Model defines visibility guarantees."
+          ]
+        },
+        {
+          "id": "executors-completablefuture",
+          "title": "Executors and CompletableFuture",
+          "content": "Executors separate task submission from thread management. `CompletableFuture` composes asynchronous stages.\n\n```java\nExecutorService pool = Executors.newFixedThreadPool(4);\n\nCompletableFuture<String> future =\n    CompletableFuture.supplyAsync(() -> loadUser(), pool)\n        .thenApply(User::name);\n\nfuture.thenAccept(System.out::println);\n```\n\nChoose executor sizes based on workload. CPU-bound and blocking I/O workloads usually need different strategies. Always define shutdown behavior for owned executors.",
+          "keyTakeaways": [
+            "Executors control concurrency resources.",
+            "`CompletableFuture` enables composition of asynchronous operations.",
+            "Thread-pool sizing depends on workload characteristics."
+          ]
+        },
+        {
+          "id": "concurrent-collections-atomics",
+          "title": "Concurrent Collections and Atomics",
+          "content": "Java provides `ConcurrentHashMap`, `CopyOnWriteArrayList`, `BlockingQueue`, and atomic classes such as `AtomicInteger` and `AtomicReference`.\n\n```java\nConcurrentHashMap<String, LongAdder> counters =\n    new ConcurrentHashMap<>();\n\ncounters.computeIfAbsent(\"java\", key -> new LongAdder())\n        .increment();\n```\n\nConcurrent collections provide well-defined concurrent operations. `LongAdder` can outperform `AtomicLong` under heavy contention because updates are distributed across cells.",
+          "keyTakeaways": [
+            "Use concurrent collections rather than manually synchronizing ordinary collections when appropriate.",
+            "Atomics support thread-safe single-variable state transitions.",
+            "Contention characteristics should guide counter selection."
+          ]
+        },
+        {
+          "id": "virtual-threads-and-structured-concurrency",
+          "title": "Virtual Threads and Modern Concurrency",
+          "content": "Virtual threads are lightweight Java threads designed to make high-concurrency blocking workloads easier to express.\n\n```java\ntry (var executor = Executors.newVirtualThreadPerTaskExecutor()) {\n    Future<String> future =\n        executor.submit(() -> fetchRemoteData());\n    System.out.println(future.get());\n}\n```\n\nVirtual threads do not make CPU-bound work faster. They improve scalability for workloads where many tasks spend time waiting. Concurrency still needs limits around databases, APIs, queues, and other external resources.",
+          "callout": {
+            "type": "info",
+            "title": "Virtual-thread rule",
+            "message": "Use virtual threads to scale blocking task concurrency, not as a replacement for CPU parallelism or as permission to remove backpressure."
+          },
+          "keyTakeaways": [
+            "Virtual threads are lightweight and suited to many blocking tasks.",
+            "They do not increase CPU capacity.",
+            "Concurrency still needs limits around external resources."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "memory-garbage-collection-performance",
+      "title": "Memory, Garbage Collection, and Performance",
+      "summary": "Understand object allocation, garbage collection, reachability, G1 and other collectors, leaks, allocation pressure, profiling, and performance engineering.",
+      "estimatedMinutes": 100,
+      "sections": [
+        {
+          "id": "object-lifecycle-and-reachability",
+          "title": "Object Lifecycle and Reachability",
+          "content": "Java automatically manages object memory. An object becomes eligible for garbage collection when it is no longer reachable from live roots.\n\n```java\nObject object = new Object();\nobject = null;\n```\n\nSetting a variable to `null` does not force collection. Static fields, thread locals, caches, listeners, and long-lived collections can accidentally retain objects.\n\nA memory leak in a garbage-collected language is usually a logical retention problem rather than failure to manually free memory.",
+          "keyTakeaways": [
+            "GC eligibility is based on reachability.",
+            "A garbage-collected application can still leak memory through unintended retention.",
+            "Calling GC explicitly is rarely an appropriate leak fix."
+          ]
+        },
+        {
+          "id": "generational-gc",
+          "title": "Generational Garbage Collection",
+          "content": "Many workloads create short-lived objects. Generational strategies exploit this by treating young and older objects differently.\n\n```text\nAllocation\n   |\n   v\nYoung regions\n   |\n   | survivors\n   v\nOlder regions\n   |\n   v\nReclamation / compaction as required\n```\n\nExact mechanics depend on the collector. Modern collectors such as G1 use regions rather than a simple contiguous physical young/old layout.\n\nThe performance question is whether allocation rate, live-set size, collector behavior, and pause characteristics match the application's goals.",
+          "keyTakeaways": [
+            "Generational GC exploits object lifetime patterns.",
+            "GC performance depends on allocation rate and live-set characteristics.",
+            "Measure real allocation and pause behavior before tuning."
+          ]
+        },
+        {
+          "id": "g1-zgc-shenandoah",
+          "title": "Modern Collectors: G1, ZGC, and Shenandoah",
+          "content": "G1 is a region-based collector designed to balance throughput and pause-time goals. ZGC and Shenandoah emphasize very low pause times through highly concurrent collection techniques.\n\nThe correct collector depends on workload, heap size, latency objectives, JVM version, and operational constraints.\n\n```bash\njava -XX:+UseG1GC -Xms2g -Xmx2g -jar app.jar\n```\n\nFor modern JVMs, use the defaults and tuning guidance for the specific JDK release before adding many flags.",
+          "callout": {
+            "type": "warning",
+            "title": "Avoid cargo-cult JVM flags",
+            "message": "GC flags are version- and workload-sensitive. Measure first and consult documentation for the exact JDK release."
+          },
+          "keyTakeaways": [
+            "G1 is a common general-purpose collector.",
+            "ZGC and Shenandoah target very low pause behavior.",
+            "Collector tuning must be based on the actual JDK version and workload."
+          ]
+        },
+        {
+          "id": "memory-leaks-profiling",
+          "title": "Memory Leaks and Profiling",
+          "content": "Common retention sources include unbounded maps, static collections, caches without eviction, listener registrations, thread locals, and accidentally retained object graphs.\n\n```java\nstatic final Map<String, byte[]> cache = new HashMap<>();\n\nvoid add(String id, byte[] data) {\n    cache.put(id, data);\n}\n```\n\nA heap dump reveals retained memory. Allocation profiling identifies where objects are created rapidly. GC logs and JFR show collection behavior and allocation pressure.\n\nAsk: What is growing? Which objects are retained? Who retains them? Is the growth expected? What is the live set after GC?",
+          "keyTakeaways": [
+            "Look at retained size and reference paths, not only object counts.",
+            "Heap dumps answer retention questions; allocation profiling answers creation-rate questions.",
+            "Caches need lifecycle or eviction policies."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modern-java-features",
+      "title": "Modern Java Language Features",
+      "summary": "Explore switch expressions, pattern matching, records, sealed classes, text blocks, modules, and modern Java evolution.",
+      "estimatedMinutes": 75,
+      "sections": [
+        {
+          "id": "switch-expressions",
+          "title": "Switch Expressions",
+          "content": "Switch expressions allow a `switch` to produce a value and support arrow labels that avoid accidental fall-through.\n\n```java\nString category = switch (status) {\n    case NEW -> \"pending\";\n    case PROCESSING -> \"active\";\n    case COMPLETED -> \"done\";\n    case FAILED -> \"error\";\n};\n```\n\nWhen multiple statements are needed before producing a value, `yield` can return the result from a block. Exhaustiveness is especially useful with enums and sealed hierarchies.",
+          "keyTakeaways": [
+            "Switch expressions return values.",
+            "Arrow cases do not fall through by default.",
+            "Exhaustiveness can improve safety for closed domains."
+          ]
+        },
+        {
+          "id": "pattern-matching",
+          "title": "Pattern Matching",
+          "content": "Pattern matching reduces repetitive type checks and casts.\n\n```java\nif (value instanceof String text && !text.isBlank()) {\n    System.out.println(text.trim());\n}\n```\n\nModern Java also extends pattern matching to switch in supported releases, making handling of sealed hierarchies more concise.\n\nUse pattern matching to clarify domain logic rather than replacing good object design with large type-dispatch blocks.",
+          "keyTakeaways": [
+            "Pattern variables eliminate many explicit casts.",
+            "Pattern matching works well with sealed hierarchies.",
+            "Use it to clarify domain logic."
+          ]
+        },
+        {
+          "id": "records-sealed-types",
+          "title": "Records and Sealed Hierarchies",
+          "content": "Records are concise data carriers. Sealed types restrict extension to a known set.\n\n```java\nsealed interface Shape permits Circle, Rectangle {}\n\nrecord Circle(double radius) implements Shape {}\nrecord Rectangle(double width, double height) implements Shape {}\n```\n\nTogether, these features help model closed domains where the variants are intentionally known.",
+          "keyTakeaways": [
+            "Records reduce boilerplate for data carriers.",
+            "Sealed types explicitly close an inheritance hierarchy.",
+            "The combination is useful for finite domain variants."
+          ]
+        },
+        {
+          "id": "text-blocks-modules-api-evolution",
+          "title": "Text Blocks, Modules, and API Evolution",
+          "content": "Text blocks improve multiline string readability.\n\n```java\nString json = \\\"\\\"\\\"\n    {\n      \"name\": \"Java\",\n      \"version\": 26\n    }\n    \\\"\\\"\\\";\n```\n\nThe Java Platform Module System introduced modules, explicit dependencies, and stronger encapsulation. Modules can be valuable for large modular applications, although many server applications still primarily use packages and build-tool dependency management.\n\nWhen adopting new features, consider the deployed JDK, build plugins, runtime environment, and library compatibility.",
+          "keyTakeaways": [
+            "Text blocks improve multiline string readability.",
+            "Modules provide dependency and encapsulation boundaries.",
+            "Feature adoption must consider the complete toolchain."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "reflection-annotations-modules",
+      "title": "Reflection, Annotations, Modules, and Metaprogramming",
+      "summary": "Understand reflection, annotations, dynamic proxies, modules, service loading, and the trade-offs of runtime metaprogramming.",
+      "estimatedMinutes": 70,
+      "sections": [
+        {
+          "id": "reflection-api",
+          "title": "Reflection",
+          "content": "Reflection lets code inspect classes, methods, fields, constructors, and annotations at runtime.\n\n```java\nClass<?> type = User.class;\n\nfor (var method : type.getDeclaredMethods()) {\n    System.out.println(method.getName());\n}\n```\n\nFrameworks use reflection for dependency injection, serialization, ORM mapping, testing, and plugin systems. Reflection can weaken compile-time guarantees and complicate encapsulation, performance analysis, and native-image compatibility.\n\nUse reflection at framework boundaries rather than spreading it through ordinary business logic.",
+          "callout": {
+            "type": "warning",
+            "title": "Reflection is a tool, not a design default",
+            "message": "Prefer normal Java calls for business logic; use reflection when the framework truly needs dynamic discovery."
+          },
+          "keyTakeaways": [
+            "Reflection provides runtime type inspection and invocation.",
+            "It trades some compile-time safety for flexibility.",
+            "Framework infrastructure is a better home for reflection."
+          ]
+        },
+        {
+          "id": "annotations",
+          "title": "Annotations and Metadata",
+          "content": "Annotations attach metadata to declarations. Frameworks can define custom annotations and inspect them at compile time or runtime.\n\n```java\n@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\npublic @interface Audited {\n    String action();\n}\n```\n\nRetention controls whether metadata is available in source, class files, or runtime reflection. Annotation processing can generate code during compilation and avoid some runtime reflection.",
+          "keyTakeaways": [
+            "Annotations are metadata, not executable behavior by themselves.",
+            "Retention determines how long annotation information is available.",
+            "Compile-time processing can move work out of runtime."
+          ]
+        },
+        {
+          "id": "dynamic-proxies-service-loading",
+          "title": "Dynamic Proxies and Service Loading",
+          "content": "Java can create dynamic proxies around interfaces, enabling cross-cutting behavior such as logging, metrics, authorization, or transaction interception. Service loading provides a standard plugin discovery mechanism.\n\n```java\nServiceLoader<MyPlugin> plugins =\n    ServiceLoader.load(MyPlugin.class);\n\nfor (MyPlugin plugin : plugins) {\n    plugin.start();\n}\n```\n\nThese mechanisms are useful for extensibility but introduce indirection that should be documented.",
+          "keyTakeaways": [
+            "Dynamic proxies are primarily interface-oriented.",
+            "Service loading supports pluggable implementations.",
+            "Runtime indirection should be documented."
+          ]
+        },
+        {
+          "id": "modules-and-encapsulation",
+          "title": "JPMS Modules and Strong Encapsulation",
+          "content": "A module declares dependencies and exported packages.\n\n```text\nmodule com.example.orders {\n    requires java.net.http;\n    exports com.example.orders.api;\n}\n```\n\n`exports` controls package access across modules. `opens` is relevant when reflective access to otherwise encapsulated packages is required.\n\nPackages organize names; modules define a larger dependency and encapsulation boundary.",
+          "keyTakeaways": [
+            "Packages and modules solve different levels of organization.",
+            "`exports` controls cross-module accessibility.",
+            "`opens` is relevant to reflective access."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "testing-build-tools-and-quality",
+      "title": "Testing, Maven, Gradle, and Code Quality",
+      "summary": "Build production-grade Java projects with Maven or Gradle, unit and integration tests, mocking, dependency management, and quality gates.",
+      "estimatedMinutes": 85,
+      "sections": [
+        {
+          "id": "maven-gradle-basics",
+          "title": "Maven and Gradle",
+          "content": "Maven uses convention, lifecycle phases, and XML project metadata. Gradle uses a programmable build model and supports Groovy or Kotlin DSLs.\n\n```bash\nmvn test\nmvn package\n\n./gradlew test\n./gradlew build\n```\n\nA build should be reproducible: dependency versions should be controlled, generated artifacts should be deterministic where practical, and CI should run the same essential verification steps developers use locally.",
+          "keyTakeaways": [
+            "Build tools automate compilation, testing, packaging, and dependency resolution.",
+            "Manage dependency versions intentionally.",
+            "CI should execute reproducible verification steps."
+          ]
+        },
+        {
+          "id": "unit-integration-testing",
+          "title": "Unit vs Integration Testing",
+          "content": "Unit tests isolate a small behavior and should be fast and deterministic. Integration tests verify interactions with real components such as databases, message brokers, HTTP servers, or filesystems.\n\n```java\n@Test\nvoid calculatesTotal() {\n    Cart cart = new Cart();\n    cart.add(new Item(\"Book\", 500));\n\n    assertEquals(500, cart.total());\n}\n```\n\nA healthy test strategy uses the cheapest test that provides useful confidence while maintaining enough realistic integration coverage to catch wiring and infrastructure failures.",
+          "keyTakeaways": [
+            "Unit tests focus on isolated behavior.",
+            "Integration tests validate component interaction.",
+            "Fast feedback and realistic coverage are complementary."
+          ]
+        },
+        {
+          "id": "mocking-test-doubles",
+          "title": "Mocks, Stubs, Fakes, and Test Doubles",
+          "content": "A test double replaces a real dependency. A stub supplies predetermined answers, a fake provides a lightweight working implementation, and a mock is commonly used to verify interactions.\n\nOver-mocking makes tests brittle when they verify implementation details.\n\n```java\nUserRepository repository = new InMemoryUserRepository();\nUserService service = new UserService(repository);\n\nassertTrue(service.exists(\"u-1\"));\n```\n\nPrefer real lightweight implementations where practical. Mock external systems when setup is expensive or unreliable.",
+          "keyTakeaways": [
+            "Test behavior rather than implementation details.",
+            "Fakes can be simpler than large mock configurations.",
+            "Mock external boundaries deliberately."
+          ]
+        },
+        {
+          "id": "static-analysis-formatting-security",
+          "title": "Quality Gates and Secure Dependencies",
+          "content": "Production Java projects commonly combine formatting, static analysis, tests, dependency scanning, and code review.\n\nUseful checks include compiler warnings, static analyzers, formatting tools, dependency vulnerability scanning, and CI tests.\n\n```bash\nmvn test\nmvn verify\n```\n\nQuality gates should fail the build for issues that matter. Avoid hundreds of noisy warnings that developers learn to ignore.",
+          "keyTakeaways": [
+            "Automate repeatable quality checks.",
+            "Dependency security is part of application security.",
+            "High-signal quality gates are more effective than noisy rule sets."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "networking-database-backend-java",
+      "title": "Java Backend Engineering",
+      "summary": "Connect Java applications to HTTP services and databases, understand JDBC, transactions, connection pools, REST API design, and backend resilience.",
+      "estimatedMinutes": 100,
+      "sections": [
+        {
+          "id": "http-client-rest",
+          "title": "HTTP Client and REST Fundamentals",
+          "content": "Modern Java includes an HTTP client API for synchronous and asynchronous HTTP calls.\n\n```java\nHttpClient client = HttpClient.newHttpClient();\n\nHttpRequest request = HttpRequest.newBuilder()\n    .uri(URI.create(\"https://example.com/api/users\"))\n    .GET()\n    .build();\n\nHttpResponse<String> response =\n    client.send(request, HttpResponse.BodyHandlers.ofString());\n```\n\nA production HTTP client needs timeouts, connection reuse, retries where safe, observability, response validation, and protection against unbounded concurrency.",
+          "keyTakeaways": [
+            "HTTP clients need timeouts and resilience policies.",
+            "Retries are only safe when operation and server semantics allow them.",
+            "API contracts should make validation and error behavior explicit."
+          ]
+        },
+        {
+          "id": "jdbc-and-connection-pools",
+          "title": "JDBC and Connection Pools",
+          "content": "JDBC provides a standard API for relational database access. A connection pool reuses database connections rather than creating a new connection for every request.\n\n```java\ntry (Connection connection = dataSource.getConnection();\n     PreparedStatement statement =\n         connection.prepareStatement(\n             \"select id, name from users where id = ?\")) {\n\n    statement.setString(1, userId);\n\n    try (ResultSet rs = statement.executeQuery()) {\n        if (rs.next()) {\n            return rs.getString(\"name\");\n        }\n    }\n}\n```\n\nAlways use parameterized queries. Pool size should account for database capacity and query latency; making it huge can overload the database.",
+          "callout": {
+            "type": "danger",
+            "title": "SQL injection",
+            "message": "Never concatenate untrusted input into SQL. Use prepared statements or a safe data-access abstraction."
+          },
+          "keyTakeaways": [
+            "Use prepared statements for values.",
+            "Connection pools are shared scarce resources.",
+            "Database pool sizing must account for database capacity."
+          ]
+        },
+        {
+          "id": "transactions-isolation",
+          "title": "Transactions and Isolation",
+          "content": "A transaction groups database operations into an atomic unit. Isolation controls how concurrent transactions observe each other's changes.\n\n```java\nconnection.setAutoCommit(false);\n\ntry {\n    debitAccount(connection, fromId, amount);\n    creditAccount(connection, toId, amount);\n    connection.commit();\n} catch (Exception e) {\n    connection.rollback();\n    throw e;\n}\n```\n\nTransaction boundaries should usually live at a service/use-case layer rather than being scattered across repository methods.",
+          "keyTakeaways": [
+            "Transactions define atomicity boundaries.",
+            "Isolation is a concurrency trade-off.",
+            "Keep transaction boundaries aligned with business operations."
+          ]
+        },
+        {
+          "id": "backend-resilience",
+          "title": "Timeouts, Retries, Bulkheads, and Backpressure",
+          "content": "A service is only as reliable as its dependencies allow. A slow database or API can consume all request resources if there are no timeouts or concurrency limits.\n\nResilience techniques include deadlines, bounded retries with jitter, circuit breakers, bulkheads, rate limits, queues, and backpressure.\n\n```text\nRequest\n  |\n  v\nTimeout --> Retry policy --> Downstream\n  |              |\n  |              +--> bounded attempts\n  v\nFallback / error\n```\n\nObservability should include latency, error rate, saturation, dependency timings, and retry counts.",
+          "keyTakeaways": [
+            "Timeouts are mandatory for remote dependencies.",
+            "Retries can amplify outages if uncontrolled.",
+            "Backpressure and concurrency limits protect downstream systems."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "architecture-design-patterns",
+      "title": "Design Patterns and Java Architecture",
+      "summary": "Apply SOLID, common design patterns, dependency inversion, layered architecture, hexagonal architecture, and domain-oriented design.",
+      "estimatedMinutes": 90,
+      "sections": [
+        {
+          "id": "solid-principles",
+          "title": "SOLID Principles",
+          "content": "SOLID is a set of design heuristics. Single Responsibility encourages cohesive responsibilities. Open/Closed encourages extension without repeatedly modifying stable behavior. Liskov Substitution focuses on substitutability. Interface Segregation avoids irrelevant dependencies. Dependency Inversion encourages high-level policy to depend on abstractions.\n\n```java\ninterface NotificationSender {\n    void send(String recipient, String message);\n}\n\nfinal class OrderService {\n    private final NotificationSender sender;\n\n    OrderService(NotificationSender sender) {\n        this.sender = sender;\n    }\n}\n```\n\nThe value is reduced coupling and easier testing, not creating an interface for every class.",
+          "keyTakeaways": [
+            "SOLID is about managing change and coupling.",
+            "Dependency inversion improves testability and architectural boundaries.",
+            "Do not introduce abstractions without a meaningful reason."
+          ]
+        },
+        {
+          "id": "common-design-patterns",
+          "title": "Common Patterns in Java",
+          "content": "Common patterns include Factory, Builder, Strategy, Adapter, Decorator, Observer, Template Method, Command, and State.\n\n```java\ninterface PricingStrategy {\n    long price(Order order);\n}\n\nfinal class RegularPricing implements PricingStrategy {\n    public long price(Order order) {\n        return order.subtotal();\n    }\n}\n```\n\nStrategy is polymorphism used to select interchangeable behavior. Builder helps construct complex immutable objects. Adapter translates one interface into another. Decorator adds behavior without modifying the wrapped implementation.",
+          "keyTakeaways": [
+            "Patterns are reusable design ideas, not mandatory class structures.",
+            "Strategy uses polymorphism to vary behavior.",
+            "Prefer the simplest design that remains easy to change."
+          ]
+        },
+        {
+          "id": "layered-and-hexagonal-architecture",
+          "title": "Layered and Hexagonal Architecture",
+          "content": "Layered architecture commonly separates controllers, services, and repositories. Hexagonal architecture separates application/domain logic from external adapters through ports.\n\n```text\nHTTP / Messaging / CLI\n         |\n      Adapters\n         |\n        Ports\n         |\nApplication / Domain\n         |\n        Ports\n         |\n     DB / APIs / Files\n```\n\nThe key idea is dependency direction: business rules should not be tightly coupled to HTTP frameworks, database drivers, or cloud SDKs.",
+          "keyTakeaways": [
+            "Architecture is primarily about dependency direction.",
+            "Ports isolate business logic from infrastructure.",
+            "Adapters are translation boundaries, not business-rule containers."
+          ]
+        },
+        {
+          "id": "domain-modeling-maintainability",
+          "title": "Domain Modeling and Maintainability",
+          "content": "A good domain model captures meaningful business invariants. Value objects are useful when a concept has identity-independent rules such as money, email addresses, coordinates, or date ranges.\n\n```java\npublic final class Money {\n    private final BigDecimal amount;\n    private final Currency currency;\n\n    public Money(BigDecimal amount, Currency currency) {\n        this.amount = amount;\n        this.currency = currency;\n    }\n}\n```\n\nAvoid both extremes: scattering business rules everywhere and turning every simple CRUD operation into an elaborate framework.",
+          "keyTakeaways": [
+            "Put important invariants near the model that owns them.",
+            "Value objects capture concepts and their rules.",
+            "Architecture should reflect real business complexity rather than ceremony."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "security-java-applications",
+      "title": "Java Application Security",
+      "summary": "Learn secure input handling, authentication and authorization concepts, cryptography basics, secrets, deserialization risks, and secure dependency practices.",
+      "estimatedMinutes": 80,
+      "sections": [
+        {
+          "id": "input-validation-output-encoding",
+          "title": "Input Validation and Output Encoding",
+          "content": "Treat all external input as untrusted: HTTP parameters, JSON bodies, headers, uploaded files, messages, and untrusted external data.\n\n```java\nif (username == null || !username.matches(\"[A-Za-z0-9_]{3,32}\")) {\n    throw new IllegalArgumentException(\"Invalid username\");\n}\n```\n\nValidation is not only about security. It protects downstream components from malformed data and makes API behavior predictable. Output encoding must be appropriate for its context.",
+          "keyTakeaways": [
+            "Validate at trust boundaries.",
+            "Use context-specific encoding and safe APIs.",
+            "Validation for one sink does not automatically protect another sink."
+          ]
+        },
+        {
+          "id": "authentication-authorization",
+          "title": "Authentication vs Authorization",
+          "content": "Authentication answers \"Who are you?\" Authorization answers \"What are you allowed to do?\"\n\nA secure backend enforces authorization on the server for every protected operation. Hiding UI controls is not authorization.\n\n```text\nRequest\n  |\n  v\nAuthenticate identity\n  |\n  v\nAuthorize action/resource\n  |\n  v\nBusiness operation\n```\n\nSessions, tokens, OAuth/OIDC, and API keys solve different problems. Choose based on system boundaries.",
+          "keyTakeaways": [
+            "Authentication and authorization are different concerns.",
+            "Authorization must be enforced server-side.",
+            "Use established protocols instead of custom authentication schemes."
+          ]
+        },
+        {
+          "id": "cryptography-secrets",
+          "title": "Cryptography and Secret Management",
+          "content": "Use standard cryptographic libraries rather than implementing algorithms yourself. Passwords should be stored using dedicated password hashing rather than reversible encryption or fast hashes.\n\nSecrets such as API keys and database passwords should come from secure secret management rather than source control.\n\n```java\n// Conceptual:\n// secret = secretManager.get(\"payments/api-key\");\n// client.authenticate(secret);\n```\n\nEncryption, hashing, signing, and key derivation are different operations with different purposes.",
+          "callout": {
+            "type": "danger",
+            "title": "Never commit secrets",
+            "message": "Treat leaked credentials as compromised; rotate them and use secret management."
+          },
+          "keyTakeaways": [
+            "Do not implement cryptographic primitives yourself.",
+            "Use dedicated password hashing for passwords.",
+            "Keep secrets out of source code and ordinary logs."
+          ]
+        },
+        {
+          "id": "deserialization-dependency-security",
+          "title": "Deserialization and Dependency Security",
+          "content": "Java applications depend heavily on third-party libraries. A vulnerability in a transitive dependency can become a production risk.\n\nUse dependency scanning, timely patching, software bills of materials where appropriate, and minimal dependency sets. For deserialization, prefer explicit schemas and constrained types over arbitrary object graphs from untrusted input.\n\n```bash\nmvn dependency:tree\n./gradlew dependencies\n```\n\nSecurity is a lifecycle concern: secure coding, dependency management, CI scanning, runtime hardening, logging, incident response, and patching all matter.",
+          "keyTakeaways": [
+            "Transitive dependencies are part of your attack surface.",
+            "Prefer explicit data formats for untrusted input.",
+            "Security needs continuous maintenance."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deployment-observability-production",
+      "title": "Production Java: Packaging, Deployment, and Observability",
+      "summary": "Prepare Java services for production with executable JARs, containers, configuration, logging, metrics, tracing, health checks, and operational readiness.",
+      "estimatedMinutes": 80,
+      "sections": [
+        {
+          "id": "packaging-and-containers",
+          "title": "Packaging and Containers",
+          "content": "Java applications can be packaged as JARs and deployed directly or inside containers.\n\n```dockerfile\nFROM eclipse-temurin:21-jre\nCOPY app.jar /app/app.jar\nENTRYPOINT [\"java\", \"-jar\", \"/app/app.jar\"]\n```\n\nThe runtime image should match the supported JDK/runtime and patch strategy. Avoid embedding secrets in image layers.",
+          "keyTakeaways": [
+            "Build artifacts should be immutable and reproducible.",
+            "Runtime configuration belongs outside the image.",
+            "Use a supported, patched Java runtime image."
+          ]
+        },
+        {
+          "id": "configuration-and-environments",
+          "title": "Configuration and Environment Management",
+          "content": "Separate code from environment-specific configuration. Configuration can come from environment variables, mounted files, secret stores, or deployment configuration.\n\n```java\nString port = System.getenv().getOrDefault(\"PORT\", \"8080\");\nint httpPort = Integer.parseInt(port);\n```\n\nValidate configuration during startup so failures happen early. Never print credentials or tokens while diagnosing configuration.",
+          "keyTakeaways": [
+            "Validate configuration at startup.",
+            "Keep secrets separate from ordinary configuration.",
+            "Never log sensitive configuration values."
+          ]
+        },
+        {
+          "id": "logging-metrics-tracing",
+          "title": "Logging, Metrics, and Distributed Tracing",
+          "content": "Logs explain events; metrics explain trends; traces explain request flow across services.\n\n```java\nlogger.info(\"Order completed: orderId={}, durationMs={}\",\n            orderId, durationMs);\n```\n\nUseful production metrics include request rate, error rate, latency, saturation, queue depth, database pool usage, and JVM/GC health. Observability data itself should be treated as sensitive.",
+          "keyTakeaways": [
+            "Use logs, metrics, and traces together.",
+            "Correlation IDs make distributed debugging easier.",
+            "Observability data must be treated as sensitive production data."
+          ]
+        },
+        {
+          "id": "health-checks-graceful-shutdown",
+          "title": "Health Checks and Graceful Shutdown",
+          "content": "Production services need readiness and liveness concepts. Readiness answers whether the service should receive traffic; liveness answers whether the process is alive enough for the platform to keep it running.\n\nGraceful shutdown stops accepting new work, allows in-flight work to finish within a deadline, closes resources, and exits.\n\n```text\nSIGTERM\n  |\n  v\nStop new traffic\n  |\n  v\nFinish in-flight work\n  |\n  v\nClose pools / clients\n  |\n  v\nExit\n```",
+          "keyTakeaways": [
+            "Readiness and liveness serve different purposes.",
+            "Graceful shutdown prevents dropped work during deployments.",
+            "Health checks should reflect meaningful service capability."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "interview-questions",
+      "title": "Top Interview Questions & Practice",
+      "summary": "Master 50+ essential interview questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "estimatedMinutes": 120,
+      "sections": [
+        {
+          "id": "junior-fundamentals-question-1",
+          "title": "Question 1",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the main purpose of the JVM?",
+            "options": ["To compile Java source code", "To execute JVM bytecode", "To manage Git repositories", "To generate SQL"],
+            "correctIndex": 1,
+            "explanation": "The JVM is the runtime engine that loads and executes JVM bytecode."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-2",
+          "title": "Question 2",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command normally compiles a Java source file into bytecode?",
+            "options": ["java", "jar", "javac", "javadoc"],
+            "correctIndex": 2,
+            "explanation": "`javac` is the Java compiler and produces class bytecode."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-3",
+          "title": "Question 3",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which statement about Java is correct?",
+            "options": [
+              "It only works on Linux",
+              "It is dynamically typed",
+              "It uses JVM bytecode as a portable execution format",
+              "It has no garbage collector"
+            ],
+            "correctIndex": 2,
+            "explanation": "Java source is compiled to JVM bytecode, which compatible JVM implementations execute."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-4",
+          "title": "Question 4",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `==` compare for object references?",
+            "options": ["Object contents", "Reference identity", "Hash codes", "Class names"],
+            "correctIndex": 1,
+            "explanation": "For references, `==` checks whether both references identify the same object."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-5",
+          "title": "Question 5",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which type is normally used for a whole-number loop counter?",
+            "options": ["boolean", "int", "char", "double"],
+            "correctIndex": 1,
+            "explanation": "`int` is the conventional integral type for general-purpose counters."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-6",
+          "title": "Question 6",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens when `Integer x = null; int y = x;` executes?",
+            "options": [
+              "y becomes 0",
+              "The code does not compile",
+              "NullPointerException occurs during unboxing",
+              "x becomes an empty string"
+            ],
+            "correctIndex": 2,
+            "explanation": "The assignment unboxes `x`; unboxing null throws `NullPointerException`."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-7",
+          "title": "Question 7",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the default value of an instance field of type `int`?",
+            "options": ["1", "null", "0", "It is undefined"],
+            "correctIndex": 2,
+            "explanation": "Instance fields receive default values; an `int` field defaults to zero."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-8",
+          "title": "Question 8",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method is the conventional Java application entry point?",
+            "options": ["start()", "run()", "main(String[] args)", "execute()"],
+            "correctIndex": 2,
+            "explanation": "The conventional launcher entry point is `public static void main(String[] args)`."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-9",
+          "title": "Question 9",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `final` on a reference variable prevent?",
+            "options": [
+              "The referenced object from changing",
+              "The reference variable from being reassigned",
+              "All methods from executing",
+              "Garbage collection"
+            ],
+            "correctIndex": 1,
+            "explanation": "`final` prevents reassignment of that variable; it does not deeply freeze the object."
+          }
+        },
+        {
+          "id": "junior-fundamentals-question-10",
+          "title": "Question 10",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which collection does not allow duplicate elements?",
+            "options": ["List", "Set", "Queue", "ArrayList"],
+            "correctIndex": 1,
+            "explanation": "`Set` models uniqueness, while a list can contain duplicates."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-1",
+          "title": "Question 1",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is method overloading?",
+            "options": [
+              "Replacing a parent method at runtime",
+              "Defining methods with the same name but different parameter lists",
+              "Making a method private",
+              "Creating multiple packages"
+            ],
+            "correctIndex": 1,
+            "explanation": "Overloading is compile-time selection among methods with the same name but different parameter signatures."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-2",
+          "title": "Question 2",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is method overriding?",
+            "options": [
+              "A subclass providing a compatible implementation of an inherited method",
+              "Two methods with different names",
+              "Calling a constructor twice",
+              "Changing a local variable"
+            ],
+            "correctIndex": 0,
+            "explanation": "Overriding enables a subtype to provide its implementation of an inherited method."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-3",
+          "title": "Question 3",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which keyword refers to the current object?",
+            "options": ["super", "this", "self", "current"],
+            "correctIndex": 1,
+            "explanation": "`this` refers to the current object instance."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-4",
+          "title": "Question 4",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which keyword is used to invoke a superclass constructor or member?",
+            "options": ["base", "parent", "super", "extends"],
+            "correctIndex": 2,
+            "explanation": "`super` refers to the superclass portion of the current object."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-5",
+          "title": "Question 5",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which statement about interfaces is correct?",
+            "options": [
+              "A class can implement multiple interfaces",
+              "A class can extend multiple classes",
+              "Interfaces cannot declare methods",
+              "Interfaces must always have state"
+            ],
+            "correctIndex": 0,
+            "explanation": "Java allows a class to implement multiple interfaces but extend only one class."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-6",
+          "title": "Question 6",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is composition often preferred to deep inheritance?",
+            "options": [
+              "It eliminates all objects",
+              "It reduces coupling and allows behavior to be assembled",
+              "It prevents polymorphism",
+              "It makes code procedural"
+            ],
+            "correctIndex": 1,
+            "explanation": "Composition models has-a relationships and usually provides more flexible coupling."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-7",
+          "title": "Question 7",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does a Java record primarily provide?",
+            "options": [
+              "A database connection",
+              "A concise data-carrier type with generated value-oriented methods",
+              "A thread pool",
+              "A network socket"
+            ],
+            "correctIndex": 1,
+            "explanation": "Records reduce boilerplate for data-centric types and generate value-oriented members."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-8",
+          "title": "Question 8",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a sealed class or interface used for?",
+            "options": [
+              "To prevent all object creation",
+              "To restrict which types may extend or implement it",
+              "To make fields volatile",
+              "To disable garbage collection"
+            ],
+            "correctIndex": 1,
+            "explanation": "Sealed types explicitly restrict the permitted direct subtypes."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-9",
+          "title": "Question 9",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does encapsulation primarily accomplish?",
+            "options": [
+              "It hides implementation details behind a controlled API",
+              "It makes all fields public",
+              "It disables inheritance",
+              "It removes constructors"
+            ],
+            "correctIndex": 0,
+            "explanation": "Encapsulation controls access to state and implementation details."
+          }
+        },
+        {
+          "id": "core-language-and-oop-question-10",
+          "title": "Question 10",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which is true about Java parameter passing?",
+            "options": [
+              "Objects are passed by reference",
+              "Everything is passed by value",
+              "Only primitives are passed by value",
+              "Only objects are passed by value"
+            ],
+            "correctIndex": 1,
+            "explanation": "Java is pass-by-value; for objects, the copied value is the reference value."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-1",
+          "title": "Question 1",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which structure provides expected average constant-time key lookup under good hashing?",
+            "options": ["HashMap", "TreeMap", "LinkedList", "PriorityQueue"],
+            "correctIndex": 0,
+            "explanation": "`HashMap` provides expected average O(1) lookup with appropriate hashing."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-2",
+          "title": "Question 2",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which map preserves insertion order?",
+            "options": ["HashMap", "LinkedHashMap", "TreeMap", "Hashtable"],
+            "correctIndex": 1,
+            "explanation": "`LinkedHashMap` maintains an ordering linked through its entries, normally insertion order."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-3",
+          "title": "Question 3",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `? extends Number` generally indicate?",
+            "options": [
+              "The collection can safely produce values viewed as Number",
+              "Only Number can be inserted",
+              "The collection must contain strings",
+              "The collection is immutable"
+            ],
+            "correctIndex": 0,
+            "explanation": "An extends wildcard is producer-oriented; values can be read as the upper bound."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-4",
+          "title": "Question 4",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does PECS stand for?",
+            "options": [
+              "Private Equals Class State",
+              "Producer Extends Consumer Super",
+              "Package Encapsulation Class Safety",
+              "Primitive Equality Collection Search"
+            ],
+            "correctIndex": 1,
+            "explanation": "PECS means Producer Extends, Consumer Super."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-5",
+          "title": "Question 5",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Why should equals and hashCode agree?",
+            "options": [
+              "Hash-based collections depend on both contracts",
+              "The JVM requires equal method names",
+              "It improves compilation speed",
+              "It prevents inheritance"
+            ],
+            "correctIndex": 0,
+            "explanation": "Equal objects must have equal hash codes for hash-based collections to behave correctly."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-6",
+          "title": "Question 6",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which statement about checked exceptions is correct?",
+            "options": [
+              "The compiler requires them to be caught or declared",
+              "They cannot be thrown",
+              "They are always programming errors",
+              "They are the same as Error"
+            ],
+            "correctIndex": 0,
+            "explanation": "Checked exceptions must be caught or declared by the compiler."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-7",
+          "title": "Question 7",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the preferred way to close an AutoCloseable resource?",
+            "options": ["System.gc()", "try-with-resources", "Calling finalize()", "Leaving it for the OS"],
+            "correctIndex": 1,
+            "explanation": "Try-with-resources closes AutoCloseable resources safely and supports suppressed exceptions."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-8",
+          "title": "Question 8",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens if an exception is not caught in the current method?",
+            "options": [
+              "It is propagated up the call stack",
+              "It is converted to null",
+              "It always terminates the JVM immediately",
+              "It becomes a compile error"
+            ],
+            "correctIndex": 0,
+            "explanation": "An uncaught exception propagates to callers until a matching handler is found."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-9",
+          "title": "Question 9",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which interface is commonly used for custom sorting?",
+            "options": ["Runnable", "Comparator", "Serializable", "Cloneable"],
+            "correctIndex": 1,
+            "explanation": "`Comparator` supplies an external ordering strategy."
+          }
+        },
+        {
+          "id": "collections-generics-exceptions-question-10",
+          "title": "Question 10",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a common danger of using a mutable object as a HashMap key?",
+            "options": [
+              "The JVM cannot allocate it",
+              "Changing equality-defining fields can make the entry difficult to find",
+              "It automatically becomes immutable",
+              "It disables hashing"
+            ],
+            "correctIndex": 1,
+            "explanation": "Changing hash/equality state after insertion can make a key effectively unreachable."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-1",
+          "title": "Question 1",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which JVM area is shared among threads and generally stores objects?",
+            "options": ["Each thread's stack", "Heap", "Program counter only", "CPU register"],
+            "correctIndex": 1,
+            "explanation": "The heap is shared among threads and stores managed objects and arrays."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-2",
+          "title": "Question 2",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a stack frame associated with?",
+            "options": ["A method invocation on a thread", "A database table", "A Java package", "A garbage collector"],
+            "correctIndex": 0,
+            "explanation": "An active method invocation has a JVM stack frame."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-3",
+          "title": "Question 3",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does JIT compilation do?",
+            "options": [
+              "Deletes source code",
+              "Compiles frequently executed bytecode to optimized native code",
+              "Creates database indexes",
+              "Disables garbage collection"
+            ],
+            "correctIndex": 1,
+            "explanation": "JIT compilers optimize hot bytecode paths into native machine instructions."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-4",
+          "title": "Question 4",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `volatile` primarily provide?",
+            "options": [
+              "Atomicity for every operation",
+              "Visibility and ordering guarantees for the variable",
+              "A larger heap",
+              "Object immutability"
+            ],
+            "correctIndex": 1,
+            "explanation": "`volatile` provides visibility/order guarantees but not atomicity for compound operations."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-5",
+          "title": "Question 5",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is `count++` unsafe on a shared ordinary int?",
+            "options": [
+              "It is a compound read-modify-write operation",
+              "int cannot be shared",
+              "The compiler forbids it",
+              "It always throws"
+            ],
+            "correctIndex": 0,
+            "explanation": "The read, increment, and write can interleave across threads."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-6",
+          "title": "Question 6",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `synchronized` provide?",
+            "options": [
+              "Mutual exclusion and memory-visibility guarantees",
+              "Only faster execution",
+              "Automatic database transactions",
+              "Garbage collection"
+            ],
+            "correctIndex": 0,
+            "explanation": "Synchronization provides monitor-based mutual exclusion and happens-before guarantees."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-7",
+          "title": "Question 7",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a major benefit of ExecutorService?",
+            "options": [
+              "It manages task execution and thread resources",
+              "It removes all blocking",
+              "It makes every task parallel",
+              "It disables scheduling"
+            ],
+            "correctIndex": 0,
+            "explanation": "Executors separate task submission from thread lifecycle and provide controlled concurrency."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-8",
+          "title": "Question 8",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Are virtual threads primarily intended to increase CPU computing power?",
+            "options": ["Yes", "No", "Only on Windows", "Only for arrays"],
+            "correctIndex": 1,
+            "explanation": "Virtual threads improve scalability for many tasks, especially blocking workloads; they do not add CPU capacity."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-9",
+          "title": "Question 9",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a common symptom of an unbounded in-memory cache?",
+            "options": [
+              "Guaranteed lower latency forever",
+              "Increasing memory retention and eventual memory pressure",
+              "Automatic database scaling",
+              "No object allocation"
+            ],
+            "correctIndex": 1,
+            "explanation": "Without eviction, a cache can grow indefinitely and create memory pressure."
+          }
+        },
+        {
+          "id": "jvm-concurrency-performance-question-10",
+          "title": "Question 10",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which tool can inspect Java thread states from a running process?",
+            "options": ["jstack or jcmd Thread.print", "javac only", "jar only", "javadoc only"],
+            "correctIndex": 0,
+            "explanation": "`jstack` and `jcmd Thread.print` provide thread information for diagnosis."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-1",
+          "title": "Question 1",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "A service becomes slow because a downstream API sometimes hangs. What is the first essential protection?",
+            "options": ["Remove all logging", "Set a bounded timeout/deadline", "Increase thread count without limit", "Retry forever"],
+            "correctIndex": 1,
+            "explanation": "A bounded timeout prevents stalled dependencies from consuming resources indefinitely."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-2",
+          "title": "Question 2",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "A Java service has frequent long GC pauses. What should you do first?",
+            "options": [
+              "Disable GC",
+              "Collect GC/JFR/allocation evidence and identify the cause",
+              "Increase heap blindly",
+              "Call System.gc() every request"
+            ],
+            "correctIndex": 1,
+            "explanation": "Performance work should begin with evidence about allocation, live set, pauses, and workload."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-3",
+          "title": "Question 3",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which architecture principle keeps domain logic less dependent on infrastructure?",
+            "options": [
+              "Dependency inversion",
+              "Global mutable state",
+              "Direct database calls from every controller",
+              "Static singletons everywhere"
+            ],
+            "correctIndex": 0,
+            "explanation": "Dependency inversion separates high-level policy from infrastructure details."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-4",
+          "title": "Question 4",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "A database connection pool is exhausted. Which response is most appropriate?",
+            "options": [
+              "Increase it to an unlimited size",
+              "Measure query latency, connection usage, pool limits, and database capacity",
+              "Disable timeouts",
+              "Create a connection per request without pooling"
+            ],
+            "correctIndex": 1,
+            "explanation": "Pool exhaustion can have many causes; measurement is required before changing limits."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-5",
+          "title": "Question 5",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "Which retry policy is safest for transient remote failures?",
+            "options": [
+              "Infinite immediate retries",
+              "Bounded retries with backoff/jitter where the operation is safe to retry",
+              "Retry all validation errors",
+              "Retry after success"
+            ],
+            "correctIndex": 1,
+            "explanation": "Bounded retries with backoff reduce retry storms, and retries should only be used when semantics allow."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-6",
+          "title": "Question 6",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "A production service logs access tokens to debug authentication. What is the correct action?",
+            "options": [
+              "Keep logging them",
+              "Remove/redact them and rotate exposed credentials",
+              "Compress the logs",
+              "Increase log level"
+            ],
+            "correctIndex": 1,
+            "explanation": "Tokens are credentials and should never be logged; exposed credentials should be rotated."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-7",
+          "title": "Question 7",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a strong reason to use a DTO at an API boundary?",
+            "options": [
+              "It makes all code faster",
+              "It separates external contracts from internal domain models",
+              "It removes validation",
+              "It disables JSON"
+            ],
+            "correctIndex": 1,
+            "explanation": "DTOs isolate public representations from internal models and enable independent evolution."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-8",
+          "title": "Question 8",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "A team adds JVM flags copied from an old production blog post. What is the biggest concern?",
+            "options": [
+              "Flags are always required",
+              "JVM behavior and tuning guidance are version/workload dependent",
+              "Java ignores all flags",
+              "Flags disable compilation"
+            ],
+            "correctIndex": 1,
+            "explanation": "JVM tuning is version- and workload-dependent; copied flags can harm newer JVMs."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-9",
+          "title": "Question 9",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "A test suite has hundreds of mocks and breaks whenever implementation changes. What is the likely issue?",
+            "options": [
+              "It has too little abstraction",
+              "Tests are coupled to implementation details",
+              "Java cannot mock interfaces",
+              "Assertions are impossible"
+            ],
+            "correctIndex": 1,
+            "explanation": "Over-mocked tests often verify implementation rather than externally visible behavior."
+          }
+        },
+        {
+          "id": "senior-real-world-scenarios-question-10",
+          "title": "Question 10",
+          "content": "Choose the best answer. Focus on Java behavior and production reasoning rather than keyword memorization.",
+          "keyTakeaways": [
+            "Read all four choices before answering.",
+            "Prefer the answer that describes the language, JVM, or production behavior precisely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the strongest reason to introduce backpressure in a high-throughput service?",
+            "options": [
+              "To make all requests succeed immediately",
+              "To prevent overload from propagating through the system",
+              "To eliminate all queues",
+              "To maximize unbounded concurrency"
+            ],
+            "correctIndex": 1,
+            "explanation": "Backpressure limits work to what the system and dependencies can safely process."
+          }
+        }
+      ]
+    }
+  ]
+}
