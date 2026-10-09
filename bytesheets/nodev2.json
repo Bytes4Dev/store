@@ -1,1097 +1,1378 @@
 {
-  "courseId": "nodejs-mastery",
-  "title": "Node.js Mastery",
-  "subtitle": "Build scalable, production-ready backend applications with Node.js, Express, APIs, asynchronous programming, streams, security, testing, and performance.",
+  "courseId": "node-js-mastery",
+  "title": "Node.js Mastery: From Fundamentals to Advanced Backend Development",
+  "subtitle": "Learn Node.js from the ground up and progress through asynchronous programming, APIs, databases, security, streams, performance, scalability, testing, and advanced production architecture.",
   "category": "Backend Development",
-  "level": "Intermediate",
-  "estimatedTime": "8.5 Hours",
+  "level": "Advanced",
+  "estimatedTime": "18 Hours",
   "accentColor": "#339933",
   "keywords": [
     "Node.js",
-    "JavaScript",
-    "Backend Development",
+    "Node JS",
+    "JavaScript runtime",
+    "backend development",
     "Express.js",
     "REST API",
-    "Async Programming",
-    "Event Loop",
-    "Streams",
+    "Node.js API",
+    "async programming",
+    "event loop",
+    "streams",
+    "buffers",
     "npm",
-    "Authentication",
-    "Testing",
-    "Performance",
-    "Security"
+    "CommonJS",
+    "ES Modules",
+    "MongoDB",
+    "authentication",
+    "JWT",
+    "WebSockets",
+    "Node.js performance",
+    "Node.js interview questions"
   ],
   "chapters": [
     {
-      "id": "ch-1",
-      "title": "Node.js Fundamentals",
-      "summary": "Understand what Node.js is, how its runtime works, and how to create and execute your first Node.js applications.",
-      "estimatedMinutes": 45,
-      "mediaImages": [],
+      "id": "nodejs-introduction-and-runtime",
+      "title": "Node.js Fundamentals and Runtime",
+      "summary": "Understand what Node.js is, how it works, why it is different from browser JavaScript, and how to build and execute your first Node.js programs.",
+      "estimatedMinutes": 55,
+      "mediaImages": ["/assets/nodejs/runtime-overview.svg"],
       "sections": [
         {
-          "id": "sec-1-1",
+          "id": "what-is-nodejs",
           "title": "What Is Node.js?",
-          "content": "# What Is Node.js?\n\nNode.js is a JavaScript runtime built on Google's V8 JavaScript engine. It allows JavaScript to run outside the browser, making it possible to build servers, APIs, command-line tools, workers, automation scripts, and other backend applications.\n\nUnlike browser JavaScript, Node.js provides APIs for working with the filesystem, networking, processes, environment variables, streams, and operating-system functionality.\n\nNode.js is particularly effective for I/O-heavy applications because JavaScript execution is coordinated with an event-driven, non-blocking I/O model.\n\n### Node.js vs Browser JavaScript\n\nBoth environments execute JavaScript, but they expose different APIs. Browsers provide APIs such as document, window, and DOM events. Node.js provides APIs such as fs, http, process, Buffer, and stream.\n\n### Common Node.js Use Cases\n\n- REST and GraphQL APIs\n- Real-time applications\n- Microservices\n- CLI applications\n- Background workers\n- Build tools\n- Server-side rendering\n- Automation and scripting",
+          "content": "Node.js is a JavaScript runtime built on the V8 JavaScript engine. It allows JavaScript to execute outside the browser, making it possible to build servers, APIs, command-line tools, background workers, automation scripts, and real-time applications.\n\nUnlike browser JavaScript, Node.js provides APIs for operating-system and server-side capabilities such as the file system, networking, processes, environment variables, streams, and TCP sockets.\n\nNode.js is especially effective for I/O-heavy workloads because applications can initiate asynchronous operations without blocking the JavaScript execution thread.",
           "callout": {
             "type": "info",
-            "title": "Important distinction",
-            "message": "Node.js is a runtime, not a programming language. You still write JavaScript or TypeScript that runs inside the Node.js runtime."
+            "title": "Runtime vs Language",
+            "message": "JavaScript is the language. Node.js is a runtime that provides an environment and APIs for executing JavaScript outside the browser."
           },
           "diagram": {
-            "type": "flowchart",
-            "title": "Where Node.js Fits",
-            "code": "flowchart LR\n A[JavaScript Code] --> B[Node.js Runtime]\n B --> C[V8 Engine]\n B --> D[Node.js APIs]\n D --> E[Filesystem]\n D --> F[Networking]\n D --> G[Operating System]"
+            "type": "architecture",
+            "title": "Node.js Runtime Overview",
+            "code": "flowchart TD\n    A[JavaScript Application] --> B[Node.js Runtime]\n    B --> C[V8 Engine]\n    B --> D[Node.js APIs]\n    D --> E[File System]\n    D --> F[Networking]\n    D --> G[Timers]\n    D --> H[Streams]\n    B --> I[libuv]\n    I --> J[Operating System]"
           },
           "codeExample": {
             "title": "Your First Node.js Program",
             "language": "javascript",
-            "code": "console.log('Hello from Node.js!');",
-            "explanation": "Save the file as app.js and execute it with node app.js. Node.js runs the JavaScript directly without requiring a browser."
+            "code": "console.log('Hello from Node.js');",
+            "explanation": "Save the file as `app.js` and execute it with `node app.js`. Node.js runs the JavaScript without requiring a browser."
           },
           "keyTakeaways": [
-            "Node.js is a JavaScript runtime based on V8.",
-            "Node.js provides server-side APIs that are unavailable in normal browser JavaScript.",
-            "Its event-driven architecture makes it well suited to I/O-heavy applications."
+            "Node.js is a JavaScript runtime, not a new programming language.",
+            "Node.js is powered by V8 and provides server-side APIs through the Node.js runtime.",
+            "Its asynchronous architecture makes it well suited to I/O-heavy applications."
           ],
           "interactiveQuiz": {
             "question": "What is Node.js?",
-            "options": ["A JavaScript runtime", "A JavaScript framework", "A database", "A programming language"],
-            "correctIndex": 0,
+            "options": ["A programming language", "A JavaScript runtime", "A database", "A browser"],
+            "correctIndex": 1,
             "explanation": "Node.js is a runtime environment that executes JavaScript outside the browser."
           }
         },
         {
-          "id": "sec-1-2",
-          "title": "Node.js Runtime Architecture",
-          "content": "# Node.js Runtime Architecture\n\nA Node.js application combines the V8 JavaScript engine with Node.js APIs and an asynchronous I/O system. JavaScript itself executes on the main thread, while many operating-system and library operations can be handled asynchronously.\n\nA simplified model consists of your JavaScript code, V8, Node.js's C/C++ bindings, and the underlying operating system.\n\nNode.js uses libuv to provide cross-platform asynchronous I/O and the event loop. Operations such as network communication and filesystem access can therefore be coordinated without blocking JavaScript execution unnecessarily.\n\nThe important idea is not that Node.js never uses threads. Node.js can use additional threads internally, including through its worker pool and worker_threads API.",
+          "id": "install-nodejs-and-use-node-command",
+          "title": "Installing Node.js and Using the Node CLI",
+          "content": "The `node` command is the primary CLI for executing JavaScript files and interacting with the Node.js runtime. You can verify your installation using `node --version` and `npm --version`.\n\nNode also provides a REPL, which is useful for experimenting with JavaScript and Node APIs interactively.",
           "callout": {
             "type": "tip",
-            "title": "Think in I/O, not threads",
-            "message": "For everyday Node.js development, focus first on whether your code blocks the event loop. The runtime can handle many I/O operations concurrently even though JavaScript execution is primarily single-threaded."
-          },
-          "diagram": {
-            "type": "architecture",
-            "title": "Simplified Node.js Architecture",
-            "code": "flowchart TB\n A[Application JavaScript] --> B[V8]\n B --> C[Node.js APIs]\n C --> D[libuv]\n D --> E[Event Loop]\n D --> F[OS Async I/O]\n D --> G[Worker Pool]\n F --> H[Network / Filesystem]\n G --> I[CPU or Blocking Operations]"
+            "title": "Use a Version Manager",
+            "message": "Using a Node.js version manager such as nvm makes it easier to switch between Node.js versions for different projects."
           },
           "codeExample": {
-            "title": "Checking Runtime Information",
-            "language": "javascript",
-            "code": "console.log('Node version:', process.version);\nconsole.log('Platform:', process.platform);\nconsole.log('Architecture:', process.arch);",
-            "explanation": "The global process object exposes information about the current Node.js process and runtime environment."
-          },
-          "keyTakeaways": [
-            "V8 executes JavaScript while Node.js provides server-side capabilities around it.",
-            "libuv powers much of Node.js's asynchronous behavior.",
-            "Blocking the event loop can reduce application throughput."
-          ],
-          "interactiveQuiz": {
-            "question": "Which component is responsible for executing JavaScript in Node.js?",
-            "options": ["V8", "MongoDB", "Express", "npm"],
-            "correctIndex": 0,
-            "explanation": "Node.js uses Google's V8 JavaScript engine to execute JavaScript."
-          }
-        },
-        {
-          "id": "sec-1-3",
-          "title": "npm and package.json",
-          "content": "# npm and package.json\n\nnpm is the default package manager commonly used with Node.js projects. It helps install dependencies, manage versions, and execute project scripts.\n\nThe package.json file describes your project metadata, scripts, dependencies, and other configuration.\n\n### Dependencies vs Dev Dependencies\n\nUse dependencies for packages required when the application runs in production. Use devDependencies for tools primarily required during development, such as test runners, linters, and TypeScript tooling.\n\n### Semantic Versioning\n\nA version such as 2.5.1 represents major, minor, and patch versions. The ranges specified in package.json influence which versions npm can install.",
-          "callout": {
-            "type": "warning",
-            "title": "Lock your dependency tree",
-            "message": "Commit package-lock.json so development, CI, and production installations can reproduce the intended dependency tree."
-          },
-          "codeExample": {
-            "title": "Create a Node.js Project",
+            "title": "Node.js CLI Basics",
             "language": "bash",
-            "code": "mkdir node-app\ncd node-app\nnpm init -y\nnpm install express\nnpm install -D nodemon",
-            "explanation": "npm init -y creates a package manifest. express is installed as a runtime dependency and nodemon as a development dependency."
+            "code": "node --version\nnpm --version\nnode\nnode app.js",
+            "explanation": "The first two commands display installed versions, `node` starts the REPL, and `node app.js` executes a JavaScript file."
           },
           "keyTakeaways": [
-            "Use package.json to define project metadata, scripts, and dependencies.",
-            "Use npm install to add packages.",
-            "Keep the lockfile committed for reproducible installations."
+            "Use `node filename.js` to execute a Node.js application.",
+            "The Node REPL is useful for quickly testing JavaScript expressions.",
+            "Keep project Node.js versions consistent across development and production."
           ],
           "interactiveQuiz": {
-            "question": "Where should a package required only for local development normally be placed?",
-            "options": ["dependencies", "devDependencies", "peerDependencies only", "engines"],
+            "question": "Which command executes `server.js`?",
+            "options": ["npm server.js", "node server.js", "run server.js", "js server.js"],
             "correctIndex": 1,
-            "explanation": "Development-only tooling normally belongs in devDependencies."
+            "explanation": "The `node` executable runs JavaScript files."
           }
         },
         {
-          "id": "sec-1-4",
-          "title": "CommonJS and ES Modules",
-          "content": "# CommonJS and ES Modules\n\nNode.js supports two major module systems: CommonJS and ECMAScript Modules (ESM).\n\nCommonJS traditionally uses require() and module.exports. ESM uses import and export.\n\nModern Node.js applications can use ESM, but the project must be configured correctly, commonly through the type field in package.json or .mjs files.\n\nModules provide boundaries between files and help organize applications into reusable units.",
-          "callout": {
-            "type": "tip",
-            "title": "Prefer one module system per project",
-            "message": "Mixing module systems unnecessarily can create interoperability and configuration complexity. Choose a consistent approach for a new project."
-          },
+          "id": "nodejs-global-objects-and-process",
+          "title": "Global Objects and the Process Object",
+          "content": "Node.js provides useful global objects and variables such as `process`, `console`, `Buffer`, `setTimeout`, and `globalThis`. The `process` object provides information and controls for the currently running Node.js process.\n\nCommon properties include `process.env` for environment variables, `process.argv` for command-line arguments, and `process.exit()` for terminating a process.",
           "codeExample": {
-            "title": "Module Syntax Comparison",
+            "title": "Working with process",
             "language": "javascript",
-            "code": "import fs from 'node:fs/promises';\n\nexport async function readConfig(path) {\n return fs.readFile(path, 'utf8');\n}",
-            "explanation": "This example uses ES Modules and the modern node: protocol for a built-in Node.js module.",
-            "tabs": [
-              {
-                "label": "CommonJS",
-                "language": "javascript",
-                "code": "const fs = require('node:fs/promises');\n\nmodule.exports = { fs };"
-              },
-              {
-                "label": "ES Modules",
-                "language": "javascript",
-                "code": "import fs from 'node:fs/promises';\n\nexport { fs };"
-              }
-            ]
+            "code": "console.log('Arguments:', process.argv.slice(2));\nconsole.log('Environment:', process.env.NODE_ENV || 'development');\nconsole.log('PID:', process.pid);",
+            "explanation": "This example reads command-line arguments, accesses an environment variable, and prints the process ID."
           },
           "keyTakeaways": [
-            "CommonJS uses require and module.exports.",
-            "ES Modules use import and export.",
-            "The node: prefix clearly identifies Node.js built-in modules."
+            "Use `process.env` for runtime configuration.",
+            "Use `process.argv` to access command-line arguments.",
+            "Avoid hardcoding secrets directly in source code."
           ],
           "interactiveQuiz": {
-            "question": "Which syntax belongs to ES Modules?",
-            "options": ["require('fs')", "module.exports = value", "import fs from 'node:fs'", "exports.fs = fs"],
-            "correctIndex": 2,
-            "explanation": "The import syntax is part of the ECMAScript Modules system."
+            "question": "Where are environment variables accessed in Node.js?",
+            "options": ["process.env", "node.env", "global.env", "runtime.env"],
+            "correctIndex": 0,
+            "explanation": "Node.js exposes environment variables through `process.env`."
           }
         }
       ]
     },
     {
-      "id": "ch-2",
-      "title": "Asynchronous JavaScript and the Event Loop",
-      "summary": "Master callbacks, promises, async/await, the event loop, timers, and concurrency patterns that are fundamental to Node.js.",
+      "id": "npm-packages-and-project-structure",
+      "title": "npm, Packages, and Project Structure",
+      "summary": "Learn how Node.js projects are initialized, how npm manages dependencies, how package.json works, and how to structure maintainable applications.",
       "estimatedMinutes": 65,
-      "mediaImages": [],
+      "mediaImages": ["/assets/nodejs/npm-package-management.svg"],
       "sections": [
         {
-          "id": "sec-2-1",
-          "title": "The Event Loop",
-          "content": "# The Node.js Event Loop\n\nNode.js uses an event loop to coordinate asynchronous work. JavaScript executes synchronously until an asynchronous operation is initiated. Once that operation completes, its callback or continuation can be scheduled for execution.\n\nThe event loop processes different categories of work, including timers, pending callbacks, poll activity, check callbacks, and close callbacks.\n\nThe exact scheduling behavior depends on the operation and phase, so avoid relying on assumptions about callback ordering unless the behavior is explicitly guaranteed.",
-          "callout": {
-            "type": "danger",
-            "title": "Do not block the event loop",
-            "message": "Large synchronous computations, expensive JSON processing, synchronous filesystem APIs, and inefficient loops can prevent other requests from being processed."
+          "id": "npm-init-and-package-json",
+          "title": "npm and package.json",
+          "content": "npm is the default package manager commonly used with Node.js. A `package.json` file describes a project, including its name, version, scripts, dependencies, development dependencies, and module configuration.\n\nThe `scripts` section provides convenient commands such as `npm run dev`, `npm test`, and `npm start`.",
+          "codeExample": {
+            "title": "Initialize a Node.js Project",
+            "language": "bash",
+            "code": "mkdir node-app\ncd node-app\nnpm init -y\nnpm install express\nnpm install --save-dev nodemon",
+            "explanation": "The commands create a project, initialize `package.json`, install Express as a production dependency, and install Nodemon as a development dependency."
           },
+          "keyTakeaways": [
+            "Production dependencies belong in `dependencies`.",
+            "Build, test, and development tools usually belong in `devDependencies`.",
+            "Use npm scripts to standardize project commands."
+          ],
+          "interactiveQuiz": {
+            "question": "Which file defines npm scripts and project dependencies?",
+            "options": ["node.config", "package.json", "npm.config", "project.json"],
+            "correctIndex": 1,
+            "explanation": "`package.json` contains npm project metadata, scripts, and dependency declarations."
+          }
+        },
+        {
+          "id": "semantic-versioning-and-lockfiles",
+          "title": "Semantic Versioning and Lockfiles",
+          "content": "Packages commonly follow semantic versioning using the `MAJOR.MINOR.PATCH` format. A major version can contain breaking changes, a minor version generally adds backward-compatible functionality, and a patch version usually contains backward-compatible fixes.\n\nLockfiles such as `package-lock.json` record the exact dependency tree installed for a project. This improves reproducibility between environments.",
+          "callout": {
+            "type": "warning",
+            "title": "Do Not Ignore Lockfiles",
+            "message": "For applications, commit your lockfile so CI and production installations can reproduce the dependency tree."
+          },
+          "codeExample": {
+            "title": "Dependency Installation Strategies",
+            "language": "bash",
+            "code": "npm install\nnpm ci\nnpm install express@latest\nnpm outdated",
+            "explanation": "`npm install` installs dependencies and may update the lockfile. `npm ci` performs a clean, lockfile-based installation and is preferred for CI environments."
+          },
+          "keyTakeaways": [
+            "Semantic versioning communicates compatibility expectations.",
+            "Lockfiles make dependency installations reproducible.",
+            "Use `npm ci` for deterministic CI installations."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command is generally preferred for a clean CI installation?",
+            "options": ["npm start", "npm ci", "npm update", "npm fresh"],
+            "correctIndex": 1,
+            "explanation": "`npm ci` installs exactly from the lockfile and is designed for automated environments."
+          }
+        },
+        {
+          "id": "nodejs-project-architecture",
+          "title": "Structuring a Node.js Application",
+          "content": "A maintainable Node.js application separates responsibilities instead of placing everything inside one large file. A common architecture separates routes, controllers, services, repositories, models, middleware, configuration, utilities, and tests.\n\nFor larger applications, organize code around business domains rather than creating extremely large technical folders. The goal is clear ownership of responsibilities and easy testing.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Layered Node.js Application",
+            "code": "flowchart TD\n    A[HTTP Request] --> B[Router]\n    B --> C[Controller]\n    C --> D[Service]\n    D --> E[Repository]\n    E --> F[(Database)]\n    C --> G[Response]\n    H[Middleware] --> B\n    I[Configuration] --> D"
+          },
+          "keyTakeaways": [
+            "Keep HTTP concerns separate from business logic.",
+            "Services should contain reusable business operations.",
+            "Architecture should reduce coupling rather than add unnecessary abstraction."
+          ],
+          "interactiveQuiz": {
+            "question": "Which layer should normally contain business rules?",
+            "options": ["Service", "Static assets", "Package manager", "Database driver only"],
+            "correctIndex": 0,
+            "explanation": "The service layer is commonly responsible for business logic, although exact architecture can vary."
+          }
+        }
+      ]
+    },
+    {
+      "id": "commonjs-and-es-modules",
+      "title": "Modules: CommonJS and ES Modules",
+      "summary": "Understand Node.js module systems, exports, imports, module resolution, and how to choose between CommonJS and ES Modules.",
+      "estimatedMinutes": 60,
+      "mediaImages": ["/assets/nodejs/modules.svg"],
+      "sections": [
+        {
+          "id": "commonjs-modules",
+          "title": "CommonJS Modules",
+          "content": "CommonJS is the traditional Node.js module system. It uses `require()` to import modules and `module.exports` or `exports` to expose values.\n\nCommonJS modules are evaluated and cached after their first load, so subsequent imports generally reuse the same module instance.",
+          "codeExample": {
+            "title": "CommonJS Export and Import",
+            "language": "javascript",
+            "code": "const math = require('./math');\nconsole.log(math.add(2, 3));",
+            "explanation": "The application imports the exported object from `math.js` using `require()`."
+          },
+          "keyTakeaways": [
+            "CommonJS uses `require()` and `module.exports`.",
+            "Loaded CommonJS modules are cached.",
+            "Be consistent with the module system used by a project."
+          ],
+          "interactiveQuiz": {
+            "question": "Which syntax is associated with CommonJS?",
+            "options": ["require()", "import only", "include()", "useModule()"],
+            "correctIndex": 0,
+            "explanation": "`require()` is the standard CommonJS import mechanism."
+          }
+        },
+        {
+          "id": "es-modules-nodejs",
+          "title": "ES Modules in Node.js",
+          "content": "Node.js supports standard JavaScript ES Modules using `import` and `export`. A project can use ES Modules by configuring the package appropriately, commonly through the `type` field in `package.json` or by using `.mjs` files.\n\nES Modules provide static import syntax and align Node.js code with the module system used by modern JavaScript applications.",
+          "codeExample": {
+            "title": "ES Module Example",
+            "language": "javascript",
+            "code": "export function add(a, b) {\n  return a + b;\n}\n\nimport { add } from './math.js';\nconsole.log(add(2, 3));",
+            "explanation": "The module exports a function and another module imports it using standard ES Module syntax."
+          },
+          "keyTakeaways": [
+            "ES Modules use `import` and `export`.",
+            "Relative ES Module imports commonly require explicit file extensions.",
+            "Use one module strategy consistently within an application."
+          ],
+          "interactiveQuiz": {
+            "question": "Which syntax exports a named ES Module function?",
+            "options": ["module.exports function", "export function", "require function", "exports.require"],
+            "correctIndex": 1,
+            "explanation": "`export function name() {}` creates a named ES Module export."
+          }
+        },
+        {
+          "id": "module-resolution-and-caching",
+          "title": "Module Resolution and Caching",
+          "content": "When Node.js encounters a module import, it resolves the requested path or package, loads the module, evaluates it, and caches the result. Understanding resolution helps diagnose problems involving relative paths, package exports, duplicate dependencies, and circular dependencies.\n\nCircular dependencies occur when module A depends on B while B also depends directly or indirectly on A. They can produce partially initialized exports and should generally be avoided through better dependency design.",
+          "callout": {
+            "type": "warning",
+            "title": "Circular Dependencies",
+            "message": "Circular dependencies can produce undefined or partially initialized values. Refactoring shared logic into a third module is often cleaner."
+          },
+          "keyTakeaways": [
+            "Node resolves modules according to the import type and package configuration.",
+            "Module caching prevents repeated evaluation of the same resolved module.",
+            "Circular dependencies can create difficult initialization bugs."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a common problem with circular dependencies?",
+            "options": ["Automatic database deletion", "Partially initialized exports", "Faster execution", "Automatic type checking"],
+            "correctIndex": 1,
+            "explanation": "A module can access another module before that module has completed initialization."
+          }
+        }
+      ]
+    },
+    {
+      "id": "asynchronous-javascript-and-event-loop",
+      "title": "Asynchronous Programming and the Event Loop",
+      "summary": "Master callbacks, Promises, async/await, the Node.js event loop, microtasks, timers, and non-blocking I/O.",
+      "estimatedMinutes": 90,
+      "mediaImages": ["/assets/nodejs/event-loop.svg"],
+      "sections": [
+        {
+          "id": "callbacks-promises-async-await",
+          "title": "Callbacks, Promises, and async/await",
+          "content": "Node.js APIs frequently perform asynchronous operations. Older APIs commonly use callbacks, while modern APIs increasingly return Promises.\n\n`async` and `await` provide a readable syntax for consuming Promises. An `async` function always returns a Promise, and `await` pauses that function until the Promise settles without blocking the Node.js JavaScript thread.",
+          "codeExample": {
+            "title": "Async/Await",
+            "language": "javascript",
+            "code": "async function getUser() {\n  const response = await fetch('[https://example.com/user');\n](https://example.com/user'%29;\n)  return response.json();\n}\n\ngetUser()\n  .then(console.log)\n  .catch(console.error);",
+            "explanation": "`await` makes asynchronous code easier to read while the underlying operation remains asynchronous."
+          },
+          "keyTakeaways": [
+            "Promises represent eventual completion or failure of asynchronous operations.",
+            "An `async` function returns a Promise.",
+            "Use `try/catch` around awaited operations when local error handling is required."
+          ],
+          "interactiveQuiz": {
+            "question": "What does an async function return?",
+            "options": ["Always a string", "Always a Promise", "Always undefined", "A callback"],
+            "correctIndex": 1,
+            "explanation": "An `async` function always returns a Promise, even when it returns a normal value."
+          }
+        },
+        {
+          "id": "nodejs-event-loop-phases",
+          "title": "How the Node.js Event Loop Works",
+          "content": "Node.js uses an event-driven architecture. JavaScript executes on the main thread while asynchronous work can be handled by the operating system or libuv. Once asynchronous operations complete, callbacks are scheduled for execution.\n\nThe event loop contains phases such as timers, pending callbacks, poll, check, and close callbacks. Understanding these phases helps explain the behavior of timers, sockets, and asynchronous I/O.",
           "diagram": {
             "type": "flowchart",
             "title": "Simplified Event Loop",
-            "code": "flowchart LR\n A[JavaScript] --> B[Async Operation]\n B --> C[OS / Worker Pool]\n C --> D[Completion]\n D --> E[Event Loop]\n E --> A"
+            "code": "flowchart LR\n    A[JavaScript Call Stack] --> B[Async API]\n    B --> C[OS / libuv]\n    C --> D[Callback Queue]\n    D --> E[Event Loop]\n    E --> A"
           },
-          "codeExample": {
-            "title": "Asynchronous Execution",
-            "language": "javascript",
-            "code": "console.log('A');\n\nsetTimeout(() => {\n console.log('C');\n}, 0);\n\nconsole.log('B');",
-            "explanation": "The synchronous statements run first, so A and B are printed before the timer callback executes."
+          "callout": {
+            "type": "info",
+            "title": "Single Thread Does Not Mean No Concurrency",
+            "message": "Node.js executes JavaScript on a main thread, but asynchronous I/O and libuv worker threads allow many operations to progress concurrently."
           },
           "keyTakeaways": [
-            "The event loop coordinates asynchronous callbacks and continuations.",
-            "Asynchronous I/O does not mean JavaScript execution itself happens concurrently.",
-            "Avoid long synchronous operations on the main event-loop thread."
+            "The event loop coordinates asynchronous callbacks.",
+            "Non-blocking I/O allows a Node.js process to handle many concurrent connections.",
+            "CPU-heavy JavaScript still blocks the event loop unless moved elsewhere."
           ],
           "interactiveQuiz": {
-            "question": "What happens first in the example?",
-            "options": ["The timer callback", "A and then B", "C and then A", "Everything executes simultaneously"],
-            "correctIndex": 1,
-            "explanation": "Synchronous JavaScript runs before the timer callback is handled."
+            "question": "What happens when CPU-heavy synchronous JavaScript runs on the event-loop thread?",
+            "options": [
+              "It blocks other JavaScript callbacks",
+              "It creates a new process automatically",
+              "It is always moved to libuv",
+              "It runs only after all requests finish"
+            ],
+            "correctIndex": 0,
+            "explanation": "Long synchronous JavaScript execution prevents the event loop from processing other callbacks."
           }
         },
         {
-          "id": "sec-2-2",
-          "title": "Callbacks, Promises, and async/await",
-          "content": "# Promises and async/await\n\nNode.js APIs historically relied heavily on callbacks. Modern applications generally use Promises and async/await for asynchronous workflows.\n\nA Promise represents the eventual completion or failure of an asynchronous operation.\n\nAn async function always returns a Promise. Using await pauses that function's execution until the awaited Promise settles, while allowing the Node.js runtime to continue handling other work.",
-          "callout": {
-            "type": "tip",
-            "title": "Handle errors deliberately",
-            "message": "Use try/catch around awaited operations when you need to recover, transform, or report errors."
-          },
+          "id": "microtasks-nexttick-and-setimmediate",
+          "title": "Microtasks, process.nextTick, and setImmediate",
+          "content": "Node.js has multiple queues with different scheduling behavior. Promise callbacks and other microtasks can execute before the event loop proceeds to later phases. `process.nextTick()` has especially high priority in Node.js and should not be recursively scheduled without care because excessive use can starve I/O.\n\n`setImmediate()` schedules work for the check phase, while timers such as `setTimeout()` execute in the timers phase when their timing conditions are met.",
           "codeExample": {
-            "title": "Async/Await Example",
+            "title": "Scheduling Order",
             "language": "javascript",
-            "code": "import fs from 'node:fs/promises';\n\nasync function loadConfig() {\n try {\n const content = await fs.readFile('./config.json', 'utf8');\n return JSON.parse(content);\n } catch (error) {\n console.error('Failed to load config:', error);\n throw error;\n }\n}",
-            "explanation": "await makes asynchronous code easier to read while preserving Promise-based execution."
+            "code": "console.log('start');\n\nsetTimeout(() => console.log('timeout'), 0);\nsetImmediate(() => console.log('immediate'));\nPromise.resolve().then(() => console.log('promise'));\nprocess.nextTick(() => console.log('nextTick'));\n\nconsole.log('end');",
+            "explanation": "Synchronous code runs first. Node-specific scheduling rules then determine the ordering of `nextTick`, Promise microtasks, timers, and immediates."
           },
           "keyTakeaways": [
-            "Promises represent future asynchronous results.",
-            "An async function returns a Promise.",
-            "try/catch can handle rejected Promises when using await."
+            "Synchronous JavaScript runs before asynchronous callbacks.",
+            "Promise callbacks are microtasks.",
+            "`process.nextTick()` should be used carefully because it can starve the event loop."
           ],
           "interactiveQuiz": {
-            "question": "What does an async function always return?",
-            "options": ["A callback", "A Promise", "A stream", "A Buffer"],
-            "correctIndex": 1,
-            "explanation": "Even if an async function returns a plain value, JavaScript wraps it in a resolved Promise."
-          }
-        },
-        {
-          "id": "sec-2-3",
-          "title": "Concurrency with Promise.all",
-          "content": "# Running Independent Work Concurrently\n\nA common performance mistake is awaiting independent asynchronous operations one after another.\n\nIf two operations do not depend on each other, start both and await them together with Promise.all().\n\nThis reduces total waiting time because the operations can progress concurrently.",
-          "callout": {
-            "type": "tip",
-            "title": "Parallelize independent I/O",
-            "message": "Use Promise.all() when multiple operations are independent and all results are required."
-          },
-          "codeExample": {
-            "title": "Sequential vs Concurrent I/O",
-            "language": "javascript",
-            "code": "async function loadDashboard(userId) {\n const [user, notifications, orders] = await Promise.all([\n getUser(userId),\n getNotifications(userId),\n getOrders(userId)\n ]);\n\n return { user, notifications, orders };\n}",
-            "explanation": "The three operations start without waiting for one another. The function continues once all three have completed."
-          },
-          "keyTakeaways": [
-            "Sequential awaits can unnecessarily increase latency.",
-            "Use Promise.all() for independent operations when all results are required.",
-            "Concurrency should be controlled when an external service has rate or resource limits."
-          ],
-          "interactiveQuiz": {
-            "question": "Which approach is generally faster for three independent I/O operations?",
-            "options": ["Await each operation sequentially", "Use Promise.all", "Convert them to synchronous functions", "Use setTimeout"],
-            "correctIndex": 1,
-            "explanation": "Promise.all() allows the independent operations to progress concurrently."
-          }
-        },
-        {
-          "id": "sec-2-4",
-          "title": "Timers and Scheduling",
-          "content": "# Timers in Node.js\n\nNode.js provides setTimeout(), setInterval(), and setImmediate() for scheduling callbacks.\n\nA timer specifies when work becomes eligible to execute; it does not guarantee exact execution at that timestamp. The callback can run later if the event loop is busy.\n\nFor recurring jobs, consider whether an external scheduler or dedicated job queue is more appropriate than a long-running in-process timer.",
-          "callout": {
-            "type": "warning",
-            "title": "Timers are not durable jobs",
-            "message": "An in-process timer disappears when the process restarts. Critical scheduled work should use a durable scheduler or queue."
-          },
-          "codeExample": {
-            "title": "Basic Timer APIs",
-            "language": "javascript",
-            "code": "setTimeout(() => {\n console.log('Runs after becoming eligible');\n}, 1000);\n\nconst interval = setInterval(() => {\n console.log('Recurring work');\n}, 5000);\n\nsetTimeout(() => clearInterval(interval), 20000);",
-            "explanation": "Timers schedule callbacks but do not provide hard real-time guarantees."
-          },
-          "keyTakeaways": [
-            "Timers schedule callbacks rather than guaranteeing exact execution times.",
-            "Always clear intervals that are no longer needed.",
-            "Use durable scheduling infrastructure for important background jobs."
-          ],
-          "interactiveQuiz": {
-            "question": "Does setTimeout guarantee that a callback executes exactly after the specified delay?",
-            "options": ["Yes, always", "Only on Linux", "No, it specifies a minimum eligibility delay", "Only when using async/await"],
-            "correctIndex": 2,
-            "explanation": "The callback becomes eligible after the delay but may execute later if the event loop is busy."
+            "question": "Which mechanism is specifically a Node.js next-tick queue mechanism?",
+            "options": ["process.nextTick()", "setStyle()", "queueRequest()", "nodeTick()"],
+            "correctIndex": 0,
+            "explanation": "`process.nextTick()` schedules a callback in Node.js's next-tick queue."
           }
         }
       ]
     },
     {
-      "id": "ch-3",
+      "id": "core-nodejs-apis",
       "title": "Core Node.js APIs",
-      "summary": "Work with files, paths, environment variables, HTTP servers, buffers, and streams using Node.js built-in modules.",
-      "estimatedMinutes": 65,
-      "mediaImages": [],
+      "summary": "Work with essential built-in APIs including file systems, paths, operating-system information, URLs, events, and environment configuration.",
+      "estimatedMinutes": 80,
+      "mediaImages": ["/assets/nodejs/core-apis.svg"],
       "sections": [
         {
-          "id": "sec-3-1",
-          "title": "Filesystem Operations",
-          "content": "# Working with the Filesystem\n\nThe node:fs and node:fs/promises modules provide filesystem operations.\n\nPrefer asynchronous filesystem APIs in server applications so that file operations do not block the event loop.\n\nThe Promise API is particularly convenient with async/await.",
-          "callout": {
-            "type": "warning",
-            "title": "Avoid synchronous filesystem APIs in request paths",
-            "message": "Functions such as readFileSync() block JavaScript execution until the operation finishes. They can be acceptable during startup or scripts, but should be used carefully in servers."
-          },
+          "id": "filesystem-api",
+          "title": "File System Operations",
+          "content": "The `node:fs` and `node:fs/promises` modules provide APIs for reading, writing, updating, deleting, and inspecting files and directories. Prefer asynchronous APIs in server applications when the operation may involve significant I/O.\n\nSynchronous file operations block the JavaScript execution thread and should generally be reserved for startup tasks or scripts where blocking is acceptable.",
           "codeExample": {
-            "title": "Read and Write a File",
+            "title": "Reading a File Asynchronously",
             "language": "javascript",
-            "code": "import { readFile, writeFile } from 'node:fs/promises';\n\nasync function updateFile() {\n const content = await readFile('./data.txt', 'utf8');\n await writeFile('./copy.txt', content);\n}\n\nawait updateFile();",
-            "explanation": "The Promise-based filesystem API integrates naturally with async/await."
+            "code": "import { readFile } from 'node:fs/promises';\n\nconst data = await readFile('config.json', 'utf8');\nconsole.log(data);",
+            "explanation": "The Promise-based file system API allows the application to read a file without using a callback."
           },
           "keyTakeaways": [
-            "Use node:fs/promises for Promise-based filesystem operations.",
-            "Avoid synchronous filesystem calls in latency-sensitive request handlers.",
-            "Always handle filesystem errors."
+            "Prefer asynchronous file APIs in request-handling code.",
+            "Use `node:fs/promises` for Promise-based file operations.",
+            "Avoid blocking file operations inside high-throughput request handlers."
           ],
           "interactiveQuiz": {
-            "question": "Which module provides Promise-based filesystem methods?",
-            "options": ["node:fs/promises", "node:http/promises", "node:file", "node:path/promises"],
+            "question": "Why should synchronous file operations usually be avoided inside HTTP handlers?",
+            "options": ["They block the JavaScript thread", "They delete files", "They disable npm", "They require a browser"],
             "correctIndex": 0,
-            "explanation": "node:fs/promises provides Promise-based filesystem operations."
+            "explanation": "Synchronous operations prevent other JavaScript callbacks from executing until they finish."
           }
         },
         {
-          "id": "sec-3-2",
-          "title": "Paths and Environment Variables",
-          "content": "# Paths and Environment Variables\n\nUse node:path instead of manually concatenating filesystem paths. This keeps your code portable across operating systems.\n\nEnvironment variables are available through process.env. They are commonly used for configuration such as ports, database URLs, API keys, and runtime modes.\n\nNever commit secrets directly into source code or version control.",
-          "callout": {
-            "type": "danger",
-            "title": "Protect secrets",
-            "message": "Environment variables improve configuration management, but they are not automatically secure. Restrict access, avoid logging secrets, and use a dedicated secret manager for sensitive production credentials."
-          },
+          "id": "path-url-and-os-modules",
+          "title": "Path, URL, and OS APIs",
+          "content": "The `path` module provides platform-aware path manipulation. The `URL` API handles URL parsing and construction. The `os` module provides information about the operating system and hardware.\n\nUse `path.join()` or `path.resolve()` rather than manually concatenating file paths so applications work correctly across operating systems.",
           "codeExample": {
-            "title": "Portable Paths and Configuration",
+            "title": "Working with Paths and URLs",
             "language": "javascript",
-            "code": "import path from 'node:path';\n\nconst dataPath = path.join(process.cwd(), 'data', 'users.json');\nconst port = Number(process.env.PORT ?? 3000);\n\nconsole.log({ dataPath, port });",
-            "explanation": "path.join() creates an operating-system-appropriate path, while process.env exposes environment configuration."
+            "code": "import path from 'node:path';\n\nconst filePath = path.join(process.cwd(), 'data', 'users.json');\nconst url = new URL('/users?id=10', '[https://example.com');\n\nconsole.log(filePath);\nconsole.log(url.searchParams.get('id')](https://example.com'%29;\n\nconsole.log%28filePath%29;\nconsole.log%28url.searchParams.get%28'id'%29));",
+            "explanation": "The example builds a platform-aware path and reads a query parameter from a URL."
           },
           "keyTakeaways": [
-            "Use node:path for portable path manipulation.",
-            "Use environment variables for environment-specific configuration.",
-            "Do not expose secrets through logs, source control, or client-side configuration."
+            "Use `path` instead of manual path-string concatenation.",
+            "The URL API provides structured access to URL components.",
+            "Platform-aware APIs make applications more portable."
           ],
           "interactiveQuiz": {
-            "question": "What is the recommended way to construct filesystem paths?",
-            "options": ["String concatenation only", "node:path", "JSON.stringify", "URLSearchParams"],
-            "correctIndex": 1,
-            "explanation": "node:path provides platform-aware path utilities."
+            "question": "Which API is best suited for joining filesystem paths?",
+            "options": ["path.join()", "url.join()", "fs.concat()", "os.pathString()"],
+            "correctIndex": 0,
+            "explanation": "`path.join()` combines path segments using the correct platform-specific separator."
           }
         },
         {
-          "id": "sec-3-3",
-          "title": "HTTP Server Fundamentals",
-          "content": "# Creating an HTTP Server\n\nNode.js includes the node:http module for creating HTTP servers without requiring a framework.\n\nAn HTTP server receives a request and produces a response. The request contains information such as the method, URL, headers, and body. The response contains a status code, headers, and body.\n\nUnderstanding the built-in HTTP module makes frameworks such as Express easier to understand.",
-          "diagram": {
-            "type": "flowchart",
-            "title": "Basic HTTP Request Flow",
-            "code": "flowchart LR\n A[Client] --> B[HTTP Server]\n B --> C[Request Handler]\n C --> D[Response]\n D --> A"
-          },
+          "id": "events-and-eventemitter",
+          "title": "EventEmitter",
+          "content": "Node.js uses events extensively. The `EventEmitter` class allows objects to emit named events and allows listeners to subscribe to them.\n\nEvent-driven design can decouple producers from consumers, but excessive event usage can make application flow difficult to understand. Use events when they represent meaningful domain or infrastructure events.",
           "codeExample": {
-            "title": "Minimal HTTP Server",
+            "title": "Custom EventEmitter",
             "language": "javascript",
-            "code": "import http from 'node:http';\n\nconst server = http.createServer((req, res) => {\n res.writeHead(200, { 'Content-Type': 'application/json' });\n res.end(JSON.stringify({ message: 'Hello Node.js' }));\n});\n\nserver.listen(3000, () => {\n console.log('Server listening on port 3000');\n});",
-            "explanation": "http.createServer() creates a server that receives requests and allows the handler to write an HTTP response."
+            "code": "import { EventEmitter } from 'node:events';\n\nconst emitter = new EventEmitter();\n\nemitter.on('user.created', (user) => {\n  console.log('Created:', user.name);\n});\n\nemitter.emit('user.created', { name: 'Suriya' });",
+            "explanation": "A listener subscribes to a custom event, and the application emits that event with a user object."
           },
           "keyTakeaways": [
-            "Node.js includes a built-in HTTP server API.",
-            "Every HTTP response should have an appropriate status and content type.",
-            "Frameworks build higher-level routing and middleware abstractions on top of HTTP primitives."
+            "EventEmitter provides publish-subscribe behavior inside a process.",
+            "Listeners should be removed when their lifecycle requires it.",
+            "Use events carefully to avoid hidden control flow."
           ],
           "interactiveQuiz": {
-            "question": "Which built-in module creates an HTTP server?",
-            "options": ["node:server", "node:http", "node:express", "node:network"],
+            "question": "Which method emits an EventEmitter event?",
+            "options": ["send()", "emit()", "publishOnly()", "triggerNode()"],
             "correctIndex": 1,
-            "explanation": "node:http provides Node.js HTTP server and client APIs."
+            "explanation": "`EventEmitter.emit()` publishes an event to registered listeners."
+          }
+        }
+      ]
+    },
+    {
+      "id": "buffers-streams-and-binary-data",
+      "title": "Buffers, Streams, and Binary Data",
+      "summary": "Understand binary data, Buffers, readable and writable streams, piping, backpressure, and efficient data processing.",
+      "estimatedMinutes": 90,
+      "mediaImages": ["/assets/nodejs/streams.svg"],
+      "sections": [
+        {
+          "id": "nodejs-buffers",
+          "title": "Understanding Buffers",
+          "content": "A `Buffer` represents a fixed-size sequence of bytes. Buffers are important when working with files, network protocols, cryptography, images, compressed data, and other binary content.\n\nBuffers are built on top of JavaScript typed-array capabilities but provide Node-specific APIs for binary data.",
+          "codeExample": {
+            "title": "Creating and Reading a Buffer",
+            "language": "javascript",
+            "code": "const buffer = Buffer.from('Hello Node.js', 'utf8');\n\nconsole.log(buffer);\nconsole.log(buffer.toString('utf8'));",
+            "explanation": "`Buffer.from()` converts text into bytes, while `toString()` converts those bytes back into text."
+          },
+          "keyTakeaways": [
+            "Buffers represent binary byte sequences.",
+            "Buffers are commonly used by Node.js I/O APIs.",
+            "Always know the encoding when converting between bytes and strings."
+          ],
+          "interactiveQuiz": {
+            "question": "What does a Node.js Buffer represent?",
+            "options": ["A sequence of bytes", "A database table", "A JavaScript class only", "An HTTP route"],
+            "correctIndex": 0,
+            "explanation": "A Buffer stores raw binary data as bytes."
           }
         },
         {
-          "id": "sec-3-4",
-          "title": "Buffers and Streams",
-          "content": "# Buffers and Streams\n\nA Buffer represents binary data in Node.js. Buffers are useful when dealing with files, network packets, cryptographic data, and other non-text data.\n\nStreams allow applications to process data incrementally instead of loading an entire resource into memory.\n\nThe four common stream categories are readable, writable, duplex, and transform streams.\n\nStreams are particularly valuable for large files, HTTP bodies, compression, and data pipelines.",
-          "callout": {
-            "type": "tip",
-            "title": "Think incrementally",
-            "message": "If a resource can be very large, streaming it is usually more memory-efficient than reading the entire resource into a Buffer first."
-          },
+          "id": "readable-writable-streams",
+          "title": "Readable and Writable Streams",
+          "content": "Streams process data incrementally instead of requiring the entire dataset to be loaded into memory. Readable streams produce data, writable streams consume data, and duplex or transform streams can do both.\n\nStreams are particularly valuable for large files, HTTP requests, HTTP responses, compression, and network communication.",
           "codeExample": {
             "title": "Streaming a File",
             "language": "javascript",
-            "code": "import { createReadStream } from 'node:fs';\n\nconst stream = createReadStream('./large-file.log', {\n encoding: 'utf8'\n});\n\nstream.on('data', chunk => {\n console.log('Received chunk:', chunk.length);\n});",
-            "explanation": "The file is consumed in chunks instead of loading the entire file into memory at once."
+            "code": "import { createReadStream } from 'node:fs';\n\nconst stream = createReadStream('large-file.txt', {\n  encoding: 'utf8'\n});\n\nstream.on('data', (chunk) => {\n  console.log('Received chunk:', chunk.length);\n});\n\nstream.on('end', () => {\n  console.log('Finished');\n});",
+            "explanation": "The file is delivered in chunks rather than loaded completely into memory."
           },
           "keyTakeaways": [
-            "Buffers represent binary data.",
-            "Streams process data incrementally.",
-            "Streaming can dramatically reduce memory usage for large resources."
+            "Streams reduce memory usage for large datasets.",
+            "Readable streams produce chunks of data.",
+            "Writable streams consume chunks of data."
           ],
           "interactiveQuiz": {
-            "question": "Why are streams useful for large files?",
+            "question": "What is a major advantage of streams?",
             "options": [
-              "They increase file size",
-              "They process data incrementally",
-              "They disable the filesystem",
-              "They convert all data to JSON"
+              "They always make CPU work faster",
+              "They reduce memory usage for large data",
+              "They remove the need for error handling",
+              "They replace databases"
             ],
             "correctIndex": 1,
-            "explanation": "Streams allow large resources to be processed chunk by chunk."
+            "explanation": "Streams process data incrementally, avoiding the need to hold the entire dataset in memory."
+          }
+        },
+        {
+          "id": "stream-piping-and-backpressure",
+          "title": "Piping and Backpressure",
+          "content": "Backpressure occurs when a writable destination cannot consume data as quickly as a readable source produces it. Node.js streams provide mechanisms for controlling this flow.\n\nThe `pipe()` method connects streams and handles important flow-control behavior automatically. Modern applications can also use `pipeline()` from `node:stream/promises` to compose streams while handling errors more safely.",
+          "codeExample": {
+            "title": "Using pipeline",
+            "language": "javascript",
+            "code": "import { createReadStream, createWriteStream } from 'node:fs';\nimport { pipeline } from 'node:stream/promises';\n\nawait pipeline(\n  createReadStream('input.txt'),\n  createWriteStream('output.txt')\n);\n\nconsole.log('Copy completed');",
+            "explanation": "`pipeline()` connects the streams and provides Promise-based completion and error propagation."
+          },
+          "callout": {
+            "type": "tip",
+            "title": "Prefer pipeline for Complex Stream Chains",
+            "message": "`pipeline()` provides cleaner error handling and lifecycle management when connecting multiple streams."
+          },
+          "keyTakeaways": [
+            "Backpressure prevents fast producers from overwhelming slow consumers.",
+            "Use `pipeline()` when composing multiple streams.",
+            "Stream errors must be handled explicitly."
+          ],
+          "interactiveQuiz": {
+            "question": "What does backpressure protect against?",
+            "options": [
+              "A producer overwhelming a slower consumer",
+              "A missing package.json",
+              "Invalid JavaScript syntax",
+              "Database normalization"
+            ],
+            "correctIndex": 0,
+            "explanation": "Backpressure coordinates production and consumption rates."
           }
         }
       ]
     },
     {
-      "id": "ch-4",
-      "title": "Building APIs with Express",
-      "summary": "Build structured REST APIs with Express routing, middleware, validation, error handling, and clean application architecture.",
-      "estimatedMinutes": 75,
-      "mediaImages": [],
+      "id": "http-server-and-rest-api",
+      "title": "HTTP Servers and REST APIs",
+      "summary": "Build HTTP servers using Node.js, understand requests and responses, HTTP methods and status codes, and design RESTful APIs.",
+      "estimatedMinutes": 95,
+      "mediaImages": ["/assets/nodejs/http-server.svg"],
       "sections": [
         {
-          "id": "sec-4-1",
-          "title": "Express Application Basics",
-          "content": "# Express Fundamentals\n\nExpress is a lightweight web framework commonly used to build Node.js HTTP APIs.\n\nAn Express application consists of middleware and route handlers. Requests pass through middleware before reaching the matching route handler.\n\nA well-structured API separates routing, controllers, services, validation, persistence, and infrastructure concerns.",
-          "callout": {
-            "type": "tip",
-            "title": "Keep controllers thin",
-            "message": "Controllers should primarily translate HTTP requests into application operations and responses. Business rules are usually easier to test and maintain when placed in services or domain modules."
-          },
+          "id": "native-http-server",
+          "title": "Creating an HTTP Server",
+          "content": "Node.js provides the built-in `node:http` module for creating HTTP servers. An HTTP server receives a request and produces a response.\n\nThe request contains information such as the HTTP method, URL, headers, and body. The response controls the status code, headers, and response body.",
           "codeExample": {
-            "title": "Basic Express API",
+            "title": "Basic HTTP Server",
             "language": "javascript",
-            "code": "import express from 'express';\n\nconst app = express();\n\napp.use(express.json());\n\napp.get('/api/health', (req, res) => {\n res.json({ status: 'ok' });\n});\n\napp.listen(3000, () => {\n console.log('API running on port 3000');\n});",
-            "explanation": "The application enables JSON parsing, defines a health endpoint, and starts listening for HTTP requests."
+            "code": "import http from 'node:http';\n\nconst server = http.createServer((req, res) => {\n  res.writeHead(200, { 'Content-Type': 'application/json' });\n  res.end(JSON.stringify({ message: 'Hello Node.js' }));\n});\n\nserver.listen(3000, () => {\n  console.log('Server running on port 3000');\n});",
+            "explanation": "The server responds to every request with a JSON payload and listens on port 3000."
           },
           "keyTakeaways": [
-            "Express provides routing and middleware abstractions for Node.js HTTP applications.",
-            "Use express.json() when your API accepts JSON request bodies.",
-            "Separate HTTP concerns from business logic as applications grow."
+            "Node.js can create HTTP servers without Express.",
+            "The request and response objects expose HTTP-level functionality.",
+            "Frameworks such as Express build higher-level abstractions on top of Node HTTP capabilities."
           ],
           "interactiveQuiz": {
-            "question": "What is middleware in Express?",
-            "options": [
-              "Only a database",
-              "A function that participates in request processing",
-              "A frontend component",
-              "A package manager"
-            ],
-            "correctIndex": 1,
-            "explanation": "Express middleware functions can inspect or modify requests and responses and control the request-processing chain."
+            "question": "Which built-in Node.js module creates HTTP servers?",
+            "options": ["node:http", "node:web", "node:server", "node:network"],
+            "correctIndex": 0,
+            "explanation": "`node:http` provides Node.js HTTP server and client APIs."
           }
         },
         {
-          "id": "sec-4-2",
-          "title": "Routing and Route Parameters",
-          "content": "# Express Routing\n\nRoutes map HTTP methods and URL patterns to handlers.\n\nCommon REST APIs use resources such as /users, /products, and /orders. Route parameters represent resource identifiers, such as /users/:id.\n\nQuery parameters are useful for filtering, sorting, searching, and pagination.",
-          "codeExample": {
-            "title": "Resource Routes",
-            "language": "javascript",
-            "code": "app.get('/users', (req, res) => {\n const { page = '1', search } = req.query;\n res.json({ page: Number(page), search });\n});\n\napp.get('/users/:id', (req, res) => {\n res.json({ id: req.params.id });\n});",
-            "explanation": "Route parameters are accessed through req.params, while query parameters are available through req.query."
-          },
-          "keyTakeaways": [
-            "Use route parameters for identifying a specific resource.",
-            "Use query parameters for filtering, searching, sorting, and pagination.",
-            "Choose HTTP methods and resource URLs consistently."
-          ],
-          "interactiveQuiz": {
-            "question": "Where is /users/:id's id value available?",
-            "options": ["req.body.id", "req.query.id", "req.params.id", "req.headers.id"],
-            "correctIndex": 2,
-            "explanation": "Express exposes route parameters through req.params."
-          }
-        },
-        {
-          "id": "sec-4-3",
-          "title": "Middleware and Request Pipelines",
-          "content": "# Express Middleware\n\nMiddleware functions are the foundation of Express applications. They can authenticate requests, log activity, validate input, add request context, handle CORS, and transform data.\n\nMiddleware can either end the response or call next() to continue processing.\n\nOrdering matters. Authentication middleware placed after a protected route cannot protect that route.",
+          "id": "rest-api-design",
+          "title": "REST API Design",
+          "content": "REST APIs expose resources through HTTP. Typical methods include `GET` for retrieval, `POST` for creation, `PUT` or `PATCH` for updates, and `DELETE` for removal.\n\nGood APIs use meaningful resource names, appropriate status codes, predictable response formats, validation, authentication where required, and consistent error responses.",
           "diagram": {
             "type": "flowchart",
-            "title": "Express Request Pipeline",
-            "code": "flowchart LR\n A[Request] --> B[Logger]\n B --> C[Authentication]\n C --> D[Validation]\n D --> E[Controller]\n E --> F[Response]"
-          },
-          "codeExample": {
-            "title": "Custom Middleware",
-            "language": "javascript",
-            "code": "function requestLogger(req, res, next) {\n console.log(req.method, req.originalUrl);\n next();\n}\n\napp.use(requestLogger);",
-            "explanation": "The middleware logs request information and calls next() so that processing can continue."
+            "title": "REST Request Flow",
+            "code": "flowchart LR\n    A[Client] -->|GET /users/42| B[Router]\n    B --> C[Controller]\n    C --> D[Service]\n    D --> E[(Database)]\n    E --> D\n    D --> C\n    C --> A"
           },
           "keyTakeaways": [
-            "Middleware executes as part of the request pipeline.",
-            "Middleware order affects application behavior.",
-            "Call next() when the middleware does not finish the response."
+            "Use nouns for resource-oriented URLs such as `/users`.",
+            "Choose HTTP methods and status codes according to the operation.",
+            "Keep API responses and errors consistent."
           ],
           "interactiveQuiz": {
-            "question": "What usually allows Express middleware to continue to the next middleware?",
-            "options": ["return", "next()", "continueRequest()", "forward()"],
-            "correctIndex": 1,
-            "explanation": "Calling next() transfers control to the next matching middleware or route handler."
+            "question": "Which HTTP method is normally used to retrieve a resource?",
+            "options": ["GET", "POST", "DELETE", "PATCH"],
+            "correctIndex": 0,
+            "explanation": "`GET` is used to retrieve representations of resources."
           }
         },
         {
-          "id": "sec-4-4",
-          "title": "Error Handling",
-          "content": "# Error Handling in Express\n\nProduction APIs should have centralized error handling. Instead of repeating response logic throughout every controller, application errors can flow to one error-handling middleware.\n\nExpress identifies error-handling middleware by its four parameters: (err, req, res, next).\n\nAvoid exposing stack traces, database errors, tokens, or internal implementation details to clients in production.",
+          "id": "http-status-codes-and-headers",
+          "title": "Status Codes, Headers, and Content Types",
+          "content": "HTTP status codes communicate the result of a request. `2xx` indicates success, `3xx` redirection, `4xx` client-side problems, and `5xx` server-side failures.\n\nHeaders provide metadata about the request and response. Common headers include `Content-Type`, `Authorization`, `Cache-Control`, `Accept`, and security-related headers.",
+          "codeExample": {
+            "title": "Returning an HTTP Error",
+            "language": "javascript",
+            "code": "res.writeHead(404, {\n  'Content-Type': 'application/json'\n});\n\nres.end(JSON.stringify({\n  error: 'User not found'\n}));",
+            "explanation": "The server returns a 404 response with a JSON error body."
+          },
+          "keyTakeaways": [
+            "Use status codes consistently and meaningfully.",
+            "Set `Content-Type` according to the response representation.",
+            "Do not use `200 OK` for every outcome."
+          ],
+          "interactiveQuiz": {
+            "question": "Which status code normally means a resource was not found?",
+            "options": ["200", "201", "404", "500"],
+            "correctIndex": 2,
+            "explanation": "HTTP 404 indicates that the requested resource could not be found."
+          }
+        }
+      ]
+    },
+    {
+      "id": "expressjs-framework",
+      "title": "Express.js and Middleware",
+      "summary": "Build production-style APIs with Express.js, routing, middleware, validation, centralized errors, and request lifecycle management.",
+      "estimatedMinutes": 100,
+      "mediaImages": ["/assets/nodejs/express-middleware.svg"],
+      "sections": [
+        {
+          "id": "express-server-and-routing",
+          "title": "Express Server and Routing",
+          "content": "Express is a lightweight Node.js web framework that provides routing, middleware, request handling, and response helpers. It is commonly used to build REST APIs and web servers.\n\nRoutes map HTTP methods and URL patterns to handler functions.",
+          "codeExample": {
+            "title": "Express REST Routes",
+            "language": "javascript",
+            "code": "import express from 'express';\n\nconst app = express();\napp.use(express.json());\n\napp.get('/users', (req, res) => {\n  res.json([{ id: 1, name: 'Suriya' }]);\n});\n\napp.post('/users', (req, res) => {\n  res.status(201).json(req.body);\n});\n\napp.listen(3000);",
+            "explanation": "The application parses JSON request bodies and defines GET and POST endpoints."
+          },
+          "keyTakeaways": [
+            "Express simplifies HTTP routing and middleware composition.",
+            "Use routers to keep larger applications modular.",
+            "Validate incoming request data instead of trusting client input."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Express middleware parses JSON request bodies?",
+            "options": ["express.json()", "express.body()", "express.parse()", "express.requestJson()"],
+            "correctIndex": 0,
+            "explanation": "`express.json()` parses JSON request bodies and populates `req.body`."
+          }
+        },
+        {
+          "id": "express-middleware-lifecycle",
+          "title": "Understanding Middleware",
+          "content": "Express middleware functions receive `req`, `res`, and `next`. Middleware can inspect or modify requests, perform authentication, log requests, validate input, and terminate responses.\n\nMiddleware executes in registration order. Calling `next()` passes control to the next matching middleware or route handler.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Express Middleware Chain",
+            "code": "flowchart LR\n    A[Request] --> B[Logger]\n    B --> C[Authentication]\n    C --> D[Validation]\n    D --> E[Controller]\n    E --> F[Response]"
+          },
+          "codeExample": {
+            "title": "Request Logging Middleware",
+            "language": "javascript",
+            "code": "function logger(req, res, next) {\n  const start = Date.now();\n  res.on('finish', () => {\n    console.log(req.method, req.originalUrl, Date.now() - start, 'ms');\n  });\n  next();\n}\n\napp.use(logger);",
+            "explanation": "The middleware records the request start time and logs the response duration when the response finishes."
+          },
+          "keyTakeaways": [
+            "Middleware runs in registration order.",
+            "Call `next()` when middleware does not end the response.",
+            "Middleware is useful for cross-cutting concerns."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens when middleware calls `next()`?",
+            "options": [
+              "The server shuts down",
+              "Control moves to the next matching middleware or handler",
+              "The database is cleared",
+              "The request is automatically cached"
+            ],
+            "correctIndex": 1,
+            "explanation": "`next()` transfers control to the next middleware in the chain."
+          }
+        },
+        {
+          "id": "express-error-handling",
+          "title": "Centralized Error Handling",
+          "content": "Express applications should use centralized error handling instead of duplicating response logic throughout controllers. Error middleware has the signature `(err, req, res, next)`.\n\nProduction systems should avoid exposing internal stack traces or secrets to clients. Errors should be logged with sufficient context while API responses contain safe information.",
+          "codeExample": {
+            "title": "Error Middleware",
+            "language": "javascript",
+            "code": "app.use((err, req, res, next) => {\n  console.error(err);\n\n  if (res.headersSent) {\n    return next(err);\n  }\n\n  res.status(err.statusCode || 500).json({\n    error: err.publicMessage || 'Internal server error'\n  });\n});",
+            "explanation": "The error middleware logs the internal error and returns a controlled response to the client."
+          },
           "callout": {
             "type": "danger",
-            "title": "Do not leak internal errors",
-            "message": "Return safe, structured error responses to clients while logging detailed diagnostic information securely on the server."
-          },
-          "codeExample": {
-            "title": "Central Error Handler",
-            "language": "javascript",
-            "code": "app.use((err, req, res, next) => {\n console.error(err);\n\n const status = err.statusCode ?? 500;\n\n res.status(status).json({\n error: {\n message: status === 500 ? 'Internal server error' : err.message\n }\n });\n});",
-            "explanation": "A centralized handler converts unexpected and application-specific errors into consistent HTTP responses."
+            "title": "Do Not Leak Internal Errors",
+            "message": "Never return database connection strings, access tokens, stack traces, or internal implementation details to untrusted clients."
           },
           "keyTakeaways": [
-            "Centralize API error handling.",
-            "Use appropriate HTTP status codes.",
-            "Do not expose sensitive implementation details to clients."
+            "Centralize API error responses.",
+            "Separate internal error details from public API messages.",
+            "Handle errors consistently across asynchronous operations."
           ],
           "interactiveQuiz": {
-            "question": "How does Express identify error-handling middleware?",
-            "options": ["It must have four parameters", "It must be async", "It must use POST", "It must be named errorHandler"],
-            "correctIndex": 0,
-            "explanation": "Express error-handling middleware uses the (err, req, res, next) signature."
-          }
-        },
-        {
-          "id": "sec-4-5",
-          "title": "API Validation and Response Design",
-          "content": "# Validation and API Contracts\n\nNever assume that incoming HTTP data is valid. Validate request bodies, query parameters, route parameters, and relevant headers before passing data into business logic.\n\nA consistent response structure makes APIs easier for frontend clients and other services to consume.\n\nValidation should reject malformed input early and return useful client-facing errors without exposing internal details.",
-          "callout": {
-            "type": "warning",
-            "title": "Validate at the boundary",
-            "message": "Treat all external input as untrusted, even when the request comes from another service or your own frontend."
-          },
-          "codeExample": {
-            "title": "Simple Boundary Validation",
-            "language": "javascript",
-            "code": "app.post('/users', (req, res) => {\n const { name, email } = req.body;\n\n if (typeof name !== 'string' || typeof email !== 'string') {\n return res.status(400).json({\n error: { message: 'name and email are required' }\n });\n }\n\n res.status(201).json({ name, email });\n});",
-            "explanation": "The handler validates the basic shape of the incoming payload before using it."
-          },
-          "keyTakeaways": [
-            "Validate external input at the API boundary.",
-            "Return predictable validation errors.",
-            "Use dedicated validation libraries for complex schemas rather than building large ad-hoc validators."
-          ],
-          "interactiveQuiz": {
-            "question": "Why should API input be validated?",
+            "question": "What distinguishes Express error-handling middleware?",
             "options": [
-              "Only to make responses slower",
-              "Because all external input should be treated as untrusted",
-              "Because HTTP requires it",
-              "Only for GET requests"
+              "It has four parameters starting with err",
+              "It has no parameters",
+              "It only accepts req",
+              "It must be called databaseMiddleware"
             ],
-            "correctIndex": 1,
-            "explanation": "Validation protects application logic from malformed or unexpected input."
+            "correctIndex": 0,
+            "explanation": "Express recognizes error middleware through the `(err, req, res, next)` signature."
           }
         }
       ]
     },
     {
-      "id": "ch-5",
-      "title": "Databases and Application Architecture",
-      "summary": "Learn how Node.js applications communicate with databases and how to organize code into maintainable layers.",
-      "estimatedMinutes": 65,
-      "mediaImages": [],
+      "id": "databases-and-persistence",
+      "title": "Databases and Data Persistence",
+      "summary": "Learn how Node.js applications communicate with databases, design data-access layers, handle MongoDB and SQL concepts, and manage transactions.",
+      "estimatedMinutes": 100,
+      "mediaImages": ["/assets/nodejs/database-integration.svg"],
       "sections": [
         {
-          "id": "sec-5-1",
-          "title": "Database Integration",
-          "content": "# Connecting Node.js to Databases\n\nNode.js applications commonly communicate with databases through database drivers or object-relational/object-document mapping libraries.\n\nThe application should manage database connections carefully. Creating a new connection for every request can be expensive and may exhaust database resources.\n\nConnection pools allow applications to reuse a controlled number of connections.",
-          "callout": {
-            "type": "tip",
-            "title": "Reuse database connections",
-            "message": "Initialize database connectivity as part of application startup and reuse the connection pool throughout the process."
-          },
+          "id": "database-connection-management",
+          "title": "Database Connections",
+          "content": "Node.js applications should manage database connections efficiently. Creating a new database connection for every request is usually expensive. Database clients commonly maintain a connection pool or reusable connection state.\n\nConnection configuration should come from environment variables or secure configuration management.",
           "codeExample": {
-            "title": "Conceptual Database Startup",
+            "title": "MongoDB Connection with Mongoose",
             "language": "javascript",
-            "code": "async function bootstrap() {\n await connectDatabase(process.env.DATABASE_URL);\n\n app.listen(3000, () => {\n console.log('Application started');\n });\n}\n\nbootstrap().catch(error => {\n console.error('Startup failed', error);\n process.exit(1);\n});",
-            "explanation": "The application establishes database connectivity before accepting requests."
+            "code": "import mongoose from 'mongoose';\n\nawait mongoose.connect(process.env.MONGODB_URI);\nconsole.log('MongoDB connected');",
+            "explanation": "The database URI is read from the environment and Mongoose establishes a reusable database connection."
           },
           "keyTakeaways": [
-            "Database connectivity is application infrastructure.",
-            "Reuse connection pools rather than creating connections per request.",
-            "Fail fast when critical startup dependencies cannot be initialized."
+            "Reuse database connections instead of reconnecting per request.",
+            "Keep credentials outside source code.",
+            "Handle connection failures and shutdowns explicitly."
           ],
           "interactiveQuiz": {
-            "question": "Why are database connection pools useful?",
-            "options": [
-              "They eliminate databases",
-              "They reuse a controlled set of connections",
-              "They convert SQL to JavaScript",
-              "They remove authentication"
-            ],
+            "question": "Where should a production MongoDB connection string normally be stored?",
+            "options": ["Hardcoded in every controller", "Environment or secret configuration", "A public frontend file", "A README"],
             "correctIndex": 1,
-            "explanation": "Connection pools improve resource management by reusing a limited number of database connections."
+            "explanation": "Database credentials should be supplied securely through environment or secret management."
           }
         },
         {
-          "id": "sec-5-2",
-          "title": "Controllers, Services, and Repositories",
-          "content": "# Layered Application Architecture\n\nAs applications grow, putting every operation inside route handlers becomes difficult to maintain.\n\nA common structure separates responsibilities into:\n\n- Routes: map HTTP requests to handlers.\n- Controllers: handle HTTP-specific concerns.\n- Services: implement business rules.\n- Repositories: handle persistence operations.\n- Infrastructure: manage external systems such as databases, queues, and APIs.\n\nThe exact structure can vary. The goal is clear responsibility boundaries rather than following a folder structure mechanically.",
-          "diagram": {
-            "type": "architecture",
-            "title": "Typical Backend Layers",
-            "code": "flowchart TB\n A[HTTP Request] --> B[Route]\n B --> C[Controller]\n C --> D[Service]\n D --> E[Repository]\n E --> F[Database]\n D --> G[External Service]"
-          },
+          "id": "mongodb-mongoose-models",
+          "title": "MongoDB and Mongoose",
+          "content": "MongoDB is a document-oriented database. Mongoose provides schemas, models, validation, middleware, and convenient querying on top of MongoDB.\n\nA schema describes document structure and a model provides an interface for interacting with a MongoDB collection.",
           "codeExample": {
-            "title": "Service Layer Example",
+            "title": "Mongoose Schema and Query",
             "language": "javascript",
-            "code": "export class UserService {\n constructor(userRepository) {\n this.userRepository = userRepository;\n }\n\n async createUser(input) {\n const existing = await this.userRepository.findByEmail(input.email);\n\n if (existing) {\n throw new Error('User already exists');\n }\n\n return this.userRepository.create(input);\n }\n}",
-            "explanation": "The service owns business logic while the repository abstracts persistence."
+            "code": "import mongoose from 'mongoose';\n\nconst userSchema = new mongoose.Schema({\n  name: { type: String, required: true },\n  email: { type: String, required: true, unique: true }\n});\n\nconst User = mongoose.model('User', userSchema);\n\nconst users = await User.find({ name: /sur/i }).lean();\nconsole.log(users);",
+            "explanation": "The schema defines user fields and the model queries matching documents. `lean()` returns plain objects instead of full Mongoose documents."
           },
           "keyTakeaways": [
-            "Separate business logic from HTTP and persistence concerns.",
-            "Use dependency injection where it improves testability.",
-            "Architecture should reduce coupling rather than simply increase the number of folders."
+            "Mongoose schemas define application-level document rules.",
+            "Indexes should support actual query patterns.",
+            "Use `lean()` when document methods and change tracking are unnecessary."
           ],
           "interactiveQuiz": {
-            "question": "Where should business rules generally live in a layered API?",
-            "options": ["Service or domain layer", "package.json", "CSS", "HTTP headers"],
+            "question": "What does a Mongoose model primarily provide?",
+            "options": ["An interface for interacting with a collection", "A frontend component", "A network socket", "A CSS stylesheet"],
             "correctIndex": 0,
-            "explanation": "Business rules are generally best kept in application or domain services rather than tightly coupled to HTTP handlers."
+            "explanation": "A Mongoose model provides methods for creating, querying, updating, and deleting documents."
           }
         },
         {
-          "id": "sec-5-3",
+          "id": "transactions-and-data-consistency",
           "title": "Transactions and Data Consistency",
-          "content": "# Transactions and Consistency\n\nSome operations involve multiple database changes that must succeed or fail together. Transactions provide atomicity for such workflows when supported by the database.\n\nA classic example is transferring money: subtracting funds from one account and adding them to another should not leave the system in a partially updated state.\n\nTransactions do not automatically solve every consistency problem. Distributed systems often require additional strategies such as idempotency, retries, outbox patterns, or compensating actions.",
+          "content": "Some operations require multiple database changes to succeed or fail together. Database transactions provide atomicity for supported workloads.\n\nTransactions should be used when consistency requirements justify their cost. They are not a substitute for good data modeling, validation, idempotency, and appropriate constraints.",
           "callout": {
             "type": "warning",
-            "title": "Retries require idempotency",
-            "message": "If an operation can be retried after a timeout, design it so repeating the same request does not accidentally perform the business action multiple times."
-          },
-          "codeExample": {
-            "title": "Conceptual Transaction",
-            "language": "javascript",
-            "code": "await db.transaction(async (tx) => {\n await accounts.debit(tx, fromAccount, amount);\n await accounts.credit(tx, toAccount, amount);\n});",
-            "explanation": "The transaction groups related database changes so the database can commit them atomically according to its transaction semantics."
+            "title": "Transactions Are Not Free",
+            "message": "Transactions can increase resource usage and contention. Use them when atomicity is genuinely required."
           },
           "keyTakeaways": [
-            "Use transactions when multiple changes must remain atomic.",
-            "Design retryable operations with idempotency in mind.",
-            "Distributed transactions require additional architectural patterns."
+            "Transactions provide atomicity across supported database operations.",
+            "Use constraints and validation alongside transactions.",
+            "Design operations to be idempotent where retries are possible."
           ],
           "interactiveQuiz": {
-            "question": "What is a major purpose of a database transaction?",
+            "question": "What is a key benefit of a database transaction?",
             "options": [
-              "To make JavaScript synchronous",
-              "To group related database changes atomically",
-              "To replace HTTP",
-              "To remove indexes"
+              "All participating operations can commit or roll back together",
+              "It always makes queries faster",
+              "It removes indexes",
+              "It eliminates validation"
             ],
-            "correctIndex": 1,
-            "explanation": "Transactions allow a group of database operations to be committed or rolled back according to database transaction semantics."
-          }
-        },
-        {
-          "id": "sec-5-4",
-          "title": "Caching",
-          "content": "# Caching in Node.js Applications\n\nCaching stores frequently accessed data so it can be returned faster and with less load on the underlying system.\n\nCommon cache layers include in-process memory caches and distributed systems such as Redis.\n\nCaching introduces consistency and invalidation problems. A stale value can be worse than no cache if correctness is critical.\n\nA good cache strategy defines the key, value, TTL, invalidation behavior, and fallback behavior.",
-          "callout": {
-            "type": "warning",
-            "title": "Cache invalidation is part of the design",
-            "message": "Do not add a cache without deciding when cached values become stale and how they are refreshed or invalidated."
-          },
-          "codeExample": {
-            "title": "Simple In-Memory Cache",
-            "language": "javascript",
-            "code": "const cache = new Map();\n\nfunction getCached(key) {\n return cache.get(key);\n}\n\nfunction setCached(key, value) {\n cache.set(key, value);\n}",
-            "explanation": "A Map can provide a basic in-process cache, but production caches often need TTLs, size limits, eviction, and distributed coordination."
-          },
-          "keyTakeaways": [
-            "Caching can reduce latency and backend load.",
-            "In-process caches are local to a single Node.js process.",
-            "Distributed caches are useful when multiple application instances need shared cached state."
-          ],
-          "interactiveQuiz": {
-            "question": "What is a major drawback of an in-memory cache in a multi-instance deployment?",
-            "options": ["It cannot store strings", "Each process has its own cache", "It always requires Redis", "It disables HTTP"],
-            "correctIndex": 1,
-            "explanation": "Each Node.js process has separate memory, so its in-process cache is not automatically shared with other instances."
+            "correctIndex": 0,
+            "explanation": "Transactions allow related operations to succeed or fail as a unit."
           }
         }
       ]
     },
     {
-      "id": "ch-6",
-      "title": "Authentication and Security",
-      "summary": "Secure Node.js APIs with authentication, authorization, password hashing, secure cookies, validation, rate limiting, and safe configuration.",
-      "estimatedMinutes": 70,
-      "mediaImages": [],
+      "id": "authentication-authorization-security",
+      "title": "Authentication, Authorization, and Security",
+      "summary": "Implement secure authentication, authorization, password handling, JWT-based APIs, cookies, CSRF protection, input validation, and security best practices.",
+      "estimatedMinutes": 110,
+      "mediaImages": ["/assets/nodejs/security-architecture.svg"],
       "sections": [
         {
-          "id": "sec-6-1",
+          "id": "authentication-vs-authorization",
           "title": "Authentication vs Authorization",
-          "content": "# Authentication and Authorization\n\nAuthentication answers who are you? Authorization answers what are you allowed to do?\n\nAn API may authenticate a user using a session, access token, API key, or another mechanism. Authorization then checks permissions, roles, ownership, or policies before allowing the requested operation.\n\nKeeping these concerns separate makes security rules easier to reason about.",
+          "content": "Authentication answers the question 'Who are you?' Authorization answers 'What are you allowed to do?'.\n\nA secure API commonly authenticates a user and then checks whether that identity has permission to perform a particular operation. These concerns should be modeled separately even when implemented within the same middleware pipeline.",
           "diagram": {
             "type": "flowchart",
             "title": "Authentication and Authorization",
-            "code": "flowchart LR\n A[Request] --> B[Authenticate]\n B --> C{Identity Valid?}\n C -->|No| D[401 Unauthorized]\n C -->|Yes| E[Authorize]\n E --> F{Permission?}\n F -->|No| G[403 Forbidden]\n F -->|Yes| H[Controller]"
-          },
-          "codeExample": {
-            "title": "Authorization Middleware",
-            "language": "javascript",
-            "code": "function requireRole(role) {\n return (req, res, next) => {\n if (!req.user || req.user.role !== role) {\n return res.status(403).json({\n error: { message: 'Forbidden' }\n });\n }\n\n next();\n };\n}",
-            "explanation": "Authentication can populate req.user, while authorization middleware checks whether that identity has the required permission."
+            "code": "flowchart LR\n    A[Request] --> B[Authenticate Identity]\n    B --> C{Authenticated?}\n    C -->|No| D[401 Unauthorized]\n    C -->|Yes| E[Authorize Permission]\n    E --> F{Allowed?}\n    F -->|No| G[403 Forbidden]\n    F -->|Yes| H[Controller]"
           },
           "keyTakeaways": [
             "Authentication establishes identity.",
-            "Authorization evaluates permissions.",
-            "A successfully authenticated user is not automatically authorized for every resource."
+            "Authorization determines permissions.",
+            "A valid identity does not automatically have access to every resource."
           ],
           "interactiveQuiz": {
-            "question": "What does authorization determine?",
-            "options": [
-              "Who the user is",
-              "What the authenticated user is allowed to access",
-              "Whether Node.js is installed",
-              "Whether a database exists"
-            ],
-            "correctIndex": 1,
-            "explanation": "Authorization determines which operations or resources an authenticated identity may access."
-          }
-        },
-        {
-          "id": "sec-6-2",
-          "title": "Passwords and Secure Credentials",
-          "content": "# Password Security\n\nNever store user passwords as plaintext. Passwords should be processed with a password hashing algorithm designed to resist offline attacks, such as Argon2 or bcrypt.\n\nPasswords should be verified against the stored hash rather than decrypted because secure password hashing is intentionally one-way.\n\nSecrets such as database credentials and signing keys also require careful storage and access control.",
-          "callout": {
-            "type": "danger",
-            "title": "Never log passwords",
-            "message": "Do not log passwords, password hashes, reset tokens, access tokens, or authentication cookies."
-          },
-          "codeExample": {
-            "title": "Password Hashing with Node Crypto",
-            "language": "javascript",
-            "code": "import { randomBytes, scrypt, timingSafeEqual } from 'node:crypto';\nimport { promisify } from 'node:util';\n\nconst scryptAsync = promisify(scrypt);\n\nasync function hashPassword(password) {\n const salt = randomBytes(16);\n const derivedKey = await scryptAsync(password, salt, 64);\n\n return ${salt.toString('hex')}:${Buffer.from(derivedKey).toString('hex')};\n}\n\nasync function verifyPassword(password, stored) {\n const [saltHex, hashHex] = stored.split(':');\n const derivedKey = await scryptAsync(password, Buffer.from(saltHex, 'hex'), 64);\n return timingSafeEqual(Buffer.from(hashHex, 'hex'), Buffer.from(derivedKey));\n}",
-            "explanation": "Node's crypto APIs can implement password hashing using a salt and a memory-hard key derivation function. Production systems should use a well-reviewed password hashing library and carefully chosen parameters."
-          },
-          "keyTakeaways": [
-            "Passwords must never be stored in plaintext.",
-            "Use a password hashing algorithm rather than reversible encryption.",
-            "Protect authentication secrets and never log credentials."
-          ],
-          "interactiveQuiz": {
-            "question": "Why are passwords hashed instead of encrypted for storage?",
-            "options": [
-              "Hashes are designed to be one-way",
-              "Hashes are always shorter",
-              "Encryption cannot use keys",
-              "Passwords do not need protection"
-            ],
+            "question": "Which concept determines whether an authenticated user may perform an operation?",
+            "options": ["Authorization", "Serialization", "Compression", "Routing"],
             "correctIndex": 0,
-            "explanation": "Password hashing is intentionally one-way, allowing verification without storing a recoverable plaintext password."
+            "explanation": "Authorization evaluates permissions after identity has been established."
           }
         },
         {
-          "id": "sec-6-3",
-          "title": "JWT and Session-Based Authentication",
-          "content": "# Tokens and Sessions\n\nTwo common authentication approaches are server-side sessions and stateless access tokens such as JWTs.\n\nWith sessions, the server maintains session state and gives the client a session identifier. With JWTs, the token itself contains claims that can be validated cryptographically.\n\nJWTs are not automatically more secure or more scalable. Token lifetime, storage, revocation, rotation, signing algorithms, and transport security all matter.\n\nFor browser applications, secure, appropriately configured cookies are often preferable to storing sensitive authentication tokens in JavaScript-accessible storage.",
-          "callout": {
-            "type": "warning",
-            "title": "HTTPS is mandatory for production authentication",
-            "message": "Authentication credentials and session cookies should be transported over HTTPS. Configure cookies with appropriate Secure, HttpOnly, SameSite, and domain/path settings."
-          },
+          "id": "password-hashing-and-jwt",
+          "title": "Password Hashing and JWT Authentication",
+          "content": "Passwords should never be stored as plaintext. Password hashing algorithms such as Argon2 or bcrypt are designed to make password guessing computationally expensive.\n\nJSON Web Tokens can carry signed claims between systems. A JWT can be useful for stateless API authentication, but token storage, expiration, rotation, revocation, audience validation, and signing-key management must be designed carefully.",
           "codeExample": {
-            "title": "Setting a Secure Session Cookie",
+            "title": "JWT Verification Concept",
             "language": "javascript",
-            "code": "res.cookie('session', sessionId, {\n httpOnly: true,\n secure: true,\n sameSite: 'lax',\n maxAge: 60 * 60 * 1000\n});",
-            "explanation": "An HttpOnly cookie prevents normal client-side JavaScript from reading the cookie. Secure restricts transmission to HTTPS."
+            "code": "import jwt from 'jsonwebtoken';\n\nfunction authenticate(req, res, next) {\n  const token = req.headers.authorization?.replace('Bearer ', '');\n\n  if (!token) {\n    return res.status(401).json({ error: 'Missing token' });\n  }\n\n  try {\n    req.user = jwt.verify(token, process.env.JWT_SECRET);\n    next();\n  } catch {\n    res.status(401).json({ error: 'Invalid token' });\n  }\n}",
+            "explanation": "The middleware extracts a Bearer token and verifies its signature before allowing the request to continue."
           },
-          "keyTakeaways": [
-            "Sessions and JWTs have different state-management characteristics.",
-            "Authentication tokens need explicit expiration and lifecycle strategies.",
-            "Use secure cookie attributes when cookies carry authentication state."
-          ],
-          "interactiveQuiz": {
-            "question": "What does HttpOnly primarily prevent?",
-            "options": [
-              "The browser sending the cookie",
-              "Client-side JavaScript from reading the cookie",
-              "HTTPS encryption",
-              "The server receiving the cookie"
-            ],
-            "correctIndex": 1,
-            "explanation": "The HttpOnly attribute prevents JavaScript APIs such as document.cookie from accessing that cookie."
-          }
-        },
-        {
-          "id": "sec-6-4",
-          "title": "Common API Security Practices",
-          "content": "# Securing Node.js APIs\n\nSecurity should be addressed at multiple layers.\n\nImportant practices include validating input, limiting request rates, using HTTPS, configuring CORS deliberately, protecting cookies, preventing injection attacks through parameterized queries, controlling authorization, and keeping dependencies updated.\n\nSecurity headers can reduce certain browser-based risks. Avoid exposing stack traces and internal configuration through API responses.\n\nDependency security is also important because a vulnerable package can compromise an otherwise well-designed application.",
           "callout": {
             "type": "danger",
-            "title": "CORS is not authentication",
-            "message": "CORS controls which browsers may make certain cross-origin requests. It does not prevent non-browser clients from calling your API and should never be treated as an authorization mechanism."
-          },
-          "codeExample": {
-            "title": "Basic Security-Oriented Middleware",
-            "language": "javascript",
-            "code": "app.disable('x-powered-by');\n\napp.use((req, res, next) => {\n res.setHeader('X-Content-Type-Options', 'nosniff');\n next();\n});",
-            "explanation": "Removing unnecessary framework identification and setting defensive headers are examples of reducing avoidable exposure."
+            "title": "Never Trust JWT Claims Blindly",
+            "message": "Always verify the signature and validate relevant claims such as issuer, audience, expiration, and intended use."
           },
           "keyTakeaways": [
-            "Validate and constrain all external input.",
-            "CORS is not an authentication or authorization mechanism.",
-            "Keep dependencies patched and monitor security advisories.",
-            "Use layered defenses rather than relying on one security feature."
+            "Never store plaintext passwords.",
+            "JWT verification must validate both the signature and security-relevant claims.",
+            "Short-lived access tokens and controlled refresh-token strategies reduce risk."
           ],
           "interactiveQuiz": {
-            "question": "What is CORS primarily concerned with?",
-            "options": ["Database encryption", "Browser cross-origin request policies", "Password hashing", "JWT signing"],
-            "correctIndex": 1,
-            "explanation": "CORS defines browser rules for cross-origin requests and responses."
-          }
-        }
-      ]
-    },
-    {
-      "id": "ch-7",
-      "title": "Testing, Debugging, and Observability",
-      "summary": "Test Node.js applications at multiple levels and build practical logging, diagnostics, and debugging workflows.",
-      "estimatedMinutes": 65,
-      "mediaImages": [],
-      "sections": [
-        {
-          "id": "sec-7-1",
-          "title": "Unit, Integration, and End-to-End Tests",
-          "content": "# Testing Node.js Applications\n\nTesting can be divided into multiple levels.\n\nUnit tests verify small pieces of logic in isolation. Integration tests verify interactions between components such as services and databases. End-to-end tests verify complete user or API workflows.\n\nA healthy test suite balances speed and confidence. Not every function requires a unit test if a higher-level integration test provides better value.",
-          "callout": {
-            "type": "tip",
-            "title": "Test behavior, not implementation",
-            "message": "Tests are more resilient when they verify observable behavior and business outcomes rather than private implementation details."
-          },
-          "codeExample": {
-            "title": "Node.js Test Runner",
-            "language": "javascript",
-            "code": "import test from 'node:test';\nimport assert from 'node:assert/strict';\n\nfunction add(a, b) {\n return a + b;\n}\n\ntest('add returns the sum', () => {\n assert.equal(add(2, 3), 5);\n});",
-            "explanation": "Modern Node.js includes a built-in test runner that can execute tests without requiring an external framework."
-          },
-          "keyTakeaways": [
-            "Unit tests focus on small pieces of behavior.",
-            "Integration tests verify component interactions.",
-            "End-to-end tests verify complete workflows.",
-            "Prefer behavior-focused assertions."
-          ],
-          "interactiveQuiz": {
-            "question": "What does an integration test primarily verify?",
-            "options": ["Only one pure function", "Interactions between multiple components", "CSS colors", "Package versions"],
-            "correctIndex": 1,
-            "explanation": "Integration tests verify that multiple components work together correctly."
-          }
-        },
-        {
-          "id": "sec-7-2",
-          "title": "Logging",
-          "content": "# Production Logging\n\nLogs help explain what an application was doing when something went wrong.\n\nUseful structured logs commonly include a timestamp, severity, service name, request ID, operation name, and relevant non-sensitive context.\n\nAvoid logging passwords, access tokens, cookies, authorization headers, personal secrets, or unnecessarily sensitive user data.\n\nStructured JSON logs are convenient for centralized log platforms because fields can be indexed and queried.",
-          "callout": {
-            "type": "danger",
-            "title": "Logs can become a security boundary",
-            "message": "Treat logs as sensitive operational data. Redact credentials and personal information before writing them."
-          },
-          "codeExample": {
-            "title": "Structured Logging",
-            "language": "javascript",
-            "code": "function log(level, message, context = {}) {\n console.log(JSON.stringify({\n timestamp: new Date().toISOString(),\n level,\n message,\n ...context\n }));\n}\n\nlog('info', 'Request completed', {\n requestId: 'req-123',\n statusCode: 200\n});",
-            "explanation": "Structured logs make operational data easier to process and search."
-          },
-          "keyTakeaways": [
-            "Use structured logs for production services.",
-            "Include correlation identifiers such as request IDs.",
-            "Redact credentials and sensitive information."
-          ],
-          "interactiveQuiz": {
-            "question": "Which value should generally NOT be written to application logs?",
-            "options": ["Request ID", "HTTP status", "Password", "Operation name"],
+            "question": "How should user passwords be stored?",
+            "options": ["Plaintext", "Reversible Base64", "A secure password hash", "Inside JWT payloads"],
             "correctIndex": 2,
-            "explanation": "Passwords are highly sensitive and should never be logged."
+            "explanation": "Passwords should be stored using a strong password hashing algorithm with appropriate parameters."
           }
         },
         {
-          "id": "sec-7-3",
-          "title": "Debugging Node.js Applications",
-          "content": "# Debugging\n\nNode.js supports debugging through the V8 Inspector. You can launch an application with the inspector enabled and connect compatible developer tools.\n\nBreakpoints, call stacks, variable inspection, profiling, and heap analysis can help identify both correctness and performance problems.\n\nFor production issues, combine logs, metrics, traces, and reproducible test cases rather than relying exclusively on interactive debugging.",
-          "codeExample": {
-            "title": "Start Node Inspector",
-            "language": "bash",
-            "code": "node --inspect app.js",
-            "explanation": "The --inspect option enables the Node.js inspector protocol for debugging."
-          },
+          "id": "nodejs-web-security",
+          "title": "Common Web Security Risks",
+          "content": "Node.js APIs must defend against common web vulnerabilities including injection, broken access control, cross-site scripting, CSRF, insecure deserialization, credential leakage, and denial-of-service conditions.\n\nValidate input at trust boundaries, use parameterized database operations, enforce authorization server-side, apply rate limits where appropriate, configure secure cookies, and use HTTPS in production.",
           "keyTakeaways": [
-            "The Node.js inspector supports interactive debugging and profiling.",
-            "Breakpoints are useful for understanding control flow and state.",
-            "Production debugging should combine logs, metrics, traces, and diagnostics."
+            "Treat every client input as untrusted.",
+            "Authorization must be enforced on the server.",
+            "Security headers, rate limiting, input validation, and secure secret handling are essential production practices."
           ],
           "interactiveQuiz": {
-            "question": "Which Node.js option enables the inspector?",
-            "options": ["--debug-only", "--inspect", "--browser", "--trace-browser"],
+            "question": "Where should authorization checks ultimately be enforced?",
+            "options": ["Only in the frontend", "On the server", "Only in CSS", "Only in browser localStorage"],
             "correctIndex": 1,
-            "explanation": "node --inspect app.js enables the Node.js inspector."
-          }
-        },
-        {
-          "id": "sec-7-4",
-          "title": "Health Checks and Observability",
-          "content": "# Health Checks and Observability\n\nProduction services commonly expose health endpoints used by load balancers and orchestration platforms.\n\nA liveness check asks whether the process is running. A readiness check asks whether the service is ready to receive traffic, which may require dependencies such as databases or queues to be available.\n\nObservability usually combines logs, metrics, and distributed traces to understand system behavior.",
-          "diagram": {
-            "type": "architecture",
-            "title": "Service Observability",
-            "code": "flowchart LR\n A[Node.js Service] --> B[Logs]\n A --> C[Metrics]\n A --> D[Traces]\n B --> E[Observability Platform]\n C --> E\n D --> E"
-          },
-          "codeExample": {
-            "title": "Health Endpoint",
-            "language": "javascript",
-            "code": "app.get('/health/live', (req, res) => {\n res.status(200).json({ status: 'ok' });\n});\n\napp.get('/health/ready', async (req, res) => {\n const databaseReady = await isDatabaseReady();\n res.status(databaseReady ? 200 : 503).json({\n status: databaseReady ? 'ready' : 'not-ready'\n });\n});",
-            "explanation": "Separating liveness and readiness allows orchestration systems to distinguish a running process from a service that is ready to handle traffic."
-          },
-          "keyTakeaways": [
-            "Liveness and readiness answer different operational questions.",
-            "Health checks should be lightweight and reliable.",
-            "Logs, metrics, and traces provide complementary observability."
-          ],
-          "interactiveQuiz": {
-            "question": "What does a readiness check typically indicate?",
-            "options": [
-              "Whether JavaScript syntax is valid",
-              "Whether the service can safely receive traffic",
-              "Whether the source code is public",
-              "Whether the browser is open"
-            ],
-            "correctIndex": 1,
-            "explanation": "Readiness indicates whether the application is prepared to handle traffic."
+            "explanation": "The server must enforce authorization because frontend controls can be bypassed."
           }
         }
       ]
     },
     {
-      "id": "ch-8",
-      "title": "Performance, Scalability, and Production",
-      "summary": "Learn how to make Node.js services faster, scale them horizontally, handle CPU-intensive work, and operate them reliably in production.",
-      "estimatedMinutes": 80,
-      "mediaImages": [],
+      "id": "advanced-nodejs-concurrency",
+      "title": "Advanced Concurrency and Parallelism",
+      "summary": "Explore worker threads, child processes, clustering, CPU-bound workloads, concurrency control, and graceful process management.",
+      "estimatedMinutes": 100,
+      "mediaImages": ["/assets/nodejs/concurrency.svg"],
       "sections": [
         {
-          "id": "sec-8-1",
-          "title": "Avoiding Event Loop Blocking",
-          "content": "# Event Loop Performance\n\nNode.js performs best when individual JavaScript operations complete quickly enough to keep the event loop responsive.\n\nCPU-heavy algorithms, huge synchronous JSON operations, synchronous filesystem access, inefficient regular expressions, and accidental infinite loops can block other requests.\n\nFor expensive CPU work, consider worker threads, separate worker processes, queues, or moving computation to another service.",
-          "callout": {
-            "type": "danger",
-            "title": "One blocked event loop affects many requests",
-            "message": "A single long-running synchronous operation can delay unrelated requests handled by the same Node.js process."
-          },
-          "codeExample": {
-            "title": "Avoid Heavy Synchronous Work",
-            "language": "javascript",
-            "code": "app.get('/report', async (req, res) => {\n const report = await generateReportAsync();\n res.json(report);\n});",
-            "explanation": "The important design principle is to avoid performing expensive synchronous computation directly inside the request handler."
-          },
-          "keyTakeaways": [
-            "Keep event-loop tasks short.",
-            "Avoid expensive synchronous operations in request handlers.",
-            "Move CPU-heavy work to worker threads, processes, queues, or specialized services."
-          ],
-          "interactiveQuiz": {
-            "question": "What is a major effect of blocking the event loop?",
-            "options": [
-              "Only the current variable changes",
-              "Other work in the same process can be delayed",
-              "The database automatically restarts",
-              "HTTP becomes UDP"
-            ],
-            "correctIndex": 1,
-            "explanation": "Long synchronous work prevents the event loop from processing other callbacks efficiently."
-          }
-        },
-        {
-          "id": "sec-8-2",
+          "id": "worker-threads",
           "title": "Worker Threads",
-          "content": "# Worker Threads\n\nThe worker_threads module allows JavaScript to execute CPU-intensive work in separate threads.\n\nWorker threads are useful when computation itself is the bottleneck. They are generally unnecessary for ordinary asynchronous I/O because Node.js already handles many I/O operations efficiently.\n\nWorker communication uses message passing, which creates overhead. Use workers when the computational benefit justifies that overhead.",
+          "content": "Worker Threads allow JavaScript execution to occur in separate threads. They are useful for CPU-intensive work that would otherwise block the event loop.\n\nWorkers communicate through message passing and can optionally share memory through `SharedArrayBuffer` and synchronization primitives.",
           "codeExample": {
-            "title": "Simple Worker Thread",
+            "title": "Basic Worker Thread",
             "language": "javascript",
-            "code": "import { Worker } from 'node:worker_threads';\n\nconst worker = new Worker('./worker.js', {\n workerData: { input: 100000 }\n});\n\nworker.on('message', result => {\n console.log('Result:', result);\n});\n\nworker.on('error', error => {\n console.error('Worker failed:', error);\n});",
-            "explanation": "A worker executes JavaScript independently from the main event-loop thread and communicates results through messages."
+            "code": "import { Worker, isMainThread, parentPort } from 'node:worker_threads';\n\nif (isMainThread) {\n  const worker = new Worker(new URL(import.meta.url));\n  worker.on('message', console.log);\n  worker.postMessage(10);\n} else {\n  parentPort.on('message', (value) => {\n    parentPort.postMessage(value * value);\n  });\n}",
+            "explanation": "The main thread creates a worker and sends it data. The worker performs CPU work and sends the result back."
           },
           "keyTakeaways": [
-            "Worker threads are intended for CPU-intensive JavaScript work.",
-            "They do not replace normal asynchronous I/O patterns.",
-            "Message passing introduces overhead, so workers should be used deliberately."
+            "Worker Threads are useful for CPU-intensive JavaScript.",
+            "Workers prevent CPU-heavy calculations from monopolizing the main event loop.",
+            "Worker creation and communication have overhead, so workloads should justify their use."
           ],
           "interactiveQuiz": {
-            "question": "When are worker threads most useful?",
+            "question": "When are Worker Threads most useful?",
             "options": [
-              "For every database query",
-              "For CPU-intensive JavaScript computation",
-              "For setting HTTP headers",
-              "For installing npm packages"
-            ],
-            "correctIndex": 1,
-            "explanation": "Worker threads allow CPU-intensive JavaScript computation to run away from the main event-loop thread."
-          }
-        },
-        {
-          "id": "sec-8-3",
-          "title": "Horizontal Scaling and Clustering",
-          "content": "# Scaling Node.js Applications\n\nA single Node.js process has finite CPU and memory capacity. Production applications can run multiple instances behind a load balancer.\n\nHorizontal scaling increases capacity by adding application instances. It also improves resilience when instances are independently replaceable.\n\nWhen scaling horizontally, avoid relying on process-local state for information that must be shared across instances. Use shared databases, caches, queues, or other distributed infrastructure where appropriate.",
-          "diagram": {
-            "type": "architecture",
-            "title": "Horizontally Scaled Node.js API",
-            "code": "flowchart TB\n A[Client] --> B[Load Balancer]\n B --> C[Node Instance 1]\n B --> D[Node Instance 2]\n B --> E[Node Instance 3]\n C --> F[(Shared Database)]\n D --> F\n E --> F\n C --> G[(Shared Cache)]\n D --> G\n E --> G"
-          },
-          "codeExample": {
-            "title": "Stateless Request Handling",
-            "language": "javascript",
-            "code": "app.get('/profile', async (req, res) => {\n const user = await userRepository.findById(req.user.id);\n res.json(user);\n});",
-            "explanation": "The request does not depend on memory stored in one specific process, making it easier to distribute requests across multiple instances."
-          },
-          "keyTakeaways": [
-            "Horizontal scaling runs multiple application instances.",
-            "Shared state should live in appropriate shared infrastructure.",
-            "Stateless services are easier to load balance and replace."
-          ],
-          "interactiveQuiz": {
-            "question": "Why can process-local state become a problem when scaling horizontally?",
-            "options": [
-              "Each instance has separate memory",
-              "HTTP stops working",
-              "JavaScript becomes invalid",
-              "Databases cannot be shared"
+              "CPU-intensive JavaScript work",
+              "Simple string concatenation",
+              "Static CSS serving",
+              "Reading one small environment variable"
             ],
             "correctIndex": 0,
-            "explanation": "Each Node.js process has its own memory, so local state is not automatically synchronized across instances."
+            "explanation": "Worker Threads allow CPU-intensive JavaScript to execute outside the main event-loop thread."
           }
         },
         {
-          "id": "sec-8-4",
-          "title": "Graceful Shutdown",
-          "content": "# Graceful Shutdown\n\nProduction services should handle shutdown signals gracefully.\n\nWhen a process receives a termination signal, it should stop accepting new work, allow in-flight requests to finish when possible, close database connections and other resources, and then exit.\n\nGraceful shutdown is particularly important in containers and orchestrated environments where instances are routinely replaced during deployments and scaling.",
-          "callout": {
-            "type": "tip",
-            "title": "Design shutdown as part of the application",
-            "message": "A reliable service should have an explicit lifecycle: initialize dependencies, serve traffic, stop accepting traffic, close resources, and terminate."
+          "id": "child-processes-and-cluster",
+          "title": "Child Processes and Cluster",
+          "content": "Node.js can create child processes to execute other programs or isolate work. The `cluster` module can create multiple Node.js processes that share a server port, allowing applications to utilize multiple CPU cores.\n\nModern production deployments frequently use external process managers or container orchestration instead of relying exclusively on Node's built-in clustering features.",
+          "codeExample": {
+            "title": "Running a Child Process",
+            "language": "javascript",
+            "code": "import { execFile } from 'node:child_process';\n\nexecFile('node', ['--version'], (error, stdout, stderr) => {\n  if (error) {\n    console.error(error);\n    return;\n  }\n\n  console.log(stdout.trim());\n});",
+            "explanation": "`execFile()` runs an executable with an argument array, avoiding the shell parsing behavior of `exec()`."
           },
+          "keyTakeaways": [
+            "Child processes provide process-level isolation and can execute external programs.",
+            "Cluster uses multiple Node.js processes rather than multiple JavaScript threads.",
+            "Production architecture should consider containers and orchestration as well."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a key distinction between Worker Threads and cluster processes?",
+            "options": [
+              "Workers use threads while cluster uses separate processes",
+              "Workers are databases",
+              "Cluster runs only in browsers",
+              "There is no distinction"
+            ],
+            "correctIndex": 0,
+            "explanation": "Worker Threads run JavaScript in separate threads, while cluster creates separate Node.js processes."
+          }
+        },
+        {
+          "id": "graceful-shutdown-and-process-signals",
+          "title": "Graceful Shutdown",
+          "content": "Production Node.js services should handle shutdown signals such as `SIGTERM`. Graceful shutdown means stopping new work, allowing active requests to finish when appropriate, closing database connections, stopping consumers, and then exiting.\n\nThis is especially important in containerized environments where orchestration systems terminate processes during deployments and scaling operations.",
           "codeExample": {
             "title": "Graceful HTTP Shutdown",
             "language": "javascript",
-            "code": "const server = app.listen(3000);\n\nasync function shutdown(signal) {\n console.log(Received ${signal});\n\n server.close(async () => {\n await closeDatabase();\n console.log('Shutdown complete');\n process.exit(0);\n });\n}\n\nprocess.on('SIGTERM', () => shutdown('SIGTERM'));\nprocess.on('SIGINT', () => shutdown('SIGINT'));",
-            "explanation": "server.close() stops accepting new connections while allowing existing connections to close according to the server's shutdown behavior."
+            "code": "const server = app.listen(3000);\n\nprocess.on('SIGTERM', async () => {\n  console.log('Shutdown started');\n\n  server.close(async () => {\n    await database.close();\n    process.exit(0);\n  });\n});",
+            "explanation": "The process stops accepting new connections, closes the HTTP server, releases resources, and exits."
           },
           "keyTakeaways": [
-            "Handle termination signals explicitly.",
-            "Stop accepting new work before closing critical resources.",
-            "Graceful shutdown improves deployment reliability and prevents unnecessary request failures."
+            "Handle termination signals explicitly in production services.",
+            "Close external resources during shutdown.",
+            "Graceful shutdown prevents dropped work and connection leaks."
           ],
           "interactiveQuiz": {
-            "question": "What is the main purpose of graceful shutdown?",
+            "question": "Which signal is commonly used by container orchestrators to request graceful termination?",
+            "options": ["SIGTERM", "SIGHTML", "SIGNODE", "SIGHTTP"],
+            "correctIndex": 0,
+            "explanation": "SIGTERM is commonly used to request a process to terminate gracefully."
+          }
+        }
+      ]
+    },
+    {
+      "id": "caching-queues-and-real-time",
+      "title": "Caching, Queues, and Real-Time Systems",
+      "summary": "Learn Redis caching, background jobs, message queues, WebSockets, Socket.IO concepts, and event-driven architectures.",
+      "estimatedMinutes": 100,
+      "mediaImages": ["/assets/nodejs/queues-and-realtime.svg"],
+      "sections": [
+        {
+          "id": "redis-caching",
+          "title": "Caching with Redis",
+          "content": "Caching reduces latency and database load by storing frequently accessed data in a fast key-value store. Redis is commonly used for application caching, distributed locks, counters, sessions, rate limiting, and ephemeral data.\n\nA cache strategy must define expiration, invalidation, consistency expectations, and behavior when the cache is unavailable.",
+          "codeExample": {
+            "title": "Cache-Aside Pattern",
+            "language": "javascript",
+            "code": "const cached = await redis.get(`user:${id}`);\n\nif (cached) {\n  return JSON.parse(cached);\n}\n\nconst user = await User.findById(id).lean();\nawait redis.set(`user:${id}`, JSON.stringify(user), { EX: 300 });\n\nreturn user;",
+            "explanation": "The application first checks the cache and queries the database only when the value is missing."
+          },
+          "keyTakeaways": [
+            "Caching is a trade-off between performance and consistency.",
+            "Every cache should have an invalidation or expiration strategy.",
+            "The application should define what happens when the cache is unavailable."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the cache-aside pattern?",
             "options": [
-              "Increase CSS performance",
-              "Allow a service to stop without unnecessarily abandoning active work",
-              "Delete the database",
-              "Disable HTTP permanently"
+              "Read cache first, then load and populate it on a miss",
+              "Always bypass the database",
+              "Write only to cache forever",
+              "Delete the database after caching"
             ],
-            "correctIndex": 1,
-            "explanation": "Graceful shutdown coordinates stopping traffic and closing resources so active work can complete safely."
+            "correctIndex": 0,
+            "explanation": "Cache-aside loads data from the database after a cache miss and then stores it in the cache."
           }
         },
         {
-          "id": "sec-8-5",
-          "title": "Production Deployment Checklist",
-          "content": "# Production Readiness\n\nBefore deploying a Node.js service, verify the application has appropriate configuration, security controls, observability, resource limits, dependency management, and failure handling.\n\n### Practical Checklist\n\n- Use environment-specific configuration.\n- Never hard-code secrets.\n- Run behind HTTPS or a trusted TLS-terminating proxy.\n- Validate incoming data.\n- Configure authentication and authorization correctly.\n- Add structured logging and request IDs.\n- Add liveness and readiness checks.\n- Handle graceful shutdown.\n- Set appropriate timeouts.\n- Monitor memory and CPU usage.\n- Keep dependencies updated.\n- Use automated tests and CI/CD.\n- Configure database connection limits.\n- Avoid unbounded queues and caches.\n- Use rate limiting where appropriate.\n- Design retries with backoff and idempotency.",
-          "callout": {
-            "type": "info",
-            "title": "Production is more than code",
-            "message": "A backend is production-ready only when its runtime behavior, security, observability, deployment process, dependencies, and failure modes have been considered."
-          },
-          "codeExample": {
-            "title": "Production-Oriented Startup",
-            "language": "javascript",
-            "code": "async function bootstrap() {\n await loadConfiguration();\n await connectDatabase();\n await initializeDependencies();\n\n const server = app.listen(process.env.PORT ?? 3000);\n\n registerShutdownHandlers(server);\n}\n\nbootstrap().catch(error => {\n console.error('Fatal startup error', error);\n process.exit(1);\n});",
-            "explanation": "A structured bootstrap sequence makes dependency initialization and startup failures explicit."
+          "id": "message-queues-and-background-jobs",
+          "title": "Message Queues and Background Jobs",
+          "content": "Queues move slow or retryable work out of synchronous HTTP requests. Typical background jobs include sending emails, processing images, generating reports, consuming events, and integrating with third-party APIs.\n\nA queue-based architecture improves responsiveness and provides controlled retries, concurrency, and failure handling.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Queue-Based Architecture",
+            "code": "flowchart LR\n    A[API Server] --> B[Message Queue]\n    B --> C[Worker 1]\n    B --> D[Worker 2]\n    C --> E[External API]\n    D --> F[(Database)]"
           },
           "keyTakeaways": [
-            "Production readiness includes security, reliability, observability, and operations.",
-            "Applications should fail clearly when critical startup dependencies are unavailable.",
-            "Graceful shutdown, health checks, logging, and configuration are core production concerns."
+            "Queues decouple request handling from asynchronous background work.",
+            "Workers should be idempotent when retries are possible.",
+            "Dead-letter or failure handling is important for permanently failing jobs."
           ],
           "interactiveQuiz": {
-            "question": "Which is an important production concern for a Node.js API?",
+            "question": "Why use a background queue for email delivery?",
             "options": [
-              "Only writing route handlers",
-              "Only choosing a frontend framework",
-              "Security, observability, graceful shutdown, and failure handling",
-              "Avoiding environment variables"
+              "To avoid making the HTTP request wait for email delivery",
+              "To make passwords visible",
+              "To remove all retries",
+              "To eliminate databases"
             ],
+            "correctIndex": 0,
+            "explanation": "Email delivery can be slow or unreliable, so moving it to a worker improves API responsiveness."
+          }
+        },
+        {
+          "id": "websockets-and-socketio",
+          "title": "WebSockets and Real-Time Communication",
+          "content": "WebSockets provide a persistent, bidirectional connection between a client and server. They are useful for chat, live notifications, dashboards, multiplayer applications, and collaborative experiences.\n\nSocket.IO builds higher-level features around real-time communication, including rooms, events, reconnection behavior, and adapters for distributed deployments.",
+          "codeExample": {
+            "title": "Simple Socket.IO Server",
+            "language": "javascript",
+            "code": "import { Server } from 'socket.io';\n\nconst io = new Server(httpServer, {\n  cors: { origin: '[https://example.com](https://example.com)' }\n});\n\nio.on('connection', (socket) => {\n  socket.on('message', (message) => {\n    io.emit('message', message);\n  });\n});",
+            "explanation": "The server listens for connections and broadcasts received messages to connected clients."
+          },
+          "keyTakeaways": [
+            "WebSockets enable bidirectional real-time communication.",
+            "Distributed Socket.IO deployments need an appropriate adapter or shared infrastructure.",
+            "Authentication and authorization also apply to socket connections."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a key characteristic of WebSockets?",
+            "options": [
+              "Persistent bidirectional communication",
+              "One-time HTML rendering only",
+              "Database-only communication",
+              "File-system-only communication"
+            ],
+            "correctIndex": 0,
+            "explanation": "WebSockets maintain a connection through which both client and server can send messages."
+          }
+        }
+      ]
+    },
+    {
+      "id": "testing-debugging-and-observability",
+      "title": "Testing, Debugging, Logging, and Observability",
+      "summary": "Build reliable Node.js applications with unit tests, integration tests, debugging, structured logging, metrics, traces, and health checks.",
+      "estimatedMinutes": 105,
+      "mediaImages": ["/assets/nodejs/testing-observability.svg"],
+      "sections": [
+        {
+          "id": "unit-and-integration-testing",
+          "title": "Unit and Integration Testing",
+          "content": "Unit tests verify small pieces of logic in isolation. Integration tests verify interactions between components such as APIs, databases, queues, and external services.\n\nA good test suite balances speed, coverage, and confidence. Not every line requires a unit test; important business behavior and integration boundaries deserve particular attention.",
+          "codeExample": {
+            "title": "Node.js Test Example",
+            "language": "javascript",
+            "code": "import assert from 'node:assert/strict';\nimport test from 'node:test';\n\nfunction add(a, b) {\n  return a + b;\n}\n\ntest('adds two numbers', () => {\n  assert.equal(add(2, 3), 5);\n});",
+            "explanation": "Node.js includes a built-in test runner that can be used for straightforward unit tests."
+          },
+          "keyTakeaways": [
+            "Unit tests focus on isolated behavior.",
+            "Integration tests validate collaboration between real components.",
+            "Tests should verify behavior rather than implementation details."
+          ],
+          "interactiveQuiz": {
+            "question": "What is an integration test primarily concerned with?",
+            "options": ["Interactions between components", "CSS colors only", "CPU temperature", "Git branch names"],
+            "correctIndex": 0,
+            "explanation": "Integration tests verify that multiple components work correctly together."
+          }
+        },
+        {
+          "id": "structured-logging",
+          "title": "Production Logging",
+          "content": "Production applications should use structured logs containing fields such as timestamp, severity, service, request ID, user or correlation identifiers where appropriate, and useful error metadata.\n\nAvoid logging passwords, access tokens, session cookies, API keys, and other sensitive information. JSON logs are convenient for centralized log systems.",
+          "codeExample": {
+            "title": "Structured Logger",
+            "language": "javascript",
+            "code": "function log(level, message, metadata = {}) {\n  console.log(JSON.stringify({\n    timestamp: new Date().toISOString(),\n    level,\n    message,\n    ...metadata\n  }));\n}\n\nlog('info', 'Request completed', {\n  requestId: 'req-123',\n  statusCode: 200\n});",
+            "explanation": "Structured logs make application events easier to search, filter, aggregate, and analyze."
+          },
+          "callout": {
+            "type": "danger",
+            "title": "Redact Secrets",
+            "message": "Never log authorization headers, passwords, cookies, private keys, refresh tokens, or other sensitive credentials."
+          },
+          "keyTakeaways": [
+            "Use structured logs for production systems.",
+            "Include correlation identifiers when tracing requests across services.",
+            "Redact sensitive values before logging."
+          ],
+          "interactiveQuiz": {
+            "question": "Which value should normally never be logged in plaintext?",
+            "options": ["HTTP method", "Response status", "Password", "Request duration"],
             "correctIndex": 2,
-            "explanation": "A production service requires operational, security, reliability, and observability practices in addition to application code."
+            "explanation": "Passwords are sensitive credentials and should never be logged in plaintext."
+          }
+        },
+        {
+          "id": "metrics-tracing-health-checks",
+          "title": "Metrics, Tracing, and Health Checks",
+          "content": "Observability combines logs, metrics, and traces to explain system behavior. Metrics answer questions such as how many requests are arriving, how long they take, and how many fail. Distributed tracing follows a request across services.\n\nHealth endpoints should distinguish between basic process liveness and readiness to receive traffic.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Observability Pipeline",
+            "code": "flowchart LR\n    A[Node.js Service] --> B[Logs]\n    A --> C[Metrics]\n    A --> D[Traces]\n    B --> E[Observability Platform]\n    C --> E\n    D --> E"
+          },
+          "keyTakeaways": [
+            "Logs, metrics, and traces provide complementary observability.",
+            "Readiness and liveness checks answer different operational questions.",
+            "Correlation IDs make distributed debugging significantly easier."
+          ],
+          "interactiveQuiz": {
+            "question": "What does distributed tracing help you understand?",
+            "options": ["A request's path across services", "Only CSS rendering", "Only database table names", "Git commit history"],
+            "correctIndex": 0,
+            "explanation": "Distributed tracing follows requests across service boundaries."
+          }
+        }
+      ]
+    },
+    {
+      "id": "performance-memory-and-profiling",
+      "title": "Performance, Memory, and Profiling",
+      "summary": "Diagnose slow Node.js applications, understand memory usage, identify event-loop blocking, optimize database access, and use profiling tools.",
+      "estimatedMinutes": 105,
+      "mediaImages": ["/assets/nodejs/performance.svg"],
+      "sections": [
+        {
+          "id": "event-loop-performance",
+          "title": "Avoiding Event-Loop Blocking",
+          "content": "Node.js performance depends heavily on keeping the event loop responsive. Expensive synchronous operations, huge JSON parsing or serialization, inefficient regular expressions, and CPU-heavy algorithms can delay unrelated requests.\n\nPerformance optimization should begin with measurement rather than assumptions.",
+          "codeExample": {
+            "title": "Avoid CPU-Heavy Work in Request Handlers",
+            "language": "javascript",
+            "code": "app.get('/report', async (req, res) => {\n  const report = await generateReportInWorker(req.query.id);\n  res.json(report);\n});",
+            "explanation": "CPU-intensive report generation can be moved to a worker or background job so the HTTP event loop remains responsive."
+          },
+          "keyTakeaways": [
+            "Keep request handlers lightweight when possible.",
+            "Move expensive CPU work to workers or background processes.",
+            "Measure event-loop latency to detect blocking workloads."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a common cause of poor Node.js concurrency?",
+            "options": ["Long synchronous CPU work", "Using asynchronous I/O", "Using environment variables", "Returning JSON"],
+            "correctIndex": 0,
+            "explanation": "Long synchronous operations block the event loop and delay other callbacks."
+          }
+        },
+        {
+          "id": "nodejs-memory-and-garbage-collection",
+          "title": "Memory Management and Garbage Collection",
+          "content": "Node.js uses V8's garbage collector to reclaim memory that is no longer reachable. Memory leaks occur when application references unintentionally keep objects alive.\n\nCommon causes include unbounded caches, global collections, event listeners that are never removed, timers that remain active, and closures retaining large objects.",
+          "codeExample": {
+            "title": "Avoiding an Unbounded Cache",
+            "language": "javascript",
+            "code": "const cache = new Map();\n\nfunction setUser(id, user) {\n  cache.set(id, user);\n}\n\n// Production code should define an eviction or expiration strategy.",
+            "explanation": "A plain Map grows indefinitely unless the application explicitly removes entries. Production caches should have bounded size or expiration."
+          },
+          "callout": {
+            "type": "warning",
+            "title": "Memory Leaks Are Reachability Problems",
+            "message": "Garbage collection cannot reclaim objects that are still reachable. Look for references that live longer than the data they retain."
+          },
+          "keyTakeaways": [
+            "Garbage collection removes unreachable objects.",
+            "Unbounded collections are a common source of memory growth.",
+            "Heap snapshots can help identify retained objects."
+          ],
+          "interactiveQuiz": {
+            "question": "Why can an unbounded Map cause memory growth?",
+            "options": [
+              "Its entries remain strongly referenced",
+              "Maps automatically compress memory",
+              "Garbage collection always deletes Maps",
+              "Maps only store strings"
+            ],
+            "correctIndex": 0,
+            "explanation": "Objects stored in a Map remain reachable until entries are removed or the Map itself becomes unreachable."
+          }
+        },
+        {
+          "id": "profiling-and-performance-optimization",
+          "title": "Profiling and Performance Optimization",
+          "content": "Node.js applications can be profiled using tools such as the Node inspector, CPU profiles, heap snapshots, and performance APIs. Production performance work should examine real bottlenecks such as database queries, network calls, serialization, event-loop delay, and memory pressure.\n\nUseful optimizations include database indexing, batching, pagination, connection pooling, caching, stream processing, and algorithmic improvements.",
+          "keyTakeaways": [
+            "Profile before optimizing.",
+            "Database and network latency are often more significant than JavaScript micro-optimizations.",
+            "Measure latency distributions such as p50, p95, and p99 rather than only averages."
+          ],
+          "interactiveQuiz": {
+            "question": "What is usually the best first step before a performance optimization?",
+            "options": ["Measure and profile", "Rewrite everything", "Add more dependencies", "Disable logging"],
+            "correctIndex": 0,
+            "explanation": "Profiling identifies actual bottlenecks and prevents optimizing code that is not responsible for the problem."
+          }
+        }
+      ]
+    },
+    {
+      "id": "production-nodejs-architecture",
+      "title": "Production Architecture and Scalability",
+      "summary": "Design resilient Node.js systems with horizontal scaling, reverse proxies, containers, configuration management, rate limiting, reliability patterns, and distributed systems concepts.",
+      "estimatedMinutes": 110,
+      "mediaImages": ["/assets/nodejs/production-architecture.svg"],
+      "sections": [
+        {
+          "id": "horizontal-scaling-and-load-balancing",
+          "title": "Horizontal Scaling",
+          "content": "Horizontal scaling means running multiple instances of an application and distributing traffic among them. This improves capacity and can improve availability when instances are independently replaceable.\n\nStateless application servers make horizontal scaling easier. If state must be shared, use an external system such as a database, cache, or message broker rather than relying on process-local memory.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Horizontally Scaled Node.js Service",
+            "code": "flowchart TD\n    A[Clients] --> B[Load Balancer]\n    B --> C[Node Instance 1]\n    B --> D[Node Instance 2]\n    B --> E[Node Instance 3]\n    C --> F[(Shared Database)]\n    D --> F\n    E --> F\n    C --> G[(Redis)]\n    D --> G\n    E --> G"
+          },
+          "keyTakeaways": [
+            "Stateless services are easier to scale horizontally.",
+            "Shared state should live in appropriate external infrastructure.",
+            "Load balancing distributes traffic across healthy instances."
+          ],
+          "interactiveQuiz": {
+            "question": "Why are stateless Node.js servers easier to scale horizontally?",
+            "options": [
+              "Any healthy instance can handle a request",
+              "They never use databases",
+              "They cannot fail",
+              "They run only on one CPU"
+            ],
+            "correctIndex": 0,
+            "explanation": "Without process-local session state, requests can be routed to any healthy instance."
+          }
+        },
+        {
+          "id": "rate-limiting-and-reliability",
+          "title": "Rate Limiting, Timeouts, Retries, and Circuit Breakers",
+          "content": "Reliable services protect themselves and their dependencies with timeouts, rate limits, bounded retries, and circuit breakers. A retry without limits can amplify an outage by causing a retry storm.\n\nRetries should generally use exponential backoff with jitter and should only be applied to operations that are safe to retry or made idempotent.",
+          "callout": {
+            "type": "warning",
+            "title": "Retries Can Make Outages Worse",
+            "message": "Unbounded retries multiply traffic against an already unhealthy dependency. Use bounded retries, backoff, jitter, and appropriate timeouts."
+          },
+          "keyTakeaways": [
+            "Every external call should have an appropriate timeout.",
+            "Retries need limits and backoff.",
+            "Rate limiting protects resources from excessive traffic."
+          ],
+          "interactiveQuiz": {
+            "question": "Why should retries use exponential backoff?",
+            "options": [
+              "To reduce repeated pressure on a failing dependency",
+              "To make every request immediate",
+              "To disable networking",
+              "To avoid all HTTP status codes"
+            ],
+            "correctIndex": 0,
+            "explanation": "Backoff spaces retries apart and reduces load on an unhealthy dependency."
+          }
+        },
+        {
+          "id": "docker-and-nodejs-deployment",
+          "title": "Containerizing Node.js Applications",
+          "content": "Containers package an application and its runtime dependencies into a reproducible deployment unit. A production Node.js image should use a suitable base image, install only required dependencies, run as a non-root user when practical, and avoid copying secrets into the image.\n\nContainer orchestration systems can provide scaling, health checks, rolling deployments, networking, and resource management.",
+          "codeExample": {
+            "title": "Production-Oriented Dockerfile",
+            "language": "bash",
+            "code": "FROM node:22-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci --omit=dev\nCOPY . .\nUSER node\nEXPOSE 3000\nCMD ['node', 'server.js']",
+            "explanation": "The image installs production dependencies, copies application code, runs as the non-root `node` user, and starts the service."
+          },
+          "keyTakeaways": [
+            "Do not bake secrets into container images.",
+            "Use deterministic dependency installation in builds.",
+            "Containers should be disposable and externally configurable."
+          ],
+          "interactiveQuiz": {
+            "question": "Where should production secrets normally come from in a containerized application?",
+            "options": [
+              "Hardcoded Dockerfile values",
+              "Runtime secret or environment configuration",
+              "Public JavaScript bundles",
+              "Git commit messages"
+            ],
+            "correctIndex": 1,
+            "explanation": "Secrets should be injected securely at runtime rather than baked into images."
+          }
+        }
+      ]
+    },
+    {
+      "id": "advanced-nodejs-patterns",
+      "title": "Advanced Node.js Patterns and Distributed Systems",
+      "summary": "Explore dependency injection, clean architecture, idempotency, distributed locks, event-driven systems, API versioning, and resilient service design.",
+      "estimatedMinutes": 100,
+      "mediaImages": ["/assets/nodejs/advanced-patterns.svg"],
+      "sections": [
+        {
+          "id": "dependency-injection-and-clean-architecture",
+          "title": "Dependency Injection and Clean Architecture",
+          "content": "Dependency injection means supplying dependencies to a component instead of having the component construct them directly. This reduces coupling and makes testing easier.\n\nClean architecture separates business rules from frameworks and infrastructure. The exact folder structure is less important than keeping dependencies pointing in sensible directions.",
+          "codeExample": {
+            "title": "Simple Dependency Injection",
+            "language": "typescript",
+            "code": "interface UserRepository {\n  findById(id: string): Promise<{ id: string; name: string } | null>;\n}\n\nclass UserService {\n  constructor(private readonly repository: UserRepository) {}\n\n  getUser(id: string) {\n    return this.repository.findById(id);\n  }\n}",
+            "explanation": "The service depends on an interface rather than a concrete database implementation, making it easier to test with a fake repository."
+          },
+          "keyTakeaways": [
+            "Dependency injection reduces tight coupling.",
+            "Business logic should not depend directly on infrastructure when avoidable.",
+            "Interfaces and dependency inversion can improve testability."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a major benefit of dependency injection?",
+            "options": [
+              "Reduced coupling and easier testing",
+              "Automatic database scaling",
+              "Faster JavaScript syntax",
+              "Automatic authentication"
+            ],
+            "correctIndex": 0,
+            "explanation": "Dependencies can be replaced with mocks or alternative implementations without changing business logic."
+          }
+        },
+        {
+          "id": "idempotency-and-distributed-locks",
+          "title": "Idempotency and Distributed Locks",
+          "content": "Distributed systems often retry operations because networks and services can fail. Idempotency ensures that processing the same logical operation more than once does not produce unintended duplicate effects.\n\nDistributed locks can coordinate work across multiple processes, but they must be designed carefully around expiration, ownership, failure, and clock assumptions.",
+          "codeExample": {
+            "title": "Idempotency-Key Concept",
+            "language": "javascript",
+            "code": "const key = req.headers['idempotency-key'];\n\nif (!key) {\n  return res.status(400).json({ error: 'Idempotency-Key required' });\n}\n\nconst existing = await store.get(key);\nif (existing) {\n  return res.status(existing.status).json(existing.body);\n}\n\nconst result = await createPayment(req.body);\nawait store.set(key, result, { ttl: 86400 });\n\nres.status(201).json(result);",
+            "explanation": "The idempotency key lets repeated requests return the original result instead of creating duplicate side effects."
+          },
+          "keyTakeaways": [
+            "Idempotency is critical when clients or infrastructure may retry requests.",
+            "Use unique operation identifiers for side-effecting workflows.",
+            "Distributed locks require careful failure and expiration handling."
+          ],
+          "interactiveQuiz": {
+            "question": "What problem does an idempotency key help solve?",
+            "options": ["Duplicate side effects caused by retries", "JavaScript syntax errors", "CSS layout issues", "DNS resolution only"],
+            "correctIndex": 0,
+            "explanation": "Idempotency keys allow repeated requests to be recognized as the same logical operation."
+          }
+        },
+        {
+          "id": "event-driven-microservices",
+          "title": "Event-Driven and Microservice Architecture",
+          "content": "Event-driven systems communicate through events such as `UserCreated`, `OrderPaid`, or `InvoiceGenerated`. This can reduce direct coupling between services and enable asynchronous workflows.\n\nHowever, distributed systems introduce challenges including eventual consistency, duplicate events, ordering, schema evolution, observability, retries, and partial failures. Microservices should therefore be introduced for a clear organizational or technical reason rather than simply splitting a monolith into smaller applications.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Event-Driven Architecture",
+            "code": "flowchart LR\n    A[Order Service] --> B[Event Broker]\n    B --> C[Payment Service]\n    B --> D[Notification Service]\n    B --> E[Analytics Service]\n    C --> F[(Payment DB)]\n    D --> G[Email Provider]"
+          },
+          "keyTakeaways": [
+            "Events reduce synchronous coupling between components.",
+            "Consumers should tolerate retries and duplicate delivery.",
+            "Distributed architecture introduces consistency and operational complexity."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a common challenge in event-driven distributed systems?",
+            "options": ["Duplicate or out-of-order events", "CSS specificity", "Browser DOM rendering", "Static HTML parsing"],
+            "correctIndex": 0,
+            "explanation": "Distributed messaging can involve retries, duplication, delays, and ordering differences."
+          }
+        }
+      ]
+    },
+    {
+      "id": "nodejs-interview-questions",
+      "title": "Node.js Interview Questions: Beginner to Expert",
+      "summary": "Prepare for Node.js interviews with 60 popular questions covering fundamentals, asynchronous programming, Express, databases, security, performance, architecture, and advanced internals.",
+      "estimatedMinutes": 120,
+      "mediaImages": ["/assets/nodejs/interview-preparation.svg"],
+      "sections": [
+        {
+          "id": "nodejs-popular-interview-questions",
+          "title": "60 Popular Node.js Interview Questions with Answers",
+          "content": "## Beginner Questions\n\n### 1. What is Node.js?\nNode.js is a JavaScript runtime built on the V8 engine that allows JavaScript to run outside browsers. It provides APIs for networking, files, processes, streams, and other server-side operations.\n\n### 2. Is Node.js a programming language?\nNo. JavaScript is the programming language, while Node.js is a runtime environment for executing JavaScript outside the browser.\n\n### 3. Why is Node.js popular for backend development?\nIts asynchronous I/O model, large npm ecosystem, JavaScript/TypeScript support, and ability to handle many concurrent I/O operations make it useful for APIs and real-time applications.\n\n### 4. What JavaScript engine does Node.js use?\nNode.js uses Google's V8 JavaScript engine.\n\n### 5. What is npm?\nnpm is the package manager and ecosystem commonly used with Node.js. It manages dependencies, scripts, package versions, and project metadata.\n\n### 6. What is package.json?\n`package.json` describes a Node.js project. It can contain project metadata, scripts, dependencies, development dependencies, module configuration, and other package information.\n\n### 7. What is package-lock.json?\nIt records the resolved dependency tree and exact package versions used by an npm installation, improving reproducibility.\n\n### 8. What is the difference between dependencies and devDependencies?\n`dependencies` are required by the application at runtime. `devDependencies` are normally tools needed during development, testing, linting, or building.\n\n### 9. What is CommonJS?\nCommonJS is Node.js's traditional module system using `require()` and `module.exports`.\n\n### 10. What are ES Modules?\nES Modules are the standardized JavaScript module system using `import` and `export`. Node.js supports them through package configuration and `.mjs` files.\n\n### 11. What is the difference between `require()` and `import`?\n`require()` belongs to CommonJS, while `import` is the standard ES Module syntax. They also differ in loading semantics, configuration, and module interoperability.\n\n### 12. What is `process.env`?\n`process.env` exposes environment variables available to the Node.js process. It is commonly used for configuration and secrets supplied at runtime.\n\n### 13. What is `process.argv`?\nIt contains command-line arguments passed to the Node.js process.\n\n### 14. What is a Buffer?\nA Buffer is a Node.js representation of raw binary data as a sequence of bytes.\n\n### 15. What are streams?\nStreams process data incrementally rather than requiring the entire dataset to be held in memory. They are useful for files, HTTP, compression, and network data.\n\n## Intermediate Questions\n\n### 16. What is the Node.js event loop?\nThe event loop coordinates asynchronous callbacks and allows Node.js to continue processing other work while I/O operations are pending.\n\n### 17. Is Node.js single-threaded?\nJavaScript execution for a Node.js process primarily occurs on a main event-loop thread, but Node.js can use operating-system facilities, libuv worker threads, Worker Threads, and child processes for other work.\n\n### 18. If Node.js is single-threaded, how does it handle concurrency?\nIt uses non-blocking I/O and the event loop. While an I/O operation is waiting, Node.js can process other callbacks instead of blocking the JavaScript thread.\n\n### 19. What is libuv?\nlibuv is a cross-platform library used by Node.js for asynchronous I/O, event-loop implementation, networking support, timers, and a worker pool for certain operations.\n\n### 20. What is the difference between synchronous and asynchronous APIs?\nSynchronous APIs block execution until the operation completes. Asynchronous APIs allow the application to continue and notify the program later through callbacks, Promises, or events.\n\n### 21. What is a Promise?\nA Promise represents the eventual completion or failure of an asynchronous operation and can be in pending, fulfilled, or rejected state.\n\n### 22. What is async/await?\n`async` and `await` provide a readable syntax for working with Promises. `await` suspends the current async function until a Promise settles without blocking the Node.js event loop.\n\n### 23. What is callback hell?\nCallback hell describes deeply nested callback-based asynchronous code that becomes difficult to read and maintain. Promises, async/await, and better function decomposition can improve it.\n\n### 24. What is `process.nextTick()`?\nIt schedules a callback in Node.js's next-tick queue, which receives very high priority relative to normal event-loop phases. Excessive use can starve I/O.\n\n### 25. What is `setImmediate()`?\n`setImmediate()` schedules a callback for execution during the event loop's check phase.\n\n### 26. What is middleware in Express?\nMiddleware is a function that can inspect or modify the request and response, perform logic such as authentication or logging, and either end the response or call `next()`.\n\n### 27. What is the difference between `req.params`, `req.query`, and `req.body`?\n`req.params` contains route parameters such as `/users/:id`, `req.query` contains URL query parameters, and `req.body` contains parsed request body data.\n\n### 28. How does Express error middleware differ from normal middleware?\nError middleware uses the signature `(err, req, res, next)`. Express recognizes this four-argument signature as an error handler.\n\n### 29. What is REST?\nREST is an architectural style for resource-oriented network APIs. REST APIs commonly use HTTP methods, resource URLs, status codes, and representations such as JSON.\n\n### 30. What is CORS?\nCross-Origin Resource Sharing is a browser security mechanism that controls whether a web page can make certain requests to a different origin.\n\n### 31. What is the difference between authentication and authorization?\nAuthentication verifies identity. Authorization determines what that identity is allowed to access or perform.\n\n### 32. How should passwords be stored?\nPasswords should be stored using a strong password hashing algorithm such as Argon2 or bcrypt, never plaintext or reversible encryption.\n\n### 33. What is JWT?\nJSON Web Token is a compact token format that can carry signed claims. It is often used for authentication and authorization, provided tokens and claims are validated correctly.\n\n### 34. What is the difference between 401 and 403?\n`401 Unauthorized` generally indicates that authentication is missing or invalid. `403 Forbidden` indicates that the server understands the identity but refuses access because the operation is not permitted.\n\n### 35. What is a database connection pool?\nA connection pool maintains reusable database connections so requests can share connections instead of establishing a new connection for every operation.\n\n### 36. What is Mongoose?\nMongoose is an ODM for MongoDB that provides schemas, models, validation, middleware, querying, and other abstractions.\n\n### 37. What does `lean()` do in Mongoose?\n`lean()` causes query results to be returned as plain JavaScript objects rather than full Mongoose documents, reducing overhead when document functionality is unnecessary.\n\n### 38. What is a database transaction?\nA transaction groups supported database operations into an atomic unit so they can commit together or roll back together.\n\n### 39. What is caching?\nCaching stores frequently accessed data closer to the application or user to reduce latency and backend workload. Redis is a common caching system used with Node.js.\n\n### 40. What is a message queue?\nA message queue temporarily stores work or events so producers and consumers can operate independently. It is useful for background jobs, retries, and asynchronous workflows.\n\n## Advanced Questions\n\n### 41. What is backpressure in Node.js streams?\nBackpressure occurs when a data consumer cannot process data as quickly as a producer generates it. Stream mechanisms help regulate flow so memory does not grow uncontrollably.\n\n### 42. What is the difference between `pipe()` and `pipeline()`?\n`pipe()` connects streams and provides flow control. `pipeline()` provides a more robust composition API with centralized completion and error handling, especially useful for multiple streams.\n\n### 43. How can you prevent blocking the Node.js event loop?\nAvoid expensive synchronous operations, large CPU-bound calculations, inefficient algorithms, problematic regular expressions, and excessive serialization. Move CPU-heavy workloads to Worker Threads or background processes when appropriate.\n\n### 44. What are Worker Threads?\nWorker Threads allow JavaScript code to execute in separate threads within a Node.js process. They are useful for CPU-intensive tasks that would otherwise block the main event loop.\n\n### 45. What is the difference between Worker Threads and child processes?\nWorker Threads use threads within a process and can communicate through messaging and shared memory. Child processes are separate operating-system processes with stronger isolation and independent memory spaces.\n\n### 46. What is Node.js cluster?\nCluster can create multiple Node.js worker processes that share a server port, allowing applications to utilize multiple CPU cores through multiple processes.\n\n### 47. How would you scale a Node.js API horizontally?\nRun multiple stateless application instances behind a load balancer, externalize shared state to databases or caches, use centralized observability, and make deployment and shutdown behavior resilient.\n\n### 48. Why should a Node.js server generally be stateless?\nStateless servers allow requests to be routed to any healthy instance, making horizontal scaling, failover, and rolling deployments easier.\n\n### 49. How do you handle graceful shutdown in Node.js?\nListen for termination signals such as `SIGTERM`, stop accepting new work, allow appropriate active work to complete, close database and queue connections, and exit cleanly.\n\n### 50. How do you prevent memory leaks in Node.js?\nAvoid unbounded collections, remove unused event listeners, clear timers, release resources, avoid retaining large objects in closures, and use heap snapshots and profiling tools to identify retained objects.\n\n### 51. How do you diagnose high CPU usage in Node.js?\nInspect CPU metrics and event-loop latency, capture CPU profiles, identify synchronous hotspots, examine algorithms and regular expressions, and determine whether work should move to workers or separate services.\n\n### 52. How do you diagnose a memory leak?\nMonitor heap usage over time, reproduce the growth, capture heap snapshots, compare retained objects, inspect global collections and listeners, and identify references preventing garbage collection.\n\n### 53. What are p50, p95, and p99 latency?\np50 is the median latency. p95 means 95 percent of requests are at or below that latency, while p99 represents the 99th percentile. Tail latency is important for understanding poor user experiences.\n\n### 54. What is idempotency and why is it important?\nAn idempotent operation can be repeated without causing unintended additional side effects. It is especially important when clients, queues, or services retry operations after uncertain failures.\n\n### 55. How should retries be implemented for external services?\nUse appropriate timeouts, bounded retries, exponential backoff, jitter, and retry only operations that are safe to repeat or protected by idempotency mechanisms.\n\n### 56. What is a circuit breaker?\nA circuit breaker temporarily stops requests to an unhealthy dependency after failures exceed a threshold. This prevents continuous calls from overwhelming a failing system and allows recovery time.\n\n### 57. How would you design a highly scalable Node.js architecture?\nUse horizontally scalable stateless API instances behind a load balancer, a properly indexed database, caching where useful, asynchronous queues for slow workloads, centralized configuration and secrets, observability, rate limiting, timeouts, and automated deployment infrastructure.\n\n### 58. How would you handle real-time communication across multiple Node.js instances?\nUse WebSockets or Socket.IO with a shared adapter or message broker so events can propagate between instances. Authentication, room membership, reconnection behavior, and connection lifecycle must also be designed carefully.\n\n### 59. What are common causes of production Node.js outages?\nEvent-loop blocking, memory leaks, unbounded concurrency, database connection exhaustion, slow dependencies, missing timeouts, retry storms, insufficient capacity, configuration errors, dependency failures, and poor shutdown handling are common causes.\n\n### 60. How would you architect a production-grade Node.js backend?\nStart with clear domain boundaries and a maintainable application structure. Separate transport, business logic, persistence, and infrastructure concerns. Add validation, authentication, authorization, centralized error handling, structured logs, metrics, traces, health checks, database indexing and pooling, caching where justified, queues for asynchronous work, rate limits, timeouts, retries with backoff, graceful shutdown, automated tests, secure secret management, containerized deployment, horizontal scaling, and continuous monitoring. The architecture should remain as simple as possible while meeting reliability, scalability, security, and business requirements.",
+          "callout": {
+            "type": "tip",
+            "title": "Interview Strategy",
+            "message": "For senior Node.js interviews, do not memorize definitions alone. Be ready to explain trade-offs, failure modes, performance implications, debugging approaches, and how you would design the feature in a production system."
+          },
+          "keyTakeaways": [
+            "Master the event loop, asynchronous programming, streams, and Node.js internals before focusing on framework-specific details.",
+            "Senior interviews commonly test system design, performance, security, reliability, and debugging in addition to API knowledge.",
+            "When answering architecture questions, explain trade-offs instead of presenting one technology as universally correct.",
+            "Be able to connect Node.js concepts such as event-loop behavior, worker threads, queues, caching, databases, and horizontal scaling into a complete production architecture."
+          ],
+          "interactiveQuiz": {
+            "question": "Which topic is most important when progressing from intermediate to senior Node.js interviews?",
+            "options": [
+              "Memorizing npm package names",
+              "Understanding production trade-offs, internals, performance, security, and system design",
+              "Knowing only Express route syntax",
+              "Writing CSS without JavaScript"
+            ],
+            "correctIndex": 1,
+            "explanation": "Senior Node.js interviews evaluate the ability to reason about internals, reliability, scalability, security, performance, and architecture rather than only syntax."
           }
         }
       ]
