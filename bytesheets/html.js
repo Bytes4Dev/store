@@ -1,4 +1,4 @@
-export default [
+[
   {
     course: "HTML",
     description: `A comprehensive HTML course covering document structure, text, links, media, semantics, tables, forms, accessibility, metadata, interactive HTML, browser behavior, performance, security, graphics, Web Components, internationalization, standards-aware development, practical projects and 100 interview questions.`,
