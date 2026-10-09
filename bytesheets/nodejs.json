@@ -35,7 +35,7 @@
       "title": "Node.js Fundamentals and Runtime",
       "summary": "Understand what Node.js is, how it works, why it is different from browser JavaScript, and how to build and execute your first Node.js programs.",
       "estimatedMinutes": 55,
-      "mediaImages": ["/assets/nodejs/runtime-overview.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "what-is-nodejs",
@@ -125,7 +125,7 @@
       "title": "npm, Packages, and Project Structure",
       "summary": "Learn how Node.js projects are initialized, how npm manages dependencies, how package.json works, and how to structure maintainable applications.",
       "estimatedMinutes": 65,
-      "mediaImages": ["/assets/nodejs/npm-package-management.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "npm-init-and-package-json",
@@ -204,7 +204,7 @@
       "title": "Modules: CommonJS and ES Modules",
       "summary": "Understand Node.js module systems, exports, imports, module resolution, and how to choose between CommonJS and ES Modules.",
       "estimatedMinutes": 60,
-      "mediaImages": ["/assets/nodejs/modules.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "commonjs-modules",
@@ -278,7 +278,7 @@
       "title": "Asynchronous Programming and the Event Loop",
       "summary": "Master callbacks, Promises, async/await, the Node.js event loop, microtasks, timers, and non-blocking I/O.",
       "estimatedMinutes": 90,
-      "mediaImages": ["/assets/nodejs/event-loop.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "callbacks-promises-async-await",
@@ -362,7 +362,7 @@
       "title": "Core Node.js APIs",
       "summary": "Work with essential built-in APIs including file systems, paths, operating-system information, URLs, events, and environment configuration.",
       "estimatedMinutes": 80,
-      "mediaImages": ["/assets/nodejs/core-apis.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "filesystem-api",
@@ -437,7 +437,7 @@
       "title": "Buffers, Streams, and Binary Data",
       "summary": "Understand binary data, Buffers, readable and writable streams, piping, backpressure, and efficient data processing.",
       "estimatedMinutes": 90,
-      "mediaImages": ["/assets/nodejs/streams.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "nodejs-buffers",
@@ -527,7 +527,7 @@
       "title": "HTTP Servers and REST APIs",
       "summary": "Build HTTP servers using Node.js, understand requests and responses, HTTP methods and status codes, and design RESTful APIs.",
       "estimatedMinutes": 95,
-      "mediaImages": ["/assets/nodejs/http-server.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "native-http-server",
@@ -601,7 +601,7 @@
       "title": "Express.js and Middleware",
       "summary": "Build production-style APIs with Express.js, routing, middleware, validation, centralized errors, and request lifecycle management.",
       "estimatedMinutes": 100,
-      "mediaImages": ["/assets/nodejs/express-middleware.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "express-server-and-routing",
@@ -696,7 +696,7 @@
       "title": "Databases and Data Persistence",
       "summary": "Learn how Node.js applications communicate with databases, design data-access layers, handle MongoDB and SQL concepts, and manage transactions.",
       "estimatedMinutes": 100,
-      "mediaImages": ["/assets/nodejs/database-integration.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "database-connection-management",
@@ -775,7 +775,7 @@
       "title": "Authentication, Authorization, and Security",
       "summary": "Implement secure authentication, authorization, password handling, JWT-based APIs, cookies, CSRF protection, input validation, and security best practices.",
       "estimatedMinutes": 110,
-      "mediaImages": ["/assets/nodejs/security-architecture.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "authentication-vs-authorization",
@@ -848,7 +848,7 @@
       "title": "Advanced Concurrency and Parallelism",
       "summary": "Explore worker threads, child processes, clustering, CPU-bound workloads, concurrency control, and graceful process management.",
       "estimatedMinutes": 100,
-      "mediaImages": ["/assets/nodejs/concurrency.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "worker-threads",
@@ -933,7 +933,7 @@
       "title": "Caching, Queues, and Real-Time Systems",
       "summary": "Learn Redis caching, background jobs, message queues, WebSockets, Socket.IO concepts, and event-driven architectures.",
       "estimatedMinutes": 100,
-      "mediaImages": ["/assets/nodejs/queues-and-realtime.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "redis-caching",
@@ -1022,7 +1022,7 @@
       "title": "Testing, Debugging, Logging, and Observability",
       "summary": "Build reliable Node.js applications with unit tests, integration tests, debugging, structured logging, metrics, traces, and health checks.",
       "estimatedMinutes": 105,
-      "mediaImages": ["/assets/nodejs/testing-observability.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "unit-and-integration-testing",
@@ -1101,7 +1101,7 @@
       "title": "Performance, Memory, and Profiling",
       "summary": "Diagnose slow Node.js applications, understand memory usage, identify event-loop blocking, optimize database access, and use profiling tools.",
       "estimatedMinutes": 105,
-      "mediaImages": ["/assets/nodejs/performance.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "event-loop-performance",
@@ -1180,7 +1180,7 @@
       "title": "Production Architecture and Scalability",
       "summary": "Design resilient Node.js systems with horizontal scaling, reverse proxies, containers, configuration management, rate limiting, reliability patterns, and distributed systems concepts.",
       "estimatedMinutes": 110,
-      "mediaImages": ["/assets/nodejs/production-architecture.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "horizontal-scaling-and-load-balancing",
@@ -1268,7 +1268,7 @@
       "title": "Advanced Node.js Patterns and Distributed Systems",
       "summary": "Explore dependency injection, clean architecture, idempotency, distributed locks, event-driven systems, API versioning, and resilient service design.",
       "estimatedMinutes": 100,
-      "mediaImages": ["/assets/nodejs/advanced-patterns.svg"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "dependency-injection-and-clean-architecture",
