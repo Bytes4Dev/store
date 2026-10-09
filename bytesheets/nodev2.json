@@ -1350,7 +1350,7 @@
       "sections": [
         {
           "id": "nodejs-interview-what-is-nodejs",
-          "title": "Question 1: What is Node.js?",
+          "title": "What is Node.js?",
           "content": "Node.js is an open-source, cross-platform JavaScript runtime environment that allows JavaScript to run outside the browser. It is built on Google's V8 JavaScript engine and is commonly used for backend services, APIs, command-line tools, real-time applications, and automation. Node.js uses an event-driven architecture and non-blocking I/O, making it well suited for applications that handle many concurrent I/O operations.",
           "interactiveQuiz": {
             "question": "What is Node.js?",
@@ -1367,7 +1367,7 @@
         },
         {
           "id": "nodejs-interview-nodejs-language",
-          "title": "Question 2: Is Node.js a programming language?",
+          "title": "Is Node.js a programming language?",
           "content": "No. Node.js is not a programming language. JavaScript is the programming language, while Node.js is a runtime environment that provides APIs and infrastructure for executing JavaScript outside a browser. Node.js provides capabilities such as file-system access, networking, streams, processes, and HTTP servers.",
           "interactiveQuiz": {
             "question": "Which statement correctly describes Node.js?",
@@ -1388,7 +1388,7 @@
         },
         {
           "id": "nodejs-interview-nodejs-popularity",
-          "title": "Question 3: Why is Node.js popular for backend development?",
+          "title": "Why is Node.js popular for backend development?",
           "content": "Node.js is popular because it allows developers to use JavaScript across the frontend and backend, has a large npm ecosystem, provides efficient non-blocking I/O, and works well for APIs, real-time applications, microservices, and other I/O-heavy systems. Its asynchronous programming model can efficiently handle many concurrent requests without creating one operating-system thread per request.",
           "interactiveQuiz": {
             "question": "Which characteristic makes Node.js particularly useful for I/O-heavy backend applications?",
@@ -1410,7 +1410,7 @@
         },
         {
           "id": "nodejs-interview-v8-engine",
-          "title": "Question 4: What JavaScript engine does Node.js use?",
+          "title": "What JavaScript engine does Node.js use?",
           "content": "Node.js uses the V8 JavaScript engine, originally developed by Google for Chrome. V8 parses and executes JavaScript and uses techniques such as just-in-time compilation to optimize JavaScript execution. Node.js adds its own runtime APIs around the JavaScript engine.",
           "interactiveQuiz": {
             "question": "Which JavaScript engine powers Node.js?",
@@ -1422,7 +1422,7 @@
         },
         {
           "id": "nodejs-interview-npm",
-          "title": "Question 5: What is npm?",
+          "title": "What is npm?",
           "content": "npm originally stood for Node Package Manager and is the standard package manager commonly used with Node.js. It is used to install, update, remove, and manage project dependencies and to run scripts defined in package.json. npm also provides access to a large public package registry.",
           "interactiveQuiz": {
             "question": "What is npm primarily used for?",
@@ -1443,7 +1443,7 @@
         },
         {
           "id": "nodejs-interview-package-json",
-          "title": "Question 6: What is package.json?",
+          "title": "What is package.json?",
           "content": "package.json is the manifest file for a Node.js project. It commonly contains the project name, version, scripts, dependencies, development dependencies, module configuration, metadata, and other project settings. It allows npm and other tooling to understand how the project should be installed and executed.",
           "interactiveQuiz": {
             "question": "What is the main purpose of package.json?",
@@ -1464,7 +1464,7 @@
         },
         {
           "id": "nodejs-interview-package-lock",
-          "title": "Question 7: What is package-lock.json?",
+          "title": "What is package-lock.json?",
           "content": "package-lock.json records the resolved dependency tree and exact package versions installed for a project. It helps ensure reproducible installations across machines and environments. It can contain information about transitive dependencies, package versions, integrity information, and resolved package locations.",
           "interactiveQuiz": {
             "question": "What is the primary purpose of package-lock.json?",
@@ -1485,7 +1485,7 @@
         },
         {
           "id": "nodejs-interview-dependencies-devdependencies",
-          "title": "Question 8: What is the difference between dependencies and devDependencies?",
+          "title": "What is the difference between dependencies and devDependencies?",
           "content": "dependencies are packages required by the application at runtime. devDependencies are generally packages needed during development, testing, linting, formatting, or building but not necessarily required to run the production application. For example, Express may be a dependency, while a testing framework or ESLint may be a devDependency.",
           "interactiveQuiz": {
             "question": "Where would a package required by the production application normally be placed?",
@@ -1501,7 +1501,7 @@
         },
         {
           "id": "nodejs-interview-commonjs",
-          "title": "Question 9: What is CommonJS?",
+          "title": "What is CommonJS?",
           "content": "CommonJS is a module system historically used extensively in Node.js. It uses require() to import modules and module.exports or exports to expose values. CommonJS modules are typically loaded synchronously and have their own module scope.",
           "interactiveQuiz": {
             "question": "Which syntax is associated with CommonJS modules?",
@@ -1513,7 +1513,7 @@
         },
         {
           "id": "nodejs-interview-es-modules",
-          "title": "Question 10: What are ES Modules?",
+          "title": "What are ES Modules?",
           "content": "ES Modules, commonly called ESM, are the standardized JavaScript module system using import and export syntax. Modern Node.js supports ESM alongside CommonJS. ESM can be enabled through configuration such as package.json type: module or appropriate file extensions such as .mjs.",
           "interactiveQuiz": {
             "question": "Which syntax is used by ES Modules?",
@@ -1529,7 +1529,7 @@
         },
         {
           "id": "nodejs-interview-require-import",
-          "title": "Question 11: What is the difference between require() and import?",
+          "title": "What is the difference between require() and import?",
           "content": "require() is the CommonJS module-loading mechanism, while import is the ES Module syntax. They differ in module semantics, resolution behavior, loading characteristics, and configuration. Modern Node.js supports interoperability between the systems, but mixing them without understanding the module configuration can lead to compatibility issues.",
           "interactiveQuiz": {
             "question": "Which statement is correct?",
@@ -1546,7 +1546,7 @@
         },
         {
           "id": "nodejs-interview-process-env",
-          "title": "Question 12: What is process.env?",
+          "title": "What is process.env?",
           "content": "process.env is an object exposed by Node.js that provides access to environment variables available to the running process. It is commonly used for configuration such as database URLs, ports, feature flags, and secrets. Sensitive values should be supplied securely rather than committed to source control.",
           "interactiveQuiz": {
             "question": "What is process.env commonly used for?",
@@ -1562,7 +1562,7 @@
         },
         {
           "id": "nodejs-interview-process-argv",
-          "title": "Question 13: What is process.argv?",
+          "title": "What is process.argv?",
           "content": "process.argv is an array containing the command-line arguments passed to a Node.js process. It is commonly used by CLI applications to read positional arguments and command-line flags. The first entries identify the Node executable and the executed script, followed by user-provided arguments.",
           "interactiveQuiz": {
             "question": "What does process.argv provide?",
@@ -1574,7 +1574,7 @@
         },
         {
           "id": "nodejs-interview-buffer",
-          "title": "Question 14: What is a Buffer?",
+          "title": "What is a Buffer?",
           "content": "A Buffer is a Node.js representation of a fixed-length sequence of bytes. Buffers are useful when working with binary data such as files, network packets, encoded data, and streams. Unlike normal JavaScript strings, Buffers directly represent raw byte data.",
           "interactiveQuiz": {
             "question": "What does a Node.js Buffer primarily represent?",
@@ -1586,7 +1586,7 @@
         },
         {
           "id": "nodejs-interview-streams",
-          "title": "Question 15: What are streams?",
+          "title": "What are streams?",
           "content": "Streams provide an abstraction for processing data incrementally instead of loading an entire dataset into memory at once. Node.js provides readable, writable, duplex, and transform streams. Streams are useful for files, HTTP requests and responses, compression, encryption, and other continuous data processing tasks.",
           "interactiveQuiz": {
             "question": "What is a major benefit of streams?",
@@ -1607,7 +1607,7 @@
         },
         {
           "id": "nodejs-interview-event-loop",
-          "title": "Question 16: What is the event loop?",
+          "title": "What is the event loop?",
           "content": "The event loop is a core part of Node.js's asynchronous execution model. JavaScript code primarily runs on the main thread, while asynchronous operations can be handled by the operating system or libuv. When operations complete, their callbacks or promise continuations are scheduled so JavaScript can process them without blocking on the I/O operation itself.",
           "interactiveQuiz": {
             "question": "What is the primary role of the Node.js event loop?",
@@ -1628,7 +1628,7 @@
         },
         {
           "id": "nodejs-interview-single-threaded",
-          "title": "Question 17: Is Node.js single-threaded?",
+          "title": "Is Node.js single-threaded?",
           "content": "Node.js is often described as single-threaded because JavaScript execution for a Node.js process normally occurs on a main thread. However, Node.js is not limited to one thread for all work. libuv can use a worker pool for certain operations, Worker Threads provide additional JavaScript threads, and child processes can run work independently. Therefore, saying Node.js is simply single-threaded is incomplete.",
           "interactiveQuiz": {
             "question": "Which statement best describes Node.js threading?",
@@ -1649,7 +1649,7 @@
         },
         {
           "id": "nodejs-interview-concurrency",
-          "title": "Question 18: How does Node.js handle concurrency?",
+          "title": "How does Node.js handle concurrency?",
           "content": "Node.js handles concurrency primarily through asynchronous, non-blocking I/O and the event loop. When an operation such as network I/O is started, Node.js does not need to synchronously wait for its completion. Once the operation completes, the corresponding callback or promise continuation can be processed. Additional concurrency mechanisms such as Worker Threads and child processes are available for CPU-intensive workloads.",
           "interactiveQuiz": {
             "question": "How does Node.js primarily achieve high I/O concurrency?",
@@ -1670,7 +1670,7 @@
         },
         {
           "id": "nodejs-interview-libuv",
-          "title": "Question 19: What is libuv?",
+          "title": "What is libuv?",
           "content": "libuv is a cross-platform library used by Node.js to provide asynchronous I/O capabilities and event-loop infrastructure. It abstracts operating-system differences and provides mechanisms for networking, timers, asynchronous operations, and a worker pool used by certain APIs.",
           "interactiveQuiz": {
             "question": "What is libuv primarily responsible for in Node.js?",
@@ -1691,7 +1691,7 @@
         },
         {
           "id": "nodejs-interview-sync-async",
-          "title": "Question 20: What is the difference between synchronous and asynchronous APIs?",
+          "title": "What is the difference between synchronous and asynchronous APIs?",
           "content": "Synchronous APIs block the current JavaScript execution flow until the operation completes. Asynchronous APIs allow execution to continue while the operation is pending and later provide the result through a callback, promise, event, or other mechanism. In servers, asynchronous APIs are generally preferred for operations that may take significant time because synchronous operations can block the event loop.",
           "interactiveQuiz": {
             "question": "Why can synchronous file operations be problematic in a Node.js server?",
@@ -1707,7 +1707,7 @@
         },
         {
           "id": "nodejs-interview-promise",
-          "title": "Question 21: What is a Promise?",
+          "title": "What is a Promise?",
           "content": "A Promise is a JavaScript object representing the eventual completion or failure of an asynchronous operation. It can be pending, fulfilled, or rejected. Promises can be composed with methods such as then(), catch(), and finally(), and can be consumed conveniently using async/await.",
           "interactiveQuiz": {
             "question": "Which states can a Promise have?",
@@ -1728,7 +1728,7 @@
         },
         {
           "id": "nodejs-interview-async-await",
-          "title": "Question 22: What is async/await?",
+          "title": "What is async/await?",
           "content": "async/await is syntax for working with Promises using a more synchronous-looking style. An async function always returns a Promise. The await keyword pauses execution within that async function until the awaited Promise settles, without blocking the Node.js event loop itself. Errors can commonly be handled using try/catch.",
           "interactiveQuiz": {
             "question": "What does an async function return?",
@@ -1744,7 +1744,7 @@
         },
         {
           "id": "nodejs-interview-callback-hell",
-          "title": "Question 23: What is callback hell?",
+          "title": "What is callback hell?",
           "content": "Callback hell describes deeply nested callback-based asynchronous code that becomes difficult to read, maintain, test, and handle errors in. It often occurs when multiple dependent asynchronous operations are nested inside each other. Promises, async/await, modular functions, and better control-flow design can reduce this problem.",
           "interactiveQuiz": {
             "question": "Which approach commonly helps reduce callback hell?",
@@ -1760,7 +1760,7 @@
         },
         {
           "id": "nodejs-interview-process-nexttick",
-          "title": "Question 24: What is process.nextTick()?",
+          "title": "What is process.nextTick()?",
           "content": "process.nextTick() schedules a callback to execute after the current operation completes but before the event loop proceeds to later phases. It is useful for deferring work until the current call stack has completed. However, recursively scheduling nextTick callbacks can starve the event loop and prevent I/O from being processed.",
           "interactiveQuiz": {
             "question": "What is an important characteristic of process.nextTick()?",
@@ -1781,7 +1781,7 @@
         },
         {
           "id": "nodejs-interview-setimmediate",
-          "title": "Question 25: What is setImmediate()?",
+          "title": "What is setImmediate()?",
           "content": "setImmediate() schedules a callback to run during the event loop's check phase. It is commonly useful when you want to defer execution until after the current poll phase. Its ordering relative to timers can depend on context, so it should not be treated as simply equivalent to setTimeout(fn, 0).",
           "interactiveQuiz": {
             "question": "During which event-loop phase are setImmediate callbacks executed?",
@@ -1797,7 +1797,7 @@
         },
         {
           "id": "nodejs-interview-express-middleware",
-          "title": "Question 26: What is Express middleware?",
+          "title": "What is Express middleware?",
           "content": "Express middleware is a function that has access to the request object, response object, and next function. Middleware can inspect or modify requests and responses, perform authentication, logging, validation, parsing, and other cross-cutting tasks. Middleware can either end the response or call next() to continue processing.",
           "interactiveQuiz": {
             "question": "What does next() generally do in Express middleware?",
@@ -1818,7 +1818,7 @@
         },
         {
           "id": "nodejs-interview-request-properties",
-          "title": "Question 27: What is the difference between req.params, req.query, and req.body?",
+          "title": "What is the difference between req.params, req.query, and req.body?",
           "content": "req.params contains route parameters such as /users/:id. req.query contains query-string parameters such as /users?page=2. req.body contains data sent in the request body, typically for POST, PUT, or PATCH requests after appropriate body-parsing middleware has processed it.",
           "interactiveQuiz": {
             "question": "For the route /users/123?active=true, where would the value 123 normally be found?",
@@ -1834,7 +1834,7 @@
         },
         {
           "id": "nodejs-interview-express-error-middleware",
-          "title": "Question 28: How does Express error-handling middleware work?",
+          "title": "How does Express error-handling middleware work?",
           "content": "Express error-handling middleware uses four parameters: err, req, res, and next. It is used to centralize error handling and convert application errors into appropriate HTTP responses. A typical application defines error handling after its routes and other middleware.",
           "interactiveQuiz": {
             "question": "How many parameters does Express identify as an error-handling middleware signature?",
@@ -1850,7 +1850,7 @@
         },
         {
           "id": "nodejs-interview-rest",
-          "title": "Question 29: What is REST?",
+          "title": "What is REST?",
           "content": "REST, or Representational State Transfer, is an architectural style for designing networked applications. RESTful APIs commonly model resources and use HTTP methods such as GET, POST, PUT, PATCH, and DELETE. Good REST API design also considers status codes, resource naming, statelessness, caching, and consistent representations.",
           "interactiveQuiz": {
             "question": "Which HTTP method is conventionally used to retrieve a resource?",
@@ -1866,7 +1866,7 @@
         },
         {
           "id": "nodejs-interview-cors",
-          "title": "Question 30: What is CORS?",
+          "title": "What is CORS?",
           "content": "CORS, or Cross-Origin Resource Sharing, is a browser security mechanism that controls whether a web page can make requests to a different origin. Servers can send CORS response headers specifying which origins, methods, headers, and credentials are allowed. CORS is primarily enforced by browsers and is not an authentication mechanism.",
           "interactiveQuiz": {
             "question": "What does CORS primarily control?",
@@ -1882,7 +1882,7 @@
         },
         {
           "id": "nodejs-interview-authentication-authorization",
-          "title": "Question 31: What is the difference between authentication and authorization?",
+          "title": "What is the difference between authentication and authorization?",
           "content": "Authentication determines who a user or client is. Authorization determines what that authenticated identity is allowed to do. For example, logging in with valid credentials is authentication, while checking whether that user has permission to delete another user's account is authorization.",
           "interactiveQuiz": {
             "question": "Which statement correctly describes authorization?",
@@ -1903,7 +1903,7 @@
         },
         {
           "id": "nodejs-interview-password-storage",
-          "title": "Question 32: How should passwords be stored?",
+          "title": "How should passwords be stored?",
           "content": "Passwords should never be stored as plaintext. They should be processed using a password-specific hashing algorithm such as Argon2, bcrypt, or scrypt, with appropriate parameters. Password hashing should be deliberately expensive and should use salts so identical passwords do not result in identical stored hashes.",
           "interactiveQuiz": {
             "question": "How should user passwords normally be stored?",
@@ -1924,7 +1924,7 @@
         },
         {
           "id": "nodejs-interview-jwt",
-          "title": "Question 33: What is JWT?",
+          "title": "What is JWT?",
           "content": "JWT stands for JSON Web Token. It is a compact token format commonly used to transmit claims between parties. A signed JWT can provide integrity and authenticity of its claims when properly verified. JWT payloads are normally readable unless encryption is specifically used, so sensitive information should not be placed in an ordinary signed JWT simply because it is encoded.",
           "interactiveQuiz": {
             "question": "What is an important property of a normal signed JWT?",
@@ -1945,7 +1945,7 @@
         },
         {
           "id": "nodejs-interview-401-403",
-          "title": "Question 34: What is the difference between HTTP 401 and 403?",
+          "title": "What is the difference between HTTP 401 and 403?",
           "content": "HTTP 401 generally indicates that authentication is required or that the supplied authentication credentials are not acceptable. HTTP 403 indicates that the server understood the request but refuses to authorize it. A common distinction is: 401 means the caller is not successfully authenticated, while 403 means the authenticated caller does not have sufficient permission.",
           "interactiveQuiz": {
             "question": "Which status code commonly indicates that an authenticated user lacks permission?",
@@ -1961,7 +1961,7 @@
         },
         {
           "id": "nodejs-interview-connection-pool",
-          "title": "Question 35: What is a database connection pool?",
+          "title": "What is a database connection pool?",
           "content": "A database connection pool maintains a collection of reusable database connections. Instead of creating a new connection for every request, application code borrows an available connection and returns it to the pool when finished. Pooling reduces connection setup overhead and helps control the number of simultaneous database connections.",
           "interactiveQuiz": {
             "question": "Why are database connection pools useful?",
@@ -1982,7 +1982,7 @@
         },
         {
           "id": "nodejs-interview-mongoose",
-          "title": "Question 36: What is Mongoose?",
+          "title": "What is Mongoose?",
           "content": "Mongoose is an ODM, or Object Data Modeling library, commonly used with MongoDB and Node.js. It provides schemas, models, validation, middleware, query helpers, population, and document-oriented abstractions. It can make application-level MongoDB data modeling more structured.",
           "interactiveQuiz": {
             "question": "What is Mongoose?",
@@ -1998,7 +1998,7 @@
         },
         {
           "id": "nodejs-interview-lean",
-          "title": "Question 37: What does Mongoose lean() do?",
+          "title": "What does Mongoose lean() do?",
           "content": "Mongoose's lean() option causes queries to return plain JavaScript objects instead of fully hydrated Mongoose documents. This can reduce overhead and improve read performance when document methods, getters, setters, virtuals, and other Mongoose document behavior are not required. The exact behavior depends on the query and any plugins or additional options being used.",
           "interactiveQuiz": {
             "question": "What does Mongoose lean() generally return?",
@@ -2019,7 +2019,7 @@
         },
         {
           "id": "nodejs-interview-transactions",
-          "title": "Question 38: What is a database transaction?",
+          "title": "What is a database transaction?",
           "content": "A database transaction groups multiple database operations into a logical unit of work. Transactions commonly provide atomicity, consistency, isolation, and durability, often summarized as ACID. If a transaction fails, changes can be rolled back according to the database's transaction semantics.",
           "interactiveQuiz": {
             "question": "What is the main purpose of a database transaction?",
@@ -2040,7 +2040,7 @@
         },
         {
           "id": "nodejs-interview-caching",
-          "title": "Question 39: What is caching?",
+          "title": "What is caching?",
           "content": "Caching stores frequently accessed or expensive-to-compute data in a faster-access location so future requests can be served more quickly. Node.js applications commonly use in-memory caches or distributed caches such as Redis. A good caching strategy must consider expiration, invalidation, consistency, memory usage, and cache stampede behavior.",
           "interactiveQuiz": {
             "question": "What is a primary benefit of caching?",
@@ -2061,7 +2061,7 @@
         },
         {
           "id": "nodejs-interview-message-queue",
-          "title": "Question 40: What is a message queue?",
+          "title": "What is a message queue?",
           "content": "A message queue allows producers to send messages that consumers process asynchronously. Queues help decouple services, smooth traffic spikes, perform background work, and improve resilience. Common systems include RabbitMQ, Amazon SQS, Kafka, and other messaging platforms, although their delivery and ordering models differ.",
           "interactiveQuiz": {
             "question": "Why would a Node.js application use a message queue?",
@@ -2082,7 +2082,7 @@
         },
         {
           "id": "nodejs-interview-stream-backpressure",
-          "title": "Question 41: What is stream backpressure?",
+          "title": "What is stream backpressure?",
           "content": "Backpressure occurs when a data producer can generate data faster than a consumer can process it. Node.js streams provide mechanisms to prevent the producer from overwhelming the consumer. Properly handling backpressure helps control memory usage and keeps data flow manageable.",
           "interactiveQuiz": {
             "question": "What happens when a producer generates stream data faster than the consumer can process it?",
@@ -2103,7 +2103,7 @@
         },
         {
           "id": "nodejs-interview-pipe-pipeline",
-          "title": "Question 42: What is the difference between pipe() and pipeline()?",
+          "title": "What is the difference between pipe() and pipeline()?",
           "content": "pipe() connects readable and writable streams and is convenient for straightforward data flow. pipeline() provides a more robust mechanism for connecting streams and handling errors and completion across the pipeline. For production code involving multiple streams, pipeline() is often preferable because error handling and cleanup are easier to manage correctly.",
           "interactiveQuiz": {
             "question": "Why is stream.pipeline() often preferred for complex stream chains?",
@@ -2124,7 +2124,7 @@
         },
         {
           "id": "nodejs-interview-event-loop-blocking",
-          "title": "Question 43: How do you prevent event-loop blocking?",
+          "title": "How do you prevent event-loop blocking?",
           "content": "Avoid expensive synchronous operations and long-running CPU-intensive JavaScript on the main thread. Large computations can be moved to Worker Threads or separate processes. Large datasets should be processed incrementally where possible, and algorithms should be optimized. Monitoring event-loop latency can also help detect blocking problems in production.",
           "interactiveQuiz": {
             "question": "What is a suitable approach for CPU-intensive work in Node.js?",
@@ -2145,7 +2145,7 @@
         },
         {
           "id": "nodejs-interview-worker-threads",
-          "title": "Question 44: What are Worker Threads?",
+          "title": "What are Worker Threads?",
           "content": "Worker Threads allow JavaScript code to run in separate threads within the same Node.js process. They are particularly useful for CPU-intensive JavaScript work that would otherwise block the main event-loop thread. Workers can communicate with the main thread using message passing and can also use shared memory mechanisms where appropriate.",
           "interactiveQuiz": {
             "question": "What is a primary use case for Worker Threads?",
@@ -2166,7 +2166,7 @@
         },
         {
           "id": "nodejs-interview-worker-vs-child-process",
-          "title": "Question 45: What is the difference between Worker Threads and child processes?",
+          "title": "What is the difference between Worker Threads and child processes?",
           "content": "Worker Threads run JavaScript in additional threads within the same Node.js process and can share certain memory mechanisms. Child processes are separate operating-system processes with stronger isolation and separate process resources. Worker Threads are often suitable for CPU-heavy JavaScript, while child processes can be useful when process isolation or running another executable is required.",
           "interactiveQuiz": {
             "question": "Which statement best describes child processes?",
@@ -2187,7 +2187,7 @@
         },
         {
           "id": "nodejs-interview-cluster",
-          "title": "Question 46: What is Node.js cluster?",
+          "title": "What is Node.js cluster?",
           "content": "The Node.js cluster module allows multiple Node.js processes to run and share server ports through a primary-worker process architecture. This can utilize multiple CPU cores because each worker is a separate process. In modern production systems, external process managers and container orchestration are also commonly used for process replication and scaling.",
           "interactiveQuiz": {
             "question": "What is a key benefit of Node.js cluster?",
@@ -2208,7 +2208,7 @@
         },
         {
           "id": "nodejs-interview-horizontal-scaling",
-          "title": "Question 47: How do you horizontally scale a Node.js application?",
+          "title": "How do you horizontally scale a Node.js application?",
           "content": "Horizontal scaling means running multiple application instances rather than making one instance larger. A load balancer distributes requests across instances. To scale effectively, application state should generally be externalized into databases, caches, queues, or other shared systems. Stateless application instances make horizontal scaling much easier.",
           "interactiveQuiz": {
             "question": "What is horizontal scaling?",
@@ -2229,7 +2229,7 @@
         },
         {
           "id": "nodejs-interview-stateless-services",
-          "title": "Question 48: Why should Node.js services be stateless?",
+          "title": "Why should Node.js services be stateless?",
           "content": "Stateless services do not rely on local process memory for information that must survive across requests or instances. This allows requests to be routed to any healthy instance and makes scaling, failover, rolling deployments, and replacement of instances easier. Persistent state should generally be stored in shared systems such as databases, caches, or object storage.",
           "interactiveQuiz": {
             "question": "Why is statelessness useful for horizontally scaled services?",
@@ -2250,7 +2250,7 @@
         },
         {
           "id": "nodejs-interview-graceful-shutdown",
-          "title": "Question 49: How do you implement graceful shutdown in Node.js?",
+          "title": "How do you implement graceful shutdown in Node.js?",
           "content": "A graceful shutdown stops accepting new work, allows existing requests and operations to finish within a controlled time, closes resources such as HTTP servers and database connections, and exits cleanly. Applications commonly listen for signals such as SIGTERM and SIGINT. A timeout should usually be used so shutdown cannot hang indefinitely.",
           "interactiveQuiz": {
             "question": "Which signal is commonly used by container orchestrators to request graceful termination?",
@@ -2267,7 +2267,7 @@
         },
         {
           "id": "nodejs-interview-memory-leaks",
-          "title": "Question 50: How do you prevent memory leaks in Node.js?",
+          "title": "How do you prevent memory leaks in Node.js?",
           "content": "Memory leaks occur when objects that are no longer logically needed remain reachable and therefore cannot be garbage-collected. Common causes include unbounded caches, forgotten event listeners, timers, global references, retained closures, and collections that continuously grow. Prevention involves controlled lifecycles, bounded caches, removing listeners, clearing timers, and using heap snapshots and profiling when investigating leaks.",
           "interactiveQuiz": {
             "question": "Which can cause a Node.js memory leak?",
@@ -2288,7 +2288,7 @@
         },
         {
           "id": "nodejs-interview-high-cpu",
-          "title": "Question 51: How do you diagnose high CPU usage in Node.js?",
+          "title": "How do you diagnose high CPU usage in Node.js?",
           "content": "Start by determining whether the CPU usage is caused by application JavaScript, garbage collection, native work, or external dependencies. CPU profiles, flame graphs, event-loop monitoring, application metrics, and system-level tools can identify expensive functions. Common causes include inefficient algorithms, large synchronous computations, excessive serialization, tight loops, and unexpectedly high traffic.",
           "interactiveQuiz": {
             "question": "Which tool or technique is useful for identifying CPU-intensive JavaScript functions?",
@@ -2305,7 +2305,7 @@
         },
         {
           "id": "nodejs-interview-memory-diagnosis",
-          "title": "Question 52: How do you diagnose a memory leak?",
+          "title": "How do you diagnose a memory leak?",
           "content": "Memory leaks can be investigated using heap snapshots, heap comparisons over time, garbage-collection metrics, allocation profiling, and controlled load tests. A useful approach is to reproduce the growth pattern, take snapshots at different points, compare retained objects, and identify references preventing garbage collection. Monitoring RSS, heap used, heap total, and external memory can also provide useful clues.",
           "interactiveQuiz": {
             "question": "Which tool is particularly useful for investigating retained JavaScript objects?",
@@ -2321,7 +2321,7 @@
         },
         {
           "id": "nodejs-interview-percentiles",
-          "title": "Question 53: What are p50, p95, and p99?",
+          "title": "What are p50, p95, and p99?",
           "content": "Latency percentiles describe the distribution of response times. p50 is the median, meaning approximately half of requests are faster and half are slower. p95 means approximately 95% of requests are at or below that latency, while the slowest 5% are above it. p99 represents approximately 99% at or below that latency and highlights tail latency more strongly.",
           "interactiveQuiz": {
             "question": "What does p95 latency represent?",
@@ -2342,7 +2342,7 @@
         },
         {
           "id": "nodejs-interview-idempotency",
-          "title": "Question 54: What is idempotency?",
+          "title": "What is idempotency?",
           "content": "An operation is idempotent when repeating the same operation has the same intended effect as performing it once. Idempotency is especially important when clients or distributed systems retry requests. For operations such as payments or resource creation, an idempotency key can help the server recognize duplicate attempts and prevent unintended duplicate effects.",
           "interactiveQuiz": {
             "question": "Why are idempotency keys useful for APIs?",
@@ -2363,7 +2363,7 @@
         },
         {
           "id": "nodejs-interview-retries",
-          "title": "Question 55: How should retries be implemented?",
+          "title": "How should retries be implemented?",
           "content": "Retries should be bounded and used primarily for failures that are likely to be temporary. Good retry strategies commonly use exponential backoff, jitter, timeouts, and a maximum retry count. Retrying non-idempotent operations without protection can create duplicate side effects. Systems should also distinguish retryable failures from permanent failures.",
           "interactiveQuiz": {
             "question": "Which is a good retry strategy for distributed systems?",
@@ -2385,7 +2385,7 @@
         },
         {
           "id": "nodejs-interview-circuit-breaker",
-          "title": "Question 56: What is a circuit breaker?",
+          "title": "What is a circuit breaker?",
           "content": "A circuit breaker is a resilience pattern that prevents an application from repeatedly calling a failing dependency. When failures exceed a threshold, the circuit can open and fail requests quickly instead of continuing to send traffic to the unhealthy dependency. After a recovery period, the circuit can enter a half-open state and test whether the dependency has recovered.",
           "interactiveQuiz": {
             "question": "What is the main purpose of a circuit breaker?",
@@ -2407,7 +2407,7 @@
         },
         {
           "id": "nodejs-interview-scalable-architecture",
-          "title": "Question 57: How do you design a highly scalable Node.js architecture?",
+          "title": "How do you design a highly scalable Node.js architecture?",
           "content": "A scalable Node.js architecture should use stateless application instances behind a load balancer, efficient database access and connection pooling, proper indexes, caching where appropriate, asynchronous background processing, queues for decoupled workloads, timeouts and retries for dependencies, rate limiting, and strong observability. Horizontal scaling should be supported by externalizing persistent state. The architecture should also include health checks, graceful shutdown, security controls, automated testing, and reliable deployment practices.",
           "interactiveQuiz": {
             "question": "Which architecture best supports horizontal scaling?",
@@ -2430,7 +2430,7 @@
         },
         {
           "id": "nodejs-interview-socketio-scaling",
-          "title": "Question 58: How do you handle Socket.IO across multiple instances?",
+          "title": "How do you handle Socket.IO across multiple instances?",
           "content": "When Socket.IO runs across multiple application instances, clients connected to different instances need a way to exchange events. A shared adapter or pub/sub mechanism such as Redis can distribute events between instances. Depending on the deployment and transport configuration, sticky sessions may also be relevant. The architecture should ensure that connection-specific state is handled appropriately when clients can move between instances.",
           "interactiveQuiz": {
             "question": "What can be used to distribute Socket.IO events across multiple Node.js instances?",
@@ -2446,7 +2446,7 @@
         },
         {
           "id": "nodejs-interview-production-outages",
-          "title": "Question 59: What causes production Node.js outages?",
+          "title": "What causes production Node.js outages?",
           "content": "Production outages can result from many factors, including event-loop blocking, memory leaks, CPU saturation, database failures, connection-pool exhaustion, unbounded retries, dependency failures, traffic spikes, incorrect deployments, configuration mistakes, expired credentials, insufficient resource limits, and missing observability. Strong production engineering focuses on preventing these issues and detecting them quickly through monitoring, logging, metrics, tracing, health checks, alerts, testing, and safe deployment practices.",
           "interactiveQuiz": {
             "question": "Which can cause a Node.js production outage?",
@@ -2463,7 +2463,7 @@
         },
         {
           "id": "nodejs-interview-production-grade-backend",
-          "title": "Question 60: How do you architect a production-grade Node.js backend?",
+          "title": "How do you architect a production-grade Node.js backend?",
           "content": "A production-grade Node.js backend should have a clear application structure, request validation, authentication and authorization, centralized error handling, secure secret management, database connection pooling and indexing, caching where appropriate, background processing through queues, timeouts and carefully bounded retries, rate limiting, structured logging, metrics, distributed tracing where appropriate, health and readiness checks, graceful shutdown, automated tests, CI/CD, secure dependency management, and horizontal scalability. The architecture should also define operational practices for deployment, monitoring, rollback, incident response, and capacity planning.",
           "interactiveQuiz": {
             "question": "Which combination best represents a production-grade Node.js backend?",
