@@ -133,20 +133,20 @@
             "title": "Module Syntax Comparison",
             "language": "javascript",
             "code": "import fs from 'node:fs/promises';\n\nexport async function readConfig(path) {\n return fs.readFile(path, 'utf8');\n}",
-            "explanation": "This example uses ES Modules and the modern node: protocol for a built-in Node.js module."
+            "explanation": "This example uses ES Modules and the modern node: protocol for a built-in Node.js module.",
+            "tabs": [
+              {
+                "label": "CommonJS",
+                "language": "javascript",
+                "code": "const fs = require('node:fs/promises');\n\nmodule.exports = { fs };"
+              },
+              {
+                "label": "ES Modules",
+                "language": "javascript",
+                "code": "import fs from 'node:fs/promises';\n\nexport { fs };"
+              }
+            ]
           },
-          "tabs": [
-            {
-              "label": "CommonJS",
-              "language": "javascript",
-              "code": "const fs = require('node:fs/promises');\n\nmodule.exports = { fs };"
-            },
-            {
-              "label": "ES Modules",
-              "language": "javascript",
-              "code": "import fs from 'node:fs/promises';\n\nexport { fs };"
-            }
-          ],
           "keyTakeaways": [
             "CommonJS uses require and module.exports.",
             "ES Modules use import and export.",
