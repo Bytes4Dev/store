@@ -5,7 +5,7 @@
   "subtitle": "A deep, example-driven React course covering rendering, state, effects, hooks, forms, context, performance, routing, testing, accessibility, and senior-level architecture.",
   "category": "Frontend Development",
   "level": "Advanced",
-  "estimatedTime": "18 Hours",
+  "estimatedTime": "45+ Hours",
   "accentColor": "#61DAFB",
   "keywords": [
     "React",
@@ -34,7 +34,7 @@
       "id": "react-mental-model",
       "title": "React Mental Model and Rendering",
       "summary": "Build the correct mental model for React before learning APIs: declarative UI, component trees, renders, reconciliation, identity, and the browser commit phase.",
-      "estimatedMinutes": 75,
+      "estimatedMinutes": 99,
       "mediaImages": ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"],
       "sections": [
         {
@@ -110,6 +110,39 @@
             "Do not solve Strict Mode behavior with arbitrary one-time flags.",
             "Render should be pure; effects should be resilient to setup and cleanup."
           ]
+        },
+        {
+          "id": "reconciliation-heuristics",
+          "title": "Reconciliation Heuristics",
+          "content": "React does not solve arbitrary tree-diffing optimally. It uses practical heuristics based on element types, positions, and keys. If two sibling elements have the same type, React can often reuse their existing representation; if their types differ, the corresponding subtree may be replaced.\n\nThe key lesson is not to memorize an implementation algorithm. Instead, understand that identity is what lets React preserve state and avoid unnecessary replacement.",
+          "keyTakeaways": [
+            "Element type and key identity influence whether existing component state can be preserved.",
+            "Do not depend on undocumented reconciliation details beyond stable public semantics."
+          ]
+        },
+        {
+          "id": "state-preservation-and-identity",
+          "title": "State Preservation and Identity",
+          "content": "State belongs to a component's position and identity in the rendered tree. Changing a key can deliberately give a subtree a new identity and therefore reset its state.\n\nThis is useful for editors, forms, and resource-specific screens where switching from one logical entity to another should start with fresh local state.",
+          "codeExample": {
+            "title": "State Preservation and Identity — Example",
+            "language": "javascript",
+            "code": "function Editor({ documentId }) {\n  return <DocumentEditor key={documentId} documentId={documentId} />;\n}",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": [
+            "Keys are an identity mechanism, not merely list metadata.",
+            "Changing identity can intentionally reset local state."
+          ]
+        },
+        {
+          "id": "render-purity-and-idempotence",
+          "title": "Render Purity and Idempotence",
+          "content": "Render functions can be called more than once and a render can be abandoned before commit. Therefore rendering must not perform irreversible operations such as sending analytics, mutating external stores, or starting timers.\n\nIf something must happen because the user clicked, put it in the event handler. If something must synchronize with an external system after commit, use an Effect.",
+          "keyTakeaways": [
+            "Never make render responsible for irreversible side effects.",
+            "Purity is essential to modern React scheduling."
+          ]
         }
       ]
     },
@@ -117,7 +150,7 @@
       "id": "jsx-components-props",
       "title": "JSX, Components, Props, and Composition",
       "summary": "Learn how JSX maps to JavaScript, how components receive data, and how composition produces reusable UI without creating rigid component APIs.",
-      "estimatedMinutes": 80,
+      "estimatedMinutes": 104,
       "mediaImages": ["https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=80"],
       "sections": [
         {
@@ -182,6 +215,33 @@
             "Conditional rendering is ordinary JavaScript combined with JSX.",
             "Use stable keys when rendering collections.",
             "Explicit conditions are safer when falsy values such as `0` or an empty string have meaning."
+          ]
+        },
+        {
+          "id": "prop-drilling-and-when-it-is-actually-a-problem",
+          "title": "Prop Drilling and When It Is Actually a Problem",
+          "content": "Passing props through one or two layers is usually simple and explicit. Prop drilling becomes a problem when many unrelated intermediate components must forward a value they do not use.\n\nBefore introducing Context, ask whether the intermediate components are actually expressing a useful ownership relationship. Context is best when the dependency is genuinely cross-cutting.",
+          "keyTakeaways": ["Prop passing is not inherently bad.", "Use Context when many descendants need the same coherent dependency."]
+        },
+        {
+          "id": "component-api-stability",
+          "title": "Component API Stability",
+          "content": "A component API is a contract. Changing a prop from a boolean to a union, changing whether a callback is optional, or changing controlled/uncontrolled behavior can affect many consumers.\n\nReusable components should document defaults, accessibility guarantees, controlled behavior, and supported composition patterns.",
+          "keyTakeaways": ["Treat reusable component props as public APIs.", "Prefer constrained variants over arbitrary strings."]
+        },
+        {
+          "id": "render-props-versus-hooks",
+          "title": "Render Props Versus Hooks",
+          "content": "Render props were historically a powerful way to share stateful behavior. Hooks now cover many of those use cases with less nesting.\n\nRender props remain useful when the reusable abstraction owns an interaction lifecycle while consumers need complete control over the rendered output. Choose the simpler abstraction for the actual requirement.",
+          "codeExample": {
+            "title": "Render Props Versus Hooks — Example",
+            "language": "javascript",
+            "code": "function Mouse({ children }) {\n  const [x, setX] = React.useState(0);\n  return children({ x });\n}",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": [
+            "Hooks are often the simpler modern abstraction.",
+            "Render props remain valid when rendering control is the primary requirement."
           ]
         }
       ]
@@ -263,7 +323,7 @@
       "id": "effects-refs-dom",
       "title": "Effects, Refs, and External Systems",
       "summary": "Learn when effects are actually needed, how dependency arrays work, how cleanup prevents leaks, and how refs bridge React with imperative systems.",
-      "estimatedMinutes": 100,
+      "estimatedMinutes": 124,
       "mediaImages": ["https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=1200&q=80"],
       "sections": [
         {
@@ -334,6 +394,42 @@
             "Use refs for imperative DOM access and non-visual mutable values.",
             "Use state for values that participate in rendered output."
           ]
+        },
+        {
+          "id": "effect-lifecycle-with-changing-dependencies",
+          "title": "Effect Lifecycle With Changing Dependencies",
+          "content": "When an Effect dependency changes, React conceptually transitions from the old synchronization to the new one: cleanup for the previous setup, followed by setup for the new values.\n\nThis is why cleanup should close over the same resource identity that setup created. A cleanup that references a newer mutable value can accidentally disconnect the wrong resource.",
+          "keyTakeaways": [
+            "Cleanup belongs to the setup that created the resource.",
+            "Avoid mutable global variables for subscription identity."
+          ]
+        },
+        {
+          "id": "layout-effects-versus-effects",
+          "title": "Layout Effects Versus Effects",
+          "content": "`useLayoutEffect` runs after DOM mutations but before the browser paints, which makes it useful for measuring layout or synchronously adjusting DOM before the user sees it.\n\nIt can block painting, so ordinary synchronization should prefer `useEffect`. Use layout effects only when visual correctness requires pre-paint work.",
+          "codeExample": {
+            "title": "Layout Effects Versus Effects — Example",
+            "language": "javascript",
+            "code": "function Tooltip({ children }) {\n  const ref = React.useRef(null);\n\n  React.useLayoutEffect(() => {\n    const rect = ref.current?.getBoundingClientRect();\n    // Position based on measured layout.\n    console.log(rect);\n  }, []);\n\n  return <div ref={ref}>{children}</div>;\n}",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": ["Prefer `useEffect` unless pre-paint DOM measurement is required.", "Layout effects can block visual updates."]
+        },
+        {
+          "id": "callback-refs",
+          "title": "Callback Refs",
+          "content": "Callback refs are useful when code needs to react immediately to a DOM node being attached or detached. Unlike an object ref, the callback receives the node itself and can perform setup around the attachment lifecycle.\n\nThey are particularly useful for integrating third-party imperative APIs that need an element as soon as it exists.",
+          "codeExample": {
+            "title": "Callback Refs — Example",
+            "language": "javascript",
+            "code": "function ChartHost({ createChart }) {\n  const setNode = React.useCallback(node => {\n    if (!node) return;\n    const chart = createChart(node);\n    return () => chart.destroy();\n  }, [createChart]);\n\n  return <div ref={setNode} />;\n}",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": [
+            "Callback refs are useful for imperative node attachment.",
+            "Keep cleanup tied to the resource created for that node."
+          ]
         }
       ]
     },
@@ -341,7 +437,7 @@
       "id": "hooks-deep-dive",
       "title": "Hooks Deep Dive and Custom Hooks",
       "summary": "Master the rules of hooks, memoization hooks, reducers, stable callbacks, custom hooks, and how to design hook APIs around behavior.",
-      "estimatedMinutes": 100,
+      "estimatedMinutes": 124,
       "mediaImages": ["https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"],
       "sections": [
         {
@@ -406,6 +502,36 @@
             "Expose intent and behavior, not internal Hook machinery.",
             "Custom Hooks should have predictable cleanup semantics.",
             "A focused Hook is easier to test and reuse than a giant all-purpose Hook."
+          ]
+        },
+        {
+          "id": "memoization-is-not-a-semantic-cache",
+          "title": "Memoization Is Not a Semantic Cache",
+          "content": "A memoized calculation should never be required for correctness. React may render in ways that make relying on memoization as persistent storage inappropriate.\n\nIf data must persist for correctness, use state, refs, or an appropriate external store. If recalculation is merely expensive, memoization may be useful after measurement.",
+          "keyTakeaways": ["Use memoization for performance, never as the source of truth.", "Choose state or refs based on semantics."]
+        },
+        {
+          "id": "hook-dependency-design",
+          "title": "Hook Dependency Design",
+          "content": "When a Hook has too many dependencies, do not automatically suppress the lint rule. First determine whether the Hook is doing too much, whether a callback can be moved inside the Effect, whether a functional state update can remove a dependency, or whether the external synchronization should be split.\n\nDependency complexity is often an architecture signal.",
+          "keyTakeaways": [
+            "Dependency arrays expose the design of synchronization.",
+            "Large dependency lists can indicate that an Effect owns too many responsibilities."
+          ]
+        },
+        {
+          "id": "imperative-handles",
+          "title": "Imperative Handles",
+          "content": "Imperative handles provide a controlled escape hatch for parent-to-child commands. A good handle exposes semantic operations such as `focus`, `scrollToError`, or `open`, not raw internal state.\n\nKeep the imperative API minimal because it bypasses some of React's declarative data flow.",
+          "codeExample": {
+            "title": "Imperative Handles — Example",
+            "language": "javascript",
+            "code": "React.useImperativeHandle(ref, () => ({\n  focus: () => inputRef.current?.focus(),\n  clear: () => setValue(\"\")\n}), []);",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": [
+            "Expose narrow commands rather than internal implementation.",
+            "Prefer declarative props when they can express the requirement."
           ]
         }
       ]
@@ -487,7 +613,7 @@
       "id": "async-data-fetching",
       "title": "Data Fetching, Loading States, and Suspense",
       "summary": "Build resilient async UI with loading, error, empty, and success states, understand request lifecycles, and learn where Suspense fits.",
-      "estimatedMinutes": 95,
+      "estimatedMinutes": 127,
       "mediaImages": ["https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80"],
       "sections": [
         {
@@ -553,6 +679,36 @@
             "Use boundaries at meaningful recovery boundaries rather than only at the application root.",
             "Log enough context to diagnose the failed feature without exposing sensitive data."
           ]
+        },
+        {
+          "id": "request-deduplication",
+          "title": "Request Deduplication",
+          "content": "Multiple components can request the same resource simultaneously. A production data layer can deduplicate requests so one network operation satisfies multiple consumers.\n\nWithout deduplication, dashboards can accidentally generate repeated calls for the same user, settings, or product data.",
+          "keyTakeaways": ["Query identity enables deduplication.", "Server-state libraries often provide this behavior automatically."]
+        },
+        {
+          "id": "stale-while-revalidate",
+          "title": "Stale-While-Revalidate",
+          "content": "A cache can show known data immediately while refreshing it in the background. This creates a fast UI without pretending cached data is always current.\n\nThe UI should distinguish known stale data from a first-load empty state when that distinction matters to the user.",
+          "keyTakeaways": [
+            "Stale data can be useful if its freshness is understood.",
+            "Refreshing and first loading are different UX states."
+          ]
+        },
+        {
+          "id": "pagination-and-infinite-scrolling",
+          "title": "Pagination and Infinite Scrolling",
+          "content": "Pagination changes query identity because page or cursor becomes part of the resource. Infinite scrolling additionally needs to preserve previous pages while loading the next page.\n\nCursor-based APIs are often more stable than offset pagination when records can change while a user is browsing.",
+          "keyTakeaways": [
+            "Pagination parameters belong in the resource identity.",
+            "Infinite lists require explicit loading and end-of-list states."
+          ]
+        },
+        {
+          "id": "optimistic-mutation-rollback",
+          "title": "Optimistic Mutation Rollback",
+          "content": "Optimistic updates require a rollback strategy. Store enough previous information to restore the UI if the server rejects the operation.\n\nAfter success, reconcile with the server response because the final authoritative representation may differ from the optimistic assumption.",
+          "keyTakeaways": ["Optimism requires rollback and reconciliation.", "The server response remains authoritative."]
         }
       ]
     },
@@ -560,7 +716,7 @@
       "id": "performance-optimization",
       "title": "React Performance and Rendering Optimization",
       "summary": "Learn how to diagnose slow renders, reduce unnecessary work, use memoization intelligently, virtualize large lists, and avoid accidental performance regressions.",
-      "estimatedMinutes": 105,
+      "estimatedMinutes": 129,
       "mediaImages": [
         "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
         "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"
@@ -645,6 +801,30 @@
             "`useDeferredValue` allows a value consumer to lag behind an urgent value.",
             "Use scheduling primitives when the problem is responsiveness rather than raw computation."
           ]
+        },
+        {
+          "id": "context-and-render-granularity",
+          "title": "Context and Render Granularity",
+          "content": "Broad context values can cause many consumers to rerender when one field changes. Splitting contexts by responsibility or using selectors can improve granularity.\n\nHowever, the goal is not zero renders. A small cheap rerender is often preferable to a complex architecture introduced solely to avoid it.",
+          "keyTakeaways": ["Optimize render cost, not render count alone.", "Keep subscriptions aligned with actual dependencies."]
+        },
+        {
+          "id": "browser-layout-and-paint",
+          "title": "Browser Layout and Paint",
+          "content": "React can finish quickly while the browser remains slow because of layout, paint, large shadows, expensive filters, or DOM size.\n\nUse browser performance tools to identify long tasks and layout/paint bottlenecks before changing React code.",
+          "keyTakeaways": ["Browser rendering is part of frontend performance.", "Measure the actual bottleneck."]
+        },
+        {
+          "id": "worker-based-computation",
+          "title": "Worker-Based Computation",
+          "content": "Very CPU-heavy client computations can block the main thread even when React scheduling is correct. A Web Worker can move computation off the main UI thread.\n\nThis introduces serialization and communication costs, so it is appropriate only when the computation is sufficiently expensive.",
+          "codeExample": {
+            "title": "Worker-Based Computation — Example",
+            "language": "javascript",
+            "code": "const worker = new Worker(\n  new URL(\"./worker.js\", import.meta.url),\n  { type: \"module\" }\n);",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": ["Use workers for truly CPU-heavy browser work.", "Measure transfer and serialization overhead."]
         }
       ]
     },
@@ -730,7 +910,7 @@
       "id": "testing-react-applications",
       "title": "Testing React Applications",
       "summary": "Learn what to test, how to test behavior rather than implementation details, and how unit, integration, component, and end-to-end tests fit together.",
-      "estimatedMinutes": 90,
+      "estimatedMinutes": 114,
       "mediaImages": ["https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80"],
       "sections": [
         {
@@ -796,6 +976,30 @@
             "Explicit boundaries make dependencies easier to replace in tests.",
             "Do not create abstractions merely for testing; extract concepts that are useful in production architecture."
           ]
+        },
+        {
+          "id": "testing-reducers-and-pure-functions",
+          "title": "Testing Reducers and Pure Functions",
+          "content": "Reducers are deterministic and should have direct unit tests for each meaningful action and edge case. This is often more valuable than rendering a full component for every state transition.\n\nPure validation, selectors, formatting, and transformation logic can similarly be tested without React.",
+          "codeExample": {
+            "title": "Testing Reducers and Pure Functions — Example",
+            "language": "javascript",
+            "code": "expect(reducer(\n  { count: 1 },\n  { type: \"increment\" }\n)).toEqual({ count: 2 });",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": ["Test deterministic logic directly.", "Keep component tests focused on integration and user behavior."]
+        },
+        {
+          "id": "testing-error-paths",
+          "title": "Testing Error Paths",
+          "content": "Production failures often happen in paths that happy-path tests ignore. Test rejected requests, invalid input, permission failures, empty results, retries, and partial UI failures.\n\nA mature suite treats failure states as first-class behavior.",
+          "keyTakeaways": ["Test failure and recovery paths explicitly.", "Error states are part of the product contract."]
+        },
+        {
+          "id": "flaky-test-diagnosis",
+          "title": "Flaky Test Diagnosis",
+          "content": "Flaky tests often come from arbitrary timing, shared mutable state, leaked subscriptions, incomplete cleanup, network dependence, or selectors tied to unstable markup.\n\nA flaky test should be fixed rather than repeatedly retried. Retries can hide genuine regressions.",
+          "keyTakeaways": ["Remove timing assumptions and shared state.", "Retries should not be used to mask nondeterminism."]
         }
       ]
     },
@@ -803,7 +1007,7 @@
       "id": "advanced-react-architecture",
       "title": "Advanced React Architecture",
       "summary": "Explore concurrent rendering concepts, server/client boundaries, framework architecture, hydration, design systems, feature organization, and production patterns.",
-      "estimatedMinutes": 115,
+      "estimatedMinutes": 139,
       "mediaImages": ["https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80"],
       "sections": [
         {
@@ -885,20 +1089,286 @@
             "Keep component APIs constrained around coherent responsibilities.",
             "Composition is usually more scalable than an enormous prop matrix."
           ]
+        },
+        {
+          "id": "server-and-client-responsibility",
+          "title": "Server and Client Responsibility",
+          "content": "Modern React architecture can divide work by execution environment. Server-side code can access private resources and perform data fetching, while client components handle interactivity.\n\nThis boundary should be explicit because moving code to the client can increase bundle size and expose dependencies that were previously server-only.",
+          "keyTakeaways": ["Execution environment is an architectural concern.", "Keep privileged operations on trusted infrastructure."]
+        },
+        {
+          "id": "designing-for-change",
+          "title": "Designing for Change",
+          "content": "A production architecture should make likely changes cheap. If billing rules change frequently, billing logic should have a clear boundary. If multiple teams own different features, code ownership should mirror those boundaries.\n\nArchitecture is therefore a prediction about future change, not only a description of today's folders.",
+          "keyTakeaways": [
+            "Optimize boundaries around ownership and change.",
+            "Avoid abstractions that have no stable concept behind them."
+          ]
+        },
+        {
+          "id": "avoiding-premature-abstraction",
+          "title": "Avoiding Premature Abstraction",
+          "content": "Duplicated code is not always a problem. Two similar components may diverge because they represent different concepts.\n\nExtract an abstraction when the behavior is genuinely shared and likely to evolve together. Otherwise, premature abstraction can make independent features harder to change.",
+          "keyTakeaways": [
+            "Abstract stable concepts, not superficial similarity.",
+            "Duplication can be cheaper than the wrong abstraction."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "react-server-rendering-and-hydration-deep-dive",
+      "title": "SSR, SSG, Streaming, Hydration, and Rendering Strategies",
+      "summary": "Compare client rendering, server rendering, static generation, streaming, hydration, and hybrid rendering, including tradeoffs for SEO, performance, caching, and infrastructure.",
+      "estimatedMinutes": 145,
+      "mediaImages": [
+        "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=85",
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1400&q=85"
+      ],
+      "sections": [
+        {
+          "id": "client-side-rendering",
+          "title": "Client-Side Rendering",
+          "content": "In client-side rendering, the browser receives JavaScript and constructs much of the UI on the client. This can provide rich interactivity but may delay meaningful content while JavaScript downloads and executes.\n\nCSR is appropriate for authenticated dashboards and applications where SEO and first-content requirements are less important, but it should still be evaluated against startup cost.",
+          "keyTakeaways": ["CSR shifts rendering work to the browser.", "Initial JavaScript cost can dominate startup performance."]
+        },
+        {
+          "id": "server-side-rendering",
+          "title": "Server-Side Rendering",
+          "content": "SSR generates HTML on the server for a request. The browser can display useful markup before hydration completes.\n\nSSR introduces server execution cost, caching complexity, and hydration constraints. It is not automatically faster for every application.",
+          "keyTakeaways": [
+            "SSR can improve initial content availability.",
+            "Server rendering introduces infrastructure and consistency requirements."
+          ]
+        },
+        {
+          "id": "static-generation",
+          "title": "Static Generation",
+          "content": "Static generation produces HTML ahead of requests. It works especially well for content that changes less frequently and can be regenerated or revalidated.\n\nStatic output can be served from a CDN with very low latency, but highly dynamic data may require another rendering strategy.",
+          "keyTakeaways": [
+            "Static generation is excellent for cacheable content.",
+            "Choose regeneration or dynamic rendering when freshness requirements demand it."
+          ]
+        },
+        {
+          "id": "hydration-mismatches",
+          "title": "Hydration Mismatches",
+          "content": "Hydration requires compatible server and client output. Problems commonly come from browser-only APIs, random values, timestamps, locale differences, or conditional rendering based on environment.\n\nA clean solution is to render deterministic server output and move browser-specific behavior to a client-side lifecycle after hydration when appropriate.",
+          "codeExample": {
+            "title": "Hydration Mismatches — Example",
+            "language": "javascript",
+            "code": "function ClientOnlyTime() {\n  const [time, setTime] = React.useState(null);\n\n  React.useEffect(() => {\n    setTime(new Date().toLocaleTimeString());\n  }, []);\n\n  return <time>{time ?? \"Loading time...\"}</time>;\n}",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": ["Server output should be deterministic.", "Browser-only values should be handled deliberately."]
+        },
+        {
+          "id": "streaming-and-progressive-ui",
+          "title": "Streaming and Progressive UI",
+          "content": "Streaming allows independent portions of a response to arrive progressively. Suspense boundaries provide natural units for this progressive rendering.\n\nA good streaming design avoids making the whole page wait for one slow dependency when independent content can be displayed earlier.",
+          "keyTakeaways": [
+            "Design Suspense boundaries around independent user-perceived regions.",
+            "Streaming works best when slow dependencies are isolated."
+          ]
+        },
+        {
+          "id": "rendering-strategy-selection",
+          "title": "Rendering Strategy Selection",
+          "content": "There is no universal best rendering mode. Public marketing pages may favor static or server rendering, authenticated dashboards may favor client rendering, and mixed applications can combine strategies.\n\nChoose based on freshness, SEO, personalization, infrastructure, latency, and bundle constraints.",
+          "diagram": {
+            "type": "mermaid",
+            "title": "Rendering Strategy Decision",
+            "code": "flowchart TD\nA[Page Requirements] --> B{Highly Dynamic?}\nB -->|No| C[Static / Cached Rendering]\nB -->|Yes| D{SEO / First Content Important?}\nD -->|Yes| E[Server / Streaming Rendering]\nD -->|No| F[Client Rendering]\nC --> G[CDN Cache]\nE --> H[Hydration / Client Boundaries]\nF --> I[Browser Bundle]"
+          },
+          "keyTakeaways": [
+            "Rendering strategy is a product and infrastructure decision.",
+            "Hybrid architectures are often the most practical."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "react-accessibility-design-systems",
+      "title": "Accessible Component Systems and Design Systems",
+      "summary": "Go beyond individual accessibility fixes and design reusable React primitives with semantic behavior, keyboard interactions, focus management, theming, and API consistency.",
+      "estimatedMinutes": 130,
+      "mediaImages": [
+        "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1400&q=85",
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1400&q=85"
+      ],
+      "sections": [
+        {
+          "id": "button-link-and-navigation-semantics",
+          "title": "Button, Link, and Navigation Semantics",
+          "content": "Buttons perform actions; links navigate. Using the wrong element creates keyboard, semantics, and assistive technology problems.\n\nA design system should make the correct element easy to use rather than encouraging teams to style generic elements into fake controls.",
+          "keyTakeaways": [
+            "Use buttons for actions and links for navigation.",
+            "Design-system primitives should preserve native semantics."
+          ]
+        },
+        {
+          "id": "accessible-dialog-architecture",
+          "title": "Accessible Dialog Architecture",
+          "content": "Dialogs require an accessible name, modal semantics when appropriate, keyboard escape behavior, focus entry, focus containment where required, and focus restoration.\n\nA reusable Dialog component should own these behaviors so product teams do not implement them differently across the application.",
+          "keyTakeaways": [
+            "Accessibility behavior belongs in reusable primitives.",
+            "Visual appearance and interaction semantics are separate concerns."
+          ]
+        },
+        {
+          "id": "tabs-menus-and-comboboxes",
+          "title": "Tabs, Menus, and Comboboxes",
+          "content": "Composite widgets have keyboard interaction models that are significantly more complex than ordinary buttons. Tabs need selection and arrow-key behavior; menus have roving focus patterns; comboboxes combine text input with a popup list and active option semantics.\n\nPrefer established accessible patterns and test them with keyboards and assistive technology.",
+          "keyTakeaways": [
+            "Composite widgets require deliberate keyboard contracts.",
+            "Do not invent accessibility interaction rules casually."
+          ]
+        },
+        {
+          "id": "design-tokens-and-theming",
+          "title": "Design Tokens and Theming",
+          "content": "A design system can expose semantic tokens such as `surface`, `text`, `danger`, and `focusRing` rather than raw colors. This supports themes and accessibility adjustments.\n\nReact Context can provide theme configuration, while CSS variables can efficiently implement the actual visual tokens.",
+          "codeExample": {
+            "title": "Design Tokens and Theming — Example",
+            "language": "javascript",
+            "code": "const ThemeContext = React.createContext(\"light\");\n\nfunction ThemeProvider({ children }) {\n  return (\n    <ThemeContext.Provider value=\"dark\">\n      {children}\n    </ThemeContext.Provider>\n  );\n}",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": ["Prefer semantic design tokens.", "Use CSS variables for efficient theme application."]
+        },
+        {
+          "id": "component-contracts",
+          "title": "Component Contracts",
+          "content": "Reusable components should define what they guarantee: keyboard behavior, focus behavior, ARIA semantics, disabled behavior, controlled state, and visual variants.\n\nA component is successful when consumers can rely on its contract without reading its implementation.",
+          "keyTakeaways": ["Document behavior, not only props.", "Stable contracts make design systems scalable."]
+        }
+      ]
+    },
+    {
+      "id": "react-security-observability-and-production",
+      "title": "Security, Observability, and Production Reliability",
+      "summary": "Protect React applications against XSS and client-side trust mistakes while building error reporting, logging, monitoring, deployment, and resilience practices.",
+      "estimatedMinutes": 125,
+      "mediaImages": [
+        "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1400&q=85",
+        "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1400&q=85"
+      ],
+      "sections": [
+        {
+          "id": "xss-and-raw-html",
+          "title": "XSS and Raw HTML",
+          "content": "React escapes text interpolation, but `dangerouslySetInnerHTML` intentionally bypasses this safety. If rich HTML is required, sanitize it using a trusted sanitizer and define a strict content policy.\n\nNever assume data is safe because it came from your own database. Stored malicious content can become an XSS vector later.",
+          "keyTakeaways": ["Treat rich HTML as untrusted until sanitized.", "Stored XSS can persist long after the original input."]
+        },
+        {
+          "id": "csrf-and-authentication-architecture",
+          "title": "CSRF and Authentication Architecture",
+          "content": "Authentication mechanisms have different CSRF characteristics. Cookie-based sessions require careful CSRF defenses because browsers attach cookies automatically. Token-based designs have their own storage and XSS tradeoffs.\n\nThe frontend should not decide security policy by itself; it should cooperate with a trusted backend security model.",
+          "keyTakeaways": [
+            "Authentication and browser credential transport must be designed together.",
+            "Do not store sensitive credentials casually in browser-accessible storage."
+          ]
+        },
+        {
+          "id": "error-monitoring",
+          "title": "Error Monitoring",
+          "content": "Production error monitoring should capture stack traces, release versions, route information, and safe contextual metadata. Source maps can make minified production stack traces actionable.\n\nAvoid collecting passwords, tokens, private message contents, or unnecessary personal data.",
+          "keyTakeaways": [
+            "Observability should be actionable and privacy-aware.",
+            "Release identifiers are critical for connecting errors to deployments."
+          ]
+        },
+        {
+          "id": "feature-flags",
+          "title": "Feature Flags",
+          "content": "Feature flags allow gradual rollout, experimentation, and rapid disablement. Flags introduce branching complexity, so they need ownership, expiration, and cleanup.\n\nA flag that lives indefinitely becomes a permanent second architecture.",
+          "keyTakeaways": [
+            "Feature flags are temporary architecture unless intentionally permanent.",
+            "Remove stale flags and dead branches."
+          ]
+        },
+        {
+          "id": "production-error-boundaries",
+          "title": "Production Error Boundaries",
+          "content": "Place boundaries around features where recovery is possible. A dashboard widget can fail without taking down the whole dashboard.\n\nA boundary should offer useful recovery such as retrying the feature, navigating away, or reporting the failure.",
+          "keyTakeaways": [
+            "Failure isolation should match product boundaries.",
+            "A global boundary should be a last line of defense, not the only boundary."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "react-patterns-and-component-api-design",
+      "title": "Advanced Component Patterns and API Design",
+      "summary": "Master compound components, headless components, controlled/uncontrolled APIs, portals, imperative handles, render props, and reusable stateful abstractions.",
+      "estimatedMinutes": 135,
+      "mediaImages": [
+        "https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1400&q=85",
+        "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1400&q=85"
+      ],
+      "sections": [
+        {
+          "id": "compound-components",
+          "title": "Compound Components",
+          "content": "Compound components form a family of components that share state and coordinate behavior. Context is commonly used internally to avoid manually passing state between every member.\n\nThis pattern creates expressive APIs such as `<Tabs><Tabs.List>...</Tabs.List></Tabs>` while keeping related behavior encapsulated.",
+          "keyTakeaways": ["Compound components work well for cohesive widget families.", "Keep implicit relationships documented."]
+        },
+        {
+          "id": "headless-components",
+          "title": "Headless Components",
+          "content": "A headless component provides behavior and accessibility while leaving visual rendering to the consumer. This is useful for design systems serving multiple brands or applications.\n\nHeadless components need strong contracts because consumers control more of the DOM.",
+          "keyTakeaways": [
+            "Separate interaction behavior from visual styling when reuse demands it.",
+            "Accessibility remains the responsibility of the behavior layer."
+          ]
+        },
+        {
+          "id": "portals",
+          "title": "Portals",
+          "content": "Portals change where children are mounted in the DOM while preserving React ownership. They are useful for overlays that should escape clipping and stacking contexts.\n\nA portal does not automatically provide modal accessibility or focus management.",
+          "codeExample": {
+            "title": "Portals — Example",
+            "language": "javascript",
+            "code": "function Modal({ children }) {\n  return ReactDOM.createPortal(\n    <div role=\"dialog\" aria-modal=\"true\">\n      {children}\n    </div>,\n    document.body\n  );\n}",
+            "explanation": "A practical example of the concept."
+          },
+          "keyTakeaways": ["Portals are useful for overlays.", "Focus and keyboard behavior still need explicit handling."]
+        },
+        {
+          "id": "controlled-and-uncontrolled-apis",
+          "title": "Controlled and Uncontrolled APIs",
+          "content": "A reusable component can support both controlled and uncontrolled operation. The controlled mode receives its value and change callback from the parent; the uncontrolled mode owns internal state and accepts a default value.\n\nThe API should define what happens if consumers switch between modes, because silently changing ownership can create confusing behavior.",
+          "keyTakeaways": ["Controlled mode delegates ownership to the parent.", "Uncontrolled mode lets the component own state."]
+        },
+        {
+          "id": "imperative-apis",
+          "title": "Imperative APIs",
+          "content": "Imperative handles are useful for commands such as focusing an input or scrolling a validation error into view. They should expose semantic operations rather than raw DOM nodes whenever possible.",
+          "keyTakeaways": ["Expose narrow imperative capabilities.", "Prefer declarative APIs for ordinary state changes."]
+        },
+        {
+          "id": "reusable-state-machines",
+          "title": "Reusable State Machines",
+          "content": "Complex widgets can separate interaction state from rendering. A reducer or state machine can describe valid transitions, while React renders the current state.\n\nThis makes the interaction logic reusable across multiple visual presentations.",
+          "keyTakeaways": [
+            "Separate complex interaction rules from presentation when reuse warrants it.",
+            "Explicit transitions make edge cases easier to test."
+          ]
         }
       ]
     },
     {
       "id": "interview-questions",
       "title": "Top Interview Questions & Practice",
-      "summary": "Master 50+ essential React interview questions ranging from core fundamentals to senior-level real-world scenarios.",
-      "estimatedMinutes": 180,
+      "summary": "Master 60 essential React interview questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "estimatedMinutes": 240,
       "mediaImages": ["https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1200&q=80"],
       "sections": [
         {
           "id": "junior-fundamentals",
           "title": "Junior Fundamentals",
-          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "content": "Core JSX, components, props, state, and rendering. Explain why the correct option is correct and why the alternatives are weaker.",
           "interactiveQuiz": [
             {
               "id": "react-interview-01",
@@ -997,14 +1467,14 @@
             }
           ],
           "keyTakeaways": [
-            "Explain the underlying React model, not just the API name.",
-            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+            "Explain the mental model behind the answer instead of memorizing APIs.",
+            "For senior scenarios, consider correctness, maintainability, accessibility, security, and performance."
           ]
         },
         {
-          "id": "core-hooks-and-apis",
-          "title": "Core APIs & Hooks",
-          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "id": "state-events-forms",
+          "title": "State, Events & Forms",
+          "content": "State transitions, events, forms, validation, and data ownership. Explain why the correct option is correct and why the alternatives are weaker.",
           "interactiveQuiz": [
             {
               "id": "react-interview-11",
@@ -1103,14 +1573,14 @@
             }
           ],
           "keyTakeaways": [
-            "Explain the underlying React model, not just the API name.",
-            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+            "Explain the mental model behind the answer instead of memorizing APIs.",
+            "For senior scenarios, consider correctness, maintainability, accessibility, security, and performance."
           ]
         },
         {
-          "id": "state-and-async-architecture",
-          "title": "State Management & Async Operations",
-          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "id": "hooks-effects",
+          "title": "Hooks & Effects",
+          "content": "Hooks, dependency semantics, refs, effects, and synchronization. Explain why the correct option is correct and why the alternatives are weaker.",
           "interactiveQuiz": [
             {
               "id": "react-interview-21",
@@ -1229,14 +1699,14 @@
             }
           ],
           "keyTakeaways": [
-            "Explain the underlying React model, not just the API name.",
-            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+            "Explain the mental model behind the answer instead of memorizing APIs.",
+            "For senior scenarios, consider correctness, maintainability, accessibility, security, and performance."
           ]
         },
         {
-          "id": "performance-and-architecture",
-          "title": "Performance & Architecture",
-          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "id": "performance-async",
+          "title": "Performance & Async",
+          "content": "Fetching, caching, concurrency, profiling, and optimization. Explain why the correct option is correct and why the alternatives are weaker.",
           "interactiveQuiz": [
             {
               "id": "react-interview-31",
@@ -1350,14 +1820,14 @@
             }
           ],
           "keyTakeaways": [
-            "Explain the underlying React model, not just the API name.",
-            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+            "Explain the mental model behind the answer instead of memorizing APIs.",
+            "For senior scenarios, consider correctness, maintainability, accessibility, security, and performance."
           ]
         },
         {
-          "id": "senior-real-world-scenarios",
-          "title": "Senior Real-World Scenarios",
-          "content": "Use these questions to test whether you can explain the concept, predict behavior, and choose an appropriate production design.",
+          "id": "architecture-accessibility",
+          "title": "Architecture & Accessibility",
+          "content": "State architecture, routing, security, accessibility, and design systems. Explain why the correct option is correct and why the alternatives are weaker.",
           "interactiveQuiz": [
             {
               "id": "react-interview-41",
@@ -1466,8 +1936,139 @@
             }
           ],
           "keyTakeaways": [
-            "Explain the underlying React model, not just the API name.",
-            "For production questions, consider correctness, maintainability, accessibility, and performance together."
+            "Explain the mental model behind the answer instead of memorizing APIs.",
+            "For senior scenarios, consider correctness, maintainability, accessibility, security, and performance."
+          ]
+        },
+        {
+          "id": "senior-real-world-scenarios",
+          "title": "Senior Real-World Scenarios",
+          "content": "Production reasoning and architecture tradeoffs. Explain why the correct option is correct and why the alternatives are weaker.",
+          "interactiveQuiz": [
+            {
+              "id": "react-interview-51",
+              "question": "A component performs a side effect directly during render. Why is this unsafe?",
+              "options": [
+                "Rendering may be repeated or abandoned before commit",
+                "Render only happens once",
+                "Effects cannot run after render",
+                "It makes JSX invalid"
+              ],
+              "correctIndex": 0,
+              "explanation": "Modern React can render work that is later discarded, so render-time side effects can execute without a corresponding committed UI."
+            },
+            {
+              "id": "react-interview-52",
+              "question": "What is the strongest reason to keep server data out of generic UI state?",
+              "options": [
+                "Server data has caching, freshness, invalidation, and synchronization semantics",
+                "React cannot store objects",
+                "UI state cannot use arrays",
+                "Server data is always immutable"
+              ],
+              "correctIndex": 0,
+              "explanation": "Server state is owned remotely and needs resource-oriented behavior that ordinary UI state does not provide."
+            },
+            {
+              "id": "react-interview-53",
+              "question": "Why can changing a component key reset its local state?",
+              "options": [
+                "The key changes the component's identity in the tree",
+                "Keys clear JavaScript memory",
+                "Keys restart the browser",
+                "Keys disable hooks"
+              ],
+              "correctIndex": 0,
+              "explanation": "React associates state with component identity. A different key represents a different identity."
+            },
+            {
+              "id": "react-interview-54",
+              "question": "A context provider value changes on every render because it creates a new object. What can this cause?",
+              "options": [
+                "Consumers may observe the context as changed even when logical values are unchanged",
+                "React crashes",
+                "The browser reloads",
+                "Hooks stop working"
+              ],
+              "correctIndex": 0,
+              "explanation": "Object identity changes can cause context consumers to update. Stable provider values can help when profiling shows this matters."
+            },
+            {
+              "id": "react-interview-55",
+              "question": "Why is `useMemo` not a replacement for state?",
+              "options": [
+                "Memoization is a performance optimization, not a correctness storage mechanism",
+                "Memo cannot return objects",
+                "State cannot be calculated",
+                "useMemo only works in classes"
+              ],
+              "correctIndex": 0,
+              "explanation": "Required persistent data should use an appropriate state or store primitive, not rely on memoization."
+            },
+            {
+              "id": "react-interview-56",
+              "question": "What is a good reason to use a Web Worker with React?",
+              "options": [
+                "Move sufficiently expensive CPU work off the main UI thread",
+                "Make JSX compile",
+                "Replace the router",
+                "Store secrets"
+              ],
+              "correctIndex": 0,
+              "explanation": "Workers can prevent heavy CPU computation from blocking the browser main thread, though communication has costs."
+            },
+            {
+              "id": "react-interview-57",
+              "question": "Why should an SPA test direct navigation to a nested route?",
+              "options": [
+                "The server must correctly serve the entry document for client-managed routes",
+                "React cannot render nested paths",
+                "Keys only work on root routes",
+                "CSS requires it"
+              ],
+              "correctIndex": 0,
+              "explanation": "Without appropriate server fallback configuration, refreshing a nested client route can produce a server 404."
+            },
+            {
+              "id": "react-interview-58",
+              "question": "What is a good reason to normalize entities in client state?",
+              "options": [
+                "Many features reference and update the same entities",
+                "All arrays must be normalized",
+                "Normalization is required by React",
+                "It automatically improves network speed"
+              ],
+              "correctIndex": 0,
+              "explanation": "Normalization reduces duplicated entity copies and can make shared updates consistent."
+            },
+            {
+              "id": "react-interview-59",
+              "question": "Why should an Error Boundary be placed around a feature rather than only at the root?",
+              "options": [
+                "A localized failure can then be isolated while the rest of the application remains usable",
+                "Root boundaries cannot catch errors",
+                "Feature boundaries are faster by definition",
+                "React requires one per component"
+              ],
+              "correctIndex": 0,
+              "explanation": "Meaningful recovery boundaries let users continue using unaffected parts of the application."
+            },
+            {
+              "id": "react-interview-60",
+              "question": "What is a major risk of an abstraction created only because two components look similar?",
+              "options": [
+                "Their concepts may diverge, making the abstraction harder to change than duplicated code",
+                "React cannot share code",
+                "TypeScript forbids reuse",
+                "It always causes a runtime error"
+              ],
+              "correctIndex": 0,
+              "explanation": "Good abstractions represent stable shared concepts; superficial similarity is not enough."
+            }
+          ],
+          "keyTakeaways": [
+            "Explain the mental model behind the answer instead of memorizing APIs.",
+            "For senior scenarios, consider correctness, maintainability, accessibility, security, and performance."
           ]
         }
       ]
