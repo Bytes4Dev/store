@@ -1,8 +1,8 @@
 {
-  "courseId": "java-mastery-qa",
-  "courseName": "Java Full Stack & Core Architecture Master Class",
-  "title": "Comprehensive Java Master Interview Question Bank (Chapter 1)",
-  "subtitle": "75 progressive Java interview questions spanning Core Fundamentals, OOPs, Collections, Concurrency, JVM Internals, and Modern Java Features",
+  "courseId": "java-interview-questions",
+  "courseName": "Java Top Interview Questions & Answers",
+  "title": "Comprehensive Java Interview Question Bank",
+  "subtitle": "100 progressive Java interview questions spanning Core Fundamentals, OOPs, Collections, Concurrency, JVM Internals, and Modern Java Features",
   "category": "Interview Q&A",
   "level": "Comprehensive (Basic to Advanced)",
   "estimatedTime": "6.5 Hours",
@@ -2056,6 +2056,608 @@
             "correctIndex": 1,
             "explanation": "BFS explores nodes layer by layer, guaranteeing that the first time `endWord` is reached represents the shortest transformation path."
           }
+        },
+        {
+          "id": "java-dsa-interview-questions",
+          "title": "Java Progressive DSA Master Bank (25 Core Algorithmic Questions)",
+          "summary": "25 essential Java Data Structures & Algorithms interview questions complete with step-by-step logic, code implementations, asymptotic complexities, and interactive quizzes.",
+          "estimatedMinutes": 270,
+          "sections": [
+            {
+              "id": "q1-count-set-bits-brain-kerninghan",
+              "title": "Q1: How do you count the number of set bits (1s) in an integer using Brian Kernighan's Algorithm?",
+              "content": "Brian Kernighan's Algorithm repeatedly clears the lowest set bit of an integer `n` using the bitwise operation `n = n & (n - 1)`. Each iteration flips the rightmost set bit to 0, running in $O(k)$ time where $k$ is the number of set bits.",
+              "keyTakeaways": [
+                "`n & (n - 1)` clears the rightmost set bit in $O(1)$ time.",
+                "Total iterations equal the count of set bits rather than total bits ($32$ or $64$)."
+              ],
+              "codeExample": {
+                "title": "Brian Kernighan's Bit Counting",
+                "language": "java",
+                "code": "public class BitCount {\n    public static int countSetBits(int n) {\n        int count = 0;\n        while (n != 0) {\n            n = n & (n - 1); // Clears rightmost set bit\n            count++;\n        }\n        return count;\n    }\n}",
+                "explanation": "Flips the lowest set bit in each iteration until the number becomes zero."
+              },
+              "interactiveQuiz": {
+                "question": "What is the result of applying n & (n - 1) to n = 12 (binary 1100)?",
+                "options": ["8 (binary 1000)", "4 (binary 0100)", "10 (binary 1010)", "0"],
+                "correctIndex": 0,
+                "explanation": "12 (1100) & 11 (1011) evaluates to 8 (1000), clearing the rightmost set bit at index 2."
+              }
+            },
+            {
+              "id": "q2-power-of-two-check",
+              "title": "Q2: How do you check if an integer is a Power of Two in O(1) time?",
+              "content": "A positive integer is a power of two if it has exactly **one set bit** in its binary representation. Evaluating `(n > 0) && ((n & (n - 1)) == 0)` checks this property in constant time.",
+              "keyTakeaways": [
+                "Powers of 2 have exactly one bit set to 1 in binary.",
+                "`(n & (n - 1)) == 0` clears that single set bit, resulting in 0."
+              ],
+              "codeExample": {
+                "title": "Power of Two Check",
+                "language": "java",
+                "code": "public class PowerOfTwo {\n    public static boolean isPowerOfTwo(int n) {\n        return n > 0 && (n & (n - 1)) == 0;\n    }\n}",
+                "explanation": "Returns true strictly for positive integers containing a single 1 bit."
+              },
+              "interactiveQuiz": {
+                "question": "Why is the condition n > 0 mandatory in the expression n > 0 && (n & (n - 1)) == 0?",
+                "options": [
+                  "Because n = 0 evaluates (0 & -1) == 0 to true, but 0 is not a power of two",
+                  "To avoid divide-by-zero errors",
+                  "Required for bitwise syntax in Java",
+                  "To prevent negative numbers from causing infinite loops"
+                ],
+                "correctIndex": 0,
+                "explanation": "For `n = 0`, `0 & -1` equals 0, which would incorrectly return true without the `n > 0` guard."
+              }
+            },
+            {
+              "id": "q3-single-number-bitwise-xor",
+              "title": "Q3: Given an array where every element appears twice except one, how do you find the single number in O(n) time and O(1) space?",
+              "content": "Use the properties of the bitwise XOR operator ($oplus$):\n1. $x oplus x = 0$ (Self-inverse)\n2. $x oplus 0 = x$ (Identity)\n3. $x oplus y = y oplus x$ (Commutative)\nXORing all elements across the array cancels out all paired numbers, leaving the single unique number.",
+              "keyTakeaways": ["XORing paired duplicate values reduces them to 0.", "Executes in $O(n)$ time with $O(1)$ auxiliary space."],
+              "codeExample": {
+                "title": "Single Number XOR Solution",
+                "language": "java",
+                "code": "public class SingleNumber {\n    public static int findSingle(int[] nums) {\n        int result = 0;\n        for (int num : nums) {\n            result ^= num;\n        }\n        return result;\n    }\n}",
+                "explanation": "Accumulates XOR results across the array to isolate the un-paired value."
+              },
+              "interactiveQuiz": {
+                "question": "What is the result of evaluating 5 ^ 3 ^ 5?",
+                "options": ["0", "3", "5", "8"],
+                "correctIndex": 1,
+                "explanation": "Due to commutative property, 5 ^ 5 ^ 3 = 0 ^ 3 = 3."
+              }
+            },
+            {
+              "id": "q4-rotate-matrix-90-degrees",
+              "title": "Q4: How do you rotate an N x N 2D matrix 90 degrees clockwise in-place?",
+              "content": "Rotating a matrix 90 degrees clockwise in-place involves two steps:\n1. **Transpose the matrix**: Swap `matrix[i][j]` with `matrix[j][i]` for all $i < j$.\n2. **Reverse each row**: Swap elements from outer columns inward (`matrix[i][left]` with `matrix[i][right]`).",
+              "keyTakeaways": ["Step 1: Transpose matrix along the main diagonal.", "Step 2: Reverse elements horizontally in each row."],
+              "codeExample": {
+                "title": "Matrix 90 Degree Rotation",
+                "language": "java",
+                "code": "public class RotateMatrix {\n    public static void rotate(int[][] matrix) {\n        int n = matrix.length;\n        // Step 1: Transpose\n        for (int i = 0; i < n; i++) {\n            for (int j = i + 1; j < n; j++) {\n                int temp = matrix[i][j];\n                matrix[i][j] = matrix[j][i];\n                matrix[j][i] = temp;\n            }\n        }\n        // Step 2: Reverse rows\n        for (int i = 0; i < n; i++) {\n            int left = 0, right = n - 1;\n            while (left < right) {\n                int temp = matrix[i][left];\n                matrix[i][left] = matrix[i][right];\n                matrix[i][right] = temp;\n                left++; right--;\n            }\n        }\n    }\n}",
+                "explanation": "Transposes the grid matrix across its main diagonal and flips rows horizontally."
+              },
+              "interactiveQuiz": {
+                "question": "How would you rotate an N x N matrix 90 degrees COUNTER-clockwise in-place?",
+                "options": [
+                  "Reverse each row first, then transpose",
+                  "Transpose the matrix first, then reverse each column vertically",
+                  "Reverse the order of rows vertically first, then transpose",
+                  "Duplicate step 1 twice"
+                ],
+                "correctIndex": 2,
+                "explanation": "Flipping rows vertically first and then transposing produces a 90 degree counter-clockwise rotation."
+              }
+            },
+            {
+              "id": "q5-spiral-matrix-traversal",
+              "title": "Q5: How do you traverse an M x N 2D matrix in Spiral Order?",
+              "content": "Maintain four boundary boundaries: `top`, `bottom`, `left`, and `right`. Traverse right along `top`, down along `right`, left along `bottom` (if `top <= bottom`), and up along `left` (if `left <= right`), shrinking boundaries inward after each direction traversal.",
+              "keyTakeaways": [
+                "Track four dynamic boundary boundaries.",
+                "Shrink boundaries inward and verify non-overlapping conditions before scanning reverse directions."
+              ],
+              "codeExample": {
+                "title": "Spiral Matrix Traversal",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class SpiralMatrix {\n    public static List<Integer> spiralOrder(int[][] matrix) {\n        List<Integer> result = new ArrayList<>();\n        if (matrix == null || matrix.length == 0) return result;\n        int top = 0, bottom = matrix.length - 1;\n        int left = 0, right = matrix[0].length - 1;\n        while (top <= bottom && left <= right) {\n            for (int col = left; col <= right; col++) result.add(matrix[top][col]);\n            top++;\n            for (int row = top; row <= bottom; row++) result.add(matrix[row][right]);\n            right--;\n            if (top <= bottom) {\n                for (int col = right; col >= left; col--) result.add(matrix[bottom][col]);\n                bottom--;\n            }\n            if (left <= right) {\n                for (int row = bottom; row >= top; row--) result.add(matrix[row][left]);\n                left++;\n            }\n        }\n        return result;\n    }\n}",
+                "explanation": "Scans grid perimeters clockwise while shrinking boundary limits."
+              },
+              "interactiveQuiz": {
+                "question": "Why are the checks top <= bottom and left <= right required inside the spiral loop before processing bottom and left sweeps?",
+                "options": [
+                  "To avoid ArrayOutOfBounds Exceptions when processing non-square single-row or single-column matrices",
+                  "To prevent negative numbers",
+                  "Required for fast execution",
+                  "To reset bounds"
+                ],
+                "correctIndex": 0,
+                "explanation": "When boundaries shrink on odd single-row or single-column matrices, checking bounds prevents duplicate traversal passes."
+              }
+            },
+            {
+              "id": "q6-queue-using-stacks",
+              "title": "Q6: How do you implement a Queue using two Stacks (and analyze amortized time complexity)?",
+              "content": "Maintain two stacks: `inputStack` and `outputStack`.\n- **`enqueue(x)`**: Push `x` onto `inputStack` ($O(1)$).\n- **`dequeue()`**: If `outputStack` is empty, pop all elements from `inputStack` and push them onto `outputStack` (reversing their order). Pop top of `outputStack` ($O(1)$ amortized).",
+              "keyTakeaways": [
+                "`inputStack` accepts fresh incoming items.",
+                "`outputStack` provides FIFO ordering with amortized $O(1)$ operations."
+              ],
+              "codeExample": {
+                "title": "Queue Using Stacks Implementation",
+                "language": "java",
+                "code": "import java.util.ArrayDeque;\nimport java.util.Deque;\n\npublic class MyQueue {\n    private final Deque<Integer> input = new ArrayDeque<>();\n    private final Deque<Integer> output = new ArrayDeque<>();\n\n    public void push(int x) {\n        input.push(x);\n    }\n    public int pop() {\n        peek();\n        return output.pop();\n    }\n    public int peek() {\n        if (output.isEmpty()) {\n            while (!input.isEmpty()) {\n                output.push(input.pop());\n            }\n        }\n        return output.peek();\n    }\n    public boolean empty() {\n        return input.isEmpty() && output.isEmpty();\n    }\n}",
+                "explanation": "Transfers items from input to output stack on demand to establish FIFO queue order."
+              },
+              "interactiveQuiz": {
+                "question": "What is the amortized time complexity of the pop() method in a queue built using two stacks?",
+                "options": ["O(N)", "O(1)", "O(log N)", "O(N^2)"],
+                "correctIndex": 1,
+                "explanation": "Each element is moved between stacks at most once, distributing work to $O(1)$ amortized cost per operation."
+              }
+            },
+            {
+              "id": "q7-min-stack-design",
+              "title": "Q7: How do you design a Min Stack that retrieves the minimum element in O(1) time?",
+              "content": "Maintain an auxiliary stack (`minStack`) alongside the primary stack. When pushing value `x`, push `Math.min(x, minStack.peek())` onto `minStack`. When popping from the primary stack, pop from `minStack` simultaneously.",
+              "keyTakeaways": [
+                "Auxiliary minStack tracks the current minimum value at every stack depth.",
+                "All operations (`push`, `pop`, `top`, `getMin`) run in $O(1)$ time."
+              ],
+              "codeExample": {
+                "title": "Min Stack Implementation",
+                "language": "java",
+                "code": "import java.util.ArrayDeque;\nimport java.util.Deque;\n\npublic class MinStack {\n    private final Deque<Integer> stack = new ArrayDeque<>();\n    private final Deque<Integer> minStack = new ArrayDeque<>();\n\n    public void push(int val) {\n        stack.push(val);\n        int currentMin = minStack.isEmpty() ? val : Math.min(val, minStack.peek());\n        minStack.push(currentMin);\n    }\n    public void pop() {\n        stack.pop();\n        minStack.pop();\n    }\n    public int top() {\n        return stack.peek();\n    }\n    public int getMin() {\n        return minStack.peek();\n    }\n}",
+                "explanation": "Keeps stack min state in sync across every push and pop operation."
+              },
+              "interactiveQuiz": {
+                "question": "What is the auxiliary space complexity of the Min Stack implementation?",
+                "options": ["O(1)", "O(N)", "O(log N)", "O(N^2)"],
+                "correctIndex": 1,
+                "explanation": "The auxiliary minStack stores one entry per element, using $O(N)$ space."
+              }
+            },
+            {
+              "id": "q8-search-in-rotated-sorted-array",
+              "title": "Q8: How do you search for a target value in a Rotated Sorted Array in O(log n) time?",
+              "content": "Use Modified Binary Search. In a rotated sorted array, at least one half (left to mid OR mid to right) is guaranteed to be strictly sorted. Determine which half is sorted, check if `target` lies within its bounds, and adjust binary search boundaries `left` / `right` accordingly.",
+              "keyTakeaways": ["Identify the sorted half in each binary search step.", "Narrows search range in $O(log n)$ time."],
+              "codeExample": {
+                "title": "Rotated Sorted Array Search",
+                "language": "java",
+                "code": "public class RotatedSearch {\n    public static int search(int[] nums, int target) {\n        int left = 0, right = nums.length - 1;\n        while (left <= right) {\n            int mid = left + (right - left) / 2;\n            if (nums[mid] == target) return mid;\n            if (nums[left] <= nums[mid]) { // Left half sorted\n                if (nums[left] <= target && target < nums[mid]) right = mid - 1;\n                else left = mid + 1;\n            } else { // Right half sorted\n                if (nums[mid] < target && target <= nums[right]) left = mid + 1;\n                else right = mid - 1;\n            }\n        }\n        return -1;\n    }\n}",
+                "explanation": "Determines the sorted sub-array half to locate target boundaries in logarithmic time."
+              },
+              "interactiveQuiz": {
+                "question": "How do you calculate mid safely in Java binary search to prevent integer overflow?",
+                "options": [
+                  "int mid = (left + right) / 2;",
+                  "int mid = left + (right - left) / 2;",
+                  "int mid = (left * right) / 2;",
+                  "int mid = right / 2;"
+                ],
+                "correctIndex": 1,
+                "explanation": "`left + (right - left) / 2` avoids calculating `(left + right)` which can exceed `Integer.MAX_VALUE`."
+              }
+            },
+            {
+              "id": "q9-k-closest-points-to-origin",
+              "title": "Q9: How do you find the K Closest Points to the Origin (0,0)?",
+              "content": "Calculate distance squared $x^2 + y^2$. Use a Max-Heap (`PriorityQueue`) of size $k$ ordered by Euclidean distance descending. Push points into the heap; if heap size exceeds $k$, pop the maximum distance point. Returns $k$ closest points in $O(n log k)$ time.",
+              "keyTakeaways": [
+                "Avoid `Math.sqrt()` by comparing squared distances ($x^2 + y^2$).",
+                "Use size-bounded Max-Heap ($O(n log k)$ runtime)."
+              ],
+              "codeExample": {
+                "title": "K Closest Points Max-Heap Solution",
+                "language": "java",
+                "code": "import java.util.PriorityQueue;\n\npublic class KClosestPoints {\n    public static int[][] kClosest(int[][] points, int k) {\n        PriorityQueue<int[]> maxHeap = new PriorityQueue<>(\n            (a, b) -> Integer.compare((b[0]*b[0] + b[1]*b[1]), (a[0]*a[0] + a[1]*a[1]))\n        );\n        for (int[] p : points) {\n            maxHeap.offer(p);\n            if (maxHeap.size() > k) {\n                maxHeap.poll();\n            }\n        }\n        int[][] result = new int[k][2];\n        for (int i = 0; i < k; i++) {\n            result[i] = maxHeap.poll();\n        }\n        return result;\n    }\n}",
+                "explanation": "Maintains $k$ smallest Euclidean distance points inside a bounded Max-Heap."
+              },
+              "interactiveQuiz": {
+                "question": "Why is comparing (x1^2 + y1^2) directly preferred over using Math.sqrt(x1^2 + y1^2)?",
+                "options": [
+                  "Math.sqrt() returns negative numbers",
+                  "Square root operations are computationally expensive and ordering is preserved without computing square roots",
+                  "Math.sqrt() is non-static",
+                  "Integer math cannot perform square roots"
+                ],
+                "correctIndex": 1,
+                "explanation": "Distance ordering is identical for squared distances, avoiding floating point square root computation overhead."
+              }
+            },
+            {
+              "id": "q10-validate-binary-search-tree",
+              "title": "Q10: How do you validate whether a Binary Tree is a valid Binary Search Tree (BST)?",
+              "content": "Pass dynamic valid range constraints (`min` and `max` pointers) recursively down the tree. For a node to be valid, its value must satisfy `min < node.val < max`. When recurring left, update `max = node.val`. When recurring right, update `min = node.val`.",
+              "keyTakeaways": [
+                "Use `Long` pointers or object wrappers for `min`/`max` bounds to handle `Integer.MIN_VALUE` edge cases.",
+                "Validates that every left descendant is strictly smaller and right descendant is strictly larger."
+              ],
+              "codeExample": {
+                "title": "Validate BST Solution",
+                "language": "java",
+                "code": "public class ValidateBST {\n    public static boolean isValidBST(TreeNode root) {\n        return validate(root, null, null);\n    }\n    private static boolean validate(TreeNode node, Integer low, Integer high) {\n        if (node == null) return true;\n        if ((low != null && node.val <= low) || (high != null && node.val >= high)) {\n            return false;\n        }\n        return validate(node.left, low, node.val) && validate(node.right, node.val, high);\n    }\n}",
+                "explanation": "Validates that node values fall within strict minimum and maximum subtree constraints."
+              },
+              "interactiveQuiz": {
+                "question": "Why is simply checking node.left.val < node.val && node.right.val > node.val for each node insufficient to validate a BST?",
+                "options": [
+                  "Because child nodes can be null",
+                  "Because it fails to catch grand-child boundary violations deeper in subtrees (e.g., right child's left child being smaller than root)",
+                  "Because binary trees are directed graphs",
+                  "It works fine"
+                ],
+                "correctIndex": 1,
+                "explanation": "Checking immediate children misses ancestral constraints (e.g. a node in the right subtree having a value smaller than the root)."
+              }
+            },
+            {
+              "id": "q11-invert-binary-tree",
+              "title": "Q11: How do you Invert a Binary Tree (flip left and right child pointers)?",
+              "content": "Recursively swap the `left` and `right` child pointers of every node in the binary tree. Base case: if `root == null`, return `null`. Store `root.left` in a temporary variable, assign `root.left = invertTree(root.right)`, and `root.right = invertTree(temp)`. Return `root`.",
+              "keyTakeaways": [
+                "Recursive post-order / pre-order traversal pointer swapping.",
+                "Time Complexity: $O(n)$, visiting every tree node once."
+              ],
+              "codeExample": {
+                "title": "Invert Binary Tree Solution",
+                "language": "java",
+                "code": "public class InvertBinaryTree {\n    public static TreeNode invertTree(TreeNode root) {\n        if (root == null) return null;\n        TreeNode temp = root.left;\n        root.left = invertTree(root.right);\n        root.right = invertTree(temp);\n        return root;\n    }\n}",
+                "explanation": "Swaps left and right children recursively across the tree."
+              },
+              "interactiveQuiz": {
+                "question": "What is the maximum recursion stack depth when inverting a completely skewed degenerate tree with N nodes?",
+                "options": ["O(1)", "O(log N)", "O(N)", "O(N^2)"],
+                "correctIndex": 2,
+                "explanation": "In a degenerate linked-list-like tree, recursion call stack depth reaches $O(N)$."
+              }
+            },
+            {
+              "id": "q12-diameter-of-binary-tree",
+              "title": "Q12: How do you compute the Diameter of a Binary Tree?",
+              "content": "The diameter is the length of the longest path between any two nodes in a tree (which may or may not pass through root). Compute the height of left and right subtrees recursively: at each node, `currentDiameter = leftHeight + rightHeight`. Maintain a global max variable.",
+              "keyTakeaways": [
+                "Diameter at any node = `leftHeight + rightHeight`.",
+                "Returns tree height to parent callers while tracking maximum diameter globally."
+              ],
+              "codeExample": {
+                "title": "Binary Tree Diameter Solution",
+                "language": "java",
+                "code": "public class TreeDiameter {\n    private static int maxDiameter = 0;\n    public static int diameterOfBinaryTree(TreeNode root) {\n        maxDiameter = 0;\n        getHeight(root);\n        return maxDiameter;\n    }\n    private static int getHeight(TreeNode node) {\n        if (node == null) return 0;\n        int left = getHeight(node.left);\n        int right = getHeight(node.right);\n        maxDiameter = Math.max(maxDiameter, left + right);\n        return 1 + Math.max(left, right);\n    }\n}",
+                "explanation": "Updates global maximum path length while calculating subtree heights recursively."
+              },
+              "interactiveQuiz": {
+                "question": "Does the longest diameter path in a binary tree ALWAYS pass through the root node?",
+                "options": [
+                  "Yes, always",
+                  "No, the longest path can reside entirely within a deeply nested subtree",
+                  "Only in balanced trees",
+                  "Yes, if root is non-null"
+                ],
+                "correctIndex": 1,
+                "explanation": "The maximum diameter path can exist completely within a deep sub-branch without passing through the root node."
+              }
+            },
+            {
+              "id": "q13-construct-binary-tree-from-preorder-inorder",
+              "title": "Q13: How do you reconstruct a Binary Tree from Preorder and Inorder traversal arrays?",
+              "content": "Preorder traversal determines the **root node** (first element). Inorder traversal splits the tree into **left and right subtrees** relative to the root node position. Map inorder values to indices using a `HashMap<Integer, Integer>` for $O(1)$ lookup, and construct the tree recursively.",
+              "keyTakeaways": [
+                "Preorder gives root values sequentially.",
+                "Inorder index map determines left/right subtree element boundaries."
+              ],
+              "codeExample": {
+                "title": "Tree Construction from Preorder & Inorder",
+                "language": "java",
+                "code": "import java.util.HashMap;\nimport java.util.Map;\n\npublic class BuildTree {\n    private static int preIndex = 0;\n    private static final Map<Integer, Integer> inMap = new HashMap<>();\n\n    public static TreeNode buildTree(int[] preorder, int[] inorder) {\n        preIndex = 0;\n        inMap.clear();\n        for (int i = 0; i < inorder.length; i++) inMap.put(inorder[i], i);\n        return helper(preorder, 0, inorder.length - 1);\n    }\n    private static TreeNode helper(int[] preorder, int left, int right) {\n        if (left > right) return null;\n        int rootVal = preorder[preIndex++];\n        TreeNode root = new TreeNode(rootVal);\n        int inIndex = inMap.get(rootVal);\n        root.left = helper(preorder, left, inIndex - 1);\n        root.right = helper(preorder, inIndex + 1, right);\n        return root;\n    }\n}",
+                "explanation": "Identifies root nodes using preorder indexing and partitions subtrees using inorder index bounds."
+              },
+              "interactiveQuiz": {
+                "question": "Why is an index lookup HashMap constructed for the inorder array elements?",
+                "options": [
+                  "To avoid O(n) linear scans when finding root element position in the inorder array",
+                  "To sort elements",
+                  "To store tree nodes",
+                  "Required for recursion"
+                ],
+                "correctIndex": 0,
+                "explanation": "The map reduces root lookup time in the inorder array from $O(n)$ to $O(1)$, lowering overall runtime from $O(n^2)$ to $O(n)$."
+              }
+            },
+            {
+              "id": "q14-clone-graph-dfs-bfs",
+              "title": "Q14: How do you Clone a Undirected Graph (Deep Copy with Cycles)?",
+              "content": "Use a `HashMap<Node, Node>` to store mappings of `(originalNode -> clonedNode)` to handle cyclic references. Traverse graph using DFS or BFS: for each node, if not already cloned, create a new clone node, place in map, and recursively clone neighbor relationships.",
+              "keyTakeaways": [
+                "HashMap tracks cloned copies to prevent infinite recursion on graph cycles.",
+                "DFS/BFS graph traversal produces identical deep-copied connectivity."
+              ],
+              "codeExample": {
+                "title": "DFS Graph Clone Solution",
+                "language": "java",
+                "code": "import java.util.*;\n\nclass Node {\n    public int val;\n    public List<Node> neighbors;\n    public Node(int _val) { val = _val; neighbors = new ArrayList<>(); }\n}\n\npublic class CloneGraph {\n    private static final Map<Node, Node> visited = new HashMap<>();\n    public static Node cloneGraph(Node node) {\n        if (node == null) return null;\n        if (visited.containsKey(node)) return visited.get(node);\n        Node cloneNode = new Node(node.val);\n        visited.put(node, cloneNode);\n        for (Node neighbor : node.neighbors) {\n            cloneNode.neighbors.add(cloneGraph(neighbor));\n        }\n        return cloneNode;\n    }\n}",
+                "explanation": "Tracks visited nodes in a map to manage cyclic graph references during deep cloning."
+              },
+              "interactiveQuiz": {
+                "question": "What issue arises if you attempt to deep copy a cyclic graph without maintaining a visited map?",
+                "options": [
+                  "Memory leak",
+                  "Infinite recursion leading to StackOverflowError",
+                  "Nodes duplicate infinitely in array",
+                  "NullPointer Exception"
+                ],
+                "correctIndex": 1,
+                "explanation": "Cyclic paths cause infinite recursive traversal loops without visited map tracking."
+              }
+            },
+            {
+              "id": "q15-dijkstra-shortest-path-algorithm",
+              "title": "Q15: How do you implement Dijkstra's Algorithm for Shortest Paths in Weighted Graphs?",
+              "content": "Dijkstra's Algorithm computes shortest paths from a single source node in weighted graphs with non-negative edge weights. Initialize `dist[]` array filled with $infty$, with `dist[src] = 0`. Use a `PriorityQueue` storing `(node, distance)`. Poll node with minimum distance; relax neighbors if `dist[u] + weight < dist[v]`.",
+              "keyTakeaways": [
+                "Min-PriorityQueue processes closest unvisited nodes greedy style.",
+                "Time Complexity: $O((V + E) log V)$ using Min-Heap."
+              ],
+              "codeExample": {
+                "title": "Dijkstra's Shortest Path Algorithm",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Dijkstra {\n    public static int[] shortestPath(int n, List<List<int[]>> adj, int src) {\n        int[] dist = new int[n];\n        Arrays.fill(dist, Integer.MAX_VALUE);\n        dist[src] = 0;\n        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[1]));\n        pq.offer(new int[]{src, 0});\n        while (!pq.isEmpty()) {\n            int[] curr = pq.poll();\n            int u = curr[0], d = curr[1];\n            if (d > dist[u]) continue;\n            for (int[] edge : adj.get(u)) {\n                int v = edge[0], weight = edge[1];\n                if (dist[u] + weight < dist[v]) {\n                    dist[v] = dist[u] + weight;\n                    pq.offer(new int[]{v, dist[v]});\n                }\n            }\n        }\n        return dist;\n    }\n}",
+                "explanation": "Relaxes graph edge weights using a Min-PriorityQueue."
+              },
+              "interactiveQuiz": {
+                "question": "Why does standard Dijkstra's Algorithm fail or enter infinite loops on graphs containing NEGATIVE edge weights?",
+                "options": [
+                  "Because Dijkstra assumes adding an edge can only increase total path weight (greedy choice property fails)",
+                  "PriorityQueue cannot store negative numbers",
+                  "Graph vertices crash",
+                  "Arrays throw IndexOutOfBounds Exception"
+                ],
+                "correctIndex": 0,
+                "explanation": "Dijkstra's greedy assumption fails when negative edge weights reduce total path cost after visiting a node."
+              }
+            },
+            {
+              "id": "q16-climbing-stairs-dp",
+              "title": "Q16: How do you solve Climbing Stairs using Dynamic Programming and Space Optimization?",
+              "content": "You are climbing a staircase of $n$ steps. You can climb 1 or 2 steps at a time. Recurrence relation: $dp[i] = dp[i-1] + dp[i-2]$ (Fibonacci pattern). Optimize space to $O(1)$ using two variables (`prev1`, `prev2`).",
+              "keyTakeaways": ["Base cases: $dp[1] = 1$, $dp[2] = 2$.", "Space optimized to $O(1)$ variable swaps."],
+              "codeExample": {
+                "title": "Climbing Stairs Space-Optimized Solution",
+                "language": "java",
+                "code": "public class ClimbStairs {\n    public static int climbStairs(int n) {\n        if (n <= 2) return n;\n        int prev2 = 1, prev1 = 2;\n        for (int i = 3; i <= n; i++) {\n            int current = prev1 + prev2;\n            prev2 = prev1;\n            prev1 = current;\n        }\n        return prev1;\n    }\n}",
+                "explanation": "Computes step combinations iteratively using constant auxiliary space."
+              },
+              "interactiveQuiz": {
+                "question": "What is the time and space complexity of the space-optimized Climbing Stairs algorithm?",
+                "options": ["O(N) time, O(N) space", "O(N) time, O(1) space", "O(2^N) time, O(1) space", "O(N^2) time, O(1) space"],
+                "correctIndex": 1,
+                "explanation": "The loop runs $N$ times using two primitive tracking variables, achieving $O(N)$ time and $O(1)$ space."
+              }
+            },
+            {
+              "id": "q17-house-robber-dp",
+              "title": "Q17: How do you solve the House Robber problem using Dynamic Programming?",
+              "content": "Robbing adjacent houses triggers security alarms. At each house $i$, choose maximum of:\n1. Rob house $i$: `nums[i] + rob(i - 2)`\n2. Skip house $i$: `rob(i - 1)`\nRecurrence: $dp[i] = max(nums[i] + dp[i-2], dp[i-1])$.",
+              "keyTakeaways": [
+                "Recurrence relation: $dp[i] = max(nums[i] + dp[i-2], dp[i-1])$.",
+                "Optimize memory to $O(1)$ space using two variables."
+              ],
+              "codeExample": {
+                "title": "House Robber DP Solution",
+                "language": "java",
+                "code": "public class HouseRobber {\n    public static int rob(int[] nums) {\n        if (nums == null || nums.length == 0) return 0;\n        int prev2 = 0, prev1 = 0;\n        for (int num : nums) {\n            int temp = Math.max(num + prev2, prev1);\n            prev2 = prev1;\n            prev1 = temp;\n        }\n        return prev1;\n    }\n}",
+                "explanation": "Tracks optimal loot values while skipping adjacent houses."
+              },
+              "interactiveQuiz": {
+                "question": "If houses are arranged in a CIRCLE (House Robber II), how do you adapt the solution?",
+                "options": [
+                  "Run standard House Robber twice: once on subarray [0 to n-2] and once on [1 to n-1], taking max of both",
+                  "Multiply final answer by 2",
+                  "Divide final answer by 2",
+                  "It cannot be solved"
+                ],
+                "correctIndex": 0,
+                "explanation": "Circular arrangement means house 0 and house n-1 are adjacent; running DP on both sub-arrays handles this constraint."
+              }
+            },
+            {
+              "id": "q18-01-knapsack-problem-dp",
+              "title": "Q18: How do you solve the 0/1 Knapsack Problem using Dynamic Programming?",
+              "content": "Given $n$ items with weights $w[i]$ and values $v[i]$, maximize total value in knapsack capacity $W$. State $dp[i][w]$ represents maximum value using first $i$ items with capacity $w$. Recurrence: if $w[i-1] le w$, $dp[i][w] = max(v[i-1] + dp[i-1][w - w[i-1]], dp[i-1][w])$.",
+              "keyTakeaways": [
+                "2D DP table size: $(N+1) \times (W+1)$.",
+                "Can be optimized to a 1D DP array of size $W+1$ by traversing backwards."
+              ],
+              "codeExample": {
+                "title": "0/1 Knapsack 1D Array Optimization",
+                "language": "java",
+                "code": "public class Knapsack {\n    public static int knapsack(int W, int[] wt, int[] val, int n) {\n        int[] dp = new int[W + 1];\n        for (int i = 0; i < n; i++) {\n            for (int w = W; w >= wt[i]; w--) { // Reverse iteration\n                dp[w] = Math.max(dp[w], val[i] + dp[w - wt[i]]);\n            }\n        }\n        return dp[W];\n    }\n}",
+                "explanation": "Iterates backwards over capacity $W$ to update knapsack state in 1D array space."
+              },
+              "interactiveQuiz": {
+                "question": "Why MUST the inner loop iterate BACKWARDS from W down to wt[i] in the 1D array DP space optimization?",
+                "options": [
+                  "To prevent using the same item multiple times in the same step (0/1 constraint)",
+                  "To make loop execute faster",
+                  "Required for array sorting",
+                  "To avoid negative indices"
+                ],
+                "correctIndex": 0,
+                "explanation": "Backward iteration ensures $dp[w - wt[i]]$ references state from the previous item step, preserving 0/1 item constraints."
+              }
+            },
+            {
+              "id": "q19-word-search-backtracking",
+              "title": "Q19: How do you solve Word Search on a 2D Board using Recursion / Backtracking?",
+              "content": "Iterate through matrix cells. When starting character matches, invoke DFS backtracking (`backtrack(board, word, r, c, index)`). Mark current cell as visited (e.g. `board[r][c] = '#'`), recursively explore 4-directional neighbors, and **restore cell state** (`board[r][c] = temp`) during back-step.",
+              "keyTakeaways": [
+                "DFS recursive grid traversal with backtracking.",
+                "Restoring visited state during back-stepping allows alternative paths to reuse board cells."
+              ],
+              "codeExample": {
+                "title": "Word Search Backtracking Solution",
+                "language": "java",
+                "code": "public class WordSearch {\n    public static boolean exist(char[][] board, String word) {\n        for (int r = 0; r < board.length; r++) {\n            for (int c = 0; c < board[0].length; c++) {\n                if (dfs(board, word, r, c, 0)) return true;\n            }\n        }\n        return false;\n    }\n    private static boolean dfs(char[][] board, String word, int r, int c, int i) {\n        if (i == word.length()) return true;\n        if (r < 0 || c < 0 || r >= board.length || c >= board[0].length || board[r][c] != word.charAt(i)) {\n            return false;\n        }\n        char temp = board[r][c];\n        board[r][c] = '#'; // Mark visited\n        boolean found = dfs(board, word, r + 1, c, i + 1) ||\n                        dfs(board, word, r - 1, c, i + 1) ||\n                        dfs(board, word, r, c + 1, i + 1) ||\n                        dfs(board, word, r, c - 1, i + 1);\n        board[r][c] = temp; // Backtrack restore\n        return found;\n    }\n}",
+                "explanation": "Marks board cells temporarily during DFS search and restores state during backtracking steps."
+              },
+              "interactiveQuiz": {
+                "question": "What is the purpose of board[r][c] = temp during the backtracking step?",
+                "options": [
+                  "Clears board memory",
+                  "Restores the original cell value so parallel search paths from other starting cells can visit it",
+                  "Triggers garbage collection",
+                  "Restarts word length"
+                ],
+                "correctIndex": 1,
+                "explanation": "Restoring cell character state allows subsequent search paths to visit the cell."
+              }
+            },
+            {
+              "id": "q20-subsets-power-set-backtracking",
+              "title": "Q20: How do you generate all Subsets (Power Set) of a set of unique integers using Backtracking?",
+              "content": "Use Backtracking to build decision trees. At each recursive index step, append current `tempList` state to `result`. Loop from `start` index to end of array: append `nums[i]` to `tempList`, recurse `backtrack(i + 1)`, and remove last element (`tempList.remove(tempList.size() - 1)`) to backtrack.",
+              "keyTakeaways": [
+                "Generates $2^n$ unique subset combinations.",
+                "Backtracking template: Add element -> Recurse -> Remove element."
+              ],
+              "codeExample": {
+                "title": "Subsets Backtracking Solution",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Subsets {\n    public static List<List<Integer>> subsets(int[] nums) {\n        List<List<Integer>> result = new ArrayList<>();\n        backtrack(result, new ArrayList<>(), nums, 0);\n        return result;\n    }\n    private static void backtrack(List<List<Integer>> result, List<Integer> temp, int[] nums, int start) {\n        result.add(new ArrayList<>(temp));\n        for (int i = start; i < nums.length; i++) {\n            temp.add(nums[i]);\n            backtrack(result, temp, nums, i + 1);\n            temp.remove(temp.size() - 1); // Backtrack\n        }\n    }\n}",
+                "explanation": "Appends subset states to result and backtracks choices step-by-step."
+              },
+              "interactiveQuiz": {
+                "question": "How many total subsets are generated for an input set containing N distinct elements?",
+                "options": ["N!", "2^N", "N^2", "2 * N"],
+                "correctIndex": 1,
+                "explanation": "Every element can either be included or excluded, yielding $2^N$ total power set combinations."
+              }
+            },
+            {
+              "id": "q21-combination-sum-backtracking",
+              "title": "Q21: How do you solve Combination Sum (reusing numbers to hit target sum)?",
+              "content": "Find all unique combinations of candidates that sum to `target`. candidates can be chosen unlimited times. Recursively subtract candidate from `target`. If `target == 0`, add snapshot to result. If `target < 0`, return. Pass `i` (not `i + 1`) to recursive call to allow element reuse.",
+              "keyTakeaways": [
+                "Allowing element reuse requires calling `backtrack(i)` instead of `i + 1`.",
+                "Prune recursion branches when target becomes negative."
+              ],
+              "codeExample": {
+                "title": "Combination Sum Backtracking",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class CombinationSum {\n    public static List<List<Integer>> combinationSum(int[] candidates, int target) {\n        List<List<Integer>> result = new ArrayList<>();\n        backtrack(result, new ArrayList<>(), candidates, target, 0);\n        return result;\n    }\n    private static void backtrack(List<List<Integer>> result, List<Integer> temp, int[] candidates, int remain, int start) {\n        if (remain < 0) return;\n        if (remain == 0) { result.add(new ArrayList<>(temp)); return; }\n        for (int i = start; i < candidates.length; i++) {\n            temp.add(candidates[i]);\n            backtrack(result, temp, candidates, remain - candidates[i], i); // i permits reuse\n            temp.remove(temp.size() - 1);\n        }\n    }\n}",
+                "explanation": "Reuses current candidate elements by passing index i recursively."
+              },
+              "interactiveQuiz": {
+                "question": "What parameter controls whether candidate elements can be reused multiple times during backtracking?",
+                "options": [
+                  "Passing i instead of i + 1 to recursive backtrack calls",
+                  "Sorting the array",
+                  "Setting target = 0",
+                  "Using double loops"
+                ],
+                "correctIndex": 0,
+                "explanation": "Passing `i` permits the same candidate index to be selected repeatedly in subsequent recursive levels."
+              }
+            },
+            {
+              "id": "q22-trie-prefix-tree-implementation",
+              "title": "Q22: How do you implement a Trie (Prefix Tree) for efficient word insertion and prefix searching?",
+              "content": "A **Trie** is a tree data structure used for fast string prefix lookups. Each node contains a `TrieNode[26]` child array and a `boolean isEndOfWord` flag. Operations `insert(word)`, `search(word)`, and `startsWith(prefix)` run in $O(L)$ time where $L$ is word length.",
+              "keyTakeaways": [
+                "$O(L)$ insertion and lookup time complexity.",
+                "Saves storage by sharing common prefix branch pathways across words."
+              ],
+              "codeExample": {
+                "title": "Trie (Prefix Tree) Implementation",
+                "language": "java",
+                "code": "public class Trie {\n    static class TrieNode {\n        TrieNode[] children = new TrieNode[26];\n        boolean isEnd = false;\n    }\n    private final TrieNode root = new TrieNode();\n\n    public void insert(String word) {\n        TrieNode curr = root;\n        for (char c : word.toCharArray()) {\n            int idx = c - 'a';\n            if (curr.children[idx] == null) curr.children[idx] = new TrieNode();\n            curr = curr.children[idx];\n        }\n        curr.isEnd = true;\n    }\n    public boolean search(String word) {\n        TrieNode node = getNode(word);\n        return node != null && node.isEnd;\n    }\n    public boolean startsWith(String prefix) {\n        return getNode(prefix) != null;\n    }\n    private TrieNode getNode(String str) {\n        TrieNode curr = root;\n        for (char c : str.toCharArray()) {\n            int idx = c - 'a';\n            if (curr.children[idx] == null) return null;\n            curr = curr.children[idx];\n        }\n        return curr;\n    }\n}",
+                "explanation": "Builds prefix paths inside node arrays for $O(L)$ prefix lookups."
+              },
+              "interactiveQuiz": {
+                "question": "What is the time complexity of searching if a prefix exists in a Trie containing N words of average length L?",
+                "options": ["O(N)", "O(L)", "O(N * L)", "O(log N)"],
+                "correctIndex": 1,
+                "explanation": "Trie prefix lookups depend strictly on prefix character length $L$, regardless of total words $N$ stored."
+              }
+            },
+            {
+              "id": "q23-disjoint-set-union-find",
+              "title": "Q23: How do you implement Disjoint Set Union (DSU / Union-Find) with Path Compression and Union by Rank?",
+              "content": "DSU manages partitioned disjoint sets across elements. Operations:\n1. **`find(x)`**: Returns root representative of `x`. Uses **Path Compression** (`parent[x] = find(parent[x])`) to flatten tree paths.\n2. **`union(x, y)`**: Connects sets containing `x` and `y`. Uses **Union by Rank** to attach smaller trees beneath taller tree roots. Amortized operational time: $O(alpha(n))$ (Nearly constant Inverse Ackermann function).",
+              "keyTakeaways": [
+                "Path Compression flattens parent pointers during `find()`.",
+                "Union by Rank maintains balanced tree depth.",
+                "Amortized operational time complexity: $O(alpha(n))$."
+              ],
+              "codeExample": {
+                "title": "Union-Find with Path Compression & Rank",
+                "language": "java",
+                "code": "public class UnionFind {\n    private final int[] parent;\n    private final int[] rank;\n\n    public UnionFind(int size) {\n        parent = new int[size];\n        rank = new int[size];\n        for (int i = 0; i < size; i++) parent[i] = i;\n    }\n    public int find(int i) {\n        if (parent[i] == i) return i;\n        return parent[i] = find(parent[i]); // Path compression\n    }\n    public boolean union(int x, int y) {\n        int rootX = find(x);\n        int rootY = find(y);\n        if (rootX != rootY) {\n            if (rank[rootX] < rank[rootY]) parent[rootX] = rootY;\n            else if (rank[rootX] > rank[rootY]) parent[rootY] = rootX;\n            else { parent[rootY] = rootX; rank[rootX]++; }\n            return true;\n        }\n        return false; // Already in same set\n    }\n}",
+                "explanation": "Flattens set trees dynamically to execute union and find queries in near constant time."
+              },
+              "interactiveQuiz": {
+                "question": "What is the amortized time complexity per operation in a DSU implementation utilizing both Path Compression and Union by Rank?",
+                "options": ["O(log N)", "O(1)", "O(alpha(N)) - Inverse Ackermann Function", "O(N)"],
+                "correctIndex": 2,
+                "explanation": "Combining Path Compression and Union by Rank yields $O(alpha(N))$ amortized time per operation."
+              }
+            },
+            {
+              "id": "q24-top-k-frequent-elements-bucket-sort",
+              "title": "Q24: How do you find the Top K Frequent Elements in O(n) time using Bucket Sort?",
+              "content": "1. Build a character/number frequency map (`map.put(num, count)`).\n2. Create an array of lists `List<Integer>[] buckets = new List[nums.length + 1]`, where array index represents **element frequency**.\n3. Populate buckets with numbers corresponding to their frequency count.\n4. Iterate buckets backwards from `nums.length` down to 1, collecting elements until $k$ elements are gathered.",
+              "keyTakeaways": [
+                "Bucket index represents element frequency count.",
+                "Achieves optimal $O(n)$ linear time complexity, bypassing $O(n log n)$ sorting."
+              ],
+              "codeExample": {
+                "title": "Bucket Sort Top K Frequent Elements",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class TopKFrequent {\n    public static int[] topKFrequent(int[] nums, int k) {\n        Map<Integer, Integer> countMap = new HashMap<>();\n        for (int num : nums) countMap.put(num, countMap.getOrDefault(num, 0) + 1);\n        List<Integer>[] bucket = new List[nums.length + 1];\n        for (int key : countMap.keySet()) {\n            int freq = countMap.get(key);\n            if (bucket[freq] == null) bucket[freq] = new ArrayList<>();\n            bucket[freq].add(key);\n        }\n        int[] result = new int[k];\n        int index = 0;\n        for (int pos = bucket.length - 1; pos >= 0 && index < k; pos--) {\n            if (bucket[pos] != null) {\n                for (int num : bucket[pos]) {\n                    result[index++] = num;\n                    if (index == k) return result;\n                }\n            }\n        }\n        return result;\n    }\n}",
+                "explanation": "Uses array indices to group elements by occurrence frequency for linear $O(n)$ performance."
+              },
+              "interactiveQuiz": {
+                "question": "Why is Bucket Sort able to solve Top K Frequent Elements in O(N) time compared to Min-Heap's O(N log K)?",
+                "options": [
+                  "Because frequency counts are bounded between 1 and N, permitting linear array index bucket placement",
+                  "Because it uses binary search",
+                  "Because HashMap sorts keys automatically",
+                  "It runs in O(N^2) time"
+                ],
+                "correctIndex": 0,
+                "explanation": "Because maximum possible frequency is bounded by array length $N$, bucket index arrays allow linear $O(N)$ distribution."
+              }
+            },
+            {
+              "id": "q25-trapping-rain-water-two-pointers",
+              "title": "Q25: How do you solve the Trapping Rain Water problem in O(n) time and O(1) space?",
+              "content": "Use Two Pointers (`left = 0`, `right = len - 1`) maintaining `leftMax` and `rightMax`. At each step, if `height[left] < height[right]`:\n- If `height[left] >= leftMax`, update `leftMax = height[left]`.\n- Else, add `leftMax - height[left]` to total water.\n- Increment `left`.\nElse, process `right` pointer symmetrically.",
+              "keyTakeaways": [
+                "Water trapped at index $i$ depends on $min(\text{leftMax}, \text{rightMax}) - \text{height}[i]$.",
+                "Two pointers process lower boundary limits inward in $O(n)$ time and $O(1)$ space."
+              ],
+              "codeExample": {
+                "title": "Trapping Rain Water Two-Pointer Solution",
+                "language": "java",
+                "code": "public class TrappingRainWater {\n    public static int trap(int[] height) {\n        if (height == null || height.length == 0) return 0;\n        int left = 0, right = height.length - 1;\n        int leftMax = 0, rightMax = 0;\n        int totalWater = 0;\n        while (left < right) {\n            if (height[left] < height[right]) {\n                if (height[left] >= leftMax) leftMax = height[left];\n                else totalWater += leftMax - height[left];\n                left++;\n            } else {\n                if (height[right] >= rightMax) rightMax = height[right];\n                else totalWater += rightMax - height[right];\n                right--;\n            }\n        }\n        return totalWater;\n    }\n}",
+                "explanation": "Calculates trapped water at boundary limits while moving inward."
+              },
+              "interactiveQuiz": {
+                "question": "What determines the trapped water height at any index i?",
+                "options": [
+                  "Math.max(leftMax, rightMax) - height[i]",
+                  "Math.min(leftMax, rightMax) - height[i]",
+                  "leftMax + rightMax",
+                  "height[i] - leftMax"
+                ],
+                "correctIndex": 1,
+                "explanation": "Water level is bounded by the shorter boundary limit: $min(\text{leftMax}, \text{rightMax}) - \text{height}[i]$."
+              }
+            }
+          ]
         }
       ]
     }
