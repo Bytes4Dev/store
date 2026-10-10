@@ -921,6 +921,391 @@
             "correctIndex": 1,
             "explanation": "The React Compiler automatically injects fine-grained memoization, eliminating manual `useMemo` and `useCallback` annotations."
           }
+        },
+        {
+          "id": "q51-react-cache-function",
+          "title": "Q51: What is React's built-in `cache()` function and how is it used in Server Components?",
+          "content": "React's `cache()` function allows memoizing data fetching or computation per request cycle in React Server Components (RSC). When the same function is invoked multiple times with identical arguments within a single server request, `cache()` executes the function once and returns the cached result for subsequent calls, preventing duplicated network requests or database queries during rendering.",
+          "keyTakeaways": [
+            "`cache()` deduplicates data fetches and heavy computations per server request cycle in RSC.",
+            "Scoped strictly to the duration of a single request, preventing cross-request data leaks."
+          ],
+          "interactiveQuiz": {
+            "question": "What scope does React's cache() function apply to when used inside Server Components?",
+            "options": [
+              "Global persistent server memory across all users",
+              "A single server request lifecycle",
+              "Client browser localStorage",
+              "V8 engine global module cache"
+            ],
+            "correctIndex": 1,
+            "explanation": "`cache()` memoizes values per individual server request, ensuring clean isolation between concurrent user sessions."
+          }
+        },
+        {
+          "id": "q52-server-actions",
+          "title": "Q52: What are Server Actions in React and how do they work with forms?",
+          "content": "Server Actions are asynchronous functions that execute on the server but can be invoked directly from both Server and Client Components. They allow performing data mutations without writing API routes manually. When passed to the `action` attribute of an HTML `<form>`, Server Actions support progressive enhancement, allowing form submissions to work even before client-side JavaScript has finished loading.",
+          "keyTakeaways": [
+            "Server Actions execute server-side mutation logic directly from component handlers or forms.",
+            "Enables progressive enhancement, allowing HTML forms to function without client JS."
+          ],
+          "interactiveQuiz": {
+            "question": "Which directive marks an asynchronous function as a Server Action in React/Next.js?",
+            "options": ["'use server'", "'use action'", "'use mutation'", "'use backend'"],
+            "correctIndex": 0,
+            "explanation": "Adding `'use server'` at the top of an async function or file designates it as an executable Server Action."
+          }
+        },
+        {
+          "id": "q53-use-form-status",
+          "title": "Q53: What is the useFormStatus hook and how is it used during form submission?",
+          "content": "The `useFormStatus` hook provides status information about a parent `<form>` submission, such as whether a Server Action is currently pending (`pending`), the form `data`, `method`, and `action`. It must be called from a component rendered **inside** a `<form>` element to read the surrounding form's submission status.",
+          "keyTakeaways": [
+            "Reads pending state and submission data of parent HTML form elements.",
+            "Must be called within a child component nested inside the target `<form>` tag."
+          ],
+          "interactiveQuiz": {
+            "question": "Where must a component using useFormStatus be placed to read form state accurately?",
+            "options": [
+              "As a direct child component nested inside the <form> element",
+              "At the root App level outside all forms",
+              "Inside a custom useEffect callback",
+              "In a separate Web Worker thread"
+            ],
+            "correctIndex": 0,
+            "explanation": "`useFormStatus` reads status from the nearest parent `<form>` ancestor in the React component tree."
+          }
+        },
+        {
+          "id": "q54-use-optimistic-hook",
+          "title": "Q54: How does the useOptimistic hook simplify optimistic UI updates?",
+          "content": "`useOptimistic` is a React hook that allows showing an optimistic state immediately while an asynchronous action (such as a Server Action) is pending. It accepts the current state and an update function, returning the optimistic state alongside a dispatch function. Once the background action completes or errors out, React automatically resets to the true state.",
+          "keyTakeaways": [
+            "Provides instant UI feedback during pending asynchronous actions.",
+            "Automatically reverts to true server state once the underlying promise resolves or rejects."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens to the optimistic state returned by useOptimistic when the underlying async action completes?",
+            "options": [
+              "It persists permanently in client local storage",
+              "React automatically replaces it with the actual confirmed state",
+              "The component throws a hydration mismatch error",
+              "The developer must manually invoke forceUpdate()"
+            ],
+            "correctIndex": 1,
+            "explanation": "`useOptimistic` manages temporary state that automatically syncs back to actual state upon action completion."
+          }
+        },
+        {
+          "id": "q55-use-hook-promises-context",
+          "title": "Q55: What is the new `use` API in React and how does it handle Promises and Context?",
+          "content": "The `use` API is a React function that reads the value of a resource like a Promise or Context. Unlike standard hooks, `use` can be called conditionally and inside loops or conditionals. When called with a Promise, `use` suspends the component until the Promise resolves, integrating directly with `<Suspense>` boundaries.",
+          "keyTakeaways": [
+            "`use(promise)` suspends the component until resolution, enabling direct Promise consumption in render.",
+            "Unlike traditional hooks, `use` can be invoked conditionally and inside loops."
+          ],
+          "interactiveQuiz": {
+            "question": "How does the `use` API differ from standard React hooks regarding invocation rules?",
+            "options": [
+              "It must only be called in class lifecycle methods",
+              "It can be called conditionally and inside loops or if-statements",
+              "It cannot be used with Suspense boundaries",
+              "It can only execute inside Web Worker instances"
+            ],
+            "correctIndex": 1,
+            "explanation": "The `use` API breaks the top-level restriction of traditional hooks and can be called inside conditional blocks."
+          }
+        },
+        {
+          "id": "q56-activity-offscreen-component",
+          "title": "Q56: What is the Activity (formerly Offscreen) component in React?",
+          "content": "The `<Activity>` component (previously known as Offscreen) enables hiding UI trees while preserving their state and DOM nodes. When marked mode `hidden`, React sets DOM visibility to hidden and lowers the priority of updates inside that tree, allowing instant state restoration when switching back without re-mounting.",
+          "keyTakeaways": [
+            "Preserves component state and DOM nodes when hiding UI off-screen.",
+            "Enables instant tab or view switching without losing user state or re-executing mounts."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the primary operational advantage of React's Activity (Offscreen) mechanism over conditional rendering ({show && <Child />})?",
+            "options": [
+              "It unmounts components to reduce memory usage",
+              "It retains component local state and DOM elements in memory for instant re-appearance",
+              "It disables CSS animations across all parent nodes",
+              "It skips Virtual DOM creation entirely"
+            ],
+            "correctIndex": 1,
+            "explanation": "Conditional rendering unmounts and destroys state, whereas `<Activity>` retains state silently in background."
+          }
+        },
+        {
+          "id": "q57-use-action-state",
+          "title": "Q57: What is the useActionState hook (formerly useFormState)?",
+          "content": "`useActionState` is a hook designed to update state based on the result of a form action or Server Action. It accepts a target action function and initial state, returning `[state, formAction, isPending]`. It simplifies handling form submission feedback, errors, and pending indicators.",
+          "keyTakeaways": [
+            "Tracks return values and errors from async form actions.",
+            "Returns state, wrapped action trigger, and a pending boolean flag."
+          ],
+          "interactiveQuiz": {
+            "question": "What three items are returned in the tuple from the useActionState hook?",
+            "options": [
+              "[state, formAction, isPending]",
+              "[data, error, mutate]",
+              "[value, setValue, reset]",
+              "[isSubmitted, response, loading]"
+            ],
+            "correctIndex": 0,
+            "explanation": "`useActionState` returns `[currentActionState, actionHandler, isPendingBoolean]`."
+          }
+        },
+        {
+          "id": "q58-taint-apis",
+          "title": "Q58: What are React Taint APIs (taintUniqueValue / taintObjectReference) for security?",
+          "content": "React Taint APIs prevent sensitive data (like security tokens, private keys, or user credentials) from being accidentally passed from Server Components to Client Components. By calling `experimental_taintUniqueValue()` or `experimental_taintObjectReference()`, React throws a build or runtime error if marked data is serialized to the client.",
+          "keyTakeaways": [
+            "Prevents sensitive server-only variables or objects from leaking into client JS bundles.",
+            "Throws explicit compilation or runtime errors if tainted values cross server-client boundaries."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens if a server object marked with experimental_taintObjectReference is passed to a Client Component?",
+            "options": [
+              "React logs a silent warning in DevTools",
+              "React throws an error and blocks serialization to the client",
+              "React automatically encrypts the object string",
+              "The object is converted into an empty string"
+            ],
+            "correctIndex": 1,
+            "explanation": "Taint APIs strictly throw errors if marked sensitive data structures attempt to cross into client boundary payloads."
+          }
+        },
+        {
+          "id": "q59-flush-sync-microtasks",
+          "title": "Q59: How does flushSync interact with browser microtask queues?",
+          "content": "`ReactDOM.flushSync()` forces React to immediately execute pending state updates and flush the associated DOM updates synchronously. Because it bypasses React's normal batching queue, it drains pending state microtasks immediately within the current call stack, making DOM measurements available instantly.",
+          "keyTakeaways": [
+            "`flushSync()` forces synchronous DOM re-renders within the immediate call frame.",
+            "Should be used sparingly as frequent forced synchronous flushes degrade frame rates."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a major performance drawback of calling flushSync repeatedly in rapid succession?",
+            "options": [
+              "Causes browser layout thrashing and dropped frame rates",
+              "Disables React Context propagation",
+              "Throws uncaught promise rejections automatically",
+              "Corrupts Virtual DOM reconciliation memory keys"
+            ],
+            "correctIndex": 0,
+            "explanation": "Forcing immediate DOM layout calculation repeatedly blocks browser painting and causes layout thrashing."
+          }
+        },
+        {
+          "id": "q60-custom-elements-web-components",
+          "title": "Q60: How does React 19 improve support for Custom Elements (Web Components)?",
+          "content": "React 19 seamlessly integrates with Web Components by passing properties correctly instead of treating everything as HTML attributes. Custom attributes are updated properly, event listeners attach directly to custom element events without requiring refs or synthetic event wrappers, and prop data types (objects, functions) pass natively.",
+          "keyTakeaways": [
+            "Passes props as native properties on Custom Element DOM instances.",
+            "Dispatches and binds native Web Component custom events directly without wrappers."
+          ],
+          "interactiveQuiz": {
+            "question": "How does modern React handle custom event bindings on Web Components?",
+            "options": [
+              "Requires third-party wrapper libraries",
+              "Binds event listeners directly to native custom events emitted by the element",
+              "Converts all events into standard onClick listeners",
+              "Disables custom event propagation completely"
+            ],
+            "correctIndex": 1,
+            "explanation": "Modern React handles Web Component custom event handlers natively without needing custom ref attachments."
+          }
+        },
+        {
+          "id": "q61-context-as-provider",
+          "title": "Q61: What syntactic simplification was made to React Context rendering in React 19?",
+          "content": "In React 19, developers can render `<Context>` directly as a provider instead of needing `<Context.Provider>`. For example, `<ThemeContext value=\"dark\">` is fully valid, reducing boilerplate code while maintaining backward compatibility for `Context.Provider`.",
+          "keyTakeaways": [
+            "`<Context value={val}>` can be rendered directly without `.Provider` notation.",
+            "Simplifies Context usage across functional component trees."
+          ],
+          "interactiveQuiz": {
+            "question": "Which JSX element syntax is valid for supplying Context values directly in React 19?",
+            "options": [
+              "<MyContext value={data}>",
+              "<MyContext.Consumer value={data}>",
+              "<useContext value={data}>",
+              "<ContextStore value={data}>"
+            ],
+            "correctIndex": 0,
+            "explanation": "React 19 allows using `<MyContext value={data}>` directly as a provider without needing `.Provider`."
+          }
+        },
+        {
+          "id": "q62-ref-as-prop",
+          "title": "Q62: How does React 19 simplify passing `ref` down to functional components without forwardRef?",
+          "content": "React 19 allows passing `ref` as a standard prop directly to functional components (e.g., `<MyInput ref={inputRef} />`). The component receives `ref` alongside other props in its parameter list (`function MyInput({ ref, label })`), making `React.forwardRef` obsolete for standard component wrapping.",
+          "keyTakeaways": [
+            "`ref` can be passed and read as a standard prop in functional components.",
+            "Eliminates the necessity for wrapping functional components in `React.forwardRef`."
+          ],
+          "interactiveQuiz": {
+            "question": "In React 19, how is a ref accessed inside a functional child component?",
+            "options": [
+              "Received as a standard property inside the props object: ({ ref, ...props })",
+              "Exclusively via the useForwardRef hook",
+              "By querying window.ReactRefs",
+              "Requires wrapping the component in higher-order class decorators"
+            ],
+            "correctIndex": 0,
+            "explanation": "`ref` is available directly on the props argument, eliminating the need for `forwardRef` wrappers."
+          }
+        },
+        {
+          "id": "q63-async-transition-handling",
+          "title": "Q63: How do async functions work inside startTransition in modern React?",
+          "content": "Modern React supports passing asynchronous functions directly to `startTransition(async () => { await updateData(); })`. React automatically marks the pending state (`isPending`) as `true` during the entire duration of the async operation and handles loading UI transitions seamlessly.",
+          "keyTakeaways": [
+            "`startTransition` accepts async callbacks natively.",
+            "`isPending` remains true automatically throughout the awaited async operation."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens to the isPending flag when an async callback is passed to startTransition?",
+            "options": [
+              "It toggles true instantly and returns false before the promise resolves",
+              "It remains true throughout the entire duration until the awaited Promise resolves",
+              "It throws a synchronous call stack error",
+              "It must be toggled manually using useState"
+            ],
+            "correctIndex": 1,
+            "explanation": "React tracks the Promise returned by async transition callbacks, maintaining `isPending = true` until completion."
+          }
+        },
+        {
+          "id": "q64-document-metadata-support",
+          "title": "Q64: How does React natively handle Document Metadata tags (<title>, <meta>, <link>)?",
+          "content": "React natively handles document metadata elements. Rendering tags like `<title>`, `<meta>`, and `<link>` anywhere inside a component tree automatically hoists them into the document `<head>`, ensuring proper SEO and social sharing without external libraries like React Helmet.",
+          "keyTakeaways": [
+            "Metadata tags (`<title>`, `<meta>`, `<link>`) are automatically hoisted to `<head>`.",
+            "Eliminates dependencies on third-party metadata management packages."
+          ],
+          "interactiveQuiz": {
+            "question": "Where does React place rendered <title> and <meta> tags placed inside deeply nested components?",
+            "options": [
+              "Inside the local child div element node",
+              "Automatically hoisted into the document <head>",
+              "Inside a hidden Portal component",
+              "In document.body as footer scripts"
+            ],
+            "correctIndex": 1,
+            "explanation": "React detects metadata elements and hoists them directly to the HTML `<head>` tag during rendering."
+          }
+        },
+        {
+          "id": "q65-stylesheet-preloading-resource-hints",
+          "title": "Q65: What are Resource Preloading APIs in React (prefetchDNS, preconnect, preload, preinit)?",
+          "content": "React provides built-in resource preloading functions inside `react-dom` (`prefetchDNS`, `preconnect`, `preload`, `preinit`). Calling these functions inside components allows React to hoist resource hints into the document head, optimizing stylesheet, font, and script fetch priorities early.",
+          "keyTakeaways": [
+            "Built-in resource loading utilities optimize network fetching priorities.",
+            "Functions like `preload()` and `preinit()` hoist asset tags into `<head>` dynamically."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method from react-dom preloads and executes a script asset with high priority?",
+            "options": ["preinit()", "prefetchDNS()", "useScript()", "loadResource()"],
+            "correctIndex": 0,
+            "explanation": "`preinit('script.js', { as: 'script' })` preloads and executes target scripts as early as possible."
+          }
+        },
+        {
+          "id": "q66-cleanup-functions-ref-callbacks",
+          "title": "Q66: How do Ref Callbacks support cleanup functions in modern React?",
+          "content": "Ref callbacks (`<div ref={(node) => { ... }} />`) support returning a cleanup function. When the DOM node unmounts or changes, React executes the returned cleanup callback, mimicking the behavior of cleanup functions inside `useEffect` for precise element lifecycle management.",
+          "keyTakeaways": [
+            "Ref callbacks can return explicit cleanup functions.",
+            "Runs cleanup automatically when the referenced DOM element unmounts or updates."
+          ],
+          "interactiveQuiz": {
+            "question": "When does a cleanup function returned from a Ref callback execute?",
+            "options": [
+              "When the associated DOM element unmounts or the ref callback updates",
+              "Immediately before initial component mount",
+              "Only when the browser window resizes",
+              "Inside Web Worker background threads"
+            ],
+            "correctIndex": 0,
+            "explanation": "Returning a function from a ref callback gives a cleanup hook when the DOM node detaches."
+          }
+        },
+        {
+          "id": "q67-hydration-suppress-warning",
+          "title": "Q67: How and when should suppressHydrationWarning be used?",
+          "content": "When rendering content that inevitably differs between server and client (e.g., a timestamp or localized user setting), adding `suppressHydrationWarning={true}` to a specific JSX tag suppresses hydration mismatch warnings for that element without silencing errors across the rest of the application.",
+          "keyTakeaways": [
+            "Silences SSR hydration mismatch warnings for deliberate client-server text differences.",
+            "Applies only 1 level deep on the element attribute where it is specified."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the scope of suppressHydrationWarning={true} when applied to a <div> element?",
+            "options": [
+              "Applies strictly to that element's direct attributes and immediate text content",
+              "Suppresses warnings globally across all application components",
+              "Disables hydration reconciliation completely for the entire page",
+              "Forces client rendering to be skipped"
+            ],
+            "correctIndex": 0,
+            "explanation": "`suppressHydrationWarning` is shallow, muting warnings only for the target element."
+          }
+        },
+        {
+          "id": "q68-unhandled-error-reporting",
+          "title": "Q68: What is onUncaughtError and how does createRoot handle unhandled error options?",
+          "content": "Modern `ReactDOM.createRoot` options include explicit root error handlers: `onUncaughtError` (uncaught error during rendering), `onCaughtError` (errors caught by Error Boundaries), and `onRecoverableError` (errors React recovers from automatically). This allows centralized telemetry and error reporting.",
+          "keyTakeaways": [
+            "Root options provide granular hooks for tracking application errors.",
+            "Distinguishes between boundary-caught errors, uncaught crashes, and recoverable errors."
+          ],
+          "interactiveQuiz": {
+            "question": "Which root callback option catches errors that were successfully handled by an Error Boundary?",
+            "options": ["onCaughtError", "onUncaughtError", "onRecoverableError", "onBoundaryTrigger"],
+            "correctIndex": 0,
+            "explanation": "`onCaughtError` logs errors that were intercepted and handled by an Error Boundary component."
+          }
+        },
+        {
+          "id": "q69-server-components-serialization-boundary",
+          "title": "Q69: What types of data can be passed across the Server Component to Client Component serialization boundary?",
+          "content": "Props passed from Server Components to Client Components must be serializable over the wire (JSON-serializable primitives, objects, arrays, Blobs, Promises, FormData, and Server Actions). Functions (except Server Actions), class instances, and Symbol descriptors cannot be passed across this boundary.",
+          "keyTakeaways": [
+            "Props crossing from Server to Client must be serializable.",
+            "Supports primitives, plain objects, Promises, Blobs, and Server Actions; standard JS functions are forbidden."
+          ],
+          "interactiveQuiz": {
+            "question": "Which value CANNOT be passed as a prop from a Server Component to a Client Component?",
+            "options": [
+              "A standard synchronous client JavaScript event function",
+              "A Promise resolving to data",
+              "A FormData object instance",
+              "A plain string primitive"
+            ],
+            "correctIndex": 0,
+            "explanation": "Standard functions cannot be serialized across the server/client boundary (only marked Server Actions are supported)."
+          }
+        },
+        {
+          "id": "q70-concurrent-react-tearing",
+          "title": "Q70: What is Tearing in concurrent rendering and how does useSyncExternalStore prevent it?",
+          "content": "Tearing occurs when a visual state update causes different components on screen to display different versions of data for the exact same state variable because a store update occurred mid-render during concurrent yielding. `useSyncExternalStore` forces synchronous reads during external store updates to guarantee consistency across all components.",
+          "keyTakeaways": [
+            "Tearing causes visual UI inconsistencies when external store data mutates mid-render.",
+            "`useSyncExternalStore` guarantees consistent synchronous store snapshots during rendering."
+          ],
+          "interactiveQuiz": {
+            "question": "What visual defect is referred to as 'Tearing' in concurrent user interface rendering?",
+            "options": [
+              "Components on screen rendering different visual states from the same store concurrently",
+              "CSS flexbox containers overflowing screen borders",
+              "Missing keys causing dynamic list crashes",
+              "Unbound input fields dropping user keystrokes"
+            ],
+            "correctIndex": 0,
+            "explanation": "Tearing describes UI inconsistency where parts of the screen display old store data while others render new store data."
+          }
         }
       ]
     }
