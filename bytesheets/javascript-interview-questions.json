@@ -1,0 +1,866 @@
+{
+  "courseId": "javascript-interview-qa",
+  "courseName": "JavaScript Interview Questions & Answers",
+  "title": "Top 50 JavaScript Interview Questions (Basic to Advanced & Coding)",
+  "subtitle": "Comprehensive Q&A and coding problem bank with self-assessment checks for complete interview preparation",
+  "category": "Interview Q&A",
+  "level": "Comprehensive",
+  "estimatedTime": "2.5 Hours",
+  "accentColor": "#f7df1e",
+  "keywords": ["javascript", "interview", "questions", "answers", "coding", "closures", "async", "quiz"],
+  "chapters": [
+    {
+      "id": "all-questions",
+      "title": "Complete Interview Questions & Answer Bank",
+      "summary": "Full collection of 50 JavaScript interview questions ranging from core fundamentals and coding challenges to advanced engine internals.",
+      "estimatedMinutes": 150,
+      "sections": [
+        {
+          "id": "q1-data-types",
+          "title": "Q1: What are the primitive data types in JavaScript vs objects?",
+          "content": "JavaScript has 7 primitive data types: `string`, `number`, `bigint`, `boolean`, `undefined`, `symbol`, and `null`. Primitives are immutable and passed by value. Objects (including arrays, functions, and plain objects) are mutable collections of key-value properties and are passed by reference.",
+          "keyTakeaways": [
+            "Primitive types are immutable and stored directly by value.",
+            "Objects are mutable reference types stored by memory location."
+          ],
+          "interactiveQuiz": {
+            "question": "What does typeof null return in JavaScript?",
+            "options": ["'null'", "'undefined'", "'object'", "'boolean'"],
+            "correctIndex": 2,
+            "explanation": "Due to a historical bug retained for backward compatibility, `typeof null` evaluates to `'object'`."
+          }
+        },
+        {
+          "id": "q2-var-let-const",
+          "title": "Q2: What is the difference between var, let, and const?",
+          "content": "`var` is function-scoped (or globally scoped) and hoisted with an initial value of `undefined`. `let` and `const` are block-scoped and hoisted into a Temporal Dead Zone (TDZ). `const` creates a read-only variable reference that cannot be reassigned after declaration.",
+          "keyTakeaways": [
+            "`var` is function-scoped; `let` and `const` are block-scoped.",
+            "`let` and `const` exist in the Temporal Dead Zone prior to declaration."
+          ],
+          "interactiveQuiz": {
+            "question": "What error occurs when accessing a let variable before its declaration line?",
+            "options": ["SyntaxError", "ReferenceError", "TypeError", "Returns undefined"],
+            "correctIndex": 1,
+            "explanation": "Accessing a `let` or `const` variable inside its Temporal Dead Zone throws a `ReferenceError`."
+          }
+        },
+        {
+          "id": "q3-coercion-equality",
+          "title": "Q3: What is the difference between == and === in JavaScript?",
+          "content": "`==` (loose equality) performs type coercion to convert operands to a common type before comparing. `===` (strict equality) checks for equality without type conversion; both the value and the type must match.",
+          "keyTakeaways": [
+            "`==` converts operands to the same type before comparison.",
+            "`===` compares both value and data type without coercion."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the result of the comparison: [] == false?",
+            "options": ["true", "false", "TypeError", "undefined"],
+            "correctIndex": 0,
+            "explanation": "An empty array `[]` coerces to `''`, which coerces to numeric `0`, matching `false` coerced to `0`."
+          }
+        },
+        {
+          "id": "q4-hoisting",
+          "title": "Q4: How does Hoisting work in JavaScript?",
+          "content": "Hoisting is JavaScript's behavior of moving variable and function declarations to the top of their containing scope during creation phase. Function declarations are hoisted with their complete definitions, `var` declarations are hoisted with `undefined`, while `let` and `const` remain uninitialized in the TDZ.",
+          "keyTakeaways": [
+            "Function declarations are hoisted with their definitions fully accessible.",
+            "`var` is hoisted as `undefined`; `let`/`const` are placed in the TDZ."
+          ],
+          "interactiveQuiz": {
+            "question": "What is printed when calling foo() declared as: var foo = function() { return 1; }; before assignment?",
+            "options": ["1", "TypeError: foo is not a function", "ReferenceError", "undefined"],
+            "correctIndex": 1,
+            "explanation": "`var foo` is hoisted initialized as `undefined`. Calling `undefined()` raises a `TypeError`."
+          }
+        },
+        {
+          "id": "q5-scope-chain",
+          "title": "Q5: What is Scope and the Scope Chain?",
+          "content": "Scope determines the accessibility of variables in code. JavaScript has Global Scope, Function Scope, and Block Scope. When a variable is referenced, JavaScript looks in the current scope; if not found, it traverses up the Scope Chain to outer enclosing scopes until it reaches the global scope.",
+          "keyTakeaways": [
+            "Lexical scope means inner scopes can access outer scope variables.",
+            "The scope chain lookup travels outward up to global scope."
+          ],
+          "interactiveQuiz": {
+            "question": "Where does lexical scope determine variable accessibility from?",
+            "options": [
+              "The location where functions are called",
+              "The location where functions/variables are defined in source code",
+              "The execution stack depth",
+              "The dynamic global object state"
+            ],
+            "correctIndex": 1,
+            "explanation": "Lexical scope is determined statically at code authoring time based on block/function structure."
+          }
+        },
+        {
+          "id": "q6-closures",
+          "title": "Q6: What is a Closure in JavaScript?",
+          "content": "A closure is the combination of a function bundled together with references to its surrounding lexical environment. Closures give inner functions access to an outer function's scope variables even after the outer function has finished executing.",
+          "keyTakeaways": [
+            "Functions retain references to variables in their lexical environment.",
+            "Powers state encapsulation, module patterns, and memoization."
+          ],
+          "interactiveQuiz": {
+            "question": "What will console.log print: for(var i=0; i<3; i++) { setTimeout(() => console.log(i), 100); }?",
+            "options": ["0, 1, 2", "3, 3, 3", "undefined, undefined, undefined", "0, 0, 0"],
+            "correctIndex": 1,
+            "explanation": "Because `var` is function-scoped, all timeouts close over the same single `i` variable whose final value is 3."
+          }
+        },
+        {
+          "id": "q7-coding-counter-closure",
+          "title": "Q7 [Coding]: Implement a counter function using closures that supports increment, decrement, and getValue.",
+          "content": "```js\nfunction createCounter(initialValue = 0) {\n  let count = initialValue;\n  return {\n    increment: () => ++count,\n    decrement: () => --count,\n    getValue: () => count\n  };\n}\n```\nThis encapsulates `count` inside a private closure, exposing only controlled modifier functions.",
+          "keyTakeaways": [
+            "Enables private variables without native class private fields.",
+            "Exposes object methods that maintain access to closed-over state."
+          ],
+          "interactiveQuiz": {
+            "question": "Can code outside createCounter access or modify the internal count variable directly?",
+            "options": [
+              "Yes, via counter.count",
+              "No, it is private inside the closure scope",
+              "Yes, if count is converted to string",
+              "Only in strict mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "`count` is enclosed strictly inside the function scope and cannot be mutated except via exposed closure methods."
+          }
+        },
+        {
+          "id": "q8-this-keyword",
+          "title": "Q8: How does the `this` keyword work in different execution contexts?",
+          "content": "The value of `this` depends on how a function is called: standard method call (`obj.fn()`) sets `this` to `obj`; plain function call sets `this` to `window`/`undefined` (strict mode); constructors (`new Fn()`) bind `this` to the new instance; arrow functions bind `this` lexically from their outer scope.",
+          "keyTakeaways": [
+            "Standard function `this` is bound dynamically at call time.",
+            "Arrow function `this` is determined statically from lexical outer scope."
+          ],
+          "interactiveQuiz": {
+            "question": "What is `this` inside an arrow function defined within an object method?",
+            "options": [
+              "The window/global object",
+              "The object instance containing the outer method",
+              "undefined",
+              "The arrow function itself"
+            ],
+            "correctIndex": 1,
+            "explanation": "Arrow functions do not bind their own `this`; they inherit `this` lexically from the enclosing method."
+          }
+        },
+        {
+          "id": "q9-call-apply-bind",
+          "title": "Q9: What is the difference between call(), apply(), and bind()?",
+          "content": "`call()` invokes a function with a specified `this` context and arguments passed individually (`fn.call(ctx, arg1, arg2)`). `apply()` invokes the function with arguments passed as an array (`fn.apply(ctx, [arg1, arg2])`). `bind()` returns a new function with `this` bound permanently.",
+          "keyTakeaways": [
+            "`call` accepts arguments comma-separated; `apply` accepts an array.",
+            "`bind` returns a bound copy of the function without immediate execution."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method executes a function immediately with an array of arguments?",
+            "options": ["call()", "apply()", "bind()", "construct()"],
+            "correctIndex": 1,
+            "explanation": "`apply()` accepts an array of arguments and executes the target function immediately."
+          }
+        },
+        {
+          "id": "q10-prototypes-inheritance",
+          "title": "Q10: How does Prototypal Inheritance work in JavaScript?",
+          "content": "Objects in JavaScript have an internal `[[Prototype]]` link (exposed as `__proto__`). When accessing a property on an object, JavaScript looks at the object first, then traverses up the prototype chain until the property is found or `null` is reached.",
+          "keyTakeaways": [
+            "Objects inherit properties and methods dynamically via prototype delegation.",
+            "Top of the prototype chain ends at `Object.prototype.__proto__ === null`."
+          ],
+          "interactiveQuiz": {
+            "question": "What method creates a new object using an existing object as its prototype?",
+            "options": ["Object.assign()", "Object.create()", "Object.setPrototypeOf()", "Object.freeze()"],
+            "correctIndex": 1,
+            "explanation": "`Object.create(proto)` initializes a new object whose `[[Prototype]]` points directly to `proto`."
+          }
+        },
+        {
+          "id": "q11-class-vs-constructor",
+          "title": "Q11: How do ES6 Classes relate to Prototypal Inheritance?",
+          "content": "ES6 Classes are syntactic sugar built on top of prototypal inheritance. Class methods are stored on the constructor's `prototype` property, and the `extends` keyword establishes prototype inheritance between prototype objects.",
+          "keyTakeaways": [
+            "Classes provide cleaner syntax over function prototypes.",
+            "Under the hood, classes use prototypal delegation and function constructors."
+          ],
+          "interactiveQuiz": {
+            "question": "Where are methods defined inside an ES6 class body attached?",
+            "options": [
+              "Directly onto each instance",
+              "Onto the class Constructor.prototype",
+              "In global scope",
+              "Inside V8 hidden stacks"
+            ],
+            "correctIndex": 1,
+            "explanation": "Methods defined in a class body are placed on `Class.prototype` to be shared efficiently across instances."
+          }
+        },
+        {
+          "id": "q12-arrow-functions",
+          "title": "Q12: How do Arrow Functions differ from Regular Functions?",
+          "content": "Arrow functions: 1) Do not bind their own `this` or `arguments` object. 2) Cannot be used as constructor functions with `new`. 3) Do not have a `prototype` property. 4) Cannot be used as generator functions.",
+          "keyTakeaways": ["Arrow functions inherit lexical `this` and `arguments`.", "They cannot act as constructors or generators."],
+          "interactiveQuiz": {
+            "question": "What error is thrown when invoking an arrow function with the `new` keyword?",
+            "options": ["TypeError: Arrow function is not a constructor", "ReferenceError", "SyntaxError", "No error is thrown"],
+            "correctIndex": 0,
+            "explanation": "Arrow functions lack internal `[[Construct]]` methods and throw a `TypeError` when instantiated with `new`."
+          }
+        },
+        {
+          "id": "q13-event-loop",
+          "title": "Q13: What is the JavaScript Event Loop?",
+          "content": "The Event Loop enables non-blocking asynchronous execution. JavaScript executes synchronous code on the single Call Stack. Asynchronous tasks offload to APIs and queue callbacks into the Microtask Queue (Promises) or Macrotask Queue (timers). The Event Loop empties the call stack, drains all microtasks, and then processes one macrotask.",
+          "keyTakeaways": [
+            "Call stack processes synchronous tasks sequentially.",
+            "Microtasks (Promises) take execution priority over Macrotasks (setTimeout)."
+          ],
+          "interactiveQuiz": {
+            "question": "Which queue has higher execution priority: Microtask or Macrotask Queue?",
+            "options": ["Macrotask Queue", "Microtask Queue", "Both execute in round-robin order", "Call Stack directly bypasses both"],
+            "correctIndex": 1,
+            "explanation": "The Event Loop clears the complete Microtask Queue before executing the next Macrotask."
+          }
+        },
+        {
+          "id": "q14-coding-event-loop-output",
+          "title": "Q14 [Coding]: Predict the execution output of this asynchronous code snippet.",
+          "content": "```js\nconsole.log('1');\nsetTimeout(() => console.log('2'), 0);\nPromise.resolve().then(() => console.log('3'));\nconsole.log('4');\n```\n**Output:** `1, 4, 3, 2`.\n**Reason:** Synchronous logs (`1`, `4`) run first. `Promise.then` enters the Microtask queue (`3`), executing before `setTimeout` in the Macrotask queue (`2`).",
+          "keyTakeaways": ["Synchronous code runs to completion first.", "Microtasks (`Promise`) run before Macrotasks (`setTimeout`)."],
+          "interactiveQuiz": {
+            "question": "In what order are the microtask and macrotask logged above?",
+            "options": ["2 then 3", "3 then 2", "Simultaneously", "Depends on CPU speed"],
+            "correctIndex": 1,
+            "explanation": "`3` is a Promise microtask and executes prior to timer macrotask `2`."
+          }
+        },
+        {
+          "id": "q15-promises",
+          "title": "Q15: What is a Promise and what are its three states?",
+          "content": "A Promise represents the eventual completion or failure of an asynchronous operation. Its states are: 1) `pending` (initial state), 2) `fulfilled` (operation succeeded), 3) `rejected` (operation failed). State transitions are immutable once settled.",
+          "keyTakeaways": [
+            "Promises encapsulate async outcomes in pending, fulfilled, or rejected states.",
+            "Transitions are permanent; settled states cannot change."
+          ],
+          "interactiveQuiz": {
+            "question": "What occurs if resolve() and reject() are both called inside the same Promise executor?",
+            "options": [
+              "Promise throws error",
+              "First settled call determines final state; subsequent calls are ignored",
+              "Promise stays pending",
+              "Rejects automatically"
+            ],
+            "correctIndex": 1,
+            "explanation": "A Promise can only settle once. Whichever settlement function executes first permanently locks state."
+          }
+        },
+        {
+          "id": "q16-async-await",
+          "title": "Q16: How does async/await work under the hood?",
+          "content": "`async/await` is syntactic sugar over Promises and Generators. An `async` function always returns a Promise. When `await` is encountered, function execution yields pause control back to the Event Loop until the awaited Promise settles.",
+          "keyTakeaways": [
+            "`async` functions wrap return values in resolved Promises.",
+            "`await` pauses async function execution without blocking the main event thread."
+          ],
+          "interactiveQuiz": {
+            "question": "What does an async function return if it explicitly returns a plain primitive value 42?",
+            "options": ["Number 42", "Promise.resolve(42)", "undefined", "Generator object"],
+            "correctIndex": 1,
+            "explanation": "`async` functions automatically wrap return values into resolved Promise instances."
+          }
+        },
+        {
+          "id": "q17-promise-combinators",
+          "title": "Q17: What is the difference between Promise.all, Promise.allSettled, Promise.race, and Promise.any?",
+          "content": "- `Promise.all()`: Resolves when all resolve; rejects immediately if any reject.\n- `Promise.allSettled()`: Resolves when all settle (fulfilled or rejected).\n- `Promise.race()`: Settles as soon as any promise settles.\n- `Promise.any()`: Resolves as soon as any promise fulfills; rejects if all reject.",
+          "keyTakeaways": [
+            "`Promise.all` fails fast on initial rejection.",
+            "`Promise.allSettled` guarantees tracking outcome states for every promise."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Promise combinator rejects ONLY if ALL input promises reject?",
+            "options": ["Promise.all", "Promise.race", "Promise.any", "Promise.allSettled"],
+            "correctIndex": 2,
+            "explanation": "`Promise.any` resolves on the first successful fulfillment and rejects only when all inputs reject."
+          }
+        },
+        {
+          "id": "q18-coding-promise-all-polyfill",
+          "title": "Q18 [Coding]: Implement a simple polyfill for Promise.all().",
+          "content": "```js\nfunction myPromiseAll(promises) {\n  return new Promise((resolve, reject) => {\n    let results = [];\n    let completed = 0;\n    if (promises.length === 0) return resolve([]);\n    promises.forEach((p, index) => {\n      Promise.resolve(p)\n        .then(val => {\n          results[index] = val;\n          completed++;\n          if (completed === promises.length) resolve(results);\n        })\n        .catch(reject);\n    });\n  });\n}\n```",
+          "keyTakeaways": [
+            "Tracks completed promise counts against total length.",
+            "Preserves array output index placement matching original input ordering."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is results[index] = val used instead of results.push(val) in Promise.all polyfills?",
+            "options": [
+              "To save memory allocations",
+              "To maintain correct original promise ordering regardless of completion speed",
+              "Because push is forbidden inside promises",
+              "To avoid array mutations"
+            ],
+            "correctIndex": 1,
+            "explanation": "Async promises resolve in arbitrary order. Direct index placement guarantees output matches input sequence."
+          }
+        },
+        {
+          "id": "q19-dom-bubbling-capturing",
+          "title": "Q19: What is Event Bubbling and Event Capturing in the DOM?",
+          "content": "DOM event propagation has 3 phases: 1) **Capturing Phase** (event travels down from document root to target), 2) **Target Phase** (event reaches target node), 3) **Bubbling Phase** (event bubbles up from target to document root). `addEventListener` defaults to handling events in the bubbling phase.",
+          "keyTakeaways": [
+            "Capturing travels downward; Bubbling travels upward.",
+            "Passing `{ capture: true }` attaches listeners to capturing phase."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method stops an event from propagating further up or down the DOM tree?",
+            "options": ["event.preventDefault()", "event.stopPropagation()", "event.stopImmediatePropagation()", "event.cancel()"],
+            "correctIndex": 1,
+            "explanation": "`stopPropagation()` prevents the event from bubbling up or capturing further along the DOM path."
+          }
+        },
+        {
+          "id": "q20-event-delegation",
+          "title": "Q20: What is Event Delegation and why is it useful?",
+          "content": "Event Delegation is a pattern where a single event listener is attached to a parent element to manage events for all its present and future child elements by leveraging event bubbling and checking `event.target`.",
+          "keyTakeaways": [
+            "Reduces memory overhead by minimizing total event listener count.",
+            "Handles dynamically inserted child elements without requiring new listener attachments."
+          ],
+          "interactiveQuiz": {
+            "question": "Which event property points to the actual element that triggered the event?",
+            "options": ["event.currentTarget", "event.target", "event.srcElement", "event.delegateTarget"],
+            "correctIndex": 1,
+            "explanation": "`event.target` refers to the target element that initiated the event."
+          }
+        },
+        {
+          "id": "q21-coding-debounce",
+          "title": "Q21 [Coding]: Write a debounce function implementation.",
+          "content": "```js\nfunction debounce(fn, delay) {\n  let timer;\n  return function(...args) {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn.apply(this, args), delay);\n  };\n}\n```\nDebouncing delays function execution until a specified idle duration has elapsed since the last event invocation.",
+          "keyTakeaways": [
+            "Resets timer on every new event trigger call.",
+            "Ideal for search auto-complete inputs and window resize handlers."
+          ],
+          "interactiveQuiz": {
+            "question": "When does a debounced function execute after rapid continuous triggers?",
+            "options": [
+              "At fixed interval ticks during events",
+              "Only after events pause for the specified delay duration",
+              "Immediately on initial trigger only",
+              "In background threads"
+            ],
+            "correctIndex": 1,
+            "explanation": "Debouncing waits for continuous event bursts to stop for `delay` milliseconds before firing once."
+          }
+        },
+        {
+          "id": "q22-coding-throttle",
+          "title": "Q22 [Coding]: Write a throttle function implementation.",
+          "content": "```js\nfunction throttle(fn, limit) {\n  let inThrottle;\n  return function(...args) {\n    if (!inThrottle) {\n      fn.apply(this, args);\n      inThrottle = true;\n      setTimeout(() => inThrottle = false, limit);\n    }\n  };\n}\n```\nThrottling enforces a maximum execution rate, ensuring the function fires at most once per defined time interval.",
+          "keyTakeaways": [
+            "Executes function at regular, rate-limited time intervals.",
+            "Ideal for scroll position tracking and window resize listeners."
+          ],
+          "interactiveQuiz": {
+            "question": "How does throttling differ from debouncing?",
+            "options": [
+              "Throttling runs code on worker threads",
+              "Throttling guarantees periodic execution during continuous triggers",
+              "Debouncing fires functions continuously",
+              "They are identical"
+            ],
+            "correctIndex": 1,
+            "explanation": "Throttling executes calls periodically at set intervals; debouncing postpones execution until events pause."
+          }
+        },
+        {
+          "id": "q23-deep-vs-shallow-copy",
+          "title": "Q23: What is the difference between a Shallow Copy and a Deep Copy?",
+          "content": "A shallow copy (`Object.assign()`, `{...obj}`) copies top-level properties, but nested objects/arrays retain memory references. A deep copy (`structuredClone()`, `JSON.parse(JSON.stringify())`) recursively duplicates all nested structures, creating completely independent object graphs.",
+          "keyTakeaways": [
+            "Shallow copy leaves nested objects linked by reference.",
+            "Deep copy duplicates all nested layers independently."
+          ],
+          "interactiveQuiz": {
+            "question": "Which modern native JavaScript global function performs deep copying safely?",
+            "options": ["Object.clone()", "structuredClone()", "JSON.clone()", "Object.deepCopy()"],
+            "correctIndex": 1,
+            "explanation": "`structuredClone()` is the modern native JS API for deep cloning complex values (including Maps, Sets, and Date)."
+          }
+        },
+        {
+          "id": "q24-coding-flatten-array",
+          "title": "Q24 [Coding]: Write a function to recursively flatten a deeply nested array.",
+          "content": "```js\nfunction flattenArray(arr) {\n  return arr.reduce((acc, val) => \n    Array.isArray(val) \n      ? acc.concat(flattenArray(val)) \n      : acc.concat(val), \n  []);\n}\n// Example: flattenArray([1, [2, [3, 4]], 5]) -> [1, 2, 3, 4, 5]\n```",
+          "keyTakeaways": [
+            "Uses recursion and `Array.isArray()` to unravel nested sub-arrays.",
+            "Native equivalent: `arr.flat(Infinity)`."
+          ],
+          "interactiveQuiz": {
+            "question": "What built-in Array prototype method flattens nested arrays to any depth directly?",
+            "options": ["arr.flat(Infinity)", "arr.flatten()", "arr.unroll()", "arr.compress()"],
+            "correctIndex": 0,
+            "explanation": "`arr.flat(Infinity)` recursively flattens nested sub-arrays to a single flat array."
+          }
+        },
+        {
+          "id": "q25-modules-es6-vs-cjs",
+          "title": "Q25: What is the difference between ES Modules (ESM) and CommonJS (CJS)?",
+          "content": "CommonJS (`require`/`module.exports`) is synchronous and evaluated dynamically at runtime. ES Modules (`import`/`export`) are asynchronous, statically analyzed at compile-time (enabling tree-shaking), and strict mode by default.",
+          "keyTakeaways": [
+            "CJS loads modules dynamically at runtime using `require()`.",
+            "ESM uses static `import/export` syntax allowing build optimization and tree-shaking."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does ES Module syntax enable Tree-Shaking optimization in bundlers?",
+            "options": [
+              "Because ESM runs on thread pools",
+              "Because ESM imports/exports are statically structure-analyzed before execution",
+              "Because ESM uses binary files",
+              "Because ESM disables strict mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "Static `import/export` structure lets bundlers detect and remove unused exports during compilation."
+          }
+        },
+        {
+          "id": "q26-currying",
+          "title": "Q26: What is Function Currying?",
+          "content": "Currying is a technique of transforming a function with multiple arguments into a sequence of functions that each take a single argument (`f(a, b, c)` into `f(a)(b)(c)`).",
+          "keyTakeaways": [
+            "Transforms multi-argument functions into unary function chains.",
+            "Enables partial application and higher-order functional composition."
+          ],
+          "interactiveQuiz": {
+            "question": "How would you call a curried function add(a)(b) to calculate 2 + 3?",
+            "options": ["add(2, 3)", "add(2)(3)", "add(2.3)", "add[2][3]"],
+            "correctIndex": 1,
+            "explanation": "Curried functions accept single arguments sequentially through chained function calls: `add(2)(3)`."
+          }
+        },
+        {
+          "id": "q27-coding-curry-implementation",
+          "title": "Q27 [Coding]: Implement a generic curry() helper function.",
+          "content": "```js\nfunction curry(fn) {\n  return function curried(...args) {\n    if (args.length >= fn.length) {\n      return fn.apply(this, args);\n    }\n    return function(...nextArgs) {\n      return curried.apply(this, args.concat(nextArgs));\n    };\n  };\n}\n```",
+          "keyTakeaways": [
+            "Compares gathered `args.length` against the expected function parameter count (`fn.length`).",
+            "Recursively returns outer wrapper functions until all parameters are fulfilled."
+          ],
+          "interactiveQuiz": {
+            "question": "What property of a Function object indicates its declared expected argument count?",
+            "options": ["fn.arguments", "fn.length", "fn.size", "fn.arity"],
+            "correctIndex": 1,
+            "explanation": "`fn.length` exposes the number of formal parameters expected by the function definition."
+          }
+        },
+        {
+          "id": "q28-map-set-weakmap-weakset",
+          "title": "Q28: What is the difference between Map, Set, WeakMap, and WeakSet?",
+          "content": "- `Map`: Key-value store accepting any data type key.\n- `Set`: Collection of unique values.\n- `WeakMap` / `WeakSet`: Hold garbage-collectable **weak references** strictly to objects/symbols. Their keys/elements are non-enumerable.",
+          "keyTakeaways": [
+            "`Map` supports keys of any type; `WeakMap` keys MUST be objects/symbols.",
+            "`WeakMap` references do not prevent garbage collection if no other references exist."
+          ],
+          "interactiveQuiz": {
+            "question": "Why are WeakMap keys non-enumerable?",
+            "options": [
+              "To boost execution speed",
+              "Because keys can be garbage collected at any non-deterministic time",
+              "To enforce strict mode",
+              "Because keys are stored on disk"
+            ],
+            "correctIndex": 1,
+            "explanation": "Since keys can be garbage collected asynchronously, iteration over WeakMap keys is non-deterministic and forbidden."
+          }
+        },
+        {
+          "id": "q29-symbols",
+          "title": "Q29: What are Symbols in JavaScript and what are their primary use cases?",
+          "content": "`Symbol` is a primitive type that returns guaranteed unique identifiers (`Symbol('id') !== Symbol('id')`). They are used to create private object property keys that avoid key collision issues across external modules.",
+          "keyTakeaways": [
+            "Symbols generate guaranteed unique primitive property keys.",
+            "Used for well-known metaprogramming symbols (e.g., `Symbol.iterator`)."
+          ],
+          "interactiveQuiz": {
+            "question": "Do Symbol object keys appear in standard for...in loops or Object.keys()?",
+            "options": [
+              "Yes, always",
+              "No, they are skipped by standard iterations",
+              "Only in strict mode",
+              "Only if converted to strings"
+            ],
+            "correctIndex": 1,
+            "explanation": "Symbol keys are ignored by standard iterations; retrieve them via `Object.getOwnPropertySymbols()`."
+          }
+        },
+        {
+          "id": "q30-generators-iterators",
+          "title": "Q30: How do Generators and Iterators work in JavaScript?",
+          "content": "An Iterator is an object with a `next()` method returning `{ value, done }`. Generators (`function*`) are special functions that can pause execution using `yield` and resume when `next()` is called on their returned Generator object.",
+          "keyTakeaways": [
+            "`yield` pauses generator functions and returns execution values.",
+            "Generators implement the iterable protocol automatically."
+          ],
+          "interactiveQuiz": {
+            "question": "Which keyword pauses execution inside a Generator function?",
+            "options": ["await", "yield", "pause", "stop"],
+            "correctIndex": 1,
+            "explanation": "The `yield` keyword yields control back to caller and pauses generator execution."
+          }
+        },
+        {
+          "id": "q31-proxy-reflect",
+          "title": "Q31: What are Proxy and Reflect objects in JavaScript?",
+          "content": "A `Proxy` object wraps a target object and intercepts fundamental operations (like property lookup, assignment, enumeration, function invocation) using trap handlers. `Reflect` provides built-in methods to perform default underlying JavaScript operations.",
+          "keyTakeaways": [
+            "Proxies enable metaprogramming by trapping object operations.",
+            "Used heavily in reactivity systems (like Vue 3 reactivity)."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Proxy trap intercepts property read access (e.g., obj.prop)?",
+            "options": ["set", "get", "apply", "has"],
+            "correctIndex": 1,
+            "explanation": "The `get` trap intercepts property read operations on proxied target objects."
+          }
+        },
+        {
+          "id": "q32-strict-mode",
+          "title": "Q32: What is Strict Mode ('use strict') and what changes does it enforce?",
+          "content": "Strict Mode enforces cleaner JavaScript execution rules: 1) Prevents accidental global variable creation. 2) Throws errors on silent fails (read-only writes). 3) Disables `with` statements. 4) Sets default `this` in plain functions to `undefined`.",
+          "keyTakeaways": ["Opt-in via `'use strict';` directive.", "Transforms silent runtime errors into explicit thrown exceptions."],
+          "interactiveQuiz": {
+            "question": "What is the value of `this` inside a standard plain function call in Strict Mode?",
+            "options": ["window object", "global object", "undefined", "null"],
+            "correctIndex": 2,
+            "explanation": "Strict mode sets `this` to `undefined` in un-bound plain function calls."
+          }
+        },
+        {
+          "id": "q33-garbage-collection",
+          "title": "Q33: How does Memory Management and Garbage Collection work in V8?",
+          "content": "JavaScript automatically manages memory using Mark-and-Sweep garbage collection algorithm. Roots (global variables, call stack references) are traversed. Any allocated memory object unreachable from roots during mark phase is swept and freed.",
+          "keyTakeaways": [
+            "V8 uses Mark-and-Sweep garbage collection algorithm.",
+            "Unreachable objects disconnected from root scope are marked for memory deallocation."
+          ],
+          "interactiveQuiz": {
+            "question": "What memory condition causes an object to be reclaimed during garbage collection?",
+            "options": [
+              "When object key count exceeds 100",
+              "When the object is unreachable from active roots",
+              "When Object.freeze() is called",
+              "When converted to JSON"
+            ],
+            "correctIndex": 1,
+            "explanation": "Objects unreachable via reference paths starting from root nodes are swept as garbage."
+          }
+        },
+        {
+          "id": "q34-coding-memoize-function",
+          "title": "Q34 [Coding]: Implement a generic memoize() utility function.",
+          "content": "```js\nfunction memoize(fn) {\n  const cache = new Map();\n  return function(...args) {\n    const key = JSON.stringify(args);\n    if (cache.has(key)) {\n      return cache.get(key);\n    }\n    const result = fn.apply(this, args);\n    cache.set(key, result);\n    return result;\n  };\n}\n```",
+          "keyTakeaways": [
+            "Caches calculation results using serialized stringified arguments as keys.",
+            "Avoids duplicate costly computations on identical input arguments."
+          ],
+          "interactiveQuiz": {
+            "question": "What trade-off does memoization introduce into applications?",
+            "options": [
+              "Higher CPU usage for lower RAM",
+              "Higher Memory (RAM) usage to save Computation (CPU) time",
+              "Slower DOM rendering speed",
+              "Forced asynchronous behavior"
+            ],
+            "correctIndex": 1,
+            "explanation": "Memoization trades increased memory storage space to avoid repeated computation time."
+          }
+        },
+        {
+          "id": "q35-mutation-observer",
+          "title": "Q35: What is MutationObserver and when should it be used?",
+          "content": "`MutationObserver` is a built-in API that provides the ability to watch for changes made to the DOM tree (child additions/removals, attribute mutations, text content modifications) asynchronously without performance polling.",
+          "keyTakeaways": ["Asynchronously monitors DOM tree mutations.", "Replaces legacy performance-heavy DOM mutation events."],
+          "interactiveQuiz": {
+            "question": "How are DOM mutation notifications delivered by MutationObserver?",
+            "options": [
+              "Synchronously inside the main thread frame",
+              "Asynchronously via microtask batches",
+              "In worker thread pools",
+              "Via HTTP SSE events"
+            ],
+            "correctIndex": 1,
+            "explanation": "`MutationObserver` callbacks fire asynchronously as microtasks before browser repaints."
+          }
+        },
+        {
+          "id": "q36-web-workers",
+          "title": "Q36: What are Web Workers and how do they communicate with the main thread?",
+          "content": "Web Workers allow running background JavaScript scripts in parallel threads separate from the main execution thread. Communication occurs via message passing using `worker.postMessage()` and `onmessage` event handlers.",
+          "keyTakeaways": [
+            "Runs heavy scripts in isolated background threads without UI thread blocking.",
+            "Workers lack direct access to DOM objects (`document`, `window`)."
+          ],
+          "interactiveQuiz": {
+            "question": "Can a standard Dedicated Web Worker directly manipulate DOM nodes using document.getElementById?",
+            "options": [
+              "Yes, unconditionally",
+              "No, workers do not have access to the DOM",
+              "Only in strict mode",
+              "Yes, if imported via ES modules"
+            ],
+            "correctIndex": 1,
+            "explanation": "Web Workers operate in isolated thread scopes without access to the DOM or `window` object."
+          }
+        },
+        {
+          "id": "q37-coding-array-prototype-map",
+          "title": "Q37 [Coding]: Write a custom polyfill for Array.prototype.map().",
+          "content": "```js\nArray.prototype.myMap = function(callback, thisArg) {\n  if (typeof callback !== 'function') {\n    throw new TypeError(callback + ' is not a function');\n  }\n  const result = [];\n  for (let i = 0; i < this.length; i++) {\n    if (i in this) { // Handles sparse arrays\n      result[i] = callback.call(thisArg, this[i], i, this);\n    }\n  }\n  return result;\n};\n```",
+          "keyTakeaways": [
+            "Iterates over input array elements and constructs a new mapped array.",
+            "Handles sparse array indices using `i in this` checks."
+          ],
+          "interactiveQuiz": {
+            "question": "Does Array.prototype.map() mutate the original calling array instance?",
+            "options": [
+              "Yes, it mutates in-place",
+              "No, it returns a new array instance",
+              "Only if callback returns objects",
+              "Only in strict mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "`map()` is a pure non-mutating transformation method that returns a brand new array."
+          }
+        },
+        {
+          "id": "q38-coding-array-prototype-reduce",
+          "title": "Q38 [Coding]: Write a custom polyfill for Array.prototype.reduce().",
+          "content": "```js\nArray.prototype.myReduce = function(callback, initialValue) {\n  let accumulator = initialValue;\n  let startIndex = 0;\n  if (accumulator === undefined) {\n    if (this.length === 0) throw new TypeError('Reduce of empty array with no initial value');\n    accumulator = this[0];\n    startIndex = 1;\n  }\n  for (let i = startIndex; i < this.length; i++) {\n    if (i in this) {\n      accumulator = callback(accumulator, this[i], i, this);\n    }\n  }\n  return accumulator;\n};\n```",
+          "keyTakeaways": [
+            "Initializes accumulator to `initialValue` or array element index 0.",
+            "Sequentially processes callback updates across array elements."
+          ],
+          "interactiveQuiz": {
+            "question": "What occurs if myReduce is called on an empty array without an initialValue parameter?",
+            "options": ["Returns undefined", "Returns empty array []", "Throws a TypeError", "Returns null"],
+            "correctIndex": 2,
+            "explanation": "Calling `reduce()` on an empty array without supplying an initial value throws a `TypeError`."
+          }
+        },
+        {
+          "id": "q39-requestanimationframe",
+          "title": "Q39: What is requestAnimationFrame() and why is it preferred over setInterval for animations?",
+          "content": "`requestAnimationFrame(cb)` instructs the browser to execute a specified callback before the next repaint frame (typically 60fps/120fps). It synchronizes with hardware display refresh rates and pauses execution in inactive background tabs to conserve power.",
+          "keyTakeaways": [
+            "Synchronizes animation updates directly with screen repaint frames.",
+            "Pauses automatically in hidden background browser tabs."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is requestAnimationFrame superior to setInterval(fn, 16) for smooth CSS/Canvas animations?",
+            "options": [
+              "Runs on GPU background threads",
+              "Matches screen refresh rates and pauses when tab is hidden",
+              "Bypasses the Event Loop entirely",
+              "Disables V8 garbage collection"
+            ],
+            "correctIndex": 1,
+            "explanation": "`requestAnimationFrame` aligns frame steps with monitor refresh rate and reduces resource usage when backgrounded."
+          }
+        },
+        {
+          "id": "q40-tail-call-optimization",
+          "title": "Q40: What is Tail Call Optimization (TCO)?",
+          "content": "Tail Call Optimization occurs when a recursive function call is the final execution statement inside a function. The engine reuses the current stack frame instead of allocating new stack frames, preventing stack overflow errors on infinite recursion.",
+          "keyTakeaways": [
+            "Reuses call stack frame when recursion occurs at tail position.",
+            "Prevents `Maximum call stack size exceeded` errors on deep recursions."
+          ],
+          "interactiveQuiz": {
+            "question": "Which requirement must be met for a function to qualify for Tail Call Optimization?",
+            "options": [
+              "Must be an arrow function",
+              "The recursive call must be the absolute final execution statement in the function",
+              "Must run in Web Workers",
+              "Must use async/await"
+            ],
+            "correctIndex": 1,
+            "explanation": "TCO requires that the function return value be directly the output of the recursive call without remaining outer frame operations."
+          }
+        },
+        {
+          "id": "q41-coding-deep-equal",
+          "title": "Q41 [Coding]: Write a deepEqual function to compare two objects deeply.",
+          "content": "```js\nfunction deepEqual(a, b) {\n  if (a === b) return true;\n  if (a == null || typeof a !== 'object' || b == null || typeof b !== 'object') {\n    return false;\n  }\n  const keysA = Object.keys(a);\n  const keysB = Object.keys(b);\n  if (keysA.length !== keysB.length) return false;\n  for (let key of keysA) {\n    if (!keysB.includes(key) || !deepEqual(a[key], b[key])) {\n      return false;\n    }\n  }\n  return true;\n}\n```",
+          "keyTakeaways": [
+            "Compares primitives via `===` and recursively inspects nested object keys.",
+            "Validates key count matching prior to recursive nested property checks."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the return value of deepEqual({a: 1, b: {c: 2}}, {a: 1, b: {c: 2}})?",
+            "options": ["false", "true", "TypeError", "undefined"],
+            "correctIndex": 1,
+            "explanation": "Both objects possess identical keys and structural primitive values across all nested layers."
+          }
+        },
+        {
+          "id": "q42-service-workers",
+          "title": "Q42: What are Service Workers and Progressive Web Apps (PWAs)?",
+          "content": "A Service Worker is an event-driven worker registered between client browsers and network backends. It intercepts network requests (`fetch` event), manages offline application caches (`CacheStorage`), and powers push notifications for PWAs.",
+          "keyTakeaways": ["Acts as a programmable network proxy client-side.", "Enables offline capability and background data sync."],
+          "interactiveQuiz": {
+            "question": "Which network event is intercepted by Service Workers to serve offline cached assets?",
+            "options": ["connect", "fetch", "push", "install"],
+            "correctIndex": 1,
+            "explanation": "Service Workers listen to the `fetch` event to intercept outgoing network calls and serve cached responses."
+          }
+        },
+        {
+          "id": "q43-cors-preflight",
+          "title": "Q43: What triggers a CORS Preflight OPTIONS request in browsers?",
+          "content": "A preflight `OPTIONS` request is sent automatically by browsers prior to cross-origin requests if: 1) Method is NOT `GET`, `HEAD`, or `POST`. 2) Custom HTTP headers (like `Authorization`) are included. 3) `Content-Type` is not simple (`application/json`).",
+          "keyTakeaways": [
+            "Preflight verifies cross-origin permissions using HTTP `OPTIONS` requests.",
+            "Triggered by non-simple headers or non-simple Content-Type values."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Content-Type triggers a CORS preflight request when sent in a POST request?",
+            "options": ["text/plain", "application/x-www-form-urlencoded", "application/json", "multipart/form-data"],
+            "correctIndex": 2,
+            "explanation": "`application/json` is classified as a non-simple MIME type, triggering an automated preflight request."
+          }
+        },
+        {
+          "id": "q44-big-o-complexity-js-methods",
+          "title": "Q44: What are the Time Complexities (Big O) of common Array operations?",
+          "content": "- `push()` / `pop()`: $O(1)$ (end of array).\n- `unshift()` / `shift()`: $O(n)$ (requires re-indexing elements).\n- `indexOf()` / `includes()`: $O(n)$ linear search.\n- `sort()`: $O(n \\log n)$ average time complexity.",
+          "keyTakeaways": [
+            "Adding/removing from start (`shift`/`unshift`) is $O(n)$.",
+            "Array access by numeric index (`arr[i]`) is $O(1)$."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is array.unshift() an O(n) operation whereas array.push() is O(1)?",
+            "options": [
+              "Because unshift allocates memory on disk",
+              "Because unshift requires re-indexing every existing array element index",
+              "Because push uses worker threads",
+              "Because push mutates prototype chain"
+            ],
+            "correctIndex": 1,
+            "explanation": "Inserting an element at index 0 requires shifting all existing $n$ elements forward by 1 index."
+          }
+        },
+        {
+          "id": "q45-v8-hidden-classes",
+          "title": "Q45: How do V8 Hidden Classes (Shapes) optimize property access speed?",
+          "content": "V8 assigns Hidden Classes (Shapes) to objects. When objects share identical key property structures and declaration order, V8 reuses the same Hidden Class, enabling fast memory offset property lookups instead of dictionary hash lookups.",
+          "keyTakeaways": [
+            "Instantiate object properties in consistent order to reuse V8 shapes.",
+            "Avoid deleting properties (`delete obj.prop`) to prevent downgrading to slow dictionary mode."
+          ],
+          "interactiveQuiz": {
+            "question": "How should you nullify an object key without invalidating its V8 Hidden Class shape?",
+            "options": ["delete obj.key", "obj.key = undefined (or null)", "Object.remove(obj, key)", "Reflect.deleteProperty()"],
+            "correctIndex": 1,
+            "explanation": "Assigning `undefined` or `null` maintains object structure, preserving V8 hidden class optimizations."
+          }
+        },
+        {
+          "id": "q46-coding-flatten-object",
+          "title": "Q46 [Coding]: Write a function to flatten a deeply nested object using dot notation keys.",
+          "content": "```js\nfunction flattenObject(obj, prefix = '') {\n  return Object.keys(obj).reduce((acc, key) => {\n    const pre = prefix.length ? prefix + '.' : '';\n    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {\n      Object.assign(acc, flattenObject(obj[key], pre + key));\n    } else {\n      acc[pre + key] = obj[key];\n    }\n    return acc;\n  }, {});\n}\n// Input: { a: { b: 2 } } -> Output: { 'a.b': 2 }\n```",
+          "keyTakeaways": [
+            "Uses recursion to append nested keys into dot-separated paths.",
+            "Ignores primitive key value properties while drilling into child object trees."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the flattened key output for { user: { address: { city: 'Paris' } } }?",
+            "options": ["'city'", "'address.city'", "'user.address.city'", "'user/address/city'"],
+            "correctIndex": 2,
+            "explanation": "Nested object traversal joins property names using dot notation into `'user.address.city'`."
+          }
+        },
+        {
+          "id": "q47-memory-leaks-js",
+          "title": "Q47: What are common causes of Memory Leaks in client-side JavaScript?",
+          "content": "1) **Accidental global variables** (`window.leakedVar = ...`). 2) **Forgotten timers or callbacks** (`setInterval` retaining closed variables). 3) **Out-of-DOM references** (holding references to removed DOM nodes in JS arrays). 4) **Uncleared Event Listeners**.",
+          "keyTakeaways": [
+            "Always clear timers (`clearInterval`) and detach unused event listeners.",
+            "Remove JS variable references pointing to detached DOM nodes."
+          ],
+          "interactiveQuiz": {
+            "question": "Which situation leads to a Detached DOM Tree memory leak?",
+            "options": [
+              "Setting CSS visibility to hidden",
+              "Removing a DOM node from document while retaining a reference to it inside a JS variable",
+              "Using document.querySelector()",
+              "Freezing an object"
+            ],
+            "correctIndex": 1,
+            "explanation": "If a detached node is referenced in JS, GC cannot sweep the node or its child subtree from memory."
+          }
+        },
+        {
+          "id": "q48-iterator-protocol-coding",
+          "title": "Q48 [Coding]: Make a custom object iterable using Symbol.iterator.",
+          "content": "```js\nconst range = {\n  start: 1,\n  end: 3,\n  [Symbol.iterator]() {\n    let current = this.start;\n    let last = this.end;\n    return {\n      next() {\n        if (current <= last) {\n          return { value: current++, done: false };\n        }\n        return { value: undefined, done: true };\n      }\n    };\n  }\n};\n// Usage: for (let num of range) console.log(num); // Logs: 1, 2, 3\n```",
+          "keyTakeaways": [
+            "Implementing `[Symbol.iterator]` enables `for...of` loops and spread syntax (`[...obj]`).",
+            "Iterator methods return objects conforming to `{ value, done }` contracts."
+          ],
+          "interactiveQuiz": {
+            "question": "Which built-in loop syntax consumes objects that implement the Symbol.iterator interface?",
+            "options": ["for...in", "for...of", "while()", "do...while"],
+            "correctIndex": 1,
+            "explanation": "The `for...of` loop is specifically designed to consume objects implementing the iterable protocol."
+          }
+        },
+        {
+          "id": "q49-tree-shaking",
+          "title": "Q49: What is Tree Shaking and how does static analysis make it possible?",
+          "content": "Tree Shaking is a term for dead-code elimination in JavaScript bundlers (Webpack, Rollup). Static analysis of ES Module `import`/`export` statements enables bundlers to detect and remove un-referenced exports from final production bundles.",
+          "keyTakeaways": [
+            "Eliminates dead, unused JavaScript code from distribution bundles.",
+            "Requires ES Module static structure; fails with dynamic CommonJS `require()`."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does dynamic `require()` syntax in CommonJS prevent effective tree shaking?",
+            "options": [
+              "Because CommonJS files are encrypted",
+              "Because dynamic module paths cannot be fully resolved prior to runtime execution",
+              "Because CJS runs on server environments",
+              "Because CJS files lack prototype properties"
+            ],
+            "correctIndex": 1,
+            "explanation": "Dynamic runtime paths in `require()` prevent static compilers from identifying unused module code safely."
+          }
+        },
+        {
+          "id": "q50-coding-pipe-compose",
+          "title": "Q50 [Coding]: Implement pipe() and compose() functional utilities.",
+          "content": "```js\n// pipe: Executes functions left-to-right\nconst pipe = (...fns) => (x) => fns.reduce((v, fn) => fn(v), x);\n\n// compose: Executes functions right-to-left\nconst compose = (...fns) => (x) => fns.reduceRight((v, fn) => fn(v), x);\n\n// Example usage:\nconst add5 = x => x + 5;\nconst double = x => x * 2;\n\npipe(add5, double)(10); // (10 + 5) * 2 = 30\ncompose(double, add5)(10); // (10 + 5) * 2 = 30\n```",
+          "keyTakeaways": [
+            "`pipe` processes transformations left-to-right via `Array.prototype.reduce()`.",
+            "`compose` processes transformations right-to-left via `Array.prototype.reduceRight()`."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the execution order difference between pipe() and compose()?",
+            "options": [
+              "pipe is asynchronous; compose is synchronous",
+              "pipe evaluates functions left-to-right; compose evaluates right-to-left",
+              "compose works only with arrow functions",
+              "They evaluate in identical sequence"
+            ],
+            "correctIndex": 1,
+            "explanation": "`pipe` chains execution left-to-right, whereas mathematical `compose` evaluates functions right-to-left."
+          }
+        }
+      ]
+    }
+  ]
+}
