@@ -41,7 +41,7 @@
       "sections": [
         {
           "id": "find-the-largest-element-in-an-array",
-          "title": "1. Find the Largest Element in an Array",
+          "title": "01. Find the Largest Element in an Array",
           "content": "Given an array of numbers, find the largest element.\n\n### How It Works & Algorithmic Design\nTo find the maximum element without sorting, we use a **Single-Pass Linear Scan** pattern. \n1. **Initialization**: Assume the first element (`arr[0]`) is the largest seen so far. Storing an element from the array ensures that negative numbers or zero values do not break the comparison logic (unlike initializing to `0`).\n2. **Iteration**: Loop through each remaining element from left to right.\n3. **Comparison & Update**: For every element, check if it is strictly greater than our current maximum variable (`max`). If it is, overwrite `max` with the new value.\n4. **Edge Case Handling**: If the input array is empty (`arr.length === 0`), there is no valid maximum; return `null` or an equivalent empty-state value.\n\n### Why This Approach Works Best\nAlternative approaches like sorting the array first take $O(n \\log n)$ time complexity. This iterative scan inspects every element exactly once, giving an optimal linear $O(n)$ runtime while using $O(1)$ constant auxiliary memory.",
           "metaChips": [
             {
@@ -141,7 +141,7 @@
         },
         {
           "id": "find-the-smallest-element-in-an-array",
-          "title": "2. Find the Smallest Element in an Array",
+          "title": "02. Find the Smallest Element in an Array",
           "content": "Given an array of numbers, locate and return the smallest element.\n\n### How It Works & Algorithmic Design\nFinding the minimum value uses the exact inverse logic of finding the maximum value:\n1. **Initialization**: Set `min = arr[0]`. This establishes a benchmark value present inside the input dataset.\n2. **Linear Pass**: Loop through the array from index `1` to `arr.length - 1`.\n3. **Conditional Update**: Compare each element with `min`. If the current value is strictly lower (`arr[i] < min`), update `min = arr[i]`.\n4. **Completion**: Once all $n$ elements are evaluated, `min` holds the smallest value.\n\n### Why This Approach Works Best\nThis algorithm requires no sorting or external memory data structures. It evaluates the array in $O(n)$ time while operating in-place ($O(1)$ space).",
           "metaChips": [
             {
@@ -216,7 +216,7 @@
         },
         {
           "id": "calculate-the-sum-of-array-elements",
-          "title": "3. Calculate the Sum of Array Elements",
+          "title": "03. Calculate the Sum of Array Elements",
           "content": "Compute the sum of all numerical values in a given array.\n\n### How It Works & Algorithmic Design\nThis utilizes the **Accumulator Pattern**:\n1. **State Initialization**: Declare an accumulator variable `total = 0`. Zero acts as the additive identity element ($x + 0 = x$).\n2. **Iteration**: Walk through the elements one by one.\n3. **Accumulation**: Add each element's value to `total` using the addition assignment operator (`total += element`).\n4. **Return**: Once the loop completes, return `total`.\n\n### Why This Approach Works Best\nIt performs a single pass over the array with constant extra space ($O(1)$ memory). For large arrays, integer overflow should be considered depending on the language (e.g., using 64-bit integers like `long` in Java when working with large numbers).",
           "metaChips": [
             {
@@ -296,7 +296,7 @@
         },
         {
           "id": "count-even-numbers-in-an-array",
-          "title": "4. Count Even Numbers in an Array",
+          "title": "04. Count Even Numbers in an Array",
           "content": "Determine the count of even numbers contained in an array.\n\n### How It Works & Algorithmic Design\nThis combines **Conditional Filtering** with **Counter Incrementation**:\n1. **Divisibility Condition**: A integer $x$ is defined as even if $x \\pmod 2 = 0$.\n2. **Counter Setup**: Initialize `count = 0`.\n3. **Evaluation Loop**: Traverse through each number in the array. Apply the modulo operator (`value % 2`). If the remainder equals `0`, increment `count` by 1.\n4. **Negative Numbers**: The condition `value % 2 === 0` holds true for negative even integers as well (e.g., `-4 % 2 === 0`), making this approach robust across integer domains.\n\n### Why This Approach Works Best\nIt processes the input in $O(n)$ runtime and $O(1)$ extra space without creating intermediate filtered arrays in memory.",
           "metaChips": [
             {
@@ -376,7 +376,7 @@
         },
         {
           "id": "reverse-an-array-in-place",
-          "title": "5. Reverse an Array In-Place",
+          "title": "05. Reverse an Array In-Place",
           "content": "Reverse the order of elements in an array without using extra memory allocations.\n\n### How It Works & Algorithmic Design\nThis demonstrates the **Two Pointers Technique**:\n1. **Pointer Setup**: Position a `left` pointer at index `0` and a `right` pointer at index `arr.length - 1`.\n2. **Symmetric Swapping**: While `left < right`:\n   - Swap the elements at `arr[left]` and `arr[right]`.\n   - Increment `left` (`left++`).\n   - Decrement `right` (`right--`).\n3. **Termination**: When `left >= right`, the pointers meet or cross in the middle, confirming all elements have been mirrored.\n\n### Why This Approach Works Best\nCreating a duplicate reversed array requires $O(n)$ auxiliary space. The two-pointer in-place swap modifies the original array directly, achieving $O(n/2) = O(n)$ time complexity and true $O(1)$ space complexity.",
           "metaChips": [
             {
@@ -461,7 +461,7 @@
         },
         {
           "id": "check-whether-an-array-is-sorted",
-          "title": "6. Check Whether an Array Is Sorted",
+          "title": "06. Check Whether an Array Is Sorted",
           "content": "Verify if an array's elements are ordered in non-decreasing sequence ($arr[i] \\le arr[i+1]$).\n\n### How It Works & Algorithmic Design\nThis uses an **Adjacent Pair Comparison** strategy with **Early Termination**:\n1. **Invariant**: An array is sorted if every consecutive pair satisfied $arr[i - 1] \\le arr[i]$.\n2. **Iteration**: Start looping from index `1` up to `arr.length - 1`.\n3. **Violation Check**: Compare `arr[i]` against its preceding neighbor `arr[i - 1]`. If `arr[i] < arr[i - 1]`, a sorting violation has occurred. Instantly return `false`.\n4. **Success Return**: If the loop finishes without finding any out-of-order pair, return `true`.\n\n### Why This Approach Works Best\nIt avoids checking $O(n^2)$ pairs by relying on transitivity: if $a \\le b$ and $b \\le c$, then $a \\le c$. Comparing adjacent items in a single pass ($O(n)$ time, $O(1)$ space) is sufficient.",
           "metaChips": [
             {
@@ -561,7 +561,7 @@
         },
         {
           "id": "linear-search",
-          "title": "7. Linear Search",
+          "title": "07. Linear Search",
           "content": "Search for a specific target value within an unsorted array and return its index.\n\n### How It Works & Algorithmic Design\nLinear Search inspects elements sequentially from beginning to end:\n1. **Sequential Traversal**: Loop over the array using index $i$ from $0$ to $n-1$.\n2. **Match Evaluation**: Compare `arr[i] === target`. If equal, return index $i$ immediately.\n3. **Failure Case**: If the iteration reaches the end of the array without a match, return `-1` to signal the element was not found.\n\n### Why This Approach Works Best\nWhen an array is unsorted, no assumptions can be made about element placement. Every position must be checked in the worst case, making linear search the optimal strategy ($O(n)$ time, $O(1)$ space) without pre-sorting.",
           "metaChips": [
             {
@@ -636,7 +636,7 @@
         },
         {
           "id": "count-occurences-of-a-target",
-          "title": "8. Count Occurrences of a Target",
+          "title": "08. Count Occurrences of a Target",
           "content": "Find how many times a given target value appears within an array.\n\n### How It Works & Algorithmic Design\nUnlike Linear Search (which returns early upon finding the first match), counting occurrences requires inspecting **every element** in the array:\n1. **Counter Initialization**: Set `count = 0`.\n2. **Exhaustive Pass**: Iterate through every position from index $0$ to $n-1$.\n3. **Match Accumulation**: Increment `count` by $1$ every time `arr[i] === target`.\n4. **Final Result**: Return the accumulated total after the loop finishes.\n\n### Why This Approach Works Best\nBecause target matches may occur multiple times across the array, early termination cannot be used. Inspecting every element gives a time complexity of $O(n)$ and $O(1)$ space.",
           "metaChips": [
             {
@@ -716,7 +716,7 @@
         },
         {
           "id": "find-the-second-largest-element",
-          "title": "9. Find the Second Largest Element",
+          "title": "09. Find the Second Largest Element",
           "content": "Find the second largest distinct element in an array without sorting.\n\n### How It Works & Algorithmic Design\nThis uses a **Dual-Variable Tracking** approach in a single pass:\n1. **Variables**: Maintain `first` (largest) and `second` (second largest), initialized to negative infinity (`-Infinity`).\n2. **Iteration & Rules**: Loop through each number $x$:\n   - **Case 1 ($x > first$)**: A new maximum is found. Demote the old `first` to `second` (`second = first`), then update `first = x`.\n   - **Case 2 ($x > second$ and $x < first$)**: $x$ is not the largest, but is strictly greater than `second`. Update `second = x`.\n   - **Case 3 ($x \\le second$)**: Ignore $x$.\n3. **Distinct Constraint**: The check `x < first` in Case 2 ensures duplicates of the maximum value do not improperly overwrite `second`.\n4. **Result**: If `second` remains `-Infinity`, no distinct second largest element exists; return `null`.\n\n### Why This Approach Works Best\nSorting takes $O(n \\log n)$ time. Scanning twice (once for max, once for second max) takes $O(2n)$ time. This dual-variable method finds the answer in a single $O(n)$ pass using $O(1)$ memory.",
           "metaChips": [
             {
