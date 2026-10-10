@@ -1778,6 +1778,491 @@
             "correctIndex": 1,
             "explanation": "Prompt Engineering and IDE integration make up the largest functional portion of the exam."
           }
+        },
+{
+          "id": "q101-scenario-accidental-secret-leak",
+          "title": "Q101 [Scenario]: A developer accidentally types an active AWS Secret Key into a file context while writing a function with Copilot active. What prevents this key from being exposed?",
+          "content": "Before prompts reach the LLM backend or completions return to the IDE, Copilot's **Post-Processing & Proxy Security Filters** scan payloads for hardcoded secrets, API tokens, and private credentials. Furthermore, pairing Copilot with **GitHub Secret Scanning** blocks commits containing leaked keys.",
+          "keyTakeaways": [
+            "Proxy filters inspect client payloads in real time to redact credentials.",
+            "GitHub Secret Scanning provides secondary protection during push/commit."
+          ],
+          "interactiveQuiz": {
+            "question": "Which component acts as the immediate real-time guardrail blocking credentials before prompt transmission?",
+            "options": [
+              "Local OS Firewall",
+              "Copilot Proxy & Post-Processing Security Filters",
+              "Git Commit Hook",
+              "DNS Server Filter"
+            ],
+            "correctIndex": 1,
+            "explanation": "Real-time proxy and post-processing filters screen prompts and completions for credentials prior to LLM processing."
+          }
+        },
+        {
+          "id": "q102-scenario-ip-indemnification-audit-failure",
+          "title": "Q102 [Scenario]: An enterprise legal team conducts an audit to confirm eligibility for Microsoft's Copilot Copyright Commitment. They find 'Suggestions matching public code' is set to 'Allow' for one org. What is the impact?",
+          "content": "To qualify for **Microsoft's Copilot Copyright Commitment (IP Indemnification)**, the organization policy for 'Suggestions matching public code' must be strictly configured to **'Block'**. Leaving it on 'Allow' forfeits legal coverage against third-party copyright claims for that organization.",
+          "keyTakeaways": [
+            "Public code filter MUST be set to 'Block' across all managed orgs.",
+            "Allowing verbatim public code matching invalidates IP indemnification protections."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the legal consequence of leaving public code matching set to 'Allow' in an enterprise setting?",
+            "options": [
+              "Subscription tier is downgraded to Individual",
+              "The organization loses eligibility for Microsoft's Copilot IP Indemnification",
+              "Copilot Chat is permanently disabled",
+              "IDE extensions stop receiving updates"
+            ],
+            "correctIndex": 1,
+            "explanation": "Enforcing 'Block' on public code matches is a non-negotiable legal prerequisite for IP indemnification."
+          }
+        },
+        {
+          "id": "q103-scenario-stale-context-in-long-chat-session",
+          "title": "Q103 [Scenario]: A developer is using Copilot Chat to refactor a payment processing module. After 2 hours in the same chat thread, Copilot starts suggesting outdated syntax from a task completed earlier in the conversation. How should the developer fix this?",
+          "content": "Long chat threads accumulate stale tokens in conversational history, causing the model to weight outdated instructions higher than current tasks. Running the `/clear` command or starting a **New Topic** purges the active conversation context window.",
+          "keyTakeaways": [
+            "Excessive chat history clutters the active window with obsolete context.",
+            "Use `/clear` or New Topic when switching logical tasks."
+          ],
+          "interactiveQuiz": {
+            "question": "How should a developer resolve context degradation caused by an overly long chat thread?",
+            "options": [
+              "Restart the operating system",
+              "Execute the /clear command or start a New Topic thread",
+              "Re-install the IDE extension",
+              "Disable Fill-In-The-Middle"
+            ],
+            "correctIndex": 1,
+            "explanation": "Clearing the thread wipes accumulated context memory, preventing stale instructions from biasing outputs."
+          }
+        },
+        {
+          "id": "q104-scenario-monorepo-context-overload",
+          "title": "Q104 [Scenario]: In a 50GB monorepo, @workspace queries take a long time or return irrelevant results from unrelated microservices. How can the lead architect scope Copilot's context?",
+          "content": "The team can define a `.copilotignore` file at the root or within subdirectories to exclude unrelated microservices, build artifacts, and vendor files from Copilot's workspace indexing, keeping prompt context focused.",
+          "keyTakeaways": [
+            "`.copilotignore` limits indexing in large repositories.",
+            "Excluding irrelevant subfolders speeds up `@workspace` processing and improves accuracy."
+          ],
+          "interactiveQuiz": {
+            "question": "Which mechanism best optimizes @workspace response quality in massive monorepos?",
+            "options": [
+              "Splitting the hard drive into partitions",
+              "Configuring path exclusions using a .copilotignore file",
+              "Increasing system RAM",
+              "Disabling telemetry settings"
+            ],
+            "correctIndex": 1,
+            "explanation": "`.copilotignore` prevents Copilot from indexing unneeded folders in monorepos."
+          }
+        },
+        {
+          "id": "q105-scenario-hallucinated-security-method",
+          "title": "Q105 [Scenario]: A junior developer uses Copilot to implement password hashing and accepts a suggestion calling bcrypt.hash_password_secure(). During testing, the build fails with an AttributeError. What happened?",
+          "content": "Copilot generated an **AI Hallucination**—synthesizing a plausible-sounding method name that does not exist in the official `bcrypt` library. This highlights the necessity of human review, compiler validation, and static analysis.",
+          "keyTakeaways": [
+            "Generative AI predicts likely text strings, not validated library indexes.",
+            "Always verify generated method signatures against official framework docs."
+          ],
+          "interactiveQuiz": {
+            "question": "What phenomenon occurred when Copilot generated bcrypt.hash_password_secure()?",
+            "options": [
+              "Compiler syntax optimization",
+              "Model Hallucination",
+              "Proxy filtering failure",
+              "Content exclusion match"
+            ],
+            "correctIndex": 1,
+            "explanation": "Generating non-existent methods that sound statistically reasonable is a classic model hallucination."
+          }
+        },
+        {
+          "id": "q106-scenario-enterprise-documentation-grounding",
+          "title": "Q106 [Scenario]: An enterprise engineering team wants Copilot Enterprise on GitHub.com to answer questions using strictly their internal compliance frameworks stored across 3 documentation repos. How should this be set up?",
+          "content": "An administrator should create a **Copilot Knowledge Base**, attach the 3 Markdown documentation repositories, and index them. Developers can then target that Knowledge Base during chat sessions on GitHub.com.",
+          "keyTakeaways": [
+            "Knowledge Bases aggregate multiple Markdown documentation repositories.",
+            "Available on Copilot Enterprise for grounded organizational queries."
+          ],
+          "interactiveQuiz": {
+            "question": "What Copilot Enterprise feature allows grounding queries across multiple internal documentation repos?",
+            "options": [
+              "Custom Rulesets",
+              "Copilot Knowledge Bases",
+              "GitHub Actions Secrets",
+              "Public Code Filters"
+            ],
+            "correctIndex": 1,
+            "explanation": "Knowledge Bases pull documentation from specified repos to provide grounded answers."
+          }
+        },
+        {
+          "id": "q107-scenario-corporate-proxy-ssl-blocking",
+          "title": "Q107 [Scenario]: After installing the Copilot VS Code extension behind a strict corporate SSL-inspecting proxy, developers receive 'Self-signed certificate in chain' connection errors. What setting addresses this in enterprise deployments?",
+          "content": "In VS Code settings, developers or IT admins must configure `http.proxyStrictSSL: false` or import the corporate custom Root CA bundle via `http.proxyAuthorization` to allow Copilot to negotiate secure proxy handshakes.",
+          "keyTakeaways": [
+            "Corporate SSL inspection requires importing custom root certificates into the IDE.",
+            "Ensures secure traffic flow to Copilot backend endpoints."
+          ],
+          "interactiveQuiz": {
+            "question": "Which configuration allows Copilot to route through corporate SSL-inspecting proxies?",
+            "options": [
+              "Disabling Windows Firewall",
+              "Configuring proxy settings and custom Root CA certificates in IDE network settings",
+              "Enabling public telemetry",
+              "Switching from HTTPS to FTP"
+            ],
+            "correctIndex": 1,
+            "explanation": "Proper IDE proxy configuration and custom Root CA injection allow Copilot extensions to pass corporate firewalls."
+          }
+        },
+        {
+          "id": "q108-scenario-custom-style-guide-enforcement",
+          "title": "Q108 [Scenario]: A team wants Copilot Chat to always generate TypeScript code using strict explicit return types and clean architecture boundaries without repeating this request in every prompt. How should this be enforced?",
+          "content": "Create a `.github/copilot-instructions.md` file in the repository root containing explicit project guidelines. Copilot Chat automatically loads these **Custom Instructions** for every chat query within that repository.",
+          "keyTakeaways": [
+            "`.github/copilot-instructions.md` provides automated repository-level prompt context.",
+            "Enforces project-wide coding standards across all team chat interactions."
+          ],
+          "interactiveQuiz": {
+            "question": "What repository file automatically injects team style rules into all Copilot Chat interactions?",
+            "options": [
+              "CONTRIBUTING.md",
+              ".github/copilot-instructions.md",
+              "tsconfig.json",
+              ".eslintrc.js"
+            ],
+            "correctIndex": 1,
+            "explanation": "`.github/copilot-instructions.md` injects persistent custom instructions into chat context."
+          }
+        },
+        {
+          "id": "q109-scenario-legacy-cobol-refactoring",
+          "title": "Q109 [Scenario]: An enterprise bank is modernizing a legacy COBOL codebase to Java microservices. How can they leverage Copilot Chat to accelerate this transition?",
+          "content": "Developers can highlight COBOL procedures, use `/explain` to document business rules, and then prompt Copilot to generate corresponding **Java functional equivalents**, followed by `/tests` to verify behavioral parity.",
+          "keyTakeaways": [
+            "Use `/explain` to extract business logic from legacy syntax.",
+            "Prompt cross-language translation and generate test suites to verify functional equivalence."
+          ],
+          "interactiveQuiz": {
+            "question": "What sequence of Copilot actions best supports modernizing legacy code bases?",
+            "options": [
+              "Auto-delete legacy files -> compile binaries",
+              "Use /explain on legacy code -> prompt modern language rewrite -> run /tests",
+              "Run /optimize -> submit PR directly",
+              "Disable linting -> commit code"
+            ],
+            "correctIndex": 1,
+            "explanation": "Extracting logic with `/explain`, converting language, and generating unit tests ensures safe refactoring."
+          }
+        },
+        {
+          "id": "q110-scenario-slopsquatting-vulnerability",
+          "title": "Q110 [Scenario]: A security scan flags a malicious package dependency in a Node.js project. The developer admits accepting an unverified npm import path suggested by Copilot. What attack vector occurred?",
+          "content": "This is a **Slopsquatting (Package Hallucination)** attack. Malicious actors register package names that generative AI models commonly hallucinate, waiting for developers to blindly execute `npm install` on suggested code.",
+          "keyTakeaways": [
+            "Always verify generated import statements against trusted package registries.",
+            "Integrate Dependabot or security linters to flag non-existent or malicious imports."
+          ],
+          "interactiveQuiz": {
+            "question": "What security risk involves malicious packages uploaded to registries matching common AI-hallucinated names?",
+            "options": [
+              "SQL Injection",
+              "Slopsquatting / Package Hallucination Attack",
+              "Cross-Site Scripting (XSS)",
+              "Buffer Overflow"
+            ],
+            "correctIndex": 1,
+            "explanation": "Slopsquatting targets developers who accept and install hallucinated third-party package names."
+          }
+        },
+        {
+          "id": "q111-scenario-pull-request-review-bottleneck",
+          "title": "Q111 [Scenario]: A engineering team struggles with long PR review cycles. Reviewers spend 20 minutes per PR just reading diffs to understand the core changes. How can Copilot Enterprise resolve this bottleneck?",
+          "content": "PR authors can use **Copilot PR Summaries** to generate clear prose descriptions and change bullet points, while reviewers can query Copilot directly on GitHub.com to explain complex diffs.",
+          "keyTakeaways": [
+            "PR Summaries reduce reviewer onboarding time.",
+            "Interactive web chat on PR diffs speeds up code comprehension."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Copilot Enterprise capability reduces time spent analyzing pull request diffs?",
+            "options": [
+              "Auto-merging pull requests without review",
+              "Copilot PR Summaries and interactive diff chat on GitHub.com",
+              "Disabling GitHub Actions integration",
+              "Deleting inactive user accounts"
+            ],
+            "correctIndex": 1,
+            "explanation": "Automated PR summaries and interactive diff queries accelerate the code review process."
+          }
+        },
+        {
+          "id": "q112-scenario-unit-test-framework-mismatch",
+          "title": "Q112 [Scenario]: A Python team using PyTest highlights a function and runs /tests in Copilot Chat, but Copilot generates unittest class boilerplate instead. Why did this happen and how do they fix it?",
+          "content": "Copilot lacked context regarding the team's testing framework preference. To fix this, keep an existing `test_*.py` PyTest file open in an active tab, or specify `framework: pytest` explicitly in the prompt or `.github/copilot-instructions.md` file.",
+          "keyTakeaways": [
+            "Open neighboring files act as strong context indicators.",
+            "Explicitly state testing frameworks in prompts or repo instruction files."
+          ],
+          "interactiveQuiz": {
+            "question": "How can the developer guide Copilot to generate PyTest syntax instead of unittest?",
+            "options": [
+              "Re-install Python",
+              "Keep an existing PyTest file open in a tab or specify PyTest in prompt instructions",
+              "Rename the operating system user",
+              "Execute /optimize"
+            ],
+            "correctIndex": 1,
+            "explanation": "Providing explicit prompt rules or keeping a sample test file open directs Copilot to the correct framework."
+          }
+        },
+        {
+          "id": "q113-scenario-content-exclusion-bypassed-locally",
+          "title": "Q113 [Scenario]: An admin configures Content Exclusion rules to block path `src/secrets/*`. A developer opens `src/secrets/config.json` and tries to run Copilot Chat. What will happen?",
+          "content": "Copilot will **refuse to process the file context** or offer code completions for that file. A status bar icon will indicate that Copilot is disabled on the excluded path.",
+          "keyTakeaways": [
+            "Content Exclusions automatically deactivate Copilot on designated file paths.",
+            "Visual indicators in the IDE confirm active path exclusions."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the expected behavior when a user opens a file matching an active Content Exclusion path?",
+            "options": [
+              "Copilot automatically deletes the file",
+              "Copilot disables completions and context collection for that file",
+              "The file is published to open source",
+              "The user account is logged out"
+            ],
+            "correctIndex": 1,
+            "explanation": "Content exclusions suppress completions and prevent file content from being sent as context."
+          }
+        },
+        {
+          "id": "q114-scenario-cli-command-generation-fail",
+          "title": "Q114 [Scenario]: A DevOps engineer needs a complex command to find all files over 100MB modified in the last 7 days and delete them. They use 'gh copilot suggest'. What step must occur before the command is executed?",
+          "content": "`gh copilot suggest` generates and explains the command, but requires **explicit human confirmation** before placing or executing it in the terminal, maintaining the Human-in-the-Loop security boundary.",
+          "keyTakeaways": [
+            "`gh copilot suggest` never executes commands automatically.",
+            "Requires explicit human review and selection (e.g., 'Copy to clipboard' or 'Run command')."
+          ],
+          "interactiveQuiz": {
+            "question": "Does gh copilot suggest execute generated shell scripts automatically in the terminal?",
+            "options": [
+              "Yes, immediately upon generation",
+              "No, it requires explicit human review and execution approval",
+              "Only if running as root",
+              "Only on Linux environments"
+            ],
+            "correctIndex": 1,
+            "explanation": "The CLI tool presents generated commands for user review prior to execution."
+          }
+        },
+        {
+          "id": "q115-scenario-api-cutoff-date-limitation",
+          "title": "Q115 [Scenario]: A developer asks Copilot to write code for a library version released yesterday. Copilot suggests deprecated v1 methods instead of v2. How can this be resolved in Copilot Chat?",
+          "content": "The base model's training data cutoff lacks knowledge of the brand-new version. Enable **Web Search (Bing Integration)** or provide the new API signature documentation directly inside the prompt context.",
+          "keyTakeaways": [
+            "Base LLM knowledge cutoffs omit brand-new API revisions.",
+            "Use Bing web search integration or paste API docs into context to bridge training gaps."
+          ],
+          "interactiveQuiz": {
+            "question": "How can a developer obtain accurate code suggestions for a newly released API library?",
+            "options": [
+              "Wait 5 years for a new base model",
+              "Use Bing web search integration or provide the new API documentation in context",
+              "Turn off the IDE",
+              "Downgrade to an older language version"
+            ],
+            "correctIndex": 1,
+            "explanation": "Web search integration or attaching updated API specs overrides model cutoff limits."
+          }
+        },
+        {
+          "id": "q116-scenario-seat-reassignment-compliance",
+          "title": "Q116 [Scenario]: A contractor leaves an organization. The GitHub admin revokes their Copilot Business seat and reassigns it to a new full-time employee. Does the new employee see the contractor's chat history?",
+          "content": "No. Chat history and IDE telemetry are **strictly tied to individual GitHub user accounts** and local IDE workspaces. Reassigning organizational licenses does not transfer user history or private activity logs.",
+          "keyTakeaways": [
+            "Seats represent license entitlements, not shared profile data.",
+            "User chat history is strictly isolated to individual user accounts."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens to private chat history when a Copilot license seat is reassigned to a new employee?",
+            "options": [
+              "It transfers to the new employee automatically",
+              "It remains strictly isolated to the departing contractor's account and is not accessible",
+              "It is posted to an organization repository",
+              "It is emailed to the admin"
+            ],
+            "correctIndex": 1,
+            "explanation": "Chat history is account-isolated and never transfers when licenses are reassigned."
+          }
+        },
+        {
+          "id": "q117-scenario-chain-of-thought-algorithm-fix",
+          "title": "Q117 [Scenario]: A developer is attempting to solve a complex graph traversal bug. Asking Copilot 'Fix this graph algorithm' results in invalid code. How can Chain-of-Thought prompting improve the outcome?",
+          "content": "The developer should prompt: **'Analyze this graph traversal step-by-step, explain where the cycle detection fails, and then output the corrected function.'** Forcing explicit reasoning steps improves output accuracy.",
+          "keyTakeaways": [
+            "Chain-of-Thought prompting forces the model to articulate logical steps first.",
+            "Reduces logic errors on complex algorithmic tasks."
+          ],
+          "interactiveQuiz": {
+            "question": "Which prompt phrasing leverages Chain-of-Thought reasoning to solve a complex bug?",
+            "options": [
+              "'Fix code fast'",
+              "'Analyze the graph traversal step-by-step, identify the cycle bug, and then provide the fix'",
+              "'Write a graph in C++'",
+              "'Don't make mistakes'"
+            ],
+            "correctIndex": 1,
+            "explanation": "Asking for step-by-step analysis before outputting code engages Chain-of-Thought reasoning."
+          }
+        },
+        {
+          "id": "q118-scenario-metrics-api-roi-analysis",
+          "title": "Q118 [Scenario]: A CTO wants to measure the return on investment (ROI) of Copilot Enterprise across 1,000 developers over 6 months. Which metric source should be queried?",
+          "content": "The administrator should query the **Copilot Metrics REST API** (`/orgs/{org}/copilot/usage`) to track active seat utilization, total prompt counts, acceptance rates, and language distributions over time.",
+          "keyTakeaways": [
+            "Copilot Metrics API provides organizational usage data for ROI calculations.",
+            "Aggregates data on seat activity, acceptance rates, and interaction counts."
+          ],
+          "interactiveQuiz": {
+            "question": "Which tool provides programmatic data for calculating enterprise Copilot adoption and acceptance metrics?",
+            "options": [
+              "Copilot Metrics REST API",
+              "Git Commit Logs",
+              "Personal Account Billing Tab",
+              "VS Code Output Channel"
+            ],
+            "correctIndex": 0,
+            "explanation": "The Copilot Metrics REST API exposes organizational usage statistics for analytical reporting."
+          }
+        },
+        {
+          "id": "q119-scenario-inline-chat-vs-sidebar-refactoring",
+          "title": "Q119 [Scenario]: A developer needs to rename variables and convert a 10-line callback function to Async/Await directly inside an open file. What is the most efficient workflow?",
+          "content": "Highlight the 10 lines of code, press `Cmd + I` (macOS) or `Ctrl + I` (Windows/Linux) to launch **Inline Chat**, type 'Convert to async/await', review the inline diff preview, and click 'Accept'.",
+          "keyTakeaways": [
+            "Inline Chat offers direct side-by-side diff previews inside the editor.",
+            "Optimal for targeted refactoring without leaving the active line context."
+          ],
+          "interactiveQuiz": {
+            "question": "What feature provides inline diff previews for quick code refactoring in VS Code?",
+            "options": [
+              "Sidebar Chat",
+              "Inline Chat (`Cmd/Ctrl + I`)",
+              "GitHub Mobile App",
+              "Copilot CLI"
+            ],
+            "correctIndex": 1,
+            "explanation": "Inline Chat allows requesting targeted edits and previewing diffs directly on selected lines."
+          }
+        },
+        {
+          "id": "q120-scenario-responsible-ai-accessibility-audit",
+          "title": "Q120 [Scenario]: During an accessibility audit, a team uses Copilot to generate a frontend web component. The auditor notes the generated HTML lacks ARIA tags and image alt attributes. Which Responsible AI principle was overlooked?",
+          "content": "This reflects an **Inclusiveness** failure. Developers must explicitly instruct Copilot or review generated UI components to ensure accessibility standards (such as ARIA attributes and screen-reader support) are included.",
+          "keyTakeaways": [
+            "AI tools do not automatically enforce accessibility compliance unless prompted or reviewed.",
+            "Inclusiveness requires proactive verification of accessibility features."
+          ],
+          "interactiveQuiz": {
+            "question": "Ensuring generated UI components include screen-reader ARIA tags aligns with which Responsible AI principle?",
+            "options": ["Inclusiveness", "Transparence", "Fairness", "Accountability"],
+            "correctIndex": 0,
+            "explanation": "Inclusiveness ensures software tools and generated interfaces accommodate users of all abilities."
+          }
+        },
+        {
+          "id": "q121-scenario-custom-instructions-conflict",
+          "title": "Q121 [Scenario]: A developer has personal custom instructions in VS Code user settings specifying tabs for indentation, but the project's .github/copilot-instructions.md specifies spaces. Which rule takes precedence during Copilot Chat generation?",
+          "content": "Repository-level instructions (`.github/copilot-instructions.md`) **override** personal user settings to ensure project consistency across all contributing team members.",
+          "keyTakeaways": [
+            "Repository instructions take precedence over individual user settings.",
+            "Ensures consistent output styling across team members working in a shared repo."
+          ],
+          "interactiveQuiz": {
+            "question": "When a conflict exists, which instruction source takes precedence in Copilot Chat?",
+            "options": [
+              "Personal VS Code User Settings",
+              "Repository `.github/copilot-instructions.md`",
+              "Operating System Default Language",
+              "Random choice by the model"
+            ],
+            "correctIndex": 1,
+            "explanation": "Repository-level instruction files override personal settings to maintain codebase consistency."
+          }
+        },
+        {
+          "id": "q122-scenario-fine-tuned-custom-model-leak-check",
+          "title": "Q122 [Scenario]: An enterprise trains a Fine-Tuned Custom Model on private proprietary repositories. A developer worries that contractors with Copilot access in other divisions might see proprietary code completions. How is access isolated?",
+          "content": "Custom Models are scoped strictly at the **Organization / Enterprise policy level**. Admins control exactly which teams or user groups have access to query the fine-tuned custom model via seat settings.",
+          "keyTakeaways": [
+            "Custom model access is controlled via granular organization settings.",
+            "Prevents unauthorized organizational groups from querying specialized models."
+          ],
+          "interactiveQuiz": {
+            "question": "How do enterprise administrators restrict who can query fine-tuned custom models?",
+            "options": [
+              "Custom models are public to all GitHub users",
+              "Access is managed via GitHub Organization team permissions and seat policies",
+              "By deleting the repository after training",
+              "Via hardware dongles"
+            ],
+            "correctIndex": 1,
+            "explanation": "Access to enterprise custom models is configured via organization policy and seat assignments."
+          }
+        },
+        {
+          "id": "q123-scenario-zero-shot-vs-few-shot-data-format",
+          "title": "Q123 [Scenario]: A developer wants Copilot Chat to parse a messy text file into a JSON array. Asking 'Convert this to JSON' returns inconsistent schemas. How can Few-Shot prompting fix this?",
+          "content": "The developer should supply 1 or 2 concrete examples inside the prompt showing exact input text samples alongside the desired target JSON structure before providing the full text file.",
+          "keyTakeaways": [
+            "Few-Shot prompting uses concrete input/output pairs to enforce output formatting.",
+            "Drastically reduces structural formatting errors."
+          ],
+          "interactiveQuiz": {
+            "question": "What prompting technique resolves inconsistent JSON formatting by providing sample input/output pairs?",
+            "options": ["Zero-Shot Prompting", "Few-Shot Prompting", "Negative Constraints", "Role Prompting"],
+            "correctIndex": 1,
+            "explanation": "Few-Shot prompting provides explicit sample pairs to guide structural output format."
+          }
+        },
+        {
+          "id": "q124-scenario-mobile-pr-review-workflow",
+          "title": "Q124 [Scenario]: An engineering manager is traveling and receives an urgent notification to review a critical hotfix PR. They use GitHub Mobile. How can Copilot assist directly on their phone?",
+          "content": "The manager can open the PR in the **GitHub Mobile App**, invoke Copilot Chat to summarize the changes, ask questions regarding potential side effects of the diff, and review the code before approving.",
+          "keyTakeaways": [
+            "Copilot Chat in GitHub Mobile enables code review workflows on mobile devices.",
+            "Allows reviewing PR summaries and querying changesets on the go."
+          ],
+          "interactiveQuiz": {
+            "question": "What mobile tool allows managers to query Copilot Chat for pull request reviews while traveling?",
+            "options": ["GitHub Mobile App", "Terminal Zsh via SSH", "VS Code Desktop", "Slack Bot"],
+            "correctIndex": 0,
+            "explanation": "GitHub Mobile features integrated Copilot Chat for mobile code and PR review."
+          }
+        },
+        {
+          "id": "q125-scenario-duplication-detection-threshold",
+          "title": "Q125 [Scenario]: A developer types a standard 5-line algorithmic function. Copilot suddenly stops generating inline ghost text. What filter likely triggered and why?",
+          "content": "The **Duplication Detection Filter** was triggered because the candidate completion matched a contiguous sequence (~150 characters) of existing public code on GitHub, causing Copilot to suppress the suggestion.",
+          "keyTakeaways": [
+            "Duplication detection suppresses suggestions matching contiguous public code blocks (~150 chars).",
+            "Protects against unintentional verbatim public code insertion."
+          ],
+          "interactiveQuiz": {
+            "question": "Why did Copilot suppress the inline completion during the typing of a common algorithm?",
+            "options": [
+              "IDE crashed",
+              "The suggestion matched public code on GitHub, triggering the Duplication Detection Filter",
+              "The network connection timed out",
+              "The monthly credit limit was reached"
+            ],
+            "correctIndex": 1,
+            "explanation": "When candidate suggestions match public code sequences, the duplication filter suppresses output."
+          }
         }
       ]
     }
