@@ -3,7 +3,7 @@
   "courseName": "Next.js Authentication",
   "title": "NextAuth.js on Next.js: Credentials, Google OAuth, Callbacks, Sessions, and UI",
   "subtitle": "An end-to-end guide to Google OAuth setup, Credentials authentication, callbacks, JWT and session behavior, React hooks, sign-in/sign-out, protected pages and APIs, TypeScript, and deployment.",
-  "category": "Full-Stack Engineering",
+  "category": "Tutorials",
   "level": "Intermediate",
   "estimatedTime": "4 Hours",
   "accentColor": "#6B4EFF",
