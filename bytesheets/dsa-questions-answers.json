@@ -1732,1603 +1732,1601 @@
             "Space complexity is proportional to unique elements stored in memory ($O(n)$)."
           ]
         },
-        [
-          {
-            "id": "count-odd-numbers-in-an-array",
-            "title": "21. Count Odd Numbers in an Array",
-            "content": "Given an array of integers, count how many values are odd.\n\n### How It Works & Algorithmic Design\nAn integer is odd when dividing it by `2` leaves a remainder of `1` or `-1`. We can detect this using the modulo operator:\n1. Initialize `count = 0`.\n2. Traverse every element in the array.\n3. Check whether `value % 2 !== 0`.\n4. If the condition is true, increment `count`.\n5. Return the final count.\n\n### Why This Approach Works Best\nEvery element must be inspected once, giving $O(n)$ time complexity. Only one counter is required, so the auxiliary space is $O(1)$.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Counting / Modulo",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[2, 5, 7, 8, 11, 14]",
-                    "explanation": "The array contains both even and odd numbers."
-                  },
-                  {
-                    "label": "Evaluation",
-                    "value": "2 -> Even | 5 -> Odd | 7 -> Odd | 8 -> Even | 11 -> Odd | 14 -> Even",
-                    "explanation": "Only odd values increase the counter."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "3",
-                    "explanation": "The odd numbers are 5, 7, and 11."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Count odd values",
-              "explanation": "Traverse the array and use modulo 2 to determine whether each number is odd.",
-              "tabs": [
+        {
+          "id": "count-odd-numbers-in-an-array",
+          "title": "21. Count Odd Numbers in an Array",
+          "content": "Given an array of integers, count how many values are odd.\n\n### How It Works & Algorithmic Design\nAn integer is odd when dividing it by `2` leaves a remainder of `1` or `-1`. We can detect this using the modulo operator:\n1. Initialize `count = 0`.\n2. Traverse every element in the array.\n3. Check whether `value % 2 !== 0`.\n4. If the condition is true, increment `count`.\n5. Return the final count.\n\n### Why This Approach Works Best\nEvery element must be inspected once, giving $O(n)$ time complexity. Only one counter is required, so the auxiliary space is $O(1)$.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Counting / Modulo",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function countOdd(arr) {\n  let count = 0;\n  for (const value of arr) {\n    if (value % 2 !== 0) count++;\n  }\n  return count;\n}"
+                  "label": "Input",
+                  "value": "[2, 5, 7, 8, 11, 14]",
+                  "explanation": "The array contains both even and odd numbers."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function countOdd(arr: number[]): number {\n  let count = 0;\n  for (const value of arr) {\n    if (value % 2 !== 0) count++;\n  }\n  return count;\n}"
+                  "label": "Evaluation",
+                  "value": "2 -> Even | 5 -> Odd | 7 -> Odd | 8 -> Even | 11 -> Odd | 14 -> Even",
+                  "explanation": "Only odd values increase the counter."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int countOdd(int[] arr) {\n        int count = 0;\n        for (int value : arr) {\n            if (value % 2 != 0) count++;\n        }\n        return count;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def count_odd(arr: list[int]) -> int:\n    count = 0\n    for value in arr:\n        if value % 2 != 0:\n            count += 1\n    return count"
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "The odd numbers are 5, 7, and 11."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "The modulo operator helps determine whether an integer is odd or even.",
-              "Every element must be checked, so the time complexity is O(n).",
-              "Only a counter is required, giving O(1) auxiliary space."
+            }
+          ],
+          "codeExample": {
+            "title": "Count odd values",
+            "explanation": "Traverse the array and use modulo 2 to determine whether each number is odd.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countOdd(arr) {\n  let count = 0;\n  for (const value of arr) {\n    if (value % 2 !== 0) count++;\n  }\n  return count;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function countOdd(arr: number[]): number {\n  let count = 0;\n  for (const value of arr) {\n    if (value % 2 !== 0) count++;\n  }\n  return count;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int countOdd(int[] arr) {\n        int count = 0;\n        for (int value : arr) {\n            if (value % 2 != 0) count++;\n        }\n        return count;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_odd(arr: list[int]) -> int:\n    count = 0\n    for value in arr:\n        if value % 2 != 0:\n            count += 1\n    return count"
+              }
             ]
           },
-          {
-            "id": "calculate-the-average-of-array-elements",
-            "title": "22. Calculate the Average of Array Elements",
-            "content": "Given an array of numbers, calculate the average of all elements.\n\n### How It Works & Algorithmic Design\nThe average is calculated as `sum / count`:\n1. Initialize a `sum` variable to `0`.\n2. Traverse every element and add it to `sum`.\n3. After traversal, divide `sum` by the number of elements.\n4. Handle an empty array separately because division by zero is invalid.\n\n### Why This Approach Works Best\nThe array only needs to be traversed once. The algorithm requires $O(n)$ time and $O(1)$ auxiliary space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Accumulator",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[10, 20, 30, 40]",
-                    "explanation": "Four numerical values are provided."
-                  },
-                  {
-                    "label": "Sum",
-                    "value": "10 + 20 + 30 + 40 = 100",
-                    "explanation": "All values are accumulated."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "25",
-                    "explanation": "Average = 100 / 4 = 25."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Calculate array average",
-              "explanation": "First calculate the total sum and then divide it by the number of elements.",
-              "tabs": [
+          "keyTakeaways": [
+            "The modulo operator helps determine whether an integer is odd or even.",
+            "Every element must be checked, so the time complexity is O(n).",
+            "Only a counter is required, giving O(1) auxiliary space."
+          ]
+        },
+        {
+          "id": "calculate-the-average-of-array-elements",
+          "title": "22. Calculate the Average of Array Elements",
+          "content": "Given an array of numbers, calculate the average of all elements.\n\n### How It Works & Algorithmic Design\nThe average is calculated as `sum / count`:\n1. Initialize a `sum` variable to `0`.\n2. Traverse every element and add it to `sum`.\n3. After traversal, divide `sum` by the number of elements.\n4. Handle an empty array separately because division by zero is invalid.\n\n### Why This Approach Works Best\nThe array only needs to be traversed once. The algorithm requires $O(n)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Accumulator",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function average(arr) {\n  if (arr.length === 0) return null;\n  let sum = 0;\n  for (const value of arr) {\n    sum += value;\n  }\n  return sum / arr.length;\n}"
+                  "label": "Input",
+                  "value": "[10, 20, 30, 40]",
+                  "explanation": "Four numerical values are provided."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function average(arr: number[]): number | null {\n  if (arr.length === 0) return null;\n  let sum = 0;\n  for (const value of arr) {\n    sum += value;\n  }\n  return sum / arr.length;\n}"
+                  "label": "Sum",
+                  "value": "10 + 20 + 30 + 40 = 100",
+                  "explanation": "All values are accumulated."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static Double average(int[] arr) {\n        if (arr == null || arr.length == 0) return null;\n        long sum = 0;\n        for (int value : arr) {\n            sum += value;\n        }\n        return (double) sum / arr.length;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def average(arr: list[int]) -> float | None:\n    if not arr:\n        return None\n    total = 0\n    for value in arr:\n        total += value\n    return total / len(arr)"
+                  "label": "Output",
+                  "value": "25",
+                  "explanation": "Average = 100 / 4 = 25."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Average is calculated as total sum divided by number of elements.",
-              "Always handle an empty array before dividing.",
-              "The algorithm runs in O(n) time and O(1) space."
+            }
+          ],
+          "codeExample": {
+            "title": "Calculate array average",
+            "explanation": "First calculate the total sum and then divide it by the number of elements.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function average(arr) {\n  if (arr.length === 0) return null;\n  let sum = 0;\n  for (const value of arr) {\n    sum += value;\n  }\n  return sum / arr.length;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function average(arr: number[]): number | null {\n  if (arr.length === 0) return null;\n  let sum = 0;\n  for (const value of arr) {\n    sum += value;\n  }\n  return sum / arr.length;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static Double average(int[] arr) {\n        if (arr == null || arr.length == 0) return null;\n        long sum = 0;\n        for (int value : arr) {\n            sum += value;\n        }\n        return (double) sum / arr.length;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def average(arr: list[int]) -> float | None:\n    if not arr:\n        return None\n    total = 0\n    for value in arr:\n        total += value\n    return total / len(arr)"
+              }
             ]
           },
-          {
-            "id": "find-index-of-largest-element",
-            "title": "23. Find the Index of the Largest Element",
-            "content": "Given an array of numbers, find the index of the largest element.\n\n### How It Works & Algorithmic Design\nInstead of storing only the maximum value, maintain the index where the maximum occurs:\n1. Start with `maxIndex = 0`.\n2. Compare each element with `arr[maxIndex]`.\n3. If a larger element is found, update `maxIndex`.\n4. Return the index after completing the scan.\n5. Return `-1` for an empty array.\n\n### Why This Approach Works Best\nA single linear traversal is enough. The algorithm requires $O(n)$ time and $O(1)$ auxiliary space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Linear Scan",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[10, 4, 25, 7, 18]",
-                    "explanation": "The largest value is 25."
-                  },
-                  {
-                    "label": "Index Tracking",
-                    "value": "maxIndex=0 -> 2",
-                    "explanation": "When 25 is encountered, its index becomes the new maximum index."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "2",
-                    "explanation": "The largest element is located at index 2."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Find index of maximum",
-              "explanation": "Track the index of the largest value instead of only storing the value.",
-              "tabs": [
+          "keyTakeaways": [
+            "Average is calculated as total sum divided by number of elements.",
+            "Always handle an empty array before dividing.",
+            "The algorithm runs in O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "find-index-of-largest-element",
+          "title": "23. Find the Index of the Largest Element",
+          "content": "Given an array of numbers, find the index of the largest element.\n\n### How It Works & Algorithmic Design\nInstead of storing only the maximum value, maintain the index where the maximum occurs:\n1. Start with `maxIndex = 0`.\n2. Compare each element with `arr[maxIndex]`.\n3. If a larger element is found, update `maxIndex`.\n4. Return the index after completing the scan.\n5. Return `-1` for an empty array.\n\n### Why This Approach Works Best\nA single linear traversal is enough. The algorithm requires $O(n)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Linear Scan",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function largestIndex(arr) {\n  if (!arr.length) return -1;\n  let maxIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIndex]) {\n      maxIndex = i;\n    }\n  }\n  return maxIndex;\n}"
+                  "label": "Input",
+                  "value": "[10, 4, 25, 7, 18]",
+                  "explanation": "The largest value is 25."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function largestIndex(arr: number[]): number {\n  if (!arr.length) return -1;\n  let maxIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIndex]) {\n      maxIndex = i;\n    }\n  }\n  return maxIndex;\n}"
+                  "label": "Index Tracking",
+                  "value": "maxIndex=0 -> 2",
+                  "explanation": "When 25 is encountered, its index becomes the new maximum index."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int largestIndex(int[] arr) {\n        if (arr == null || arr.length == 0) return -1;\n        int maxIndex = 0;\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > arr[maxIndex]) {\n                maxIndex = i;\n            }\n        }\n        return maxIndex;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def largest_index(arr: list[int]) -> int:\n    if not arr:\n        return -1\n    max_index = 0\n    for i in range(1, len(arr)):\n        if arr[i] > arr[max_index]:\n            max_index = i\n    return max_index"
+                  "label": "Output",
+                  "value": "2",
+                  "explanation": "The largest element is located at index 2."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Store the index rather than only the maximum value.",
-              "Comparing against arr[maxIndex] avoids maintaining two separate pieces of state.",
-              "The solution uses O(n) time and O(1) space."
+            }
+          ],
+          "codeExample": {
+            "title": "Find index of maximum",
+            "explanation": "Track the index of the largest value instead of only storing the value.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function largestIndex(arr) {\n  if (!arr.length) return -1;\n  let maxIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIndex]) {\n      maxIndex = i;\n    }\n  }\n  return maxIndex;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function largestIndex(arr: number[]): number {\n  if (!arr.length) return -1;\n  let maxIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIndex]) {\n      maxIndex = i;\n    }\n  }\n  return maxIndex;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int largestIndex(int[] arr) {\n        if (arr == null || arr.length == 0) return -1;\n        int maxIndex = 0;\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > arr[maxIndex]) {\n                maxIndex = i;\n            }\n        }\n        return maxIndex;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def largest_index(arr: list[int]) -> int:\n    if not arr:\n        return -1\n    max_index = 0\n    for i in range(1, len(arr)):\n        if arr[i] > arr[max_index]:\n            max_index = i\n    return max_index"
+              }
             ]
           },
-          {
-            "id": "find-index-of-smallest-element",
-            "title": "24. Find the Index of the Smallest Element",
-            "content": "Given an array of numbers, find the index of the smallest element.\n\n### How It Works & Algorithmic Design\nUse the same tracking pattern as maximum-index search, but compare for smaller values:\n1. Initialize `minIndex = 0`.\n2. Traverse the remaining elements.\n3. If `arr[i] < arr[minIndex]`, update `minIndex`.\n4. Return `minIndex`.\n5. Return `-1` if the array is empty.\n\n### Why This Approach Works Best\nNo sorting is required. One pass gives $O(n)$ time with $O(1)$ extra space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Linear Scan",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[8, 3, 12, 1, 6]",
-                    "explanation": "The smallest value is 1."
-                  },
-                  {
-                    "label": "Index Tracking",
-                    "value": "minIndex=0 -> 1 -> 3",
-                    "explanation": "The index changes whenever a smaller value is discovered."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "3",
-                    "explanation": "The smallest element is at index 3."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Find index of minimum",
-              "explanation": "Maintain the index of the smallest value encountered during the traversal.",
-              "tabs": [
+          "keyTakeaways": [
+            "Store the index rather than only the maximum value.",
+            "Comparing against arr[maxIndex] avoids maintaining two separate pieces of state.",
+            "The solution uses O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "find-index-of-smallest-element",
+          "title": "24. Find the Index of the Smallest Element",
+          "content": "Given an array of numbers, find the index of the smallest element.\n\n### How It Works & Algorithmic Design\nUse the same tracking pattern as maximum-index search, but compare for smaller values:\n1. Initialize `minIndex = 0`.\n2. Traverse the remaining elements.\n3. If `arr[i] < arr[minIndex]`, update `minIndex`.\n4. Return `minIndex`.\n5. Return `-1` if the array is empty.\n\n### Why This Approach Works Best\nNo sorting is required. One pass gives $O(n)$ time with $O(1)$ extra space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Linear Scan",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function smallestIndex(arr) {\n  if (!arr.length) return -1;\n  let minIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < arr[minIndex]) {\n      minIndex = i;\n    }\n  }\n  return minIndex;\n}"
+                  "label": "Input",
+                  "value": "[8, 3, 12, 1, 6]",
+                  "explanation": "The smallest value is 1."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function smallestIndex(arr: number[]): number {\n  if (!arr.length) return -1;\n  let minIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < arr[minIndex]) {\n      minIndex = i;\n    }\n  }\n  return minIndex;\n}"
+                  "label": "Index Tracking",
+                  "value": "minIndex=0 -> 1 -> 3",
+                  "explanation": "The index changes whenever a smaller value is discovered."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int smallestIndex(int[] arr) {\n        if (arr == null || arr.length == 0) return -1;\n        int minIndex = 0;\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] < arr[minIndex]) {\n                minIndex = i;\n            }\n        }\n        return minIndex;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def smallest_index(arr: list[int]) -> int:\n    if not arr:\n        return -1\n    min_index = 0\n    for i in range(1, len(arr)):\n        if arr[i] < arr[min_index]:\n            min_index = i\n    return min_index"
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "The smallest element is at index 3."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Track the index of the smallest element instead of only the value.",
-              "Initialize the index using the first valid element.",
-              "The algorithm runs in O(n) time and O(1) space."
+            }
+          ],
+          "codeExample": {
+            "title": "Find index of minimum",
+            "explanation": "Maintain the index of the smallest value encountered during the traversal.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function smallestIndex(arr) {\n  if (!arr.length) return -1;\n  let minIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < arr[minIndex]) {\n      minIndex = i;\n    }\n  }\n  return minIndex;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function smallestIndex(arr: number[]): number {\n  if (!arr.length) return -1;\n  let minIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < arr[minIndex]) {\n      minIndex = i;\n    }\n  }\n  return minIndex;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int smallestIndex(int[] arr) {\n        if (arr == null || arr.length == 0) return -1;\n        int minIndex = 0;\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] < arr[minIndex]) {\n                minIndex = i;\n            }\n        }\n        return minIndex;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def smallest_index(arr: list[int]) -> int:\n    if not arr:\n        return -1\n    min_index = 0\n    for i in range(1, len(arr)):\n        if arr[i] < arr[min_index]:\n            min_index = i\n    return min_index"
+              }
             ]
           },
-          {
-            "id": "count-positive-negative-and-zero-values",
-            "title": "25. Count Positive, Negative, and Zero Values",
-            "content": "Given an array of integers, count how many values are positive, negative, and zero.\n\n### How It Works & Algorithmic Design\nEach value belongs to exactly one of three categories:\n1. If `value > 0`, increment the positive counter.\n2. If `value < 0`, increment the negative counter.\n3. Otherwise, increment the zero counter.\n4. Return all three counts.\n\n### Why This Approach Works Best\nA single traversal classifies every element. The algorithm uses $O(n)$ time and $O(1)$ auxiliary space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Conditional Counting",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[-3, 5, 0, 8, -2, 0]",
-                    "explanation": "The array contains all three possible categories."
-                  },
-                  {
-                    "label": "Counts",
-                    "value": "Positive=2 | Negative=2 | Zero=2",
-                    "explanation": "Each number increments exactly one counter."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "{ positive: 2, negative: 2, zero: 2 }",
-                    "explanation": "The three counters represent the classification."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Count number categories",
-              "explanation": "Use three counters and classify each value using conditional comparisons.",
-              "tabs": [
+          "keyTakeaways": [
+            "Track the index of the smallest element instead of only the value.",
+            "Initialize the index using the first valid element.",
+            "The algorithm runs in O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "count-positive-negative-and-zero-values",
+          "title": "25. Count Positive, Negative, and Zero Values",
+          "content": "Given an array of integers, count how many values are positive, negative, and zero.\n\n### How It Works & Algorithmic Design\nEach value belongs to exactly one of three categories:\n1. If `value > 0`, increment the positive counter.\n2. If `value < 0`, increment the negative counter.\n3. Otherwise, increment the zero counter.\n4. Return all three counts.\n\n### Why This Approach Works Best\nA single traversal classifies every element. The algorithm uses $O(n)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Conditional Counting",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function countTypes(arr) {\n  let positive = 0;\n  let negative = 0;\n  let zero = 0;\n\n  for (const value of arr) {\n    if (value > 0) positive++;\n    else if (value < 0) negative++;\n    else zero++;\n  }\n\n  return { positive, negative, zero };\n}"
+                  "label": "Input",
+                  "value": "[-3, 5, 0, 8, -2, 0]",
+                  "explanation": "The array contains all three possible categories."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function countTypes(arr: number[]): { positive: number; negative: number; zero: number } {\n  let positive = 0;\n  let negative = 0;\n  let zero = 0;\n\n  for (const value of arr) {\n    if (value > 0) positive++;\n    else if (value < 0) negative++;\n    else zero++;\n  }\n\n  return { positive, negative, zero };\n}"
+                  "label": "Counts",
+                  "value": "Positive=2 | Negative=2 | Zero=2",
+                  "explanation": "Each number increments exactly one counter."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int[] countTypes(int[] arr) {\n        int positive = 0;\n        int negative = 0;\n        int zero = 0;\n\n        for (int value : arr) {\n            if (value > 0) positive++;\n            else if (value < 0) negative++;\n            else zero++;\n        }\n\n        return new int[]{positive, negative, zero};\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def count_types(arr: list[int]) -> dict:\n    positive = 0\n    negative = 0\n    zero = 0\n\n    for value in arr:\n        if value > 0:\n            positive += 1\n        elif value < 0:\n            negative += 1\n        else:\n            zero += 1\n\n    return {\"positive\": positive, \"negative\": negative, \"zero\": zero}"
+                  "label": "Output",
+                  "value": "{ positive: 2, negative: 2, zero: 2 }",
+                  "explanation": "The three counters represent the classification."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Use mutually exclusive conditions when every value belongs to exactly one category.",
-              "Three counters are sufficient for this problem.",
-              "The solution requires O(n) time and O(1) space."
+            }
+          ],
+          "codeExample": {
+            "title": "Count number categories",
+            "explanation": "Use three counters and classify each value using conditional comparisons.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countTypes(arr) {\n  let positive = 0;\n  let negative = 0;\n  let zero = 0;\n\n  for (const value of arr) {\n    if (value > 0) positive++;\n    else if (value < 0) negative++;\n    else zero++;\n  }\n\n  return { positive, negative, zero };\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function countTypes(arr: number[]): { positive: number; negative: number; zero: number } {\n  let positive = 0;\n  let negative = 0;\n  let zero = 0;\n\n  for (const value of arr) {\n    if (value > 0) positive++;\n    else if (value < 0) negative++;\n    else zero++;\n  }\n\n  return { positive, negative, zero };\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int[] countTypes(int[] arr) {\n        int positive = 0;\n        int negative = 0;\n        int zero = 0;\n\n        for (int value : arr) {\n            if (value > 0) positive++;\n            else if (value < 0) negative++;\n            else zero++;\n        }\n\n        return new int[]{positive, negative, zero};\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_types(arr: list[int]) -> dict:\n    positive = 0\n    negative = 0\n    zero = 0\n\n    for value in arr:\n        if value > 0:\n            positive += 1\n        elif value < 0:\n            negative += 1\n        else:\n            zero += 1\n\n    return {\"positive\": positive, \"negative\": negative, \"zero\": zero}"
+              }
             ]
           },
-          {
-            "id": "separate-even-and-odd-numbers",
-            "title": "26. Separate Even and Odd Numbers",
-            "content": "Given an array of integers, create two collections containing the even and odd numbers separately.\n\n### How It Works & Algorithmic Design\nTraverse the input once:\n1. Create an empty collection for even numbers.\n2. Create an empty collection for odd numbers.\n3. For every value, use `value % 2` to determine its category.\n4. Add the value to the corresponding collection.\n5. Return both collections.\n\n### Why This Approach Works Best\nEvery element is inspected once. Because the output itself can contain up to $n$ elements, the auxiliary/output space is $O(n)$.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Filtering / Array Traversal",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(n)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[1, 4, 7, 8, 10, 13]",
-                    "explanation": "Mixed even and odd values."
-                  },
-                  {
-                    "label": "Separated Values",
-                    "value": "Even=[4,8,10] | Odd=[1,7,13]",
-                    "explanation": "Each number is placed into exactly one output collection."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Separate even and odd values",
-              "explanation": "Create two output arrays and classify each number using modulo.",
-              "tabs": [
+          "keyTakeaways": [
+            "Use mutually exclusive conditions when every value belongs to exactly one category.",
+            "Three counters are sufficient for this problem.",
+            "The solution requires O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "separate-even-and-odd-numbers",
+          "title": "26. Separate Even and Odd Numbers",
+          "content": "Given an array of integers, create two collections containing the even and odd numbers separately.\n\n### How It Works & Algorithmic Design\nTraverse the input once:\n1. Create an empty collection for even numbers.\n2. Create an empty collection for odd numbers.\n3. For every value, use `value % 2` to determine its category.\n4. Add the value to the corresponding collection.\n5. Return both collections.\n\n### Why This Approach Works Best\nEvery element is inspected once. Because the output itself can contain up to $n$ elements, the auxiliary/output space is $O(n)$.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Filtering / Array Traversal",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function separateEvenOdd(arr) {\n  const even = [];\n  const odd = [];\n\n  for (const value of arr) {\n    if (value % 2 === 0) even.push(value);\n    else odd.push(value);\n  }\n\n  return { even, odd };\n}"
+                  "label": "Input",
+                  "value": "[1, 4, 7, 8, 10, 13]",
+                  "explanation": "Mixed even and odd values."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function separateEvenOdd(arr: number[]): { even: number[]; odd: number[] } {\n  const even: number[] = [];\n  const odd: number[] = [];\n\n  for (const value of arr) {\n    if (value % 2 === 0) even.push(value);\n    else odd.push(value);\n  }\n\n  return { even, odd };\n}"
-                },
-                {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "import java.util.*;\n\npublic class Solution {\n    public static Map<String, List<Integer>> separateEvenOdd(int[] arr) {\n        List<Integer> even = new ArrayList<>();\n        List<Integer> odd = new ArrayList<>();\n\n        for (int value : arr) {\n            if (value % 2 == 0) even.add(value);\n            else odd.add(value);\n        }\n\n        Map<String, List<Integer>> result = new HashMap<>();\n        result.put(\"even\", even);\n        result.put(\"odd\", odd);\n        return result;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def separate_even_odd(arr: list[int]) -> dict:\n    even = []\n    odd = []\n\n    for value in arr:\n        if value % 2 == 0:\n            even.append(value)\n        else:\n            odd.append(value)\n\n    return {\"even\": even, \"odd\": odd}"
+                  "label": "Separated Values",
+                  "value": "Even=[4,8,10] | Odd=[1,7,13]",
+                  "explanation": "Each number is placed into exactly one output collection."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Modulo provides a simple way to classify even and odd numbers.",
-              "Every input value is visited exactly once.",
-              "The output arrays require O(n) space in the worst case."
+            }
+          ],
+          "codeExample": {
+            "title": "Separate even and odd values",
+            "explanation": "Create two output arrays and classify each number using modulo.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function separateEvenOdd(arr) {\n  const even = [];\n  const odd = [];\n\n  for (const value of arr) {\n    if (value % 2 === 0) even.push(value);\n    else odd.push(value);\n  }\n\n  return { even, odd };\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function separateEvenOdd(arr: number[]): { even: number[]; odd: number[] } {\n  const even: number[] = [];\n  const odd: number[] = [];\n\n  for (const value of arr) {\n    if (value % 2 === 0) even.push(value);\n    else odd.push(value);\n  }\n\n  return { even, odd };\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static Map<String, List<Integer>> separateEvenOdd(int[] arr) {\n        List<Integer> even = new ArrayList<>();\n        List<Integer> odd = new ArrayList<>();\n\n        for (int value : arr) {\n            if (value % 2 == 0) even.add(value);\n            else odd.add(value);\n        }\n\n        Map<String, List<Integer>> result = new HashMap<>();\n        result.put(\"even\", even);\n        result.put(\"odd\", odd);\n        return result;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def separate_even_odd(arr: list[int]) -> dict:\n    even = []\n    odd = []\n\n    for value in arr:\n        if value % 2 == 0:\n            even.append(value)\n        else:\n            odd.append(value)\n\n    return {\"even\": even, \"odd\": odd}"
+              }
             ]
           },
-          {
-            "id": "find-the-second-smallest-element",
-            "title": "27. Find the Second Smallest Element",
-            "content": "Find the second smallest distinct element in an array without sorting it.\n\n### How It Works & Algorithmic Design\nMaintain two values: the smallest and second smallest:\n1. Initialize both to positive infinity.\n2. For each value, if it is smaller than the current smallest, move the smallest value into second smallest.\n3. Otherwise, if it is greater than the smallest but smaller than the second smallest, update second smallest.\n4. Return `null` if a distinct second smallest value does not exist.\n\n### Why This Approach Works Best\nSorting would require $O(n \\log n)$ time. Tracking two values allows a single $O(n)$ traversal with $O(1)$ extra space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Two-Value Tracking",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[8, 3, 5, 1, 4]",
-                    "explanation": "The smallest value is 1 and the second smallest distinct value is 3."
-                  },
-                  {
-                    "label": "Tracking",
-                    "value": "smallest=1 | secondSmallest=3",
-                    "explanation": "The two smallest distinct values are tracked during one traversal."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "3",
-                    "explanation": "3 is the second smallest distinct value."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Find second smallest",
-              "explanation": "Track the two smallest distinct values during a single traversal.",
-              "tabs": [
+          "keyTakeaways": [
+            "Modulo provides a simple way to classify even and odd numbers.",
+            "Every input value is visited exactly once.",
+            "The output arrays require O(n) space in the worst case."
+          ]
+        },
+        {
+          "id": "find-the-second-smallest-element",
+          "title": "27. Find the Second Smallest Element",
+          "content": "Find the second smallest distinct element in an array without sorting it.\n\n### How It Works & Algorithmic Design\nMaintain two values: the smallest and second smallest:\n1. Initialize both to positive infinity.\n2. For each value, if it is smaller than the current smallest, move the smallest value into second smallest.\n3. Otherwise, if it is greater than the smallest but smaller than the second smallest, update second smallest.\n4. Return `null` if a distinct second smallest value does not exist.\n\n### Why This Approach Works Best\nSorting would require $O(n \\log n)$ time. Tracking two values allows a single $O(n)$ traversal with $O(1)$ extra space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Two-Value Tracking",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function secondSmallest(arr) {\n  let first = Infinity;\n  let second = Infinity;\n\n  for (const x of arr) {\n    if (x < first) {\n      second = first;\n      first = x;\n    } else if (x > first && x < second) {\n      second = x;\n    }\n  }\n\n  return second === Infinity ? null : second;\n}"
+                  "label": "Input",
+                  "value": "[8, 3, 5, 1, 4]",
+                  "explanation": "The smallest value is 1 and the second smallest distinct value is 3."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function secondSmallest(arr: number[]): number | null {\n  let first = Infinity;\n  let second = Infinity;\n\n  for (const x of arr) {\n    if (x < first) {\n      second = first;\n      first = x;\n    } else if (x > first && x < second) {\n      second = x;\n    }\n  }\n\n  return second === Infinity ? null : second;\n}"
+                  "label": "Tracking",
+                  "value": "smallest=1 | secondSmallest=3",
+                  "explanation": "The two smallest distinct values are tracked during one traversal."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static Integer secondSmallest(int[] arr) {\n        int first = Integer.MAX_VALUE;\n        int second = Integer.MAX_VALUE;\n\n        for (int x : arr) {\n            if (x < first) {\n                second = first;\n                first = x;\n            } else if (x > first && x < second) {\n                second = x;\n            }\n        }\n\n        return second == Integer.MAX_VALUE ? null : second;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def second_smallest(arr: list[int]) -> int | None:\n    first = float('inf')\n    second = float('inf')\n\n    for x in arr:\n        if x < first:\n            second = first\n            first = x\n        elif first < x < second:\n            second = x\n\n    return None if second == float('inf') else second"
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "3 is the second smallest distinct value."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Track the two smallest distinct values instead of sorting.",
-              "The condition x > first prevents duplicate minimum values from becoming second smallest.",
-              "The algorithm runs in O(n) time and O(1) space."
+            }
+          ],
+          "codeExample": {
+            "title": "Find second smallest",
+            "explanation": "Track the two smallest distinct values during a single traversal.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function secondSmallest(arr) {\n  let first = Infinity;\n  let second = Infinity;\n\n  for (const x of arr) {\n    if (x < first) {\n      second = first;\n      first = x;\n    } else if (x > first && x < second) {\n      second = x;\n    }\n  }\n\n  return second === Infinity ? null : second;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function secondSmallest(arr: number[]): number | null {\n  let first = Infinity;\n  let second = Infinity;\n\n  for (const x of arr) {\n    if (x < first) {\n      second = first;\n      first = x;\n    } else if (x > first && x < second) {\n      second = x;\n    }\n  }\n\n  return second === Infinity ? null : second;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static Integer secondSmallest(int[] arr) {\n        int first = Integer.MAX_VALUE;\n        int second = Integer.MAX_VALUE;\n\n        for (int x : arr) {\n            if (x < first) {\n                second = first;\n                first = x;\n            } else if (x > first && x < second) {\n                second = x;\n            }\n        }\n\n        return second == Integer.MAX_VALUE ? null : second;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def second_smallest(arr: list[int]) -> int | None:\n    first = float('inf')\n    second = float('inf')\n\n    for x in arr:\n        if x < first:\n            second = first\n            first = x\n        elif first < x < second:\n            second = x\n\n    return None if second == float('inf') else second"
+              }
             ]
           },
-          {
-            "id": "copy-an-array-without-built-in-copy-methods",
-            "title": "28. Copy an Array Without Using Built-in Copy Methods",
-            "content": "Create a new array containing the same elements as the input array without using built-in array copy methods.\n\n### How It Works & Algorithmic Design\nUse direct traversal:\n1. Create an empty result array.\n2. Visit every element of the source array.\n3. Add each value to the result array.\n4. Return the newly created array.\n\n### Why This Approach Works Best\nThe operation demonstrates basic array traversal and explicit construction. Since a new array containing all $n$ elements is created, the space complexity is $O(n)$.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Traversal / Array Construction",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(n)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[10, 20, 30]",
-                    "explanation": "The source array contains three values."
-                  },
-                  {
-                    "label": "Copy Process",
-                    "value": "result=[] -> [10] -> [10,20] -> [10,20,30]",
-                    "explanation": "Each source element is manually added to the new array."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "[10, 20, 30]",
-                    "explanation": "The returned array contains the same values but is a separate array."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Manually copy an array",
-              "explanation": "Create a new array and copy each element one by one.",
-              "tabs": [
+          "keyTakeaways": [
+            "Track the two smallest distinct values instead of sorting.",
+            "The condition x > first prevents duplicate minimum values from becoming second smallest.",
+            "The algorithm runs in O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "copy-an-array-without-built-in-copy-methods",
+          "title": "28. Copy an Array Without Using Built-in Copy Methods",
+          "content": "Create a new array containing the same elements as the input array without using built-in array copy methods.\n\n### How It Works & Algorithmic Design\nUse direct traversal:\n1. Create an empty result array.\n2. Visit every element of the source array.\n3. Add each value to the result array.\n4. Return the newly created array.\n\n### Why This Approach Works Best\nThe operation demonstrates basic array traversal and explicit construction. Since a new array containing all $n$ elements is created, the space complexity is $O(n)$.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Traversal / Array Construction",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function copyArray(arr) {\n  const result = [];\n  for (const value of arr) {\n    result.push(value);\n  }\n  return result;\n}"
+                  "label": "Input",
+                  "value": "[10, 20, 30]",
+                  "explanation": "The source array contains three values."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function copyArray(arr: number[]): number[] {\n  const result: number[] = [];\n  for (const value of arr) {\n    result.push(value);\n  }\n  return result;\n}"
+                  "label": "Copy Process",
+                  "value": "result=[] -> [10] -> [10,20] -> [10,20,30]",
+                  "explanation": "Each source element is manually added to the new array."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int[] copyArray(int[] arr) {\n        int[] result = new int[arr.length];\n        for (int i = 0; i < arr.length; i++) {\n            result[i] = arr[i];\n        }\n        return result;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def copy_array(arr: list[int]) -> list[int]:\n    result = []\n    for value in arr:\n        result.append(value)\n    return result"
+                  "label": "Output",
+                  "value": "[10, 20, 30]",
+                  "explanation": "The returned array contains the same values but is a separate array."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Manual copying demonstrates basic traversal and array construction.",
-              "The original array remains unchanged.",
-              "Creating a new array requires O(n) additional space."
+            }
+          ],
+          "codeExample": {
+            "title": "Manually copy an array",
+            "explanation": "Create a new array and copy each element one by one.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function copyArray(arr) {\n  const result = [];\n  for (const value of arr) {\n    result.push(value);\n  }\n  return result;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function copyArray(arr: number[]): number[] {\n  const result: number[] = [];\n  for (const value of arr) {\n    result.push(value);\n  }\n  return result;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int[] copyArray(int[] arr) {\n        int[] result = new int[arr.length];\n        for (int i = 0; i < arr.length; i++) {\n            result[i] = arr[i];\n        }\n        return result;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def copy_array(arr: list[int]) -> list[int]:\n    result = []\n    for value in arr:\n        result.append(value)\n    return result"
+              }
             ]
           },
-          {
-            "id": "find-the-difference-between-maximum-and-minimum",
-            "title": "29. Find the Difference Between Maximum and Minimum",
-            "content": "Given an array of numbers, find the difference between the largest and smallest values.\n\n### How It Works & Algorithmic Design\nInstead of sorting the array:\n1. Track the maximum value.\n2. Track the minimum value.\n3. Traverse the array once and update both when necessary.\n4. Return `max - min`.\n5. Handle an empty array appropriately.\n\n### Why This Approach Works Best\nSorting is unnecessary. Both extremes can be found in one pass, resulting in $O(n)$ time and $O(1)$ auxiliary space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Linear Scan",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[4, 10, 2, 8, 15]",
-                    "explanation": "Maximum is 15 and minimum is 2."
-                  },
-                  {
-                    "label": "Calculation",
-                    "value": "15 - 2 = 13",
-                    "explanation": "Subtract the smallest value from the largest value."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "13",
-                    "explanation": "The range between the minimum and maximum is 13."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Find max-min difference",
-              "explanation": "Track both extremes during one traversal and subtract them at the end.",
-              "tabs": [
+          "keyTakeaways": [
+            "Manual copying demonstrates basic traversal and array construction.",
+            "The original array remains unchanged.",
+            "Creating a new array requires O(n) additional space."
+          ]
+        },
+        {
+          "id": "find-the-difference-between-maximum-and-minimum",
+          "title": "29. Find the Difference Between Maximum and Minimum",
+          "content": "Given an array of numbers, find the difference between the largest and smallest values.\n\n### How It Works & Algorithmic Design\nInstead of sorting the array:\n1. Track the maximum value.\n2. Track the minimum value.\n3. Traverse the array once and update both when necessary.\n4. Return `max - min`.\n5. Handle an empty array appropriately.\n\n### Why This Approach Works Best\nSorting is unnecessary. Both extremes can be found in one pass, resulting in $O(n)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Linear Scan",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function maxMinDifference(arr) {\n  if (!arr.length) return null;\n\n  let min = arr[0];\n  let max = arr[0];\n\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n\n  return max - min;\n}"
+                  "label": "Input",
+                  "value": "[4, 10, 2, 8, 15]",
+                  "explanation": "Maximum is 15 and minimum is 2."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function maxMinDifference(arr: number[]): number | null {\n  if (!arr.length) return null;\n\n  let min = arr[0];\n  let max = arr[0];\n\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n\n  return max - min;\n}"
+                  "label": "Calculation",
+                  "value": "15 - 2 = 13",
+                  "explanation": "Subtract the smallest value from the largest value."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static Integer maxMinDifference(int[] arr) {\n        if (arr == null || arr.length == 0) return null;\n\n        int min = arr[0];\n        int max = arr[0];\n\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] < min) min = arr[i];\n            if (arr[i] > max) max = arr[i];\n        }\n\n        return max - min;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def max_min_difference(arr: list[int]) -> int | None:\n    if not arr:\n        return None\n\n    minimum = maximum = arr[0]\n    for value in arr[1:]:\n        if value < minimum:\n            minimum = value\n        if value > maximum:\n            maximum = value\n\n    return maximum - minimum"
+                  "label": "Output",
+                  "value": "13",
+                  "explanation": "The range between the minimum and maximum is 13."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Maximum and minimum can be found simultaneously.",
-              "Sorting is unnecessary for calculating the range.",
-              "The algorithm requires O(n) time and O(1) auxiliary space."
+            }
+          ],
+          "codeExample": {
+            "title": "Find max-min difference",
+            "explanation": "Track both extremes during one traversal and subtract them at the end.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function maxMinDifference(arr) {\n  if (!arr.length) return null;\n\n  let min = arr[0];\n  let max = arr[0];\n\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n\n  return max - min;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function maxMinDifference(arr: number[]): number | null {\n  if (!arr.length) return null;\n\n  let min = arr[0];\n  let max = arr[0];\n\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n\n  return max - min;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static Integer maxMinDifference(int[] arr) {\n        if (arr == null || arr.length == 0) return null;\n\n        int min = arr[0];\n        int max = arr[0];\n\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] < min) min = arr[i];\n            if (arr[i] > max) max = arr[i];\n        }\n\n        return max - min;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def max_min_difference(arr: list[int]) -> int | None:\n    if not arr:\n        return None\n\n    minimum = maximum = arr[0]\n    for value in arr[1:]:\n        if value < minimum:\n            minimum = value\n        if value > maximum:\n            maximum = value\n\n    return maximum - minimum"
+              }
             ]
           },
-          {
-            "id": "check-if-array-contains-a-given-element",
-            "title": "30. Check if an Array Contains a Given Element",
-            "content": "Given an array and a target value, determine whether the target exists in the array.\n\n### How It Works & Algorithmic Design\nUse a basic linear search:\n1. Traverse the array from left to right.\n2. Compare every value with the target.\n3. Return `true` immediately when a match is found.\n4. If the loop completes without finding the target, return `false`.\n\n### Why This Approach Works Best\nFor an unsorted array, there is no information that allows us to skip arbitrary positions. Linear search provides $O(n)$ worst-case time and $O(1)$ auxiliary space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Linear Search / Boolean Search",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "[5, 8, 12, 3, 20], Target=12",
-                    "explanation": "The target exists in the array."
-                  },
-                  {
-                    "label": "Search",
-                    "value": "5 -> 8 -> 12",
-                    "explanation": "The search stops as soon as 12 is found."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "true",
-                    "explanation": "The target exists at index 2."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Check whether target exists",
-              "explanation": "Use linear search and return immediately when the target is found.",
-              "tabs": [
+          "keyTakeaways": [
+            "Maximum and minimum can be found simultaneously.",
+            "Sorting is unnecessary for calculating the range.",
+            "The algorithm requires O(n) time and O(1) auxiliary space."
+          ]
+        },
+        {
+          "id": "check-if-array-contains-a-given-element",
+          "title": "30. Check if an Array Contains a Given Element",
+          "content": "Given an array and a target value, determine whether the target exists in the array.\n\n### How It Works & Algorithmic Design\nUse a basic linear search:\n1. Traverse the array from left to right.\n2. Compare every value with the target.\n3. Return `true` immediately when a match is found.\n4. If the loop completes without finding the target, return `false`.\n\n### Why This Approach Works Best\nFor an unsorted array, there is no information that allows us to skip arbitrary positions. Linear search provides $O(n)$ worst-case time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Linear Search / Boolean Search",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function contains(arr, target) {\n  for (const value of arr) {\n    if (value === target) return true;\n  }\n  return false;\n}"
+                  "label": "Input",
+                  "value": "[5, 8, 12, 3, 20], Target=12",
+                  "explanation": "The target exists in the array."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function contains(arr: number[], target: number): boolean {\n  for (const value of arr) {\n    if (value === target) return true;\n  }\n  return false;\n}"
+                  "label": "Search",
+                  "value": "5 -> 8 -> 12",
+                  "explanation": "The search stops as soon as 12 is found."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static boolean contains(int[] arr, int target) {\n        for (int value : arr) {\n            if (value == target) return true;\n        }\n        return false;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def contains(arr: list[int], target: int) -> bool:\n    for value in arr:\n        if value == target:\n            return True\n    return False"
+                  "label": "Output",
+                  "value": "true",
+                  "explanation": "The target exists at index 2."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Linear search can answer existence questions directly.",
-              "Early return avoids unnecessary comparisons when the target is found.",
-              "Worst-case time is O(n), while auxiliary space is O(1)."
+            }
+          ],
+          "codeExample": {
+            "title": "Check whether target exists",
+            "explanation": "Use linear search and return immediately when the target is found.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function contains(arr, target) {\n  for (const value of arr) {\n    if (value === target) return true;\n  }\n  return false;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function contains(arr: number[], target: number): boolean {\n  for (const value of arr) {\n    if (value === target) return true;\n  }\n  return false;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static boolean contains(int[] arr, int target) {\n        for (int value : arr) {\n            if (value == target) return true;\n        }\n        return false;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def contains(arr: list[int], target: int) -> bool:\n    for value in arr:\n        if value == target:\n            return True\n    return False"
+              }
             ]
           },
-          {
-            "id": "count-the-number-of-words-in-a-string",
-            "title": "31. Count the Number of Words in a String",
-            "content": "Given a string containing words separated by spaces, count the number of words.\n\n### How It Works & Algorithmic Design\nA simple approach is to split the string into words after trimming surrounding whitespace:\n1. Remove leading and trailing whitespace.\n2. If the resulting string is empty, return `0`.\n3. Split the string using whitespace as the delimiter.\n4. Return the number of resulting words.\n\n### Why This Approach Works Best\nFor an easy-level problem, splitting provides a clear and readable solution. The time complexity is $O(n)$ where $n$ is the string length. The resulting word collection requires $O(n)$ space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "String Traversal / Splitting",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(n)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "\"I love programming\"",
-                    "explanation": "The sentence contains three words."
-                  },
-                  {
-                    "label": "Split",
-                    "value": "[\"I\", \"love\", \"programming\"]",
-                    "explanation": "Whitespace separates the words."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "3",
-                    "explanation": "There are three words."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Count words",
-              "explanation": "Trim the input and split it using whitespace.",
-              "tabs": [
+          "keyTakeaways": [
+            "Linear search can answer existence questions directly.",
+            "Early return avoids unnecessary comparisons when the target is found.",
+            "Worst-case time is O(n), while auxiliary space is O(1)."
+          ]
+        },
+        {
+          "id": "count-the-number-of-words-in-a-string",
+          "title": "31. Count the Number of Words in a String",
+          "content": "Given a string containing words separated by spaces, count the number of words.\n\n### How It Works & Algorithmic Design\nA simple approach is to split the string into words after trimming surrounding whitespace:\n1. Remove leading and trailing whitespace.\n2. If the resulting string is empty, return `0`.\n3. Split the string using whitespace as the delimiter.\n4. Return the number of resulting words.\n\n### Why This Approach Works Best\nFor an easy-level problem, splitting provides a clear and readable solution. The time complexity is $O(n)$ where $n$ is the string length. The resulting word collection requires $O(n)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "String Traversal / Splitting",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function countWords(str) {\n  const trimmed = str.trim();\n  if (trimmed === '') return 0;\n  return trimmed.split(/\\s+/).length;\n}"
+                  "label": "Input",
+                  "value": "\"I love programming\"",
+                  "explanation": "The sentence contains three words."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function countWords(str: string): number {\n  const trimmed = str.trim();\n  if (trimmed === '') return 0;\n  return trimmed.split(/\\s+/).length;\n}"
+                  "label": "Split",
+                  "value": "[\"I\", \"love\", \"programming\"]",
+                  "explanation": "Whitespace separates the words."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int countWords(String str) {\n        String trimmed = str.trim();\n        if (trimmed.isEmpty()) return 0;\n        return trimmed.split(\"\\\\s+\").length;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def count_words(text: str) -> int:\n    return len(text.split())"
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "There are three words."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Whitespace should be handled carefully when counting words.",
-              "Trimming and splitting makes the basic solution easy to understand.",
-              "The operation takes O(n) time."
+            }
+          ],
+          "codeExample": {
+            "title": "Count words",
+            "explanation": "Trim the input and split it using whitespace.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countWords(str) {\n  const trimmed = str.trim();\n  if (trimmed === '') return 0;\n  return trimmed.split(/\\s+/).length;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function countWords(str: string): number {\n  const trimmed = str.trim();\n  if (trimmed === '') return 0;\n  return trimmed.split(/\\s+/).length;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int countWords(String str) {\n        String trimmed = str.trim();\n        if (trimmed.isEmpty()) return 0;\n        return trimmed.split(\"\\\\s+\").length;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_words(text: str) -> int:\n    return len(text.split())"
+              }
             ]
           },
-          {
-            "id": "count-digits-in-a-number",
-            "title": "32. Count Digits in a Number",
-            "content": "Given an integer, count how many digits it contains.\n\n### How It Works & Algorithmic Design\nFor a positive integer, repeatedly divide the number by `10`:\n1. Handle `0` as a special case because it contains one digit.\n2. Convert negative values to their absolute value.\n3. Repeatedly divide by `10` using integer division.\n4. Increment the digit counter after every division.\n5. Stop when the number becomes `0`.\n\n### Why This Approach Works Best\nEach iteration removes one decimal digit. Therefore the time complexity is $O(d)$ where $d$ is the number of digits, with $O(1)$ space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Number Manipulation",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(d)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "5832",
-                    "explanation": "The number contains four digits."
-                  },
-                  {
-                    "label": "Division",
-                    "value": "5832 -> 583 -> 58 -> 5 -> 0",
-                    "explanation": "Each division by 10 removes the last digit."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "4",
-                    "explanation": "Four divisions were required."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Count digits",
-              "explanation": "Repeatedly remove the last digit using division by 10.",
-              "tabs": [
+          "keyTakeaways": [
+            "Whitespace should be handled carefully when counting words.",
+            "Trimming and splitting makes the basic solution easy to understand.",
+            "The operation takes O(n) time."
+          ]
+        },
+        {
+          "id": "count-digits-in-a-number",
+          "title": "32. Count Digits in a Number",
+          "content": "Given an integer, count how many digits it contains.\n\n### How It Works & Algorithmic Design\nFor a positive integer, repeatedly divide the number by `10`:\n1. Handle `0` as a special case because it contains one digit.\n2. Convert negative values to their absolute value.\n3. Repeatedly divide by `10` using integer division.\n4. Increment the digit counter after every division.\n5. Stop when the number becomes `0`.\n\n### Why This Approach Works Best\nEach iteration removes one decimal digit. Therefore the time complexity is $O(d)$ where $d$ is the number of digits, with $O(1)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Number Manipulation",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(d)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function countDigits(n) {\n  n = Math.abs(n);\n  if (n === 0) return 1;\n\n  let count = 0;\n  while (n > 0) {\n    n = Math.floor(n / 10);\n    count++;\n  }\n  return count;\n}"
+                  "label": "Input",
+                  "value": "5832",
+                  "explanation": "The number contains four digits."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function countDigits(n: number): number {\n  n = Math.abs(n);\n  if (n === 0) return 1;\n\n  let count = 0;\n  while (n > 0) {\n    n = Math.floor(n / 10);\n    count++;\n  }\n  return count;\n}"
+                  "label": "Division",
+                  "value": "5832 -> 583 -> 58 -> 5 -> 0",
+                  "explanation": "Each division by 10 removes the last digit."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int countDigits(int n) {\n        long value = Math.abs((long) n);\n        if (value == 0) return 1;\n\n        int count = 0;\n        while (value > 0) {\n            value /= 10;\n            count++;\n        }\n        return count;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def count_digits(n: int) -> int:\n    n = abs(n)\n    if n == 0:\n        return 1\n\n    count = 0\n    while n > 0:\n        n //= 10\n        count += 1\n    return count"
+                  "label": "Output",
+                  "value": "4",
+                  "explanation": "Four divisions were required."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Integer division by 10 removes the last decimal digit.",
-              "Zero must be handled separately because 0 contains one digit.",
-              "The algorithm uses constant auxiliary space."
+            }
+          ],
+          "codeExample": {
+            "title": "Count digits",
+            "explanation": "Repeatedly remove the last digit using division by 10.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countDigits(n) {\n  n = Math.abs(n);\n  if (n === 0) return 1;\n\n  let count = 0;\n  while (n > 0) {\n    n = Math.floor(n / 10);\n    count++;\n  }\n  return count;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function countDigits(n: number): number {\n  n = Math.abs(n);\n  if (n === 0) return 1;\n\n  let count = 0;\n  while (n > 0) {\n    n = Math.floor(n / 10);\n    count++;\n  }\n  return count;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int countDigits(int n) {\n        long value = Math.abs((long) n);\n        if (value == 0) return 1;\n\n        int count = 0;\n        while (value > 0) {\n            value /= 10;\n            count++;\n        }\n        return count;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_digits(n: int) -> int:\n    n = abs(n)\n    if n == 0:\n        return 1\n\n    count = 0\n    while n > 0:\n        n //= 10\n        count += 1\n    return count"
+              }
             ]
           },
-          {
-            "id": "find-the-sum-of-digits-of-a-number",
-            "title": "33. Find the Sum of Digits of a Number",
-            "content": "Given an integer, calculate the sum of all its digits.\n\n### How It Works & Algorithmic Design\nUse modulo and integer division:\n1. Convert the number to its absolute value.\n2. Extract the last digit using `n % 10`.\n3. Add the digit to `sum`.\n4. Remove the last digit using integer division by `10`.\n5. Continue until the number becomes `0`.\n\n### Why This Approach Works Best\nEach digit is processed exactly once, resulting in $O(d)$ time where $d$ is the number of digits and $O(1)$ space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Digit Extraction",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(d)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "583",
-                    "explanation": "The number contains digits 5, 8, and 3."
-                  },
-                  {
-                    "label": "Calculation",
-                    "value": "3 + 8 + 5 = 16",
-                    "explanation": "Digits are extracted from right to left."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "16",
-                    "explanation": "The sum of all digits is 16."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Sum digits",
-              "explanation": "Extract each digit using modulo 10 and remove it using integer division.",
-              "tabs": [
+          "keyTakeaways": [
+            "Integer division by 10 removes the last decimal digit.",
+            "Zero must be handled separately because 0 contains one digit.",
+            "The algorithm uses constant auxiliary space."
+          ]
+        },
+        {
+          "id": "find-the-sum-of-digits-of-a-number",
+          "title": "33. Find the Sum of Digits of a Number",
+          "content": "Given an integer, calculate the sum of all its digits.\n\n### How It Works & Algorithmic Design\nUse modulo and integer division:\n1. Convert the number to its absolute value.\n2. Extract the last digit using `n % 10`.\n3. Add the digit to `sum`.\n4. Remove the last digit using integer division by `10`.\n5. Continue until the number becomes `0`.\n\n### Why This Approach Works Best\nEach digit is processed exactly once, resulting in $O(d)$ time where $d$ is the number of digits and $O(1)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Digit Extraction",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(d)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function sumDigits(n) {\n  n = Math.abs(n);\n  let sum = 0;\n\n  while (n > 0) {\n    sum += n % 10;\n    n = Math.floor(n / 10);\n  }\n\n  return sum;\n}"
+                  "label": "Input",
+                  "value": "583",
+                  "explanation": "The number contains digits 5, 8, and 3."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function sumDigits(n: number): number {\n  n = Math.abs(n);\n  let sum = 0;\n\n  while (n > 0) {\n    sum += n % 10;\n    n = Math.floor(n / 10);\n  }\n\n  return sum;\n}"
+                  "label": "Calculation",
+                  "value": "3 + 8 + 5 = 16",
+                  "explanation": "Digits are extracted from right to left."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int sumDigits(int n) {\n        long value = Math.abs((long) n);\n        int sum = 0;\n\n        while (value > 0) {\n            sum += value % 10;\n            value /= 10;\n        }\n\n        return sum;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def sum_digits(n: int) -> int:\n    n = abs(n)\n    total = 0\n\n    while n > 0:\n        total += n % 10\n        n //= 10\n\n    return total"
+                  "label": "Output",
+                  "value": "16",
+                  "explanation": "The sum of all digits is 16."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "The modulo operator extracts the last digit.",
-              "Integer division removes the processed digit.",
-              "Each digit is visited once, giving O(d) time."
+            }
+          ],
+          "codeExample": {
+            "title": "Sum digits",
+            "explanation": "Extract each digit using modulo 10 and remove it using integer division.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function sumDigits(n) {\n  n = Math.abs(n);\n  let sum = 0;\n\n  while (n > 0) {\n    sum += n % 10;\n    n = Math.floor(n / 10);\n  }\n\n  return sum;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function sumDigits(n: number): number {\n  n = Math.abs(n);\n  let sum = 0;\n\n  while (n > 0) {\n    sum += n % 10;\n    n = Math.floor(n / 10);\n  }\n\n  return sum;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int sumDigits(int n) {\n        long value = Math.abs((long) n);\n        int sum = 0;\n\n        while (value > 0) {\n            sum += value % 10;\n            value /= 10;\n        }\n\n        return sum;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def sum_digits(n: int) -> int:\n    n = abs(n)\n    total = 0\n\n    while n > 0:\n        total += n % 10\n        n //= 10\n\n    return total"
+              }
             ]
           },
-          {
-            "id": "reverse-the-digits-of-a-number",
-            "title": "34. Reverse the Digits of a Number",
-            "content": "Given an integer, reverse the order of its digits.\n\n### How It Works & Algorithmic Design\nBuild the reversed number from right to left:\n1. Extract the last digit using `% 10`.\n2. Shift the current result left by one decimal position using `result * 10`.\n3. Add the extracted digit.\n4. Remove the last digit from the original number using integer division by `10`.\n5. Continue until the original number becomes `0`.\n\n### Why This Approach Works Best\nThe algorithm processes each digit exactly once, requiring $O(d)$ time and $O(1)$ auxiliary space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Digit Manipulation",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(d)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "1234",
-                    "explanation": "The digits need to be reversed."
-                  },
-                  {
-                    "label": "Construction",
-                    "value": "4 -> 43 -> 432 -> 4321",
-                    "explanation": "Each extracted digit is appended to the reversed number."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "4321",
-                    "explanation": "The digits appear in reverse order."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Reverse a number",
-              "explanation": "Extract digits from right to left and append them to a new number.",
-              "tabs": [
+          "keyTakeaways": [
+            "The modulo operator extracts the last digit.",
+            "Integer division removes the processed digit.",
+            "Each digit is visited once, giving O(d) time."
+          ]
+        },
+        {
+          "id": "reverse-the-digits-of-a-number",
+          "title": "34. Reverse the Digits of a Number",
+          "content": "Given an integer, reverse the order of its digits.\n\n### How It Works & Algorithmic Design\nBuild the reversed number from right to left:\n1. Extract the last digit using `% 10`.\n2. Shift the current result left by one decimal position using `result * 10`.\n3. Add the extracted digit.\n4. Remove the last digit from the original number using integer division by `10`.\n5. Continue until the original number becomes `0`.\n\n### Why This Approach Works Best\nThe algorithm processes each digit exactly once, requiring $O(d)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Digit Manipulation",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(d)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function reverseNumber(n) {\n  const sign = n < 0 ? -1 : 1;\n  n = Math.abs(n);\n  let result = 0;\n\n  while (n > 0) {\n    const digit = n % 10;\n    result = result * 10 + digit;\n    n = Math.floor(n / 10);\n  }\n\n  return sign * result;\n}"
+                  "label": "Input",
+                  "value": "1234",
+                  "explanation": "The digits need to be reversed."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function reverseNumber(n: number): number {\n  const sign = n < 0 ? -1 : 1;\n  n = Math.abs(n);\n  let result = 0;\n\n  while (n > 0) {\n    const digit = n % 10;\n    result = result * 10 + digit;\n    n = Math.floor(n / 10);\n  }\n\n  return sign * result;\n}"
+                  "label": "Construction",
+                  "value": "4 -> 43 -> 432 -> 4321",
+                  "explanation": "Each extracted digit is appended to the reversed number."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static long reverseNumber(int n) {\n        long value = Math.abs((long) n);\n        long result = 0;\n\n        while (value > 0) {\n            long digit = value % 10;\n            result = result * 10 + digit;\n            value /= 10;\n        }\n\n        return n < 0 ? -result : result;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def reverse_number(n: int) -> int:\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    result = 0\n\n    while n > 0:\n        digit = n % 10\n        result = result * 10 + digit\n        n //= 10\n\n    return sign * result"
+                  "label": "Output",
+                  "value": "4321",
+                  "explanation": "The digits appear in reverse order."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Modulo extracts the final digit.",
-              "Multiplying the result by 10 shifts existing digits left.",
-              "The solution processes every digit once."
+            }
+          ],
+          "codeExample": {
+            "title": "Reverse a number",
+            "explanation": "Extract digits from right to left and append them to a new number.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function reverseNumber(n) {\n  const sign = n < 0 ? -1 : 1;\n  n = Math.abs(n);\n  let result = 0;\n\n  while (n > 0) {\n    const digit = n % 10;\n    result = result * 10 + digit;\n    n = Math.floor(n / 10);\n  }\n\n  return sign * result;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function reverseNumber(n: number): number {\n  const sign = n < 0 ? -1 : 1;\n  n = Math.abs(n);\n  let result = 0;\n\n  while (n > 0) {\n    const digit = n % 10;\n    result = result * 10 + digit;\n    n = Math.floor(n / 10);\n  }\n\n  return sign * result;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static long reverseNumber(int n) {\n        long value = Math.abs((long) n);\n        long result = 0;\n\n        while (value > 0) {\n            long digit = value % 10;\n            result = result * 10 + digit;\n            value /= 10;\n        }\n\n        return n < 0 ? -result : result;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def reverse_number(n: int) -> int:\n    sign = -1 if n < 0 else 1\n    n = abs(n)\n    result = 0\n\n    while n > 0:\n        digit = n % 10\n        result = result * 10 + digit\n        n //= 10\n\n    return sign * result"
+              }
             ]
           },
-          {
-            "id": "check-whether-a-number-is-a-palindrome",
-            "title": "35. Check Whether a Number Is a Palindrome",
-            "content": "Determine whether a number reads the same from left to right and right to left.\n\n### How It Works & Algorithmic Design\nA number is a palindrome if it equals its reversed form:\n1. Store the original number.\n2. Reverse the number using digit extraction.\n3. Compare the reversed number with the original.\n4. Return `true` when they are equal; otherwise return `false`.\n\n### Why This Approach Works Best\nThe number is processed digit by digit. The algorithm requires $O(d)$ time and $O(1)$ auxiliary space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Number Reversal",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(d)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "1221",
-                    "explanation": "The digits are symmetric."
-                  },
-                  {
-                    "label": "Reverse",
-                    "value": "1221",
-                    "explanation": "Reversing the number produces the same value."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "true",
-                    "explanation": "Original and reversed values are equal."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Check numeric palindrome",
-              "explanation": "Reverse the number and compare it with the original value.",
-              "tabs": [
+          "keyTakeaways": [
+            "Modulo extracts the final digit.",
+            "Multiplying the result by 10 shifts existing digits left.",
+            "The solution processes every digit once."
+          ]
+        },
+        {
+          "id": "check-whether-a-number-is-a-palindrome",
+          "title": "35. Check Whether a Number Is a Palindrome",
+          "content": "Determine whether a number reads the same from left to right and right to left.\n\n### How It Works & Algorithmic Design\nA number is a palindrome if it equals its reversed form:\n1. Store the original number.\n2. Reverse the number using digit extraction.\n3. Compare the reversed number with the original.\n4. Return `true` when they are equal; otherwise return `false`.\n\n### Why This Approach Works Best\nThe number is processed digit by digit. The algorithm requires $O(d)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Number Reversal",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(d)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function isPalindrome(n) {\n  if (n < 0) return false;\n\n  const original = n;\n  let reversed = 0;\n\n  while (n > 0) {\n    reversed = reversed * 10 + (n % 10);\n    n = Math.floor(n / 10);\n  }\n\n  return original === reversed;\n}"
+                  "label": "Input",
+                  "value": "1221",
+                  "explanation": "The digits are symmetric."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function isPalindrome(n: number): boolean {\n  if (n < 0) return false;\n\n  const original = n;\n  let reversed = 0;\n\n  while (n > 0) {\n    reversed = reversed * 10 + (n % 10);\n    n = Math.floor(n / 10);\n  }\n\n  return original === reversed;\n}"
+                  "label": "Reverse",
+                  "value": "1221",
+                  "explanation": "Reversing the number produces the same value."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static boolean isPalindrome(int n) {\n        if (n < 0) return false;\n\n        int original = n;\n        int reversed = 0;\n\n        while (n > 0) {\n            reversed = reversed * 10 + n % 10;\n            n /= 10;\n        }\n\n        return original == reversed;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def is_palindrome(n: int) -> bool:\n    if n < 0:\n        return False\n\n    original = n\n    reversed_num = 0\n\n    while n > 0:\n        reversed_num = reversed_num * 10 + n % 10\n        n //= 10\n\n    return original == reversed_num"
+                  "label": "Output",
+                  "value": "true",
+                  "explanation": "Original and reversed values are equal."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "A numeric palindrome is equal to its reversed value.",
-              "Negative numbers are generally not considered numeric palindromes.",
-              "The solution takes O(d) time and O(1) space."
+            }
+          ],
+          "codeExample": {
+            "title": "Check numeric palindrome",
+            "explanation": "Reverse the number and compare it with the original value.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function isPalindrome(n) {\n  if (n < 0) return false;\n\n  const original = n;\n  let reversed = 0;\n\n  while (n > 0) {\n    reversed = reversed * 10 + (n % 10);\n    n = Math.floor(n / 10);\n  }\n\n  return original === reversed;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function isPalindrome(n: number): boolean {\n  if (n < 0) return false;\n\n  const original = n;\n  let reversed = 0;\n\n  while (n > 0) {\n    reversed = reversed * 10 + (n % 10);\n    n = Math.floor(n / 10);\n  }\n\n  return original === reversed;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static boolean isPalindrome(int n) {\n        if (n < 0) return false;\n\n        int original = n;\n        int reversed = 0;\n\n        while (n > 0) {\n            reversed = reversed * 10 + n % 10;\n            n /= 10;\n        }\n\n        return original == reversed;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def is_palindrome(n: int) -> bool:\n    if n < 0:\n        return False\n\n    original = n\n    reversed_num = 0\n\n    while n > 0:\n        reversed_num = reversed_num * 10 + n % 10\n        n //= 10\n\n    return original == reversed_num"
+              }
             ]
           },
-          {
-            "id": "count-the-occurrences-of-a-character",
-            "title": "36. Count the Occurrences of a Character",
-            "content": "Given a string and a target character, count how many times the character appears.\n\n### How It Works & Algorithmic Design\nUse a simple counting traversal:\n1. Initialize `count = 0`.\n2. Visit every character in the string.\n3. Compare it with the target character.\n4. Increment the counter when they match.\n5. Return the final count.\n\n### Why This Approach Works Best\nEvery character may contribute to the result, so the entire string must be inspected. The algorithm uses $O(n)$ time and $O(1)$ additional space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Character Counting",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "String=\"banana\", Target=\"a\"",
-                    "explanation": "The character a appears multiple times."
-                  },
-                  {
-                    "label": "Trace",
-                    "value": "b -> a(count=1) -> n -> a(count=2) -> n -> a(count=3)",
-                    "explanation": "The counter increments only for matching characters."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "3",
-                    "explanation": "The character a appears three times."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Count a character",
-              "explanation": "Traverse every character and increment the counter whenever it matches the target.",
-              "tabs": [
+          "keyTakeaways": [
+            "A numeric palindrome is equal to its reversed value.",
+            "Negative numbers are generally not considered numeric palindromes.",
+            "The solution takes O(d) time and O(1) space."
+          ]
+        },
+        {
+          "id": "count-the-occurrences-of-a-character",
+          "title": "36. Count the Occurrences of a Character",
+          "content": "Given a string and a target character, count how many times the character appears.\n\n### How It Works & Algorithmic Design\nUse a simple counting traversal:\n1. Initialize `count = 0`.\n2. Visit every character in the string.\n3. Compare it with the target character.\n4. Increment the counter when they match.\n5. Return the final count.\n\n### Why This Approach Works Best\nEvery character may contribute to the result, so the entire string must be inspected. The algorithm uses $O(n)$ time and $O(1)$ additional space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Character Counting",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function countCharacter(str, target) {\n  let count = 0;\n  for (const char of str) {\n    if (char === target) count++;\n  }\n  return count;\n}"
+                  "label": "Input",
+                  "value": "String=\"banana\", Target=\"a\"",
+                  "explanation": "The character a appears multiple times."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function countCharacter(str: string, target: string): number {\n  let count = 0;\n  for (const char of str) {\n    if (char === target) count++;\n  }\n  return count;\n}"
+                  "label": "Trace",
+                  "value": "b -> a(count=1) -> n -> a(count=2) -> n -> a(count=3)",
+                  "explanation": "The counter increments only for matching characters."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static int countCharacter(String str, char target) {\n        int count = 0;\n        for (int i = 0; i < str.length(); i++) {\n            if (str.charAt(i) == target) count++;\n        }\n        return count;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def count_character(text: str, target: str) -> int:\n    count = 0\n    for char in text:\n        if char == target:\n            count += 1\n    return count"
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "The character a appears three times."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Character counting is a direct application of the accumulator pattern.",
-              "Every character must be checked.",
-              "The algorithm uses O(n) time and O(1) extra space."
+            }
+          ],
+          "codeExample": {
+            "title": "Count a character",
+            "explanation": "Traverse every character and increment the counter whenever it matches the target.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countCharacter(str, target) {\n  let count = 0;\n  for (const char of str) {\n    if (char === target) count++;\n  }\n  return count;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function countCharacter(str: string, target: string): number {\n  let count = 0;\n  for (const char of str) {\n    if (char === target) count++;\n  }\n  return count;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int countCharacter(String str, char target) {\n        int count = 0;\n        for (int i = 0; i < str.length(); i++) {\n            if (str.charAt(i) == target) count++;\n        }\n        return count;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_character(text: str, target: str) -> int:\n    count = 0\n    for char in text:\n        if char == target:\n            count += 1\n    return count"
+              }
             ]
           },
-          {
-            "id": "remove-spaces-from-a-string",
-            "title": "37. Remove Spaces from a String",
-            "content": "Given a string, create a new string with all space characters removed.\n\n### How It Works & Algorithmic Design\nTraverse the string and keep only non-space characters:\n1. Create an empty result string.\n2. Visit each character.\n3. If the character is not a space, append it to the result.\n4. Return the resulting string.\n\n### Why This Approach Works Best\nEvery character must be examined, giving $O(n)$ time. A new string is produced, requiring $O(n)$ output space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "String Traversal / Filtering",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(n)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "\"hello world from JS\"",
-                    "explanation": "The string contains spaces between words."
-                  },
-                  {
-                    "label": "Filtering",
-                    "value": "\"hello\" + \"world\" + \"from\" + \"JS\"",
-                    "explanation": "Space characters are skipped."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "\"helloworldfromJS\"",
-                    "explanation": "All spaces have been removed."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Remove spaces",
-              "explanation": "Build a new string containing only non-space characters.",
-              "tabs": [
+          "keyTakeaways": [
+            "Character counting is a direct application of the accumulator pattern.",
+            "Every character must be checked.",
+            "The algorithm uses O(n) time and O(1) extra space."
+          ]
+        },
+        {
+          "id": "remove-spaces-from-a-string",
+          "title": "37. Remove Spaces from a String",
+          "content": "Given a string, create a new string with all space characters removed.\n\n### How It Works & Algorithmic Design\nTraverse the string and keep only non-space characters:\n1. Create an empty result string.\n2. Visit each character.\n3. If the character is not a space, append it to the result.\n4. Return the resulting string.\n\n### Why This Approach Works Best\nEvery character must be examined, giving $O(n)$ time. A new string is produced, requiring $O(n)$ output space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "String Traversal / Filtering",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function removeSpaces(str) {\n  let result = '';\n  for (const char of str) {\n    if (char !== ' ') result += char;\n  }\n  return result;\n}"
+                  "label": "Input",
+                  "value": "\"hello world from JS\"",
+                  "explanation": "The string contains spaces between words."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function removeSpaces(str: string): string {\n  let result = '';\n  for (const char of str) {\n    if (char !== ' ') result += char;\n  }\n  return result;\n}"
+                  "label": "Filtering",
+                  "value": "\"hello\" + \"world\" + \"from\" + \"JS\"",
+                  "explanation": "Space characters are skipped."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static String removeSpaces(String str) {\n        StringBuilder result = new StringBuilder();\n        for (int i = 0; i < str.length(); i++) {\n            char c = str.charAt(i);\n            if (c != ' ') result.append(c);\n        }\n        return result.toString();\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def remove_spaces(text: str) -> str:\n    result = ''\n    for char in text:\n        if char != ' ':\n            result += char\n    return result"
+                  "label": "Output",
+                  "value": "\"helloworldfromJS\"",
+                  "explanation": "All spaces have been removed."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "This is a filtering problem over characters.",
-              "Characters that do not satisfy the condition are skipped.",
-              "A new string requires additional output space."
+            }
+          ],
+          "codeExample": {
+            "title": "Remove spaces",
+            "explanation": "Build a new string containing only non-space characters.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function removeSpaces(str) {\n  let result = '';\n  for (const char of str) {\n    if (char !== ' ') result += char;\n  }\n  return result;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function removeSpaces(str: string): string {\n  let result = '';\n  for (const char of str) {\n    if (char !== ' ') result += char;\n  }\n  return result;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static String removeSpaces(String str) {\n        StringBuilder result = new StringBuilder();\n        for (int i = 0; i < str.length(); i++) {\n            char c = str.charAt(i);\n            if (c != ' ') result.append(c);\n        }\n        return result.toString();\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def remove_spaces(text: str) -> str:\n    result = ''\n    for char in text:\n        if char != ' ':\n            result += char\n    return result"
+              }
             ]
           },
-          {
-            "id": "convert-lowercase-characters-to-uppercase",
-            "title": "38. Convert Lowercase Characters to Uppercase",
-            "content": "Given a string, convert its lowercase alphabetic characters to uppercase.\n\n### How It Works & Algorithmic Design\nTraverse each character and transform lowercase letters:\n1. Visit each character.\n2. Check whether it is lowercase.\n3. Convert it to uppercase when necessary.\n4. Preserve non-letter characters.\n5. Build and return the transformed string.\n\n### Why This Approach Works Best\nEvery character must be inspected, so the time complexity is $O(n)$. The result requires $O(n)$ output space.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Character Transformation",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(n)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "\"hello World 123\"",
-                    "explanation": "The string contains lowercase, uppercase, and non-letter characters."
-                  },
-                  {
-                    "label": "Transformation",
-                    "value": "\"hello World 123\" -> \"HELLO WORLD 123\"",
-                    "explanation": "Lowercase letters are converted while other characters remain unchanged."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "\"HELLO WORLD 123\"",
-                    "explanation": "All alphabetic characters are uppercase."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Convert string to uppercase",
-              "explanation": "Transform each character using the language's standard uppercase conversion.",
-              "tabs": [
+          "keyTakeaways": [
+            "This is a filtering problem over characters.",
+            "Characters that do not satisfy the condition are skipped.",
+            "A new string requires additional output space."
+          ]
+        },
+        {
+          "id": "convert-lowercase-characters-to-uppercase",
+          "title": "38. Convert Lowercase Characters to Uppercase",
+          "content": "Given a string, convert its lowercase alphabetic characters to uppercase.\n\n### How It Works & Algorithmic Design\nTraverse each character and transform lowercase letters:\n1. Visit each character.\n2. Check whether it is lowercase.\n3. Convert it to uppercase when necessary.\n4. Preserve non-letter characters.\n5. Build and return the transformed string.\n\n### Why This Approach Works Best\nEvery character must be inspected, so the time complexity is $O(n)$. The result requires $O(n)$ output space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Character Transformation",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function toUpperCase(str) {\n  let result = '';\n  for (const char of str) {\n    result += char.toUpperCase();\n  }\n  return result;\n}"
+                  "label": "Input",
+                  "value": "\"hello World 123\"",
+                  "explanation": "The string contains lowercase, uppercase, and non-letter characters."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function toUpperCase(str: string): string {\n  let result = '';\n  for (const char of str) {\n    result += char.toUpperCase();\n  }\n  return result;\n}"
+                  "label": "Transformation",
+                  "value": "\"hello World 123\" -> \"HELLO WORLD 123\"",
+                  "explanation": "Lowercase letters are converted while other characters remain unchanged."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static String toUpperCase(String str) {\n        StringBuilder result = new StringBuilder();\n        for (int i = 0; i < str.length(); i++) {\n            result.append(Character.toUpperCase(str.charAt(i)));\n        }\n        return result.toString();\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def to_upper_case(text: str) -> str:\n    result = ''\n    for char in text:\n        result += char.upper()\n    return result"
+                  "label": "Output",
+                  "value": "\"HELLO WORLD 123\"",
+                  "explanation": "All alphabetic characters are uppercase."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "String transformation can be performed one character at a time.",
-              "Non-letter characters remain unchanged.",
-              "The transformation requires O(n) time."
+            }
+          ],
+          "codeExample": {
+            "title": "Convert string to uppercase",
+            "explanation": "Transform each character using the language's standard uppercase conversion.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function toUpperCase(str) {\n  let result = '';\n  for (const char of str) {\n    result += char.toUpperCase();\n  }\n  return result;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function toUpperCase(str: string): string {\n  let result = '';\n  for (const char of str) {\n    result += char.toUpperCase();\n  }\n  return result;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static String toUpperCase(String str) {\n        StringBuilder result = new StringBuilder();\n        for (int i = 0; i < str.length(); i++) {\n            result.append(Character.toUpperCase(str.charAt(i)));\n        }\n        return result.toString();\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def to_upper_case(text: str) -> str:\n    result = ''\n    for char in text:\n        result += char.upper()\n    return result"
+              }
             ]
           },
-          {
-            "id": "find-the-first-repeated-character",
-            "title": "39. Find the First Repeated Character",
-            "content": "Given a string, find the first character that appears more than once.\n\n### How It Works & Algorithmic Design\nUse a set to remember characters already encountered:\n1. Create an empty set.\n2. Traverse the string from left to right.\n3. If the current character already exists in the set, return it immediately.\n4. Otherwise, add it to the set.\n5. If no character repeats, return `null` or an equivalent empty value.\n\n### Why This Approach Works Best\nA set provides efficient membership checking. The expected time complexity is $O(n)$ and the additional space complexity is $O(n)$.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Hash Set",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(n)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "\"programming\"",
-                    "explanation": "Characters are inspected from left to right."
-                  },
-                  {
-                    "label": "Trace",
-                    "value": "p -> r -> o -> g -> r (already seen)",
-                    "explanation": "The second occurrence of r is the first repeated character."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "\"r\"",
-                    "explanation": "r is the first character encountered for the second time."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Find first repeated character",
-              "explanation": "Use a hash set to remember characters that have already appeared.",
-              "tabs": [
+          "keyTakeaways": [
+            "String transformation can be performed one character at a time.",
+            "Non-letter characters remain unchanged.",
+            "The transformation requires O(n) time."
+          ]
+        },
+        {
+          "id": "find-the-first-repeated-character",
+          "title": "39. Find the First Repeated Character",
+          "content": "Given a string, find the first character that appears more than once.\n\n### How It Works & Algorithmic Design\nUse a set to remember characters already encountered:\n1. Create an empty set.\n2. Traverse the string from left to right.\n3. If the current character already exists in the set, return it immediately.\n4. Otherwise, add it to the set.\n5. If no character repeats, return `null` or an equivalent empty value.\n\n### Why This Approach Works Best\nA set provides efficient membership checking. The expected time complexity is $O(n)$ and the additional space complexity is $O(n)$.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Hash Set",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function firstRepeated(str) {\n  const seen = new Set();\n\n  for (const char of str) {\n    if (seen.has(char)) return char;\n    seen.add(char);\n  }\n\n  return null;\n}"
+                  "label": "Input",
+                  "value": "\"programming\"",
+                  "explanation": "Characters are inspected from left to right."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function firstRepeated(str: string): string | null {\n  const seen = new Set<string>();\n\n  for (const char of str) {\n    if (seen.has(char)) return char;\n    seen.add(char);\n  }\n\n  return null;\n}"
+                  "label": "Trace",
+                  "value": "p -> r -> o -> g -> r (already seen)",
+                  "explanation": "The second occurrence of r is the first repeated character."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "import java.util.*;\n\npublic class Solution {\n    public static Character firstRepeated(String str) {\n        Set<Character> seen = new HashSet<>();\n\n        for (int i = 0; i < str.length(); i++) {\n            char c = str.charAt(i);\n            if (seen.contains(c)) return c;\n            seen.add(c);\n        }\n\n        return null;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def first_repeated(text: str) -> str | None:\n    seen = set()\n\n    for char in text:\n        if char in seen:\n            return char\n        seen.add(char)\n\n    return None"
+                  "label": "Output",
+                  "value": "\"r\"",
+                  "explanation": "r is the first character encountered for the second time."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "A hash set provides efficient membership checking.",
-              "Returning immediately ensures the first repeated character is found.",
-              "Expected time is O(n) with O(n) additional space."
+            }
+          ],
+          "codeExample": {
+            "title": "Find first repeated character",
+            "explanation": "Use a hash set to remember characters that have already appeared.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function firstRepeated(str) {\n  const seen = new Set();\n\n  for (const char of str) {\n    if (seen.has(char)) return char;\n    seen.add(char);\n  }\n\n  return null;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function firstRepeated(str: string): string | null {\n  const seen = new Set<string>();\n\n  for (const char of str) {\n    if (seen.has(char)) return char;\n    seen.add(char);\n  }\n\n  return null;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static Character firstRepeated(String str) {\n        Set<Character> seen = new HashSet<>();\n\n        for (int i = 0; i < str.length(); i++) {\n            char c = str.charAt(i);\n            if (seen.contains(c)) return c;\n            seen.add(c);\n        }\n\n        return null;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def first_repeated(text: str) -> str | None:\n    seen = set()\n\n    for char in text:\n        if char in seen:\n            return char\n        seen.add(char)\n\n    return None"
+              }
             ]
           },
-          {
-            "id": "check-whether-a-number-is-prime",
-            "title": "40. Check Whether a Number Is Prime",
-            "content": "Determine whether a given integer is a prime number.\n\n### How It Works & Algorithmic Design\nA prime number greater than `1` has exactly two positive divisors: `1` and itself.\n1. Numbers less than `2` are not prime.\n2. Try dividing the number by integers starting from `2`.\n3. Only test divisors up to the square root of the number.\n4. If any divisor divides evenly, the number is not prime.\n5. Otherwise, it is prime.\n\n### Why This Approach Works Best\nIf a number has a factor larger than its square root, the corresponding paired factor must be smaller than the square root. Therefore checking up to `sqrt(n)` is sufficient. The time complexity is $O(\\sqrt n)$ and space is $O(1)$.",
-            "metaChips": [
-              {
-                "label": "Difficulty",
-                "value": "Easy",
-                "variant": "success"
-              },
-              {
-                "label": "Pattern",
-                "value": "Basic Mathematics / Trial Division",
-                "variant": "neutral"
-              },
-              {
-                "label": "Time",
-                "value": "O(√n)",
-                "variant": "neutral"
-              },
-              {
-                "label": "Space",
-                "value": "O(1)",
-                "variant": "neutral"
-              }
-            ],
-            "dataCards": [
-              {
-                "title": "Example Walkthrough",
-                "items": [
-                  {
-                    "label": "Input",
-                    "value": "29",
-                    "explanation": "29 is greater than 1 and needs to be tested for divisors."
-                  },
-                  {
-                    "label": "Checks",
-                    "value": "29 % 2 != 0 | 29 % 3 != 0 | 29 % 4 != 0 | 29 % 5 != 0",
-                    "explanation": "Testing only up to sqrt(29), approximately 5.38, is sufficient."
-                  },
-                  {
-                    "label": "Output",
-                    "value": "true",
-                    "explanation": "No divisor was found, so 29 is prime."
-                  }
-                ]
-              }
-            ],
-            "codeExample": {
-              "title": "Check for prime number",
-              "explanation": "Test possible divisors only up to the square root of the number.",
-              "tabs": [
+          "keyTakeaways": [
+            "A hash set provides efficient membership checking.",
+            "Returning immediately ensures the first repeated character is found.",
+            "Expected time is O(n) with O(n) additional space."
+          ]
+        },
+        {
+          "id": "check-whether-a-number-is-prime",
+          "title": "40. Check Whether a Number Is Prime",
+          "content": "Determine whether a given integer is a prime number.\n\n### How It Works & Algorithmic Design\nA prime number greater than `1` has exactly two positive divisors: `1` and itself.\n1. Numbers less than `2` are not prime.\n2. Try dividing the number by integers starting from `2`.\n3. Only test divisors up to the square root of the number.\n4. If any divisor divides evenly, the number is not prime.\n5. Otherwise, it is prime.\n\n### Why This Approach Works Best\nIf a number has a factor larger than its square root, the corresponding paired factor must be smaller than the square root. Therefore checking up to `sqrt(n)` is sufficient. The time complexity is $O(\\sqrt n)$ and space is $O(1)$.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Basic Mathematics / Trial Division",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(√n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
                 {
-                  "label": "JavaScript",
-                  "language": "javascript",
-                  "code": "function isPrime(n) {\n  if (n < 2) return false;\n\n  for (let i = 2; i * i <= n; i++) {\n    if (n % i === 0) return false;\n  }\n\n  return true;\n}"
+                  "label": "Input",
+                  "value": "29",
+                  "explanation": "29 is greater than 1 and needs to be tested for divisors."
                 },
                 {
-                  "label": "TypeScript",
-                  "language": "typescript",
-                  "code": "function isPrime(n: number): boolean {\n  if (n < 2) return false;\n\n  for (let i = 2; i * i <= n; i++) {\n    if (n % i === 0) return false;\n  }\n\n  return true;\n}"
+                  "label": "Checks",
+                  "value": "29 % 2 != 0 | 29 % 3 != 0 | 29 % 4 != 0 | 29 % 5 != 0",
+                  "explanation": "Testing only up to sqrt(29), approximately 5.38, is sufficient."
                 },
                 {
-                  "label": "Java",
-                  "language": "java",
-                  "code": "public class Solution {\n    public static boolean isPrime(int n) {\n        if (n < 2) return false;\n\n        for (int i = 2; (long) i * i <= n; i++) {\n            if (n % i == 0) return false;\n        }\n\n        return true;\n    }\n}"
-                },
-                {
-                  "label": "Python",
-                  "language": "python",
-                  "code": "def is_prime(n: int) -> bool:\n    if n < 2:\n        return False\n\n    i = 2\n    while i * i <= n:\n        if n % i == 0:\n            return False\n        i += 1\n\n    return True"
+                  "label": "Output",
+                  "value": "true",
+                  "explanation": "No divisor was found, so 29 is prime."
                 }
               ]
-            },
-            "keyTakeaways": [
-              "Numbers below 2 are not prime.",
-              "Checking divisors only up to the square root is sufficient.",
-              "The optimized trial-division approach runs in O(√n) time and O(1) space."
+            }
+          ],
+          "codeExample": {
+            "title": "Check for prime number",
+            "explanation": "Test possible divisors only up to the square root of the number.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function isPrime(n) {\n  if (n < 2) return false;\n\n  for (let i = 2; i * i <= n; i++) {\n    if (n % i === 0) return false;\n  }\n\n  return true;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function isPrime(n: number): boolean {\n  if (n < 2) return false;\n\n  for (let i = 2; i * i <= n; i++) {\n    if (n % i === 0) return false;\n  }\n\n  return true;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static boolean isPrime(int n) {\n        if (n < 2) return false;\n\n        for (int i = 2; (long) i * i <= n; i++) {\n            if (n % i == 0) return false;\n        }\n\n        return true;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def is_prime(n: int) -> bool:\n    if n < 2:\n        return False\n\n    i = 2\n    while i * i <= n:\n        if n % i == 0:\n            return False\n        i += 1\n\n    return True"
+              }
             ]
-          }
-        ]
+          },
+          "keyTakeaways": [
+            "Numbers below 2 are not prime.",
+            "Checking divisors only up to the square root is sufficient.",
+            "The optimized trial-division approach runs in O(√n) time and O(1) space."
+          ]
+        }
       ]
     },
     {
