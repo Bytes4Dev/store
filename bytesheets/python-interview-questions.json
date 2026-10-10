@@ -1,0 +1,1304 @@
+{
+  "courseId": "python-mastery-qa",
+  "courseName": "Python Interview Questions",
+  "title": "Comprehensive Python Progressive Master Interview Question Bank",
+  "subtitle": "75 progressive Python interview questions spanning Core Syntax, OOPs, Memory Management, Decorators, Generators, Concurrency, and Advanced Metaprogramming",
+  "category": "Interview Q&A",
+  "level": "Comprehensive (Easy to Advanced)",
+  "estimatedTime": "6.5 Hours",
+  "accentColor": "#3776ab",
+  "keywords": [
+    "python",
+    "interview",
+    "python3",
+    "decorators",
+    "generators",
+    "gil",
+    "asyncio",
+    "metaprogramming",
+    "memory-management",
+    "data-structures"
+  ],
+  "chapters": [
+    {
+      "id": "python-progressive-bank",
+      "title": "Complete Python Progressive Master Question Bank",
+      "summary": "75 progressive Python interview questions covering foundations, data structures, object-oriented concepts, memory mechanics, decorators, concurrency, and advanced language internals.",
+      "estimatedMinutes": 390,
+      "sections": [
+        {
+          "id": "q1-python-features-and-interpreted-nature",
+          "title": "Q1: What is Python and how does its execution flow differ from compiled languages?",
+          "content": "Python is a high-level, dynamically typed, interpreted programming language. Source code (`.py`) is first compiled into intermediate bytecode (`.pyc`). The **Python Virtual Machine (PVM)** then interprets this bytecode line-by-line into machine code at runtime.",
+          "keyTakeaways": [
+            "Compilation to Bytecode (`.pyc`) occurs automatically prior to PVM interpretation.",
+            "Dynamic typing resolves variable types at runtime rather than compile time."
+          ],
+          "codeExample": {
+            "title": "Inspecting Python Bytecode",
+            "language": "python",
+            "code": "import dis\n\ndef add(a, b):\n    return a + b\n\ndis.dis(add) # Disassembles bytecode instructions",
+            "explanation": "The dis module exposes the raw PVM bytecode instructions produced for Python functions."
+          },
+          "interactiveQuiz": {
+            "question": "What component in Python directly executes bytecode (.pyc) files?",
+            "options": ["C++ Compiler", "Python Virtual Machine (PVM)", "JIT Linker", "Operating System Kernel"],
+            "correctIndex": 1,
+            "explanation": "The Python Virtual Machine (PVM) is the interpreter engine that executes compiled bytecode."
+          }
+        },
+        {
+          "id": "q2-lists-vs-tuples",
+          "title": "Q2: What are the key operational differences between Lists and Tuples?",
+          "content": "Lists are **mutable** sequence structures (`[]`), allocating extra memory over-allocation for dynamic resizing. Tuples are **immutable** sequence structures (`()`), occupying lower fixed memory footprint, faster allocation speeds, and supporting usage as dictionary keys.",
+          "keyTakeaways": ["Lists = Mutable, higher memory overhead.", "Tuples = Immutable, lower memory, hashable (can be dict keys)."],
+          "interactiveQuiz": {
+            "question": "Can a tuple containing a list element be used as a key inside a Python Dictionary?",
+            "options": [
+              "Yes, because tuples are immutable",
+              "No, because the contained list makes the tuple unhashable, throwing a TypeError",
+              "Yes, if converted to string",
+              "Only in Python 3.12+"
+            ],
+            "correctIndex": 1,
+            "explanation": "A tuple is hashable only if all of its constituent elements are hashable; containing a mutable list raises a TypeError."
+          }
+        },
+        {
+          "id": "q3-dict-and-set-internals-hash-table",
+          "title": "Q3: How do Dictionaries and Sets achieve O(1) average lookup times?",
+          "content": "Python dictionaries and sets are backed by **Hash Tables**. Key hashes are computed via `hash(key)`. In Python 3.6+, dictionaries use a compact array layout (an index array + a dense entries array), preserving insertion order while maintaining $O(1)$ key lookup and deletion.",
+          "keyTakeaways": [
+            "Uses hash tables for $O(1)$ average lookups.",
+            "Python 3.6+ dicts preserve insertion order while reducing memory by ~20-25%."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the average time complexity for searching an element in a Python Set?",
+            "options": ["O(N)", "O(log N)", "O(1)", "O(N log N)"],
+            "correctIndex": 2,
+            "explanation": "Hash table lookups take O(1) average time complexity."
+          }
+        },
+        {
+          "id": "q4-mutable-default-arguments",
+          "title": "Q4: Why are mutable default arguments (e.g. def fn(arg=[])) considered dangerous?",
+          "content": "Default argument values are evaluated **once when the function definition is executed at module import time**, NOT on each function invocation. Passing mutable default arguments (`[]` or `{}`) causes all subsequent calls to mutate the exact same shared object instance.",
+          "keyTakeaways": [
+            "Default parameter objects bind at function definition time.",
+            "Use `None` as default placeholder and assign new mutables inside the body."
+          ],
+          "codeExample": {
+            "title": "Safe Default Argument Pattern",
+            "language": "python",
+            "code": "# ❌ DANGEROUS: Shared list reference across invocations\ndef append_to(element, target=[]):\n    target.append(element)\n    return target\n\n# ✅ SAFE PATTERN: Re-instantiate mutable inside call\ndef safe_append(element, target=None):\n    if target is None:\n        target = []\n    target.append(element)\n    return target",
+            "explanation": "Re-assigning target = [] inside function scope creates fresh list allocations per call."
+          },
+          "interactiveQuiz": {
+            "question": "What is returned by append_to(1) followed by append_to(2) using the dangerous pattern above?",
+            "options": ["[1] then [2]", "[1] then [1, 2]", "[2] then [1, 2]", "TypeError"],
+            "correctIndex": 1,
+            "explanation": "The single default list persists across calls, retaining previous modifications."
+          }
+        },
+        {
+          "id": "q5-is-vs-double-equals",
+          "title": "Q5: What is the difference between the 'is' operator and the '==' operator?",
+          "content": "- **`==` Operator**: Checks **value equality** (invokes `__eq__()`).\n- **`is` Operator**: Checks **object identity** (verifies if two variables reference the exact same memory address using `id(a) == id(b)`).",
+          "keyTakeaways": ["`==` tests equivalence of values.", "`is` tests memory address identity."],
+          "interactiveQuiz": {
+            "question": "What does [1, 2] == [1, 2] and [1, 2] is [1, 2] evaluate to?",
+            "options": ["True and True", "True and False", "False and True", "False and False"],
+            "correctIndex": 1,
+            "explanation": "Values are equal (True), but they are distinct heap object allocations in memory (False)."
+          }
+        },
+        {
+          "id": "q6-shallow-vs-deep-copy",
+          "title": "Q6: What is the difference between copy.copy() and copy.deepcopy()?",
+          "content": "- **Shallow Copy (`copy.copy()`)**: Creates a new container object, but populates it with **references** to child objects inside the original.\n- **Deep Copy (`copy.deepcopy()`)**: Recursively duplicates the container **AND all nested child objects**, constructing completely independent object graphs.",
+          "keyTakeaways": [
+            "Shallow copy duplicates top-level container only.",
+            "Deep copy duplicates container and all nested child object references recursively."
+          ],
+          "interactiveQuiz": {
+            "question": "If you modify a nested list inside a shallow copied object, does the original object's nested list update?",
+            "options": [
+              "No, shallow copies isolate all nested objects",
+              "Yes, because shallow copy retains references to child nested objects",
+              "It throws an exception",
+              "Only for integer data"
+            ],
+            "correctIndex": 1,
+            "explanation": "Shallow copy duplicates the outer container while sharing nested child object references."
+          }
+        },
+        {
+          "id": "q7-args-and-kwargs",
+          "title": "Q7: How do *args and **kwargs function in Python signatures?",
+          "content": "- **`*args`**: Captures variable positional parameters as a **Tuple**.\n- **`**kwargs`**: Captures variable keyword parameters as a **Dictionary**.\nAllow passing arbitrary parameter lists to functions or forwarding arguments in wrapper functions.",
+          "keyTakeaways": [
+            "`*args` collects positional arguments into a tuple.",
+            "`**kwargs` collects keyword arguments into a dictionary."
+          ],
+          "codeExample": {
+            "title": "Forwarding Arguments via Wrapper",
+            "language": "python",
+            "code": "def logger(func):\n    def wrapper(*args, **kwargs):\n        print(f\"Calling {func.__name__} with {args} and {kwargs}\")\n        return func(*args, **kwargs) # Unpacks parameters seamlessly\n    return wrapper",
+            "explanation": "*args and **kwargs capture and forward arbitrary parameters to the target function."
+          },
+          "interactiveQuiz": {
+            "question": "What type of data structure is *args stored as inside function scope?",
+            "options": ["List", "Tuple", "Set", "Dictionary"],
+            "correctIndex": 1,
+            "explanation": "Positional parameter packs (*args) are instantiated as tuples."
+          }
+        },
+        {
+          "id": "q8-list-comprehensions-vs-generator-expressions",
+          "title": "Q8: What are List Comprehensions versus Generator Expressions?",
+          "content": "- **List Comprehension (`[x for x in data]`)**: Evaluates the entire sequence eagerly, building a full list in heap memory.\n- **Generator Expression (`(x for x in data)`)**: Evaluates elements **lazily on-demand**, returning an iterator with minimal $O(1)$ memory footprint.",
+          "keyTakeaways": [
+            "List Comprehension = Eager evaluation ($O(N)$ memory).\nGenerator Expression = Lazy iteration ($O(1)$ memory)."
+          ],
+          "interactiveQuiz": {
+            "question": "Which construct should be preferred when streaming 10 GB of log data line-by-line?",
+            "options": ["List Comprehension", "Generator Expression", "Dictionary Comprehension", "Tuple Casting"],
+            "correctIndex": 1,
+            "explanation": "Generator expressions evaluate lazily, consuming minimal memory regardless of dataset size."
+          }
+        },
+        {
+          "id": "q9-lambda-functions",
+          "title": "Q9: What are Lambda functions and what limitations do they enforce?",
+          "content": "Lambda functions are small, anonymous single-line functions created via `lambda params: expression`. They automatically return expression results and are restricted to **a single expression** (no statements, assignments, or multiline loops allowed).",
+          "keyTakeaways": [
+            "Single-expression inline functions.",
+            "Useful for short callbacks in `map()`, `filter()`, or `sorted(key=...)`."
+          ],
+          "interactiveQuiz": {
+            "question": "Can a lambda function contain explicit return statements or assignment operations in Python?",
+            "options": [
+              "Yes",
+              "No, expressions are evaluated and returned implicitly; statements are forbidden",
+              "Only in Python 3.10+",
+              "Only if wrapped in parentheses"
+            ],
+            "correctIndex": 1,
+            "explanation": "Python lambdas accept expressions only; explicit return statements or assignments cause SyntaxErrors."
+          }
+        },
+        {
+          "id": "q10-namespace-and-scope-legb-rule",
+          "title": "Q10: What is the LEGB Rule for Python scope resolution?",
+          "content": "Python resolves variable names in strict sequential order:\n1. **L (Local)**: Inside active function/lambda body.\n2. **E (Enclosing / Nonlocal)**: In enclosing nested function scopes.\n3. **G (Global)**: At module top-level.\n4. **B (Built-in)**: Preloaded Python built-in names (`len`, `range`).",
+          "keyTakeaways": [
+            "Scope resolution order: Local -> Enclosing -> Global -> Built-in.",
+            "Use `global` or `nonlocal` keywords to rebind variables in outer scopes."
+          ],
+          "interactiveQuiz": {
+            "question": "Which keyword must be used inside a nested inner function to rebind a variable declared in its parent outer function scope?",
+            "options": ["global", "nonlocal", "outer", "parent"],
+            "correctIndex": 1,
+            "explanation": "The nonlocal keyword targets and rebinds variables in enclosing parent function scopes."
+          }
+        },
+        {
+          "id": "q11-pass-by-object-reference",
+          "title": "Q11: How does Python pass arguments to functions (Pass-by-Object-Reference)?",
+          "content": "Python uses **Pass-by-Object-Reference** (or Pass-by-Assignment). Variable names are bindings pointing to objects in memory:\n- Mutating a **mutable object** (e.g. `list.append()`) alters the object in-place, affecting callers.\n- Reassigning the parameter variable name (`arg = new_value`) breaks the binding, leaving caller variables unaffected.",
+          "keyTakeaways": [
+            "Mutating mutable arguments modifies original objects.",
+            "Reassigning variable bindings locally does not affect caller bindings."
+          ],
+          "interactiveQuiz": {
+            "question": "If you pass a list to a function and call list.append(10), will the list outside the function show the change?",
+            "options": [
+              "No",
+              "Yes, because mutable object instances are mutated in-place",
+              "Only if returned explicitly",
+              "Throws AttributeError"
+            ],
+            "correctIndex": 1,
+            "explanation": "Function arguments bind references to existing heap objects; mutating mutable objects updates them globally."
+          }
+        },
+        {
+          "id": "q12-dunder-init-vs-new",
+          "title": "Q12: What is the difference between __new__ and __init__ in Python classes?",
+          "content": "- **`__new__(cls, ...)`**: The actual **constructor**. Allocates and returns a fresh instance of the class in heap memory.\n- **`__init__(self, ...)`**: The **initializer**. Takes the instance returned by `__new__` and configures instance attributes.",
+          "keyTakeaways": [
+            "`__new__` creates and returns object instances (used in singletons/immutable subclasses).",
+            "`__init__` initializes instance attributes."
+          ],
+          "codeExample": {
+            "title": "Overriding __new__ for Singleton Pattern",
+            "language": "python",
+            "code": "class Singleton:\n    _instance = None\n    \n    def __new__(cls, *args, **kwargs):\n        if cls._instance is None:\n            cls._instance = super().__new__(cls)\n        return cls._instance",
+            "explanation": "__new__ controls instance allocation, making it the hook for implementing singletons."
+          },
+          "interactiveQuiz": {
+            "question": "Which method is executed FIRST when instantiating a Python class instance?",
+            "options": ["__init__", "__new__", "__prepare__", "__call__"],
+            "correctIndex": 1,
+            "explanation": "__new__ executes first to allocate memory before passing the instance to __init__."
+          }
+        },
+        {
+          "id": "q13-oops-inheritance-and-super",
+          "title": "Q13: How does super() work in Python class inheritance?",
+          "content": "`super()` delegates method calls to parent or sibling classes dynamically according to the class's **Method Resolution Order (MRO)**. It ensures cooperative multiple inheritance without hardcoding parent class names.",
+          "keyTakeaways": [
+            "Delegates execution following Method Resolution Order (MRO).",
+            "Essential for cooperative multiple inheritance design."
+          ],
+          "interactiveQuiz": {
+            "question": "What method on a class displays its calculated inheritance search order?",
+            "options": ["Class.mro() or Class.__mro__", "Class.order()", "Class.__parents__", "Class.hierarchy()"],
+            "correctIndex": 0,
+            "explanation": "Class.mro() returns the C3 Linearization tuple detailing method lookup priority."
+          }
+        },
+        {
+          "id": "q14-c3-linearization-mro",
+          "title": "Q14: What is C3 Linearization and how does it calculate Method Resolution Order (MRO)?",
+          "content": "Python uses the **C3 Linearization Algorithm** to compute a deterministic MRO for class hierarchies with multiple inheritance. It guarantees:\n1. Subclasses appear before parents.\n2. Parent classes maintain list order declared in class headers.\n3. Preserves local precedence order across complex diamond inheritance graphs.",
+          "keyTakeaways": ["Algorithm powering Python's Method Resolution Order (MRO).", "Prevents diamond inheritance ambiguity errors."],
+          "interactiveQuiz": {
+            "question": "In class D(B, C): pass, which class method is searched first after D?",
+            "options": ["B", "C", "object", "Depends on order of instantiation"],
+            "correctIndex": 0,
+            "explanation": "Classes listed first in header declarations take precedence in MRO order (B before C)."
+          }
+        },
+        {
+          "id": "q15-static-method-vs-class-method",
+          "title": "Q15: What are the differences between @staticmethod and @classmethod?",
+          "content": "- **`@classmethod`**: Receives implicit class binding (`cls`) as first parameter. Can access/modify class state and acts as alternative constructors.\n- **`@staticmethod`**: Isolated utility function bound to class namespace. Receives no implicit `self` or `cls` arguments.",
+          "keyTakeaways": [
+            "`@classmethod` receives `cls` binding; ideal for alternative factory constructors.",
+            "`@staticmethod` receives no implicit binding; ideal for utility functions."
+          ],
+          "codeExample": {
+            "title": "Classmethod Factory Pattern",
+            "language": "python",
+            "code": "class Date:\n    def __init__(self, day, month, year):\n        self.day, self.month, self.year = day, month, year\n        \n    @classmethod\n    def from_string(cls, date_str):\n        day, month, year = map(int, date_str.split('-'))\n        return cls(day, month, year) # Alternative factory constructor",
+            "explanation": "classmethod acts as a factory constructing instances from alternate string formats."
+          },
+          "interactiveQuiz": {
+            "question": "Which decorator receives the class itself (cls) as its first implicit parameter?",
+            "options": ["@staticmethod", "@classmethod", "@property", "@abstractmethod"],
+            "correctIndex": 1,
+            "explanation": "@classmethod implicitly receives the class object as its first argument."
+          }
+        },
+        {
+          "id": "q16-descriptors-get-set",
+          "title": "Q16: What are Python Descriptors and how do __get__ and __set__ operate?",
+          "content": "A **Descriptor** is an object defining attribute access behavior via `__get__()`, `__set__()`, or `__delete__()` methods. Powers `@property`, `@classmethod`, `@staticmethod`, and ORM field mappings.",
+          "keyTakeaways": ["Enables custom attribute management logic.", "Powers properties, methods, and ORM fields under the hood."],
+          "codeExample": {
+            "title": "Custom Validation Descriptor",
+            "language": "python",
+            "code": "class BoundedNumber:\n    def __init__(self, min_val, max_val):\n        self.min_val = min_val\n        self.max_val = max_val\n        \n    def __set_name__(self, owner, name):\n        self.name = name\n        \n    def __set__(self, instance, value):\n        if not (self.min_val <= value <= self.max_val):\n            raise ValueError(f\"{self.name} out of bounds\")\n        instance.__dict__[self.name] = value",
+            "explanation": "Descriptors intercept attribute writes (__set__) to validate values systematically."
+          },
+          "interactiveQuiz": {
+            "question": "Which built-in Python decorator is implemented as a data descriptor?",
+            "options": ["@property", "@dataclass", "@wraps", "@abstractmethod"],
+            "correctIndex": 0,
+            "explanation": "@property wraps getter/setter calls inside descriptor __get__ and __set__ hooks."
+          }
+        },
+        {
+          "id": "q17-property-decorator",
+          "title": "Q17: How does the @property decorator manage encapsulation?",
+          "content": "The `@property` decorator converts a method into a read-only attribute getter. Paired with `@<name>.setter` and `@<name>.deleter`, it enforces encapsulation and input validation without changing public interface attribute access syntax.",
+          "keyTakeaways": [
+            "Provides getter/setter encapsulation with standard attribute access syntax.",
+            "Enables read-only or validated instance attributes."
+          ],
+          "interactiveQuiz": {
+            "question": "How do clients access a property method named 'balance' decorated with @property?",
+            "options": ["obj.balance()", "obj.balance", "obj.get_balance()", "obj.__balance"],
+            "correctIndex": 1,
+            "explanation": "Properties convert method calls into attribute access syntax (obj.balance)."
+          }
+        },
+        {
+          "id": "q18-slots-optimization",
+          "title": "Q18: What is __slots__ and how does it reduce instance memory usage?",
+          "content": "By default, Python instances store attributes inside a dynamic `__dict__` dictionary (causing memory overhead). Declaring `__slots__ = ('attr1', 'attr2')` replaces `__dict__` with a fixed-size compact array layout, reducing instance memory footprint by up to 60-80%.",
+          "keyTakeaways": [
+            "Eliminates per-instance `__dict__` dynamic dictionary allocations.",
+            "Drastically lowers memory footprint for classes instantiated millions of times."
+          ],
+          "interactiveQuiz": {
+            "question": "Can you assign arbitrary new attribute names to an instance of a class that defines __slots__?",
+            "options": [
+              "Yes, dynamically",
+              "No, attempting to assign unlisted attributes throws an AttributeError (unless '__dict__' is in __slots__)",
+              "Yes, but only integer values",
+              "It converts the class to a tuple"
+            ],
+            "correctIndex": 1,
+            "explanation": "__slots__ restricts instance attributes strictly to listed attribute names."
+          }
+        },
+        {
+          "id": "q19-abstract-base-classes-abc",
+          "title": "Q19: How do Abstract Base Classes (ABC) enforce interface contracts?",
+          "content": "Using `abc.ABC` and `@abstractmethod` marks methods that **must** be implemented by concrete subclasses. Instantiating a subclass that lacks overrides for abstract methods throws a `TypeError` at runtime instantiation.",
+          "keyTakeaways": [
+            "Enforces sub-class method implementation contracts.",
+            "Prevents direct instantiation of incomplete interface classes."
+          ],
+          "interactiveQuiz": {
+            "question": "When is a TypeError raised if a subclass fails to implement an @abstractmethod?",
+            "options": [
+              "During module import",
+              "When attempting to instantiate the subclass",
+              "When the un-implemented method is called",
+              "During bytecode compilation"
+            ],
+            "correctIndex": 1,
+            "explanation": "Python verifies abstract method implementation when attempting to instantiate the subclass instance."
+          }
+        },
+        {
+          "id": "q20-python-garbage-collection-and-ref-counting",
+          "title": "Q20: How does Python manage memory (Reference Counting vs Generational GC)?",
+          "content": "Python memory management relies on two layers:\n1. **Reference Counting**: Increments/decrements object reference counters. Deallocates objects immediately when references drop to 0.\n2. **Generational Cyclic GC**: Detects and breaks cyclic reference graphs across 3 generation tiers (Gen 0, Gen 1, Gen 2) using mark-and-sweep passes.",
+          "keyTakeaways": [
+            "Reference counting handles immediate deallocation.",
+            "Generational GC breaks cyclic references (where objects reference each other)."
+          ],
+          "diagram": {
+            "type": "architecture",
+            "title": "Reference Counting & Generational Garbage Collector",
+            "code": "graph TD\n    RefCounter[\"Primary: Reference Counting (Deallocates when refs = 0)\"] --> CyclicGC[\"Secondary: Generational Cyclic GC\"]\n    CyclicGC --> Gen0[\"Gen 0: Frequent Short-lived Scans\"]\n    CyclicGC --> Gen1[\"Gen 1: Intermediate Threshold\"]\n    CyclicGC --> Gen2[\"Gen 2: Long-lived Persistent Scans\"]"
+          },
+          "interactiveQuiz": {
+            "question": "Which issue CANNOT be resolved by Reference Counting alone, requiring the Generational Garbage Collector?",
+            "options": [
+              "Unused string variables",
+              "Cyclic references (two objects referencing each other)",
+              "Large dictionary objects",
+              "Global variables"
+            ],
+            "correctIndex": 1,
+            "explanation": "Cyclic references keep reference counts above 0 even when un-reachable, requiring Generational GC passes to clear."
+          }
+        },
+        {
+          "id": "q21-global-interpreter-lock-gil",
+          "title": "Q21: What is the Global Interpreter Lock (GIL) and how does it affect multi-threading?",
+          "content": "The **GIL** is a mutual exclusion lock in CPython preventing multiple native threads from executing Python bytecode simultaneously on separate CPU cores. Thus, multi-threading benefits **I/O-bound** applications, while **CPU-bound** tasks require `multiprocessing` to bypass the GIL.",
+          "keyTakeaways": [
+            "Prevents multi-core execution of CPython bytecode across threads.",
+            "Use `threading` for I/O-bound tasks; use `multiprocessing` or C-extensions for CPU-bound tasks."
+          ],
+          "interactiveQuiz": {
+            "question": "Which module bypasses the GIL for CPU-heavy mathematical calculations by spawning independent OS processes?",
+            "options": ["threading", "multiprocessing", "asyncio", "concurrent.futures.ThreadPoolExecutor"],
+            "correctIndex": 1,
+            "explanation": "multiprocessing spawns separate Python processes, each possessing an independent Python interpreter and GIL."
+          }
+        },
+        {
+          "id": "q22-python-decorators-explained",
+          "title": "Q22: What is a Python Decorator and how does it transform functions?",
+          "content": "A decorator is a callable that accepts a function object as an argument and returns a modified wrapper function object. Syntax `@decorator` is syntactic sugar for `fn = decorator(fn)`.",
+          "keyTakeaways": [
+            "Syntactic sugar for function wrapping: `fn = decorator(fn)`.",
+            "Use `functools.wraps` to preserve wrapped function metadata (`__name__`, `__doc__`)."
+          ],
+          "codeExample": {
+            "title": "Writing a Parametrized Decorator",
+            "language": "python",
+            "code": "from functools import wraps\n\ndef repeat(num_times):\n    def decorator(func):\n        @wraps(func) # Preserves docstrings and name\n        def wrapper(*args, **kwargs):\n            for _ in range(num_times):\n                result = func(*args, **kwargs)\n            return result\n        return wrapper\n    return decorator",
+            "explanation": "Parametrized decorators use three nested function layers to consume arguments."
+          },
+          "interactiveQuiz": {
+            "question": "Why should @functools.wraps(func) be applied to wrapper functions inside custom decorators?",
+            "options": [
+              "To speed up execution time",
+              "To preserve original function metadata like __name__ and __doc__",
+              "To bypass the GIL",
+              "To make functions thread-safe"
+            ],
+            "correctIndex": 1,
+            "explanation": "functools.wraps copies name, docstring, and annotations from the target function to the wrapper."
+          }
+        },
+        {
+          "id": "q23-generators-and-yield",
+          "title": "Q23: How do Generators and the 'yield' statement operate?",
+          "content": "Functions containing `yield` return a **Generator Iterator**. When `next()` is called, execution proceeds until reaching `yield`, returning the value and **suspending execution frame state in memory**. Subsequent `next()` calls resume execution immediately following `yield`.",
+          "keyTakeaways": [
+            "Suspends function execution state without destroying frame memory.",
+            "Provides lazy evaluation and stream processing with $O(1)$ memory usage."
+          ],
+          "interactiveQuiz": {
+            "question": "What exception is raised when a generator exhausts all yielded values during iteration?",
+            "options": ["GeneratorExit", "StopIteration", "IndexError", "ValueError"],
+            "correctIndex": 1,
+            "explanation": "Iterators and generators raise StopIteration when no further values remain to yield."
+          }
+        },
+        {
+          "id": "q24-yield-from-expression",
+          "title": "Q24: What is 'yield from' and how does generator delegation work?",
+          "content": "`yield from <iterable>` delegates generator yielding directly to a sub-iterable or sub-generator. It establishes a transparent bidirectional channel for passing values and exceptions between outer callers and sub-generators.",
+          "keyTakeaways": [
+            "Delegates iteration directly to inner generators or iterables.",
+            "Establishes bidirectional communication for values and exceptions."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the primary code readability benefit of yield from sub_gen over for x in sub_gen: yield x?",
+            "options": [
+              "Disables memory usage",
+              "Provides concise syntax and handles bidirectional value/exception passing automatically",
+              "Compiles code to C",
+              "Bypasses GIL"
+            ],
+            "correctIndex": 1,
+            "explanation": "yield from handles bidirectional value yields, return values, and exception delegation transparently."
+          }
+        },
+        {
+          "id": "q25-context-managers-with-statement",
+          "title": "Q25: How do Context Managers and the 'with' statement operate under the hood?",
+          "content": "The `with` statement manages resource lifecycles via the **Context Manager Protocol**:\n1. Invokes `__enter__()` on setup, assigning return value to target variable (`as var`).\n2. Guarantees invocation of `__exit__(exc_type, exc_val, exc_tb)` on block exit, handling exceptions cleanly.",
+          "keyTakeaways": [
+            "Executes deterministic cleanup via `__enter__` and `__exit__`.",
+            "Can also implement using `@contextlib.contextmanager` decorator."
+          ],
+          "codeExample": {
+            "title": "Custom Context Manager Class",
+            "language": "python",
+            "code": "class ManagedFile:\n    def __init__(self, filename):\n        self.filename = filename\n        \n    def __enter__(self):\n        self.file = open(self.filename, 'w')\n        return self.file\n        \n    def __exit__(self, exc_type, exc_val, exc_tb):\n        if self.file:\n            self.file.close()\n        return False # Propagate exceptions if any occurred",
+            "explanation": "__exit__ guarantees file stream closure even if exceptions are thrown inside the with block."
+          },
+          "interactiveQuiz": {
+            "question": "What does returning True from an __exit__ method accomplish when an exception occurs inside a with block?",
+            "options": [
+              "Re-raises the exception",
+              "Suppresses the exception, preventing it from propagating outward",
+              "Restarts the with block",
+              "Throws a RuntimeError"
+            ],
+            "correctIndex": 1,
+            "explanation": "Returning a truthy value from __exit__ suppresses exceptions occurring within the managed block."
+          }
+        },
+        {
+          "id": "q26-asyncio-event-loop-and-coroutines",
+          "title": "Q26: How does asyncio execute concurrent I/O using an Event Loop?",
+          "content": "`asyncio` uses single-threaded cooperative multitasking. An **Event Loop** manages a queue of pending tasks. Coroutines (`async def`) yield control explicitly using `await`, allowing the event loop to execute other ready tasks while waiting for I/O.",
+          "keyTakeaways": [
+            "Single-threaded cooperative concurrency.",
+            "Use `await` on asynchronous calls to yield loop execution to other tasks."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens if you execute a blocking synchronous function (like time.sleep(5)) inside an asyncio coroutine?",
+            "options": [
+              "Event loop runs it in a background thread",
+              "Blocks the entire event loop thread, preventing all other concurrent coroutines from executing for 5 seconds",
+              "Throws an AsyncError",
+              "Converts it to asyncio.sleep"
+            ],
+            "correctIndex": 1,
+            "explanation": "Blocking synchronous calls freeze the event loop thread; use asyncio.sleep or run_in_executor."
+          }
+        },
+        {
+          "id": "q27-threading-vs-multiprocessing-vs-asyncio",
+          "title": "Q27: When should you select Threading vs Multiprocessing vs Asyncio?",
+          "content": "- **`asyncio`**: Best for high-concurrency **network I/O** (WebSockets, microservices) with single-threaded cooperative execution.\n- **`threading`**: Best for **blocking file/disk I/O** or library integrations constrained by GIL.\n- **`multiprocessing`**: Best for **CPU-bound calculations** (data processing, image manipulation), bypassing the GIL via separate OS processes.",
+          "keyTakeaways": [
+            "Asyncio: Massive network I/O concurrency.",
+            "Threading: Blocking I/O tasks.",
+            "Multiprocessing: Heavy CPU computation."
+          ],
+          "interactiveQuiz": {
+            "question": "Which module provides optimal performance for parallelizing image transformations across a 16-core CPU?",
+            "options": ["asyncio", "threading", "multiprocessing", "queue"],
+            "correctIndex": 2,
+            "explanation": "Multiprocessing bypasses GIL restrictions across 16 physical cores for CPU-heavy tasks."
+          }
+        },
+        {
+          "id": "q28-metaclasses-type",
+          "title": "Q28: What is a Metaclass and how does 'type' instantiate classes?",
+          "content": "A **Metaclass** is the 'class of a class'. Just as objects are instances of classes, classes are instances of metaclasses. The default metaclass in Python is `type`. Metaclasses intercept class construction to inspect, modify, or validate class attributes during import time.",
+          "keyTakeaways": [
+            "`type` is the default metaclass for all Python classes.",
+            "Metaclasses customize class creation (`__new__` / `__init__` on `type`)."
+          ],
+          "codeExample": {
+            "title": "Creating Custom Metaclass",
+            "language": "python",
+            "code": "class UpperAttributeMeta(type):\n    def __new__(cls, name, bases, dct):\n        # Convert all attribute names to uppercase at class creation time\n        uppercase_dct = {k.upper(): v for k, v in dct.items() if not k.startswith('__')}\n        return super().__new__(cls, name, bases, uppercase_dct)\n\nclass CustomClass(metaclass=UpperAttributeMeta):\n    feature = \"data\"",
+            "explanation": "Metaclass intercepts class creation to modify class attribute dictionaries dynamically."
+          },
+          "interactiveQuiz": {
+            "question": "What is the return value of type(int) and type(type) in Python?",
+            "options": ["<class 'type'> for both", "<class 'object'> for both", "<class 'int'> and <class 'type'>", "TypeError"],
+            "correctIndex": 0,
+            "explanation": "type is the root metaclass; thus both type(int) and type(type) evaluate to <class 'type'>."
+          }
+        },
+        {
+          "id": "q29-functools-lru-cache",
+          "title": "Q29: How does @functools.lru_cache implement memoization?",
+          "content": "`@functools.lru_cache(maxsize=128)` wraps functions with a **Least Recently Used (LRU) Cache** hash table. Calls with identical arguments return cached results instantly ($O(1)$), bypassing computation overhead.",
+          "keyTakeaways": [
+            "Memoizes function call results using an internal dictionary.",
+            "Arguments passed to cached functions MUST be hashable."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens if you pass a mutable list argument to a function decorated with @functools.lru_cache?",
+            "options": ["Function converts list to tuple", "Raises TypeError: unhashable type: 'list'", "Ignores cache", "Runs normally"],
+            "correctIndex": 1,
+            "explanation": "LRU cache maps parameter keys inside an internal dictionary, requiring hashable arguments."
+          }
+        },
+        {
+          "id": "q30-collections-module-key-structures",
+          "title": "Q30: What are the primary data structures provided by the 'collections' module?",
+          "content": "- **`defaultdict`**: Returns default values for missing keys automatically.\n- **`Counter`**: Hash map subclass tracking element frequencies.\n- **`deque`**: Doubly linked list/array with fast $O(1)$ appends and pops at both ends.\n- **`ChainMap`**: Groups multiple dictionaries into a single updates-searchable view.",
+          "keyTakeaways": [
+            "`defaultdict`: Avoids key existence checks.\n`deque`: Fast double-ended queue ($O(1)$ operations).\n`Counter`: Element frequency counting."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the time complexity of popping an element from the LEFT side (popleft()) of a collections.deque?",
+            "options": ["O(N)", "O(1)", "O(log N)", "O(N^2)"],
+            "correctIndex": 1,
+            "explanation": "deques provide constant O(1) time complexity for head and tail modifications."
+          }
+        },
+        {
+          "id": "q31-itertools-module-utilities",
+          "title": "Q31: What are key memory-efficient iterator tools in the 'itertools' module?",
+          "content": "- **`itertools.chain(*iterables)`**: Combines multiple iterables seamlessly without creating intermediate lists.\n- **`itertools.islice(iterable, start, stop)`**: Slices iterators lazily.\n- **`itertools.combinations(iterable, r)`**: Generates $r$-length combinations lazily.",
+          "keyTakeaways": [
+            "Memory-efficient lazy iteration pipelines.",
+            "`chain` merges iterables; `combinations` / `permutations` handle combinatorics."
+          ],
+          "interactiveQuiz": {
+            "question": "Which itertools function merges three separate list generators into a single continuous iterator stream?",
+            "options": ["itertools.merge", "itertools.chain", "itertools.combine", "itertools.concat"],
+            "correctIndex": 1,
+            "explanation": "itertools.chain concatenates multiple input iterables into a unified iterator stream."
+          }
+        },
+        {
+          "id": "q32-dataclasses-module",
+          "title": "Q32: What benefits does the @dataclass decorator offer?",
+          "content": "Introduced in Python 3.7, `@dataclass` generates boilerplate special methods (`__init__()`, `__repr__()`, `__eq__()`, `__hash__()`) automatically based on type annotations. Passing `frozen=True` enforces immutability.",
+          "keyTakeaways": [
+            "Auto-generates `__init__`, `__repr__`, and `__eq__` methods based on type hints.",
+            "`frozen=True` produces immutable, hashable instances."
+          ],
+          "interactiveQuiz": {
+            "question": "How do you make a @dataclass instance immutable and hashable?",
+            "options": ["@dataclass(immutable=True)", "@dataclass(frozen=True)", "@dataclass(static=True)", "@dataclass(hash=True)"],
+            "correctIndex": 1,
+            "explanation": "Setting frozen=True prevents attribute reassignment and generates __hash__() methods."
+          }
+        },
+        {
+          "id": "q33-walrus-operator",
+          "title": "Q33: How does the Walrus Operator (:=) function?",
+          "content": "The **Assignment Expression operator (`:=`)** assigns values to variables **inside an expression** (e.g. inside `if` statements or `while` conditions), eliminating redundant calculation calls.",
+          "keyTakeaways": [
+            "Assigns and evaluates values inline within expressions.",
+            "Reduces code duplication inside loops and conditionals."
+          ],
+          "codeExample": {
+            "title": "Walrus Operator in While Loop",
+            "language": "python",
+            "code": "# Inline assignment within while condition stream\nwhile (chunk := file.read(1024)):\n    process(chunk)",
+            "explanation": "The walrus operator assigns chunk and checks truthiness in a single unified line."
+          },
+          "interactiveQuiz": {
+            "question": "In which Python version was the assignment expression (walrus operator :=) introduced?",
+            "options": ["Python 3.6", "Python 3.8", "Python 3.10", "Python 3.12"],
+            "correctIndex": 1,
+            "explanation": "The walrus operator was introduced in Python 3.8."
+          }
+        },
+        {
+          "id": "q34-structural-pattern-matching",
+          "title": "Q34: How does Structural Pattern Matching (match/case) operate in Python 3.10+?",
+          "content": "`match/case` inspects structural shape matching for objects, sequences, and dictionaries, binding nested elements directly using class patterns and guard conditions (`if`).",
+          "keyTakeaways": [
+            "Structural shape matching beyond basic scalar equality.",
+            "Extracts nested sequence or dictionary items using guard conditions."
+          ],
+          "interactiveQuiz": {
+            "question": "Which wildcard symbol handles default fallback cases in match/case statements?",
+            "options": ["default:", "case _:", "case *:", "else:"],
+            "correctIndex": 1,
+            "explanation": "The single underscore wildcard (case _:) matches all remaining unmatched shapes."
+          }
+        },
+        {
+          "id": "q35-type-hinting-and-mypy",
+          "title": "Q35: How does Type Hinting work in Python and how do static type checkers leverage it?",
+          "content": "Type hints (`def func(x: int) -> str:`) provide optional type annotations. Python enforces **no runtime type checking** automatically; external tools like **Mypy** parse type hints during CI/CD to detect bugs statically.",
+          "keyTakeaways": ["Annotations are strictly informational at runtime.", "Mypy performs static type analysis prior to execution."],
+          "interactiveQuiz": {
+            "question": "Does CPython raise a TypeError at runtime if you pass a float to a function hinted with x: int?",
+            "options": [
+              "Yes, always",
+              "No, Python ignores type hints completely during runtime execution",
+              "Only in debug mode",
+              "Yes, in Python 3.12+"
+            ],
+            "correctIndex": 1,
+            "explanation": "Type hints are ignored by CPython during runtime execution; static tools like Mypy enforce them."
+          }
+        },
+        {
+          "id": "q36-contextlib-module",
+          "title": "Q36: How does @contextlib.contextmanager simplify Context Manager generation?",
+          "content": "The `@contextlib.contextmanager` decorator converts a generator function containing a single `yield` statement into a context manager. Code prior to `yield` acts as `__enter__()`; code after `yield` acts as `__exit__()`.",
+          "keyTakeaways": [
+            "Converts generator functions into context managers.",
+            "Pre-yield = setup (`__enter__`); post-yield = cleanup (`__exit__`)."
+          ],
+          "interactiveQuiz": {
+            "question": "Where should cleanup code (file.close()) be placed inside a @contextlib.contextmanager function?",
+            "options": ["Before yield", "In a try...finally block after yield", "In an except block", "Outside function scope"],
+            "correctIndex": 1,
+            "explanation": "Wrapping yield inside try...finally guarantees cleanup execution even if caller code throws errors."
+          }
+        },
+        {
+          "id": "q37-weakref-module",
+          "title": "Q37: What are Weak References (weakref module) and when should they be used?",
+          "content": "A `weakref` reference creates a pointer to an object **without incrementing its reference count**. Used to implement object caches or circular graphs without preventing Garbage Collector deallocation.",
+          "keyTakeaways": [
+            "References objects without incrementing reference counters.",
+            "Prevents circular reference memory leaks in caches and graphs."
+          ],
+          "interactiveQuiz": {
+            "question": "What is returned when attempting to access a weak reference whose underlying object was garbage collected?",
+            "options": ["NullPointerError", "None", "Empty string", "Old memory address"],
+            "correctIndex": 1,
+            "explanation": "Dereferencing a dead weak reference returns None."
+          }
+        },
+        {
+          "id": "q38-sys-vs-os-modules",
+          "title": "Q38: What are the differences between the 'sys' and 'os' modules?",
+          "content": "- **`sys`**: Interacts directly with the **Python Interpreter** (`sys.argv`, `sys.path`, `sys.exit()`, `sys.getrefcount()`).\n- **`os`**: Interacts with the underlying **Operating System** (`os.path`, `os.environ`, `os.mkdir()`, `os.listdir()`).",
+          "keyTakeaways": ["`sys`: Interpreter runtime context.", "`os`: Operating system filesystem and environment interaction."],
+          "interactiveQuiz": {
+            "question": "Which module provides the list of command-line arguments (sys.argv) passed to a Python script?",
+            "options": ["os", "sys", "platform", "env"],
+            "correctIndex": 1,
+            "explanation": "sys.argv extracts interpreter command-line parameters."
+          }
+        },
+        {
+          "id": "q39-pickle-vs-json-serialization",
+          "title": "Q39: What are the trade-offs between 'pickle' and 'json' serialization?",
+          "content": "- **`json`**: Human-readable, language-agnostic text serialization format. Safe, but restricted to standard data types.\n- **`pickle`**: Python-specific binary object serialization format. Supports arbitrary Python objects, but is **extremely insecure** against un-trusted inputs (arbitrary code execution).",
+          "keyTakeaways": [
+            "JSON: Language-agnostic, safe text serialization.",
+            "Pickle: Python-specific, supports complex objects, insecure against un-trusted inputs."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is unpickling data received over an unauthenticated network connection a critical security risk?",
+            "options": [
+              "Because it uses high memory",
+              "Because pickle can execute arbitrary malicious code instructions during unpickling",
+              "Because it breaks UTF-8 encoding",
+              "It is not a risk"
+            ],
+            "correctIndex": 1,
+            "explanation": "Pickle streams can execute arbitrary system commands via object reduction hooks during deserialization."
+          }
+        },
+        {
+          "id": "q40-monkey-patching",
+          "title": "Q40: What is Monkey Patching and what are its risks?",
+          "content": "Monkey Patching refers to dynamic runtime modifications of classes or modules at application startup (e.g. overriding methods or libraries on the fly). Common in testing mocks or event loop patching (`gevent`), but risks introducing hard-to-debug runtime side-effects.",
+          "keyTakeaways": [
+            "Dynamically mutates module/class attributes at runtime.",
+            "Useful for testing mocks, but risky in production systems."
+          ],
+          "interactiveQuiz": {
+            "question": "When does monkey patching modify the target class behavior?",
+            "options": [
+              "During bytecode compilation",
+              "At runtime during script execution",
+              "When saving file to disk",
+              "During CPython installation"
+            ],
+            "correctIndex": 1,
+            "explanation": "Monkey patching mutates class or module attribute bindings dynamically in memory at runtime."
+          }
+        },
+        {
+          "id": "q41-gil-removal-pep-703",
+          "title": "Q41: What is free-threaded Python (PEP 703) and how is the GIL being made optional?",
+          "content": "PEP 703 introduces **free-threaded CPython**, allowing the GIL to be disabled completely in Python 3.13+. It replaces the global lock with fine-grained locks, biased locking, and immortal objects to achieve true multi-core parallel execution across threads.",
+          "keyTakeaways": [
+            "PEP 703 makes the GIL optional in CPython build flags.",
+            "Replaces the global lock with fine-grained thread locking."
+          ],
+          "interactiveQuiz": {
+            "question": "Starting in Python 3.13, how can developers execute threads without GIL limitations in experimental builds?",
+            "options": [
+              "Using free-threaded CPython build binaries",
+              "Using --no-gil flag in standard 3.10",
+              "By converting code to C++",
+              "Using PyPy exclusively"
+            ],
+            "correctIndex": 0,
+            "explanation": "Python 3.13 provides experimental free-threaded CPython build options with the GIL disabled."
+          }
+        },
+        {
+          "id": "q42-exception-group-and-except-star",
+          "title": "Q42: What are ExceptionGroups and the 'except*' syntax in Python 3.11+?",
+          "content": "`ExceptionGroup` allows raising multiple concurrent exceptions simultaneously (common in `asyncio.TaskGroup`). The `except*` syntax enables matching and handling individual exception subtypes within the group concurrently.",
+          "keyTakeaways": [
+            "Handles multiple concurrent exception traces.",
+            "`except* ExceptionType` matches nested exceptions within groups."
+          ],
+          "interactiveQuiz": {
+            "question": "Which construct introduced ExceptionGroup handling for concurrent asyncio task groups?",
+            "options": ["try...except*", "try...except ALL", "match...case", "raise from"],
+            "correctIndex": 0,
+            "explanation": "try...except* allows selectively catching specific exception categories inside an ExceptionGroup."
+          }
+        },
+        {
+          "id": "q43-zip-strict-parameter",
+          "title": "Q43: How does zip(..., strict=True) operate in Python 3.10+?",
+          "content": "By default, `zip()` truncates iteration silently when the shortest input iterable exhausts. Passing `strict=True` forces `zip()` to raise a `ValueError` if input iterables are of unequal lengths.",
+          "keyTakeaways": [
+            "Prevents silent data loss caused by unequal input lengths during zipping.",
+            "Raises `ValueError` if iterable lengths mismatch."
+          ],
+          "interactiveQuiz": {
+            "question": "What occurs when executing list(zip([1, 2], ['a', 'b', 'c'], strict=True))?",
+            "options": ["[(1, 'a'), (2, 'b')]", "Raises ValueError", "[(1, 'a'), (2, 'b'), (None, 'c')]", "Truncates silently"],
+            "correctIndex": 1,
+            "explanation": "strict=True asserts that all zipped iterables possess identical lengths, throwing ValueError on mismatch."
+          }
+        },
+        {
+          "id": "q44-import-system-sys-path",
+          "title": "Q44: How does Python's Import System search for modules via sys.path?",
+          "content": "When an `import` statement executes, Python searches locations listed in `sys.path` in order:\n1. Directory containing the input script.\n2. Directories listed in `PYTHONPATH`.\n3. Standard library directories.\n4. Installed third-party `site-packages`.",
+          "keyTakeaways": [
+            "Search path sequence stored in `sys.path` list.",
+            "Loaded modules are cached in `sys.modules` dictionary to prevent re-parsing."
+          ],
+          "interactiveQuiz": {
+            "question": "Where does Python cache successfully imported module objects to prevent redundant disk reads?",
+            "options": ["sys.cache", "sys.modules", "os.environ", "sys.path"],
+            "correctIndex": 1,
+            "explanation": "sys.modules is a dictionary mapping loaded module names to their module objects."
+          }
+        },
+        {
+          "id": "q45-init-py-vs-namespace-packages",
+          "title": "Q45: What is the difference between Regular Packages (__init__.py) and Namespace Packages?",
+          "content": "- **Regular Package**: Directory containing an `__init__.py` file. Acts as a unified module namespace.\n- **Namespace Package (PEP 420)**: Directory **lacking** `__init__.py`. Allows splitting a single Python package across multiple distinct file system directories or virtual environments.",
+          "keyTakeaways": [
+            "Regular packages require `__init__.py` files.",
+            "Namespace packages allow splitting package directories across multiple locations."
+          ],
+          "interactiveQuiz": {
+            "question": "Are __init__.py files mandatory for creating Python package directories in Python 3.3+?",
+            "options": [
+              "Yes, always",
+              "No, Python 3.3+ supports Implicit Namespace Packages without __init__.py",
+              "Only in Linux",
+              "Required for pip install"
+            ],
+            "correctIndex": 1,
+            "explanation": "PEP 420 introduced Implicit Namespace Packages, making __init__.py files optional."
+          }
+        },
+        {
+          "id": "q46-str-vs-repr",
+          "title": "Q46: What are the differences between __str__ and __repr__?",
+          "content": "- **`__str__()`**: Readable string representation intended for **end-users** (`str(obj)` / `print(obj)`).\n- **`__repr__()`**: Unambiguous string representation intended for **developers/debugging** (`repr(obj)`). Ideally returns valid Python code that could recreate the object.",
+          "keyTakeaways": ["`__str__` = User-friendly formatting.\n`__repr__` = Unambiguous developer representation."],
+          "interactiveQuiz": {
+            "question": "Which method is invoked by container fallback when printing a list of custom objects print([obj1, obj2])?",
+            "options": ["__str__", "__repr__", "__format__", "__ascii__"],
+            "correctIndex": 1,
+            "explanation": "Containers format internal items using their __repr__() representations."
+          }
+        },
+        {
+          "id": "q47-operator-overloading-magic-methods",
+          "title": "Q47: How does Operator Overloading function using dunder methods?",
+          "content": "Operator symbols map directly to internal magic methods (dunder methods). Custom classes implement methods like `__add__()` (`+`), `__sub__()` (`-`), `__eq__()` (`==`), or `__getitem__()` (`[]`) to define custom operator evaluation.",
+          "keyTakeaways": [
+            "Maps operators (`+`, `-`, `==`) to special methods (`__add__`, `__sub__`, `__eq__`).",
+            "Right-hand variants (`__radd__`) handle fallback arithmetic when left operands do not support the operation."
+          ],
+          "codeExample": {
+            "title": "Operator Overloading Vector Addition",
+            "language": "python",
+            "code": "class Vector:\n    def __init__(self, x, y):\n        self.x, self.y = x, y\n        \n    def __add__(self, other):\n        return Vector(self.x + other.x, self.y + other.y)\n        \n    def __repr__(self):\n        return f\"Vector({self.x}, {self.y})\" ",
+            "explanation": "Overriding __add__ enables adding two Vector objects using standard + operators."
+          },
+          "interactiveQuiz": {
+            "question": "Which magic method handles indexing lookups obj[key] on custom classes?",
+            "options": ["__index__", "__getitem__", "__get__", "__getattr__"],
+            "correctIndex": 1,
+            "explanation": "__getitem__(self, key) handles bracket subscript indexing access."
+          }
+        },
+        {
+          "id": "q48-getattr-vs-getattribute",
+          "title": "Q48: What is the difference between __getattr__ and __getattribute__?",
+          "content": "- **`__getattribute__(self, name)`**: Invoked **unconditionally** for EVERY attribute access attempt on an instance.\n- **`__getattr__(self, name)`**: Invoked **ONLY** when the attribute is NOT found in the instance `__dict__` or class hierarchy (fallback lookup).",
+          "keyTakeaways": [
+            "`__getattribute__`: Called for all attribute access attempts (risk of infinite recursion).\n`__getattr__`: Fallback hook called only for missing attributes."
+          ],
+          "interactiveQuiz": {
+            "question": "How do you avoid infinite recursion inside a custom __getattribute__ implementation?",
+            "options": [
+              "Use self.attr",
+              "Use super().__getattribute__(name) to retrieve attributes safely",
+              "Call __getattr__ directly",
+              "Return None"
+            ],
+            "correctIndex": 1,
+            "explanation": "Accessing self.__dict__ inside __getattribute__ triggers __getattribute__ again, requiring super().__getattribute__(name)."
+          }
+        },
+        {
+          "id": "q49-call-magic-method",
+          "title": "Q49: What does implementing __call__ accomplish on a class?",
+          "content": "Implementing `__call__(self, *args, **kwargs)` makes instances of the class **callable like standard functions** (`instance()`). Used to maintain stateful function closures or class-based decorators.",
+          "keyTakeaways": ["Makes instance objects callable like standard functions.", "Useful for stateful function decorators."],
+          "interactiveQuiz": {
+            "question": "What built-in function tests whether an object instance implements the __call__ method?",
+            "options": ["isinstance()", "callable()", "hasattr()", "type()"],
+            "correctIndex": 1,
+            "explanation": "callable(obj) returns True if the object's class implements __call__."
+          }
+        },
+        {
+          "id": "q50-built-in-functions-map-filter-reduce",
+          "title": "Q50: How do map(), filter(), and functools.reduce() operate?",
+          "content": "- **`map(fn, iterable)`**: Applies `fn` to every item, returning a lazy iterator.\n- **`filter(fn, iterable)`**: Filters elements where `fn(item)` evaluates truthy, returning a lazy iterator.\n- **`reduce(fn, iterable)`**: Accumulates elements sequentially into a single aggregate result.",
+          "keyTakeaways": ["`map` and `filter` return lazy iterators.", "`reduce` aggregates sequence items down to a single value."],
+          "interactiveQuiz": {
+            "question": "In which module does the reduce() function reside in Python 3?",
+            "options": ["builtins", "functools", "itertools", "collections"],
+            "correctIndex": 1,
+            "explanation": "reduce() was moved from builtins to functools in Python 3."
+          }
+        },
+        {
+          "id": "q51-sub-process-module-usage",
+          "title": "Q51: How do you execute system commands using the 'subprocess' module?",
+          "content": "The `subprocess` module executes external shell commands. Modern best practice uses `subprocess.run(['cmd', 'arg'], capture_output=True, text=True, check=True)` to prevent shell injection vulnerabilities.",
+          "keyTakeaways": [
+            "Replaces legacy `os.system` calls.",
+            "Pass arguments as explicit list vectors (`['ls', '-l']`) to block shell injection attacks."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is passing command strings with shell=True considered a major security vulnerability?",
+            "options": [
+              "It runs too slowly",
+              "It exposes application execution to dangerous shell injection attacks from un-sanitized user inputs",
+              "It breaks UTF-8 text parsing",
+              "It allocates extra processes"
+            ],
+            "correctIndex": 1,
+            "explanation": "shell=True passes raw strings to system shell parsers, enabling shell injection attacks."
+          }
+        },
+        {
+          "id": "q52-tempfile-and-shutil-modules",
+          "title": "Q52: What utilities do the 'tempfile' and 'shutil' modules provide?",
+          "content": "- **`tempfile`**: Creates secure temporary files and directories (`NamedTemporaryFile`, `TemporaryDirectory`) auto-cleaned on exit.\n- **`shutil`**: High-level file operations (`shutil.copy()`, `shutil.move()`, `shutil.rmtree()`, `shutil.make_archive()`).",
+          "keyTakeaways": [
+            "`tempfile`: Secure temporary file lifecycle management.",
+            "`shutil`: High-level filesystem and archive operations."
+          ],
+          "interactiveQuiz": {
+            "question": "Which function recursively deletes an entire directory tree along with all its contents?",
+            "options": ["os.remove()", "os.rmdir()", "shutil.rmtree()", "tempfile.cleanup()"],
+            "correctIndex": 2,
+            "explanation": "shutil.rmtree() recursively deletes a directory and its full child file structure."
+          }
+        },
+        {
+          "id": "q53-profiling-python-code",
+          "title": "Q53: How do you profile Python code performance using cProfile and line_profiler?",
+          "content": "- **`cProfile`**: Built-in deterministic profiler tracking function call frequency and execution duration.\n- **`line_profiler`**: Third-party tool providing line-by-line execution duration breakdowns across individual code statements.",
+          "keyTakeaways": [
+            "`cProfile`: Tracks function-level invocation counts and execution durations.",
+            "`line_profiler`: Identifies bottleneck statements line-by-line."
+          ],
+          "interactiveQuiz": {
+            "question": "Which built-in module measures cumulative execution times for Python function calls?",
+            "options": ["timeit", "cProfile", "tracemalloc", "pstats"],
+            "correctIndex": 1,
+            "explanation": "cProfile is the C-extension deterministic function profiler included in standard libraries."
+          }
+        },
+        {
+          "id": "q54-tracemalloc-memory-profiling",
+          "title": "Q54: How do you track memory allocations using the 'tracemalloc' module?",
+          "content": "`tracemalloc` is a built-in module that traces memory blocks allocated by Python. Call `tracemalloc.start()`, take snapshots (`tracemalloc.take_snapshot()`), and compare snapshots to detect memory leaks.",
+          "keyTakeaways": [
+            "Traces heap memory block allocations to specific line numbers.",
+            "Compares memory snapshots to isolate memory leaks."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method takes a point-in-time snapshot of active memory allocations in tracemalloc?",
+            "options": ["tracemalloc.get_trace()", "tracemalloc.take_snapshot()", "tracemalloc.memory_dump()", "tracemalloc.get_heap()"],
+            "correctIndex": 1,
+            "explanation": "take_snapshot() records active memory allocations across Python files and lines."
+          }
+        },
+        {
+          "id": "q55-timeit-module-benchmarking",
+          "title": "Q55: How do you accurately benchmark small code snippets using the 'timeit' module?",
+          "content": "The `timeit` module measures execution time of small code fragments by executing them millions of times in isolation, temporarily disabling garbage collection to prevent benchmarking distortion.",
+          "keyTakeaways": [
+            "Executes isolated micro-benchmarks across repeated iteration loops.",
+            "Disables garbage collection during test runs to ensure measurement accuracy."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does timeit disable garbage collection by default during micro-benchmarks?",
+            "options": [
+              "Garbage collection breaks Python code",
+              "To prevent random GC pause spikes from distorting code performance timing metrics",
+              "Because timeit cannot run with GC",
+              "To speed up execution"
+            ],
+            "correctIndex": 1,
+            "explanation": "Disabling GC ensures measurements reflect code execution speed without random GC pause distortions."
+          }
+        },
+        {
+          "id": "q56-unittest-vs-pytest",
+          "title": "Q56: How do pytest and unittest compare for test suite development?",
+          "content": "- **`unittest`**: Built-in xUnit-style framework requiring class inheritance (`unittest.TestCase`) and explicit assertion methods (`assertEqual`).\n- **`pytest`**: Popular third-party framework using plain `assert` statements, powerful flexible **fixtures**, parameterization, and plugin ecosystems.",
+          "keyTakeaways": [
+            "`unittest`: Standard library xUnit class hierarchy.\n`pytest`: Functional testing with fixtures and plain `assert` statements."
+          ],
+          "interactiveQuiz": {
+            "question": "How does pytest handle test setup and teardown dependencies efficiently?",
+            "options": ["Inheritance classes", "Pytest Fixtures (@pytest.fixture)", "Global variables", "Setup files"],
+            "correctIndex": 1,
+            "explanation": "Pytest Fixtures provide modular dependency injection for setup and teardown tasks."
+          }
+        },
+        {
+          "id": "q57-unittest-mock-patching",
+          "title": "Q57: How does unittest.mock.patch work when mocking dependencies?",
+          "content": "`unittest.mock.patch` replaces target objects with `MagicMock` instances during testing scope. **Crucial Rule**: Always patch the target reference **where it is imported/used**, NOT where it is defined.",
+          "keyTakeaways": ["Replaces dependencies with `MagicMock` objects.", "Patch where the module IS USED, not where it is defined."],
+          "interactiveQuiz": {
+            "question": "If module_a.py imports 'requests', where should you target patch() inside test scripts testing module_a?",
+            "options": ["patch('requests.get')", "patch('module_a.requests.get')", "patch('urllib3.get')", "patch('builtins.requests')"],
+            "correctIndex": 1,
+            "explanation": "Mock targets must point to the namespace reference where they are imported and used (module_a.requests.get)."
+          }
+        },
+        {
+          "id": "q58-docstrings-and-doctest",
+          "title": "Q58: How does the 'doctest' module execute tests embedded inside docstrings?",
+          "content": "The `doctest` module parses docstrings searching for text matching interactive Python sessions (`>>>`). It executes specified commands and verifies that output text matches docstring expectations.",
+          "keyTakeaways": [
+            "Executes interactive session examples embedded inside docstrings.",
+            "Ensures documentation examples remain accurate and tested."
+          ],
+          "interactiveQuiz": {
+            "question": "Which visual prefix character indicates executable code snippets inside doctest strings?",
+            "options": ["#", ">>>", "...", "-->"],
+            "correctIndex": 1,
+            "explanation": "doctest searches docstrings for python REPL prompt sequences starting with >>>."
+          }
+        },
+        {
+          "id": "q59-virtual-environments-venv-vs-conda",
+          "title": "Q59: How do Virtual Environments (venv) isolate package dependencies?",
+          "content": "A virtual environment (`venv`) constructs an isolated directory layout containing a dedicated Python interpreter copy and site-packages path. Activating a `venv` updates environment path variables (`PATH`, `VIRTUAL_ENV`), isolating dependencies from system packages.",
+          "keyTakeaways": ["Isolates project site-packages and binary paths.", "Prevents package version collisions across projects."],
+          "interactiveQuiz": {
+            "question": "Which environment variable is updated when activating a virtual environment to reprioritize executable path lookup?",
+            "options": ["PYTHONPATH", "PATH", "SITE_PACKAGES", "VENV_ROOT"],
+            "correctIndex": 1,
+            "explanation": "Activating a venv prepends its bin directory to the system PATH environment variable."
+          }
+        },
+        {
+          "id": "q60-pip-and-wheels-pkg",
+          "title": "Q60: What is a Python Wheel (.whl) package and why is it preferred over Source Distributions (sdist)?",
+          "content": "- **`sdist` (.tar.gz)**: Source distribution requiring compilation of C-extensions on the target machine during installation.\n- **`Wheel` (.whl)**: Built package format containing pre-compiled binaries, enabling fast instant installation without local compiler dependencies.",
+          "keyTakeaways": ["Wheels (.whl) deliver pre-compiled binaries.", "Eliminates build compiler setup steps during `pip install`."],
+          "interactiveQuiz": {
+            "question": "What primary advantage do Wheel packages (.whl) provide over Source Distributions (sdist)?",
+            "options": [
+              "They use less disk space",
+              "They bypass local source code compilation of C-extensions during pip installation",
+              "They run without Python",
+              "They disable package uninstall"
+            ],
+            "correctIndex": 1,
+            "explanation": "Wheels supply pre-compiled binary files, accelerating pip installation by skipping local C compilation."
+          }
+        },
+        {
+          "id": "q61-security-eval-vs-literal-eval",
+          "title": "Q61: Why is eval() insecure and why should ast.literal_eval() be used instead?",
+          "content": "- **`eval()`**: Parses and executes arbitrary Python code strings, opening system vulnerabilities to command execution attacks.\n- **`ast.literal_eval()`**: Safely evaluates strings containing **strictly basic Python literals** (strings, numbers, tuples, lists, dicts, booleans), rejecting code execution.",
+          "keyTakeaways": [
+            "`eval()` executes arbitrary code (extreme security risk).\n`ast.literal_eval()` safely evaluates primitive literal data structures."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens if a string containing __import__('os').system('rm -rf /') is passed to ast.literal_eval()?",
+            "options": ["Executes command", "Raises ValueError: malformed node or string", "Returns None", "Deletes files"],
+            "correctIndex": 1,
+            "explanation": "ast.literal_eval rejects non-literal function evaluation calls, throwing ValueError safely."
+          }
+        },
+        {
+          "id": "q62-security-hash-seed-randomization",
+          "title": "Q62: What is Hash Seed Randomization and how does it prevent Hash Collision DoS attacks?",
+          "content": "CPython randomizes string and byte hash seed values on process startup (`PYTHONHASHSEED`). This prevents attacker inputs from triggering deliberate hash collision $O(N^2)$ algorithmic degradation DoS attacks on dictionaries.",
+          "keyTakeaways": [
+            "Randomizes string hash seeds on process startup.",
+            "Defends dictionaries against Hash Collision Denial-of-Service attacks."
+          ],
+          "interactiveQuiz": {
+            "question": "Are string hash values hash('text') identical across different execution runs of Python scripts?",
+            "options": [
+              "Yes, always",
+              "No, startup hash seed randomization changes hash results between separate Python process runs",
+              "Only for integers",
+              "Only in Python 2"
+            ],
+            "correctIndex": 1,
+            "explanation": "Process-level hash seed randomization produces differing string hash values across separate Python runs."
+          }
+        },
+        {
+          "id": "q63-pythons-c-api-and-cython",
+          "title": "Q63: What is Cython and how does it bridge Python and C code?",
+          "content": "Cython is a superset programming language compiling Python code with explicit C type declarations into C/C++ extensions. It provides massive 10x-100x speedups for numerical algorithms while bypassing GIL constraints for native code regions.",
+          "keyTakeaways": [
+            "Compiles typed Python code into C/C++ extensions.",
+            "Delivers massive execution speedups for numerical algorithms."
+          ],
+          "interactiveQuiz": {
+            "question": "What compiled extension file format does Cython output for import into Python?",
+            "options": [".pyc", ".so / .pyd binary C-extension file", ".whl", ".exe"],
+            "correctIndex": 1,
+            "explanation": "Cython compiles code into native C-extension shared objects (.so on Linux/Mac, .pyd on Windows)."
+          }
+        },
+        {
+          "id": "q64-ctypes-vs-cffi",
+          "title": "Q64: How do 'ctypes' and 'cffi' bind C libraries to Python?",
+          "content": "- **`ctypes`**: Built-in standard library module loading compiled dynamic libraries (`.so` / `.dll`) and calling C functions using Python wrappers.\n- **`cffi`**: Third-party C Foreign Function Interface parsing raw C header files (`.h`) directly to generate fast Python bindings.",
+          "keyTakeaways": ["`ctypes`: Built-in dynamic library binder.\n`cffi`: Header-driven C foreign function interface."],
+          "interactiveQuiz": {
+            "question": "Which module in standard libraries allows loading .so or .dll files directly into Python?",
+            "options": ["cffi", "ctypes", "cython", "subprocess"],
+            "correctIndex": 1,
+            "explanation": "ctypes is the standard library module for loading C dynamic shared libraries."
+          }
+        },
+        {
+          "id": "q65-pypy-jit-compiler",
+          "title": "Q65: What is PyPy and how does its JIT Compiler differ from CPython?",
+          "content": "PyPy is an alternative implementation of Python written in RPython. It features a **Just-In-Time (JIT) Compiler** that analyzes code execution at runtime, compiling hot bytecode loops directly into machine code for 4x-5x average speedups over CPython.",
+          "keyTakeaways": [
+            "Alternative Python implementation featuring a JIT compiler.",
+            "Delivers substantial performance speedups for long-running CPU loops."
+          ],
+          "interactiveQuiz": {
+            "question": "Does standard CPython incorporate a JIT compiler by default in Python 3.10?",
+            "options": [
+              "Yes",
+              "No, standard CPython relies on a bytecode interpreter PVM",
+              "Only on Linux",
+              "Only for floating point math"
+            ],
+            "correctIndex": 1,
+            "explanation": "CPython uses a bytecode interpreter; PyPy incorporates a dynamic JIT compiler."
+          }
+        },
+        {
+          "id": "q66-memoryview-and-zero-copy-buffers",
+          "title": "Q66: What is a memoryview object and how does it achieve Zero-Copy I/O?",
+          "content": "`memoryview` exposes Python's internal **Buffer Protocol**. It permits slicing binary array data (like `bytes` or `bytearray`) without copying bytes in memory, delivering $O(1)$ zero-copy buffer slicing for network and file I/O operations.",
+          "keyTakeaways": ["Exposes internal Buffer Protocol.", "Enables zero-copy slicing of large byte arrays."],
+          "codeExample": {
+            "title": "Zero-Copy Memoryview Slicing",
+            "language": "python",
+            "code": "data = bytearray(b\"X\" * 10_000_000) # 10 MB buffer\nmv = memoryview(data)\nslice_mv = mv[1000:2000] # O(1) Zero-copy slice window",
+            "explanation": "memoryview creates a view slice without duplicating 10MB of buffer memory."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time and space complexity of slicing a 1GB bytearray using memoryview?",
+            "options": ["O(N) time and space", "O(1) time and space", "O(log N) time", "O(N^2) space"],
+            "correctIndex": 1,
+            "explanation": "memoryview slices create pointer window views without copying buffer bytes ($O(1)$ time and memory)."
+          }
+        },
+        {
+          "id": "q67-struct-module-binary-packing",
+          "title": "Q67: How does the 'struct' module parse binary data byte streams?",
+          "content": "The `struct` module converts between Python values and C struct binary representations using format strings (e.g. `'i'` for 4-byte int, `'f'` for float, `'h'` for short int). Key functions: `struct.pack()` and `struct.unpack()`.",
+          "keyTakeaways": [
+            "Packs/unpacks C-compatible binary data structures.",
+            "Essential for parsing binary network protocols and byte files."
+          ],
+          "interactiveQuiz": {
+            "question": "Which function converts Python primitives into packed C-style binary byte streams?",
+            "options": ["struct.pack()", "struct.unpack()", "struct.parse()", "struct.encode()"],
+            "correctIndex": 0,
+            "explanation": "struct.pack() encodes Python variables into binary byte streams based on format specifiers."
+          }
+        },
+        {
+          "id": "q68-socket-programming-basics",
+          "title": "Q68: How do low-level Socket connections work in Python?",
+          "content": "The `socket` module provides low-level network interface bindings:\n- **Server**: `socket()`, `bind((host, port))`, `listen()`, `accept()`, `recv()`, `send()`, `close()`.\n- **Client**: `socket()`, `connect((host, port))`, `send()`, `recv()`, `close()`.",
+          "keyTakeaways": ["Low-level TCP/UDP socket network API.", "Server pipeline: `bind` -> `listen` -> `accept`."],
+          "interactiveQuiz": {
+            "question": "Which socket method blocks waiting for an incoming client TCP connection request on servers?",
+            "options": ["bind()", "listen()", "accept()", "connect()"],
+            "correctIndex": 2,
+            "explanation": "accept() blocks execution until an incoming client TCP connection is established."
+          }
+        },
+        {
+          "id": "q69-wsgi-vs-asgi-standards",
+          "title": "Q69: What are the differences between WSGI and ASGI application server standards?",
+          "content": "- **WSGI (Web Server Gateway Interface - PEP 3333)**: Synchronous interface standard (`gunicorn`, `uWSGI`) designed for frameworks like Flask and Django.\n- **ASGI (Asynchronous Server Gateway Interface)**: Async successor (`uvicorn`) supporting `asyncio`, WebSockets, and long-polling for modern frameworks like FastAPI.",
+          "keyTakeaways": [
+            "WSGI: Synchronous web server interface (Flask/Django).\nASGI: Asynchronous interface supporting WebSockets and `asyncio` (FastAPI)."
+          ],
+          "interactiveQuiz": {
+            "question": "Which application server specification supports async coroutines and WebSockets natively?",
+            "options": ["WSGI", "ASGI", "CGI", "HTTP/1.0"],
+            "correctIndex": 1,
+            "explanation": "ASGI was engineered to handle asynchronous coroutines and WebSockets natively."
+          }
+        },
+        {
+          "id": "q70-descriptor-precedence-rules",
+          "title": "Q70: What are Data Descriptors vs Non-Data Descriptors and their lookup precedence?",
+          "content": "- **Data Descriptor**: Implements `__get__()` AND `__set__()` (or `__delete__()`). Has higher priority than instance `__dict__`.\n- **Non-Data Descriptor**: Implements `__get__()` only (e.g. methods). Has lower priority than instance `__dict__`.\nLookup Order: Data Descriptor -> Instance `__dict__` -> Non-Data Descriptor -> Class `__dict__`.",
+          "keyTakeaways": [
+            "Data descriptors override instance `__dict__` attributes.",
+            "Non-data descriptors yield priority to instance `__dict__` attributes."
+          ],
+          "interactiveQuiz": {
+            "question": "Which attribute location takes precedence over a Data Descriptor during attribute lookup?",
+            "options": ["Instance __dict__", "Class __dict__", "Data Descriptors override instance __dict__", "Built-ins"],
+            "correctIndex": 2,
+            "explanation": "Data Descriptors (defining __set__) override instance __dict__ entries during attribute resolution."
+          }
+        },
+        {
+          "id": "q71-type-call-mechanism",
+          "title": "Q71: What sequence occurs when executing MyClass(*args) under the hood?",
+          "content": "When executing `MyClass(*args)`:\n1. Invokes metaclass `__call__()` (typically `type.__call__`).\n2. `type.__call__` invokes `MyClass.__new__(MyClass, *args)` to allocate the object.\n3. If `__new__` returns an instance of `MyClass`, it invokes `MyClass.__init__(instance, *args)`.\n4. Returns the instance.",
+          "keyTakeaways": ["Triggers metaclass `__call__` execution.", "`__new__` allocates instance; `__init__` configures state."],
+          "interactiveQuiz": {
+            "question": "What happens if __new__ returns an instance of a COMPLETELY DIFFERENT class?",
+            "options": [
+              "Python raises TypeError",
+              "__init__ is skipped completely, returning the alternate object instance",
+              "__init__ executes on the alternate class",
+              "Interpreter crashes"
+            ],
+            "correctIndex": 1,
+            "explanation": "If __new__ returns an instance of an alternate class, CPython skips calling __init__ completely."
+          }
+        },
+        {
+          "id": "q72-concurrent-futures-module",
+          "title": "Q72: How does the 'concurrent.futures' module simplify parallel execution?",
+          "content": "`concurrent.futures` supplies high-level execution pool abstractions:\n- **`ThreadPoolExecutor`**: Manages worker threads for I/O tasks.\n- **`ProcessPoolExecutor`**: Manages worker processes for CPU tasks.\nBoth return `Future` objects supporting non-blocking `result()` and `add_done_callback()` calls.",
+          "keyTakeaways": [
+            "High-level thread and process pool executor API.",
+            "Returns `Future` objects representing background task execution."
+          ],
+          "codeExample": {
+            "title": "ProcessPoolExecutor Parallel Processing",
+            "language": "python",
+            "code": "from concurrent.futures import ProcessPoolExecutor\n\ndef heavy_task(x):\n    return x * x\n\nif __name__ == '__main__':\n    with ProcessPoolExecutor(max_workers=4) as executor:\n        results = list(executor.map(heavy_task, range(100)))",
+            "explanation": "ProcessPoolExecutor distributes tasks across process pools using map."
+          },
+          "interactiveQuiz": {
+            "question": "Which method on a concurrent.futures.Future object blocks execution until the background result is ready?",
+            "options": ["future.wait()", "future.result()", "future.get()", "future.value()"],
+            "correctIndex": 1,
+            "explanation": "future.result() blocks execution until the task finishes and returns its result."
+          }
+        },
+        {
+          "id": "q73-dis-module-and-bytecode-analysis",
+          "title": "Q73: How do you disassemble and analyze Python Bytecode using the 'dis' module?",
+          "content": "The `dis` module disassembles Python functions into human-readable PVM bytecode instructions (`LOAD_FAST`, `BINARY_OP`, `CALL`, `RETURN_VALUE`). Used to analyze performance costs of statements.",
+          "keyTakeaways": ["Exposes PVM bytecode instructions.", "Useful for evaluating performance costs across constructs."],
+          "interactiveQuiz": {
+            "question": "Which bytecode instruction loads a local variable onto the PVM evaluation stack in CPython?",
+            "options": ["LOAD_GLOBAL", "LOAD_FAST", "LOAD_NAME", "LOAD_ATTR"],
+            "correctIndex": 1,
+            "explanation": "LOAD_FAST reads local variables directly from array offsets on execution stack frames."
+          }
+        },
+        {
+          "id": "q74-subclass-hook-and-virtual-subclasses",
+          "title": "Q74: What is __subclasshook__ and how do Virtual Subclasses work in ABCs?",
+          "content": "Abstract Base Classes use `__subclasshook__(cls, C)` to implement **Structural Type Checking (Duck Typing)**. Classes satisfying specified attribute requirements are recognized as valid subclasses via `isinstance()` without requiring explicit class inheritance.",
+          "keyTakeaways": [
+            "Enables structural duck typing via `isinstance()` checks.",
+            "Recognizes virtual subclasses without explicit class inheritance."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does isinstance([], collections.abc.Iterable) evaluate to True even though List does not explicitly inherit ABC?",
+            "options": [
+              "Because lists use C++",
+              "Because Iterable implements __subclasshook__ checking for the presence of __iter__",
+              "Hardcoded in interpreter",
+              "It evaluates to False"
+            ],
+            "correctIndex": 1,
+            "explanation": "Iterable's __subclasshook__ verifies if classes implement __iter__, recognizing List as a virtual subclass."
+          }
+        },
+        {
+          "id": "q75-sys-settrace-and-debugging",
+          "title": "Q75: How do debuggers and code coverage tools leverage sys.settrace()?",
+          "content": "`sys.settrace()` registers a global tracing hook function invoked by CPython on every line execution, function call, return, or exception event. Forms the foundation of debuggers (`pdb`) and coverage tools (`coverage.py`).",
+          "keyTakeaways": [
+            "Registers execution tracing hook functions across interpreter events.",
+            "Powers debuggers (`pdb`), profilers, and code coverage measurement tools."
+          ],
+          "interactiveQuiz": {
+            "question": "Which module in Python's standard library provides the built-in interactive command-line debugger?",
+            "options": ["gdb", "pdb", "debug", "trace"],
+            "correctIndex": 1,
+            "explanation": "pdb is the standard library interactive debugging module."
+          }
+        }
+      ]
+    }
+  ]
+}
