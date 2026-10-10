@@ -1,0 +1,1273 @@
+{
+  "courseId": "css-mastery-qa",
+  "courseName": "CSS & Modern Web Layouts Master Class",
+  "title": "Comprehensive Progressive CSS Interview & Mastery Question Bank",
+  "subtitle": "From foundational Box Model concepts to cutting-edge CSS specifications, layout engines, and performance optimizations",
+  "category": "Interview Q&A",
+  "level": "Comprehensive",
+  "estimatedTime": "4.5 Hours",
+  "accentColor": "#2965f1",
+  "keywords": [
+    "css",
+    "css3",
+    "flexbox",
+    "css-grid",
+    "web-design",
+    "responsive-design",
+    "box-model",
+    "interview",
+    "questions",
+    "quiz",
+    "advanced-css"
+  ],
+  "chapters": [
+    {
+      "id": "css-mastery-bank",
+      "title": "Complete CSS Progressive Master Question Bank",
+      "summary": "A 55-question complete CSS journey structured from absolute foundations to intermediate layout techniques, advanced specifications, and cutting-edge engine capabilities.",
+      "estimatedMinutes": 270,
+      "sections": [
+        {
+          "id": "q1-syntax-anatomy",
+          "title": "Q1: What are the core components of a CSS rule?",
+          "content": "A CSS rule consists of a **Selector** (targeting the HTML element) and a **Declaration Block** enclosed in curly braces `{}`. Inside the block, declarations are written as `property: value;` pairs. Properties define the visual aspect (e.g., `color`), while values set the specific styling specification.",
+          "keyTakeaways": ["Selector targets the DOM element node.", "Declaration block contains property and value pairs."],
+          "codeExample": {
+            "title": "Anatomy of a CSS Rule",
+            "language": "css",
+            "code": "/* Selector { Property: Value; } */\nh1 {\n  color: #2965f1;\n  font-size: 2rem;\n}",
+            "explanation": "h1 is the selector, color and font-size are properties, and #2965f1 and 2rem are their respective values."
+          },
+          "interactiveQuiz": {
+            "question": "In the declaration font-size: 16px;, what is 'font-size' called?",
+            "options": ["Selector", "Property", "Value", "Declaration Block"],
+            "correctIndex": 1,
+            "explanation": "font-size is the CSS property being modified."
+          }
+        },
+        {
+          "id": "q2-css-inclusion-methods",
+          "title": "Q2: What are the three ways to insert CSS into HTML, and which is best practice?",
+          "content": "CSS can be included via **Inline styles** (`style=\"...\"`), **Internal style tags** (`<style>`), or **External stylesheets** (`<link rel=\"stylesheet\" href=\"...\">`). External stylesheets are best practice because they promote separation of concerns, enable browser caching across pages, and simplify maintenance.",
+          "keyTakeaways": [
+            "External stylesheets provide caching and maintainability benefits.",
+            "Inline styles override stylesheet rules due to high specificity."
+          ],
+          "codeExample": {
+            "title": "External Stylesheet Linking",
+            "language": "html",
+            "code": "<head>\n  <link rel=\"stylesheet\" href=\"styles.css\">\n</head>",
+            "explanation": "Linking an external stylesheet cleanly separates HTML document structure from CSS presentation rules."
+          },
+          "interactiveQuiz": {
+            "question": "Which CSS inclusion method provides the best maintainability and enables browser caching?",
+            "options": ["Inline Styles", "Internal Style Tags", "External Stylesheets", "Importing via HTML comments"],
+            "correctIndex": 2,
+            "explanation": "External stylesheets are cached by browsers and separate markup from styling logic."
+          }
+        },
+        {
+          "id": "q3-basic-selectors",
+          "title": "Q3: What are Element, Class, and ID selectors, and how do their syntaxes differ?",
+          "content": "- **Element Selector**: Targets HTML tags directly by name (e.g., `p`).\n- **Class Selector**: Targets elements with a `class` attribute using a leading dot (e.g., `.btn`). Reusable across multiple elements.\n- **ID Selector**: Targets a unique element with an `id` attribute using a leading hash (e.g., `#header`). Must be unique per page.",
+          "keyTakeaways": [
+            "Classes (`.name`) are reusable across multiple page nodes.",
+            "IDs (`#name`) target unique single elements and carry higher specificity."
+          ],
+          "codeExample": {
+            "title": "Basic Selector Syntax",
+            "language": "css",
+            "code": "/* Tag selector */\nbutton { cursor: pointer; }\n\n/* Class selector */\n.btn-primary { background: blue; }\n\n/* ID selector */\n#submit-button { background: green; }",
+            "explanation": "Tag selects all buttons, class targets elements with class='btn-primary', and ID targets the element with id='submit-button'."
+          },
+          "interactiveQuiz": {
+            "question": "Which prefix symbol designates a CSS class selector?",
+            "options": ["# (Hash)", ". (Dot)", "@ (At symbol)", ": (Colon)"],
+            "correctIndex": 1,
+            "explanation": "Class selectors in CSS begin with a period/dot character."
+          }
+        },
+        {
+          "id": "q4-combinators",
+          "title": "Q4: What are the four types of CSS combinators?",
+          "content": "Combinators explain relationships between selectors:\n1. **Descendant Selector** (`space`): Targets all matching child/grandchild descendants.\n2. **Child Selector** (`>`): Targets direct immediate children only.\n3. **Adjacent Sibling Selector** (`+`): Targets the immediately following sibling.\n4. **General Sibling Selector** (`~`): Targets all following siblings.",
+          "keyTakeaways": ["`>` targets direct child nodes exclusively.", "`+` targets the immediate adjacent sibling node."],
+          "codeExample": {
+            "title": "Combinator Variations",
+            "language": "css",
+            "code": "/* Direct children only */\nul > li { list-style: none; }\n\n/* Immediate next sibling */\nh1 + p { font-weight: bold; }",
+            "explanation": "ul > li applies strictly to direct <li> children of <ul>, and h1 + p targets the paragraph immediately following an h1."
+          },
+          "interactiveQuiz": {
+            "question": "Which combinator targets only direct immediate child nodes?",
+            "options": ["Descendant (space)", "Child (>)", "Adjacent Sibling (+)", "General Sibling (~)"],
+            "correctIndex": 1,
+            "explanation": "The child combinator (>) targets elements that are direct children of the specified parent."
+          }
+        },
+        {
+          "id": "q5-box-model-basics",
+          "title": "Q5: What are the four layers of the standard CSS Box Model?",
+          "content": "Every HTML element rendered on screen is enclosed in a rectangular box consisting of four layers from inside out:\n1. **Content**: The text, image, or child elements.\n2. **Padding**: Transparent area surrounding content inside borders.\n3. **Border**: Outer line surrounding padding and content.\n4. **Margin**: Transparent area separating the element from neighbors.",
+          "keyTakeaways": [
+            "Box layers from inside out: Content → Padding → Border → Margin.",
+            "Padding stays inside the border; Margin creates external space outside borders."
+          ],
+          "codeExample": {
+            "title": "Box Model Layer Declarations",
+            "language": "css",
+            "code": ".box {\n  width: 200px;        /* Content Width */\n  padding: 20px;       /* Inner clearance */\n  border: 2px solid;   /* Enclosing line */\n  margin: 15px;        /* Outer separation */\n}",
+            "explanation": "The four properties define the complete spatial geometry of the HTML container box."
+          },
+          "interactiveQuiz": {
+            "question": "Which Box Model layer creates space inside an element's border?",
+            "options": ["Margin", "Padding", "Content", "Outline"],
+            "correctIndex": 1,
+            "explanation": "Padding creates inner space between the content area and the element's border."
+          }
+        },
+        {
+          "id": "q6-box-sizing",
+          "title": "Q6: What is the difference between content-box and border-box in CSS box-sizing?",
+          "content": "By default, browsers use `box-sizing: content-box`, where width and height apply only to content. Adding padding or borders increases the actual element size (`total width = width + padding + border`). With `box-sizing: border-box`, padding and border are included *inside* the defined width and height, preventing layout breakage.",
+          "keyTakeaways": [
+            "`content-box` adds padding and border onto specified width/height dimensions.",
+            "`border-box` includes padding and border within specified width/height dimensions."
+          ],
+          "codeExample": {
+            "title": "Global border-box Reset",
+            "language": "css",
+            "code": "/* Recommended global reset for predictable layout sizing */\n*, *::before, *::after {\n  box-sizing: border-box;\n}\n\n.box {\n  width: 200px;\n  padding: 20px;\n  border: 5px solid black;\n  /* Total width remains 200px with border-box */\n}",
+            "explanation": "Applying border-box globally ensures that padding and borders do not expand an element beyond its defined width."
+          },
+          "interactiveQuiz": {
+            "question": "What is the total rendered pixel width of an element with width: 100px, padding: 10px, border: 2px, and box-sizing: content-box?",
+            "options": ["100px", "112px", "124px", "120px"],
+            "correctIndex": 2,
+            "explanation": "Total width = 100px + 10px(left) + 10px(right) + 2px(left border) + 2px(right border) = 124px."
+          }
+        },
+        {
+          "id": "q7-display-property-basics",
+          "title": "Q7: What is the difference between display: block, inline, and inline-block?",
+          "content": "- `block`: Starts on a new line, occupies 100% container width, and respects top/bottom width and height rules.\n- `inline`: Flow within surrounding text, occupies only required content width, and ignores top/bottom margins and explicit width/height.\n- `inline-block`: Flow inline with text, but respects explicit width, height, padding, and margin rules.",
+          "keyTakeaways": [
+            "`inline` ignores explicit height and vertical margin adjustments.",
+            "`inline-block` flows inline while respecting full box dimensions."
+          ],
+          "codeExample": {
+            "title": "Display Modes Comparison",
+            "language": "css",
+            "code": ".badge {\n  display: inline-block;\n  width: 80px;\n  height: 24px;\n  padding: 4px;\n}",
+            "explanation": "inline-block allows buttons or badges to stay inline with text while maintaining exact custom width and height dimensions."
+          },
+          "interactiveQuiz": {
+            "question": "Which display mode allows setting width and height while flowing elements inline on the same line?",
+            "options": ["block", "inline", "inline-block", "flex"],
+            "correctIndex": 2,
+            "explanation": "inline-block flows inline like text while honoring explicit width and height rules."
+          }
+        },
+        {
+          "id": "q8-color-formats",
+          "title": "Q8: What are the differences between Named, Hex, RGB(A), and HSL(A) color formats?",
+          "content": "- **Named**: Color keywords (e.g., `red`, `transparent`).\n- **Hex**: Hexadecimal values representing Red, Green, Blue channels (`#ff0000`).\n- **RGB(A)**: Numerical Red, Green, Blue channels (0-255) with optional Alpha opacity (0-1).\n- **HSL(A)**: Hue (0-360 degrees), Saturation (%), and Lightness (%) with optional Alpha.",
+          "keyTakeaways": [
+            "RGBA and HSLA support alpha channel transparency.",
+            "HSL is intuitive for adjusting brightness and saturation of a color tint."
+          ],
+          "codeExample": {
+            "title": "Color Formats Comparison",
+            "language": "css",
+            "code": ".box {\n  background-color: #2965f1;             /* Hex */\n  color: rgba(41, 101, 241, 0.8);        /* RGBA with 80% opacity */\n  border-color: hsl(222, 88%, 55%);      /* HSL */\n}",
+            "explanation": "Different formats represent identical colors using hexadecimal, numeric channels, or hue wheel metrics."
+          },
+          "interactiveQuiz": {
+            "question": "Which parameter in hsl(200, 50%, 80%) controls color brightness?",
+            "options": ["Hue (200)", "Saturation (50%)", "Lightness (80%)", "Alpha"],
+            "correctIndex": 2,
+            "explanation": "The third parameter in HSL represents Lightness percentage."
+          }
+        },
+        {
+          "id": "q9-typography-properties",
+          "title": "Q9: How do line-height, letter-spacing, and text-transform alter text appearance?",
+          "content": "- `line-height`: Controls distance between baselines of lines of text (unitless values like `1.5` are best).\n- `letter-spacing`: Adjusts horizontal space between individual text characters.\n- `text-transform`: Alters text capitalization (`uppercase`, `lowercase`, `capitalize`) without changing source HTML text.",
+          "keyTakeaways": [
+            "Use unitless numbers for `line-height` so children inherit proportional line heights.",
+            "`text-transform` modifies visual text casing without mutating underlying text."
+          ],
+          "codeExample": {
+            "title": "Typography Styling Rules",
+            "language": "css",
+            "code": "p {\n  font-size: 1rem;\n  line-height: 1.6;             /* Proportional line height */\n  letter-spacing: 0.05em;       /* Character spacing */\n  text-transform: uppercase;    /* Forced uppercase */\n}",
+            "explanation": "Unitless line-height scales relative to font-size, preventing overlapping text in child components."
+          },
+          "interactiveQuiz": {
+            "question": "Why are unitless line-height values (e.g. 1.5) preferred over fixed pixel values (e.g. 24px)?",
+            "options": [
+              "Pixels are unsupported in modern browsers",
+              "Unitless values scale proportionally when descendant elements change font-size",
+              "Unitless values force single-line truncation",
+              "Pixels disable bold fonts"
+            ],
+            "correctIndex": 1,
+            "explanation": "Unitless line heights scale dynamically with inheriting child font sizes, preventing text overlap."
+          }
+        },
+        {
+          "id": "q10-overflow-handling",
+          "title": "Q10: What are the differences between overflow values visible, hidden, scroll, and auto?",
+          "content": "- `visible`: Default; content renders outside container box boundaries.\n- `hidden`: Clips overflowing content; no scrollbars provided.\n- `scroll`: Clips content and **always** displays scrollbars (even if content fits).\n- `auto`: Clips content and displays scrollbars **only when needed**.",
+          "keyTakeaways": [
+            "`overflow: auto` adds scrollbars conditionally when content exceeds box bounds.",
+            "`overflow: hidden` clips overflow without offering scroll interaction."
+          ],
+          "codeExample": {
+            "title": "Conditional Overflow Scrollbars",
+            "language": "css",
+            "code": ".scroll-card {\n  width: 200px;\n  height: 100px;\n  overflow: auto; /* Displays scrollbars only if content overflows */\n}",
+            "explanation": "Setting auto prevents unnecessary empty scrollbars when content fits within the 100px height limit."
+          },
+          "interactiveQuiz": {
+            "question": "Which overflow value displays scrollbars ONLY when content actually exceeds container dimensions?",
+            "options": ["visible", "hidden", "scroll", "auto"],
+            "correctIndex": 3,
+            "explanation": "overflow: auto displays scrollbars dynamically only when content exceeds container boundaries."
+          }
+        },
+        {
+          "id": "q11-specificity-calculation",
+          "title": "Q11: How is CSS Specificity calculated, and how do choices affect inheritance?",
+          "content": "CSS Specificity is calculated across 3 component columns: **IDs (1,0,0)**, **Classes / Attributes / Pseudo-classes (0,1,0)**, and **Elements / Pseudo-elements (0,0,1)**. Inline styles carry (1,0,0,0) weight. `!important` bypasses standard specificity weight calculations completely.",
+          "keyTakeaways": [
+            "Specificity vector weight: Inline Styles > IDs > Classes > Elements.",
+            "`!important` overrides standard specificity, but can cause maintainability issues."
+          ],
+          "codeExample": {
+            "title": "Comparing Specificity Weights",
+            "language": "css",
+            "code": "/* Score: (0,0,1) */\np { color: black; }\n\n/* Score: (0,1,1) */\np.highlight { color: blue; }\n\n/* Score: (1,0,0) - Wins over class selectors */\n#main-content { color: red; }",
+            "explanation": "#main-content wins because its single ID score (1,0,0) outweighs class and tag element scores."
+          },
+          "interactiveQuiz": {
+            "question": "Which selector carries the highest specificity score?",
+            "options": ["#header .nav ul li", "body #header .nav-item", "#header #navigation", "div.container ul.menu li.item#target"],
+            "correctIndex": 2,
+            "explanation": "#header #navigation contains two IDs (2,0,0), outscoring selectors containing only one ID regardless of class counts."
+          }
+        },
+        {
+          "id": "q12-margin-collapse",
+          "title": "Q12: What is Margin Collapse and when does it occur?",
+          "content": "Margin collapse occurs when top and bottom margins of adjacent block-level elements combine into a single merged margin whose size equals the largest single individual margin. Margin collapse happens between adjacent vertical siblings, parent and first/last child elements, or empty block elements.",
+          "keyTakeaways": [
+            "Only vertical (top/bottom) margins collapse; horizontal margins never collapse.",
+            "Forming a new Block Formatting Context (BFC) prevents parent-child margin collapsing."
+          ],
+          "codeExample": {
+            "title": "Demonstrating Margin Collapse",
+            "language": "css",
+            "code": ".box1 {\n  margin-bottom: 30px;\n}\n.box2 {\n  margin-top: 20px;\n}\n/* Rendered distance between box1 and box2 is 30px (not 50px) */",
+            "explanation": "The adjacent margins collapse together, selecting the larger 30px margin instead of adding both."
+          },
+          "interactiveQuiz": {
+            "question": "What is the final margin gap between two vertical siblings where item 1 has margin-bottom: 40px and item 2 has margin-top: 25px?",
+            "options": ["65px", "40px", "25px", "15px"],
+            "correctIndex": 1,
+            "explanation": "Vertical sibling margins collapse to the maximum value of the two margins (40px)."
+          }
+        },
+        {
+          "id": "q13-css-units-rem-em-vh-vw",
+          "title": "Q13: What is the difference between rem, em, vh, vw, and ch units?",
+          "content": "- `rem` (Root EM): Relative to font-size of root `<html>` element (default 16px).\n- `em`: Relative to font-size of current parent element (compounds on nested text).\n- `vh` / `vw`: Percentage of current viewport height / width (1vh = 1% height).\n- `ch`: Relative to width of '0' glyph character in current font.",
+          "keyTakeaways": [
+            "`rem` ensures consistent sizing relative to root html font settings.",
+            "`em` scales relative to parent font size and compounds in nested elements."
+          ],
+          "codeExample": {
+            "title": "Scaling Typography with rem and em",
+            "language": "css",
+            "code": "html {\n  font-size: 16px;\n}\n.card {\n  font-size: 1.25rem; /* 20px */\n  padding: 1em;       /* 20px (relative to card's own font-size) */\n}",
+            "explanation": "rem anchors directly to root html size, whereas em references local or parent font metrics."
+          },
+          "interactiveQuiz": {
+            "question": "If root html has font-size: 16px, what is the computed value of 2.5rem?",
+            "options": ["32px", "40px", "24px", "48px"],
+            "correctIndex": 1,
+            "explanation": "2.5 * 16px = 40px."
+          }
+        },
+        {
+          "id": "q14-position-properties",
+          "title": "Q14: What are the differences between static, relative, absolute, fixed, and sticky positions?",
+          "content": "- `static`: Default document flow positioning.\n- `relative`: Positioned relative to normal flow position without affecting neighboring elements.\n- `absolute`: Removed from document flow, positioned relative to nearest ancestor with `position != static`.\n- `fixed`: Removed from flow, positioned relative to viewport window.\n- `sticky`: Toggles between `relative` and `fixed` based on user scroll position relative to threshold boundaries.",
+          "keyTakeaways": [
+            "`absolute` looks up the DOM tree for non-static positioned parent ancestors.",
+            "`sticky` anchors elements relative to scroll boundaries."
+          ],
+          "codeExample": {
+            "title": "Sticky Header Navigation",
+            "language": "css",
+            "code": ".header {\n  position: sticky;\n  top: 0;\n  background-color: white;\n  z-index: 1000;\n  /* Navigates with flow until top threshold reaching 0, then pins */\n}",
+            "explanation": "Sticky positioning switches from relative to fixed behavior when scrolling hits the top: 0 boundary."
+          },
+          "interactiveQuiz": {
+            "question": "Against what coordinate reference does an element with position: absolute align itself?",
+            "options": [
+              "Always the browser viewport window",
+              "Its direct parent regardless of parent position property",
+              "The nearest ancestor element whose position is non-static",
+              "The root <html> document tag"
+            ],
+            "correctIndex": 2,
+            "explanation": "An absolute element positions itself relative to its closest ancestor having relative, absolute, fixed, or sticky positioning."
+          }
+        },
+        {
+          "id": "q15-pseudo-classes-vs-elements",
+          "title": "Q15: What is the difference between CSS Pseudo-classes (:hover) and Pseudo-elements (::before)?",
+          "content": "Pseudo-classes (single colon `:`, e.g., `:hover`, `:nth-child()`, `:focus`) target specific dynamic element states or document structure positions. Pseudo-elements (double colon `::`, e.g., `::before`, `::after`, `::placeholder`) create virtual elements in the DOM tree for styling decorative content without modifying HTML markup.",
+          "keyTakeaways": [
+            "Pseudo-classes target existing elements during user interaction or state changes.",
+            "Pseudo-elements insert decorative dynamic elements into CSS render trees."
+          ],
+          "codeExample": {
+            "title": "Pseudo-class vs Pseudo-element Syntax",
+            "language": "css",
+            "code": "/* Pseudo-class: state selection */\nbutton:hover {\n  background-color: darkblue;\n}\n\n/* Pseudo-element: generates decorative sub-node */\nbutton::after {\n  content: \" →\";\n}",
+            "explanation": "hover updates state behavior, while ::after appends decorative arrow characters inside rendered buttons."
+          },
+          "interactiveQuiz": {
+            "question": "Which declaration requires a required content: \"\" property to render on screen?",
+            "options": [":nth-child(2)", ":hover", "::before", ":focus-within"],
+            "correctIndex": 2,
+            "explanation": "::before and ::after pseudo-elements require content properties to trigger rendering in DOM trees."
+          }
+        },
+        {
+          "id": "q16-flexbox-fundamentals",
+          "title": "Q16: What are the primary flex container properties and how do axes operate?",
+          "content": "Flexbox operates along two axes: the **Main Axis** (defined by `flex-direction`: `row` or `column`) and the **Cross Axis** (perpendicular to main axis).\n- `display: flex`: Activates flex context.\n- `flex-direction`: Establishes primary axis orientation.\n- `flex-wrap`: Controls whether items wrap onto multiple lines (`nowrap`, `wrap`).",
+          "keyTakeaways": [
+            "`flex-direction` dictates whether main axis is horizontal or vertical.",
+            "`flex-wrap: wrap` allows flex items to flow onto additional lines."
+          ],
+          "codeExample": {
+            "title": "Flex Container Axes Configuration",
+            "language": "css",
+            "code": ".container {\n  display: flex;\n  flex-direction: column; /* Main axis becomes vertical */\n  flex-wrap: wrap;        /* Enables wrapping across columns */\n}",
+            "explanation": "Setting flex-direction: column shifts the main axis vertically, affecting alignment behaviors."
+          },
+          "interactiveQuiz": {
+            "question": "If flex-direction is set to column, which axis becomes the horizontal cross axis?",
+            "options": ["Main Axis", "Cross Axis", "Block Axis", "Inline Axis"],
+            "correctIndex": 1,
+            "explanation": "When flex-direction is column, the main axis is vertical and the cross axis becomes horizontal."
+          }
+        },
+        {
+          "id": "q17-flexbox-justify-vs-align",
+          "title": "Q17: What is the difference between justify-content, align-items, and align-content in Flexbox?",
+          "content": "- `justify-content`: Aligns items along the **main-axis** (horizontal by default).\n- `align-items`: Aligns items along the **cross-axis** (vertical by default) within a single flex line.\n- `align-content`: Aligns multi-line flex tracks along cross-axis when `flex-wrap: wrap` is enabled and extra space exists.",
+          "keyTakeaways": [
+            "`justify-content` controls main-axis spacing.",
+            "`align-items` controls cross-axis alignment for individual items inside flex lines.",
+            "`align-content` manages multi-line track spacing when flex items wrap."
+          ],
+          "codeExample": {
+            "title": "Flexbox Axis Control",
+            "language": "css",
+            "code": ".flex-parent {\n  display: flex;\n  flex-direction: row;\n  justify-content: center; /* Main axis center */\n  align-items: center;     /* Cross axis center */\n  flex-wrap: wrap;\n  align-content: space-between; /* Multi-line track distribution */\n}",
+            "explanation": "justify-content aligns elements horizontally, while align-items aligns elements vertically across the main row."
+          },
+          "interactiveQuiz": {
+            "question": "Which Flexbox property aligns multiple wrapped row tracks along the cross-axis?",
+            "options": ["align-items", "justify-content", "align-content", "align-self"],
+            "correctIndex": 2,
+            "explanation": "align-content targets track spacing across multi-line wrapped flex containers."
+          }
+        },
+        {
+          "id": "q18-flex-item-grow-shrink-basis",
+          "title": "Q18: How do flex-grow, flex-shrink, and flex-basis work together in flex shorthand?",
+          "content": "- `flex-grow`: Ratio dictating how much flex item expands to absorb free space.\n- `flex-shrink`: Ratio dictating how much item shrinks when total items overflow space.\n- `flex-basis`: Initial default size of item before grow/shrink allocation occurs.\nShorthand: `flex: <grow> <shrink> <basis>` (e.g., `flex: 1 0 200px`).",
+          "keyTakeaways": [
+            "`flex: 1` equates to `flex: 1 1 0%`, forcing equal size distribution.",
+            "`flex-basis` sets baseline size before remaining free space distribution."
+          ],
+          "codeExample": {
+            "title": "Flex Shorthand Sizing",
+            "language": "css",
+            "code": ".item-grow {\n  /* Grow = 1, Shrink = 1, Basis = 0px */\n  flex: 1;\n}\n.item-fixed {\n  /* Grow = 0, Shrink = 0, Basis = 250px */\n  flex: 0 0 250px;\n}",
+            "explanation": "flex: 0 0 250px creates a fixed-size flex column that neither expands nor shrinks."
+          },
+          "interactiveQuiz": {
+            "question": "What does setting flex: 0 0 200px on a flex child achieve?",
+            "options": [
+              "Fills all remaining container width",
+              "Fixes element size to exactly 200px, preventing expansion and shrinking",
+              "Hides element until hovered",
+              "Shrinks element to 0px on mobile screens"
+            ],
+            "correctIndex": 1,
+            "explanation": "grow=0 and shrink=0 lock the item to its flex-basis size of 200px."
+          }
+        },
+        {
+          "id": "q19-grid-fundamentals",
+          "title": "Q19: How do you define explicit columns and rows in CSS Grid?",
+          "content": "CSS Grid containers define two-dimensional layouts using `grid-template-columns` and `grid-template-rows`. Track dimensions accept fixed units (`px`), percentages (`%`), viewport units, or responsive grid length units (`fr`).",
+          "keyTakeaways": [
+            "Grid manages two-dimensional spatial layouts simultaneously.",
+            "`grid-template-columns` and `grid-template-rows` establish layout matrices."
+          ],
+          "codeExample": {
+            "title": "Explicit Grid Layout Definition",
+            "language": "css",
+            "code": ".grid-container {\n  display: grid;\n  grid-template-columns: 200px 1fr 1fr;\n  grid-template-rows: 80px auto;\n  gap: 16px;\n}",
+            "explanation": "Creates a 3-column layout where column 1 is 200px fixed, and remaining space splits equally between columns 2 and 3."
+          },
+          "interactiveQuiz": {
+            "question": "Which CSS Grid property establishes the explicit horizontal column layout matrix?",
+            "options": ["grid-auto-flow", "grid-template-columns", "grid-column-gap", "place-content"],
+            "correctIndex": 1,
+            "explanation": "grid-template-columns defines the explicit column structure of a grid container."
+          }
+        },
+        {
+          "id": "q20-css-grid-fr-unit",
+          "title": "Q20: How does the fr (Fractional) unit work in CSS Grid layout?",
+          "content": "The `fr` unit represents a fraction of available free space in grid containers. Available space is calculated *after* allocating fixed pixel or percentage dimensions, allowing responsive grid columns to expand and contract proportionally without overflow scrollbars.",
+          "keyTakeaways": [
+            "`fr` distributes remaining unallocated space inside grid containers.",
+            "Combines seamlessly with `repeat()` and `minmax()` functions."
+          ],
+          "codeExample": {
+            "title": "Fractional Grid Distribution",
+            "language": "css",
+            "code": ".grid {\n  display: grid;\n  /* Column 1 takes 200px fixed; remaining space split 1:2 between columns 2 and 3 */\n  grid-template-columns: 200px 1fr 2fr;\n}",
+            "explanation": "After subtracting 200px, remaining container space is split into 3 parts: column 2 gets 1/3, column 3 gets 2/3."
+          },
+          "interactiveQuiz": {
+            "question": "Given grid-template-columns: 1fr 2fr in a 900px wide grid container, how wide is the second column?",
+            "options": ["300px", "450px", "600px", "200px"],
+            "correctIndex": 2,
+            "explanation": "Total fractions = 1 + 2 = 3fr. Each fr = 900px / 3 = 300px. Second column = 2 * 300px = 600px."
+          }
+        },
+        {
+          "id": "q21-flexbox-vs-grid",
+          "title": "Q21: What is the core difference between Flexbox and CSS Grid?",
+          "content": "Flexbox is designed for **one-dimensional** layouts (aligning items along either a row or a column). CSS Grid is designed for **two-dimensional** layouts (simultaneously managing rows and columns). Flexbox content drives item flow, whereas CSS Grid layouts dictate container positioning.",
+          "keyTakeaways": [
+            "Flexbox manages one-dimensional axis layouts (row OR column).",
+            "CSS Grid manages two-dimensional spatial layouts (rows AND columns)."
+          ],
+          "codeExample": {
+            "title": "Flexbox vs Grid Declaration",
+            "language": "css",
+            "code": "/* 1D Flexbox Alignment */\n.flex-container {\n  display: flex;\n  justify-content: space-between;\n}\n\n/* 2D Grid Layout Matrix */\n.grid-container {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 20px;\n}",
+            "explanation": "Flexbox distributes items along a single axis, while Grid arranges items into structured rows and columns."
+          },
+          "interactiveQuiz": {
+            "question": "Which layout engine is optimized for simultaneous row and column grid positioning?",
+            "options": ["Flexbox", "CSS Grid", "Float layout", "Inline-block layout"],
+            "correctIndex": 1,
+            "explanation": "CSS Grid is a two-dimensional layout system managing rows and columns concurrently."
+          }
+        },
+        {
+          "id": "q22-block-formatting-context",
+          "title": "Q22: What is a Block Formatting Context (BFC) and how is one created?",
+          "content": "A Block Formatting Context (BFC) is an isolated visual CSS rendering region where block boxes are laid out. BFCs contain floating elements, prevent margin collapsing with descendant elements, and prevent text wrapping around floats. BFCs are created by setting `display: flow-root`, `overflow: hidden`, `display: flex`, `grid`, or `position: absolute/fixed`.",
+          "keyTakeaways": [
+            "Isolates element layouts from external page formatting rules.",
+            "`display: flow-root` is the modern CSS standard for creating a clean BFC."
+          ],
+          "codeExample": {
+            "title": "Creating BFC with flow-root",
+            "language": "css",
+            "code": ".container {\n  /* Modern, side-effect free BFC creation */\n  display: flow-root;\n  /* Automatically encloses internal floated children */\n}",
+            "explanation": "display: flow-root creates a BFC that safely contains float elements without requiring clearing hacks."
+          },
+          "interactiveQuiz": {
+            "question": "Which modern CSS property creates a clean Block Formatting Context without layout side-effects?",
+            "options": ["overflow: scroll", "display: flow-root", "float: left", "position: absolute"],
+            "correctIndex": 1,
+            "explanation": "display: flow-root creates a BFC explicitly without hidden overflow side-effects."
+          }
+        },
+        {
+          "id": "q23-css-custom-properties",
+          "title": "Q23: How do CSS Custom Properties (Variables) differ from preprocessor variables (Sass/Less)?",
+          "content": "CSS Custom Properties (`--var-name`) are native runtime DOM variables evaluated live in the browser. They inherit down the cascade, react dynamically to media queries, and can be read or modified via JavaScript. Preprocessor variables (Sass `$var`) are static, compiled at build time, and cannot adapt dynamically at runtime.",
+          "keyTakeaways": [
+            "Native CSS variables dynamically inherit and adapt to runtime media query changes.",
+            "Can be read and updated live using JavaScript `setProperty()`."
+          ],
+          "codeExample": {
+            "title": "Dynamic Theme Custom Properties",
+            "language": "css",
+            "code": ":root {\n  --main-bg: #ffffff;\n  --text-color: #111111;\n}\n\n@media (prefers-color-scheme: dark) {\n  :root {\n    --main-bg: #121212;\n    --text-color: #ffffff;\n  }\n}\n\nbody {\n  background-color: var(--main-bg);\n  color: var(--text-color);\n}",
+            "explanation": "Browser re-evaluates CSS variables automatically when dark mode media query rules match."
+          },
+          "interactiveQuiz": {
+            "question": "What happens when a CSS custom property value changes inside a media query rule at runtime?",
+            "options": [
+              "The browser re-compiles the CSS stylesheet via WebAssembly",
+              "Elements using var() dynamically re-render with updated variable values instantly",
+              "Variable modifications are ignored",
+              "Custom properties revert to fallback values"
+            ],
+            "correctIndex": 1,
+            "explanation": "CSS Variables are dynamic; browser rendering engines cascade updated variable values immediately."
+          }
+        },
+        {
+          "id": "q24-media-queries-responsive",
+          "title": "Q24: How do Media Queries (@media) structure mobile-first responsive stylesheets?",
+          "content": "Mobile-first responsive design defines default base styles for small mobile screens first, then uses `@media (min-width: ...)` queries to layer on layout enhancements as screen viewport width increases. Mobile-first overrides fewer rules than desktop-first max-width patterns.",
+          "keyTakeaways": [
+            "`min-width` queries build progressive enhancements from small to large viewports.",
+            "Mobile-first architectures minimize stylesheet overrides."
+          ],
+          "codeExample": {
+            "title": "Mobile-First Media Query Architecture",
+            "language": "css",
+            "code": "/* Base Styles (Mobile Default) */\n.card-grid {\n  display: block;\n}\n\n/* Tablet Breakpoint */\n@media (min-width: 768px) {\n  .card-grid {\n    display: grid;\n    grid-template-columns: repeat(2, 1fr);\n  }\n}\n\n/* Desktop Breakpoint */\n@media (min-width: 1024px) {\n  .card-grid {\n    grid-template-columns: repeat(4, 1fr);\n  }\n}",
+            "explanation": "Layout rules progressively enhance from 1 column to 2 columns and 4 columns as screens expand."
+          },
+          "interactiveQuiz": {
+            "question": "Which query type forms the foundation of Mobile-First responsive CSS architectures?",
+            "options": ["@media (max-width)", "@media (min-width)", "@media (orientation: landscape)", "@media (pointer: coarse)"],
+            "correctIndex": 1,
+            "explanation": "min-width queries layer desktop enhancements onto base mobile layouts."
+          }
+        },
+        {
+          "id": "q25-transitions-vs-animations",
+          "title": "Q25: What is the difference between CSS Transitions and CSS Animations (@keyframes)?",
+          "content": "- **Transitions**: Smoothly interpolate property changes between two states (e.g., initial state to `:hover` state). Require an explicit trigger.\n- **Animations (@keyframes)**: Complex multi-step state sequences that run automatically on page load or trigger, supporting infinite loops, pauses, and direction control.",
+          "keyTakeaways": [
+            "Transitions interpolate state changes between 2 points (A → B).",
+            "Animations (@keyframes) execute multi-step keyframe sequences."
+          ],
+          "codeExample": {
+            "title": "Transition vs Keyframe Animation",
+            "language": "css",
+            "code": "/* Transition: triggered on hover */\n.btn {\n  transition: transform 0.2s ease;\n}\n.btn:hover { transform: scale(1.05); }\n\n/* Keyframe Animation: infinite multi-step loop */\n@keyframes pulse {\n  0% { opacity: 1; }\n  50% { opacity: 0.5; }\n  100% { opacity: 1; }\n}\n.spinner {\n  animation: pulse 1.5s infinite;\n}",
+            "explanation": "Transitions react to hover interactions; keyframe animations run autonomous multi-step loops."
+          },
+          "interactiveQuiz": {
+            "question": "Which feature allows setting intermediate animation states at 25%, 50%, and 75% intervals?",
+            "options": ["transition-timing-function", "@keyframes", "transform-origin", "will-change"],
+            "correctIndex": 1,
+            "explanation": "@keyframes defines multi-step state benchmarks across animation timelines."
+          }
+        },
+        {
+          "id": "q26-transform-functions",
+          "title": "Q26: How do translate, scale, rotate, and skew transform functions operate?",
+          "content": "The `transform` property applies 2D or 3D visual geometric transformations without affecting neighboring layout flow:\n- `translate(x, y)`: Moves element from current position.\n- `scale(x, y)`: Resizes element dimensions.\n- `rotate(deg)`: Rotates element around transform-origin.\n- `skew(deg)`: Skews element along axes.",
+          "keyTakeaways": [
+            "Transforms alter visual rendering without triggering layout reflows.",
+            "`translate()` positioning is GPU-accelerated and performant."
+          ],
+          "codeExample": {
+            "title": "Combining Transforms",
+            "language": "css",
+            "code": ".card-hover {\n  transition: transform 0.3s ease;\n}\n.card-hover:hover {\n  /* Shifts up 8px and scales up by 5% */\n  transform: translateY(-8px) scale(1.05);\n}",
+            "explanation": "Combining translateY and scale provides smooth GPU-accelerated hover effects without affecting nearby cards."
+          },
+          "interactiveQuiz": {
+            "question": "Does applying transform: translateY(-20px) shift the positions of adjacent sibling elements?",
+            "options": [
+              "Yes, it causes a full DOM reflow",
+              "No, transforms alter visual rendering without modifying layout document flow",
+              "Only inside Flexbox containers",
+              "It removes the element from the DOM"
+            ],
+            "correctIndex": 1,
+            "explanation": "Transforms affect visual presentation only, leaving neighboring document flow untouched."
+          }
+        },
+        {
+          "id": "q27-z-index-stacking-context",
+          "title": "Q27: How do Stacking Contexts affect z-index ordering?",
+          "content": "An element's `z-index` layer ordering operates strictly within its active **Stacking Context**. A child element with `z-index: 9999` inside a parent with `z-index: 1` will never stack above a neighboring parent with `z-index: 2`. Stacking contexts are created by opacity < 1, transform properties, filter effects, or setting `isolation: isolate`.",
+          "keyTakeaways": [
+            "`z-index` comparisons occur strictly within shared stacking contexts.",
+            "`isolation: isolate` creates a clean isolated stacking context."
+          ],
+          "codeExample": {
+            "title": "Creating Isolated Stacking Context",
+            "language": "css",
+            "code": ".card {\n  isolation: isolate; /* Creates self-contained stacking boundary */\n}\n.card-badge {\n  position: absolute;\n  z-index: 10; /* Locked inside .card stacking context */\n}",
+            "explanation": "isolation: isolate prevents child z-index values from leaking or colliding with global page layout stacks."
+          },
+          "interactiveQuiz": {
+            "question": "Which CSS property safely isolates descendant z-index layers into a new stacking context?",
+            "options": ["display: block", "isolation: isolate", "position: static", "visibility: visible"],
+            "correctIndex": 1,
+            "explanation": "isolation: isolate establishes a new stacking context explicitly without layout side-effects."
+          }
+        },
+        {
+          "id": "q28-clamp-min-max-functions",
+          "title": "Q28: How do clamp(), min(), and max() functions enable fluid responsive design?",
+          "content": "- `clamp(MIN, VAL, MAX)`: Constrains a value within lower and upper bounds.\n- `min(VAL1, VAL2)`: Uses the smallest value from a set of parameters.\n- `max(VAL1, VAL2)`: Uses the largest value from a set of parameters.\nThey enable fluid typography and layout scaling without writing media queries.",
+          "keyTakeaways": [
+            "`clamp()` sets fluid values that scale between minimum and maximum constraints.",
+            "Reduces relying on explicit `@media` query breakpoint rules."
+          ],
+          "codeExample": {
+            "title": "Fluid Responsive Typography with clamp()",
+            "language": "css",
+            "code": "h1 {\n  /* Minimum: 2rem, Preferred: 5vw viewport scaling, Maximum: 4rem */\n  font-size: clamp(2rem, 5vw, 4rem);\n}",
+            "explanation": "Heading text scales dynamically with viewport width, locked safely between 2rem and 4rem limits."
+          },
+          "interactiveQuiz": {
+            "question": "What is the computed output of font-size: clamp(16px, 10px, 24px)?",
+            "options": ["10px", "16px", "24px", "20px"],
+            "correctIndex": 1,
+            "explanation": "clamp enforces the minimum 16px constraint since preferred 10px falls below lower bound limits."
+          }
+        },
+        {
+          "id": "q29-has-pseudo-class",
+          "title": "Q29: What is the :has() parent pseudo-class selector in CSS?",
+          "content": "The `:has()` pseudo-class (known as the CSS parent selector) selects parent elements based on whether they contain specific descendant elements or matching state selectors (e.g., `card:has(img)` or `form:has(:invalid)`).",
+          "keyTakeaways": [
+            "Acts as a powerful relational CSS parent selector.",
+            "Styles containers based on descendant child types or active form state choices."
+          ],
+          "codeExample": {
+            "title": "Relational Parent Styling with :has()",
+            "language": "css",
+            "code": "/* Styles form container when any child input is invalid */\nform:has(input:invalid) {\n  border: 2px solid red;\n}\n\n/* Styles cards containing hero images */\n.card:has(img.hero) {\n  grid-column: span 2;\n}",
+            "explanation": ":has checks child element presence and updates parent node container styles dynamically."
+          },
+          "interactiveQuiz": {
+            "question": "Which selector styles an <a> link tag only when it contains an internal <img> graphic?",
+            "options": ["a > img", "a:has(img)", "a + img", "a:contains(img)"],
+            "correctIndex": 1,
+            "explanation": "a:has(img) targets anchor links containing descendant image element nodes."
+          }
+        },
+        {
+          "id": "q30-css-subgrid",
+          "title": "Q30: What is CSS Subgrid and what layout problem does it solve?",
+          "content": "`grid-template-columns: subgrid` allows nested child grids to inherit track alignments defined on parent grids. Prior to subgrid, child elements inside nested cards could not align their internal headings and footers across neighboring grid card rows.",
+          "keyTakeaways": [
+            "Nested grid components share parent column and row track lines.",
+            "Aligns nested headers, bodies, and call-to-action buttons across adjacent grid cards."
+          ],
+          "codeExample": {
+            "title": "Subgrid Card Alignment",
+            "language": "css",
+            "code": ".parent-grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n}\n\n.card {\n  display: grid;\n  grid-template-rows: subgrid; /* Inherits parent row track metrics */\n  grid-row: span 3;\n}",
+            "explanation": "Subgrid forces card headers, text blocks, and footers across neighboring card components to align perfectly along parent row lines."
+          },
+          "interactiveQuiz": {
+            "question": "What primary layout capability does subgrid provide?",
+            "options": [
+              "Converts Grid elements to Flexbox items",
+              "Allows nested child grid components to align to parent grid tracks",
+              "Generates responsive images inside grids",
+              "Applies flex-wrap to grid columns"
+            ],
+            "correctIndex": 1,
+            "explanation": "Subgrid inherits parent column and row definitions into child grid layouts."
+          }
+        },
+        {
+          "id": "q31-container-queries",
+          "title": "Q31: How do Container Queries (@container) differ from Media Queries (@media)?",
+          "content": "Media Queries (`@media`) evaluate global **viewport browser dimensions**, forcing layout rules to rely on screen resolution breakpoints. Container Queries (`@container`) evaluate the **width/size of parent containers**, allowing components to adjust responsive layouts based on available card/sidebar space regardless of global screen size.",
+          "keyTakeaways": [
+            "`@media` queries monitor global screen viewport dimensions.",
+            "`@container` queries adapt component layouts to local parent element sizes."
+          ],
+          "codeExample": {
+            "title": "Declaring Container Queries",
+            "language": "css",
+            "code": "/* 1. Define container context on parent */\n.sidebar-wrapper {\n  container-type: inline-size;\n  container-name: sidebar;\n}\n\n/* 2. Style component based on parent width */\n@container sidebar (min-width: 400px) {\n  .card {\n    display: flex;\n  }\n}",
+            "explanation": "The card component converts to flex layout whenever its parent wrapper expands beyond 400px."
+          },
+          "interactiveQuiz": {
+            "question": "What CSS property must be applied to a parent element to enable descendant container queries?",
+            "options": ["display: grid", "container-type: inline-size", "aspect-ratio: 16/9", "resize: horizontal"],
+            "correctIndex": 1,
+            "explanation": "container-type establishes an element as a containment context for child container queries."
+          }
+        },
+        {
+          "id": "q32-css-cascade-layers",
+          "title": "Q32: What are CSS Cascade Layers (@layer) and how do they manage CSS specificity?",
+          "content": "Cascade Layers (`@layer`) allow developers to control CSS override priority explicitly regardless of selector specificity. Code defined in later layers takes precedence over earlier layers. Unlayered styles always override layered styles.",
+          "keyTakeaways": [
+            "Defines explicit order of precedence across design system stylesheets.",
+            "Unlayered CSS rules always override layered selectors."
+          ],
+          "codeExample": {
+            "title": "Ordering Cascade Layers",
+            "language": "css",
+            "code": "/* Establish layer priority order */\n@layer reset, base, components, utilities;\n\n@layer components {\n  /* High selector specificity */\n  #widget .btn {\n    background: red;\n  }\n}\n\n@layer utilities {\n  /* Lower specificity, but wins due to layer precedence */\n  .bg-green {\n    background: green;\n  }\n}",
+            "explanation": "The utilities layer takes precedence over components, overriding background color despite lower class selector counts."
+          },
+          "interactiveQuiz": {
+            "question": "Which CSS rule takes priority when conflicting layer definitions exist?",
+            "options": [
+              "Styles declared in earlier layers",
+              "Styles declared in later layers",
+              "Styles containing the longest class names",
+              "Layers containing ID selectors"
+            ],
+            "correctIndex": 1,
+            "explanation": "Later layers in cascade order take precedence over earlier layer definitions."
+          }
+        },
+        {
+          "id": "q33-hardware-acceleration",
+          "title": "Q33: What is GPU Hardware Acceleration in CSS animations and how is it triggered?",
+          "content": "Hardware acceleration offloads animation rendering from the CPU to the GPU. CPU rendering triggers expensive Layout and Paint operations. GPU acceleration targets compositor properties (`transform`, `opacity`, `filter`), ensuring smooth 60fps animations. Modern layers use `will-change: transform`.",
+          "keyTakeaways": [
+            "Animates GPU composited properties (`transform`, `opacity`) to avoid reflow/paint passes.",
+            "`will-change` signals render engines to prepare GPU layer acceleration."
+          ],
+          "codeExample": {
+            "title": "GPU Accelerated Animations",
+            "language": "css",
+            "code": ".animated-box {\n  /* Promotes layer to GPU compositor */\n  will-change: transform, opacity;\n  transition: transform 0.3s ease;\n}\n.animated-box:hover {\n  transform: translateY(-10px) scale(1.05);\n}",
+            "explanation": "Animating transform avoids triggering layout reflows, delegating operations to GPU rendering layers."
+          },
+          "interactiveQuiz": {
+            "question": "Which set of CSS properties can be animated without triggering CPU Layout or Paint rendering passes?",
+            "options": ["width and height", "margin-left and top", "transform and opacity", "padding and border-width"],
+            "correctIndex": 2,
+            "explanation": "transform and opacity are composited directly on the GPU, avoiding CPU reflow and repaint passes."
+          }
+        },
+        {
+          "id": "q34-css-grid-auto-fill-vs-auto-fit",
+          "title": "Q34: What is the difference between auto-fill and auto-fit in CSS Grid repeat()?",
+          "content": "Both keywords auto-generate responsive column tracks using `repeat(auto-*, minmax(200px, 1fr))`. When extra grid space exists:\n- `auto-fill`: Retains empty invisible column tracks, keeping grid item sizes fixed.\n- `auto-fit`: Collapses empty tracks to 0px, stretching existing grid items across the entire container width.",
+          "keyTakeaways": [
+            "`auto-fill` preserves empty grid column tracks.",
+            "`auto-fit` collapses empty space and expands existing grid items to fill full container width."
+          ],
+          "codeExample": {
+            "title": "Responsive Auto-Fit Grid",
+            "language": "css",
+            "code": ".responsive-grid {\n  display: grid;\n  /* Automatically fits items and stretches them across row space */\n  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));\n  gap: 1rem;\n}",
+            "explanation": "auto-fit automatically recalculates grid columns to fill row space without requiring media queries."
+          },
+          "interactiveQuiz": {
+            "question": "Which keyword collapses empty grid column tracks and stretches active items across container widths?",
+            "options": ["auto-fill", "auto-fit", "flex-wrap", "space-around"],
+            "correctIndex": 1,
+            "explanation": "auto-fit collapses empty tracks to zero width, expanding remaining items across available row space."
+          }
+        },
+        {
+          "id": "q35-css-content-visibility",
+          "title": "Q35: How does content-visibility: auto optimize page rendering performance?",
+          "content": "`content-visibility: auto` skips rendering (layout and painting) for off-screen elements until the user scrolls near them. This drastically speeds up initial page loads and rendering tasks on long web pages.",
+          "keyTakeaways": [
+            "Skips rendering and style calculations for off-screen element subtrees.",
+            "Substantially reduces initial page render rendering times."
+          ],
+          "codeExample": {
+            "title": "Deferring Off-Screen Rendering",
+            "language": "css",
+            "code": ".long-section {\n  content-visibility: auto;\n  /* Contain-intrinsic-size reserves height to prevent scrollbar jumpiness */\n  contain-intrinsic-size: 0 500px;\n}",
+            "explanation": "Off-screen sections skip layout rendering until scrolled near the active viewport."
+          },
+          "interactiveQuiz": {
+            "question": "What is the function of contain-intrinsic-size when paired with content-visibility: auto?",
+            "options": [
+              "Sets element border styles",
+              "Reserves placeholder dimensions for off-screen elements to prevent scrollbar jumping",
+              "Disables CSS Grid auto-placement",
+              "Converts raster images to vector graphics"
+            ],
+            "correctIndex": 1,
+            "explanation": "contain-intrinsic-size provides placeholder dimensions to maintain accurate scrollbar positioning while off-screen rendering is skipped."
+          }
+        },
+        {
+          "id": "q36-css-nesting",
+          "title": "Q36: How does native CSS Nesting work and what syntax rules apply?",
+          "content": "Native CSS nesting allows nesting child rules inside parent selectors directly in modern browser stylesheets without requiring Sass preprocessors. The `&` nesting selector explicitly references parent elements.",
+          "keyTakeaways": [
+            "Supported natively in modern browsers without preprocessor compilation.",
+            "`&` represents parent selector combinations."
+          ],
+          "codeExample": {
+            "title": "Native CSS Nesting Example",
+            "language": "css",
+            "code": ".card {\n  background: white;\n  padding: 1rem;\n\n  & .title {\n    font-size: 1.5rem;\n  }\n\n  &:hover {\n    box-shadow: 0 4px 12px rgba(0,0,0,0.1);\n  }\n}",
+            "explanation": "Nesting child selectors and hover states directly inside parent blocks mirrors Sass/Less preprocessor workflows natively."
+          },
+          "interactiveQuiz": {
+            "question": "What character represents the parent selector inside native CSS nesting blocks?",
+            "options": ["$", "@", "&", "#"],
+            "correctIndex": 2,
+            "explanation": "The & symbol represents the parent selector reference within native CSS nesting."
+          }
+        },
+        {
+          "id": "q37-aspect-ratio-property",
+          "title": "Q37: How does the aspect-ratio property prevent Cumulative Layout Shift (CLS)?",
+          "content": "The `aspect-ratio` property defines desired width-to-height ratio dimensions (e.g., `16 / 9` or `1 / 1`) for layout boxes. Reserving container dimensions before media assets finish loading prevents sudden layout shifts, directly lowering **Cumulative Layout Shift (CLS)** metrics.",
+          "keyTakeaways": [
+            "Reserves explicit layout box proportions prior to media asset loading.",
+            "Prevents Cumulative Layout Shift (CLS) layout disruptions."
+          ],
+          "codeExample": {
+            "title": "Reserving Box Aspect Ratios",
+            "language": "css",
+            "code": ".video-container {\n  width: 100%;\n  aspect-ratio: 16 / 9;\n  background-color: #f0f0f0;\n}",
+            "explanation": "The container maintains a 16:9 proportion automatically relative to width adjustments, reserving screen layout space."
+          },
+          "interactiveQuiz": {
+            "question": "Which Core Web Vital metric is improved by setting CSS aspect-ratio on responsive media wrappers?",
+            "options": ["TTFB", "CLS (Cumulative Layout Shift)", "INP", "FCP"],
+            "correctIndex": 1,
+            "explanation": "aspect-ratio reserves explicit display space prior to asset load, preventing layout shifts (CLS)."
+          }
+        },
+        {
+          "id": "q38-pointer-events-property",
+          "title": "Q38: How does the pointer-events property control user interactions in CSS?",
+          "content": "The `pointer-events` property determines whether an element responds to mouse or touch interaction events. Setting `pointer-events: none` makes an element transparent to clicks, passing click interactions directly to underlying elements below it in DOM stacks.",
+          "keyTakeaways": [
+            "`pointer-events: none` allows click and touch events to pass through to underlying elements.",
+            "Useful for disabling buttons or click-through overlay graphics."
+          ],
+          "codeExample": {
+            "title": "Click-Through Overlay Styling",
+            "language": "css",
+            "code": ".overlay-icon {\n  position: absolute;\n  /* Clicks pass directly through the icon to the button beneath */\n  pointer-events: none;\n}",
+            "explanation": "pointer-events: none allows mouse clicks to bypass decorative icons and register on input controls behind them."
+          },
+          "interactiveQuiz": {
+            "question": "What occurs when setting pointer-events: none on an element?",
+            "options": [
+              "Changes cursor to a pointer icon",
+              "Disables mouse and touch events, allowing click triggers to pass to underlying layers",
+              "Hides element visually from display",
+              "Disables CSS animation keyframes"
+            ],
+            "correctIndex": 1,
+            "explanation": "pointer-events: none ignores click/touch interactions on the targeted element, passing events to underlying elements."
+          }
+        },
+        {
+          "id": "q39-css-scroll-snap",
+          "title": "Q39: How does CSS Scroll Snap create touch-friendly slider carousels?",
+          "content": "CSS Scroll Snap forces scroll containers to lock cleanly onto designated snap points after scrolling stops. Applying `scroll-snap-type: x mandatory` on containers and `scroll-snap-align: center` on items builds touch-friendly sliders without JavaScript libraries.",
+          "keyTakeaways": [
+            "`scroll-snap-type` sets scroll axis direction (`x` or `y`) and strictness (`mandatory` or `proximity`).",
+            "`scroll-snap-align` specifies item positioning alignment (`start`, `center`, `end`)."
+          ],
+          "codeExample": {
+            "title": "Pure CSS Carousel Slider",
+            "language": "css",
+            "code": ".carousel {\n  display: flex;\n  overflow-x: auto;\n  scroll-snap-type: x mandatory;\n}\n.carousel-item {\n  flex: 0 0 100%;\n  scroll-snap-align: center;\n}",
+            "explanation": "The container locks item scroll stops cleanly onto item center alignments."
+          },
+          "interactiveQuiz": {
+            "question": "Which property aligns scroll stops on individual items inside a scroll snap container?",
+            "options": ["scroll-behavior", "scroll-snap-align", "scroll-margin", "scroll-padding"],
+            "correctIndex": 1,
+            "explanation": "scroll-snap-align determines where item boundaries lock relative to scroll containers."
+          }
+        },
+        {
+          "id": "q40-css-color-functions-hsl-oklch",
+          "title": "Q40: Why are modern CSS color spaces like oklch() preferred over rgb() and hex?",
+          "content": "Modern CSS color functions like `oklch(L C H)` operate in perceptually uniform color spaces. Unlike `rgb()` or `hex`, `oklch()` provides consistent visual brightness across hues, wider color gamut coverage (P3 display profiles), and simplified automated palette generation.",
+          "keyTakeaways": [
+            "Perceptually uniform: changing hue preserves consistent visual brightness.",
+            "Supports wide-gamut P3 display colors on modern device screens."
+          ],
+          "codeExample": {
+            "title": "Declaring oklch Color",
+            "language": "css",
+            "code": ":root {\n  /* oklch(Lightness, Chroma, Hue) */\n  --brand-primary: oklch(0.6 0.25 250);\n  --brand-light: oklch(0.9 0.05 250);\n}",
+            "explanation": "oklch provides predictable, perceptually uniform brightness adjustments across color palettes."
+          },
+          "interactiveQuiz": {
+            "question": "What primary operational advantage does the oklch() color space offer over traditional rgb() colors?",
+            "options": [
+              "Compresses CSS file byte sizes",
+              "Perceptually uniform lightness across hues and access to wide-gamut P3 device colors",
+              "Converts colors to grayscale automatically",
+              "Disables element transparency"
+            ],
+            "correctIndex": 1,
+            "explanation": "oklch provides perceptually uniform lightness control and wide P3 display color support."
+          }
+        },
+        {
+          "id": "q41-view-transitions-api",
+          "title": "Q41: What is the CSS View Transitions API and how does it animate page transitions?",
+          "content": "The View Transitions API creates animated transitions between DOM states or page navigations. Wrapping DOM updates inside `document.startViewTransition()` lets browsers take snapshots and execute CSS animations (`::view-transition-old`, `::view-transition-new`) automatically.",
+          "keyTakeaways": [
+            "Animates DOM state changes and multi-page transitions smoothly.",
+            "Uses pseudo-element transition snapshots (`::view-transition-old` and `::view-transition-new`)."
+          ],
+          "codeExample": {
+            "title": "View Transition DOM Update",
+            "language": "javascript",
+            "code": "function updateDOM() {\n  // Wrap state changes inside View Transitions API\n  document.startViewTransition(() => {\n    document.body.classList.toggle('dark-theme');\n  });\n}",
+            "explanation": "The browser cross-fades old and new document rendering snapshots automatically."
+          },
+          "interactiveQuiz": {
+            "question": "Which JavaScript method initializes a CSS View Transition state snapshot?",
+            "options": ["document.startViewTransition()", "window.requestAnimationFrame()", "element.animate()", "document.transitionTo()"],
+            "correctIndex": 0,
+            "explanation": "document.startViewTransition captures DOM state changes and executes page transition animations."
+          }
+        },
+        {
+          "id": "q42-grid-auto-flow-dense",
+          "title": "Q42: How does grid-auto-flow: dense packing work in CSS Grid?",
+          "content": "`grid-auto-flow: dense` tells CSS Grid engines to fill empty layout gaps early in the grid matrix if smaller items appear later in HTML markup. This eliminates empty spaces in irregular photo galleries, though it may alter visual reading order relative to DOM sequence.",
+          "keyTakeaways": [
+            "Packs smaller items into empty grid gaps created by larger multi-span items.",
+            "Maximizes space efficiency in mosaic masonry-like layouts."
+          ],
+          "codeExample": {
+            "title": "Dense Packing Photo Gallery",
+            "language": "css",
+            "code": ".gallery {\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  grid-auto-flow: dense; /* Backfills empty gaps automatically */\n}",
+            "explanation": "dense mode backfills empty grid spaces automatically with smaller subsequent gallery items."
+          },
+          "interactiveQuiz": {
+            "question": "What is the primary effect of adding grid-auto-flow: dense to a grid container?",
+            "options": [
+              "Forces all grid items into a single row",
+              "Fills empty visual layout gaps automatically using smaller subsequent items",
+              "Disables CSS grid layout gaps",
+              "Aligns items along cross-axis centers"
+            ],
+            "correctIndex": 1,
+            "explanation": "grid-auto-flow: dense packs smaller items backward into empty grid layout holes."
+          }
+        },
+        {
+          "id": "q43-css-will-change",
+          "title": "Q43: What is the will-change property and why should it be used sparingly?",
+          "content": "`will-change` provides a hint to browsers about properties expected to animate soon (e.g., `will-change: transform`). Browsers prepare dedicated GPU layer optimization in advance. Overusing `will-change` exhausts system memory and degrades overall page performance.",
+          "keyTakeaways": [
+            "Hints render engines to allocate dedicated GPU memory layers in advance.",
+            "Must be used sparingly; excessive use consumes system memory."
+          ],
+          "codeExample": {
+            "title": "Strategic will-change Usage",
+            "language": "css",
+            "code": "/* Recommended: apply prior to animation execution */\n.sidebar {\n  will-change: transform;\n  transition: transform 0.3s ease-out;\n}",
+            "explanation": "will-change hints render engines to optimize transform operations ahead of sidebar movements."
+          },
+          "interactiveQuiz": {
+            "question": "Why is applying will-change: transform to all elements across a stylesheet considered bad practice?",
+            "options": [
+              "It disables all CSS transition animations",
+              "It exhausts system GPU memory resources by creating excessive rendering layers",
+              "It increases CSS specificity scores",
+              "It breaks Flexbox alignments"
+            ],
+            "correctIndex": 1,
+            "explanation": "Overusing will-change allocates unnecessary GPU memory layers, degrading performance."
+          }
+        },
+        {
+          "id": "q44-css-containment-property",
+          "title": "Q44: How does the CSS contain property improve browser rendering performance?",
+          "content": "The `contain` property (`contain: layout paint style size`) informs browsers that an element's DOM subtree is isolated from the rest of the document. Browsers skip calculating style, layout, or paint reflows outside the contained subtree when changes occur inside.",
+          "keyTakeaways": [
+            "Isolates DOM subtrees to prevent recalculating external page layouts.",
+            "Boosts performance for complex dynamic Web Application UI components."
+          ],
+          "codeExample": {
+            "title": "Isolating Dynamic Components",
+            "language": "css",
+            "code": ".widget-panel {\n  /* Prevents internal DOM updates from triggering external page reflows */\n  contain: layout paint;\n}",
+            "explanation": "contain: layout paint restricts DOM reflows and repaints within the widget-panel container."
+          },
+          "interactiveQuiz": {
+            "question": "What rendering efficiency does CSS containment provide?",
+            "options": [
+              "Encrypted CSS file delivery over HTTPS",
+              "Isolates style, layout, and repaint passes to contained subtrees, preventing global page reflows",
+              "Converts pixels to rem units automatically",
+              "Compresses image assets"
+            ],
+            "correctIndex": 1,
+            "explanation": "CSS containment isolates DOM subtrees, preventing internal component updates from triggering global page reflows."
+          }
+        },
+        {
+          "id": "q45-css-is-vs-where",
+          "title": "Q45: What is the difference between :is() and :where() pseudo-classes?",
+          "content": "Both `:is()` and `:where()` group multiple selectors to reduce CSS duplication. The critical difference is specificity:\n- `:is()` adopts the specificity score of its **most specific argument** selector.\n- `:where()` carries **zero specificity score (0,0,0)**, making rules easy to override later in stylesheets.",
+          "keyTakeaways": [
+            "`:is()` adopts the specificity of its highest argument selector.",
+            "`:where()` carries zero specificity weight (0,0,0) for easy utility overrides."
+          ],
+          "codeExample": {
+            "title": ":is() vs :where() Specificity Comparison",
+            "language": "css",
+            "code": "/* Specificity Score: (1,0,0) due to #header argument */\n:is(header, #header, footer) p {\n  color: blue;\n}\n\n/* Specificity Score: (0,0,1) because :where carries zero weight */\n:where(header, #header, footer) p {\n  color: red;\n}",
+            "explanation": ":where() evaluates with zero specificity weight, allowing easy overrides without requiring high-specificity rules."
+          },
+          "interactiveQuiz": {
+            "question": "What is the calculated specificity score added by the :where() pseudo-class container itself?",
+            "options": ["Score of its highest argument", "(0,1,0)", "Zero specificity score (0,0,0)", "(1,0,0)"],
+            "correctIndex": 2,
+            "explanation": ":where() carries zero specificity score (0,0,0), enabling easy stylesheet overrides."
+          }
+        },
+        {
+          "id": "q46-light-dark-color-function",
+          "title": "Q46: How does the light-dark() CSS color function streamline dark mode theming?",
+          "content": "The `light-dark(LIGHT_COLOR, DARK_COLOR)` CSS function sets two color choices in a single declaration. The browser automatically selects the appropriate color based on the current active `color-scheme` rule (e.g., `color-scheme: light dark`).",
+          "keyTakeaways": [
+            "Supplies light and dark color options inside a single function declaration.",
+            "Requires active `color-scheme` configuration to switch mode colors dynamically."
+          ],
+          "codeExample": {
+            "title": "Declarative Theme Colors with light-dark()",
+            "language": "css",
+            "code": ":root {\n  color-scheme: light dark;\n}\n\n.card {\n  /* Uses #ffffff in light mode, #1e1e1e in dark mode */\n  background-color: light-dark(#ffffff, #1e1e1e);\n  color: light-dark(#111111, #f5f5f5);\n}",
+            "explanation": "light-dark() switches background and text colors automatically based on the active color-scheme."
+          },
+          "interactiveQuiz": {
+            "question": "What property must be declared on an element or root scope for light-dark() to function?",
+            "options": ["color-scheme: light dark", "prefers-color-scheme: dark", "display: flex", "theme: auto"],
+            "correctIndex": 0,
+            "explanation": "color-scheme enables browser engine context required for evaluating light-dark() functions."
+          }
+        },
+        {
+          "id": "q47-css-popover-api",
+          "title": "Q47: How does the CSS Popover API simplify tooltips and dropdown overlays?",
+          "content": "The HTML/CSS Popover API allows creating top-layer popover overlays natively without custom JavaScript z-index scripts. Adding `popover` to containers and `popovertarget=\"id\"` to buttons handles opening, backdrop rendering, light-dismiss (clicking outside), and <kbd>Esc</kbd> key closing actions natively.",
+          "keyTakeaways": [
+            "Renders popover content in the browser top-layer context automatically.",
+            "Built-in light-dismiss (close on outside click) and ESC key navigation."
+          ],
+          "codeExample": {
+            "title": "Native Declarative Popover",
+            "language": "html",
+            "code": "<!-- Button targets popover id -->\n<button popovertarget=\"menu-popover\">Toggle Menu</button>\n\n<!-- Popover overlay element -->\n<div id=\"menu-popover\" popover>\n  <p>Popover Overlay Content</p>\n</div>",
+            "explanation": "Adding popover attributes provides native top-layer placement and light-dismiss behavior automatically."
+          },
+          "interactiveQuiz": {
+            "question": "Which layer context houses active Popover API elements on screen?",
+            "options": ["Standard DOM document flow", "Top-layer rendering context", "Shadow DOM root", "Fixed viewport stack"],
+            "correctIndex": 1,
+            "explanation": "Popover API elements render inside the browser's top-layer context, placing them above page z-index layers."
+          }
+        },
+        {
+          "id": "q48-css-anchor-positioning",
+          "title": "Q48: What is CSS Anchor Positioning and how does it anchor elements relative to other nodes?",
+          "content": "CSS Anchor Positioning allows positioning floating elements (tooltips, dropdown menus) relative to explicit target anchor nodes anywhere on screen using `anchor-name` and `position-anchor`, without requiring complex JavaScript DOM geometry calculations.",
+          "keyTakeaways": [
+            "Anchors floating tooltips/menus relative to specific target elements.",
+            "Eliminates complex JavaScript DOM positioning library dependencies."
+          ],
+          "codeExample": {
+            "title": "Anchoring Tooltip to Button",
+            "language": "css",
+            "code": "/* Target anchor button */\n.anchor-button {\n  anchor-name: --my-anchor;\n}\n\n/* Floating tooltip element */\n.tooltip {\n  position: absolute;\n  position-anchor: --my-anchor;\n  top: anchor(bottom);\n  left: anchor(center);\n}",
+            "explanation": "The tooltip anchors its position directly to the bottom-center coordinates of --my-anchor button."
+          },
+          "interactiveQuiz": {
+            "question": "Which property defines an anchor name reference on a target anchor element?",
+            "options": ["anchor-name: --name", "position-anchor: --name", "anchor-target: id", "link-anchor: --name"],
+            "correctIndex": 0,
+            "explanation": "anchor-name declares an anchor identifier reference on target elements."
+          }
+        },
+        {
+          "id": "q49-css-overscroll-behavior",
+          "title": "Q49: How does overscroll-behavior prevent scroll chaining in modal popups?",
+          "content": "`overscroll-behavior: contain` prevents scroll chaining actions from propagating to parent containers. When a user reaches the top or bottom of a modal scroll region, page scrolling behind the modal is contained, stopping unwanted parent window movement.",
+          "keyTakeaways": [
+            "Prevents scroll chaining (parent page scrolling when modal boundaries hit edge limits).",
+            "Eliminates bounce effects on mobile touch screens."
+          ],
+          "codeExample": {
+            "title": "Containing Scroll Inside Modals",
+            "language": "css",
+            "code": ".modal-body {\n  overflow-y: auto;\n  /* Prevents scrolling from passing through to background page */\n  overscroll-behavior: contain;\n}",
+            "explanation": "overscroll-behavior: contain traps scrolling inside modal borders when reaching boundary edges."
+          },
+          "interactiveQuiz": {
+            "question": "What issue is fixed by applying overscroll-behavior: contain to scrollable modal bodies?",
+            "options": [
+              "Disables element scrollbars entirely",
+              "Prevents scroll chaining from scrolling background pages when modal edge limits are reached",
+              "Enables smooth scrolling animations",
+              "Centers modal windows vertically"
+            ],
+            "correctIndex": 1,
+            "explanation": "overscroll-behavior: contain stops scroll chaining, keeping background pages stationary when modal limits are reached."
+          }
+        },
+        {
+          "id": "q50-css-scroll-driven-animations",
+          "title": "Q50: How do CSS Scroll-Driven Animations link animation keyframes directly to scroll progress?",
+          "content": "CSS Scroll-Driven Animations link keyframe timelines directly to page scroll progress using `animation-timeline: scroll()` or view progress using `animation-timeline: view()`. This enables scroll-linked progress bars and parallax effects cleanly without JavaScript scroll listeners.",
+          "keyTakeaways": [
+            "Links animation keyframes directly to scroll containers without JavaScript.",
+            "`animation-timeline: scroll()` maps timeline execution to scroll percentages."
+          ],
+          "codeExample": {
+            "title": "Scroll Progress Reading Bar",
+            "language": "css",
+            "code": "@keyframes progress-grow {\n  from { transform: scaleX(0); }\n  to { transform: scaleX(1); }\n}\n\n.reading-progress-bar {\n  animation: progress-grow linear;\n  /* Binds animation progress directly to page scrolling */\n  animation-timeline: scroll(root);\n}",
+            "explanation": "The reading bar expands smoothly from 0% to 100% width bound directly to root document scroll position."
+          },
+          "interactiveQuiz": {
+            "question": "Which property binds a keyframe animation timeline directly to container scroll progress?",
+            "options": ["animation-timeline: scroll()", "scroll-behavior: smooth", "transition-timeline: auto", "will-change: scroll"],
+            "correctIndex": 0,
+            "explanation": "animation-timeline: scroll() links keyframe progress directly to viewport or container scroll offset positions."
+          }
+        },
+        {
+          "id": "q51-css-masonry-layout",
+          "title": "Q51: What is CSS Masonry layout and how does grid-template-rows: masonry work?",
+          "content": "The CSS Masonry specification allows building Pinterest-style layouts where items with varying heights pack tightly vertically without leaving empty row gaps. Setting `grid-template-rows: masonry` on grid containers replaces rigid row alignments with dynamic vertical packing.",
+          "keyTakeaways": [
+            "Packs irregular height grid cards vertically without empty row gaps.",
+            "Eliminates complex JavaScript Pinterest-style masonry grid libraries."
+          ],
+          "codeExample": {
+            "title": "Declarative Native Masonry Grid",
+            "language": "css",
+            "code": ".masonry-gallery {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  /* Native masonry packing along row track axis */\n  grid-template-rows: masonry;\n  gap: 1rem;\n}",
+            "explanation": "grid-template-rows: masonry dynamically packs varying height gallery cards vertically without empty spaces."
+          },
+          "interactiveQuiz": {
+            "question": "What layout behavior does grid-template-rows: masonry provide?",
+            "options": [
+              "Forces all grid rows to have identical heights",
+              "Packs irregular height items tightly vertically without empty row gaps",
+              "Converts Grid elements to absolute positioning",
+              "Disables CSS gaps"
+            ],
+            "correctIndex": 1,
+            "explanation": "masonry packing packs elements vertically into tight columns regardless of individual item height variations."
+          }
+        },
+        {
+          "id": "q52-css-trigger-scope-and-timeline-scope",
+          "title": "Q52: How does timeline-scope coordinate scroll animations across disconnected elements?",
+          "content": "`timeline-scope` allows exposing scroll timeline references defined on child or sibling scroll containers up to a shared parent scope. This lets external header elements or indicators animate in response to scroll movements occurring inside an isolated sub-container.",
+          "keyTakeaways": [
+            "Hoists scroll timeline references up to shared ancestor scopes.",
+            "Coordinates scroll-driven animations across decoupled DOM elements."
+          ],
+          "codeExample": {
+            "title": "Hoisting Scroll Timelines",
+            "language": "css",
+            "code": ".parent-scope {\n  /* Hoists timeline name to parent scope */\n  timeline-scope: --sub-scroll;\n}\n.child-scroll-box {\n  scroll-timeline-name: --sub-scroll;\n}\n.external-indicator {\n  /* Reads hoisted timeline reference */\n  animation-timeline: --sub-scroll;\n}",
+            "explanation": "timeline-scope connects the external indicator's animation directly to the child scroll box's scroll timeline."
+          },
+          "interactiveQuiz": {
+            "question": "What is the primary function of the timeline-scope CSS property?",
+            "options": [
+              "Exposes scroll timeline references to parent and sibling ancestor scopes",
+              "Resets animation timing functions",
+              "Defines video player controls",
+              "Creates keyframe delays"
+            ],
+            "correctIndex": 0,
+            "explanation": "timeline-scope hoists local scroll timelines up to ancestor scope boundaries for cross-element animation binding."
+          }
+        },
+        {
+          "id": "q53-css-starting-style",
+          "title": "Q53: How does @starting-style enable entry transition animations for display: none elements?",
+          "content": "Historically, transitioning elements from `display: none` to `display: block` skipped entry animations because there was no initial render state to interpolate from. `@starting-style` defines initial style properties before an element enters the DOM render tree, enabling clean entry transitions.",
+          "keyTakeaways": [
+            "Defines starting animation property values for newly rendered elements.",
+            "Enables smooth entry transitions when toggling elements from `display: none`."
+          ],
+          "codeExample": {
+            "title": "Smooth Entry Transitions for Modals",
+            "language": "css",
+            "code": ".dialog {\n  opacity: 1;\n  transition: opacity 0.3s ease, display 0.3s allow-discrete;\n\n  /* Establishes initial state before element is rendered */\n  @starting-style {\n    opacity: 0;\n  }\n}",
+            "explanation": "@starting-style sets opacity to 0 when entering the DOM, allowing transition to animate cleanly to opacity 1."
+          },
+          "interactiveQuiz": {
+            "question": "What challenge does @starting-style solve in CSS transitions?",
+            "options": [
+              "Disables CSS animation keyframes",
+              "Defines starting property states for elements entering the DOM or transitioning from display: none",
+              "Converts pixels to rem units",
+              "Overrides CSS specificity"
+            ],
+            "correctIndex": 1,
+            "explanation": "@starting-style provides explicit initial property states required for entry transition animations."
+          }
+        },
+        {
+          "id": "q54-css-custom-functions",
+          "title": "Q54: What are CSS Custom Functions (@function) and how do they extend CSS modularity?",
+          "content": "The CSS Functions specification introduces custom CSS functions defined via `@function --fn-name()`. Custom functions accept parameters and return computed values using `--return`, bringing modular functional calculations to native CSS stylesheets.",
+          "keyTakeaways": [
+            "Defines reusable custom logic functions natively using `@function`.",
+            "Accepts parameters and returns computed CSS values."
+          ],
+          "codeExample": {
+            "title": "Native CSS Custom Function",
+            "language": "css",
+            "code": "@function --fluid-spacing(--base) {\n  --return: calc(var(--base) * 1vw + 0.5rem);\n}\n\n.card {\n  /* Calls custom CSS function */\n  padding: --fluid-spacing(2);\n}",
+            "explanation": "The custom function evaluates the formula and returns computed spacing values natively."
+          },
+          "interactiveQuiz": {
+            "question": "Which directive defines a native custom function in modern CSS stylesheets?",
+            "options": ["@function", "@mixin", "@def", "@fn"],
+            "correctIndex": 0,
+            "explanation": "@function declares native custom functions in CSS."
+          }
+        },
+        {
+          "id": "q55-css-paint-api-houdini",
+          "title": "Q55: What is CSS Houdini and how does the CSS Paint API work?",
+          "content": "CSS Houdini is a set of low-level APIs giving developers direct access to the browser's CSS object model and rendering pipeline. The **CSS Paint API** allows writing custom JavaScript functions via `registerPaint()` to programmatically paint custom backgrounds, borders, and visual effects directly onto CSS rendering canvases.",
+          "keyTakeaways": [
+            "Exposes low-level browser CSS rendering pipeline stages to developers.",
+            "The Paint API draws custom 2D visual backgrounds using JavaScript Worklets."
+          ],
+          "codeExample": {
+            "title": "CSS Paint Worklet Invocation",
+            "language": "css",
+            "code": ".custom-background {\n  /* Invokes custom registered Houdini Paint Worklet */\n  background-image: paint(sparkle-worklet);\n}",
+            "explanation": "paint(sparkle-worklet) renders procedural background graphics directly inside the browser rendering pipeline."
+          },
+          "interactiveQuiz": {
+            "question": "What is the primary goal of the CSS Houdini initiative?",
+            "options": [
+              "To replace JavaScript with CSS",
+              "To expose low-level browser CSS rendering engine APIs directly to developers",
+              "To compress HTML files",
+              "To convert WebAssembly into CSS"
+            ],
+            "correctIndex": 1,
+            "explanation": "CSS Houdini provides low-level APIs to extend browser styling and rendering capabilities directly."
+          }
+        }
+      ]
+    }
+  ]
+}
