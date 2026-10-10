@@ -4141,6 +4141,2380 @@
           ]
         }
       ]
+    },
+    {
+      "id": "hard-dsa-advanced-dp-and-strings",
+      "title": "Hard DSA — Advanced Dynamic Programming & Complex String Matching",
+      "summary": "Master complex state-transition dynamic programming, multi-dimensional memoization, wildcard matching algorithms, and advanced string evaluation patterns.",
+      "estimatedMinutes": 480,
+      "sections": [
+        {
+          "id": "edit-distance-dp",
+          "title": "51. Edit Distance (Levenshtein Distance)",
+          "content": "Given two strings `word1` and `word2`, return the minimum number of operations required to convert `word1` to `word2` using insertions, deletions, or substitutions.\n\n### How It Works & Algorithmic Design\nSolves using **2D Dynamic Programming Grid Matching**:\n1. **DP State**: Define `dp[i][j]` as the minimum edit distance between `word1[0...i-1]` and `word2[0...j-1]`.\n2. **Base Cases**: `dp[i][0] = i` (deleting all characters from `word1`) and `dp[0][j] = j` (inserting all characters into `word1`).\n3. **State Transitions**:\n   - If `word1[i-1] === word2[j-1]`, no operation is needed: `dp[i][j] = dp[i-1][j-1]`.\n   - Otherwise, take the minimum of 3 operations plus 1:\n     - **Insert**: `dp[i][j-1] + 1`\n     - **Delete**: `dp[i-1][j] + 1`\n     - **Replace**: `dp[i-1][j-1] + 1`\n\n### Why This Approach Works Best\nComputes exact minimum edit distance in $O(m \\times n)$ time and $O(m \\times n)$ space, which can be space-optimized to $O(\\min(m, n))$ using rolling arrays.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "2D Dynamic Programming",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(m * n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(m * n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "word1 = \"horse\", word2 = \"ros\"",
+                  "explanation": "Target conversion."
+                },
+                {
+                  "label": "Operations Trace",
+                  "value": "horse -> rorse (replace 'h' with 'r') -> rose (remove 'r') -> ros (remove 'e')",
+                  "explanation": "3 operations required."
+                },
+                {
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "Minimum operations."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Edit Distance 2D DP implementation",
+            "explanation": "Build dynamic programming table evaluating insert, delete, and replace operational paths.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function minDistance(word1, word2) {\n  const m = word1.length, n = word2.length;\n  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n  for (let i = 0; i <= m; i++) dp[i][0] = i;\n  for (let j = 0; j <= n; j++) dp[0][j] = j;\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (word1[i - 1] === word2[j - 1]) {\n        dp[i][j] = dp[i - 1][j - 1];\n      } else {\n        dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1;\n      }\n    }\n  }\n  return dp[m][n];\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function minDistance(word1: string, word2: string): number {\n  const m = word1.length, n = word2.length;\n  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n  for (let i = 0; i <= m; i++) dp[i][0] = i;\n  for (let j = 0; j <= n; j++) dp[0][j] = j;\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (word1[i - 1] === word2[j - 1]) {\n        dp[i][j] = dp[i - 1][j - 1];\n      } else {\n        dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1;\n      }\n    }\n  }\n  return dp[m][n];\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int minDistance(String word1, String word2) {\n        int m = word1.length(), n = word2.length();\n        int[][] dp = new int[m + 1][n + 1];\n        for (int i = 0; i <= m; i++) dp[i][0] = i;\n        for (int j = 0; j <= n; j++) dp[0][j] = j;\n        for (int i = 1; i <= m; i++) {\n            for (int j = 1; j <= n; j++) {\n                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {\n                    dp[i][j] = dp[i - 1][j - 1];\n                } else {\n                    dp[i][j] = Math.min(dp[i - 1][j - 1], Math.min(dp[i - 1][j], dp[i][j - 1])) + 1;\n                }\n            }\n        }\n        return dp[m][n];\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def min_distance(word1: str, word2: str) -> int:\n    m, n = len(word1), len(word2)\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n    for i in range(m + 1): dp[i][0] = i\n    for j in range(n + 1): dp[0][j] = j\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if word1[i - 1] == word2[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1]\n            else:\n                dp[i][j] = min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1\n    return dp[m][n]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Minimizes structural distance across two sequences.",
+            "Sub-problem operations: `Insert` (left cell), `Delete` (top cell), `Replace` (diagonal cell).",
+            "Time complexity $O(m \\times n)$."
+          ]
+        },
+        {
+          "id": "regular-expression-matching-dp",
+          "title": "52. Regular Expression Matching",
+          "content": "Given an input string `s` and a pattern `p`, implement regular expression matching with support for '.' (matches any single character) and '*' (matches zero or more of the preceding element).\n\n### How It Works & Algorithmic Design\nSolves using **2D Dynamic Programming with Wildcard Expansion**:\n1. **DP Table**: Let `dp[i][j]` be boolean matching status of `s[0...i-1]` and `p[0...j-1]`.\n2. **Base Case**: `dp[0][0] = true`. Handle patterns like `a*b*` matching empty string `s`.\n3. **Matching Rules**:\n   - If `p[j-1] === s[i-1]` or `p[j-1] === '.'`: `dp[i][j] = dp[i-1][j-1]`.\n   - If `p[j-1] === '*'`:\n     - Zero occurrences of preceding char: `dp[i][j] = dp[i][j-2]`.\n     - One/more occurrences (if preceding char matches `s[i-1]` or is '.'): `dp[i][j] = dp[i][j] || dp[i-1][j]`.\n\n### Why This Approach Works Best\nAvoids infinite backtracking loops and evaluates complex regex state graphs in $O(|s| \\times |p|)$ time and space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "2D Regex State DP",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(s * p)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(s * p)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "s = \"aa\", p = \"a*\"",
+                  "explanation": "'*' matches zero or more 'a's."
+                },
+                {
+                  "label": "Pattern Expansion",
+                  "value": "'a*' expands to \"aa\", matching string s exactly.",
+                  "explanation": "Valid regex match."
+                },
+                {
+                  "label": "Output",
+                  "value": "true",
+                  "explanation": "Matches completely."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Regular Expression Matching implementation",
+            "explanation": "Build DP match matrix evaluating single character match and asterisk wildcard expansions.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function isMatch(s, p) {\n  const m = s.length, n = p.length;\n  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(false));\n  dp[0][0] = true;\n  for (let j = 2; j <= n; j += 2) {\n    if (p[j - 1] === '*') dp[0][j] = dp[0][j - 2];\n  }\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (p[j - 1] === '*' ) {\n        dp[i][j] = dp[i][j - 2] || (dp[i - 1][j] && (s[i - 1] === p[j - 2] || p[j - 2] === '.'));\n      } else {\n        dp[i][j] = dp[i - 1][j - 1] && (s[i - 1] === p[j - 1] || p[j - 1] === '.');\n      }\n    }\n  }\n  return dp[m][n];\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function isMatch(s: string, p: string): boolean {\n  const m = s.length, n = p.length;\n  const dp: boolean[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(false));\n  dp[0][0] = true;\n  for (let j = 2; j <= n; j += 2) {\n    if (p[j - 1] === '*') dp[0][j] = dp[0][j - 2];\n  }\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (p[j - 1] === '*') {\n        dp[i][j] = dp[i][j - 2] || (dp[i - 1][j] && (s[i - 1] === p[j - 2] || p[j - 2] === '.'));\n      } else {\n        dp[i][j] = dp[i - 1][j - 1] && (s[i - 1] === p[j - 1] || p[j - 1] === '.');\n      }\n    }\n  }\n  return dp[m][n];\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static boolean isMatch(String s, String p) {\n        int m = s.length(), n = p.length();\n        boolean[][] dp = new boolean[m + 1][n + 1];\n        dp[0][0] = true;\n        for (int j = 2; j <= n; j += 2) {\n            if (p.charAt(j - 1) == '*') dp[0][j] = dp[0][j - 2];\n        }\n        for (int i = 1; i <= m; i++) {\n            for (int j = 1; j <= n; j++) {\n                if (p.charAt(j - 1) == '*') {\n                    dp[i][j] = dp[i][j - 2] || (dp[i - 1][j] && (s.charAt(i - 1) == p.charAt(j - 2) || p.charAt(j - 2) == '.'));\n                } else {\n                    dp[i][j] = dp[i - 1][j - 1] && (s.charAt(i - 1) == p.charAt(j - 1) || p.charAt(j - 1) == '.');\n                }\n            }\n        }\n        return dp[m][n];\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def is_match(s: str, p: str) -> bool:\n    m, n = len(s), len(p)\n    dp = [[False] * (n + 1) for _ in range(m + 1)]\n    dp[0][0] = True\n    for j in range(2, n + 1, 2):\n        if p[j - 1] == '*': dp[0][j] = dp[0][j - 2]\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if p[j - 1] == '*':\n                dp[i][j] = dp[i][j - 2] or (dp[i - 1][j] and (s[i - 1] == p[j - 2] or p[j - 2] == '.'))\n            else:\n                dp[i][j] = dp[i - 1][j - 1] and (s[i - 1] == p[j - 1] or p[j - 1] == '.')\n    return dp[m][n]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Asterisk '*' operates on the preceding character.",
+            "Two choices for '*': zero matches (`dp[i][j-2]`) or extension match (`dp[i-1][j]`).",
+            "Optimal linear-squared complexity $O(|s| \\times |p|)$."
+          ]
+        },
+        {
+          "id": "wildcard-matching-dp",
+          "title": "53. Wildcard Matching",
+          "content": "Given an input string `s` and a pattern `p`, implement wildcard pattern matching with support for '?' (matches any single character) and '*' (matches any sequence of characters, including empty sequence).\n\n### How It Works & Algorithmic Design\nSolves using **Greedy Two Pointers with Backtracking Positions**:\n1. **Pointers**: `sIdx = 0`, `pIdx = 0`, `match = 0`, `starIdx = -1`.\n2. **Traversal**:\n   - Characters match or `p[pIdx] === '?'`: advance both `sIdx++`, `pIdx++`.\n   - `p[pIdx] === '*'`: save star checkpoint `starIdx = pIdx`, `match = sIdx`, advance `pIdx++`.\n   - Mismatch after star: reset `pIdx = starIdx + 1`, advance `match++`, set `sIdx = match`.\n   - Otherwise: mismatch without star $\\to$ return `false`.\n3. **Post Check**: Skip trailing '*' in pattern. Return `sIdx === s.length && pIdx === p.length`.\n\n### Why This Approach Works Best\nGreedy two-pointer pointer tracking with star backtracking runs in $O(|s| \\times |p|)$ worst-case and $O(1)$ constant space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Greedy Star Pointer",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(s * p)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "s = \"cb\", p = \"?a\"",
+                  "explanation": "'?' matches 'c', but 'a' != 'b'."
+                },
+                {
+                  "label": "Output",
+                  "value": "false",
+                  "explanation": "Pattern mismatch."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Wildcard Matching using Greedy Star Pointers",
+            "explanation": "Match string characters and track last star pattern index for constant-space backtracking.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function isMatch(s, p) {\n  let sIdx = 0, pIdx = 0, match = 0, starIdx = -1;\n  while (sIdx < s.length) {\n    if (pIdx < p.length && (p[pIdx] === '?' || s[sIdx] === p[pIdx])) {\n      sIdx++; pIdx++;\n    } else if (pIdx < p.length && p[pIdx] === '*') {\n      starIdx = pIdx; match = sIdx; pIdx++;\n    } else if (starIdx !== -1) {\n      pIdx = starIdx + 1; match++; sIdx = match;\n    } else return false;\n  }\n  while (pIdx < p.length && p[pIdx] === '*') pIdx++;\n  return pIdx === p.length;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function isMatch(s: string, p: string): boolean {\n  let sIdx = 0, pIdx = 0, match = 0, starIdx = -1;\n  while (sIdx < s.length) {\n    if (pIdx < p.length && (p[pIdx] === '?' || s[sIdx] === p[pIdx])) {\n      sIdx++; pIdx++;\n    } else if (pIdx < p.length && p[pIdx] === '*') {\n      starIdx = pIdx; match = sIdx; pIdx++;\n    } else if (starIdx !== -1) {\n      pIdx = starIdx + 1; match++; sIdx = match;\n    } else return false;\n  }\n  while (pIdx < p.length && p[pIdx] === '*') pIdx++;\n  return pIdx === p.length;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static boolean isMatch(String s, String p) {\n        int sIdx = 0, pIdx = 0, match = 0, starIdx = -1;\n        while (sIdx < s.length()) {\n            if (pIdx < p.length() && (p.charAt(pIdx) == '?' || s.charAt(sIdx) == p.charAt(pIdx))) {\n                sIdx++; pIdx++;\n            } else if (pIdx < p.length() && p.charAt(pIdx) == '*') {\n                starIdx = pIdx; match = sIdx; pIdx++;\n            } else if (starIdx != -1) {\n                pIdx = starIdx + 1; match++; sIdx = match;\n            } else return false;\n        }\n        while (pIdx < p.length() && p.charAt(pIdx) == '*') pIdx++;\n        return pIdx == p.length();\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def is_match(s: str, p: str) -> bool:\n    s_idx = p_idx = match = 0\n    star_idx = -1\n    while s_idx < len(s):\n        if p_idx < len(p) and (p[p_idx] == '?' or s[s_idx] == p[p_idx]):\n            s_idx += 1; p_idx += 1\n        elif p_idx < len(p) and p[p_idx] == '*':\n            star_idx = p_idx; match = s_idx; p_idx += 1\n        elif star_idx != -1:\n            p_idx = star_idx + 1; match += 1; s_idx = match\n        else:\n            return False\n    while p_idx < len(p) and p[p_idx] == '*': p_idx += 1\n    return p_idx == len(p)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Wildcard '*' matches any sequence without needing a predecessor.",
+            "Greedy star position tracking achieves $O(1)$ space complexity.",
+            "Significantly faster in practice compared to 2D DP table recursion."
+          ]
+        },
+        {
+          "id": "distinct-subsequences-dp",
+          "title": "54. Distinct Subsequences",
+          "content": "Given two strings `s` and `t`, return the number of distinct subsequences of `s` which equals `t`.\n\n### How It Works & Algorithmic Design\nSolves using **2D Subsequence Frequency Dynamic Programming**:\n1. **DP Definition**: `dp[i][j]` = number of distinct subsequences of `s[0...i-1]` that match `t[0...j-1]`.\n2. **Base Case**: `dp[i][0] = 1` (an empty string `t` is a subsequence of any `s` prefix exactly once).\n3. **Transition**:\n   - If `s[i-1] === t[j-1]`: `dp[i][j] = dp[i-1][j-1] + dp[i-1][j]` (sum of matching character choice plus skipping character choice).\n   - Else: `dp[i][j] = dp[i-1][j]` (must skip `s[i-1]`).\n\n### Why This Approach Works Best\nEvaluates total subsequence counts systematically in $O(|s| \\times |t|)$ time and space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Subsequence Count DP",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(s * t)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(s * t)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "s = \"rabbbit\", t = \"rabbit\"",
+                  "explanation": "Target subsequence matching."
+                },
+                {
+                  "label": "Combinations",
+                  "value": "There are 3 distinct ways to drop one 'b' from \"rabbbit\" to leave \"rabbit\".",
+                  "explanation": "Subsequence count is 3."
+                },
+                {
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "3 distinct subsequences."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Distinct Subsequences DP implementation",
+            "explanation": "Count matching subsequences by building dynamic programming table.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function numDistinct(s, t) {\n  const m = s.length, n = t.length;\n  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n  for (let i = 0; i <= m; i++) dp[i][0] = 1;\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (s[i - 1] === t[j - 1]) {\n        dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];\n      } else {\n        dp[i][j] = dp[i - 1][j];\n      }\n    }\n  }\n  return dp[m][n];\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function numDistinct(s: string, t: string): number {\n  const m = s.length, n = t.length;\n  const dp: number[][] = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n  for (let i = 0; i <= m; i++) dp[i][0] = 1;\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (s[i - 1] === t[j - 1]) {\n        dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];\n      } else {\n        dp[i][j] = dp[i - 1][j];\n      }\n    }\n  }\n  return dp[m][n];\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int numDistinct(String s, String t) {\n        int m = s.length(), n = t.length();\n        int[][] dp = new int[m + 1][n + 1];\n        for (int i = 0; i <= m; i++) dp[i][0] = 1;\n        for (int i = 1; i <= m; i++) {\n            for (int j = 1; j <= n; j++) {\n                if (s.charAt(i - 1) == t.charAt(j - 1)) {\n                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];\n                } else {\n                    dp[i][j] = dp[i - 1][j];\n                }\n            }\n        }\n        return dp[m][n];\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def num_distinct(s: str, t: str) -> int:\n    m, n = len(s), len(t)\n    dp = [[0] * (n + 1) for _ in range(m + 1)]\n    for i in range(m + 1): dp[i][0] = 1\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if s[i - 1] == t[j - 1]:\n                dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j]\n            else:\n                dp[i][j] = dp[i - 1][j]\n    return dp[m][n]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Base case empty target `t` gives `dp[i][0] = 1`.",
+            "Matching characters allow choice between including or skipping `s[i-1]`.",
+            "Time complexity is $O(|s| \\times |t|)$."
+          ]
+        },
+        {
+          "id": "burst-balloons-interval-dp",
+          "title": "55. Burst Balloons",
+          "content": "You are given `n` balloons, indexed from `0` to `n - 1`. Each balloon is painted with a number on it represented by an array `nums`. If you burst balloon `i` you will get `nums[i - 1] * nums[i] * nums[i + 1]` coins. Return the maximum coins you can collect.\n\n### How It Works & Algorithmic Design\nSolves using **Reverse Interval Dynamic Programming**:\n1. **Padding**: Pad input `nums` with $1$ at both ends: `[1, ...nums, 1]`.\n2. **Reverse Decision**: Think of picking the **LAST balloon $k$ to burst** in interval `[i, j]`:\n   - Coins gained from picking balloon $k$ last = `nums[i-1] * nums[k] * nums[j+1] + dp[i][k-1] + dp[k+1][j]`.\n3. **DP Interval Loop**: Expand sub-array length `len` from $1$ to $n$, evaluating all choices of $k$ to maximize total coins.\n\n### Why This Approach Works Best\nReversing decision order makes sub-problems independent, solving the problem in $O(n^3)$ time and $O(n^2)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Interval DP",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n^3)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n^2)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "nums = [3, 1, 5, 8]",
+                  "explanation": "Balloons list."
+                },
+                {
+                  "label": "Optimal Sequence",
+                  "value": "Burst 1 -> Burst 5 -> Burst 3 -> Burst 8",
+                  "explanation": "Yields 167 total coins."
+                },
+                {
+                  "label": "Output",
+                  "value": "167",
+                  "explanation": "Maximum coins."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Burst Balloons Interval DP implementation",
+            "explanation": "Compute optimal coins bottom-up across sub-array lengths by determining the last balloon to burst.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function maxCoins(nums) {\n  const A = [1, ...nums, 1];\n  const n = A.length;\n  const dp = Array.from({ length: n }, () => new Array(n).fill(0));\n  for (let len = 1; len <= nums.length; len++) {\n    for (let i = 1; i <= nums.length - len + 1; i++) {\n      const j = i + len - 1;\n      for (let k = i; k <= j; k++) {\n        dp[i][j] = Math.max(dp[i][j], A[i - 1] * A[k] * A[j + 1] + dp[i][k - 1] + dp[k + 1][j]);\n      }\n    }\n  }\n  return dp[1][nums.length];\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function maxCoins(nums: number[]): number {\n  const A: number[] = [1, ...nums, 1];\n  const n: number = A.length;\n  const dp: number[][] = Array.from({ length: n }, () => new Array(n).fill(0));\n  for (let len = 1; len <= nums.length; len++) {\n    for (let i = 1; i <= nums.length - len + 1; i++) {\n      const j = i + len - 1;\n      for (let k = i; k <= j; k++) {\n        dp[i][j] = Math.max(dp[i][j], A[i - 1] * A[k] * A[j + 1] + dp[i][k - 1] + dp[k + 1][j]);\n      }\n    }\n  }\n  return dp[1][nums.length];\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int maxCoins(int[] nums) {\n        int n = nums.length;\n        int[] A = new int[n + 2];\n        A[0] = 1; A[n + 1] = 1;\n        for (int i = 0; i < n; i++) A[i + 1] = nums[i];\n        int[][] dp = new int[n + 2][n + 2];\n        for (int len = 1; len <= n; len++) {\n            for (int i = 1; i <= n - len + 1; i++) {\n                int j = i + len - 1;\n                for (int k = i; k <= j; k++) {\n                    dp[i][j] = Math.max(dp[i][j], A[i - 1] * A[k] * A[j + 1] + dp[i][k - 1] + dp[k + 1][j]);\n                }\n            }\n        }\n        return dp[1][n];\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def max_coins(nums: list[int]) -> int:\n    A = [1] + nums + [1]\n    n = len(A)\n    dp = [[0] * n for _ in range(n)]\n    for len_sub in range(1, len(nums) + 1):\n        for i in range(1, len(nums) - len_sub + 2):\n            j = i + len_sub - 1\n            for k in range(i, j + 1):\n                dp[i][j] = max(dp[i][j], A[i - 1] * A[k] * A[j + 1] + dp[i][k - 1] + dp[k + 1][j])\n    return dp[1][len(nums)]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Reversing decision logic (selecting last burst balloon) keeps sub-problems decoupled.",
+            "Pad boundary array with 1 at both index ends.",
+            "Time complexity $O(n^3)$."
+          ]
+        },
+        {
+          "id": "minimum-window-substring-sliding-window",
+          "title": "56. Minimum Window Substring",
+          "content": "Given two strings `s` and `t` of lengths `m` and `n` respectively, return the minimum window substring of `s` such that every character in `t` (including duplicates) is included in the window.\n\n### How It Works & Algorithmic Design\nSolves using **Variable Sliding Window with Frequency Counts**:\n1. **Frequency Map**: Build frequency target map for string `t`. Maintain `required = map.size`.\n2. **Expand Right**: Move `right` pointer over `s`:\n   - Decrement character count in map. If count reaches zero, increment `formed++`.\n3. **Contract Left**: While `formed === required`:\n   - Update min window substring bounds if smaller.\n   - Shrink `left` pointer: increment map count. If count becomes $> 0$, decrement `formed--`.\n\n### Why This Approach Works Best\nAchieves optimal $O(|s| + |t|)$ linear time complexity and $O(|s| + |t|)$ space without testing all $O(s^2)$ sub-string pairs.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Sliding Window",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(|s| + |t|)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(|s| + |t|)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "s = \"ADOBECODEBANC\", t = \"ABC\"",
+                  "explanation": "Find smallest substring containing A, B, C."
+                },
+                {
+                  "label": "Window Shrink",
+                  "value": "Window \"BANC\" contains 'A', 'B', 'C' with length 4.",
+                  "explanation": "Smallest valid window found."
+                },
+                {
+                  "label": "Output",
+                  "value": "\"BANC\"",
+                  "explanation": "Minimum window substring."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Minimum Window Substring implementation",
+            "explanation": "Expand right window edge to fulfill target character counts, then contract left edge to find minimal size.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function minWindow(s, t) {\n  if (!s || !t) return '';\n  const tCount = {};\n  for (const ch of t) tCount[ch] = (tCount[ch] || 0) + 1;\n  let required = Object.keys(tCount).length;\n  let left = 0, right = 0, formed = 0;\n  const windowCounts = {};\n  let ans = [-1, 0, 0];\n  while (right < s.length) {\n    const c = s[right];\n    windowCounts[c] = (windowCounts[c] || 0) + 1;\n    if (tCount[c] && windowCounts[c] === tCount[c]) formed++;\n    while (left <= right && formed === required) {\n      const cLeft = s[left];\n      if (ans[0] === -1 || right - left + 1 < ans[0]) ans = [right - left + 1, left, right];\n      windowCounts[cLeft]--;\n      if (tCount[cLeft] && windowCounts[cLeft] < tCount[cLeft]) formed--;\n      left++;\n    }\n    right++;\n  }\n  return ans[0] === -1 ? '' : s.substring(ans[1], ans[2] + 1);\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function minWindow(s: string, t: string): string {\n  if (!s || !t) return '';\n  const tCount: Record<string, number> = {};\n  for (const ch of t) tCount[ch] = (tCount[ch] || 0) + 1;\n  let required = Object.keys(tCount).length;\n  let left = 0, right = 0, formed = 0;\n  const windowCounts: Record<string, number> = {};\n  let ans = [-1, 0, 0];\n  while (right < s.length) {\n    const c = s[right];\n    windowCounts[c] = (windowCounts[c] || 0) + 1;\n    if (tCount[c] && windowCounts[c] === tCount[c]) formed++;\n    while (left <= right && formed === required) {\n      const cLeft = s[left];\n      if (ans[0] === -1 || right - left + 1 < ans[0]) ans = [right - left + 1, left, right];\n      windowCounts[cLeft]--;\n      if (tCount[cLeft] && windowCounts[cLeft] < tCount[cLeft]) formed--;\n      left++;\n    }\n    right++;\n  }\n  return ans[0] === -1 ? '' : s.substring(ans[1], ans[2] + 1);\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static String minWindow(String s, String t) {\n        if (s.length() == 0 || t.length() == 0) return \"\";\n        Map<Character, Integer> dictT = new HashMap<>();\n        for (char c : t.toCharArray()) dictT.put(c, dictT.getOrDefault(c, 0) + 1);\n        int required = dictT.size();\n        int left = 0, right = 0, formed = 0;\n        Map<Character, Integer> windowCounts = new HashMap<>();\n        int[] ans = {-1, 0, 0};\n        while (right < s.length()) {\n            char c = s.charAt(right);\n            windowCounts.put(c, windowCounts.getOrDefault(c, 0) + 1);\n            if (dictT.containsKey(c) && windowCounts.get(c).intValue() == dictT.get(c).intValue()) formed++;\n            while (left <= right && formed == required) {\n                char cLeft = s.charAt(left);\n                if (ans[0] == -1 || right - left + 1 < ans[0]) {\n                    ans[0] = right - left + 1; ans[1] = left; ans[2] = right;\n                }\n                windowCounts.put(cLeft, windowCounts.get(cLeft) - 1);\n                if (dictT.containsKey(cLeft) && windowCounts.get(cLeft) < dictT.get(cLeft)) formed--;\n                left++;\n            }\n            right++;\n        }\n        return ans[0] == -1 ? \"\" : s.substring(ans[1], ans[2] + 1);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "from collections import Counter\n\ndef min_window(s: str, t: str) -> str:\n    if not s or not t: return \"\"\n    dict_t = Counter(t)\n    required = len(dict_t)\n    left = right = formed = 0\n    window_counts = {}\n    ans = (float('inf'), None, None)\n    while right < len(s):\n        character = s[right]\n        window_counts[character] = window_counts.get(character, 0) + 1\n        if character in dict_t and window_counts[character] == dict_t[character]:\n            formed += 1\n        while left <= right and formed == required:\n            character = s[left]\n            if right - left + 1 < ans[0]:\n                ans = (right - left + 1, left, right)\n            window_counts[character] -= 1\n            if character in dict_t and window_counts[character] < dict_t[character]:\n                formed -= 1\n            left += 1\n        right += 1\n    return \"\" if ans[0] == float('inf') else s[ans[1]:ans[2] + 1]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use `formed` match counter to avoid $O(26)$ frequency comparison inside loops.",
+            "Two pointers advance linearly across input string.",
+            "Linear time complexity $O(|s| + |t|)$."
+          ]
+        },
+        {
+          "id": "serialize-and-deserialize-binary-tree",
+          "title": "57. Serialize and Deserialize Binary Tree",
+          "content": "Design an algorithm to serialize and deserialize a binary tree into a string format and reconstruct the exact original tree structure.\n\n### How It Works & Algorithmic Design\nSolves using **Pre-Order Traversal with Sentinel Markers**:\n1. **Serialization**: Perform DFS pre-order traversal. For each non-null node append `node.val + ','`. For null nodes append `'null,'`.\n2. **Deserialization**: Split serialized string by `','` into a list/queue of tokens.\n   - Read next token: if token equals `'null'`, return `null`.\n   - Otherwise, create `node = new TreeNode(Number(token))`.\n   - `node.left = deserialize()`.\n   - `node.right = deserialize()`.\n   - Return `node`.\n\n### Why This Approach Works Best\nPre-order sentinel traversal uniquely identifies tree structure without needing both In-Order and Pre-Order arrays, executing in $O(n)$ time and $O(n)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Pre-Order DFS Serialization",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Tree",
+                  "value": "[1, 2, 3, null, null, 4, 5]",
+                  "explanation": "Binary tree."
+                },
+                {
+                  "label": "Serialized String",
+                  "value": "\"1,2,null,null,3,4,null,null,5,null,null,\"",
+                  "explanation": "Pre-order string with sentinel nulls."
+                },
+                {
+                  "label": "Deserialized Result",
+                  "value": "Reconstructed identical binary tree.",
+                  "explanation": "Tree reference match."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Tree Serialization & Deserialization implementation",
+            "explanation": "Convert tree nodes to pre-order comma-separated string and reconstruct iteratively via token queue.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function serialize(root) {\n  if (!root) return 'null';\n  return `${root.val},${serialize(root.left)},${serialize(root.right)}`;\n}\n\nfunction deserialize(data) {\n  const nodes = data.split(',');\n  function buildTree() {\n    const val = nodes.shift();\n    if (val === 'null') return null;\n    const node = { val: Number(val), left: null, right: null };\n    node.left = buildTree();\n    node.right = buildTree();\n    return node;\n  }\n  return buildTree();\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function serialize(root: TreeNode | null): string {\n  if (!root) return 'null';\n  return `${root.val},${serialize(root.left)},${serialize(root.right)}`;\n}\n\nfunction deserialize(data: string): TreeNode | null {\n  const nodes = data.split(',');\n  function buildTree(): TreeNode | null {\n    const val = nodes.shift();\n    if (!val || val === 'null') return null;\n    const node = new TreeNode(Number(val));\n    node.left = buildTree();\n    node.right = buildTree();\n    return node;\n  }\n  return buildTree();\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Codec {\n    public String serialize(TreeNode root) {\n        if (root == null) return \"null,\";\n        return root.val + \",\" + serialize(root.left) + serialize(root.right);\n    }\n    public TreeNode deserialize(String data) {\n        Queue<String> nodes = new LinkedList<>(Arrays.asList(data.split(\",\")));\n        return buildTree(nodes);\n    }\n    private TreeNode buildTree(Queue<String> nodes) {\n        String val = nodes.poll();\n        if (val.equals(\"null\")) return null;\n        TreeNode node = new TreeNode(Integer.parseInt(val));\n        node.left = buildTree(nodes);\n        node.right = buildTree(nodes);\n        return node;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "class Codec:\n    def serialize(self, root: TreeNode | None) -> str:\n        if not root: return 'null'\n        return f\"{root.val},{self.serialize(root.left)},{self.serialize(root.right)}\"\n\n    def deserialize(self, data: str) -> TreeNode | None:\n        nodes = iter(data.split(','))\n        def build_tree():\n            val = next(nodes)\n            if val == 'null': return None\n            node = TreeNode(int(val))\n            node.left = build_tree()\n            node.right = build_tree()\n            return node\n        return build_tree()"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Sentinel null markers retain structural information during serialization.",
+            "Pre-order token streams can be parsed using simple recursive queue consumers.",
+            "Linear execution time $O(n)$."
+          ]
+        },
+        {
+          "id": "word-break-ii-backtracking-memo",
+          "title": "58. Word Break II",
+          "content": "Given a string `s` and a dictionary of strings `wordDict`, add spaces in `s` to construct a sentence where each word is a valid dictionary word. Return all such possible sentences in any order.\n\n### How It Works & Algorithmic Design\nSolves using **DFS Backtracking with Hash Map Memoization**:\n1. **Memoization Map**: `memo[index]` stores list of valid sentences formable from `s[index...]`.\n2. **DFS Function** `dfs(start)`:\n   - Base Case: if `start === s.length`, return `[\"\"]`.\n   - If `start` in `memo`, return `memo[start]`.\n   - Loop `end` from `start + 1` to `s.length`:\n     - Extract `word = s.substring(start, end)`.\n     - If `wordDict.has(word)`:\n       - Recurse `subSentences = dfs(end)`.\n       - Append `word + (sub ? \" \" + sub : \"\")` to `res`.\n3. **Return**: `memo[0]`.\n\n### Why This Approach Works Best\nMemoization prunes duplicate invalid search branches, preventing exponential catastrophic backtracking.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Memoized DFS Backtracking",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(2^n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(2^n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "s = \"catsanddog\", wordDict = [\"cat\",\"cats\",\"and\",\"sand\",\"dog\"]",
+                  "explanation": "Target text and words."
+                },
+                {
+                  "label": "Sentences",
+                  "value": "[\"cats and dog\", \"cat sand dog\"]",
+                  "explanation": "Valid reconstructed sentence paths."
+                },
+                {
+                  "label": "Output",
+                  "value": "[\"cats and dog\", \"cat sand dog\"]",
+                  "explanation": "Result array."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Word Break II Memoized DFS implementation",
+            "explanation": "Recursively construct sentences with dictionary words while storing suffix string results in a memoization map.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function wordBreak(s, wordDict) {\n  const set = new Set(wordDict);\n  const memo = new Map();\n  function dfs(start) {\n    if (memo.has(start)) return memo.get(start);\n    if (start === s.length) return [''];\n    const res = [];\n    for (let end = start + 1; end <= s.length; end++) {\n      const word = s.substring(start, end);\n      if (set.has(word)) {\n        const subs = dfs(end);\n        for (const sub of subs) {\n          res.push(word + (sub ? ' ' + sub : ''));\n        }\n      }\n    }\n    memo.set(start, res);\n    return res;\n  }\n  return dfs(0);\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function wordBreak(s: string, wordDict: string[]): string[] {\n  const set = new Set(wordDict);\n  const memo = new Map<number, string[]>();\n  function dfs(start: number): string[] {\n    if (memo.has(start)) return memo.get(start)!;\n    if (start === s.length) return [''];\n    const res: string[] = [];\n    for (let end = start + 1; end <= s.length; end++) {\n      const word = s.substring(start, end);\n      if (set.has(word)) {\n        const subs = dfs(end);\n        for (const sub of subs) {\n          res.push(word + (sub ? ' ' + sub : ''));\n        }\n      }\n    }\n    memo.set(start, res);\n    return res;\n  }\n  return dfs(0);\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static List<String> wordBreak(String s, List<String> wordDict) {\n        Set<String> set = new HashSet<>(wordDict);\n        Map<Integer, List<String>> memo = new HashMap<>();\n        return dfs(s, 0, set, memo);\n    }\n    private static List<String> dfs(String s, int start, Set<String> set, Map<Integer, List<String>> memo) {\n        if (memo.containsKey(start)) return memo.get(start);\n        List<String> res = new ArrayList<>();\n        if (start == s.length()) {\n            res.add(\"\");\n            return res;\n        }\n        for (int end = start + 1; end <= s.length(); end++) {\n            String word = s.substring(start, end);\n            if (set.contains(word)) {\n                List<String> subs = dfs(s, end, set, memo);\n                for (String sub : subs) {\n                    res.add(word + (sub.isEmpty() ? \"\" : \" \" + sub));\n                }\n            }\n        }\n        memo.put(start, res);\n        return res;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def word_break(s: str, word_dict: list[str]) -> list[str]:\n    word_set = set(word_dict)\n    memo = {}\n    def dfs(start):\n        if start in memo: return memo[start]\n        if start == len(s): return [\"\"]\n        res = []\n        for end in range(start + 1, len(s) + 1):\n            word = s[start:end]\n            if word in word_set:\n                subs = dfs(end)\n                for sub in subs:\n                    res.append(word + (\" \" + sub if sub else \"\"))\n        memo[start] = res\n        return res\n    return dfs(0)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use Hash Set for $O(1)$ word existence lookups.",
+            "Memoizing index search state cuts down repetitive sentence branching.",
+            "Exponential worst-case complexity $O(2^n)$ when all combinations are valid."
+          ]
+        },
+        {
+          "id": "palindrome-partitioning-ii-min-cuts",
+          "title": "59. Palindrome Partitioning II",
+          "content": "Given a string `s`, partition `s` such that every substring of the partition is a palindrome. Return the minimum cuts needed for a palindrome partitioning of `s`.\n\n### How It Works & Algorithmic Design\nSolves using **1D Dynamic Programming with Center Expansion Palindrome Pre-Check**:\n1. **Min Cut Table**: Let `cuts[i]` be the min cuts needed for substring `s[0...i]`.\n2. **Initialize**: `cuts[i] = i` (maximum cuts needed).\n3. **Center-Expansion Loop**: For each center $i$ (both odd and even centers):\n   - Expand outward while `s[left] === s[right]`:\n     - If `left === 0`, `cuts[right] = 0` (entire prefix is a palindrome).\n     - Else, `cuts[right] = Math.min(cuts[right], cuts[left - 1] + 1)`.\n\n### Why This Approach Works Best\nExpanding from centers avoids creating $O(n^2)$ 2D boolean palindrome matrices, optimizing runtime to $O(n^2)$ time and $O(n)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Center Expansion DP",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n^2)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "s = \"aab\"",
+                  "explanation": "Target string."
+                },
+                {
+                  "label": "Optimal Cuts",
+                  "value": "\"aa\" | \"b\" (1 cut).",
+                  "explanation": "Palindromic parts."
+                },
+                {
+                  "label": "Output",
+                  "value": "1",
+                  "explanation": "1 cut."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Palindrome Partitioning II Center Expansion implementation",
+            "explanation": "Expand palindrome centers outwards and update 1D cut array dynamically.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function minCut(s) {\n  const n = s.length;\n  const cuts = Array.from({ length: n }, (_, i) => i);\n  for (let center = 0; center < n; center++) {\n    expand(center, center);\n    expand(center, center + 1);\n  }\n  function expand(left, right) {\n    while (left >= 0 && right < n && s[left] === s[right]) {\n      cuts[right] = left === 0 ? 0 : Math.min(cuts[right], cuts[left - 1] + 1);\n      left--; right++;\n    }\n  }\n  return cuts[n - 1];\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function minCut(s: string): number {\n  const n = s.length;\n  const cuts: number[] = Array.from({ length: n }, (_, i) => i);\n  for (let center = 0; center < n; center++) {\n    expand(center, center);\n    expand(center, center + 1);\n  }\n  function expand(left: number, right: number) {\n    while (left >= 0 && right < n && s[left] === s[right]) {\n      cuts[right] = left === 0 ? 0 : Math.min(cuts[right], cuts[left - 1] + 1);\n      left--; right++;\n    }\n  }\n  return cuts[n - 1];\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int minCut(String s) {\n        int n = s.length();\n        int[] cuts = new int[n];\n        for (int i = 0; i < n; i++) cuts[i] = i;\n        for (int i = 0; i < n; i++) {\n            expand(s, i, i, cuts);\n            expand(s, i, i + 1, cuts);\n        }\n        return cuts[n - 1];\n    }\n    private static void expand(String s, int left, int right, int[] cuts) {\n        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {\n            cuts[right] = (left == 0) ? 0 : Math.min(cuts[right], cuts[left - 1] + 1);\n            left--; right++;\n        }\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def min_cut(s: str) -> int:\n    n = len(s)\n    cuts = list(range(n))\n    def expand(left, right):\n        while left >= 0 and right < n and s[left] == s[right]:\n            cuts[right] = 0 if left == 0 else min(cuts[right], cuts[left - 1] + 1)\n            left -= 1; right += 1\n    for i in range(n):\n        expand(i, i)\n        expand(i, i + 1)\n    return cuts[-1]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Center expansion tests both odd-length (`i, i`) and even-length (`i, i+1`) palindromes.",
+            "Eliminates auxiliary 2D boolean palindrome memo tables.",
+            "Executes in $O(n^2)$ time and $O(n)$ space."
+          ]
+        },
+        {
+          "id": "concatenated-words-trie-dp",
+          "title": "60. Concatenated Words",
+          "content": "Given an array of strings `words` (without duplicates), return all the concatenated words in the given list of words.\n\n### How It Works & Algorithmic Design\nSolves using **Word Length Sorting with Memoized Word Break Checking**:\n1. **Sort**: Sort `words` by length in ascending order.\n2. **Sub-word Verification**: Maintain a set `wordSet` of previously processed shorter words.\n3. **Word Break Check**: For each word, execute DP `canForm(word, wordSet)`:\n   - Check if `word` can be partitioned into two or more words present in `wordSet`.\n4. **Update**: Add current `word` into `wordSet`.\n\n### Why This Approach Works Best\nProcessing shorter words first ensures a word can only be formed by strictly shorter constituent parts, optimizing performance across large dictionaries.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "DP / Set Lookups",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(N * L^2)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(N * L)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[\"cat\",\"cats\",\"catsdogcats\",\"dog\",\"dogcatsdog\",\"hippopotamuses\",\"rat\",\"ratcatdogcat\"]",
+                  "explanation": "List of words."
+                },
+                {
+                  "label": "Concatenated Words",
+                  "value": "\"catsdogcats\", \"dogcatsdog\", \"ratcatdogcat\"",
+                  "explanation": "Formed by joining smaller dictionary words."
+                },
+                {
+                  "label": "Output",
+                  "value": "[\"catsdogcats\", \"dogcatsdog\", \"ratcatdogcat\"]",
+                  "explanation": "Result array."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Concatenated Words implementation",
+            "explanation": "Sort words by length and test if each word can be segmented using previously stored smaller words.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function findAllConcatenatedWordsInADict(words) {\n  words.sort((a, b) => a.length - b.length);\n  const wordSet = new Set();\n  const res = [];\n  function canForm(word) {\n    if (wordSet.size === 0) return false;\n    const dp = new Array(word.length + 1).fill(false);\n    dp[0] = true;\n    for (let i = 1; i <= word.length; i++) {\n      for (let j = 0; j < i; j++) {\n        if (dp[j] && wordSet.has(word.substring(j, i))) {\n          dp[i] = true;\n          break;\n        }\n      }\n    }\n    return dp[word.length];\n  }\n  for (const word of words) {\n    if (canForm(word)) res.push(word);\n    wordSet.add(word);\n  }\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function findAllConcatenatedWordsInADict(words: string[]): string[] {\n  words.sort((a, b) => a.length - b.length);\n  const wordSet = new Set<string>();\n  const res: string[] = [];\n  function canForm(word: string): boolean {\n    if (wordSet.size === 0) return false;\n    const dp: boolean[] = new Array(word.length + 1).fill(false);\n    dp[0] = true;\n    for (let i = 1; i <= word.length; i++) {\n      for (let j = 0; j < i; j++) {\n        if (dp[j] && wordSet.has(word.substring(j, i))) {\n          dp[i] = true;\n          break;\n        }\n      }\n    }\n    return dp[word.length];\n  }\n  for (const word of words) {\n    if (canForm(word)) res.push(word);\n    wordSet.add(word);\n  }\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static List<String> findAllConcatenatedWordsInADict(String[] words) {\n        Arrays.sort(words, (a, b) -> Integer.compare(a.length(), b.length()));\n        Set<String> wordSet = new HashSet<>();\n        List<String> res = new ArrayList<>();\n        for (String word : words) {\n            if (canForm(word, wordSet)) res.add(word);\n            wordSet.add(word);\n        }\n        return res;\n    }\n    private static boolean canForm(String word, Set<String> wordSet) {\n        if (wordSet.isEmpty()) return false;\n        boolean[] dp = new boolean[word.length() + 1];\n        dp[0] = true;\n        for (int i = 1; i <= word.length(); i++) {\n            for (int j = 0; j < i; j++) {\n                if (dp[j] && wordSet.contains(word.substring(j, i))) {\n                    dp[i] = true;\n                    break;\n                }\n            }\n        }\n        return dp[word.length()];\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def find_all_concatenated_words_in_a_dict(words: list[str]) -> list[str]:\n    words.sort(key=len)\n    word_set = set()\n    res = []\n    def can_form(word):\n        if not word_set: return False\n        dp = [False] * (len(word) + 1)\n        dp[0] = True\n        for i in range(1, len(word) + 1):\n            for j in range(i):\n                if dp[j] and word[j:i] in word_set:\n                    dp[i] = True\n                    break\n        return dp[len(word)]\n    for word in words:\n        if can_form(word): res.append(word)\n        word_set.add(word)\n    return res"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Sorting words by length builds set incrementally.",
+            "Reuses classic Word Break Dynamic Programming.",
+            "Runs in $O(N \\cdot L^2)$ time where $N$ is word count and $L$ is word length."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chapter-hard-graphs-trees-and-heaps",
+      "title": "Hard DSA — Advanced Graphs, Trees, and Priority Queues",
+      "summary": "Master complex graph connectivity, topological ordering, shortest path algorithms, median tracking heaps, and advanced tree transformations.",
+      "estimatedMinutes": 480,
+      "sections": [
+        {
+          "id": "alien-dictionary-topological-sort",
+          "title": "61. Alien Dictionary",
+          "content": "There is a new alien language that uses the Latin alphabet. However, the order among the letters is unknown to you. You are given a list of strings `words` from the alien language's dictionary, where the strings inside `words` are sorted lexicographically by the rules of this new language. Return a string of the unique letters in the new alien language sorted in lexicographically increasing order.\n\n### How It Works & Algorithmic Design\nSolves using **Directed Graph Construction with Kahn's Topological Sort**:\n1. **Graph Nodes**: Initialize adjacency list `adj` and in-degree map `inDegree` for every unique character.\n2. **Edge Construction**: Compare adjacent words `word1` and `word2`:\n   - Find first mismatch index $k$: `char1 = word1[k]`, `char2 = word2[k]`.\n   - Add directed edge `char1 -> char2` and increment `inDegree[char2]++`.\n   - Edge Case: if `word2` is a prefix of `word1` (e.g., `\"abc\"` before `\"ab\"`), language order is invalid $\\to$ return `\"\"`.\n3. **Kahn's BFS**: Process nodes with `inDegree === 0` using a queue.\n4. **Cycle Detection**: If result length does not match total unique characters, a cycle exists $\\to$ return `\"\"`.\n\n### Why This Approach Works Best\nTopological sorting detects illegal circular dependencies while producing a valid linear character ordering in $O(V + E)$ time.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Topological Sort / Kahn BFS",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(V + E)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(V + E)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "words = [\"wrt\",\"wrf\",\"er\",\"ett\",\"rftt\"]",
+                  "explanation": "Sorted alien words list."
+                },
+                {
+                  "label": "Extracted Rules",
+                  "value": "'t'->'f', 'w'->'e', 'r'->'t', 'e'->'r'",
+                  "explanation": "Character ordering graph edges."
+                },
+                {
+                  "label": "Output",
+                  "value": "\"wertf\"",
+                  "explanation": "Valid alien alphabet order."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Alien Dictionary Topological Sort implementation",
+            "explanation": "Build graph edges from adjacent word differences and perform Kahn's BFS topological sort.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function alienOrder(words) {\n  const adj = {}, inDegree = {};\n  for (const w of words) {\n    for (const c of w) {\n      inDegree[c] = 0;\n      adj[c] = new Set();\n    }\n  }\n  for (let i = 0; i < words.length - 1; i++) {\n    const w1 = words[i], w2 = words[i + 1];\n    if (w1.length > w2.length && w1.startsWith(w2)) return '';\n    for (let j = 0; j < Math.min(w1.length, w2.length); j++) {\n      if (w1[j] !== w2[j]) {\n        if (!adj[w1[j]].has(w2[j])) {\n          adj[w1[j]].add(w2[j]);\n          inDegree[w2[j]]++;\n        }\n        break;\n      }\n    }\n  }\n  const queue = [];\n  for (const c in inDegree) if (inDegree[c] === 0) queue.push(c);\n  let res = '';\n  while (queue.length) {\n    const c = queue.shift();\n    res += c;\n    for (const neighbor of adj[c]) {\n      inDegree[neighbor]--;\n      if (inDegree[neighbor] === 0) queue.push(neighbor);\n    }\n  }\n  return res.length === Object.keys(inDegree).length ? res : '';\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function alienOrder(words: string[]): string {\n  const adj: Record<string, Set<string>> = {};\n  const inDegree: Record<string, number> = {};\n  for (const w of words) {\n    for (const c of w) {\n      inDegree[c] = 0;\n      adj[c] = new Set();\n    }\n  }\n  for (let i = 0; i < words.length - 1; i++) {\n    const w1 = words[i], w2 = words[i + 1];\n    if (w1.length > w2.length && w1.startsWith(w2)) return '';\n    for (let j = 0; j < Math.min(w1.length, w2.length); j++) {\n      if (w1[j] !== w2[j]) {\n        if (!adj[w1[j]].has(w2[j])) {\n          adj[w1[j]].add(w2[j]);\n          inDegree[w2[j]]++;\n        }\n        break;\n      }\n    }\n  }\n  const queue: string[] = [];\n  for (const c in inDegree) if (inDegree[c] === 0) queue.push(c);\n  let res = '';\n  while (queue.length) {\n    const c = queue.shift()!;\n    res += c;\n    for (const neighbor of adj[c]) {\n      inDegree[neighbor]--;\n      if (inDegree[neighbor] === 0) queue.push(neighbor);\n    }\n  }\n  return res.length === Object.keys(inDegree).length ? res : '';\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static String alienOrder(String[] words) {\n        Map<Character, Set<Character>> adj = new HashMap<>();\n        Map<Character, Integer> inDegree = new HashMap<>();\n        for (String w : words) {\n            for (char c : w.toCharArray()) {\n                inDegree.put(c, 0);\n                adj.put(c, new HashSet<>());\n            }\n        }\n        for (int i = 0; i < words.length - 1; i++) {\n            String w1 = words[i], w2 = words[i + 1];\n            if (w1.length() > w2.length() && w1.startsWith(w2)) return \"\";\n            for (int j = 0; j < Math.min(w1.length(), w2.length()); j++) {\n                if (w1.charAt(j) != w2.charAt(j)) {\n                    char c1 = w1.charAt(j), c2 = w2.charAt(j);\n                    if (!adj.get(c1).contains(c2)) {\n                        adj.get(c1).add(c2);\n                        inDegree.put(c2, inDegree.get(c2) + 1);\n                    }\n                    break;\n                }\n            }\n        }\n        Queue<Character> queue = new LinkedList<>();\n        for (char c : inDegree.keySet()) if (inDegree.get(c) == 0) queue.add(c);\n        StringBuilder res = new StringBuilder();\n        while (!queue.isEmpty()) {\n            char c = queue.poll();\n            res.append(c);\n            for (char neighbor : adj.get(c)) {\n                inDegree.put(neighbor, inDegree.get(neighbor) - 1);\n                if (inDegree.get(neighbor) == 0) queue.add(neighbor);\n            }\n        }\n        return res.length() == inDegree.size() ? res.toString() : \"\";\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "from collections import deque\n\ndef alien_order(words: list[str]) -> str:\n    adj = {c: set() for w in words for c in w}\n    in_degree = {c: 0 for w in words for c in w}\n    for i in range(len(words) - 1):\n        w1, w2 = words[i], words[i + 1]\n        if len(w1) > len(w2) and w1.startswith(w2): return \"\"\n        for j in range(min(len(w1), len(w2))):\n            if w1[j] != w2[j]:\n                if w2[j] not in adj[w1[j]]:\n                    adj[w1[j]].add(w2[j])\n                    in_degree[w2[j]] += 1\n                break\n    queue = deque([c for c in in_degree if in_degree[c] == 0])\n    res = []\n    while queue:\n        c = queue.popleft()\n        res.append(c)\n        for neighbor in adj[c]:\n            in_degree[neighbor] -= 1\n            if in_degree[neighbor] == 0:\n                queue.append(neighbor)\n    return \"\".join(res) if len(res) == len(in_degree) else \"\""
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Extract character dependency directed edges by comparing adjacent words.",
+            "Prefix check (e.g. \"abc\" before \"ab\") catches illegal invalid input dictionary states.",
+            "Runs in $O(V + E)$ time where $V$ is unique characters and $E$ is extracted ordering rules."
+          ]
+        },
+        {
+          "id": "find-median-from-data-stream-dual-heap",
+          "title": "62. Find Median from Data Stream",
+          "content": "Implement a data structure `MedianFinder` that supports adding numbers from a data stream and finding the median of all elements added so far.\n\n### How It Works & Algorithmic Design\nSolves using **Two Heaps (Max-Heap for Lower Half, Min-Heap for Upper Half)**:\n1. **Data Structure**: Maintain `maxHeap` (stores smaller numbers) and `minHeap` (stores larger numbers).\n2. **`addNum(num)`**:\n   - Push `num` to `maxHeap`.\n   - Balance values: pop root of `maxHeap` and push to `minHeap`.\n   - Balance sizes: if `minHeap.size > maxHeap.size`, pop root of `minHeap` and push to `maxHeap`.\n3. **`findMedian()`**:\n   - If `maxHeap.size > minHeap.size`, median = `maxHeap.peek()`.\n   - Else, median = `(maxHeap.peek() + minHeap.peek()) / 2`.\n\n### Why This Approach Works Best\nInserts numbers in $O(\\log n)$ time and queries median in optimal $O(1)$ constant time.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Two Priority Queues / Dynamic Median",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "Add O(log n), Query O(1)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Stream Operations",
+                  "value": "addNum(1) -> addNum(2) -> findMedian() -> addNum(3) -> findMedian()",
+                  "explanation": "Dynamic insertions."
+                },
+                {
+                  "label": "Median States",
+                  "value": "After 1,2: median = (1+2)/2 = 1.5. After 1,2,3: median = 2.",
+                  "explanation": "Calculates running median."
+                },
+                {
+                  "label": "Output",
+                  "value": "[1.5, 2.0]",
+                  "explanation": "Result sequence."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Median Finder using Two Priority Queues",
+            "explanation": "Balance max-heap and min-heap to access stream median in constant O(1) time.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "class MedianFinder {\n  constructor() {\n    this.small = []; // Max Heap simulated via sorted array insertion\n    this.large = []; // Min Heap simulated\n  }\n  addNum(num) {\n    this.small.push(num);\n    this.small.sort((a, b) => b - a);\n    this.large.push(this.small.shift());\n    this.large.sort((a, b) => a - b);\n    if (this.large.length > this.small.length) {\n      this.small.push(this.large.shift());\n      this.small.sort((a, b) => b - a);\n    }\n  }\n  findMedian() {\n    if (this.small.length > this.large.length) return this.small[0];\n    return (this.small[0] + this.large[0]) / 2;\n  }\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "class MedianFinder {\n  private small: number[] = [];\n  private large: number[] = [];\n  addNum(num: number): void {\n    this.small.push(num);\n    this.small.sort((a, b) => b - a);\n    this.large.push(this.small.shift()!);\n    this.large.sort((a, b) => a - b);\n    if (this.large.length > this.small.length) {\n      this.small.push(this.large.shift()!);\n      this.small.sort((a, b) => b - a);\n    }\n  }\n  findMedian(): number {\n    if (this.small.length > this.large.length) return this.small[0];\n    return (this.small[0] + this.large[0]) / 2;\n  }\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.PriorityQueue;\nimport java.util.Collections;\n\npublic class MedianFinder {\n    private PriorityQueue<Integer> small = new PriorityQueue<>(Collections.reverseOrder());\n    private PriorityQueue<Integer> large = new PriorityQueue<>();\n    public void addNum(int num) {\n        small.add(num);\n        large.add(small.poll());\n        if (large.size() > small.size()) {\n            small.add(large.poll());\n        }\n    }\n    public double findMedian() {\n        if (small.size() > large.size()) return small.peek();\n        return (small.peek() + large.peek()) / 2.0;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "import heapq\n\nclass MedianFinder:\n    def __init__(self):\n        self.small = [] # Max heap (store negated values)\n        self.large = [] # Min heap\n\n    def addNum(self, num: int) -> None:\n        heapq.heappush(self.small, -num)\n        heapq.heappush(self.large, -heapq.heappop(self.small))\n        if len(self.large) > len(self.small):\n            heapq.heappush(self.small, -heapq.heappop(self.large))\n\n    def findMedian(self) -> float:\n        if len(self.small) > len(self.large):\n            return -self.small[0]\n        return (-self.small[0] + self.large[0]) / 2.0"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Max-heap stores lower half; Min-heap stores upper half.",
+            "Heap size difference is kept at most 1.",
+            "`addNum` takes $O(\\log n)$ and `findMedian` takes $O(1)$ time."
+          ]
+        },
+        {
+          "id": "binary-tree-maximum-path-sum-dfs",
+          "title": "63. Binary Tree Maximum Path Sum",
+          "content": "A path in a binary tree is a sequence of nodes where each pair of adjacent nodes has an edge connecting them. Return the maximum path sum of any non-empty path.\n\n### How It Works & Algorithmic Design\nSolves using **Recursive Post-Order DFS Branch Traversal**:\n1. **Global Max Variable**: Set `maxSum = -Infinity`.\n2. **DFS Function** `gain(node)`:\n   - Base Case: if `node === null`, return `0`.\n   - Compute max gain from subtrees (ignore negative sums): \n     - `leftGain = Math.max(0, gain(node.left))`\n     - `rightGain = Math.max(0, gain(node.right))`\n   - Local inverted-V path sum: `currentPathSum = node.val + leftGain + rightGain`.\n   - Update global max: `maxSum = Math.max(maxSum, currentPathSum)`.\n   - Return single branch gain to parent: `node.val + Math.max(leftGain, rightGain)`.\n\n### Why This Approach Works Best\nEvaluates paths making turning points at any node while passing straight branch sums up to parents in $O(n)$ time and $O(h)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Tree Post-Order DFS",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(h)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Tree",
+                  "value": "[-10, 9, 20, null, null, 15, 7]",
+                  "explanation": "Binary tree root."
+                },
+                {
+                  "label": "Max Path",
+                  "value": "15 -> 20 -> 7 gives max sum = 15 + 20 + 7 = 42",
+                  "explanation": "Inverted-V path through node 20."
+                },
+                {
+                  "label": "Output",
+                  "value": "42",
+                  "explanation": "Maximum path sum."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Binary Tree Maximum Path Sum implementation",
+            "explanation": "Compute maximum gain from left and right subtrees and update running global maximum sum.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function maxPathSum(root) {\n  let maxSum = -Infinity;\n  function gain(node) {\n    if (!node) return 0;\n    const leftGain = Math.max(0, gain(node.left));\n    const rightGain = Math.max(0, gain(node.right));\n    maxSum = Math.max(maxSum, node.val + leftGain + rightGain);\n    return node.val + Math.max(leftGain, rightGain);\n  }\n  gain(root);\n  return maxSum;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function maxPathSum(root: TreeNode | null): number {\n  let maxSum = -Infinity;\n  function gain(node: TreeNode | null): number {\n    if (!node) return 0;\n    const leftGain = Math.max(0, gain(node.left));\n    const rightGain = Math.max(0, gain(node.right));\n    maxSum = Math.max(maxSum, node.val + leftGain + rightGain);\n    return node.val + Math.max(leftGain, rightGain);\n  }\n  gain(root);\n  return maxSum;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    private static int maxSum = Integer.MIN_VALUE;\n    public static int maxPathSum(TreeNode root) {\n        maxSum = Integer.MIN_VALUE;\n        gain(root);\n        return maxSum;\n    }\n    private static int gain(TreeNode node) {\n        if (node == null) return 0;\n        int leftGain = Math.max(0, gain(node.left));\n        int rightGain = Math.max(0, gain(node.right));\n        maxSum = Math.max(maxSum, node.val + leftGain + rightGain);\n        return node.val + Math.max(leftGain, rightGain);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def max_path_sum(root: TreeNode | None) -> int:\n    max_sum = float('-inf')\n    def gain(node):\n        nonlocal max_sum\n        if not node: return 0\n        left_gain = max(0, gain(node.left))\n        right_gain = max(0, gain(node.right))\n        max_sum = max(max_sum, node.val + left_gain + right_gain)\n        return node.val + max(left_gain, right_gain)\n    gain(root)\n    return max_sum"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use `Math.max(0, gain)` to prune negative path sum contributions.",
+            "Node splits into two branches locally, but returns only one branch to its parent.",
+            "Linear time complexity $O(n)$."
+          ]
+        },
+        {
+          "id": "word-ladder-ii-bfs-dfs",
+          "title": "64. Word Ladder II",
+          "content": "Given two words, `beginWord` and `endWord`, and a dictionary `wordList`, return all the shortest transformation sequences from `beginWord` to `endWord`.\n\n### How It Works & Algorithmic Design\nSolves using **Bidirectional BFS Level Graph Construction + Backtracking DFS**:\n1. **BFS Level Mapping**: Perform BFS starting from `beginWord`. Build distance map `distMap[word]` storing shortest steps from `beginWord` to every reachable dictionary word.\n2. **DFS Path Backtracking**: Backtrack from `endWord` down to `beginWord`:\n   - Only step to neighbor words where `distMap[neighbor] === distMap[current] - 1`.\n3. **Return**: All collected minimum length paths.\n\n### Why This Approach Works Best\nDecoupling minimum distance calculation (BFS) from path generation (DFS) prevents combinatorial path explosion.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "BFS Graph Distance + Backtracking DFS",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(N * L^2)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(N * L)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "beginWord = \"hit\", endWord = \"cog\", wordList = [\"hot\",\"dot\",\"dog\",\"lot\",\"log\",\"cog\"]",
+                  "explanation": "Target conversion."
+                },
+                {
+                  "label": "Shortest Paths",
+                  "value": "[\"hit\",\"hot\",\"dot\",\"dog\",\"cog\"], [\"hit\",\"hot\",\"lot\",\"log\",\"cog\"]",
+                  "explanation": "Length 5 paths."
+                },
+                {
+                  "label": "Output",
+                  "value": "List of both 5-step shortest paths.",
+                  "explanation": "All minimum transformations."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Word Ladder II BFS + DFS implementation",
+            "explanation": "Build shortest distance level graph using BFS, then generate valid minimum paths using DFS backtracking.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function findLadders(beginWord, endWord, wordList) {\n  const wordSet = new Set(wordList);\n  if (!wordSet.has(endWord)) return [];\n  wordSet.add(beginWord);\n  const dist = new Map();\n  const queue = [beginWord];\n  dist.set(beginWord, 0);\n  while (queue.length) {\n    const curr = queue.shift();\n    const d = dist.get(curr);\n    for (let i = 0; i < curr.length; i++) {\n      for (let c = 97; c <= 122; c++) {\n        const next = curr.substring(0, i) + String.fromCharCode(c) + curr.substring(i + 1);\n        if (wordSet.has(next) && !dist.has(next)) {\n          dist.set(next, d + 1);\n          queue.push(next);\n        }\n      }\n    }\n  }\n  if (!dist.has(endWord)) return [];\n  const res = [];\n  function dfs(word, path) {\n    if (word === beginWord) {\n      res.push([beginWord, ...path]);\n      return;\n    }\n    const d = dist.get(word);\n    for (let i = 0; i < word.length; i++) {\n      for (let c = 97; c <= 122; c++) {\n        const prev = word.substring(0, i) + String.fromCharCode(c) + word.substring(i + 1);\n        if (dist.get(prev) === d - 1) {\n          dfs(prev, [word, ...path]);\n        }\n      }\n    }\n  }\n  dfs(endWord, []);\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function findLadders(beginWord: string, endWord: string, wordList: string[]): string[][] {\n  const wordSet = new Set(wordList);\n  if (!wordSet.has(endWord)) return [];\n  wordSet.add(beginWord);\n  const dist = new Map<string, number>();\n  const queue = [beginWord];\n  dist.set(beginWord, 0);\n  while (queue.length) {\n    const curr = queue.shift()!;\n    const d = dist.get(curr)!;\n    for (let i = 0; i < curr.length; i++) {\n      for (let c = 97; c <= 122; c++) {\n        const next = curr.substring(0, i) + String.fromCharCode(c) + curr.substring(i + 1);\n        if (wordSet.has(next) && !dist.has(next)) {\n          dist.set(next, d + 1);\n          queue.push(next);\n        }\n      }\n    }\n  }\n  if (!dist.has(endWord)) return [];\n  const res: string[][] = [];\n  function dfs(word: string, path: string[]) {\n    if (word === beginWord) {\n      res.push([beginWord, ...path]);\n      return;\n    }\n    const d = dist.get(word)!;\n    for (let i = 0; i < word.length; i++) {\n      for (let c = 97; c <= 122; c++) {\n        const prev = word.substring(0, i) + String.fromCharCode(c) + word.substring(i + 1);\n        if (dist.get(prev) === d - 1) {\n          dfs(prev, [word, ...path]);\n        }\n      }\n    }\n  }\n  dfs(endWord, []);\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static List<List<String>> findLadders(String beginWord, String endWord, List<String> wordList) {\n        Set<String> wordSet = new HashSet<>(wordList);\n        List<List<String>> res = new ArrayList<>();\n        if (!wordSet.contains(endWord)) return res;\n        Map<String, Integer> dist = new HashMap<>();\n        Queue<String> queue = new LinkedList<>();\n        queue.add(beginWord);\n        dist.put(beginWord, 0);\n        while (!queue.isEmpty()) {\n            String curr = queue.poll();\n            int d = dist.get(curr);\n            char[] chars = curr.toCharArray();\n            for (int i = 0; i < chars.length; i++) {\n                char orig = chars[i];\n                for (char c = 'a'; c <= 'z'; c++) {\n                    chars[i] = c;\n                    String next = new String(chars);\n                    if (wordSet.contains(next) && !dist.containsKey(next)) {\n                        dist.put(next, d + 1);\n                        queue.add(next);\n                    }\n                }\n                chars[i] = orig;\n            }\n        }\n        if (!dist.containsKey(endWord)) return res;\n        dfs(endWord, beginWord, dist, new ArrayList<>(Arrays.asList(endWord)), res);\n        return res;\n    }\n    private static void dfs(String word, String beginWord, Map<String, Integer> dist, List<String> path, List<List<String>> res) {\n        if (word.equals(beginWord)) {\n            List<String> copy = new ArrayList<>(path);\n            Collections.reverse(copy);\n            res.add(copy);\n            return;\n        }\n        int d = dist.get(word);\n        char[] chars = word.toCharArray();\n        for (int i = 0; i < chars.length; i++) {\n            char orig = chars[i];\n            for (char c = 'a'; c <= 'z'; c++) {\n                chars[i] = c;\n                String prev = new String(chars);\n                if (dist.getOrDefault(prev, -1) == d - 1) {\n                    path.add(prev);\n                    dfs(prev, beginWord, dist, path, res);\n                    path.remove(path.size() - 1);\n                }\n            }\n            chars[i] = orig;\n        }\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "BFS measures shortest levels; DFS reconstructs exact matching paths.",
+            "Backtracking backwards from `endWord` reduces redundant branching.",
+            "Time complexity $O(N \\cdot L^2)$."
+          ]
+        },
+        {
+          "id": "critical-connections-in-a-network-tarjan",
+          "title": "65. Critical Connections in a Network (Tarjan's Bridges)",
+          "content": "There are `n` servers numbered from `0` to `n - 1` connected by undirected server-to-server `connections`. Return all critical connections (bridges) whose removal disconnects the network.\n\n### How It Works & Algorithmic Design\nSolves using **Tarjan's Bridge Finding DFS Algorithm**:\n1. **Tracking Arrays**: Maintain `discoveryTime` array and `lowestTime` array initialized to `-1`.\n2. **DFS Logic** `dfs(node, parent, time)`:\n   - Set `discoveryTime[node] = lowestTime[node] = time++`.\n   - For each `neighbor` in adjacency list:\n     - If `neighbor === parent`, continue.\n     - If unvisited (`discoveryTime[neighbor] === -1`):\n       - Recurse `dfs(neighbor, node, time)`.\n       - Update `lowestTime[node] = Math.min(lowestTime[node], lowestTime[neighbor])`.\n       - **Bridge Condition**: If `lowestTime[neighbor] > discoveryTime[node]`, connection `(node, neighbor)` is a critical bridge! Push to result.\n     - If already visited: `lowestTime[node] = Math.min(lowestTime[node], discoveryTime[neighbor])`.\n\n### Why This Approach Works Best\nFinds all graph bridges in a single pass $O(V + E)$ linear time without testing node removals iteratively.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Tarjan Bridge Finding DFS",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(V + E)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(V + E)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Network",
+                  "value": "n = 4, connections = [[0,1],[1,2],[2,0],[1,3]]",
+                  "explanation": "4 connected servers."
+                },
+                {
+                  "label": "Bridge Analysis",
+                  "value": "[0,1,2] forms a cycle, but edge [1,3] is the only path to node 3.",
+                  "explanation": "Removing [1,3] disconnects node 3."
+                },
+                {
+                  "label": "Output",
+                  "value": "[[1,3]]",
+                  "explanation": "Critical bridge connection."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Tarjan's Critical Connections implementation",
+            "explanation": "Traverse graph via DFS tracking discovery times and low link values to detect bridge edges.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function criticalConnections(n, connections) {\n  const adj = Array.from({ length: n }, () => []);\n  for (const [u, v] of connections) {\n    adj[u].push(v); adj[v].push(u);\n  }\n  const disc = new Array(n).fill(-1);\n  const low = new Array(n).fill(-1);\n  const bridges = [];\n  let time = 0;\n  function dfs(u, parent) {\n    disc[u] = low[u] = time++;\n    for (const v of adj[u]) {\n      if (v === parent) continue;\n      if (disc[v] === -1) {\n        dfs(v, u);\n        low[u] = Math.min(low[u], low[v]);\n        if (low[v] > disc[u]) bridges.push([u, v]);\n      } else {\n        low[u] = Math.min(low[u], disc[v]);\n      }\n    }\n  }\n  dfs(0, -1);\n  return bridges;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function criticalConnections(n: number, connections: number[][]): number[][] {\n  const adj: number[][] = Array.from({ length: n }, () => []);\n  for (const [u, v] of connections) {\n    adj[u].push(v); adj[v].push(u);\n  }\n  const disc: number[] = new Array(n).fill(-1);\n  const low: number[] = new Array(n).fill(-1);\n  const bridges: number[][] = [];\n  let time = 0;\n  function dfs(u: number, parent: number) {\n    disc[u] = low[u] = time++;\n    for (const v of adj[u]) {\n      if (v === parent) continue;\n      if (disc[v] === -1) {\n        dfs(v, u);\n        low[u] = Math.min(low[u], low[v]);\n        if (low[v] > disc[u]) bridges.push([u, v]);\n      } else {\n        low[u] = Math.min(low[u], disc[v]);\n      }\n    }\n  }\n  dfs(0, -1);\n  return bridges;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    private static int time = 0;\n    public static List<List<Integer>> criticalConnections(int n, List<List<Integer>> connections) {\n        List<Integer>[] adj = new List[n];\n        for (int i = 0; i < n; i++) adj[i] = new ArrayList<>();\n        for (List<Integer> c : connections) {\n            adj[c.get(0)].add(c.get(1));\n            adj[c.get(1)].add(c.get(0));\n        }\n        int[] disc = new int[n]; Arrays.fill(disc, -1);\n        int[] low = new int[n]; Arrays.fill(low, -1);\n        List<List<Integer>> bridges = new ArrayList<>();\n        time = 0;\n        dfs(0, -1, adj, disc, low, bridges);\n        return bridges;\n    }\n    private static void dfs(int u, int parent, List<Integer>[] adj, int[] disc, int[] low, List<List<Integer>> bridges) {\n        disc[u] = low[u] = time++;\n        for (int v : adj[u]) {\n            if (v == parent) continue;\n            if (disc[v] == -1) {\n                dfs(v, u, adj, disc, low, bridges);\n                low[u] = Math.min(low[u], low[v]);\n                if (low[v] > disc[u]) bridges.add(Arrays.asList(u, v));\n            } else {\n                low[u] = Math.min(low[u], disc[v]);\n            }\n        }\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def critical_connections(n: int, connections: list[list[int]]) -> list[list[int]]:\n    adj = [[] for _ in range(n)]\n    for u, v in connections:\n        adj[u].append(v)\n        adj[v].append(u)\n    disc = [-1] * n\n    low = [-1] * n\n    bridges = []\n    time = 0\n    def dfs(u, parent):\n        nonlocal time\n        disc[u] = low[u] = time\n        time += 1\n        for v in adj[u]:\n            if v == parent: continue\n            if disc[v] == -1:\n                dfs(v, u)\n                low[u] = min(low[u], low[v])\n                if low[v] > disc[u]:\n                    bridges.append([u, v])\n            else:\n                low[u] = min(low[u], disc[v])\n    dfs(0, -1)\n    return bridges"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Bridge condition `low[v] > disc[u]` means neighbor `v` cannot reach any ancestor of `u`.",
+            "Tarjan's algorithm finds all network bottlenecks in single DFS pass.",
+            "Linear time complexity $O(V + E)$."
+          ]
+        },
+        {
+          "id": "reconstruct-itinerary-eulerian-path",
+          "title": "66. Reconstruct Itinerary",
+          "content": "You are given a list of airline `tickets` where `tickets[i] = [from_i, to_i]`. Reconstruct the itinerary in order and return it. All tickets must be used, starting from 'JFK'. If there are multiple valid itineraries, return the itinerary that has the smallest lexical order.\n\n### How It Works & Algorithmic Design\nSolves using **Hierholzer's Eulerian Path DFS Algorithm**:\n1. **Sorted Adjacency Map**: Build directed graph using a Min-Heap/Priority Queue for destination neighbors to enforce lexicographical traversal.\n2. **Hierholzer's Post-Order DFS** `dfs(airport)`:\n   - While `adj[airport]` is not empty:\n     - Pop smallest destination neighbor `next = adj[airport].poll()`.\n     - Recurse `dfs(next)`.\n   - Push `airport` onto `result` stack.\n3. **Return**: Reverse `result` stack.\n\n### Why This Approach Works Best\nHierholzer's algorithm traverses every graph edge (ticket) exactly once in $O(E \\log E)$ time, handling back-tracking dead-ends naturally.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Hierholzer Eulerian Path DFS",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(E log E)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(V + E)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "tickets = [[\"MUC\",\"LHR\"],[\"JFK\",\"MUC\"],[\"SFO\",\"SJC\"],[\"LHR\",\"SFO\"]]",
+                  "explanation": "Flight ticket pairs."
+                },
+                {
+                  "label": "Eulerian Path",
+                  "value": "\"JFK\" -> \"MUC\" -> \"LHR\" -> \"SFO\" -> \"SJC\"",
+                  "explanation": "All tickets visited in order."
+                },
+                {
+                  "label": "Output",
+                  "value": "[\"JFK\",\"MUC\",\"LHR\",\"SFO\",\"SJC\"]",
+                  "explanation": "Final itinerary."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Reconstruct Itinerary Hierholzer implementation",
+            "explanation": "Traverse smallest airport neighbors via Eulerian path DFS and reverse accumulated post-order stack.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function findItinerary(tickets) {\n  const adj = {};\n  for (const [from, to] of tickets) {\n    if (!adj[from]) adj[from] = [];\n    adj[from].push(to);\n  }\n  for (const from in adj) adj[from].sort();\n  const res = [];\n  function dfs(airport) {\n    const dests = adj[airport];\n    while (dests && dests.length) {\n      dfs(dests.shift());\n    }\n    res.push(airport);\n  }\n  dfs('JFK');\n  return res.reverse();\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function findItinerary(tickets: string[][]): string[] {\n  const adj: Record<string, string[]> = {};\n  for (const [from, to] of tickets) {\n    if (!adj[from]) adj[from] = [];\n    adj[from].push(to);\n  }\n  for (const from in adj) adj[from].sort();\n  const res: string[] = [];\n  function dfs(airport: string) {\n    const dests = adj[airport];\n    while (dests && dests.length) {\n      dfs(dests.shift()!);\n    }\n    res.push(airport);\n  }\n  dfs('JFK');\n  return res.reverse();\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static List<String> findItinerary(List<List<String>> tickets) {\n        Map<String, PriorityQueue<String>> adj = new HashMap<>();\n        for (List<String> t : tickets) {\n            adj.putIfAbsent(t.get(0), new PriorityQueue<>());\n            adj.get(t.get(0)).add(t.get(1));\n        }\n        LinkedList<String> res = new LinkedList<>();\n        dfs(\"JFK\", adj, res);\n        return res;\n    }\n    private static void dfs(String airport, Map<String, PriorityQueue<String>> adj, LinkedList<String> res) {\n        PriorityQueue<String> dests = adj.get(airport);\n        while (dests != null && !dests.isEmpty()) {\n            dfs(dests.poll(), adj, res);\n        }\n        res.addFirst(airport);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "from collections import defaultdict\n\ndef find_itinerary(tickets: list[list[str]]) -> list[str]:\n    adj = defaultdict(list)\n    for src, dst in sorted(tickets, reverse=True):\n        adj[src].append(dst)\n    res = []\n    function_stack = ['JFK']\n    while function_stack:\n        curr = function_stack[-1]\n        if adj[curr]:\n            function_stack.append(adj[curr].pop())\n        else:\n            res.append(function_stack.pop())\n    return res[::-1]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Guarantees all directed edges (tickets) are consumed exactly once.",
+            "Sorting airport neighbors satisfies smallest lexicographical choice requirement.",
+            "Reversing post-order traversal stack yields the correct path order."
+          ]
+        },
+        {
+          "id": "shortest-path-to-get-all-keys-bitmask-bfs",
+          "title": "67. Shortest Path to Get All Keys",
+          "content": "You are given an $m \\times n$ grid where lowercase letters `'a'-'f'` are keys, uppercase letters `'A'-'F'` are locks, `'#'` is a wall, and `'@'` is starting position. Return the minimum number of moves to acquire all keys.\n\n### How It Works & Algorithmic Design\nSolves using **BFS State Space Traversal with Bitmasking**:\n1. **Key Bitmasking**: Identify total key count $K$. Goal state bitmask is `(1 << K) - 1`.\n2. **Visited Set 3D State**: Track `visited[r][c][bitmask]` to allow revisiting grid cells when carrying new key sets.\n3. **BFS Queue Entry**: `(r, c, bitmask, steps)`.\n4. **Cell Evaluation**:\n   - Step onto key `'a'-'f'`: update `newMask = bitmask | (1 << (char - 'a'))`.\n   - Step onto lock `'A'-'F'`: allowed if `(bitmask & (1 << (char - 'A'))) !== 0`.\n   - Reaching `newMask === goalMask`: return `steps + 1` instantly.\n\n### Why This Approach Works Best\nBitmask state representation transforms multi-key path finding into a clean shortest path BFS graph search in $O(m \\times n \\times 2^K)$ time.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "BFS Grid + Bitmask State",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(m * n * 2^K)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(m * n * 2^K)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Grid",
+                  "value": "[\"@.a..\",\"###.#\",\"b.A.B\"]",
+                  "explanation": "2 keys ('a','b') and 2 locks ('A','B')."
+                },
+                {
+                  "label": "Shortest Path",
+                  "value": "Collect 'a' -> move down to 'b' -> unlock 'A' and 'B'.",
+                  "explanation": "8 total steps."
+                },
+                {
+                  "label": "Output",
+                  "value": "8",
+                  "explanation": "Minimum steps."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Shortest Path All Keys Bitmask BFS implementation",
+            "explanation": "Traverse grid via BFS storing position and key bitmask to reach all keys in minimal steps.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function shortestPathAllKeys(grid) {\n  const m = grid.length, n = grid[0].length;\n  let startR = 0, startC = 0, keyCount = 0;\n  for (let r = 0; r < m; r++) {\n    for (let c = 0; c < n; c++) {\n      const ch = grid[r][c];\n      if (ch === '@') { startR = r; startC = c; }\n      else if (ch >= 'a' && ch <= 'f') keyCount++;\n    }\n  }\n  const targetMask = (1 << keyCount) - 1;\n  const queue = [[startR, startC, 0, 0]];\n  const visited = new Set([`${startR},${startC},0`]);\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  while (queue.length) {\n    const [r, c, mask, steps] = queue.shift();\n    if (mask === targetMask) return steps;\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr < 0 || nc < 0 || nr >= m || nc >= n || grid[nr][nc] === '#') continue;\n      const ch = grid[nr][nc];\n      let newMask = mask;\n      if (ch >= 'a' && ch <= 'f') newMask |= (1 << (ch.charCodeAt(0) - 97));\n      if (ch >= 'A' && ch <= 'F' && !(mask & (1 << (ch.charCodeAt(0) - 65)))) continue;\n      const keyState = `${nr},${nc},${newMask}`;\n      if (!visited.has(keyState)) {\n        visited.add(keyState);\n        queue.push([nr, nc, newMask, steps + 1]);\n      }\n    }\n  }\n  return -1;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function shortestPathAllKeys(grid: string[]): number {\n  const m = grid.length, n = grid[0].length;\n  let startR = 0, startC = 0, keyCount = 0;\n  for (let r = 0; r < m; r++) {\n    for (let c = 0; c < n; c++) {\n      const ch = grid[r][c];\n      if (ch === '@') { startR = r; startC = c; }\n      else if (ch >= 'a' && ch <= 'f') keyCount++;\n    }\n  }\n  const targetMask = (1 << keyCount) - 1;\n  const queue: [number, number, number, number][] = [[startR, startC, 0, 0]];\n  const visited = new Set<string>([`${startR},${startC},0`]);\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  while (queue.length) {\n    const [r, c, mask, steps] = queue.shift()!;\n    if (mask === targetMask) return steps;\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr < 0 || nc < 0 || nr >= m || nc >= n || grid[nr][nc] === '#') continue;\n      const ch = grid[nr][nc];\n      let newMask = mask;\n      if (ch >= 'a' && ch <= 'f') newMask |= (1 << (ch.charCodeAt(0) - 97));\n      if (ch >= 'A' && ch <= 'F' && !(mask & (1 << (ch.charCodeAt(0) - 65)))) continue;\n      const keyState = `${nr},${nc},${newMask}`;\n      if (!visited.has(keyState)) {\n        visited.add(keyState);\n        queue.push([nr, nc, newMask, steps + 1]);\n      }\n    }\n  }\n  return -1;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int shortestPathAllKeys(String[] grid) {\n        int m = grid.length, n = grid[0].length();\n        int startR = 0, startC = 0, keyCount = 0;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                char ch = grid[r].charAt(c);\n                if (ch == '@') { startR = r; startC = c; }\n                else if (ch >= 'a' && ch <= 'f') keyCount++;\n            }\n        }\n        int targetMask = (1 << keyCount) - 1;\n        Queue<int[]> queue = new LinkedList<>();\n        queue.add(new int[]{startR, startC, 0, 0});\n        boolean[][][] visited = new boolean[m][n][1 << keyCount];\n        visited[startR][startC][0] = true;\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n        while (!queue.isEmpty()) {\n            int[] curr = queue.poll();\n            int r = curr[0], c = curr[1], mask = curr[2], steps = curr[3];\n            if (mask == targetMask) return steps;\n            for (int[] d : dirs) {\n                int nr = r + d[0], nc = c + d[1];\n                if (nr < 0 || nc < 0 || nr >= m || nc >= n || grid[nr].charAt(nc) == '#') continue;\n                char ch = grid[nr].charAt(nc);\n                int newMask = mask;\n                if (ch >= 'a' && ch <= 'f') newMask |= (1 << (ch - 'a'));\n                if (ch >= 'A' && ch <= 'F' && (mask & (1 << (ch - 'A'))) == 0) continue;\n                if (!visited[nr][nc][newMask]) {\n                    visited[nr][nc][newMask] = true;\n                    queue.add(new int[]{nr, nc, newMask, steps + 1});\n                }\n            }\n        }\n        return -1;\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use bitmask to record collected keys efficiently.",
+            "Visited tracking requires `[row, col, keyMask]` tuple state.",
+            "Guarantees shortest path moves using BFS traversal."
+          ]
+        },
+        {
+          "id": "trapping-rain-water-ii-3d-priority-queue",
+          "title": "68. Trapping Rain Water II (3D Surface)",
+          "content": "Given an $m \\times n$ integer matrix `heightMap` representing the height of each unit cell in a 2D elevation map, return the volume of water it can trap after raining.\n\n### How It Works & Algorithmic Design\nSolves using **Min-Heap Priority Queue Grid Boundary Shrinking**:\n1. **Boundary Priority Queue**: Push all outer boundary cells `(r, c, height)` into Min-Heap. Mark cells as visited.\n2. **Min-Height Processing**: Maintain running `maxBoundaryHeight = 0`. While heap is not empty:\n   - Pop smallest boundary cell `(r, c, h)`.\n   - Update `maxBoundaryHeight = Math.max(maxBoundaryHeight, h)`.\n   - Evaluate 4 neighbors `(nr, nc)`:\n     - If unvisited: mark visited, accumulate trapped water `Math.max(0, maxBoundaryHeight - heightMap[nr][nc])`, and push neighbor to Min-Heap.\n\n### Why This Approach Works Best\nShrinking boundaries inward from lowest boundary height simulates water containment physics in $O(m \\cdot n \\log(m \\cdot n))$ time.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "3D Min-Heap Boundary Inward Search",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(M * N log(M * N))",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(M * N)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Grid",
+                  "value": "[[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]",
+                  "explanation": "3D terrain matrix."
+                },
+                {
+                  "label": "Water Volume",
+                  "value": "Inner valleys hold 4 total units of water.",
+                  "explanation": "Physics containment sum."
+                },
+                {
+                  "label": "Output",
+                  "value": "4",
+                  "explanation": "Trapped volume."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Trapping Rain Water II 3D implementation",
+            "explanation": "Pop lowest boundary height from priority queue and expand inward to trap surface water.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function trapRainWater(heightMap) {\n  const m = heightMap.length, n = heightMap[0].length;\n  if (m < 3 || n < 3) return 0;\n  const visited = Array.from({ length: m }, () => new Array(n).fill(false));\n  const heap = []; // Simulated Min-heap array\n  for (let r = 0; r < m; r++) {\n    for (let c = 0; c < n; c++) {\n      if (r === 0 || r === m - 1 || c === 0 || c === n - 1) {\n        visited[r][c] = true;\n        heap.push([heightMap[r][c], r, c]);\n      }\n    }\n  }\n  heap.sort((a, b) => a[0] - b[0]);\n  let water = 0, maxBoundary = 0;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  while (heap.length) {\n    const [h, r, c] = heap.shift();\n    maxBoundary = Math.max(maxBoundary, h);\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr >= 0 && nc >= 0 && nr < m && nc < n && !visited[nr][nc]) {\n        visited[nr][nc] = true;\n        if (heightMap[nr][nc] < maxBoundary) water += maxBoundary - heightMap[nr][nc];\n        heap.push([heightMap[nr][nc], nr, nc]);\n        heap.sort((a, b) => a[0] - b[0]);\n      }\n    }\n  }\n  return water;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function trapRainWater(heightMap: number[][]): number {\n  const m = heightMap.length, n = heightMap[0].length;\n  if (m < 3 || n < 3) return 0;\n  const visited: boolean[][] = Array.from({ length: m }, () => new Array(n).fill(false));\n  const heap: [number, number, number][] = [];\n  for (let r = 0; r < m; r++) {\n    for (let c = 0; c < n; c++) {\n      if (r === 0 || r === m - 1 || c === 0 || c === n - 1) {\n        visited[r][c] = true;\n        heap.push([heightMap[r][c], r, c]);\n      }\n    }\n  }\n  heap.sort((a, b) => a[0] - b[0]);\n  let water = 0, maxBoundary = 0;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  while (heap.length) {\n    const [h, r, c] = heap.shift()!;\n    maxBoundary = Math.max(maxBoundary, h);\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr >= 0 && nc >= 0 && nr < m && nc < n && !visited[nr][nc]) {\n        visited[nr][nc] = true;\n        if (heightMap[nr][nc] < maxBoundary) water += maxBoundary - heightMap[nr][nc];\n        heap.push([heightMap[nr][nc], nr, nc]);\n        heap.sort((a, b) => a[0] - b[0]);\n      }\n    }\n  }\n  return water;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int trapRainWater(int[][] heightMap) {\n        int m = heightMap.length, n = heightMap[0].length;\n        if (m < 3 || n < 3) return 0;\n        boolean[][] visited = new boolean[m][n];\n        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                if (r == 0 || r == m - 1 || c == 0 || c == n - 1) {\n                    visited[r][c] = true;\n                    heap.add(new int[]{heightMap[r][c], r, c});\n                }\n            }\n        }\n        int water = 0, maxBoundary = 0;\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n        while (!heap.isEmpty()) {\n            int[] curr = heap.poll();\n            int h = curr[0], r = curr[1], c = curr[2];\n            maxBoundary = Math.max(maxBoundary, h);\n            for (int[] d : dirs) {\n                int nr = r + d[0], nc = c + d[1];\n                if (nr >= 0 && nc >= 0 && nr < m && nc < n && !visited[nr][nc]) {\n                    visited[nr][nc] = true;\n                    if (heightMap[nr][nc] < maxBoundary) water += maxBoundary - heightMap[nr][nc];\n                    heap.add(new int[]{heightMap[nr][nc], nr, nc});\n                }\n            }\n        }\n        return water;\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Boundary items must be pushed into Priority Queue first.",
+            "Water spill height is determined by lowest surrounding wall.",
+            "Runs in $O(M \\cdot N \\log(M \\cdot N))$ time."
+          ]
+        },
+        {
+          "id": "minimum-cost-to-make-at-least-one-valid-path-in-a-grid-01-bfs",
+          "title": "69. Minimum Cost to Make at Least One Valid Path in a Grid",
+          "content": "Given an $m \\times n$ grid where each cell has a sign pointing right, left, down, or up, return the minimum cost to make at least one valid path from `(0,0)` to `(m-1,n-1)`.\n\n### How It Works & Algorithmic Design\nSolves using **0-1 BFS with Double-Ended Queue (Deque)**:\n1. **Distance Matrix**: Maintain `cost[r][c]` initialized to `Infinity`. Set `cost[0][0] = 0`.\n2. **Deque Logic**: \n   - If moving in cell's existing sign direction: **weight 0** $\\to$ push neighbor to **FRONT** of Deque.\n   - If changing cell sign direction: **weight 1** $\\to$ push neighbor to **BACK** of Deque.\n3. **Return**: `cost[m-1][n-1]` when destination is popped.\n\n### Why This Approach Works Best\n0-1 BFS evaluates shortest paths with 0 and 1 edge weights in optimal linear $O(m \\times n)$ time without $O(V \\log V)$ Dijkstra overhead.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "0-1 BFS Deque",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(m * n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(m * n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Grid",
+                  "value": "[[1,1,1,1],[2,2,2,2],[1,1,1,1],[2,2,2,2]]",
+                  "explanation": "Grid with direction arrows."
+                },
+                {
+                  "label": "Min Cost Path",
+                  "value": "Changing 3 arrows gives valid path to end.",
+                  "explanation": "3 total direction changes required."
+                },
+                {
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "Minimum modification cost."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Minimum Cost Grid Path 0-1 BFS implementation",
+            "explanation": "Process zero-cost direction steps before one-cost direction changes using a double-ended queue.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function minCost(grid) {\n  const m = grid.length, n = grid[0].length;\n  const cost = Array.from({ length: m }, () => new Array(n).fill(Infinity));\n  cost[0][0] = 0;\n  const deque = [[0, 0]];\n  const dirs = [[0,1],[0,-1],[1,0],[-1,0]]; // 1:right, 2:left, 3:down, 4:up\n  while (deque.length) {\n    const [r, c] = deque.shift();\n    if (r === m - 1 && c === n - 1) return cost[r][c];\n    for (let i = 0; i < 4; i++) {\n      const nr = r + dirs[i][0], nc = c + dirs[i][1];\n      if (nr >= 0 && nc >= 0 && nr < m && nc < n) {\n        const w = (grid[r][c] === i + 1) ? 0 : 1;\n        if (cost[r][c] + w < cost[nr][nc]) {\n          cost[nr][nc] = cost[r][c] + w;\n          if (w === 0) deque.unshift([nr, nc]);\n          else deque.push([nr, nc]);\n        }\n      }\n    }\n  }\n  return cost[m - 1][n - 1];\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function minCost(grid: number[][]): number {\n  const m = grid.length, n = grid[0].length;\n  const cost: number[][] = Array.from({ length: m }, () => new Array(n).fill(Infinity));\n  cost[0][0] = 0;\n  const deque: [number, number][] = [[0, 0]];\n  const dirs = [[0,1],[0,-1],[1,0],[-1,0]];\n  while (deque.length) {\n    const [r, c] = deque.shift()!;\n    if (r === m - 1 && c === n - 1) return cost[r][c];\n    for (let i = 0; i < 4; i++) {\n      const nr = r + dirs[i][0], nc = c + dirs[i][1];\n      if (nr >= 0 && nc >= 0 && nr < m && nc < n) {\n        const w = (grid[r][c] === i + 1) ? 0 : 1;\n        if (cost[r][c] + w < cost[nr][nc]) {\n          cost[nr][nc] = cost[r][c] + w;\n          if (w === 0) deque.unshift([nr, nc]);\n          else deque.push([nr, nc]);\n        }\n      }\n    }\n  }\n  return cost[m - 1][n - 1];\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int minCost(int[][] grid) {\n        int m = grid.length, n = grid[0].length;\n        int[][] cost = new int[m][n];\n        for (int[] row : cost) Arrays.fill(row, Integer.MAX_VALUE);\n        cost[0][0] = 0;\n        Deque<int[]> deque = new ArrayDeque<>();\n        deque.addFirst(new int[]{0, 0});\n        int[][] dirs = {{0,1},{0,-1},{1,0},{-1,0}};\n        while (!deque.isEmpty()) {\n            int[] curr = deque.pollFirst();\n            int r = curr[0], c = curr[1];\n            if (r == m - 1 && c == n - 1) return cost[r][c];\n            for (int i = 0; i < 4; i++) {\n                int nr = r + dirs[i][0], nc = c + dirs[i][1];\n                if (nr >= 0 && nc >= 0 && nr < m && nc < n) {\n                    int w = (grid[r][c] == i + 1) ? 0 : 1;\n                    if (cost[r][c] + w < cost[nr][nc]) {\n                        cost[nr][nc] = cost[r][c] + w;\n                        if (w == 0) deque.addFirst(new int[]{nr, nc});\n                        else deque.addLast(new int[]{nr, nc});\n                    }\n                }\n            }\n        }\n        return cost[m - 1][n - 1];\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "0-cost edges get prepended (`unshift`/`addFirst`); 1-cost edges get appended (`push`/`addLast`).",
+            "Optimal linear $O(m \\times n)$ algorithm for graphs with binary edge weights.",
+            "Avoids PriorityQueue $O(V \\log V)$ overhead."
+          ]
+        },
+        {
+          "id": "swim-in-rising-water-dijkstra",
+          "title": "70. Swim in Rising Water",
+          "content": "You are given an $n \\times n$ integer matrix `grid` where each cell represents the elevation at that point. Rain starts falling and time $t$ increases. You can swim between adjacent cells if elevation at both cells is at most $t$. Return the least time until you can reach `(n-1, n-1)`.\n\n### How It Works & Algorithmic Design\nSolves using **Modified Dijkstra's Algorithm**:\n1. **Min-Heap Priority Queue**: Store `(maxElevationOnPath, r, c)`.\n2. **Initialization**: Push `(grid[0][0], 0, 0)` to heap. Mark `grid[0][0]` visited.\n3. **Dijkstra Loop**:\n   - Pop element `(t, r, c)` with smallest path elevation.\n   - If `r === n-1 && c === n-1`, return `t` instantly.\n   - For each unvisited neighbor `(nr, nc)`:\n     - `newTime = Math.max(t, grid[nr][nc])`.\n     - Push `(newTime, nr, nc)` into heap.\n\n### Why This Approach Works Best\nGreedily picks paths minimizing maximum water height in $O(n^2 \\log n)$ time.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Dijkstra Priority Queue",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n^2 log n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n^2)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Grid",
+                  "value": "[[0,2],[1,3]]",
+                  "explanation": "2x2 grid."
+                },
+                {
+                  "label": "Dijkstra Route",
+                  "value": "(0,0) [h=0] -> (1,0) [h=1] -> (1,1) [h=3]",
+                  "explanation": "Max height on path is 3."
+                },
+                {
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "Minimum swim time."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Swim in Rising Water Dijkstra implementation",
+            "explanation": "Find path minimizing maximum cell elevation using priority queue traversal.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function swimInWater(grid) {\n  const n = grid.length;\n  const visited = Array.from({ length: n }, () => new Array(n).fill(false));\n  const heap = [[grid[0][0], 0, 0]]; // Simulated Min-Heap\n  visited[0][0] = true;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  while (heap.length) {\n    heap.sort((a, b) => a[0] - b[0]);\n    const [t, r, c] = heap.shift();\n    if (r === n - 1 && c === n - 1) return t;\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr >= 0 && nc >= 0 && nr < n && nc < n && !visited[nr][nc]) {\n        visited[nr][nc] = true;\n        heap.push([Math.max(t, grid[nr][nc]), nr, nc]);\n      }\n    }\n  }\n  return 0;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function swimInWater(grid: number[][]): number {\n  const n = grid.length;\n  const visited: boolean[][] = Array.from({ length: n }, () => new Array(n).fill(false));\n  const heap: [number, number, number][] = [[grid[0][0], 0, 0]];\n  visited[0][0] = true;\n  const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n  while (heap.length) {\n    heap.sort((a, b) => a[0] - b[0]);\n    const [t, r, c] = heap.shift()!;\n    if (r === n - 1 && c === n - 1) return t;\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr >= 0 && nc >= 0 && nr < n && nc < n && !visited[nr][nc]) {\n        visited[nr][nc] = true;\n        heap.push([Math.max(t, grid[nr][nc]), nr, nc]);\n      }\n    }\n  }\n  return 0;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int swimInWater(int[][] grid) {\n        int n = grid.length;\n        boolean[][] visited = new boolean[n][n];\n        PriorityQueue<int[]> heap = new PriorityQueue<>((a, b) -> Integer.compare(a[0], b[0]));\n        heap.add(new int[0], 0, 0});\n        visited[0][0] = true;\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n        while (!heap.isEmpty()) {\n            int[] curr = heap.poll();\n            int t = curr[0], r = curr[1], c = curr[2];\n            if (r == n - 1 && c == n - 1) return t;\n            for (int[] d : dirs) {\n                int nr = r + d[0], nc = c + d[1];\n                if (nr >= 0 && nc >= 0 && nr < n && nc < n && !visited[nr][nc]) {\n                    visited[nr][nc] = true;\n                    heap.add(new int[]{Math.max(t, grid[nr][nc]), nr, nc});\n                }\n            }\n        }\n        return 0;\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Path cost is determined by max single elevation encountered.",
+            "Dijkstra expands search along globally lowest required water levels.",
+            "Time complexity $O(n^2 \\log n)$."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chapter-hard-advanced-data-structures-and-tricks",
+      "title": "Hard DSA — Advanced Data Structures & Algorithmic Specializations",
+      "summary": "Master specialized structures including Segment Trees, Binary Indexed Trees (Fenwick Trees), Tries with Wildcard Backtracking, Monotonic Stacks, and LFU/LRU Cache Engine designs.",
+      "estimatedMinutes": 540,
+      "sections": [
+        {
+          "id": "sliding-window-maximum-deque",
+          "title": "71. Sliding Window Maximum",
+          "content": "You are given an array of integers `nums`, and a sliding window of size `k` moving from left to right. Return the max sliding window values.\n\n### How It Works & Algorithmic Design\nSolves using **Monotonic Decreasing Double-Ended Queue (Deque)**:\n1. **Deque Invariant**: Maintain index values in `deque` such that elements `nums[deque[i]]` are strictly decreasing.\n2. **Window Processing** (For index $i$ from $0$ to $n-1$):\n   - **Remove Out-of-Bound**: If `deque[0] <= i - k`, pop front.\n   - **Maintain Decreasing Order**: While `nums[i] >= nums[deque[last]]`, pop back.\n   - **Push**: `deque.push(i)`.\n   - **Collect Max**: If $i \\ge k - 1$, push `nums[deque[0]]` to result.\n\n### Why This Approach Works Best\nMaintains sliding window maximums in linear $O(n)$ time using $O(k)$ space without $O(n \\log k)$ heap delays.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Monotonic Deque",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(k)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "nums = [1,3,-1,-3,5,3,6,7], k = 3",
+                  "explanation": "Sliding window length 3."
+                },
+                {
+                  "label": "Window Maxes",
+                  "value": "[1,3,-1]->3, [3,-1,-3]->3, [-1,-3,5]->5, [-3,5,3]->5, [5,3,6]->6, [3,6,7]->7",
+                  "explanation": "Sub-array maximums."
+                },
+                {
+                  "label": "Output",
+                  "value": "[3, 3, 5, 5, 6, 7]",
+                  "explanation": "Result array."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Sliding Window Maximum Monotonic Deque implementation",
+            "explanation": "Store indices in double-ended queue keeping corresponding values strictly decreasing.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function maxSlidingWindow(nums, k) {\n  const res = [];\n  const deque = []; // Stores indices\n  for (let i = 0; i < nums.length; i++) {\n    if (deque.length && deque[0] <= i - k) deque.shift();\n    while (deque.length && nums[deque[deque.length - 1]] <= nums[i]) deque.pop();\n    deque.push(i);\n    if (i >= k - 1) res.push(nums[deque[0]]);\n  }\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function maxSlidingWindow(nums: number[], k: number): number[] {\n  const res: number[] = [];\n  const deque: number[] = [];\n  for (let i = 0; i < nums.length; i++) {\n    if (deque.length && deque[0] <= i - k) deque.shift();\n    while (deque.length && nums[deque[deque.length - 1]] <= nums[i]) deque.pop();\n    deque.push(i);\n    if (i >= k - 1) res.push(nums[deque[0]]);\n  }\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int[] maxSlidingWindow(int[] nums, int k) {\n        int n = nums.length;\n        int[] res = new int[n - k + 1];\n        Deque<Integer> deque = new ArrayDeque<>();\n        for (int i = 0; i < n; i++) {\n            if (!deque.isEmpty() && deque.peekFirst() <= i - k) deque.pollFirst();\n            while (!deque.isEmpty() && nums[deque.peekLast()] <= nums[i]) deque.pollLast();\n            deque.offerLast(i);\n            if (i >= k - 1) res[i - k + 1] = nums[deque.peekFirst()];\n        }\n        return res;\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Deque maintains element indices in strictly decreasing value order.",
+            "Front of deque always holds current window maximum.",
+            "Linear time complexity $O(n)$ as every index gets pushed and popped at most once."
+          ]
+        },
+        {
+          "id": "largest-rectangle-in-histogram-stack",
+          "title": "72. Largest Rectangle in Histogram",
+          "content": "Given an array of integers `heights` representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.\n\n### How It Works & Algorithmic Design\nSolves using **Monotonic Increasing Stack**:\n1. **Sentinel Padding**: Append height `0` at end of array to flush stack elements at conclusion.\n2. **Stack Stores Indices**: Maintain stack keeping corresponding heights in increasing order.\n3. **Loop Bar Heights** $i$:\n   - While `stack.top` height is greater than `heights[i]`:\n     - Pop height `h = heights[stack.pop()]`.\n     - Width = `stack.isEmpty ? i : i - stack.top - 1`.\n     - `maxArea = Math.max(maxArea, h * width)`.\n   - Push current index $i$.\n\n### Why This Approach Works Best\nMonotonic stack processes every bar height boundary in single-pass linear $O(n)$ time and $O(n)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Monotonic Stack",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Heights",
+                  "value": "[2, 1, 5, 6, 2, 3]",
+                  "explanation": "Histogram bar heights."
+                },
+                {
+                  "label": "Max Area Rectangle",
+                  "value": "Bars at idx 2 and 3 (heights 5, 6) form 5 * 2 = 10 area.",
+                  "explanation": "Largest rectangle bounded by height 5."
+                },
+                {
+                  "label": "Output",
+                  "value": "10",
+                  "explanation": "Max rectangular area."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Largest Rectangle in Histogram implementation",
+            "explanation": "Use a monotonic increasing stack to calculate max rectangular area bounded by bar heights.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function largestRectangleArea(heights) {\n  const stack = [];\n  let maxArea = 0;\n  const H = [...heights, 0];\n  for (let i = 0; i < H.length; i++) {\n    while (stack.length && H[stack[stack.length - 1]] > H[i]) {\n      const h = H[stack.pop()];\n      const w = stack.length === 0 ? i : i - stack[stack.length - 1] - 1;\n      maxArea = Math.max(maxArea, h * w);\n    }\n    stack.push(i);\n  }\n  return maxArea;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function largestRectangleArea(heights: number[]): number {\n  const stack: number[] = [];\n  let maxArea = 0;\n  const H = [...heights, 0];\n  for (let i = 0; i < H.length; i++) {\n    while (stack.length && H[stack[stack.length - 1]] > H[i]) {\n      const h = H[stack.pop()!];\n      const w = stack.length === 0 ? i : i - stack[stack.length - 1] - 1;\n      maxArea = Math.max(maxArea, h * w);\n    }\n    stack.push(i);\n  }\n  return maxArea;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.Stack;\n\npublic class Solution {\n    public static int largestRectangleArea(int[] heights) {\n        Stack<Integer> stack = new Stack<>();\n        int maxArea = 0;\n        int n = heights.length;\n        for (int i = 0; i <= n; i++) {\n            int h = (i == n) ? 0 : heights[i];\n            while (!stack.isEmpty() && heights[stack.peek()] > h) {\n                int height = heights[stack.pop()];\n                int width = stack.isEmpty() ? i : i - stack.peek() - 1;\n                maxArea = Math.max(maxArea, height * width);\n            }\n            stack.push(i);\n        }\n        return maxArea;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def largest_rectangle_area(heights: list[int]) -> int:\n    stack = []\n    max_area = 0\n    H = heights + [0]\n    for i, h in enumerate(H):\n        while stack and H[stack[-1]] > h:\n            height = H[stack.pop()]\n            width = i if not stack else i - stack[-1] - 1\n            max_area = max(max_area, height * width)\n        stack.append(i)\n    return max_area"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Stack elements are strictly increasing in height.",
+            "Trailing zero height flushes remaining stack elements.",
+            "Single pass linear $O(n)$ time and $O(n)$ space."
+          ]
+        },
+        {
+          "id": "maximal-rectangle-2d-matrix-stack",
+          "title": "73. Maximal Rectangle in 2D Binary Matrix",
+          "content": "Given a `rows x cols` binary `matrix` filled with `0`'s and `1`'s, find the largest rectangle containing only `1`'s and return its area.\n\n### How It Works & Algorithmic Design\nSolves using **Dynamic Row Histogram Updating + Histogram Stack**:\n1. **Histogram Array**: Maintain `dp` array of size `cols` initialized to `0`.\n2. **Row Traversal**: Loop row by row:\n   - For each cell in row: if `matrix[r][c] === '1'`, `dp[c] += 1`; else `dp[c] = 0`.\n   - Calculate `maxArea = Math.max(maxArea, largestRectangleArea(dp))` using Histogram Monotonic Stack.\n3. **Return**: Maximum overall area found.\n\n### Why This Approach Works Best\nTransforms 2D matrix search into $M$ consecutive histogram sub-problems executing in optimal $O(M \\times N)$ time and $O(N)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "2D Matrix to Histogram DP",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(m * n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Matrix",
+                  "value": "[[\"1\",\"0\",\"1\",\"0\",\"0\"],[\"1\",\"0\",\"1\",\"1\",\"1\"],[\"1\",\"1\",\"1\",\"1\",\"1\"],[\"1\",\"0\",\"0\",\"1\",\"0\"]]",
+                  "explanation": "Binary grid."
+                },
+                {
+                  "label": "Max Area",
+                  "value": "3x2 rectangle of 1s yields 6 area.",
+                  "explanation": "Max contiguous rectangle."
+                },
+                {
+                  "label": "Output",
+                  "value": "6",
+                  "explanation": "Max rectangular area."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Maximal Rectangle implementation",
+            "explanation": "Build height array per matrix row and evaluate largest histogram rectangle.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function maximalRectangle(matrix) {\n  if (!matrix.length || !matrix[0].length) return 0;\n  const cols = matrix[0].length;\n  const dp = new Array(cols).fill(0);\n  let maxArea = 0;\n  for (let r = 0; r < matrix.length; r++) {\n    for (let c = 0; c < cols; c++) {\n      dp[c] = matrix[r][c] === '1' ? dp[c] + 1 : 0;\n    }\n    maxArea = Math.max(maxArea, largestRectangleArea(dp));\n  }\n  return maxArea;\n}\n\nfunction largestRectangleArea(heights) {\n  const stack = [];\n  let maxArea = 0;\n  const H = [...heights, 0];\n  for (let i = 0; i < H.length; i++) {\n    while (stack.length && H[stack[stack.length - 1]] > H[i]) {\n      const h = H[stack.pop()];\n      const w = stack.length === 0 ? i : i - stack[stack.length - 1] - 1;\n      maxArea = Math.max(maxArea, h * w);\n    }\n    stack.push(i);\n  }\n  return maxArea;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function maximalRectangle(matrix: string[][]): number {\n  if (!matrix.length || !matrix[0].length) return 0;\n  const cols = matrix[0].length;\n  const dp: number[] = new Array(cols).fill(0);\n  let maxArea = 0;\n  for (let r = 0; r < matrix.length; r++) {\n    for (let c = 0; c < cols; c++) {\n      dp[c] = matrix[r][c] === '1' ? dp[c] + 1 : 0;\n    }\n    maxArea = Math.max(maxArea, largestRectangleArea(dp));\n  }\n  return maxArea;\n}\n\nfunction largestRectangleArea(heights: number[]): number {\n  const stack: number[] = [];\n  let maxArea = 0;\n  const H = [...heights, 0];\n  for (let i = 0; i < H.length; i++) {\n    while (stack.length && H[stack[stack.length - 1]] > H[i]) {\n      const h = H[stack.pop()!];\n      const w = stack.length === 0 ? i : i - stack[stack.length - 1] - 1;\n      maxArea = Math.max(maxArea, h * w);\n    }\n    stack.push(i);\n  }\n  return maxArea;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.Stack;\n\npublic class Solution {\n    public static int maximalRectangle(char[][] matrix) {\n        if (matrix.length == 0 || matrix[0].length == 0) return 0;\n        int cols = matrix[0].length;\n        int[] dp = new int[cols];\n        int maxArea = 0;\n        for (int r = 0; r < matrix.length; r++) {\n            for (int c = 0; c < cols; c++) {\n                dp[c] = (matrix[r][c] == '1') ? dp[c] + 1 : 0;\n            }\n            maxArea = Math.max(maxArea, largestRectangleArea(dp));\n        }\n        return maxArea;\n    }\n    private static int largestRectangleArea(int[] heights) {\n        Stack<Integer> stack = new Stack<>();\n        int maxArea = 0, n = heights.length;\n        for (int i = 0; i <= n; i++) {\n            int h = (i == n) ? 0 : heights[i];\n            while (!stack.isEmpty() && heights[stack.peek()] > h) {\n                int height = heights[stack.pop()];\n                int width = stack.isEmpty() ? i : i - stack.peek() - 1;\n                maxArea = Math.max(maxArea, height * width);\n            }\n            stack.push(i);\n        }\n        return maxArea;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def maximal_rectangle(matrix: list[list[str]]) -> int:\n    if not matrix or not matrix[0]: return 0\n    cols = len(matrix[0])\n    dp = [0] * cols\n    max_area = 0\n    def largest_rectangle(heights):\n        stack = []\n        m_area = 0\n        H = heights + [0]\n        for i, h in enumerate(H):\n            while stack and H[stack[-1]] > h:\n                height = H[stack.pop()]\n                width = i if not stack else i - stack[-1] - 1\n                m_area = max(m_area, height * width)\n            stack.append(i)\n        return m_area\n    for r in range(len(matrix)):\n        for c in range(cols):\n            dp[c] = dp[c] + 1 if matrix[r][c] == '1' else 0\n        max_area = max(max_area, largest_rectangle(dp))\n    return max_area"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Converts 2D matrix search into 1D dynamic histogram problems.",
+            "Resetting column height to 0 on matrix cell '0' enforces contiguous 1s.",
+            "Time complexity $O(M \\times N)$."
+          ]
+        },
+        {
+          "id": "lfu-cache-double-linked-list",
+          "title": "74. LFU Cache (Least Frequently Used)",
+          "content": "Design and implement a data structure for a Least Frequently Used (LFU) cache supporting `get` and `put` operations in $O(1)$ time complexity.\n\n### How It Works & Algorithmic Design\nSolves using **Hash Map + Doubly Linked Frequency Lists**:\n1. **Key Map**: `keyMap[key] = node` (stores value, frequency, key reference).\n2. **Frequency Map**: `freqMap[freq] = DoublyLinkedList` (LRU ordered list for nodes sharing the same access frequency).\n3. **Track Min Frequency**: Maintain variable `minFreq`.\n4. **Operations**:\n   - `get(key)`: If present, increment node frequency, update doubly linked lists, update `minFreq`, return node value.\n   - `put(key, val)`: If key exists, update value and bump frequency. If new and full capacity reached, remove tail node from `freqMap[minFreq]`. Insert new node with frequency 1 and set `minFreq = 1`.\n\n### Why This Approach Works Best\nDoubly linked frequency buckets achieve strict constant $O(1)$ time for both cache lookup and frequency displacement.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Doubly Linked List + Map",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(1) Get / Put",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(capacity)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Operations",
+                  "value": "put(1,1), put(2,2), get(1), put(3,3)",
+                  "explanation": "Capacity 2 LFU cache."
+                },
+                {
+                  "label": "Eviction",
+                  "value": "key 2 has freq 1, key 1 has freq 2. Key 2 evicted when adding key 3.",
+                  "explanation": "Least frequent node removed."
+                },
+                {
+                  "label": "Output",
+                  "value": "get(1)->1, get(2)->-1 (evicted), get(3)->3",
+                  "explanation": "Cache responses."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "LFU Cache $O(1)$ implementation",
+            "explanation": "Store frequency nodes in doubly linked list buckets mapped by frequency keys for O(1) eviction.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "class LFUCache {\n  constructor(capacity) {\n    this.capacity = capacity;\n    this.minFreq = 0;\n    this.keyMap = new Map();\n    this.freqMap = new Map();\n  }\n  _update(node) {\n    const oldFreq = node.freq;\n    const oldList = this.freqMap.get(oldFreq);\n    oldList.delete(node);\n    if (oldFreq === this.minFreq && oldList.size === 0) this.minFreq++;\n    node.freq++;\n    if (!this.freqMap.has(node.freq)) this.freqMap.set(node.freq, new Set());\n    this.freqMap.get(node.freq).add(node);\n  }\n  get(key) {\n    if (!this.keyMap.has(key)) return -1;\n    const node = this.keyMap.get(key);\n    this._update(node);\n    return node.val;\n  }\n  put(key, value) {\n    if (this.capacity === 0) return;\n    if (this.keyMap.has(key)) {\n      const node = this.keyMap.get(key);\n      node.val = value;\n      this._update(node);\n    } else {\n      if (this.keyMap.size >= this.capacity) {\n        const minList = this.freqMap.get(this.minFreq);\n        const evictNode = minList.values().next().value;\n        minList.delete(evictNode);\n        this.keyMap.delete(evictNode.key);\n      }\n      const newNode = { key, val: value, freq: 1 };\n      this.keyMap.set(key, newNode);\n      this.minFreq = 1;\n      if (!this.freqMap.has(1)) this.freqMap.set(1, new Set());\n      this.freqMap.get(1).add(newNode);\n    }\n  }\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "type LFUNode = { key: number; val: number; freq: number };\n\nclass LFUCache {\n  private capacity: number;\n  private minFreq: number = 0;\n  private keyMap = new Map<number, LFUNode>();\n  private freqMap = new Map<number, Set<LFUNode>>();\n  constructor(capacity: number) {\n    this.capacity = capacity;\n  }\n  private _update(node: LFUNode) {\n    const oldFreq = node.freq;\n    const oldList = this.freqMap.get(oldFreq)!;\n    oldList.delete(node);\n    if (oldFreq === this.minFreq && oldList.size === 0) this.minFreq++;\n    node.freq++;\n    if (!this.freqMap.has(node.freq)) this.freqMap.set(node.freq, new Set());\n    this.freqMap.get(node.freq)!.add(node);\n  }\n  get(key: number): number {\n    if (!this.keyMap.has(key)) return -1;\n    const node = this.keyMap.get(key)!;\n    this._update(node);\n    return node.val;\n  }\n  put(key: number, value: number): void {\n    if (this.capacity === 0) return;\n    if (this.keyMap.has(key)) {\n      const node = this.keyMap.get(key)!;\n      node.val = value;\n      this._update(node);\n    } else {\n      if (this.keyMap.size >= this.capacity) {\n        const minList = this.freqMap.get(this.minFreq)!;\n        const evictNode = minList.values().next().value;\n        minList.delete(evictNode);\n        this.keyMap.delete(evictNode.key);\n      }\n      const newNode: LFUNode = { key, val: value, freq: 1 };\n      this.keyMap.set(key, newNode);\n      this.minFreq = 1;\n      if (!this.freqMap.has(1)) this.freqMap.set(1, new Set());\n      this.freqMap.get(1)!.add(newNode);\n    }\n  }\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class LFUCache {\n    class Node {\n        int key, val, freq;\n        Node(int key, int val) { this.key = key; this.val = val; this.freq = 1; }\n    }\n    private final int capacity;\n    private int minFreq = 0;\n    private Map<Integer, Node> keyMap = new HashMap<>();\n    private Map<Integer, LinkedHashSet<Node>> freqMap = new HashMap<>();\n    public LFUCache(int capacity) { this.capacity = capacity; }\n    public int get(int key) {\n        if (!keyMap.containsKey(key)) return -1;\n        Node node = keyMap.get(key);\n        update(node);\n        return node.val;\n    }\n    private void update(Node node) {\n        int oldFreq = node.freq;\n        LinkedHashSet<Node> oldList = freqMap.get(oldFreq);\n        oldList.remove(node);\n        if (oldFreq == minFreq && oldList.isEmpty()) minFreq++;\n        node.freq++;\n        freqMap.putIfAbsent(node.freq, new LinkedHashSet<>());\n        freqMap.get(node.freq).add(node);\n    }\n    public void put(int key, int value) {\n        if (capacity == 0) return;\n        if (keyMap.containsKey(key)) {\n            Node node = keyMap.get(key);\n            node.val = value;\n            update(node);\n        } else {\n            if (keyMap.size() >= capacity) {\n                LinkedHashSet<Node> minList = freqMap.get(minFreq);\n                Node evict = minList.iterator().next();\n                minList.remove(evict);\n                keyMap.remove(evict.key);\n            }\n            Node newNode = new Node(key, value);\n            keyMap.put(key, newNode);\n            minFreq = 1;\n            freqMap.putIfAbsent(1, new LinkedHashSet<>());\n            freqMap.get(1).add(newNode);\n        }\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use frequency maps storing doubly linked lists to track duplicate frequency tie breaks.",
+            "Increments minFreq when lowest frequency bucket empties out.",
+            "Guarantees $O(1)$ operations for get and put."
+          ]
+        },
+        {
+          "id": "word-search-ii-trie-backtracking",
+          "title": "75. Word Search II (Board Search with Trie)",
+          "content": "Given an $m \\times n$ `board` of characters and a list of strings `words`, return all words on the board.\n\n### How It Works & Algorithmic Design\nSolves using **Prefix Trie Tree + Grid Backtracking DFS**:\n1. **Build Prefix Trie**: Insert all `words` into Trie. Store complete `word` reference at terminal leaf nodes.\n2. **Grid Traversal DFS** `dfs(r, c, trieNode)`:\n   - Base Case: if cell out of bounds or `board[r][c] === '#'` or character not in `trieNode.children`, return.\n   - Matching Child: step into `childNode`.\n   - Word Discovered: if `childNode.word !== null`, push to result and set `childNode.word = null` (prevents duplicates).\n   - Mark visited `board[r][c] = '#'` and recurse 4 directions.\n   - Restore cell `board[r][c] = originalChar`.\n\n### Why This Approach Works Best\nTrie prefix matching prunes search paths across thousands of words simultaneously in $O(M \\cdot N \\cdot 4^L)$ worst-case.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Trie + Grid DFS Backtracking",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(M * N * 4^L)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(W * L)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Grid",
+                  "value": "[[\"o\",\"a\",\"a\",\"n\"],[\"e\",\"t\",\"a\",\"e\"],[\"i\",\"h\",\"k\",\"r\"],[\"i\",\"f\",\"l\",\"v\"]], words = [\"oath\",\"pea\",\"eat\",\"rain\"]",
+                  "explanation": "Grid and word dictionary."
+                },
+                {
+                  "label": "Words Found",
+                  "value": "\"oath\", \"eat\"",
+                  "explanation": "Valid board word paths."
+                },
+                {
+                  "label": "Output",
+                  "value": "[\"oath\", \"eat\"]",
+                  "explanation": "Discovered words."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Word Search II Trie implementation",
+            "explanation": "Build Prefix Trie and perform 4-directional grid DFS backtracking to find matching words.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function findWords(board, words) {\n  const root = {};\n  for (const w of words) {\n    let node = root;\n    for (const c of w) {\n      if (!node[c]) node[c] = {};\n      node = node[c];\n    }\n    node.word = w;\n  }\n  const res = [];\n  const m = board.length, n = board[0].length;\n  function dfs(r, c, node) {\n    const ch = board[r][c];\n    if (!node[ch]) return;\n    node = node[ch];\n    if (node.word) {\n      res.push(node.word);\n      node.word = null;\n    }\n    board[r][c] = '#';\n    const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr >= 0 && nc >= 0 && nr < m && nc < n && board[nr][nc] !== '#') {\n        dfs(nr, nc, node);\n      }\n    }\n    board[r][c] = ch;\n  }\n  for (let r = 0; r < m; r++) {\n    for (let c = 0; c < n; c++) {\n      dfs(r, c, root);\n    }\n  }\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "interface TrieNode {\n  children: Record<string, TrieNode>;\n  word: string | null;\n}\n\nfunction findWords(board: string[][], words: string[]): string[] {\n  const root: TrieNode = { children: {}, word: null };\n  for (const w of words) {\n    let node = root;\n    for (const c of w) {\n      if (!node.children[c]) node.children[c] = { children: {}, word: null };\n      node = node.children[c];\n    }\n    node.word = w;\n  }\n  const res: string[] = [];\n  const m = board.length, n = board[0].length;\n  function dfs(r: number, c: number, node: TrieNode) {\n    const ch = board[r][c];\n    if (!node.children[ch]) return;\n    node = node.children[ch];\n    if (node.word) {\n      res.push(node.word);\n      node.word = null;\n    }\n    board[r][c] = '#';\n    const dirs = [[1,0],[-1,0],[0,1],[0,-1]];\n    for (const [dr, dc] of dirs) {\n      const nr = r + dr, nc = c + dc;\n      if (nr >= 0 && nc >= 0 && nr < m && nc < n && board[nr][nc] !== '#') {\n        dfs(nr, nc, node);\n      }\n    }\n    board[r][c] = ch;\n  }\n  for (let r = 0; r < m; r++) {\n    for (let c = 0; c < n; c++) {\n      dfs(r, c, root);\n    }\n  }\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    class TrieNode {\n        Map<Character, TrieNode> children = new HashMap<>();\n        String word = null;\n    }\n    public List<String> findWords(char[][] board, String[] words) {\n        TrieNode root = new TrieNode();\n        for (String w : words) {\n            TrieNode node = root;\n            for (char c : w.toCharArray()) {\n                node.children.putIfAbsent(c, new TrieNode());\n                node = node.children.get(c);\n            }\n            node.word = w;\n        }\n        List<String> res = new ArrayList<>();\n        int m = board.length, n = board[0].length;\n        for (int r = 0; r < m; r++) {\n            for (int c = 0; c < n; c++) {\n                dfs(board, r, c, root, res);\n            }\n        }\n        return res;\n    }\n    private void dfs(char[][] board, int r, int c, TrieNode node, List<String> res) {\n        char ch = board[r][c];\n        if (!node.children.containsKey(ch)) return;\n        node = node.children.get(ch);\n        if (node.word != null) {\n            res.add(node.word);\n            node.word = null;\n        }\n        board[r][c] = '#';\n        int[][] dirs = {{1,0},{-1,0},{0,1},{0,-1}};\n        for (int[] d : dirs) {\n            int nr = r + d[0], nc = c + d[1];\n            if (nr >= 0 && nc >= 0 && nr < board.length && nc < board[0].length && board[nr][nc] != '#') {\n                dfs(board, nr, nc, node, res);\n            }\n        }\n        board[r][c] = ch;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def find_words(board: list[list[str]], words: list[str]) -> list[str]:\n    trie = {}\n    for w in words:\n        node = trie\n        for c in w:\n            node = node.setdefault(c, {})\n        node['$'] = w\n    m, n = len(board), len(board[0])\n    res = []\n    def dfs(r, c, parent):\n        ch = board[r][c]\n        curr = parent[ch]\n        if '$' in curr:\n            res.append(curr['$'])\n            del curr['$']\n        board[r][c] = '#'\n        for dr, dc in [(1,0),(-1,0),(0,1),(0,-1)]:\n            nr, nc = r + dr, c + dc\n            if 0 <= nr < m and 0 <= nc < n and board[nr][nc] in curr:\n                dfs(nr, nc, curr)\n        board[r][c] = ch\n    for r in range(m):\n        for c in range(n):\n            if board[r][c] in trie:\n                dfs(r, c, trie)\n    return res"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Store complete `word` string directly inside Trie leaf node.",
+            "Set `node.word = null` when found to avoid duplicate results.",
+            "Trie prefix checks prune invalid board branches fast."
+          ]
+        },
+        {
+          "id": "range-sum-query-mutable-segment-tree",
+          "title": "76. Range Sum Query - Mutable (Segment Tree / Fenwick Tree)",
+          "content": "Given an integer array `nums`, handle multiple queries of updating an element value and calculating the sum of elements between indices `left` and `right` inclusive.\n\n### How It Works & Algorithmic Design\nSolves using a **Binary Indexed Tree (Fenwick Tree / BIT)**:\n1. **BIT Mechanics**: Array `tree` of size $n+1$ storing prefix sums. Index index relationships use lowest set bit: `i & (-i)`.\n2. **`update(index, val)`**:\n   - Delta = `val - nums[index]`.\n   - `nums[index] = val`.\n   - Loop $i = \\text{index} + 1$ up to $n$: `tree[i] += delta`, advance `i += i & (-i)`.\n3. **`sumRange(left, right)`**:\n   - Query prefix sum $Q(x)$: sum `tree[i]` stepping down `i -= i & (-i)`.\n   - Return $Q(\\text{right} + 1) - Q(\\left\\text{left}\\right)$.\n\n### Why This Approach Works Best\nAchieves logarithmic $O(\\log n)$ time for both updates and range sum queries with minimal $O(n)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Fenwick Tree / Segment Tree",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(log n) Update/Query",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Operations",
+                  "value": "nums = [1,3,5] -> sumRange(0,2) -> update(1,2) -> sumRange(0,2)",
+                  "explanation": "Dynamic range queries."
+                },
+                {
+                  "label": "Results",
+                  "value": "sumRange(0,2)=9. After update index 1 to 2, sumRange(0,2)=8.",
+                  "explanation": "Updated sum range."
+                },
+                {
+                  "label": "Output",
+                  "value": "[9, 8]",
+                  "explanation": "Query outputs."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Fenwick Tree / Binary Indexed Tree implementation",
+            "explanation": "Construct Binary Indexed Tree using bitwise least significant bit operations for dynamic range sums.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "class NumArray {\n  constructor(nums) {\n    this.n = nums.length;\n    this.nums = [...nums];\n    this.tree = new Array(this.n + 1).fill(0);\n    for (let i = 0; i < this.n; i++) {\n      this._initAdd(i + 1, nums[i]);\n    }\n  }\n  _initAdd(i, val) {\n    while (i <= this.n) {\n      this.tree[i] += val;\n      i += i & (-i);\n    }\n  }\n  update(index, val) {\n    const delta = val - this.nums[index];\n    this.nums[index] = val;\n    let i = index + 1;\n    while (i <= this.n) {\n      this.tree[i] += delta;\n      i += i & (-i);\n    }\n  }\n  _prefixSum(i) {\n    let sum = 0;\n    while (i > 0) {\n      sum += this.tree[i];\n      i -= i & (-i);\n    }\n    return sum;\n  }\n  sumRange(left, right) {\n    return this._prefixSum(right + 1) - this._prefixSum(left);\n  }\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "class NumArray {\n  private n: number;\n  private nums: number[];\n  private tree: number[];\n  constructor(nums: number[]) {\n    this.n = nums.length;\n    this.nums = [...nums];\n    this.tree = new Array(this.n + 1).fill(0);\n    for (let i = 0; i < this.n; i++) {\n      this._initAdd(i + 1, nums[i]);\n    }\n  }\n  private _initAdd(i: number, val: number) {\n    while (i <= this.n) {\n      this.tree[i] += val;\n      i += i & (-i);\n    }\n  }\n  update(index: number, val: number): void {\n    const delta = val - this.nums[index];\n    this.nums[index] = val;\n    let i = index + 1;\n    while (i <= this.n) {\n      this.tree[i] += delta;\n      i += i & (-i);\n    }\n  }\n  private _prefixSum(i: number): number {\n    let sum = 0;\n    while (i > 0) {\n      sum += this.tree[i];\n      i -= i & (-i);\n    }\n    return sum;\n  }\n  sumRange(left: number, right: number): number {\n    return this._prefixSum(right + 1) - this._prefixSum(left);\n  }\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class NumArray {\n    private int n;\n    private int[] nums;\n    private int[] tree;\n    public NumArray(int[] nums) {\n        this.n = nums.length;\n        this.nums = new int[n];\n        this.tree = new int[n + 1];\n        for (int i = 0; i < n; i++) update(i, nums[i]);\n    }\n    public void update(int index, int val) {\n        int delta = val - nums[index];\n        nums[index] = val;\n        for (int i = index + 1; i <= n; i += i & (-i)) {\n            tree[i] += delta;\n        }\n    }\n    private int prefixSum(int i) {\n        int sum = 0;\n        for (; i > 0; i -= i & (-i)) {\n            sum += tree[i];\n        }\n        return sum;\n    }\n    public int sumRange(int left, int right) {\n        return prefixSum(right + 1) - prefixSum(left);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "class NumArray:\n    def __init__(self, nums: list[int]):\n        self.n = len(nums)\n        self.nums = [0] * self.n\n        self.tree = [0] * (self.n + 1)\n        for i, val in enumerate(nums):\n            self.update(i, val)\n\n    def update(self, index: int, val: int) -> None:\n        delta = val - self.nums[index]\n        self.nums[index] = val\n        i = index + 1\n        while i <= self.n:\n            self.tree[i] += delta\n            i += i & (-i)\n\n    def prefix_sum(self, i: int) -> int:\n        s = 0\n        while i > 0:\n            s += self.tree[i]\n            i -= i & (-i)\n        return s\n\n    def sumRange(self, left: int, right: int) -> int:\n        return self.prefix_sum(right + 1) - self.prefix_sum(left)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Fenwick Tree allows $O(\\log n)$ point updates and $O(\\log n)$ range queries.",
+            "Bitwise lowest set bit operator `i & (-i)` navigates tree parent/child paths.",
+            "Simpler to write than 4x size Segment Trees."
+          ]
+        },
+        {
+          "id": "count-of-smaller-numbers-after-self-merge-sort",
+          "title": "77. Count of Smaller Numbers After Self",
+          "content": "Given an integer array `nums`, return an integer array `counts` where `counts[i]` is the number of smaller elements to the right of `nums[i]`.\n\n### How It Works & Algorithmic Design\nSolves using **Modified Merge Sort with Right-Side Inversion Counting**:\n1. **Index Tracking**: Create array of index pairs `[value, originalIndex]`.\n2. **Merge Step**: Merge sorted left half and right half:\n   - When picking element from left half because `left[i].val <= right[j].val`:\n     - Accumulate count: `counts[left[i].index] += rightCount` (number of elements taken from right half so far).\n   - When picking element from right half: increment `rightCount++`.\n3. **Return**: Populated `counts` array.\n\n### Why This Approach Works Best\nMerge sort counts inversions across array splits in optimal $O(n \\log n)$ time and $O(n)$ space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Modified Merge Sort",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n log n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[5, 2, 6, 1]",
+                  "explanation": "Target array."
+                },
+                {
+                  "label": "Right Smaller Counts",
+                  "value": "5 has 2 smaller (2,1); 2 has 1 smaller (1); 6 has 1 smaller (1); 1 has 0",
+                  "explanation": "Count per element."
+                },
+                {
+                  "label": "Output",
+                  "value": "[2, 1, 1, 0]",
+                  "explanation": "Result array."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Count Smaller Numbers Merge Sort implementation",
+            "explanation": "Count right-side smaller element inversions during Merge Sort index array consolidation.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countSmaller(nums) {\n  const n = nums.length;\n  const counts = new Array(n).fill(0);\n  const items = nums.map((val, idx) => ({ val, idx }));\n  function mergeSort(arr) {\n    if (arr.length <= 1) return arr;\n    const mid = Math.floor(arr.length / 2);\n    const left = mergeSort(arr.slice(0, mid));\n    const right = mergeSort(arr.slice(mid));\n    const merged = [];\n    let i = 0, j = 0, rightCount = 0;\n    while (i < left.length && j < right.length) {\n      if (right[j].val < left[i].val) {\n        rightCount++;\n        merged.push(right[j++]);\n      } else {\n        counts[left[i].idx] += rightCount;\n        merged.push(left[i++]);\n      }\n    }\n    while (i < left.length) {\n      counts[left[i].idx] += rightCount;\n      merged.push(left[i++]);\n    }\n    while (j < right.length) merged.push(right[j++]);\n    return merged;\n  }\n  mergeSort(items);\n  return counts;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "type Item = { val: number; idx: number };\n\nfunction countSmaller(nums: number[]): number[] {\n  const n = nums.length;\n  const counts: number[] = new Array(n).fill(0);\n  const items: Item[] = nums.map((val, idx) => ({ val, idx }));\n  function mergeSort(arr: Item[]): Item[] {\n    if (arr.length <= 1) return arr;\n    const mid = Math.floor(arr.length / 2);\n    const left = mergeSort(arr.slice(0, mid));\n    const right = mergeSort(arr.slice(mid));\n    const merged: Item[] = [];\n    let i = 0, j = 0, rightCount = 0;\n    while (i < left.length && j < right.length) {\n      if (right[j].val < left[i].val) {\n        rightCount++;\n        merged.push(right[j++]);\n      } else {\n        counts[left[i].idx] += rightCount;\n        merged.push(left[i++]);\n      }\n    }\n    while (i < left.length) {\n      counts[left[i].idx] += rightCount;\n      merged.push(left[i++]);\n    }\n    while (j < right.length) merged.push(right[j++]);\n    return merged;\n  }\n  mergeSort(items);\n  return counts;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    class Pair {\n        int val, idx;\n        Pair(int val, int idx) { this.val = val; this.idx = idx; }\n    }\n    public List<Integer> countSmaller(int[] nums) {\n        int n = nums.length;\n        Integer[] counts = new Integer[n];\n        Arrays.fill(counts, 0);\n        Pair[] items = new Pair[n];\n        for (int i = 0; i < n; i++) items[i] = new Pair(nums[i], i);\n        mergeSort(items, 0, n - 1, counts);\n        return Arrays.asList(counts);\n    }\n    private void mergeSort(Pair[] items, int left, int right, Integer[] counts) {\n        if (left >= right) return;\n        int mid = left + (right - left) / 2;\n        mergeSort(items, left, mid, counts);\n        mergeSort(items, mid + 1, right, counts);\n        List<Pair> merged = new ArrayList<>();\n        int i = left, j = mid + 1, rightCount = 0;\n        while (i <= mid && j <= right) {\n            if (items[j].val < items[i].val) {\n                rightCount++;\n                merged.add(items[j++]);\n            } else {\n                counts[items[i].idx] += rightCount;\n                merged.add(items[i++]);\n            }\n        }\n        while (i <= mid) {\n            counts[items[i].idx] += rightCount;\n            merged.add(items[i++]);\n        }\n        while (j <= right) merged.add(items[j++]);\n        for (int k = 0; k < merged.size(); k++) items[left + k] = merged.get(k);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_smaller(nums: list[int]) -> list[int]:\n    n = len(nums)\n    counts = [0] * n\n    items = [{'val': v, 'idx': i} for i, v in enumerate(nums)]\n    def merge_sort(arr):\n        if len(arr) <= 1: return arr\n        mid = len(arr) // 2\n        left = merge_sort(arr[:mid])\n        right = merge_sort(arr[mid:])\n        merged = []\n        i = j = right_count = 0\n        while i < len(left) and j < len(right):\n            if right[j]['val'] < left[i]['val']:\n                right_count += 1\n                merged.append(right[j]); j += 1\n            else:\n                counts[left[i]['idx']] += right_count\n                merged.append(left[i]); i += 1\n        while i < len(left):\n            counts[left[i]['idx']] += right_count\n            merged.append(left[i]); i += 1\n        while j < len(right):\n            merged.append(right[j]); j += 1\n        return merged\n    merge_sort(items)\n    return counts"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Tracks original indices using value-index object pairs.",
+            "Increments `rightCount` whenever smaller element from right sub-array is merged first.",
+            "Optimal $O(n \\log n)$ runtime."
+          ]
+        },
+        {
+          "id": "median-of-two-sorted-arrays-binary-search",
+          "title": "78. Median of Two Sorted Arrays",
+          "content": "Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays in $O(\\log(\\min(m, n)))$ time.\n\n### How It Works & Algorithmic Design\nSolves using **Binary Search Partitioning on Shorter Array**:\n1. **Ensure Shorter Array**: Swap arrays if `nums1.length > nums2.length` so `nums1` is shorter.\n2. **Binary Search**: Search partition point $i$ in `nums1` between $0$ and $m$:\n   - Set `j = Math.floor((m + n + 1) / 2) - i` in `nums2`.\n   - Calculate boundary values: `maxLeft1`, `minRight1`, `maxLeft2`, `minRight2`.\n3. **Partition Check**:\n   - If `maxLeft1 <= minRight2` and `maxLeft2 <= minRight1`, valid median partition found!\n   - Odd combined length: median = `Math.max(maxLeft1, maxLeft2)`.\n   - Even combined length: median = `(Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2`.\n   - If `maxLeft1 > minRight2`: move search left (`high = i - 1`).\n   - Else: move search right (`low = i + 1`).\n\n### Why This Approach Works Best\nHalves partition choices on smaller array achieving optimal $O(\\log(\\min(m, n)))$ runtime.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Binary Search Partition",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(log(min(m, n)))",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Arrays",
+                  "value": "nums1 = [1, 3], nums2 = [2]",
+                  "explanation": "Sorted arrays."
+                },
+                {
+                  "label": "Merged Order",
+                  "value": "[1, 2, 3]",
+                  "explanation": "Median is middle element 2."
+                },
+                {
+                  "label": "Output",
+                  "value": "2.0",
+                  "explanation": "Combined median."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Median of Two Sorted Arrays implementation",
+            "explanation": "Binary search partition indices on shorter array to divide total elements into balanced left/right halves.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function findMedianSortedArrays(nums1, nums2) {\n  if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);\n  const m = nums1.length, n = nums2.length;\n  let low = 0, high = m;\n  while (low <= high) {\n    const i = Math.floor((low + high) / 2);\n    const j = Math.floor((m + n + 1) / 2) - i;\n    const maxLeft1 = i === 0 ? -Infinity : nums1[i - 1];\n    const minRight1 = i === m ? Infinity : nums1[i];\n    const maxLeft2 = j === 0 ? -Infinity : nums2[j - 1];\n    const minRight2 = j === n ? Infinity : nums2[j];\n    if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {\n      if ((m + n) % 2 === 1) return Math.max(maxLeft1, maxLeft2);\n      return (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2;\n    } else if (maxLeft1 > minRight2) {\n      high = i - 1;\n    } else {\n      low = i + 1;\n    }\n  }\n  return 0.0;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function findMedianSortedArrays(nums1: number[], nums2: number[]): number {\n  if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);\n  const m = nums1.length, n = nums2.length;\n  let low = 0, high = m;\n  while (low <= high) {\n    const i = Math.floor((low + high) / 2);\n    const j = Math.floor((m + n + 1) / 2) - i;\n    const maxLeft1 = i === 0 ? -Infinity : nums1[i - 1];\n    const minRight1 = i === m ? Infinity : nums1[i];\n    const maxLeft2 = j === 0 ? -Infinity : nums2[j - 1];\n    const minRight2 = j === n ? Infinity : nums2[j];\n    if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {\n      if ((m + n) % 2 === 1) return Math.max(maxLeft1, maxLeft2);\n      return (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2;\n    } else if (maxLeft1 > minRight2) {\n      high = i - 1;\n    } else {\n      low = i + 1;\n    }\n  }\n  return 0.0;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static double findMedianSortedArrays(int[] nums1, int[] nums2) {\n        if (nums1.length > nums2.length) return findMedianSortedArrays(nums2, nums1);\n        int m = nums1.length, n = nums2.length;\n        int low = 0, high = m;\n        while (low <= high) {\n            int i = low + (high - low) / 2;\n            int j = (m + n + 1) / 2 - i;\n            int maxLeft1 = (i == 0) ? Integer.MIN_VALUE : nums1[i - 1];\n            int minRight1 = (i == m) ? Integer.MAX_VALUE : nums1[i];\n            int maxLeft2 = (j == 0) ? Integer.MIN_VALUE : nums2[j - 1];\n            int minRight2 = (j == n) ? Integer.MAX_VALUE : nums2[j];\n            if (maxLeft1 <= minRight2 && maxLeft2 <= minRight1) {\n                if ((m + n) % 2 == 1) return Math.max(maxLeft1, maxLeft2);\n                return (Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2.0;\n            } else if (maxLeft1 > minRight2) {\n                high = i - 1;\n            } else {\n                low = i + 1;\n            }\n        }\n        return 0.0;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def find_median_sorted_arrays(nums1: list[int], nums2: list[int]) -> float:\n    if len(nums1) > len(nums2):\n        return find_median_sorted_arrays(nums2, nums1)\n    m, n = len(nums1), len(nums2)\n    low, high = 0, m\n    while low <= high:\n        i = (low + high) // 2\n        j = (m + n + 1) // 2 - i\n        max_left1 = float('-inf') if i == 0 else nums1[i - 1]\n        min_right1 = float('inf') if i == m else nums1[i]\n        max_left2 = float('-inf') if j == 0 else nums2[j - 1]\n        min_right2 = float('inf') if j == n else nums2[j]\n        if max_left1 <= min_right2 and max_left2 <= min_right1:\n            if (m + n) % 2 == 1:\n                return float(max(max_left1, max_left2))\n            return (max(max_left1, max_left2) + min(min_right1, min_right2)) / 2.0\n        elif max_left1 > min_right2:\n            high = i - 1\n        else:\n            low = i + 1\n    return 0.0"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Always run binary search on the shorter array to ensure $O(\\log(\\min(m, n)))$ execution.",
+            "Use `-Infinity` and `Infinity` boundary sentinels to simplify edge partitions.",
+            "Requires no memory allocation ($O(1)$ space)."
+          ]
+        },
+        {
+          "id": "minimum-cost-to-hire-k-workers-greedy-heap",
+          "title": "79. Minimum Cost to Hire K Workers",
+          "content": "There are `n` workers given by `quality` and `wage` arrays. You want to hire exactly `k` workers such that every worker is paid at least their minimum wage and worker pay is proportional to their quality. Return the minimum cost to form a valid team.\n\n### How It Works & Algorithmic Design\nSolves using **Ratio Sorting + Max-Heap Quality Tracking**:\n1. **Ratio Computation**: For each worker, compute `wage / quality` ratio. Sort workers by this unit ratio in ascending order.\n2. **Max-Heap**: Track top $k$ smallest qualities seen so far using Max-Heap `maxHeap` and running sum `totalQuality`.\n3. **Greedy Traversal**: For each worker ratio $R$:\n   - Add `quality` to `maxHeap` and `totalQuality += quality`.\n   - If `maxHeap.size > k`, pop largest quality `top` and subtract `totalQuality -= top`.\n   - If `maxHeap.size === k`: calculate candidate cost `totalQuality * R` and update `minCost`.\n\n### Why This Approach Works Best\nSorting ratios ensures wage minimums are respected while Max-Heap prunes high quality workers to optimize total cost in $O(n \\log n)$ time.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Ratio Sorting + Max-Heap",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n log n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(k)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "quality = [10,20,5], wage = [70,50,30], k = 2",
+                  "explanation": "Workers data."
+                },
+                {
+                  "label": "Min Cost Team",
+                  "value": "Hire worker 1 (ratio 2.5) and worker 2 (ratio 6.0) -> cost 105.0.",
+                  "explanation": "Minimal wage cost."
+                },
+                {
+                  "label": "Output",
+                  "value": "105.00000",
+                  "explanation": "Minimum total cost."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Minimum Cost to Hire K Workers implementation",
+            "explanation": "Sort workers by wage-to-quality ratio and use max-heap to keep quality sum minimal.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function mincostToHireWorkers(quality, wage, k) {\n  const workers = quality.map((q, i) => ({ q, r: wage[i] / q }));\n  workers.sort((a, b) => a.r - b.r);\n  const heap = []; // Simulated Max-Heap\n  let totalQuality = 0;\n  let minCost = Infinity;\n  for (const w of workers) {\n    heap.push(w.q);\n    heap.sort((a, b) => b - a);\n    totalQuality += w.q;\n    if (heap.length > k) {\n      totalQuality -= heap.shift();\n    }\n    if (heap.length === k) {\n      minCost = Math.min(minCost, totalQuality * w.r);\n    }\n  }\n  return minCost;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "type Worker = { q: number; r: number };\n\nfunction mincostToHireWorkers(quality: number[], wage: number[], k: number): number {\n  const workers: Worker[] = quality.map((q, i) => ({ q, r: wage[i] / q }));\n  workers.sort((a, b) => a.r - b.r);\n  const heap: number[] = [];\n  let totalQuality = 0;\n  let minCost = Infinity;\n  for (const w of workers) {\n    heap.push(w.q);\n    heap.sort((a, b) => b - a);\n    totalQuality += w.q;\n    if (heap.length > k) {\n      totalQuality -= heap.shift()!;\n    }\n    if (heap.length === k) {\n      minCost = Math.min(minCost, totalQuality * w.r);\n    }\n  }\n  return minCost;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    class Worker {\n        double q, r;\n        Worker(double q, double r) { this.q = q; this.r = r; }\n    }\n    public double mincostToHireWorkers(int[] quality, int[] wage, int k) {\n        int n = quality.length;\n        Worker[] workers = new Worker[n];\n        for (int i = 0; i < n; i++) workers[i] = new Worker(quality[i], (double) wage[i] / quality[i]);\n        Arrays.sort(workers, (a, b) -> Double.compare(a.r, b.r));\n        PriorityQueue<Double> maxHeap = new PriorityQueue<>(Collections.reverseOrder());\n        double totalQuality = 0, minCost = Double.MAX_VALUE;\n        for (Worker w : workers) {\n            maxHeap.add(w.q);\n            totalQuality += w.q;\n            if (maxHeap.size() > k) {\n                totalQuality -= maxHeap.poll();\n            }\n            if (maxHeap.size() == k) {\n                minCost = Math.min(minCost, totalQuality * w.r);\n            }\n        }\n        return minCost;\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Team cost is determined by max worker ratio $\\times$ total team quality.",
+            "Max-heap evicts highest quality worker to keep total team quality minimal.",
+            "Sorting ratios guarantees worker wage constraints are met."
+          ]
+        },
+        {
+          "id": "the-skyline-problem-divide-and-conquer-heap",
+          "title": "80. The Skyline Problem",
+          "content": "A city's skyline is the outer contour of the silhouette formed by all the buildings when viewed from a distance. Given the positions and heights of all the buildings `[left, right, height]`, return the key points that characterize the skyline.\n\n### How It Works & Algorithmic Design\nSolves using **Building Event Sorting + Active Max-Heap**:\n1. **Event Points**: Split building `[L, R, H]` into two boundary events: `(L, -H)` (start event) and `(R, H)` (end event).\n2. **Sort Events**: Sort event points primarily by X-coordinate. For ties, sort start events before end events with higher heights first.\n3. **Max-Heap & Max Height Track**:\n   - Maintain `maxHeap` of active building heights initialized with `0`.\n   - For each event point `(x, h)`:\n     - If start event (`h < 0`), add $|h|$ to heap.\n     - If end event (`h > 0`), remove $h$ from heap.\n     - Get `currentMax = maxHeap.peek()`.\n     - If `currentMax !== prevMax`: contour height changed! Record key point `[x, currentMax]` and set `prevMax = currentMax`.\n\n### Why This Approach Works Best\nEvent sorting handles building overlaps cleanly, generating critical key points in $O(n \\log n)$ time.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Hard",
+              "variant": "danger"
+            },
+            {
+              "label": "Pattern",
+              "value": "Line Sweep / Max-Heap Event",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n log n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input Buildings",
+                  "value": "[[2,9,10],[3,7,15],[5,12,12],[15,20,10],[19,24,8]]",
+                  "explanation": "Building bounds."
+                },
+                {
+                  "label": "Key Points",
+                  "value": "Height changes occur at x=2,3,7,9,12,15,20,24.",
+                  "explanation": "Outer silhouette contour."
+                },
+                {
+                  "label": "Output",
+                  "value": "[[2,10],[3,15],[7,12],[12,0],[15,10],[20,8],[24,0]]",
+                  "explanation": "Skyline key points."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "The Skyline Problem implementation",
+            "explanation": "Process building left and right edge sweep events using a Max-Heap to track silhouette contour changes.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function getSkyline(buildings) {\n  const events = [];\n  for (const [l, r, h] of buildings) {\n    events.push([l, -h]);\n    events.push([r, h]);\n  }\n  events.sort((a, b) => a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1]);\n  const res = [];\n  const heights = [0];\n  let prevMax = 0;\n  for (const [x, h] of events) {\n    if (h < 0) {\n      heights.push(-h);\n    } else {\n      const idx = heights.indexOf(h);\n      if (idx !== -1) heights.splice(idx, 1);\n    }\n    heights.sort((a, b) => b - a);\n    const currentMax = heights[0];\n    if (currentMax !== prevMax) {\n      res.push([x, currentMax]);\n      prevMax = currentMax;\n    }\n  }\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function getSkyline(buildings: number[][]): number[][] {\n  const events: [number, number][] = [];\n  for (const [l, r, h] of buildings) {\n    events.push([l, -h]);\n    events.push([r, h]);\n  }\n  events.sort((a, b) => a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1]);\n  const res: number[][] = [];\n  const heights: number[] = [0];\n  let prevMax = 0;\n  for (const [x, h] of events) {\n    if (h < 0) {\n      heights.push(-h);\n    } else {\n      const idx = heights.indexOf(h);\n      if (idx !== -1) heights.splice(idx, 1);\n    }\n    heights.sort((a, b) => b - a);\n    const currentMax = heights[0];\n    if (currentMax !== prevMax) {\n      res.push([x, currentMax]);\n      prevMax = currentMax;\n    }\n  }\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static List<List<Integer>> getSkyline(int[][] buildings) {\n        List<int[]> events = new ArrayList<>();\n        for (int[] b : buildings) {\n            events.add(new int[]{b[0], -b[2]});\n            events.add(new int[]{b[1], b[2]});\n        }\n        Collections.sort(events, (a, b) -> a[0] != b[0] ? Integer.compare(a[0], b[0]) : Integer.compare(a[1], b[1]));\n        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());\n        maxHeap.add(0);\n        List<List<Integer>> res = new ArrayList<>();\n        int prevMax = 0;\n        for (int[] e : events) {\n            int x = e[0], h = e[1];\n            if (h < 0) {\n                maxHeap.add(-h);\n            } else {\n                maxHeap.remove(h);\n            }\n            int currentMax = maxHeap.peek();\n            if (currentMax != prevMax) {\n                res.add(Arrays.asList(x, currentMax));\n                prevMax = currentMax;\n            }\n        }\n        return res;\n    }\n}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use negative height values to distinguish building start events from end events.",
+            "Record key point when active building height maximum changes.",
+            "Line sweep executes in $O(n \\log n)$ time."
+          ]
+        }
+      ]
     }
   ]
 }
