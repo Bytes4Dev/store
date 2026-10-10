@@ -4946,7 +4946,7 @@
       ]
     },
     {
-      "id": "chapter-hard-graphs-trees-and-heaps",
+      "id": "hard-dsa-graphs-trees-and-heaps",
       "title": "Hard DSA — Advanced Graphs, Trees, and Priority Queues",
       "summary": "Master complex graph connectivity, topological ordering, shortest path algorithms, median tracking heaps, and advanced tree transformations.",
       "estimatedMinutes": 480,
@@ -5729,7 +5729,7 @@
       ]
     },
     {
-      "id": "chapter-hard-advanced-data-structures-and-tricks",
+      "id": "hard-dsa-advanced-data-structures-and-tricks",
       "title": "Hard DSA — Advanced Data Structures & Algorithmic Specializations",
       "summary": "Master specialized structures including Segment Trees, Binary Indexed Trees (Fenwick Trees), Tries with Wildcard Backtracking, Monotonic Stacks, and LFU/LRU Cache Engine designs.",
       "estimatedMinutes": 540,
@@ -6512,6 +6512,1130 @@
             "Use negative height values to distinguish building start events from end events.",
             "Record key point when active building height maximum changes.",
             "Line sweep executes in $O(n \\log n)$ time."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hard-dsa-advanced-linked-lists-and-math",
+      "title": "Hard DSA — Linked Lists, Combinatorial Backtracking & Math",
+      "summary": "Master node pointer manipulation in groups, exhaustive combinatorial search spaces, number theory algorithms, and geometric sweep line techniques.",
+      "estimatedMinutes": 360,
+      "sections": [
+        {
+          "id": "reverse-nodes-in-k-group",
+          "title": "81. Reverse Nodes in k-Group",
+          "content": "Given the head of a linked list, reverse the nodes of the list `k` at a time, and return the modified list. `k` is a positive integer. If the number of nodes is not a multiple of `k`, left-out nodes at the end remain as they are.\n\n### How It Works & Algorithmic Design\nSolves using **Iterative Group Traversal with Pointer Reversal**:\n1. **Lookahead Check**: Verify if at least `k` nodes exist from current head. If fewer, keep them intact.\n2. **Group Reversal**: Reverse `k` nodes in place by adjusting `next` pointers.\n3. **Pointer Rewiring**: Connect previous group's tail to the new head of the reversed group, and connect new tail to the next remaining group.\n\n### Why This Approach Works Best\nReverses complete groups in linear $O(n)$ time using $O(1)$ extra space.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Linked List In-Place Reversal", "variant": "neutral" },
+            { "label": "Time", "value": "O(n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(1)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "head = [1,2,3,4,5], k = 2", "explanation": "Reverse in pairs of 2." },
+                {
+                  "label": "Reversal Steps",
+                  "value": "Group 1: [1,2] -> [2,1]. Group 2: [3,4] -> [4,3]. Last group: [5] (unchanged).",
+                  "explanation": "Grouped node reversal."
+                },
+                { "label": "Output", "value": "[2, 1, 4, 3, 5]", "explanation": "Modified list." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Reverse Nodes in k-Group implementation",
+            "explanation": "Iterate through linked list in groups of k nodes and reverse pointers in-place.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function reverseKGroup(head, k) {\n  const dummy = { val: 0, next: head };\n  let groupPrev = dummy;\n  while (true) {\n    let kth = groupPrev;\n    for (let i = 0; i < k && kth; i++) kth = kth.next;\n    if (!kth) break;\n    let groupNext = kth.next;\n    let prev = groupNext, curr = groupPrev.next;\n    while (curr !== groupNext) {\n      const tmp = curr.next;\n      curr.next = prev;\n      prev = curr;\n      curr = tmp;\n    }\n    const tmp = groupPrev.next;\n    groupPrev.next = kth;\n    groupPrev = tmp;\n  }\n  return dummy.next;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function reverseKGroup(head: ListNode | null, k: number): ListNode | null {\n  const dummy: ListNode = new ListNode(0, head);\n  let groupPrev: ListNode = dummy;\n  while (true) {\n    let kth: ListNode | null = groupPrev;\n    for (let i = 0; i < k && kth; i++) kth = kth.next;\n    if (!kth) break;\n    let groupNext = kth.next;\n    let prev: ListNode | null = groupNext, curr: ListNode | null = groupPrev.next;\n    while (curr !== groupNext) {\n      const tmp = curr!.next;\n      curr!.next = prev;\n      prev = curr;\n      curr = tmp;\n    }\n    const tmp = groupPrev.next;\n    groupPrev.next = kth;\n    groupPrev = tmp;\n  }\n  return dummy.next;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static ListNode reverseKGroup(ListNode head, int k) {\n        ListNode dummy = new ListNode(0);\n        dummy.next = head;\n        ListNode groupPrev = dummy;\n        while (true) {\n            ListNode kth = groupPrev;\n            for (int i = 0; i < k && kth != null; i++) kth = kth.next;\n            if (kth == null) break;\n            ListNode groupNext = kth.next;\n            ListNode prev = groupNext, curr = groupPrev.next;\n            while (curr != groupNext) {\n                ListNode tmp = curr.next;\n                curr.next = prev;\n                prev = curr;\n                curr = tmp;\n            }\n            ListNode tmp = groupPrev.next;\n            groupPrev.next = kth;\n            groupPrev = tmp;\n        }\n        return dummy.next;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def reverse_k_group(head: ListNode | None, k: int) -> ListNode | None:\n    dummy = ListNode(0, head)\n    group_prev = dummy\n    while True:\n        kth = group_prev\n        for _ in range(k):\n            kth = kth.next\n            if not kth: break\n        if not kth: break\n        group_next = kth.next\n        prev, curr = group_next, group_prev.next\n        while curr != group_next:\n            tmp = curr.next\n            curr.next = prev\n            prev = curr\n            curr = tmp\n        tmp = group_prev.next\n        group_prev.next = kth\n        group_prev = tmp\n    return dummy.next"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use lookahead iteration to ensure at least $k$ nodes exist before reversing.",
+            "Dummy node simplifies updates to head pointer.",
+            "Runs in $O(n)$ time and $O(1)$ extra memory."
+          ]
+        },
+        {
+          "id": "n-queens-backtracking",
+          "title": "82. N-Queens",
+          "content": "The N-Queens puzzle requires placing `n` queens on an $n \\times n$ chessboard such that no two queens attack each other. Return all distinct board configurations.\n\n### How It Works & Algorithmic Design\nSolves using **DFS Backtracking with Sets**:\n1. **Conflict Sets**: Maintain sets for used `cols`, main diagonals (`r - c`), and anti-diagonals (`r + c`).\n2. **Row Placement DFS**: Place queens row by row. For each row $r$, test column $c$:\n   - If column or diagonals are occupied, skip.\n   - Place queen, mark conflict sets, and recurse to row $r + 1$.\n   - Backtrack: remove queen and unmark sets.\n\n### Why This Approach Works Best\nSet lookups determine placement safety in $O(1)$ time, reducing the search space to $O(n!)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Combinatorial Backtracking", "variant": "neutral" },
+            { "label": "Time", "value": "O(n!)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n^2)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "n = 4", "explanation": "4x4 chessboard." },
+                {
+                  "label": "Valid Layouts",
+                  "value": "Distinct solutions placing 4 non-attacking queens.",
+                  "explanation": "No shared rows, columns, or diagonals."
+                },
+                {
+                  "label": "Output",
+                  "value": "[[\".Q..\",\"...Q\",\"Q...\",\"..Q.\"],[\"..Q.\",\"Q...\",\"...Q\",\".Q..\"]]",
+                  "explanation": "2 distinct arrangements."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "N-Queens Backtracking implementation",
+            "explanation": "Recursively place queens row by row while checking column and diagonal conflict sets.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function solveNQueens(n) {\n  const res = [];\n  const cols = new Set(), diag = new Set(), antiDiag = new Set();\n  const board = Array.from({ length: n }, () => new Array(n).fill('.'));\n  function backtrack(r) {\n    if (r === n) {\n      res.push(board.map(row => row.join('')));\n      return;\n    }\n    for (let c = 0; c < n; c++) {\n      if (cols.has(c) || diag.has(r - c) || antiDiag.has(r + c)) continue;\n      cols.add(c); diag.add(r - c); antiDiag.add(r + c);\n      board[r][c] = 'Q';\n      backtrack(r + 1);\n      cols.delete(c); diag.delete(r - c); antiDiag.delete(r + c);\n      board[r][c] = '.';\n    }\n  }\n  backtrack(0);\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function solveNQueens(n: number): string[][] {\n  const res: string[][] = [];\n  const cols = new Set<number>(), diag = new Set<number>(), antiDiag = new Set<number>();\n  const board: string[][] = Array.from({ length: n }, () => new Array(n).fill('.'));\n  function backtrack(r: number) {\n    if (r === n) {\n      res.push(board.map(row => row.join('')));\n      return;\n    }\n    for (let c = 0; c < n; c++) {\n      if (cols.has(c) || diag.has(r - c) || antiDiag.has(r + c)) continue;\n      cols.add(c); diag.add(r - c); antiDiag.add(r + c);\n      board[r][c] = 'Q';\n      backtrack(r + 1);\n      cols.delete(c); diag.delete(r - c); antiDiag.delete(r + c);\n      board[r][c] = '.';\n    }\n  }\n  backtrack(0);\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static List<List<String>> solveNQueens(int n) {\n        List<List<String>> res = new ArrayList<>();\n        Set<Integer> cols = new HashSet<>(), diag = new HashSet<>(), antiDiag = new HashSet<>();\n        char[][] board = new char[n][n];\n        for (char[] row : board) Arrays.fill(row, '.');\n        backtrack(0, n, board, cols, diag, antiDiag, res);\n        return res;\n    }\n    private static void backtrack(int r, int n, char[][] board, Set<Integer> cols, Set<Integer> diag, Set<Integer> antiDiag, List<List<String>> res) {\n        if (r == n) {\n            List<String> list = new ArrayList<>();\n            for (char[] row : board) list.add(new String(row));\n            res.add(list);\n            return;\n        }\n        for (int c = 0; c < n; c++) {\n            if (cols.contains(c) || diag.contains(r - c) || antiDiag.contains(r + c)) continue;\n            cols.add(c); diag.add(r - c); antiDiag.add(r + c);\n            board[r][c] = 'Q';\n            backtrack(r + 1, n, board, cols, diag, antiDiag, res);\n            cols.remove(c); diag.remove(r - c); antiDiag.remove(r + c);\n            board[r][c] = '.';\n        }\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def solve_n_queens(n: int) -> list[list[str]]:\n    res = []\n    cols, diag, anti_diag = set(), set(), set()\n    board = [['.'] * n for _ in range(n)]\n    def backtrack(r):\n        if r == n:\n            res.append([\"\".join(row) for row in board])\n            return\n        for c in range(n):\n            if c in cols or (r - c) in diag or (r + c) in anti_diag: continue\n            cols.add(c); diag.add(r - c); anti_diag.add(r + c)\n            board[r][c] = 'Q'\n            backtrack(r + 1)\n            cols.remove(c); diag.remove(r - c); anti_diag.remove(r + c)\n            board[r][c] = '.'\n    backtrack(0)\n    return res"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Main diagonal identity is $r - c$; anti-diagonal identity is $r + c$.",
+            "Set lookups prune invalid attack positions in $O(1)$ time.",
+            "Overall execution takes $O(n!)$ time."
+          ]
+        },
+        {
+          "id": "sudoku-solver-backtracking",
+          "title": "83. Sudoku Solver",
+          "content": "Write a program to solve a Sudoku puzzle by filling empty cells (`'.'`). A valid solution must satisfy the constraint that digits `'1'-'9'` appear once per row, column, and $3 \\times 3$ sub-box.\n\n### How It Works & Algorithmic Design\nSolves using **Bitmask State Constraint Backtracking**:\n1. **Constraint Hash/Bitmasks**: Track digits used in `rows[r]`, `cols[c]`, and `boxes[boxIdx]`.\n2. **Cell Processing**: Find next empty cell `(r, c)`:\n   - Try placing digits $d \\in [1, 9]$:\n     - Check if bit for $d$ is clear in row, col, and box bitmasks.\n     - Toggle bit mask, update board cell `board[r][c] = d`.\n     - Recurse to next empty cell.\n     - If recursion succeeds, return `true`.\n     - Backtrack: un-toggle bit mask, reset cell to `'.'`.\n\n### Why This Approach Works Best\nBitwise checks make validation $O(1)$, rapidly terminating invalid grid paths.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Backtracking + Bitmask", "variant": "neutral" },
+            { "label": "Time", "value": "O(9^N)", "variant": "neutral" },
+            { "label": "Space", "value": "O(1)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "9x9 grid with '.' empty cells", "explanation": "Unsolved Sudoku matrix." },
+                {
+                  "label": "Validation",
+                  "value": "Each 1-9 digit appears once in every row, column, and 3x3 block.",
+                  "explanation": "Standard rules."
+                },
+                { "label": "Output", "value": "Fully filled valid 9x9 board", "explanation": "In-place board mutation." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Sudoku Solver implementation",
+            "explanation": "Backtrack across empty cells while tracking digit constraints using bitmasks.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function solveSudoku(board) {\n  const rows = new Array(9).fill(0);\n  const cols = new Array(9).fill(0);\n  const boxes = new Array(9).fill(0);\n  for (let r = 0; r < 9; r++) {\n    for (let c = 0; c < 9; c++) {\n      if (board[r][c] !== '.') {\n        const val = Number(board[r][c]);\n        const mask = 1 << val;\n        const b = Math.floor(r / 3) * 3 + Math.floor(c / 3);\n        rows[r] |= mask; cols[c] |= mask; boxes[b] |= mask;\n      }\n    }\n  }\n  function solve(r, c) {\n    if (r === 9) return true;\n    if (c === 9) return solve(r + 1, 0);\n    if (board[r][c] !== '.') return solve(r, c + 1);\n    const b = Math.floor(r / 3) * 3 + Math.floor(c / 3);\n    for (let val = 1; val <= 9; val++) {\n      const mask = 1 << val;\n      if (!(rows[r] & mask) && !(cols[c] & mask) && !(boxes[b] & mask)) {\n        rows[r] |= mask; cols[c] |= mask; boxes[b] |= mask;\n        board[r][c] = String(val);\n        if (solve(r, c + 1)) return true;\n        rows[r] &= ~mask; cols[c] &= ~mask; boxes[b] &= ~mask;\n        board[r][c] = '.';\n      }\n    }\n    return false;\n  }\n  solve(0, 0);\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function solveSudoku(board: string[][]): void {\n  const rows: number[] = new Array(9).fill(0);\n  const cols: number[] = new Array(9).fill(0);\n  const boxes: number[] = new Array(9).fill(0);\n  for (let r = 0; r < 9; r++) {\n    for (let c = 0; c < 9; c++) {\n      if (board[r][c] !== '.') {\n        const val = Number(board[r][c]);\n        const mask = 1 << val;\n        const b = Math.floor(r / 3) * 3 + Math.floor(c / 3);\n        rows[r] |= mask; cols[c] |= mask; boxes[b] |= mask;\n      }\n    }\n  }\n  function solve(r: number, c: number): boolean {\n    if (r === 9) return true;\n    if (c === 9) return solve(r + 1, 0);\n    if (board[r][c] !== '.') return solve(r, c + 1);\n    const b = Math.floor(r / 3) * 3 + Math.floor(c / 3);\n    for (let val = 1; val <= 9; val++) {\n      const mask = 1 << val;\n      if (!(rows[r] & mask) && !(cols[c] & mask) && !(boxes[b] & mask)) {\n        rows[r] |= mask; cols[c] |= mask; boxes[b] |= mask;\n        board[r][c] = String(val);\n        if (solve(r, c + 1)) return true;\n        rows[r] &= ~mask; cols[c] &= ~mask; boxes[b] &= ~mask;\n        board[r][c] = '.';\n      }\n    }\n    return false;\n  }\n  solve(0, 0);\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static void solveSudoku(char[][] board) {\n        int[] rows = new int[9], cols = new int[9], boxes = new int[9];\n        for (int r = 0; r < 9; r++) {\n            for (int c = 0; c < 9; c++) {\n                if (board[r][c] != '.') {\n                    int val = board[r][c] - '0';\n                    int mask = 1 << val;\n                    int b = (r / 3) * 3 + (c / 3);\n                    rows[r] |= mask; cols[c] |= mask; boxes[b] |= mask;\n                }\n            }\n        }\n        solve(0, 0, board, rows, cols, boxes);\n    }\n    private static boolean solve(int r, int c, char[][] board, int[] rows, int[] cols, int[] boxes) {\n        if (r == 9) return true;\n        if (c == 9) return solve(r + 1, 0, board, rows, cols, boxes);\n        if (board[r][c] != '.') return solve(r, c + 1, board, rows, cols, boxes);\n        int b = (r / 3) * 3 + (c / 3);\n        for (int val = 1; val <= 9; val++) {\n            int mask = 1 << val;\n            if ((rows[r] & mask) == 0 && (cols[c] & mask) == 0 && (boxes[b] & mask) == 0) {\n                rows[r] |= mask; cols[c] |= mask; boxes[b] |= mask;\n                board[r][c] = (char) (val + '0');\n                if (solve(r, c + 1, board, rows, cols, boxes)) return true;\n                rows[r] &= ~mask; cols[c] &= ~mask; boxes[b] &= ~mask;\n                board[r][c] = '.';\n            }\n        }\n        return false;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def solve_sudoku(board: list[list[str]]) -> None:\n    rows, cols, boxes = [0] * 9, [0] * 9, [0] * 9\n    for r in range(9):\n        for c in range(9):\n            if board[r][c] != '.':\n                val = int(board[r][c])\n                mask = 1 << val\n                b = (r // 3) * 3 + (c // 3)\n                rows[r] |= mask; cols[c] |= mask; boxes[b] |= mask\n    def solve(r, c):\n        if r == 9: return True\n        if c == 9: return solve(r + 1, 0)\n        if board[r][c] != '.': return solve(r, c + 1)\n        b = (r // 3) * 3 + (c // 3)\n        for val in range(1, 10):\n            mask = 1 << val\n            if not (rows[r] & mask) and not (cols[c] & mask) and not (boxes[b] & mask):\n                rows[r] |= mask; cols[c] |= mask; boxes[b] |= mask\n                board[r][c] = str(val)\n                if solve(r, c + 1): return True\n                rows[r] &= ~mask; cols[c] &= ~mask; boxes[b] &= ~mask\n                board[r][c] = '.'\n        return False\n    solve(0, 0)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Box index calculated via `(r / 3) * 3 + (c / 3)`.",
+            "Bitwise masks make $O(1)$ digit availability checks.",
+            "Modifies board array directly in-place."
+          ]
+        },
+        {
+          "id": "expression-add-operators-backtracking",
+          "title": "84. Expression Add Operators",
+          "content": "Given a string `num` containing only digits and an integer `target`, return all possibilities to insert binary operators `'+'`, `'-'`, or `'*'` between the digits so that the resulting expression evaluates to `target`.\n\n### How It Works & Algorithmic Design\nSolves using **Operator Choice Backtracking with Multiplication Precedence Tracking**:\n1. **DFS Signature**: `dfs(index, path, eval, multed)`.\n2. **Branch Choice**: Extract substring `currStr = num[index...i]` with numeric value `curr`.\n   - Skip leading zero multi-digit strings (e.g. `'05'`).\n3. **Operations**:\n   - Start position (`index === 0`): `dfs(i + 1, currStr, curr, curr)`.\n   - **Addition `+`**: `dfs(i + 1, path + '+' + currStr, eval + curr, curr)`.\n   - **Subtraction `-`**: `dfs(i + 1, path + '-' + currStr, eval - curr, -curr)`.\n   - **Multiplication `*`**: Undo last term addition then add product: `dfs(i + 1, path + '*' + currStr, eval - multed + multed * curr, multed * curr)`.\n\n### Why This Approach Works Best\nTracking `multed` handles operator precedence naturally during left-to-right recursion.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Combinatorial Backtracking", "variant": "neutral" },
+            { "label": "Time", "value": "O(4^N)", "variant": "neutral" },
+            { "label": "Space", "value": "O(N)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "num = \"123\", target = 6", "explanation": "Evaluate expression options." },
+                { "label": "Matches", "value": "\"1+2+3\" = 6 and \"1*2*3\" = 6.", "explanation": "Valid generated strings." },
+                { "label": "Output", "value": "[\"1+2+3\", \"1*2*3\"]", "explanation": "All valid operators." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Expression Add Operators implementation",
+            "explanation": "Recursively split digits into terms, testing plus, minus, and times operator additions.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function addOperators(num, target) {\n  const res = [];\n  function dfs(index, path, evalVal, multed) {\n    if (index === num.length) {\n      if (evalVal === target) res.push(path);\n      return;\n    }\n    for (let i = index; i < num.length; i++) {\n      if (i !== index && num[index] === '0') break;\n      const str = num.substring(index, i + 1);\n      const curr = Number(str);\n      if (index === 0) {\n        dfs(i + 1, str, curr, curr);\n      } else {\n        dfs(i + 1, path + '+' + str, evalVal + curr, curr);\n        dfs(i + 1, path + '-' + str, evalVal - curr, -curr);\n        dfs(i + 1, path + '*' + str, evalVal - multed + multed * curr, multed * curr);\n      }\n    }\n  }\n  dfs(0, '', 0, 0);\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function addOperators(num: string, target: number): string[] {\n  const res: string[] = [];\n  function dfs(index: number, path: string, evalVal: number, multed: number) {\n    if (index === num.length) {\n      if (evalVal === target) res.push(path);\n      return;\n    }\n    for (let i = index; i < num.length; i++) {\n      if (i !== index && num[index] === '0') break;\n      const str = num.substring(index, i + 1);\n      const curr = Number(str);\n      if (index === 0) {\n        dfs(i + 1, str, curr, curr);\n      } else {\n        dfs(i + 1, path + '+' + str, evalVal + curr, curr);\n        dfs(i + 1, path + '-' + str, evalVal - curr, -curr);\n        dfs(i + 1, path + '*' + str, evalVal - multed + multed * curr, multed * curr);\n      }\n    }\n  }\n  dfs(0, '', 0, 0);\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static List<String> addOperators(String num, int target) {\n        List<String> res = new ArrayList<>();\n        dfs(0, \"\", 0, 0, num, target, res);\n        return res;\n    }\n    private static void dfs(int index, String path, long evalVal, long multed, String num, int target, List<String> res) {\n        if (index == num.length()) {\n            if (evalVal == target) res.add(path);\n            return;\n        }\n        for (int i = index; i < num.length(); i++) {\n            if (i != index && num.charAt(index) == '0') break;\n            long curr = Long.parseLong(num.substring(index, i + 1));\n            if (index == 0) {\n                dfs(i + 1, path + curr, curr, curr, num, target, res);\n            } else {\n                dfs(i + 1, path + \"+\" + curr, evalVal + curr, curr, num, target, res);\n                dfs(i + 1, path + \"-\" + curr, evalVal - curr, -curr, num, target, res);\n                dfs(i + 1, path + \"*\" + curr, evalVal - multed + multed * curr, multed * curr, num, target, res);\n            }\n        }\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def add_operators(num: str, target: int) -> list[str]:\n    res = []\n    def dfs(index, path, eval_val, multed):\n        if index == len(num):\n            if eval_val == target: res.append(path)\n            return\n        for i in range(index, len(num)):\n            if i != index and num[index] == '0': break\n            str_val = num[index:i+1]\n            curr = int(str_val)\n            if index == 0:\n                dfs(i + 1, str_val, curr, curr)\n            else:\n                dfs(i + 1, path + '+' + str_val, eval_val + curr, curr)\n                dfs(i + 1, path + '-' + str_val, eval_val - curr, -curr)\n                dfs(i + 1, path + '*' + str_val, eval_val - multed + multed * curr, multed * curr)\n    dfs(0, '', 0, 0)\n    return res"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Prune numbers with leading zeroes (e.g. `'05'`).",
+            "Subtract `multed` from running evaluation before adding product term.",
+            "Explores $O(4^N)$ search paths."
+          ]
+        },
+        {
+          "id": "basic-calculator-stack",
+          "title": "85. Basic Calculator",
+          "content": "Given a string `s` representing a valid expression containing digits, `'+'`, `'-'`, `'('`, and `')'`, evaluate the expression and return its value.\n\n### How It Works & Algorithmic Design\nSolves using **Linear Scan Stack Parentheses State Preservation**:\n1. **Variables**: `sum = 0`, `sign = 1`, `stack = []`.\n2. **Scan String**:\n   - Digit: parse complete number $N$, update `sum += sign * N`.\n   - Operator `+`: set `sign = 1`.\n   - Operator `-`: set `sign = -1`.\n   - Open Parenthesis `'('`: push current `sum` and `sign` onto stack, reset `sum = 0`, `sign = 1`.\n   - Close Parenthesis `')'`: pop `prevSign` and `prevSum` from stack; set `sum = prevSum + prevSign * sum`.\n\n### Why This Approach Works Best\nEvaluates nested parenthesis expressions in a single pass $O(n)$ time and $O(n)$ stack space.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Stack Math Expression Parser", "variant": "neutral" },
+            { "label": "Time", "value": "O(n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "s = \"(1+(4+5+2)-3)+(6+8)\"", "explanation": "Nested math string." },
+                { "label": "Evaluation", "value": "(1+11-3) + 14 = 9 + 14 = 23", "explanation": "Evaluated calculation." },
+                { "label": "Output", "value": "23", "explanation": "Final computed integer." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Basic Calculator implementation",
+            "explanation": "Evaluate expressions linearly using a stack to preserve sum and sign context across parentheses.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function calculate(s) {\n  let sum = 0, sign = 1;\n  const stack = [];\n  let i = 0;\n  while (i < s.length) {\n    const ch = s[i];\n    if (ch >= '0' && ch <= '9') {\n      let num = 0;\n      while (i < s.length && s[i] >= '0' && s[i] <= '9') {\n        num = num * 10 + Number(s[i++]);\n      }\n      sum += sign * num;\n      continue;\n    } else if (ch === '+') sign = 1;\n    else if (ch === '-') sign = -1;\n    else if (ch === '(') {\n      stack.push(sum);\n      stack.push(sign);\n      sum = 0; sign = 1;\n    } else if (ch === ')') {\n      sum = stack.pop() * sum + stack.pop();\n    }\n    i++;\n  }\n  return sum;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function calculate(s: string): number {\n  let sum = 0, sign = 1;\n  const stack: number[] = [];\n  let i = 0;\n  while (i < s.length) {\n    const ch = s[i];\n    if (ch >= '0' && ch <= '9') {\n      let num = 0;\n      while (i < s.length && s[i] >= '0' && s[i] <= '9') {\n        num = num * 10 + Number(s[i++]);\n      }\n      sum += sign * num;\n      continue;\n    } else if (ch === '+') sign = 1;\n    else if (ch === '-') sign = -1;\n    else if (ch === '(') {\n      stack.push(sum);\n      stack.push(sign);\n      sum = 0; sign = 1;\n    } else if (ch === ')') {\n      sum = stack.pop()! * sum + stack.pop()!;\n    }\n    i++;\n  }\n  return sum;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.Stack;\n\npublic class Solution {\n    public static int calculate(String s) {\n        int sum = 0, sign = 1;\n        Stack<Integer> stack = new Stack<>();\n        int i = 0;\n        while (i < s.length()) {\n            char ch = s.charAt(i);\n            if (Character.isDigit(ch)) {\n                int num = 0;\n                while (i < s.length() && Character.isDigit(s.charAt(i))) {\n                    num = num * 10 + (s.charAt(i++) - '0');\n                }\n                sum += sign * num;\n                continue;\n            } else if (ch == '+') sign = 1;\n            else if (ch == '-') sign = -1;\n            else if (ch == '(') {\n                stack.push(sum);\n                stack.push(sign);\n                sum = 0; sign = 1;\n            } else if (ch == ')') {\n                sum = stack.pop() * sum + stack.pop();\n            }\n            i++;\n        }\n        return sum;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def calculate(s: str) -> int:\n    sum_val = 0\n    sign = 1\n    stack = []\n    i = 0\n    while i < len(s):\n        ch = s[i]\n        if ch.isdigit():\n            num = 0\n            while i < len(s) and s[i].isdigit():\n                num = num * 10 + int(s[i])\n                i += 1\n            sum_val += sign * num\n            continue\n        elif ch == '+': sign = 1\n        else if ch == '-': sign = -1\n        elif ch == '(':\n            stack.append(sum_val)\n            stack.append(sign)\n            sum_val = 0\n            sign = 1\n        elif ch == ')':\n            sum_val = stack.pop() * sum_val + stack.pop()\n        i += 1\n    return sum_val"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Parentheses save scope state onto stack.",
+            "Handles nested expressions in $O(n)$ linear time.",
+            "Consumes minimal space bounded by depth of nested parentheses."
+          ]
+        },
+        {
+          "id": "erect-the-fence-convex-hull",
+          "title": "86. Erect the Fence (Convex Hull Graham Scan)",
+          "content": "Given an array `trees` where `trees[i] = [x, y]` represents the location of a tree in the garden, return the coordinates of trees that are located on the perimeter of the fence enclosing all trees (Convex Hull).\n\n### How It Works & Algorithmic Design\nSolves using **Andrew's Monotone Chain Convex Hull Algorithm**:\n1. **Sort**: Sort points primarily by x-coordinate, secondarily by y-coordinate.\n2. **Cross Product Helper**: `cross(p1, p2, p3)` determines orientation of turns.\n3. **Build Upper & Lower Hulls**:\n   - Loop through sorted points and construct lower hull using stack.\n   - Pop points from stack while cross product indicates non-left turn (`cross < 0`).\n   - Repeat procedure in reverse to construct upper hull.\n4. **Combine & Deduplicate**: Merge lower and upper hull sets.\n\n### Why This Approach Works Best\nMonotone chain processes geometric points cleanly in $O(n \\log n)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Convex Hull Monotone Chain", "variant": "neutral" },
+            { "label": "Time", "value": "O(n log n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input Coordinates", "value": "[[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]", "explanation": "2D trees points." },
+                { "label": "Convex Perimeter", "value": "Outer points enclosing all internal trees.", "explanation": "Fence boundary." },
+                { "label": "Output", "value": "[[1,1],[2,0],[4,2],[3,3],[2,4]]", "explanation": "Hull boundary points." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Erect the Fence Monotone Chain implementation",
+            "explanation": "Construct upper and lower convex hulls by sorting points and checking cross-product orientation.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function outerTrees(trees) {\n  trees.sort((a, b) => a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1]);\n  function cross(p1, p2, p3) {\n    return (p2[0] - p1[0]) * (p3[1] - p1[1]) - (p2[1] - p1[1]) * (p3[0] - p1[0]);\n  }\n  const lower = [], upper = [];\n  for (const p of trees) {\n    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) < 0) {\n      lower.pop();\n    }\n    lower.push(p);\n  }\n  for (let i = trees.length - 1; i >= 0; i--) {\n    const p = trees[i];\n    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) < 0) {\n      upper.pop();\n    }\n    upper.push(p);\n  }\n  const set = new Set();\n  const res = [];\n  for (const p of [...lower, ...upper]) {\n    const key = `${p[0]},${p[1]}`;\n    if (!set.has(key)) {\n      set.add(key);\n      res.push(p);\n    }\n  }\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function outerTrees(trees: number[][]): number[][] {\n  trees.sort((a, b) => a[0] !== b[0] ? a[0] - b[0] : a[1] - b[1]);\n  function cross(p1: number[], p2: number[], p3: number[]) {\n    return (p2[0] - p1[0]) * (p3[1] - p1[1]) - (p2[1] - p1[1]) * (p3[0] - p1[0]);\n  }\n  const lower: number[][] = [], upper: number[][] = [];\n  for (const p of trees) {\n    while (lower.length >= 2 && cross(lower[lower.length - 2], lower[lower.length - 1], p) < 0) {\n      lower.pop();\n    }\n    lower.push(p);\n  }\n  for (let i = trees.length - 1; i >= 0; i--) {\n    const p = trees[i];\n    while (upper.length >= 2 && cross(upper[upper.length - 2], upper[upper.length - 1], p) < 0) {\n      upper.pop();\n    }\n    upper.push(p);\n  }\n  const set = new Set<string>();\n  const res: number[][] = [];\n  for (const p of [...lower, ...upper]) {\n    const key = `${p[0]},${p[1]}`;\n    if (!set.has(key)) {\n      set.add(key);\n      res.push(p);\n    }\n  }\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int[][] outerTrees(int[][] trees) {\n        Arrays.sort(trees, (a, b) -> a[0] != b[0] ? Integer.compare(a[0], b[0]) : Integer.compare(a[1], b[1]));\n        List<int[]> lower = new ArrayList<>(), upper = new ArrayList<>();\n        for (int[] p : trees) {\n            while (lower.size() >= 2 && cross(lower.get(lower.size() - 2), lower.get(lower.size() - 1), p) < 0) {\n                lower.remove(lower.size() - 1);\n            }\n            lower.add(p);\n        }\n        for (int i = trees.length - 1; i >= 0; i--) {\n            int[] p = trees[i];\n            while (upper.size() >= 2 && cross(upper.get(upper.size() - 2), upper.get(upper.size() - 1), p) < 0) {\n                upper.remove(upper.size() - 1);\n            }\n            upper.add(p);\n        }\n        Set<String> set = new HashSet<>();\n        List<int[]> res = new ArrayList<>();\n        for (int[] p : lower) if (set.add(p[0] + \",\" + p[1])) res.add(p);\n        for (int[] p : upper) if (set.add(p[0] + \",\" + p[1])) res.add(p);\n        return res.toArray(new int[res.size()][]);\n    }\n    private static int cross(int[] p1, int[] p2, int[] p3) {\n        return (p2[0] - p1[0]) * (p3[1] - p1[1]) - (p2[1] - p1[1]) * (p3[0] - p1[0]);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def outer_trees(trees: list[list[int]]) -> list[list[int]]:\n    trees.sort()\n    def cross(p1, p2, p3):\n        return (p2[0] - p1[0]) * (p3[1] - p1[1]) - (p2[1] - p1[1]) * (p3[0] - p1[0])\n    lower, upper = [], []\n    for p in trees:\n        while len(lower) >= 2 and cross(lower[-2], lower[-1], p) < 0:\n            lower.pop()\n        lower.append(p)\n    for p in reversed(trees):\n        while len(upper) >= 2 and cross(upper[-2], upper[-1], p) < 0:\n            upper.pop()\n        upper.append(p)\n    return list({(p[0], p[1]): p for p in lower + upper}.values())"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Cross product sign determines left vs right geometric turns.",
+            "Monotone chain constructs lower and upper perimeter hulls independently.",
+            "Time complexity $O(n \\log n)$ due to initial point sorting."
+          ]
+        },
+        {
+          "id": "max-points-on-a-line-hash-map",
+          "title": "87. Max Points on a Line",
+          "content": "Given an array of `points` where `points[i] = [x_i, y_i]` represents a point on the 2D plane, return the maximum number of points that lie on the same straight line.\n\n### How It Works & Algorithmic Design\nSolves using **GCD Reduced Normalized Slope Frequency Maps**:\n1. **Outer Loop**: Pick anchor point $i$.\n2. **Inner Loop**: For each point $j > i$:\n   - Compute $\\Delta x = x_j - x_i$, $\\Delta y = y_j - y_i$.\n   - Normalize slope fraction using Greatest Common Divisor: `g = gcd(|dx|, |dy|)`. Divide both by `g`.\n   - Ensure canonical sign (e.g. `dx > 0` or if `dx === 0`, `dy = 1`).\n   - Store slope string key `\"dy/dx\"` in frequency map.\n3. **Track Maximum**: `maxPoints = Math.max(maxPoints, slopeMap[key] + 1)`.\n\n### Why This Approach Works Best\nNormalizing slopes using GCD avoids floating point precision issues across arbitrary lines in $O(n^2)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "GCD Slope Hash Map", "variant": "neutral" },
+            { "label": "Time", "value": "O(n^2)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input Points", "value": "[[1,1],[2,2],[3,3]]", "explanation": "Points array." },
+                {
+                  "label": "Slope Alignment",
+                  "value": "All three points share identical reduced slope 1/1.",
+                  "explanation": "Collinear points."
+                },
+                { "label": "Output", "value": "3", "explanation": "Maximum points on a line." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Max Points on a Line implementation",
+            "explanation": "Iterate over anchor points and map collinear frequencies using GCD-reduced slope representations.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function maxPoints(points) {\n  if (points.length <= 2) return points.length;\n  let maxCount = 0;\n  function gcd(a, b) {\n    return b === 0 ? a : gcd(b, a % b);\n  }\n  for (let i = 0; i < points.length; i++) {\n    const map = new Map();\n    let localMax = 0;\n    for (let j = i + 1; j < points.length; j++) {\n      let dx = points[j][0] - points[i][0];\n      let dy = points[j][1] - points[i][1];\n      const g = gcd(Math.abs(dx), Math.abs(dy));\n      dx /= g; dy /= g;\n      if (dx < 0 || (dx === 0 && dy < 0)) { dx = -dx; dy = -dy; }\n      const key = `${dy}/${dx}`;\n      map.set(key, (map.get(key) || 0) + 1);\n      localMax = Math.max(localMax, map.get(key));\n    }\n    maxCount = Math.max(maxCount, localMax + 1);\n  }\n  return maxCount;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function maxPoints(points: number[][]): number {\n  if (points.length <= 2) return points.length;\n  let maxCount = 0;\n  function gcd(a: number, b: number): number {\n    return b === 0 ? a : gcd(b, a % b);\n  }\n  for (let i = 0; i < points.length; i++) {\n    const map = new Map<string, number>();\n    let localMax = 0;\n    for (let j = i + 1; j < points.length; j++) {\n      let dx = points[j][0] - points[i][0];\n      let dy = points[j][1] - points[i][1];\n      const g = gcd(Math.abs(dx), Math.abs(dy));\n      dx /= g; dy /= g;\n      if (dx < 0 || (dx === 0 && dy < 0)) { dx = -dx; dy = -dy; }\n      const key = `${dy}/${dx}`;\n      map.set(key, (map.get(key) || 0) + 1);\n      localMax = Math.max(localMax, map.get(key));\n    }\n    maxCount = Math.max(maxCount, localMax + 1);\n  }\n  return maxCount;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int maxPoints(int[][] points) {\n        if (points.length <= 2) return points.length;\n        int maxCount = 0;\n        for (int i = 0; i < points.length; i++) {\n            Map<String, Integer> map = new HashMap<>();\n            int localMax = 0;\n            for (int j = i + 1; j < points.length; j++) {\n                int dx = points[j][0] - points[i][0];\n                int dy = points[j][1] - points[i][1];\n                int g = gcd(Math.abs(dx), Math.abs(dy));\n                dx /= g; dy /= g;\n                if (dx < 0 || (dx == 0 && dy < 0)) { dx = -dx; dy = -dy; }\n                String key = dy + \"/\" + dx;\n                map.put(key, map.getOrDefault(key, 0) + 1);\n                localMax = Math.max(localMax, map.get(key));\n            }\n            maxCount = Math.max(maxCount, localMax + 1);\n        }\n        return maxCount;\n    }\n    private static int gcd(int a, int b) {\n        return b == 0 ? a : gcd(b, a % b);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "import math\nfrom collections import defaultdict\n\ndef max_points(points: list[list[int]]) -> int:\n    if len(points) <= 2: return len(points)\n    max_count = 0\n    for i in range(len(points)):\n        slope_map = defaultdict(int)\n        local_max = 0\n        for j in range(i + 1, len(points)):\n            dx = points[j][0] - points[i][0]\n            dy = points[j][1] - points[i][1]\n            g = math.gcd(abs(dx), abs(dy))\n            dx //= g; dy //= g\n            if dx < 0 or (dx == 0 and dy < 0):\n                dx, dy = -dx, -dy\n            key = (dy, dx)\n            slope_map[key] += 1\n            local_max = max(local_max, slope_map[key])\n        max_count = max(max_count, local_max + 1)\n    return max_count"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use GCD tuple reduction to avoid floating point division inaccuracies.",
+            "Anchor points eliminate duplicate backward line checks.",
+            "Executes in $O(n^2)$ quadratic time."
+          ]
+        },
+        {
+          "id": "integer-to-english-words-math",
+          "title": "88. Integer to English Words",
+          "content": "Convert a non-negative integer `num` to its English words representation.\n\n### How It Works & Algorithmic Design\nSolves using **Chunking by Thousands with Static Word Arrays**:\n1. **Static Lookup Arrays**: Define arrays for units `[\"\", \"One\", ...]`, teens `[\"Ten\", \"Eleven\", ...]`, tens `[\"\", \"\", \"Twenty\", ...]`, and thousands `[\"\", \"Thousand\", \"Million\", \"Billion\"]`.\n2. **Three-Digit Helper** `helper(n)`:\n   - If $n < 20$, lookup units/teens.\n   - If $n < 100$, return `tens[n/10] + helper(n%10)`.\n   - If $n \\ge 100$, return `units[n/100] + \" Hundred \" + helper(n%100)`.\n3. **Loop Thousands**: Process `num` in 3-digit chunks, appending thousand group names.\n\n### Why This Approach Works Best\nRecursively converts 3-digit groups in $O(1)$ constant time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "3-Digit Chunk Parsing", "variant": "neutral" },
+            { "label": "Time", "value": "O(1)", "variant": "neutral" },
+            { "label": "Space", "value": "O(1)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "num = 1234567", "explanation": "Target integer." },
+                { "label": "Chunks", "value": "1 (Million) + 234 (Thousand) + 567", "explanation": "3-digit groups." },
+                {
+                  "label": "Output",
+                  "value": "\"One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven\"",
+                  "explanation": "Converted text."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Integer to English Words implementation",
+            "explanation": "Parse number in groups of 3 digits appending Thousand, Million, and Billion suffix scale tags.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function numberToWords(num) {\n  if (num === 0) return 'Zero';\n  const LESS_THAN_20 = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];\n  const TENS = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];\n  const THOUSANDS = ['', 'Thousand', 'Million', 'Billion'];\n  function helper(n) {\n    if (n === 0) return '';\n    else if (n < 20) return LESS_THAN_20[n] + ' ';\n    else if (n < 100) return TENS[Math.floor(n / 10)] + ' ' + helper(n % 10);\n    else return LESS_THAN_20[Math.floor(n / 100)] + ' Hundred ' + helper(n % 100);\n  }\n  let res = '', i = 0;\n  while (num > 0) {\n    if (num % 1000 !== 0) {\n      res = helper(num % 1000) + THOUSANDS[i] + ' ' + res;\n    }\n    num = Math.floor(num / 1000);\n    i++;\n  }\n  return res.trim().replace(/\\s+/g, ' ');\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function numberToWords(num: number): string {\n  if (num === 0) return 'Zero';\n  const LESS_THAN_20 = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];\n  const TENS = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];\n  const THOUSANDS = ['', 'Thousand', 'Million', 'Billion'];\n  function helper(n: number): string {\n    if (n === 0) return '';\n    else if (n < 20) return LESS_THAN_20[n] + ' ';\n    else if (n < 100) return TENS[Math.floor(n / 10)] + ' ' + helper(n % 10);\n    else return LESS_THAN_20[Math.floor(n / 100)] + ' Hundred ' + helper(n % 100);\n  }\n  let res = '', i = 0;\n  while (num > 0) {\n    if (num % 1000 !== 0) {\n      res = helper(num % 1000) + THOUSANDS[i] + ' ' + res;\n    }\n    num = Math.floor(num / 1000);\n    i++;\n  }\n  return res.trim().replace(/\\s+/g, ' ');\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    private final String[] LESS_THAN_20 = {\"\", \"One\", \"Two\", \"Three\", \"Four\", \"Five\", \"Six\", \"Seven\", \"Eight\", \"Nine\", \"Ten\", \"Eleven\", \"Twelve\", \"Thirteen\", \"Fourteen\", \"Fifteen\", \"Sixteen\", \"Seventeen\", \"Eighteen\", \"Nineteen\"};\n    private final String[] TENS = {\"\", \"\", \"Twenty\", \"Thirty\", \"Forty\", \"Fifty\", \"Sixty\", \"Seventy\", \"Eighty\", \"Ninety\"};\n    private final String[] THOUSANDS = {\"\", \"Thousand\", \"Million\", \"Billion\"};\n    public String numberToWords(int num) {\n        if (num == 0) return \"Zero\";\n        String res = \"\";\n        int i = 0;\n        while (num > 0) {\n            if (num % 1000 != 0) {\n                res = helper(num % 1000) + THOUSANDS[i] + \" \" + res;\n            }\n            num /= 1000;\n            i++;\n        }\n        return res.trim().replaceAll(\"\\\\s+\", \" \");\n    }\n    private String helper(int n) {\n        if (n == 0) return \"\";\n        else if (n < 20) return LESS_THAN_20[n] + \" \";\n        else if (n < 100) return TENS[n / 10] + \" \" + helper(n % 10);\n        else return LESS_THAN_20[n / 100] + \" Hundred \" + helper(n % 100);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def number_to_words(num: int) -> str:\n    if num == 0: return \"Zero\"\n    less_than_20 = [\"\", \"One\", \"Two\", \"Three\", \"Four\", \"Five\", \"Six\", \"Seven\", \"Eight\", \"Nine\", \"Ten\", \"Eleven\", \"Twelve\", \"Thirteen\", \"Fourteen\", \"Fifteen\", \"Sixteen\", \"Seventeen\", \"Eighteen\", \"Nineteen\"]\n    tens = [\"\", \"\", \"Twenty\", \"Thirty\", \"Forty\", \"Fifty\", \"Sixty\", \"Seventy\", \"Eighty\", \"Ninety\"]\n    thousands = [\"\", \"Thousand\", \"Million\", \"Billion\"]\n    def helper(n):\n        if n == 0: return \"\"\n        elif n < 20: return less_than_20[n] + \" \"\n        elif n < 100: return tens[n // 10] + \" \" + helper(n % 10)\n        else: return less_than_20[n // 100] + \" Hundred \" + helper(n % 100)\n    res, i = \"\", 0\n    while num > 0:\n        if num % 1000 != 0:\n            res = helper(num % 1000) + thousands[i] + \" \" + res\n        num //= 1000\n        i += 1\n    return \" \".join(res.split())"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Chunks integers into 3-digit groups (thousands scale).",
+            "Helper function handles standard sub-1000 numbers recursively.",
+            "Executes in $O(1)$ bounded time."
+          ]
+        },
+        {
+          "id": "subsets-ii-backtracking-duplicates",
+          "title": "89. Subsets II (Duplicates Handling)",
+          "content": "Given an integer array `nums` that may contain duplicates, return all possible subsets (the power set). The solution set must not contain duplicate subsets.\n\n### How It Works & Algorithmic Design\nSolves using **Sorted Input Backtracking with Duplicate Pruning**:\n1. **Sort**: Sort `nums` so identical values are adjacent.\n2. **Backtracking DFS** `dfs(start, path)`:\n   - Push copy of `path` to results.\n   - Loop $i$ from `start` to `nums.length`:\n     - **Duplicate Pruning**: If $i > \\text{start}$ and `nums[i] === nums[i - 1]`, `continue`.\n     - Add `nums[i]` to `path`.\n     - Recurse `dfs(i + 1, path)`.\n     - Backtrack: remove `nums[i]`.\n\n### Why This Approach Works Best\nPruning duplicate branches at the loop level prevents duplicate subsets without needing post-processing hash sets.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Backtracking Duplicate Skip", "variant": "neutral" },
+            { "label": "Time", "value": "O(2^n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "nums = [1, 2, 2]", "explanation": "Array with duplicate values." },
+                {
+                  "label": "Pruned Branching",
+                  "value": "Skip second '2' at loop level $i > start$.",
+                  "explanation": "Avoids identical power set outputs."
+                },
+                { "label": "Output", "value": "[[],[1],[1,2],[1,2,2],[2],[2,2]]", "explanation": "Unique subsets." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Subsets II implementation",
+            "explanation": "Sort array to bring duplicate elements together and skip duplicate sibling branch calls.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function subsetsWithDup(nums) {\n  nums.sort((a, b) => a - b);\n  const res = [];\n  function backtrack(start, path) {\n    res.push([...path]);\n    for (let i = start; i < nums.length; i++) {\n      if (i > start && nums[i] === nums[i - 1]) continue;\n      path.push(nums[i]);\n      backtrack(i + 1, path);\n      path.pop();\n    }\n  }\n  backtrack(0, []);\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function subsetsWithDup(nums: number[]): number[][] {\n  nums.sort((a, b) => a - b);\n  const res: number[][] = [];\n  function backtrack(start: number, path: number[]) {\n    res.push([...path]);\n    for (let i = start; i < nums.length; i++) {\n      if (i > start && nums[i] === nums[i - 1]) continue;\n      path.push(nums[i]);\n      backtrack(i + 1, path);\n      path.pop();\n    }\n  }\n  backtrack(0, []);\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static List<List<Integer>> subsetsWithDup(int[] nums) {\n        Arrays.sort(nums);\n        List<List<Integer>> res = new ArrayList<>();\n        backtrack(0, new ArrayList<>(), nums, res);\n        return res;\n    }\n    private static void backtrack(int start, List<Integer> path, int[] nums, List<List<Integer>> res) {\n        res.add(new ArrayList<>(path));\n        for (int i = start; i < nums.length; i++) {\n            if (i > start && nums[i] == nums[i - 1]) continue;\n            path.add(nums[i]);\n            backtrack(i + 1, path, nums, res);\n            path.remove(path.size() - 1);\n        }\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def subsets_with_dup(nums: list[int]) -> list[list[int]]:\n    nums.sort()\n    res = []\n    def backtrack(start, path):\n        res.append(path[:])\n        for i in range(start, len(nums)):\n            if i > start and nums[i] == nums[i - 1]: continue\n            path.append(nums[i])\n            backtrack(i + 1, path)\n            path.pop()\n    backtrack(0, [])\n    return res"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Sort input array first to group identical elements.",
+            "Skip condition `i > start && nums[i] === nums[i-1]` prevents duplicate subtree calls.",
+            "Generates all $2^n$ subsets without hash set overhead."
+          ]
+        },
+        {
+          "id": "permutation-sequence-math-factorial",
+          "title": "90. Permutation Sequence",
+          "content": "The set `[1, 2, 3, ..., n]` contains `n!` unique permutations. Given `n` and `k`, return the $k$-th permutation sequence.\n\n### How It Works & Algorithmic Design\nSolves using **Factorial Block Deconstruction**:\n1. **Factorial Lookup**: Precompute factorials: `fact[i] = i!`.\n2. **Numbers List**: Build array `numbers = [1, 2, ..., n]`.\n3. **Zero-Indexing**: Set `k = k - 1`.\n4. **Group Selection Loop** (from $i = n$ down to $1$):\n   - Block size $S = (i - 1)!$.\n   - Index $idx = \\lfloor k / S \\rfloor$.\n   - Append `numbers[idx]` to result string and remove from `numbers`.\n   - Update `k = k % S`.\n\n### Why This Approach Works Best\nCalculates the $k$-th permutation directly in $O(n^2)$ time, avoiding $O(n!)$ generation.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Factorial Math Block Parsing", "variant": "neutral" },
+            { "label": "Time", "value": "O(n^2)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "n = 3, k = 3", "explanation": "Target permutation." },
+                {
+                  "label": "Permutation List",
+                  "value": "1: \"123\", 2: \"132\", 3: \"213\", 4: \"231\"...",
+                  "explanation": "Ordered permutations."
+                },
+                { "label": "Output", "value": "\"213\"", "explanation": "3rd permutation sequence." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Permutation Sequence implementation",
+            "explanation": "Directly locate target permutation digits using factorial block division.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function getPermutation(n, k) {\n  const numbers = Array.from({ length: n }, (_, i) => i + 1);\n  const fact = [1];\n  for (let i = 1; i <= n; i++) fact[i] = fact[i - 1] * i;\n  k--; // Convert to 0-based index\n  let res = '';\n  for (let i = n; i >= 1; i--) {\n    const idx = Math.floor(k / fact[i - 1]);\n    res += numbers[idx];\n    numbers.splice(idx, 1);\n    k %= fact[i - 1];\n  }\n  return res;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function getPermutation(n: number, k: number): string {\n  const numbers: number[] = Array.from({ length: n }, (_, i) => i + 1);\n  const fact: number[] = [1];\n  for (let i = 1; i <= n; i++) fact[i] = fact[i - 1] * i;\n  k--;\n  let res = '';\n  for (let i = n; i >= 1; i--) {\n    const idx = Math.floor(k / fact[i - 1]);\n    res += numbers[idx];\n    numbers.splice(idx, 1);\n    k %= fact[i - 1];\n  }\n  return res;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static String getPermutation(int n, int k) {\n        List<Integer> numbers = new ArrayList<>();\n        for (int i = 1; i <= n; i++) numbers.add(i);\n        int[] fact = new int[n + 1];\n        fact[0] = 1;\n        for (int i = 1; i <= n; i++) fact[i] = fact[i - 1] * i;\n        k--;\n        StringBuilder res = new StringBuilder();\n        for (int i = n; i >= 1; i--) {\n            int idx = k / fact[i - 1];\n            res.append(numbers.get(idx));\n            numbers.remove(idx);\n            k %= fact[i - 1];\n        }\n        return res.toString();\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def get_permutation(n: int, k: int) -> str:\n    numbers = list(range(1, n + 1))\n    fact = [1] * (n + 1)\n    for i in range(1, n + 1): fact[i] = fact[i - 1] * i\n    k -= 1\n    res = []\n    for i in range(n, 0, -1):\n        idx = k // fact[i - 1]\n        res.append(str(numbers.pop(idx)))\n        k %= fact[i - 1]\n    return \"\".join(res)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Converts $k$ to 0-based indexing first.",
+            "Determines digits directly using block division by $(i-1)!$.",
+            "Runs in $O(n^2)$ time due to list element removal."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hard-dsa-advanced-strings-monotonics-and-dp",
+      "title": "Hard DSA — Special Substrings, Monotonic Deques & Advanced DP",
+      "summary": "Master non-contiguous string matching, monotonic sub-array boundary calculations, prefix tree search optimizations, and multi-dimensional grid DP.",
+      "estimatedMinutes": 360,
+      "sections": [
+        {
+          "id": "minimum-window-subsequence-dp",
+          "title": "91. Minimum Window Subsequence",
+          "content": "Given strings `s1` and `s2`, return the minimum contiguous substring $W$ of `s1` such that `s2` is a subsequence of $W$.\n\n### How It Works & Algorithmic Design\nSolves using **Two-Pointer Forward Match and Backward Contract Expansion**:\n1. **Forward Match**: Advance `i1` over `s1` matching characters in `s2` via `i2++`.\n2. **Backward Contract**: When `i2 === s2.length` (full subsequence matched):\n   - Set `end = i1`.\n   - Decrement `i1` backward while contracting `s2` index `i2--` to find exact starting index `start`.\n3. **Update Min Window**: Check window length `end - start + 1` against best answer.\n4. **Resume**: Reset `i2 = 0` and resume `i1 = start + 1`.\n\n### Why This Approach Works Best\nCombines forward scanning with backward contraction to evaluate optimal windows in $O(|s1| \\times |s2|)$ time and $O(1)$ space.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Two Pointers Contract Scan", "variant": "neutral" },
+            { "label": "Time", "value": "O(|s1| * |s2|)", "variant": "neutral" },
+            { "label": "Space", "value": "O(1)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "s1 = \"abcdebdde\", s2 = \"bde\"", "explanation": "Target subsequence." },
+                {
+                  "label": "Matching Windows",
+                  "value": "\"bcde\" (len 4) and \"bcdebdde\" -> contracted to \"bcde\" and \"bcde\" / \"bdde\" (len 4).",
+                  "explanation": "Subsequence substrings."
+                },
+                { "label": "Output", "value": "\"bcde\"", "explanation": "Shortest substring." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Minimum Window Subsequence implementation",
+            "explanation": "Match sequence characters forward and shrink window backward to locate minimal length sub-strings.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function minWindow(s1, s2) {\n  let i1 = 0, i2 = 0;\n  let minLen = Infinity, startIdx = -1;\n  while (i1 < s1.length) {\n    if (s1[i1] === s2[i2]) {\n      i2++;\n      if (i2 === s2.length) {\n        let end = i1;\n        i2--;\n        while (i2 >= 0) {\n          if (s1[i1] === s2[i2]) i2--;\n          i1--;\n        }\n        i1++;\n        if (end - i1 + 1 < minLen) {\n          minLen = end - i1 + 1;\n          startIdx = i1;\n        }\n        i2 = 0;\n      }\n    }\n    i1++;\n  }\n  return startIdx === -1 ? '' : s1.substring(startIdx, startIdx + minLen);\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function minWindow(s1: string, s2: string): string {\n  let i1 = 0, i2 = 0;\n  let minLen = Infinity, startIdx = -1;\n  while (i1 < s1.length) {\n    if (s1[i1] === s2[i2]) {\n      i2++;\n      if (i2 === s2.length) {\n        let end = i1;\n        i2--;\n        while (i2 >= 0) {\n          if (s1[i1] === s2[i2]) i2--;\n          i1--;\n        }\n        i1++;\n        if (end - i1 + 1 < minLen) {\n          minLen = end - i1 + 1;\n          startIdx = i1;\n        }\n        i2 = 0;\n      }\n    }\n    i1++;\n  }\n  return startIdx === -1 ? '' : s1.substring(startIdx, startIdx + minLen);\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static String minWindow(String s1, String s2) {\n        int i1 = 0, i2 = 0;\n        int minLen = Integer.MAX_VALUE, startIdx = -1;\n        while (i1 < s1.length()) {\n            if (s1.charAt(i1) == s2.charAt(i2)) {\n                i2++;\n                if (i2 == s2.length()) {\n                    int end = i1;\n                    i2--;\n                    while (i2 >= 0) {\n                        if (s1.charAt(i1) == s2.charAt(i2)) i2--;\n                        i1--;\n                    }\n                    i1++;\n                    if (end - i1 + 1 < minLen) {\n                        minLen = end - i1 + 1;\n                        startIdx = i1;\n                    }\n                    i2 = 0;\n                }\n            }\n            i1++;\n        }\n        return startIdx == -1 ? \"\" : s1.substring(startIdx, startIdx + minLen);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def min_window(s1: str, s2: str) -> str:\n    i1 = i2 = 0\n    min_len = float('inf')\n    start_idx = -1\n    while i1 < len(s1):\n        if s1[i1] == s2[i2]:\n            i2 += 1\n            if i2 == len(s2):\n                end = i1\n                i2 -= 1\n                while i2 >= 0:\n                    if s1[i1] == s2[i2]: i2 -= 1\n                    i1 -= 1\n                i1 += 1\n                if end - i1 + 1 < min_len:\n                    min_len = end - i1 + 1\n                    start_idx = i1\n                i2 = 0\n        i1 += 1\n    return \"\" if start_idx == -1 else s1[start_idx:start_idx + min_len]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Forward scan finds complete subsequence matches.",
+            "Backward contraction pinpoints the minimal left boundary.",
+            "Runs in $O(|s1| \\times |s2|)$ time and $O(1)$ extra space."
+          ]
+        },
+        {
+          "id": "shortest-subarray-with-sum-at-least-k-deque",
+          "title": "92. Shortest Subarray with Sum at Least K",
+          "content": "Given an integer array `nums` and an integer `k`, return the length of the shortest non-empty subarray of `nums` with a sum of at least `k`.\n\n### How It Works & Algorithmic Design\nSolves using **Prefix Sum Array + Monotonic Double-Ended Queue (Deque)**:\n1. **Prefix Sum**: Build `P[i] = P[i-1] + nums[i-1]` of length $n + 1$.\n2. **Monotonic Deque**: Store indices $i$ in `deque` such that $P[i]$ is strictly increasing.\n3. **Loop Index $i$** from $0$ to $n$:\n   - **Contract Left**: While `P[i] - P[deque[0]] >= k`, update `minLen = Math.min(minLen, i - deque.shift())`.\n   - **Maintain Monotonicity**: While `P[i] <= P[deque[last]]`, pop back (a smaller prefix sum at a larger index is always a better left boundary choice).\n   - Push $i$ onto `deque`.\n\n### Why This Approach Works Best\nHandles negative numbers while finding valid sub-arrays in linear $O(n)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Prefix Sum + Monotonic Deque", "variant": "neutral" },
+            { "label": "Time", "value": "O(n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "nums = [2,-1,2], k = 3", "explanation": "Target sum 3 with negative values." },
+                {
+                  "label": "Prefix Sums",
+                  "value": "P = [0, 2, 1, 3]. Subarray [2,-1,2] sum = P[3]-P[0] = 3.",
+                  "explanation": "Length 3 subarray."
+                },
+                { "label": "Output", "value": "3", "explanation": "Shortest subarray length." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Shortest Subarray with Sum at Least K implementation",
+            "explanation": "Maintain monotonically increasing prefix sum indices in a deque to query minimal subarray lengths.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function shortestSubarray(nums, k) {\n  const n = nums.length;\n  const P = new Array(n + 1).fill(0);\n  for (let i = 0; i < n; i++) P[i + 1] = P[i] + nums[i];\n  let minLen = Infinity;\n  const deque = [];\n  for (let i = 0; i <= n; i++) {\n    while (deque.length && P[i] - P[deque[0]] >= k) {\n      minLen = Math.min(minLen, i - deque.shift());\n    }\n    while (deque.length && P[i] <= P[deque[deque.length - 1]]) {\n      deque.pop();\n    }\n    deque.push(i);\n  }\n  return minLen === Infinity ? -1 : minLen;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function shortestSubarray(nums: number[], k: number): number {\n  const n = nums.length;\n  const P: number[] = new Array(n + 1).fill(0);\n  for (let i = 0; i < n; i++) P[i + 1] = P[i] + nums[i];\n  let minLen = Infinity;\n  const deque: number[] = [];\n  for (let i = 0; i <= n; i++) {\n    while (deque.length && P[i] - P[deque[0]] >= k) {\n      minLen = Math.min(minLen, i - deque.shift()!);\n    }\n    while (deque.length && P[i] <= P[deque[deque.length - 1]]) {\n      deque.pop();\n    }\n    deque.push(i);\n  }\n  return minLen === Infinity ? -1 : minLen;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int shortestSubarray(int[] nums, int k) {\n        int n = nums.length;\n        long[] P = new long[n + 1];\n        for (int i = 0; i < n; i++) P[i + 1] = P[i] + nums[i];\n        int minLen = n + 1;\n        Deque<Integer> deque = new ArrayDeque<>();\n        for (int i = 0; i <= n; i++) {\n            while (!deque.isEmpty() && P[i] - P[deque.peekFirst()] >= k) {\n                minLen = Math.min(minLen, i - deque.pollFirst());\n            }\n            while (!deque.isEmpty() && P[i] <= P[deque.peekLast()]) {\n                deque.pollLast();\n            }\n            deque.offerLast(i);\n        }\n        return minLen <= n ? minLen : -1;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "from collections import deque\n\ndef shortest_subarray(nums: list[int], k: int) -> int:\n    n = len(nums)\n    P = [0] * (n + 1)\n    for i in range(n): P[i + 1] = P[i] + nums[i]\n    min_len = float('inf')\n    dq = deque()\n    for i in range(n + 1):\n        while dq and P[i] - P[dq[0]] >= k:\n            min_len = min(min_len, i - dq.popleft())\n        while dq and P[i] <= P[dq[-1]]:\n            dq.pop()\n        dq.append(i)\n    return -1 if min_len == float('inf') else min_len"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Works with negative array numbers unlike simple two-pointer sliding windows.",
+            "Popping larger prefix sums maintains monotonic deque structure.",
+            "Executes in $O(n)$ time."
+          ]
+        },
+        {
+          "id": "max-sum-of-rectangle-no-larger-than-k-2d-dp-sorted-set",
+          "title": "93. Max Sum of Rectangle No Larger Than K",
+          "content": "Given an $m \\times n$ matrix and an integer $k$, return the max sum of a rectangle in the matrix such that its sum is no larger than $k$.\n\n### How It Works & Algorithmic Design\nSolves using **1D Sub-Array Projection with Sorted Binary Search TreeSet**:\n1. **Row Interval Bounds**: Fix top row `r1` and bottom row `r2` ($0 \\le r1 \\le r2 < m$).\n2. **1D Projection**: Accumulate row values into 1D array `sums[c] += matrix[r2][c]`.\n3. **Binary Search Prefix Sums**:\n   - Maintain running sum `currSum` and prefix sums in a sorted array/TreeSet `set = [0]`.\n   - Find smallest `P` in `set` such that `currSum - P <= k` $\\to$ `P >= currSum - k`.\n   - If found, `maxSum = Math.max(maxSum, currSum - P)`.\n   - Insert `currSum` into `set`.\n\n### Why This Approach Works Best\nBinary search prefix sets evaluate optimal rectangle bounds in $O(m^2 \\cdot n \\log n)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "2D Interval + Prefix Binary Search", "variant": "neutral" },
+            { "label": "Time", "value": "O(m^2 * n log n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input Matrix", "value": "[[1,0,1],[0,-2,3]], k = 2", "explanation": "Matrix and target bound k." },
+                {
+                  "label": "Max Sub-matrix",
+                  "value": "Rectangle [[0, 1], [-2, 3]] has sum 2 <= k.",
+                  "explanation": "Bounded rectangle sum."
+                },
+                { "label": "Output", "value": "2", "explanation": "Max sum <= k." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Max Sum Rectangle No Larger Than K implementation",
+            "explanation": "Compress matrix rows into 1D arrays and find maximum bounded sums using binary search prefix sets.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function maxSumSubmatrix(matrix, k) {\n  const m = matrix.length, n = matrix[0].length;\n  let maxSum = -Infinity;\n  for (let l = 0; l < n; l++) {\n    const rowSums = new Array(m).fill(0);\n    for (let r = l; r < n; r++) {\n      for (let i = 0; i < m; i++) rowSums[i] += matrix[i][r];\n      const set = [0];\n      let curr = 0;\n      for (const sum of rowSums) {\n        curr += sum;\n        // Binary search for smallest val >= curr - k\n        const target = curr - k;\n        let low = 0, high = set.length - 1, match = -1;\n        while (low <= high) {\n          const mid = Math.floor((low + high) / 2);\n          if (set[mid] >= target) { match = set[mid]; high = mid - 1; }\n          else low = mid + 1;\n        }\n        if (match !== -1) maxSum = Math.max(maxSum, curr - match);\n        // Insert curr in sorted array\n        let pos = 0;\n        while (pos < set.length && set[pos] < curr) pos++;\n        set.splice(pos, 0, curr);\n      }\n    }\n  }\n  return maxSum;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function maxSumSubmatrix(matrix: number[][], k: number): number {\n  const m = matrix.length, n = matrix[0].length;\n  let maxSum = -Infinity;\n  for (let l = 0; l < n; l++) {\n    const rowSums = new Array(m).fill(0);\n    for (let r = l; r < n; r++) {\n      for (let i = 0; i < m; i++) rowSums[i] += matrix[i][r];\n      const set = [0];\n      let curr = 0;\n      for (const sum of rowSums) {\n        curr += sum;\n        const target = curr - k;\n        let low = 0, high = set.length - 1, match = -1;\n        while (low <= high) {\n          const mid = Math.floor((low + high) / 2);\n          if (set[mid] >= target) { match = set[mid]; high = mid - 1; }\n          else low = mid + 1;\n        }\n        if (match !== -1) maxSum = Math.max(maxSum, curr - match);\n        let pos = 0;\n        while (pos < set.length && set[pos] < curr) pos++;\n        set.splice(pos, 0, curr);\n      }\n    }\n  }\n  return maxSum;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int maxSumSubmatrix(int[][] matrix, int k) {\n        int m = matrix.length, n = matrix[0].length;\n        int maxSum = Integer.MIN_VALUE;\n        for (int l = 0; l < n; l++) {\n            int[] rowSums = new int[m];\n            for (int r = l; r < n; r++) {\n                for (int i = 0; i < m; i++) rowSums[i] += matrix[i][r];\n                TreeSet<Integer> set = new TreeSet<>();\n                set.add(0);\n                int curr = 0;\n                for (int sum : rowSums) {\n                    curr += sum;\n                    Integer match = set.ceiling(curr - k);\n                    if (match != null) maxSum = Math.max(maxSum, curr - match);\n                    set.add(curr);\n                }\n            }\n        }\n        return maxSum;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "import bisect\n\ndef max_sum_submatrix(matrix: list[list[int]], k: int) -> int:\n    m, n = len(matrix), len(matrix[0])\n    max_sum = float('-inf')\n    for l in range(n):\n        row_sums = [0] * m\n        for r in range(l, n):\n            for i in range(m): row_sums[i] += matrix[i][r]\n            sorted_set = [0]\n            curr = 0\n            for s in row_sums:\n                curr += s\n                target = curr - k\n                idx = bisect.bisect_left(sorted_set, target)\n                if idx < len(sorted_set):\n                    max_sum = max(max_sum, curr - sorted_set[idx])\n                bisect.insort(sorted_set, curr)\n    return max_sum"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Converts 2D sub-matrix search into 1D prefix arrays.",
+            "Uses binary search (`ceiling`) to find sub-array sums $\\le k$.",
+            "Runs in $O(m^2 \\cdot n \\log n)$ time."
+          ]
+        },
+        {
+          "id": "count-of-range-sum-merge-sort",
+          "title": "94. Count of Range Sum",
+          "content": "Given an integer array `nums` and two integers `lower` and `upper`, return the number of range sums that lie in `[lower, upper]` inclusive.\n\n### How It Works & Algorithmic Design\nSolves using **Prefix Sum Array + Modified Merge Sort**:\n1. **Prefix Sum Array**: `P[i] = P[i-1] + nums[i-1]` for $0 \\le i \\le n$.\n2. **Merge Sort Function** `countWhileMergeSort(left, right)`:\n   - Divide `P` into left and right halves.\n   - For each element $P[i]$ in left half, find two pointers $j$ and $k$ in right half such that $P[j] - P[i] \\ge \\text{lower}$ and $P[k] - P[i] > \\text{upper}$.\n   - Accumulate valid range count: `count += (k - j)`.\n   - Perform standard merge step to keep prefix sub-array sorted.\n\n### Why This Approach Works Best\nEvaluates prefix sum pairs across splits in $O(n \\log n)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Prefix Sum + Merge Sort", "variant": "neutral" },
+            { "label": "Time", "value": "O(n log n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "nums = [-2, 5, -1], lower = -2, upper = 2", "explanation": "Target range [-2, 2]." },
+                { "label": "Valid Ranges", "value": "Range sums [-2], [1], [2] lie in [-2, 2].", "explanation": "3 valid ranges." },
+                { "label": "Output", "value": "3", "explanation": "Matching count." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Count of Range Sum implementation",
+            "explanation": "Count prefix sum differences within [lower, upper] boundaries using two pointers during Merge Sort.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countRangeSum(nums, lower, upper) {\n  const n = nums.length;\n  const P = new Array(n + 1).fill(0);\n  for (let i = 0; i < n; i++) P[i + 1] = P[i] + nums[i];\n  function mergeSort(left, right) {\n    if (right - left <= 1) return 0;\n    const mid = Math.floor((left + right) / 2);\n    let count = mergeSort(left, mid) + mergeSort(mid, right);\n    let j = mid, k = mid;\n    for (let i = left; i < mid; i++) {\n      while (j < right && P[j] - P[i] < lower) j++;\n      while (k < right && P[k] - P[i] <= upper) k++;\n      count += k - j;\n    }\n    const sorted = [];\n    let l = left, r = mid;\n    while (l < mid && r < right) {\n      if (P[l] <= P[r]) sorted.push(P[l++]);\n      else sorted.push(P[r++]);\n    }\n    while (l < mid) sorted.push(P[l++]);\n    while (r < right) sorted.push(P[r++]);\n    for (let i = 0; i < sorted.length; i++) P[left + i] = sorted[i];\n    return count;\n  }\n  return mergeSort(0, n + 1);\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function countRangeSum(nums: number[], lower: number, upper: number): number {\n  const n = nums.length;\n  const P: number[] = new Array(n + 1).fill(0);\n  for (let i = 0; i < n; i++) P[i + 1] = P[i] + nums[i];\n  function mergeSort(left: number, right: number): number {\n    if (right - left <= 1) return 0;\n    const mid = Math.floor((left + right) / 2);\n    let count = mergeSort(left, mid) + mergeSort(mid, right);\n    let j = mid, k = mid;\n    for (let i = left; i < mid; i++) {\n      while (j < right && P[j] - P[i] < lower) j++;\n      while (k < right && P[k] - P[i] <= upper) k++;\n      count += k - j;\n    }\n    const sorted: number[] = [];\n    let l = left, r = mid;\n    while (l < mid && r < right) {\n      if (P[l] <= P[r]) sorted.push(P[l++]);\n      else sorted.push(P[r++]);\n    }\n    while (l < mid) sorted.push(P[l++]);\n    while (r < right) sorted.push(P[r++]);\n    for (let i = 0; i < sorted.length; i++) P[left + i] = sorted[i];\n    return count;\n  }\n  return mergeSort(0, n + 1);\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int countRangeSum(int[] nums, int lower, int upper) {\n        int n = nums.length;\n        long[] P = new long[n + 1];\n        for (int i = 0; i < n; i++) P[i + 1] = P[i] + nums[i];\n        return mergeSort(P, 0, n + 1, lower, upper);\n    }\n    private static int mergeSort(long[] P, int left, int right, int lower, int upper) {\n        if (right - left <= 1) return 0;\n        int mid = left + (right - left) / 2;\n        int count = mergeSort(P, left, mid, lower, upper) + mergeSort(P, mid, right, lower, upper);\n        int j = mid, k = mid;\n        for (int i = left; i < mid; i++) {\n            while (j < right && P[j] - P[i] < lower) j++;\n            while (k < right && P[k] - P[i] <= upper) k++;\n            count += k - j;\n        }\n        long[] sorted = new long[right - left];\n        int l = left, r = mid, idx = 0;\n        while (l < mid && r < right) {\n            if (P[l] <= P[r]) sorted[idx++] = P[l++];\n            else sorted[idx++] = P[r++];\n        }\n        while (l < mid) sorted[idx++] = P[l++];\n        while (r < right) sorted[idx++] = P[r++];\n        System.arraycopy(sorted, 0, P, left, sorted.length);\n        return count;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_range_sum(nums: list[int], lower: int, upper: int) -> int:\n    n = len(nums)\n    P = [0] * (n + 1)\n    for i in range(n): P[i + 1] = P[i] + nums[i]\n    def merge_sort(left, right):\n        if right - left <= 1: return 0\n        mid = (left + right) // 2\n        count = merge_sort(left, mid) + merge_sort(mid, right)\n        j = k = mid\n        for i in range(left, mid):\n            while j < right and P[j] - P[i] < lower: j += 1\n            while k < right and P[k] - P[i] <= upper: k += 1\n            count += k - j\n        P[left:right] = sorted(P[left:right])\n        return count\n    return merge_sort(0, n + 1)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Converts range sums to prefix differences $P[j] - P[i]$.",
+            "Pointers $j$ and $k$ move monotonically during merge sort.",
+            "Optimal execution time $O(n \\log n)$."
+          ]
+        },
+        {
+          "id": "minimum-cost-to-merge-stones-interval-dp",
+          "title": "95. Minimum Cost to Merge Stones",
+          "content": "There are `n` piles of stones arranged in a row. A move consists of merging exactly `k` consecutive piles into one pile. Return the minimum cost to merge all piles into one pile.\n\n### How It Works & Algorithmic Design\nSolves using **Interval Dynamic Programming with Pile Group Reductions**:\n1. **Feasibility Check**: Return `-1` if `(n - 1) % (k - 1) !== 0`.\n2. **Prefix Sums**: `pref[i]` to quickly compute pile segment sums.\n3. **DP State**: `dp[i][j]` = minimum cost to merge piles `i...j` into as few piles as possible.\n4. **Interval Expansion Loop** (`len` from `k` to `n`):\n   - Step split point `m` from `i` to `j-1` with stride `k-1`:\n     - `dp[i][j] = Math.min(dp[i][j], dp[i][m] + dp[m+1][j])`.\n   - If piles `i...j` can be merged down to 1 pile (`(j - i) % (k - 1) === 0`):\n     - `dp[i][j] += pref[j+1] - pref[i]`.\n\n### Why This Approach Works Best\nInterval DP systematically evaluates sub-pile combination choices in $O(n^3 / k)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Interval Dynamic Programming", "variant": "neutral" },
+            { "label": "Time", "value": "O(n^3 / k)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n^2)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "stones = [3, 5, 1, 2, 6], k = 3", "explanation": "5 stone piles, merge 3 at a time." },
+                {
+                  "label": "Feasibility",
+                  "value": "(5 - 1) % (3 - 1) = 0 -> valid merge configuration.",
+                  "explanation": "Possible to merge to 1 pile."
+                },
+                { "label": "Output", "value": "25", "explanation": "Minimum merge cost." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Minimum Cost to Merge Stones implementation",
+            "explanation": "Interval dynamic programming evaluating consecutive sub-pile merges.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function mergeStones(stones, k) {\n  const n = stones.length;\n  if ((n - 1) % (k - 1) !== 0) return -1;\n  const pref = new Array(n + 1).fill(0);\n  for (let i = 0; i < n; i++) pref[i + 1] = pref[i] + stones[i];\n  const dp = Array.from({ length: n }, () => new Array(n).fill(0));\n  for (let len = k; len <= n; len++) {\n    for (let i = 0; i <= n - len; i++) {\n      const j = i + len - 1;\n      dp[i][j] = Infinity;\n      for (let m = i; m < j; m += k - 1) {\n        dp[i][j] = Math.min(dp[i][j], dp[i][m] + dp[m + 1][j]);\n      }\n      if ((j - i) % (k - 1) === 0) {\n        dp[i][j] += pref[j + 1] - pref[i];\n      }\n    }\n  }\n  return dp[0][n - 1];\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function mergeStones(stones: number[], k: number): number {\n  const n = stones.length;\n  if ((n - 1) % (k - 1) !== 0) return -1;\n  const pref: number[] = new Array(n + 1).fill(0);\n  for (let i = 0; i < n; i++) pref[i + 1] = pref[i] + stones[i];\n  const dp: number[][] = Array.from({ length: n }, () => new Array(n).fill(0));\n  for (let len = k; len <= n; len++) {\n    for (let i = 0; i <= n - len; i++) {\n      const j = i + len - 1;\n      dp[i][j] = Infinity;\n      for (let m = i; m < j; m += k - 1) {\n        dp[i][j] = Math.min(dp[i][j], dp[i][m] + dp[m + 1][j]);\n      }\n      if ((j - i) % (k - 1) === 0) {\n        dp[i][j] += pref[j + 1] - pref[i];\n      }\n    }\n  }\n  return dp[0][n - 1];\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int mergeStones(int[] stones, int k) {\n        int n = stones.length;\n        if ((n - 1) % (k - 1) != 0) return -1;\n        int[] pref = new int[n + 1];\n        for (int i = 0; i < n; i++) pref[i + 1] = pref[i] + stones[i];\n        int[][] dp = new int[n][n];\n        for (int len = k; len <= n; len++) {\n            for (int i = 0; i <= n - len; i++) {\n                int j = i + len - 1;\n                dp[i][j] = 100000000;\n                for (int m = i; m < j; m += k - 1) {\n                    dp[i][j] = Math.min(dp[i][j], dp[i][m] + dp[m + 1][j]);\n                }\n                if ((j - i) % (k - 1) == 0) {\n                    dp[i][j] += pref[j + 1] - pref[i];\n                }\n            }\n        }\n        return dp[0][n - 1];\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def merge_stones(stones: list[int], k: int) -> int:\n    n = len(stones)\n    if (n - 1) % (k - 1) != 0: return -1\n    pref = [0] * (n + 1)\n    for i in range(n): pref[i + 1] = pref[i] + stones[i]\n    dp = [[0] * n for _ in range(n)]\n    for len_sub in range(k, n + 1):\n        for i in range(n - len_sub + 1):\n            j = i + len_sub - 1\n            dp[i][j] = float('inf')\n            for m in range(i, j, k - 1):\n                dp[i][j] = min(dp[i][j], dp[i][m] + dp[m + 1][j])\n            if (j - i) % (k - 1) == 0:\n                dp[i][j] += pref[j + 1] - pref[i]\n    return dp[0][n - 1]"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Modulo feasibility check `(n - 1) % (k - 1) === 0` validates if complete reduction is possible.",
+            "Step loop variable `m` by `k - 1` to skip invalid pile split states.",
+            "Interval DP executes in $O(n^3 / k)$ time."
+          ]
+        },
+        {
+          "id": "cherry-pickup-ii-3d-grid-dp",
+          "title": "96. Cherry Pickup II (3D Grid DP)",
+          "content": "You are given a `rows x cols` matrix `grid`. You have two robots: Robot 1 starts at `(0, 0)` and Robot 2 starts at `(0, cols - 1)`. Return the maximum cherries collected by both robots.\n\n### How It Works & Algorithmic Design\nSolves using **3D Simultaneous Grid Dynamic Programming**:\n1. **DP State**: Let `dp[r][c1][c2]` be max cherries collected at row $r$ with Robot 1 at column $c_1$ and Robot 2 at column $c_2$.\n2. **Grid Cherry Addition**:\n   - If $c_1 === c_2$, cherries gained = `grid[r][c1]`.\n   - Else, cherries gained = `grid[r][c1] + grid[r][c2]`.\n3. **Transition**: For each candidate column move $(dc_1, dc_2) \\in \\{-1, 0, 1\\}^2$:\n   - `dp[r][c1][c2] = cherry + max(dp[r+1][c1+dc1][c2+dc2])`.\n\n### Why This Approach Works Best\nSaves $O(2^R)$ exponential path choices by moving both robots simultaneously down row $r$ in $O(R \\cdot C^2)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "3D Grid DP", "variant": "neutral" },
+            { "label": "Time", "value": "O(R * C^2)", "variant": "neutral" },
+            { "label": "Space", "value": "O(R * C^2)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input Grid", "value": "[[3,1,1],[2,5,1],[1,5,5],[2,1,1]]", "explanation": "4x3 grid." },
+                {
+                  "label": "Dual Paths",
+                  "value": "Robot 1 moves (0,0)->(1,1)->(2,1)->(3,0). Robot 2 moves (0,2)->(1,1)->(2,2)->(3,2).",
+                  "explanation": "Optimized cherry collection paths."
+                },
+                { "label": "Output", "value": "24", "explanation": "Max total cherries." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Cherry Pickup II 3D DP implementation",
+            "explanation": "Advance both robots row by row, memoizing state using 3D dynamic programming grid.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function cherryPickup(grid) {\n  const rows = grid.length, cols = grid[0].length;\n  const memo = Map();\n  function dfs(r, c1, c2) {\n    if (c1 < 0 || c1 >= cols || c2 < 0 || c2 >= cols) return -Infinity;\n    if (r === rows) return 0;\n    const key = `${r},${c1},${c2}`;\n    if (memo.has(key)) return memo.get(key);\n    let cherries = c1 === c2 ? grid[r][c1] : grid[r][c1] + grid[r][c2];\n    let maxNext = -Infinity;\n    for (let d1 = -1; d1 <= 1; d1++) {\n      for (let d2 = -1; d2 <= 1; d2++) {\n        maxNext = Math.max(maxNext, dfs(r + 1, c1 + d1, c2 + d2));\n      }\n    }\n    const res = cherries + maxNext;\n    memo.set(key, res);\n    return res;\n  }\n  return dfs(0, 0, cols - 1);\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function cherryPickup(grid: number[][]): number {\n  const rows = grid.length, cols = grid[0].length;\n  const memo = new Map<string, number>();\n  function dfs(r: number, c1: number, c2: number): number {\n    if (c1 < 0 || c1 >= cols || c2 < 0 || c2 >= cols) return -Infinity;\n    if (r === rows) return 0;\n    const key = `${r},${c1},${c2}`;\n    if (memo.has(key)) return memo.get(key)!;\n    let cherries = c1 === c2 ? grid[r][c1] : grid[r][c1] + grid[r][c2];\n    let maxNext = -Infinity;\n    for (let d1 = -1; d1 <= 1; d1++) {\n      for (let d2 = -1; d2 <= 1; d2++) {\n        maxNext = Math.max(maxNext, dfs(r + 1, c1 + d1, c2 + d2));\n      }\n    }\n    const res = cherries + maxNext;\n    memo.set(key, res);\n    return res;\n  }\n  return dfs(0, 0, cols - 1);\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int cherryPickup(int[][] grid) {\n        int rows = grid.length, cols = grid[0].length;\n        int[][][] dp = new int[rows][cols][cols];\n        for (int[][] r : dp) for (int[] c : r) Arrays.fill(c, -1);\n        return dfs(0, 0, cols - 1, grid, dp);\n    }\n    private static int dfs(int r, int c1, int c2, int[][] grid, int[][][] dp) {\n        int rows = grid.length, cols = grid[0].length;\n        if (c1 < 0 || c1 >= cols || c2 < 0 || c2 >= cols) return -1000000;\n        if (r == rows) return 0;\n        if (dp[r][c1][c2] != -1) return dp[r][c1][c2];\n        int cherries = (c1 == c2) ? grid[r][c1] : grid[r][c1] + grid[r][c2];\n        int maxNext = -1000000;\n        for (int d1 = -1; d1 <= 1; d1++) {\n            for (int d2 = -1; d2 <= 1; d2++) {\n                maxNext = Math.max(maxNext, dfs(r + 1, c1 + d1, c2 + d2, grid, dp));\n            }\n        }\n        return dp[r][c1][c2] = cherries + maxNext;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def cherry_pickup(grid: list[list[int]]) -> int:\n    rows, cols = len(grid), len(grid[0])\n    memo = {}\n    def dfs(r, c1, c2):\n        if c1 < 0 or c1 >= cols or c2 < 0 or c2 >= cols: return float('-inf')\n        if r == rows: return 0\n        if (r, c1, c2) in memo: return memo[(r, c1, c2)]\n        cherries = grid[r][c1] if c1 == c2 else grid[r][c1] + grid[r][c2]\n        max_next = max(dfs(r + 1, c1 + d1, c2 + d2) for d1 in (-1,0,1) for d2 in (-1,0,1))\n        memo[(r, c1, c2)] = cherries + max_next\n        return memo[(r, c1, c2)]\n    return dfs(0, 0, cols - 1)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Traversing both robots row by row simplifies state matching.",
+            "Handles cell overlaps using $c_1 === c_2$ check.",
+            "Runs in $O(R \\cdot C^2)$ space and time."
+          ]
+        },
+        {
+          "id": "shortest-path-visiting-all-nodes-bitmask-bfs",
+          "title": "97. Shortest Path Visiting All Nodes",
+          "content": "You have an undirected connected graph of `n` nodes. Return the length of the shortest path that visits every node.\n\n### How It Works & Algorithmic Design\nSolves using **BFS State Traversal with Bitmasking**:\n1. **State Definition**: Queue stores `(node, bitmask, distance)`.\n2. **Target Bitmask**: Goal mask = `(1 << n) - 1`.\n3. **Queue Initialization**: Push all nodes `(i, 1 << i, 0)` into queue (allowing search to begin from any arbitrary node).\n4. **BFS Step**:\n   - Pop `(curr, mask, dist)`.\n   - If `mask === targetMask`, return `dist`.\n   - For each neighbor in `graph[curr]`:\n     - `newMask = mask | (1 << neighbor)`.\n     - If state `(neighbor, newMask)` is unvisited, mark visited and push to queue.\n\n### Why This Approach Works Best\nBFS guarantees shortest path distance while bitmasking compresses graph visitation states in $O(n \\cdot 2^n)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Bitmask BFS State Search", "variant": "neutral" },
+            { "label": "Time", "value": "O(n * 2^n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n * 2^n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input Graph", "value": "[[1,2,3],[0],[0],[0]]", "explanation": "4 node star graph." },
+                { "label": "Optimal Route", "value": "1 -> 0 -> 2 -> 0 -> 3 (4 total edge steps).", "explanation": "Visits all nodes." },
+                { "label": "Output", "value": "4", "explanation": "Shortest path length." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Shortest Path Visiting All Nodes implementation",
+            "explanation": "BFS search tracking visited nodes via bitmask to find shortest path covering all graph vertices.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function shortestPathLength(graph) {\n  const n = graph.length;\n  const targetMask = (1 << n) - 1;\n  const queue = [];\n  const visited = new Set();\n  for (let i = 0; i < n; i++) {\n    const mask = 1 << i;\n    queue.push([i, mask, 0]);\n    visited.add(`${i},${mask}`);\n  }\n  while (queue.length) {\n    const [node, mask, dist] = queue.shift();\n    if (mask === targetMask) return dist;\n    for (const neighbor of graph[node]) {\n      const nextMask = mask | (1 << neighbor);\n      const state = `${neighbor},${nextMask}`;\n      if (!visited.has(state)) {\n        visited.add(state);\n        queue.push([neighbor, nextMask, dist + 1]);\n      }\n    }\n  }\n  return 0;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function shortestPathLength(graph: number[][]): number {\n  const n = graph.length;\n  const targetMask = (1 << n) - 1;\n  const queue: [number, number, number][] = [];\n  const visited = new Set<string>();\n  for (let i = 0; i < n; i++) {\n    const mask = 1 << i;\n    queue.push([i, mask, 0]);\n    visited.add(`${i},${mask}`);\n  }\n  while (queue.length) {\n    const [node, mask, dist] = queue.shift()!;\n    if (mask === targetMask) return dist;\n    for (const neighbor of graph[node]) {\n      const nextMask = mask | (1 << neighbor);\n      const state = `${neighbor},${nextMask}`;\n      if (!visited.has(state)) {\n        visited.add(state);\n        queue.push([neighbor, nextMask, dist + 1]);\n      }\n    }\n  }\n  return 0;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int shortestPathLength(int[][] graph) {\n        int n = graph.length;\n        int targetMask = (1 << n) - 1;\n        Queue<int[]> queue = new LinkedList<>();\n        boolean[][] visited = new boolean[n][1 << n];\n        for (int i = 0; i < n; i++) {\n            int mask = 1 << i;\n            queue.add(new int[]{i, mask, 0});\n            visited[i][mask] = true;\n        }\n        while (!queue.isEmpty()) {\n            int[] curr = queue.poll();\n            int node = curr[0], mask = curr[1], dist = curr[2];\n            if (mask == targetMask) return dist;\n            for (int neighbor : graph[node]) {\n                int nextMask = mask | (1 << neighbor);\n                if (!visited[neighbor][nextMask]) {\n                    visited[neighbor][nextMask] = true;\n                    queue.add(new int[]{neighbor, nextMask, dist + 1});\n                }\n            }\n        }\n        return 0;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "from collections import deque\n\ndef shortest_path_length(graph: list[list[int]]) -> int:\n    n = len(graph)\n    target_mask = (1 << n) - 1\n    queue = deque([(i, 1 << i, 0) for i in range(n)])\n    visited = {(i, 1 << i) for i in range(n)}\n    while queue:\n        node, mask, dist = queue.popleft()\n        if mask == target_mask: return dist\n        for neighbor in graph[node]:\n            next_mask = mask | (1 << neighbor)\n            if (neighbor, next_mask) not in visited:\n                visited.add((neighbor, next_mask))\n                queue.append((neighbor, next_mask, dist + 1))\n    return 0"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Initialize BFS with all nodes to test every starting point.",
+            "Bitmask state representation compresses node visitation sets.",
+            "Runs in $O(n \\cdot 2^n)$ time."
+          ]
+        },
+        {
+          "id": "minimum-window-substring-trie-wildcard",
+          "title": "98. Maximum Frequency Stack (FreqStack)",
+          "content": "Design a stack-like data structure that pushes and pops elements, where `pop` removes and returns the most frequent element in the stack. If there is a tie, the element closest to the top of the stack is popped.\n\n### How It Works & Algorithmic Design\nSolves using **Hash Map Frequency Counters + Stack Map Buckets**:\n1. **Freq Map**: `freqMap[val]` stores element frequencies.\n2. **Group Map**: `groupMap[freq]` stores stack of elements sharing exact frequency `freq`.\n3. **Max Frequency Track**: Maintain integer `maxFreq`.\n4. **Operations**:\n   - `push(val)`: Increment `freqMap[val]`, update `maxFreq = Math.max(maxFreq, freq)`, push `val` to `groupMap[freq]`.\n   - `pop()`: Pop element `x` from `groupMap[maxFreq]`. Decrement `freqMap[x]`. If `groupMap[maxFreq]` becomes empty, decrement `maxFreq--`. Return `x`.\n\n### Why This Approach Works Best\nGrouping elements by frequency stack buckets achieves $O(1)$ constant time for both `push` and `pop` operations.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Frequency Map Stack Bucket", "variant": "neutral" },
+            { "label": "Time", "value": "O(1) Push / Pop", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Operations",
+                  "value": "push(5), push(7), push(5), push(7), push(4), push(5), pop()",
+                  "explanation": "FreqStack calls."
+                },
+                { "label": "Frequency State", "value": "5 has freq 3 (most frequent).", "explanation": "Pops 5." },
+                { "label": "Output", "value": "5", "explanation": "Popped most frequent element." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "FreqStack implementation",
+            "explanation": "Group elements in stack buckets indexed by frequency count for constant O(1) pops.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "class FreqStack {\n  constructor() {\n    this.freq = new Map();\n    this.group = new Map();\n    this.maxFreq = 0;\n  }\n  push(val) {\n    const f = (this.freq.get(val) || 0) + 1;\n    this.freq.set(val, f);\n    this.maxFreq = Math.max(this.maxFreq, f);\n    if (!this.group.has(f)) this.group.set(f, []);\n    this.group.get(f).push(val);\n  }\n  pop() {\n    const stack = this.group.get(this.maxFreq);\n    const val = stack.pop();\n    this.freq.set(val, this.freq.get(val) - 1);\n    if (stack.length === 0) this.maxFreq--;\n    return val;\n  }\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "class FreqStack {\n  private freq = new Map<number, number>();\n  private group = new Map<number, number[]>();\n  private maxFreq = 0;\n  push(val: number): void {\n    const f = (this.freq.get(val) || 0) + 1;\n    this.freq.set(val, f);\n    this.maxFreq = Math.max(this.maxFreq, f);\n    if (!this.group.has(f)) this.group.set(f, []);\n    this.group.get(f)!.push(val);\n  }\n  pop(): number {\n    const stack = this.group.get(this.maxFreq)!;\n    const val = stack.pop()!;\n    this.freq.set(val, this.freq.get(val)! - 1);\n    if (stack.length === 0) this.maxFreq--;\n    return val;\n  }\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class FreqStack {\n    private Map<Integer, Integer> freq = new HashMap<>();\n    private Map<Integer, Stack<Integer>> group = new HashMap<>();\n    private int maxFreq = 0;\n    public void push(int val) {\n        int f = freq.getOrDefault(val, 0) + 1;\n        freq.put(val, f);\n        maxFreq = Math.max(maxFreq, f);\n        group.putIfAbsent(f, new Stack<>());\n        group.get(f).push(val);\n    }\n    public int pop() {\n        int val = group.get(maxFreq).pop();\n        freq.put(val, freq.get(val) - 1);\n        if (group.get(maxFreq).isEmpty()) maxFreq--;\n        return val;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "from collections import defaultdict\n\nclass FreqStack:\n    def __init__(self):\n        self.freq = defaultdict(int)\n        self.group = defaultdict(list)\n        self.max_freq = 0\n\n    def push(self, val: int) -> None:\n        f = self.freq[val] + 1\n        self.freq[val] = f\n        self.max_freq = max(self.max_freq, f)\n        self.group[f].append(val)\n\n    def pop(self) -> int:\n        val = self.group[self.max_freq].pop()\n        self.freq[val] -= 1\n        if not self.group[self.max_freq]:\n            self.max_freq -= 1\n        return val"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Maintains frequency mapping alongside stack bucket structures.",
+            "Tie breaking defaults automatically to LIFO order inside frequency stacks.",
+            "All operations execute in constant $O(1)$ time."
+          ]
+        },
+        {
+          "id": "minimum-number-of-refueling-stops-heap",
+          "title": "99. Minimum Number of Refueling Stops",
+          "content": "A car travels to `target` starting with `startFuel` liters. Along the way are gas `stations` where `stations[i] = [position, fuel]`. Return the minimum number of refueling stops to reach `target`.\n\n### How It Works & Algorithmic Design\nSolves using **Greedy Max-Heap Fuel Selection**:\n1. **Max-Heap**: Store gas amounts of passed stations.\n2. **Traversal**: Loop through stations plus target position:\n   - While current `maxReach < station.position`:\n     - If heap is empty: cannot reach next station $\\to$ return `-1`.\n     - Pop largest available gas amount from heap: `maxReach += maxHeap.pop()`, `stops++`.\n   - Push current station's fuel onto heap.\n3. **Return**: `stops` when target reached.\n\n### Why This Approach Works Best\nGreedily refueling at the largest passed gas stations maximizes distance gained per stop in $O(n \\log n)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Greedy Max-Heap Priority Search", "variant": "neutral" },
+            { "label": "Time", "value": "O(n log n)", "variant": "neutral" },
+            { "label": "Space", "value": "O(n)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "target = 100, startFuel = 10, stations = [[10,60],[20,30],[30,30],[60,40]]",
+                  "explanation": "Target and gas stations."
+                },
+                {
+                  "label": "Greedy Stops",
+                  "value": "Refuel 60 at pos 10 (reach 70) -> Refuel 40 at pos 60 (reach 110).",
+                  "explanation": "2 total stops."
+                },
+                { "label": "Output", "value": "2", "explanation": "Minimum fuel stops." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Minimum Number of Refueling Stops implementation",
+            "explanation": "Greedily consume maximum available fuel from passed stations using a Max-Heap.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function minRefuelStops(target, startFuel, stations) {\n  const heap = []; // Max-Heap simulated\n  let maxReach = startFuel, stops = 0, idx = 0;\n  while (maxReach < target) {\n    while (idx < stations.length && stations[idx][0] <= maxReach) {\n      heap.push(stations[idx][1]);\n      heap.sort((a, b) => b - a);\n      idx++;\n    }\n    if (heap.length === 0) return -1;\n    maxReach += heap.shift();\n    stops++;\n  }\n  return stops;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function minRefuelStops(target: number, startFuel: number, stations: number[][]): number {\n  const heap: number[] = [];\n  let maxReach = startFuel, stops = 0, idx = 0;\n  while (maxReach < target) {\n    while (idx < stations.length && stations[idx][0] <= maxReach) {\n      heap.push(stations[idx][1]);\n      heap.sort((a, b) => b - a);\n      idx++;\n    }\n    if (heap.length === 0) return -1;\n    maxReach += heap.shift()!;\n    stops++;\n  }\n  return stops;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int minRefuelStops(int target, int startFuel, int[][] stations) {\n        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());\n        long maxReach = startFuel;\n        int stops = 0, idx = 0;\n        while (maxReach < target) {\n            while (idx < stations.length && stations[idx][0] <= maxReach) {\n                maxHeap.add(stations[idx][1]);\n                idx++;\n            }\n            if (maxHeap.isEmpty()) return -1;\n            maxReach += maxHeap.poll();\n            stops++;\n        }\n        return stops;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "import heapq\n\ndef min_refuel_stops(target: int, start_fuel: int, stations: list[list[int]]) -> int:\n    max_heap = []\n    max_reach = start_fuel\n    stops = idx = 0\n    while max_reach < target:\n        while idx < len(stations) and stations[idx][0] <= max_reach:\n            heapq.heappush(max_heap, -stations[idx][1])\n            idx += 1\n        if not max_heap: return -1\n        max_reach += -heapq.heappop(max_heap)\n        stops += 1\n    return stops"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Store passed gas stations in Max-Heap instead of stopping immediately.",
+            "Pop largest fuel amount when current range cannot reach next milestone.",
+            "Executes in $O(n \\log n)$ time."
+          ]
+        },
+        {
+          "id": "tallest-billboard-dp-meet-in-middle",
+          "title": "100. Tallest Billboard (Difference State DP)",
+          "content": "You are installing a billboard and want it to have the largest possible height. You have a collection of `rods` that can be welded together. Return the maximum possible height of your billboard installation.\n\n### How It Works & Algorithmic Design\nSolves using **Height Difference Dynamic Programming**:\n1. **DP Map State**: Let `dp[diff]` be maximum shorter stand height achievable with height difference `diff` between left and right stands.\n2. **Initialize**: `dp = { 0: 0 }`.\n3. **Rod Addition** (For each rod $x$):\n   - Copy current state map.\n   - For each `(diff, height)` in current DP state:\n     - **Add to Taller Stand**: `newDiff = diff + x`, updated height stays `height`.\n     - **Add to Shorter Stand**: `newDiff = |diff - x|`, updated height becomes `height + min(diff, x)`.\n4. **Return**: `dp[0]` (max height when left and right stands are equal).\n\n### Why This Approach Works Best\nKeying states by height difference $\\Delta$ compresses search complexity to $O(N \\cdot S)$ time.",
+          "metaChips": [
+            { "label": "Difficulty", "value": "Hard", "variant": "danger" },
+            { "label": "Pattern", "value": "Difference State Dynamic Programming", "variant": "neutral" },
+            { "label": "Time", "value": "O(N * S)", "variant": "neutral" },
+            { "label": "Space", "value": "O(S)", "variant": "neutral" }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                { "label": "Input", "value": "rods = [1, 2, 3, 6]", "explanation": "Available rod lengths." },
+                {
+                  "label": "Matched Stands",
+                  "value": "Left stand [1, 2, 3] = 6; Right stand [6] = 6.",
+                  "explanation": "Equal height stand pairs."
+                },
+                { "label": "Output", "value": "6", "explanation": "Max billboard height." }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Tallest Billboard implementation",
+            "explanation": "Maintain dynamic programming map tracking maximum stand height keyed by stand difference.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function tallestBillboard(rods) {\n  let dp = new Map([[0, 0]]);\n  for (const x of rods) {\n    const copy = new Map(dp);\n    for (const [diff, height] of copy) {\n      // Option 1: Add to taller stand\n      dp.set(diff + x, Math.max(dp.get(diff + x) || 0, height));\n      // Option 2: Add to shorter stand\n      const newDiff = Math.abs(diff - x);\n      const newHeight = height + Math.min(diff, x);\n      dp.set(newDiff, Math.max(dp.get(newDiff) || 0, newHeight));\n    }\n  }\n  return dp.get(0) || 0;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function tallestBillboard(rods: number[]): number {\n  let dp = new Map<number, number>([[0, 0]]);\n  for (const x of rods) {\n    const copy = new Map(dp);\n    for (const [diff, height] of copy) {\n      dp.set(diff + x, Math.max(dp.get(diff + x) || 0, height));\n      const newDiff = Math.abs(diff - x);\n      const newHeight = height + Math.min(diff, x);\n      dp.set(newDiff, Math.max(dp.get(newDiff) || 0, newHeight));\n    }\n  }\n  return dp.get(0) || 0;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static int tallestBillboard(int[] rods) {\n        Map<Integer, Integer> dp = new HashMap<>();\n        dp.put(0, 0);\n        for (int x : rods) {\n            Map<Integer, Integer> copy = new HashMap<>(dp);\n            for (int diff : copy.keySet()) {\n                int height = copy.get(diff);\n                dp.put(diff + x, Math.max(dp.getOrDefault(diff + x, 0), height));\n                int newDiff = Math.abs(diff - x);\n                int newHeight = height + Math.min(diff, x);\n                dp.put(newDiff, Math.max(dp.getOrDefault(newDiff, 0), newHeight));\n            }\n        }\n        return dp.getOrDefault(0, 0);\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def tallest_billboard(rods: list[int]) -> int:\n    dp = {0: 0}\n    for x in rods:\n        copy = dict(dp)\n        for diff, height in copy.items():\n            dp[diff + x] = max(dp.get(diff + x, 0), height)\n            new_diff = abs(diff - x)\n            new_height = height + min(diff, x)\n            dp[new_diff] = max(dp.get(new_diff, 0), new_height)\n    return dp.get(0, 0)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Keys dynamic state map by stand height difference $\\Delta$.",
+            "Value stores maximum shorter stand height.",
+            "Final result is `dp[0]` where height difference is 0."
           ]
         }
       ]
