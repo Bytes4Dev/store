@@ -1,13 +1,13 @@
 {
-  "courseId": "javascript-interview-qa",
-  "courseName": "JavaScript Interview Questions & Answers",
-  "title": "Top 50 JavaScript Interview Questions (Basic to Advanced & Coding)",
-  "subtitle": "Comprehensive Q&A and coding problem bank with self-assessment checks for complete interview preparation",
+  "courseId": "javascript-interview-questions",
+  "courseName": "JavaScript & DSA Comprehensive Interview Mastery",
+  "title": "Master 100 JavaScript, React, System Coding & DSA Interview Questions",
+  "subtitle": "Complete Q&A, coding problem bank, and data structures & algorithms guide with self-assessment checks for interview preparation",
   "category": "Interview Q&A",
   "level": "Comprehensive",
-  "estimatedTime": "2.5 Hours",
+  "estimatedTime": "6.5 Hours",
   "accentColor": "#f7df1e",
-  "keywords": ["javascript", "interview", "questions", "answers", "coding", "closures", "async", "quiz"],
+  "keywords": ["javascript", "react", "dsa", "data-structures", "algorithms", "interview", "coding-questions", "quiz"],
   "chapters": [
     {
       "id": "all-questions",
@@ -1493,9 +1493,9 @@
       ]
     },
     {
-      "id": "dsa-questions-25",
-      "title": "25 Essential Data Structures & Algorithms Coding Questions",
-      "summary": "A 25-question DSA problem bank covering arrays, strings, linked lists, trees, graphs, dynamic programming, and algorithm paradigms using the codeExample format.",
+      "id": "dsa-questions",
+      "title": "50 Essential Data Structures & Algorithms Coding Questions",
+      "summary": "A 50-question DSA problem bank covering arrays, strings, linked lists, trees, graphs, dynamic programming, and algorithm paradigms using the codeExample format.",
       "estimatedMinutes": 210,
       "sections": [
         {
@@ -2063,6 +2063,621 @@
             ],
             "correctIndex": 0,
             "explanation": "Binary searching the smaller array minimizes total search operations to logarithmic time relative to the smaller length `min(m, n)`."
+          }
+        },
+        {
+          "id": "q26-dsa-merge-intervals",
+          "title": "Q26: Merge Intervals",
+          "content": "Given an array of `intervals` where `intervals[i] = [start, end]`, merge all overlapping intervals and return an array of non-overlapping intervals that cover all intervals in the input.",
+          "keyTakeaways": [
+            "Sort intervals by start time first to enable linear single-pass merging.",
+            "Overlaps occur when the next interval's start time is less than or equal to the current interval's end time."
+          ],
+          "codeExample": {
+            "title": "Interval Sorting and Merging",
+            "language": "javascript",
+            "code": "function merge(intervals) {\n  if (!intervals.length) return [];\n  intervals.sort((a, b) => a[0] - b[0]);\n  \n  const merged = [intervals[0]];\n  \n  for (let i = 1; i < intervals.length; i++) {\n    const current = intervals[i];\n    const lastMerged = merged[merged.length - 1];\n    \n    if (current[0] <= lastMerged[1]) {\n      lastMerged[1] = Math.max(lastMerged[1], current[1]);\n    } else {\n      merged.push(current);\n    }\n  }\n  return merged;\n}\n\nconsole.log(merge([[1,3],[2,6],[8,10],[15,18]])); // [[1,6],[8,10],[15,18]]",
+            "explanation": "After sorting by start time, we iterate through intervals. If the current interval start is <= the previous interval end, we merge by expanding the previous end time; otherwise, we append the interval as a new non-overlapping range."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of the Merge Intervals algorithm?",
+            "options": ["O(N log N)", "O(N)", "O(N²)", "O(2ᴺ)"],
+            "correctIndex": 0,
+            "explanation": "Sorting the interval array takes O(N log N) time, which dominates the linear O(N) single-pass iteration."
+          }
+        },
+        {
+          "id": "q27-dsa-insert-interval",
+          "title": "Q27: Insert Interval",
+          "content": "You are given an array of non-overlapping intervals sorted by start time and a `newInterval`. Insert `newInterval` into the intervals such that the list remains sorted and non-overlapping.",
+          "keyTakeaways": [
+            "Process non-overlapping intervals before the new interval, merge all overlapping ones, then append remaining non-overlapping intervals.",
+            "Can be solved in a single O(N) linear pass without explicit full re-sorting."
+          ],
+          "codeExample": {
+            "title": "Linear Insert and Merge Interval",
+            "language": "javascript",
+            "code": "function insert(intervals, newInterval) {\n  const result = [];\n  let i = 0;\n  const n = intervals.length;\n  \n  // Add all intervals that end before newInterval starts\n  while (i < n && intervals[i][1] < newInterval[0]) {\n    result.push(intervals[i]);\n    i++;\n  }\n  \n  // Merge all overlapping intervals with newInterval\n  while (i < n && intervals[i][0] <= newInterval[1]) {\n    newInterval[0] = Math.min(newInterval[0], intervals[i][0]);\n    newInterval[1] = Math.max(newInterval[1], intervals[i][1]);\n    i++;\n  }\n  result.push(newInterval);\n  \n  // Add remaining intervals after newInterval\n  while (i < n) {\n    result.push(intervals[i]);\n    i++;\n  }\n  \n  return result;\n}\n\nconsole.log(insert([[1,3],[6,9]], [2,5])); // [[1,5],[6,9]]",
+            "explanation": "Splits the process into three distinct phases: collecting left disjoint intervals, iteratively updating the min start and max end of overlapping bounds, and collecting right disjoint intervals."
+          },
+          "interactiveQuiz": {
+            "question": "Why is explicit array sorting not required for the Insert Interval algorithm?",
+            "options": [
+              "Because input intervals are guaranteed to be sorted by start time initially",
+              "Because merge operations handle sorting automatically",
+              "Because intervals are stored in a binary heap",
+              "Because Javascript array push maintains sorted order"
+            ],
+            "correctIndex": 0,
+            "explanation": "The input interval array is pre-sorted, allowing linear O(N) partitioning around `newInterval`."
+          }
+        },
+        {
+          "id": "q28-dsa-non-overlapping-intervals",
+          "title": "Q28: Non-overlapping Intervals",
+          "content": "Given an array of intervals `intervals`, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.",
+          "keyTakeaways": [
+            "Greedy strategy: sort intervals by end time to preserve maximum remaining space.",
+            "Always pick the interval with the earliest end time to minimize collisions with future intervals."
+          ],
+          "codeExample": {
+            "title": "Greedy End-Time Interval Removal",
+            "language": "javascript",
+            "code": "function eraseOverlapIntervals(intervals) {\n  if (!intervals.length) return 0;\n  intervals.sort((a, b) => a[1] - b[1]); // Sort by end time\n  \n  let count = 0;\n  let prevEnd = intervals[0][1];\n  \n  for (let i = 1; i < intervals.length; i++) {\n    if (intervals[i][0] < prevEnd) {\n      count++; // Overlap detected; remove current interval\n    } else {\n      prevEnd = intervals[i][1]; // No overlap; update prevEnd\n    }\n  }\n  return count;\n}\n\nconsole.log(eraseOverlapIntervals([[1,2],[2,3],[3,4],[1,3]])); // 1",
+            "explanation": "Sorting by end times allows greedily keeping intervals that finish earliest. If the next interval starts before `prevEnd`, it must be removed to prevent overlap."
+          },
+          "interactiveQuiz": {
+            "question": "Why do we sort by end time rather than start time for greedy interval scheduling?",
+            "options": [
+              "Choosing intervals that finish earliest leaves maximum possible remaining room for future intervals",
+              "Sorting by start time requires O(N²) time",
+              "End times represent lower values",
+              "It prevents memory stack overflows"
+            ],
+            "correctIndex": 0,
+            "explanation": "Selecting intervals that complete earliest maximizes available window space for remaining candidate intervals."
+          }
+        },
+        {
+          "id": "q29-dsa-top-k-frequent-elements",
+          "title": "Q29: Top K Frequent Elements",
+          "content": "Given an integer array `nums` and an integer `k`, return the $k$ most frequent elements. Solve it in $O(n)$ time using Bucket Sort.",
+          "keyTakeaways": [
+            "Bucket Sort groups elements into array indices matching their exact frequency count.",
+            "Achieves $O(n)$ linear time complexity, beating $O(n \\log n)$ heap/sorting methods."
+          ],
+          "codeExample": {
+            "title": "Bucket Sort Top K Frequent",
+            "language": "javascript",
+            "code": "function topKFrequent(nums, k) {\n  const map = new Map();\n  for (let num of nums) {\n    map.set(num, (map.get(num) || 0) + 1);\n  }\n  \n  const buckets = Array.from({ length: nums.length + 1 }, () => []);\n  for (let [num, freq] of map) {\n    buckets[freq].push(num);\n  }\n  \n  const result = [];\n  for (let i = buckets.length - 1; i >= 0 && result.length < k; i--) {\n    if (buckets[i].length > 0) {\n      result.push(...buckets[i]);\n    }\n  }\n  return result.slice(0, k);\n}\n\nconsole.log(topKFrequent([1,1,1,2,2,3], 2)); // [1, 2]",
+            "explanation": "Counts occurrences in a Map, uses array indices as frequency buckets, and iterates backward from maximum possible frequency to extract top k items."
+          },
+          "interactiveQuiz": {
+            "question": "What determines the size of the buckets array in this Bucket Sort implementation?",
+            "options": [
+              "nums.length + 1 (the maximum possible frequency of any element)",
+              "k + 1",
+              "The maximum number value in nums",
+              "Fixed size of 100 elements"
+            ],
+            "correctIndex": 0,
+            "explanation": "An element can appear at most `nums.length` times, so allocating `nums.length + 1` buckets safely indexes all possible frequencies."
+          }
+        },
+        {
+          "id": "q30-dsa-encode-decode-strings",
+          "title": "Q30: Encode and Decode Strings",
+          "content": "Design an algorithm to encode a list of strings to a single string and decode that single string back to the original list of strings.",
+          "keyTakeaways": [
+            "Prefix each string with its character length followed by a delimiter (e.g. `4#code`).",
+            "Avoids parsing errors caused by delimiter characters appearing inside original string content."
+          ],
+          "codeExample": {
+            "title": "Length-Prefix String Serialization",
+            "language": "javascript",
+            "code": "function encode(strs) {\n  return strs.map(s => `${s.length}#${s}`).join('');\n}\n\nfunction decode(str) {\n  const result = [];\n  let i = 0;\n  while (i < str.length) {\n    let j = i;\n    while (str[j] !== '#') j++;\n    const length = parseInt(str.slice(i, j), 10);\n    i = j + 1;\n    result.push(str.slice(i, i + length));\n    i += length;\n  }\n  return result;\n}\n\nconst encoded = encode(['lint', 'code', 'love', 'you']);\nconsole.log(encoded); // '4#lint4#code4#love3#you'\nconsole.log(decode(encoded)); // ['lint', 'code', 'love', 'you']",
+            "explanation": "Encoding formats strings as `length#string`. Decoding locates `#`, parses integer `length`, and slices exact character byte segments safely."
+          },
+          "interactiveQuiz": {
+            "question": "Why is length-prefixing preferable to simple character delimiting (e.g. comma separation)?",
+            "options": [
+              "Because comma characters can exist inside original strings and break simple split algorithms",
+              "Length-prefixing compresses the string size",
+              "Comma separation takes O(N²) time",
+              "Length-prefixing works only with ASCII characters"
+            ],
+            "correctIndex": 0,
+            "explanation": "If a string contains the delimiter (e.g. `,`), simple splitting corrupts the string boundary; length-prefixing guarantees fixed byte slicing."
+          }
+        },
+        {
+          "id": "q31-dsa-longest-consecutive-sequence",
+          "title": "Q31: Longest Consecutive Sequence",
+          "content": "Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence in $O(n)$ time.",
+          "keyTakeaways": [
+            "Store numbers in a Hash Set to perform $O(1)$ presence lookups.",
+            "Only attempt to build sequences from the start of a sequence (`!set.has(num - 1)`)."
+          ],
+          "codeExample": {
+            "title": "Hash Set Sequence Detection",
+            "language": "javascript",
+            "code": "function longestConsecutive(nums) {\n  const numSet = new Set(nums);\n  let longest = 0;\n  \n  for (let num of numSet) {\n    // Check if num is the start of a sequence\n    if (!numSet.has(num - 1)) {\n      let currentNum = num;\n      let currentStreak = 1;\n      \n      while (numSet.has(currentNum + 1)) {\n        currentNum++;\n        currentStreak++;\n      }\n      longest = Math.max(longest, currentStreak);\n    }\n  }\n  return longest;\n}\n\nconsole.log(longestConsecutive([100, 4, 200, 1, 3, 2])); // 4 ([1, 2, 3, 4])",
+            "explanation": "Converts array to Set. Loops through set, identifying sequence starters (`num - 1` missing). From starters, increments `currentNum` upward, measuring sequence length in $O(n)$ overall operations."
+          },
+          "interactiveQuiz": {
+            "question": "Why does the inner while loop not degrade the algorithm time complexity to O(N²)?",
+            "options": [
+              "Because the inner loop runs only for sequence starting elements, visiting each overall number at most twice",
+              "Because Set.has takes O(log N) time",
+              "Because array duplicates are removed",
+              "Because set iteration sorts elements automatically"
+            ],
+            "correctIndex": 0,
+            "explanation": "Only numbers that start sequences enter the inner while loop, guaranteeing linear $O(N)$ execution total."
+          }
+        },
+        {
+          "id": "q32-dsa-find-minimum-in-rotated-sorted-array",
+          "title": "Q32: Find Minimum in Rotated Sorted Array",
+          "content": "Given a sorted array of unique elements rotated between 1 and $n$ times, find the minimum element in $O(\\log n)$ time using Binary Search.",
+          "keyTakeaways": [
+            "Compare `nums[mid]` against `nums[right]` to determine which half is sorted.",
+            "If `nums[mid] > nums[right]`, minimum lies strictly in the right partition."
+          ],
+          "codeExample": {
+            "title": "Rotated Array Binary Search Minimum",
+            "language": "javascript",
+            "code": "function findMin(nums) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left < right) {\n    const mid = Math.floor(left + (right - left) / 2);\n    if (nums[mid] > nums[right]) {\n      left = mid + 1;\n    } else {\n      right = mid;\n    }\n  }\n  return nums[left];\n}\n\nconsole.log(findMin([3,4,5,1,2])); // 1",
+            "explanation": "If `nums[mid] > nums[right]`, pivot point and minimum element must be right of mid (`left = mid + 1`). Otherwise minimum is at mid or left of mid (`right = mid`)."
+          },
+          "interactiveQuiz": {
+            "question": "Why is `right = mid` used instead of `right = mid - 1` when `nums[mid] <= nums[right]`?",
+            "options": [
+              "Because `nums[mid]` itself could be the minimum element",
+              "To prevent array index underflow",
+              "Because `left` is not updated",
+              "To allow handling duplicate values"
+            ],
+            "correctIndex": 0,
+            "explanation": "When `nums[mid] <= nums[right]`, `nums[mid]` might be the minimum value, so mid must be retained within search space bounds."
+          }
+        },
+        {
+          "id": "q33-dsa-search-in-rotated-sorted-array",
+          "title": "Q33: Search in Rotated Sorted Array",
+          "content": "Given a rotated sorted array and a target integer, return its index or `-1` if not found in $O(\\log n)$ time using modified Binary Search.",
+          "keyTakeaways": [
+            "At least one partition half (`left..mid` or `mid..right`) is guaranteed to be sorted at any binary search step.",
+            "Check if target falls within sorted half boundaries to decide search direction."
+          ],
+          "codeExample": {
+            "title": "Rotated Sorted Array Search",
+            "language": "javascript",
+            "code": "function search(nums, target) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left <= right) {\n    const mid = Math.floor(left + (right - left) / 2);\n    if (nums[mid] === target) return mid;\n    \n    // Check if left partition is sorted\n    if (nums[left] <= nums[mid]) {\n      if (nums[left] <= target && target < nums[mid]) {\n        right = mid - 1;\n      } else {\n        left = mid + 1;\n      }\n    } else { // Right partition is sorted\n      if (nums[mid] < target && target <= nums[right]) {\n        left = mid + 1;\n      } else {\n        right = mid - 1;\n      }\n    }\n  }\n  return -1;\n}\n\nconsole.log(search([4,5,6,7,0,1,2], 0)); // 4",
+            "explanation": "Identifies which half is sorted. If target lies within bounds of the sorted half, moves search space into that range; otherwise shifts into opposite partition."
+          },
+          "interactiveQuiz": {
+            "question": "What structural guarantee enables binary search on a rotated sorted array?",
+            "options": [
+              "At every step, at least one half of the partition array remains strictly sorted",
+              "The array length is always even",
+              "The target value is always near mid",
+              "Rotation moves all elements into reverse order"
+            ],
+            "correctIndex": 0,
+            "explanation": "Splitting a rotated sorted array in half always produces at least one completely sorted subarray partition."
+          }
+        },
+        {
+          "id": "q34-dsa-reorder-list",
+          "title": "Q34: Reorder Linked List",
+          "content": "Reorder a singly linked list $L_0 \\to L_1 \\to \\dots \\to L_{n-1} \\to L_n$ into $L_0 \\to L_n \\to L_1 \\to L_{n-1} \\to L_2 \\to L_{n-2} \\dots$ in-place.",
+          "keyTakeaways": [
+            "1) Find middle using Fast/Slow pointers. 2) Reverse second half. 3) Interleave nodes from both halves.",
+            "Performs transformation in $O(n)$ time and $O(1)$ space."
+          ],
+          "codeExample": {
+            "title": "In-Place Linked List Interleaving",
+            "language": "javascript",
+            "code": "function reorderList(head) {\n  if (!head || !head.next) return;\n  \n  // 1. Find middle node\n  let slow = head, fast = head;\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n  }\n  \n  // 2. Reverse second half\n  let prev = null, curr = slow.next;\n  slow.next = null;\n  while (curr) {\n    let nextTemp = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = nextTemp;\n  }\n  \n  // 3. Interleave first half and reversed second half\n  let first = head, second = prev;\n  while (second) {\n    let tmp1 = first.next;\n    let tmp2 = second.next;\n    first.next = second;\n    second.next = tmp1;\n    first = tmp1;\n    second = tmp2;\n  }\n}",
+            "explanation": "Finds middle using slow/fast pointers, splits list, reverses second half, and weaves node pointers alternating between first and second sublists."
+          },
+          "interactiveQuiz": {
+            "question": "What three sub-algorithms are combined to solve the Reorder List problem in-place?",
+            "options": [
+              "Find Middle (Fast/Slow), Reverse Linked List, and Merge Interleaving",
+              "Binary Search, QuickSelect, and Breadth-First Search",
+              "Topological Sort, DFS, and Hash Map lookup",
+              "Kadane's Algorithm, Sliding Window, and Stack Pop"
+            ],
+            "correctIndex": 0,
+            "explanation": "Combining middle finding, second-half pointer reversal, and alternating node interleaving solves the problem in $O(1)$ auxiliary space."
+          }
+        },
+        {
+          "id": "q35-dsa-remove-nth-node-from-end-of-list",
+          "title": "Q35: Remove Nth Node From End of List",
+          "content": "Given the head of a linked list, remove the $n$-th node from the end of the list and return its head in a single pass.",
+          "keyTakeaways": [
+            "Use Two Pointers (`fast` and `slow`) offset by $n$ steps.",
+            "When `fast` reaches the list end, `slow` points directly before the target node to delete."
+          ],
+          "codeExample": {
+            "title": "Two-Pointer Offset Node Removal",
+            "language": "javascript",
+            "code": "function removeNthFromEnd(head, n) {\n  const dummy = { val: 0, next: head };\n  let fast = dummy;\n  let slow = dummy;\n  \n  // Advance fast pointer n steps ahead\n  for (let i = 0; i <= n; i++) {\n    fast = fast.next;\n  }\n  \n  // Move fast and slow together until fast reaches end\n  while (fast !== null) {\n    fast = fast.next;\n    slow = slow.next;\n  }\n  \n  // Remove target node\n  slow.next = slow.next.next;\n  return dummy.next;\n}",
+            "explanation": "Advances `fast` $n+1$ steps ahead. Moving both pointers at equal speed keeps `slow` exactly $n$ steps behind `fast`. When `fast` reaches `null`, `slow.next = slow.next.next` deletes target."
+          },
+          "interactiveQuiz": {
+            "question": "Why is a dummy node initialized before the head of the linked list?",
+            "options": [
+              "To safely handle cases where the head node itself must be removed",
+              "To double pointer travel speed",
+              "To convert the list into a circular structure",
+              "To calculate total node count"
+            ],
+            "correctIndex": 0,
+            "explanation": "If $n$ equals list length, the head node must be deleted; `dummy.next` seamlessly handles returning updated head node references."
+          }
+        },
+        {
+          "id": "q36-dsa-lowest-common-ancestor-of-bst",
+          "title": "Q36: Lowest Common Ancestor of a Binary Search Tree",
+          "content": "Given a Binary Search Tree (BST), find the lowest common ancestor (LCA) node of two given nodes `p` and `q`.",
+          "keyTakeaways": [
+            "Exploit BST properties: if both values are smaller than root, LCA lies in left subtree; if larger, in right subtree.",
+            "The split node where `p` and `q` diverge to opposite sides is the LCA."
+          ],
+          "codeExample": {
+            "title": "BST Lowest Common Ancestor Iterative Search",
+            "language": "javascript",
+            "code": "function lowestCommonAncestor(root, p, q) {\n  let curr = root;\n  \n  while (curr) {\n    if (p.val < curr.val && q.val < curr.val) {\n      curr = curr.left;\n    } else if (p.val > curr.val && q.val > curr.val) {\n      curr = curr.right;\n    } else {\n      return curr; // Divergence node found\n    }\n  }\n  return null;\n}",
+            "explanation": "Traverses tree using BST value properties. If both values are less than `curr.val`, move left. If both are greater, move right. Otherwise `curr` is the LCA."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of LCA search on a balanced Binary Search Tree?",
+            "options": ["O(log N)", "O(N)", "O(N²)", "O(1)"],
+            "correctIndex": 0,
+            "explanation": "On a balanced BST, traversing down node tree height takes logarithmic $O(\\log N)$ operations."
+          }
+        },
+        {
+          "id": "q37-dsa-implement-trie-prefix-tree",
+          "title": "Q37: Implement Trie (Prefix Tree)",
+          "content": "Implement a Trie with `insert`, `search`, and `startsWith` methods for efficient string retrieval.",
+          "keyTakeaways": [
+            "Tree data structure where nodes represent individual character character branches.",
+            "Enables $O(m)$ string insertions and prefix lookups where $m$ is string length."
+          ],
+          "codeExample": {
+            "title": "Trie Prefix Tree Implementation",
+            "language": "javascript",
+            "code": "class TrieNode {\n  constructor() {\n    this.children = {};\n    this.isEndOfWord = false;\n  }\n}\n\nclass Trie {\n  constructor() {\n    this.root = new TrieNode();\n  }\n\n  insert(word) {\n    let node = this.root;\n    for (let char of word) {\n      if (!node.children[char]) {\n        node.children[char] = new TrieNode();\n      }\n      node = node.children[char];\n    }\n    node.isEndOfWord = true;\n  }\n\n  search(word) {\n    let node = this.root;\n    for (let char of word) {\n      if (!node.children[char]) return false;\n      node = node.children[char];\n    }\n    return node.isEndOfWord;\n  }\n\n  startsWith(prefix) {\n    let node = this.root;\n    for (let char of prefix) {\n      if (!node.children[char]) return false;\n      node = node.children[char];\n    }\n    return true;\n  }\n}\n\nconst trie = new Trie();\ntrie.insert('apple');\nconsole.log(trie.search('apple'));   // true\nconsole.log(trie.startsWith('app')); // true",
+            "explanation": "Nodes contain a child map and end-of-word boolean. Character insertions create tree branches; searches follow character edges step by step."
+          },
+          "interactiveQuiz": {
+            "question": "What differentiates search(word) from startsWith(prefix) in a Trie?",
+            "options": [
+              "search verifies that the node reached has `isEndOfWord = true`",
+              "startsWith runs in O(N²) time",
+              "search checks string backwards",
+              "startsWith works only on root nodes"
+            ],
+            "correctIndex": 0,
+            "explanation": "`search` requires the final node to complete a full word (`isEndOfWord = true`), whereas `startsWith` accepts any matching prefix node."
+          }
+        },
+        {
+          "id": "q38-dsa-design-add-and-search-words-data-structure",
+          "title": "Q38: Design Add and Search Words Data Structure",
+          "content": "Design a data structure supporting adding words and searching words, where the '.' character can match any single letter.",
+          "keyTakeaways": [
+            "Combines Trie storage with DFS recursion when encountering wildcard `.` characters.",
+            "Wildcard `.` branches out to search all available children nodes at current tree depth."
+          ],
+          "codeExample": {
+            "title": "Trie Wildcard Search Engine",
+            "language": "javascript",
+            "code": "class WordDictionary {\n  constructor() {\n    this.root = {};\n  }\n\n  addWord(word) {\n    let node = this.root;\n    for (let char of word) {\n      if (!node[char]) node[char] = {};\n      node = node[char];\n    }\n    node.isEnd = true;\n  }\n\n  search(word) {\n    function dfs(node, i) {\n      if (i === word.length) return !!node.isEnd;\n      const char = word[i];\n      \n      if (char === '.') {\n        for (let key in node) {\n          if (key !== 'isEnd' && dfs(node[key], i + 1)) return true;\n        }\n        return false;\n      }\n      \n      if (!node[char]) return false;\n      return dfs(node[char], i + 1);\n    }\n    return dfs(this.root, 0);\n  }\n}\n\nconst wd = new WordDictionary();\nwd.addWord('bad');\nconsole.log(wd.search('.ad')); // true",
+            "explanation": "Extends basic Trie structure. If search character is `.`, loops through all child branches recursively; otherwise follows standard character branch."
+          },
+          "interactiveQuiz": {
+            "question": "How does the search algorithm process a wildcard '.' character during DFS?",
+            "options": [
+              "Iterates through every valid child key at current node, recursively attempting matches",
+              "Skips the character without evaluating",
+              "Converts '.' into an ASCII space character",
+              "Clears the dictionary cache"
+            ],
+            "correctIndex": 0,
+            "explanation": "Wildcards match any character, forcing DFS to evaluate all existing child branch paths for that level."
+          }
+        },
+        {
+          "id": "q39-dsa-subsets",
+          "title": "Q39: Subsets (Power Set Backtracking)",
+          "content": "Given an integer array `nums` of unique elements, return all possible subsets (the power set) using Backtracking.",
+          "keyTakeaways": [
+            "Generates $2^n$ total subsets.",
+            "Backtracking pattern: 1) Include choice, 2) Recurse, 3) Pop choice (backtrack)."
+          ],
+          "codeExample": {
+            "title": "Backtracking Power Set Generator",
+            "language": "javascript",
+            "code": "function subsets(nums) {\n  const result = [];\n  \n  function backtrack(index, current) {\n    result.push([...current]);\n    for (let i = index; i < nums.length; i++) {\n      current.push(nums[i]);\n      backtrack(i + 1, current);\n      current.pop(); // Backtrack step\n    }\n  }\n  \n  backtrack(0, []);\n  return result;\n}\n\nconsole.log(subsets([1, 2, 3])); \n// [[],[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]",
+            "explanation": "Saves candidate array snapshot at every recursion step, iterates choices from current index, pushes choice, recurses, and pops choice to explore state options."
+          },
+          "interactiveQuiz": {
+            "question": "How many total subsets exist for a set containing N unique elements?",
+            "options": ["2ᴺ", "N!", "N²", "2 * N"],
+            "correctIndex": 0,
+            "explanation": "Each element has two options (include or exclude), resulting in $2^N$ total power set subsets."
+          }
+        },
+        {
+          "id": "q40-dsa-combination-sum",
+          "title": "Q40: Combination Sum",
+          "content": "Given an array of distinct integers `candidates` and a `target`, return all unique combinations where candidate numbers sum to target. Numbers can be reused infinitely.",
+          "keyTakeaways": [
+            "Backtracking recursion allows reusing current number by passing index `i` instead of `i + 1`.",
+            "Prunes exploration branches when `remain < 0`."
+          ],
+          "codeExample": {
+            "title": "Unbounded Choice Combination Sum",
+            "language": "javascript",
+            "code": "function combinationSum(candidates, target) {\n  const result = [];\n  \n  function backtrack(remain, current, start) {\n    if (remain === 0) {\n      result.push([...current]);\n      return;\n    }\n    if (remain < 0) return; // Prune branch\n    \n    for (let i = start; i < candidates.length; i++) {\n      current.push(candidates[i]);\n      backtrack(remain - candidates[i], current, i); // 'i' allows reusing same element\n      current.pop();\n    }\n  }\n  \n  backtrack(target, [], 0);\n  return result;\n}\n\nconsole.log(combinationSum([2, 3, 6, 7], 7)); // [[2, 2, 3], [7]]",
+            "explanation": "Prunes search when `remain < 0`. When `remain === 0`, saves combination. Reuses element by passing `i` to recursive call."
+          },
+          "interactiveQuiz": {
+            "question": "Why is the index parameter `i` passed to recursive backtrack(remain - candidates[i], current, i) instead of `i + 1`?",
+            "options": [
+              "To permit reusing the same candidate number unlimited times in a combination",
+              "To prevent array index errors",
+              "To force ascending output order",
+              "To clear candidate duplicates"
+            ],
+            "correctIndex": 0,
+            "explanation": "Passing index `i` retains current number access for subsequent branch steps, allowing infinite element reuse."
+          }
+        },
+        {
+          "id": "q41-dsa-house-robber",
+          "title": "Q41: House Robber (Dynamic Programming)",
+          "content": "Find the maximum money you can rob tonight without alerting police (cannot rob adjacent houses).",
+          "keyTakeaways": [
+            "State transition: $dp[i] = \\max(dp[i-1], dp[i-2] + \\text{nums}[i])$.",
+            "Optimizable to O(1) space tracking two previous max values (`rob1`, `rob2`)."
+          ],
+          "codeExample": {
+            "title": "DP House Robber O(1) Space",
+            "language": "javascript",
+            "code": "function rob(nums) {\n  let rob1 = 0;\n  let rob2 = 0;\n  \n  for (let n of nums) {\n    let temp = Math.max(n + rob1, rob2);\n    rob1 = rob2;\n    rob2 = temp;\n  }\n  return rob2;\n}\n\nconsole.log(rob([1, 2, 3, 1])); // 4 (Rob house 1 and 3)",
+            "explanation": "At house `n`, compares robbing current house plus max from two houses prior (`n + rob1`) against max from previous house (`rob2`). Shifts window values forward."
+          },
+          "interactiveQuiz": {
+            "question": "What constraint prevents taking the simple sum of all array elements in House Robber?",
+            "options": [
+              "Adjacent houses cannot be robbed on the same night",
+              "House values are negative",
+              "House count must be even",
+              "The list is sorted"
+            ],
+            "correctIndex": 0,
+            "explanation": "Robbing adjacent houses triggers security alarms, requiring choice between house $i-1$ vs house $i-2 + \\text{current}$."
+          }
+        },
+        {
+          "id": "q42-dsa-house-robber-ii",
+          "title": "Q42: House Robber II (Circular DP)",
+          "content": "All houses are arranged in a circle. Find max stolen money given adjacent houses cannot be robbed.",
+          "keyTakeaways": [
+            "Circular arrangement implies first house and last house are adjacent and cannot both be robbed.",
+            "Run standard House Robber algorithm twice: range `0..n-2` and range `1..n-1`, taking maximum result."
+          ],
+          "codeExample": {
+            "title": "Circular House Robber Solution",
+            "language": "javascript",
+            "code": "function rob(nums) {\n  if (nums.length === 1) return nums[0];\n  \n  function robLinear(arr) {\n    let rob1 = 0, rob2 = 0;\n    for (let n of arr) {\n      let temp = Math.max(n + rob1, rob2);\n      rob1 = rob2;\n      rob2 = temp;\n    }\n    return rob2;\n  }\n  \n  const case1 = robLinear(nums.slice(0, nums.length - 1));\n  const case2 = robLinear(nums.slice(1));\n  return Math.max(case1, case2);\n}\n\nconsole.log(rob([2, 3, 2])); // 3",
+            "explanation": "Splits problem into two linear sub-problems: excluding the last house (`0..n-2`) vs excluding the first house (`1..n-1`), returning whichever yield is higher."
+          },
+          "interactiveQuiz": {
+            "question": "How does House Robber II handle the circular house arrangement constraint?",
+            "options": [
+              "Runs linear House Robber twice: once excluding the first house and once excluding the last house",
+              "Sorts houses in descending order",
+              "Uses a 2D matrix DP table",
+              "Applies Graph Coloring"
+            ],
+            "correctIndex": 0,
+            "explanation": "First and last houses cannot both be chosen; evaluating subsets excluding either first or last resolves the circular conflict."
+          }
+        },
+        {
+          "id": "q43-dsa-longest-increasing-subsequence",
+          "title": "Q43: Longest Increasing Subsequence (LIS)",
+          "content": "Find the length of the longest strictly increasing subsequence in an integer array.",
+          "keyTakeaways": [
+            "Standard Dynamic Programming approach takes $O(n^2)$ time.",
+            "Patience Sorting with Binary Search optimizes LIS execution to $O(n \\log n)$ time."
+          ],
+          "codeExample": {
+            "title": "Patience Sort Binary Search LIS O(n log n)",
+            "language": "javascript",
+            "code": "function lengthOfLIS(nums) {\n  const tails = [];\n  \n  for (let num of nums) {\n    let left = 0;\n    let right = tails.length;\n    \n    while (left < right) {\n      const mid = Math.floor((left + right) / 2);\n      if (tails[mid] < num) left = mid + 1;\n      else right = mid;\n    }\n    \n    tails[left] = num;\n  }\n  return tails.length;\n}\n\nconsole.log(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18])); // 4 ([2, 3, 7, 101])",
+            "explanation": "Maintains array `tails` storing smallest tail values of increasing subsequences. For each `num`, uses binary search to replace smallest element >= `num` or append `num` if larger than all tails."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of the Patience Sorting Binary Search LIS algorithm?",
+            "options": ["O(n log n)", "O(n²)", "O(n)", "O(2ⁿ)"],
+            "correctIndex": 0,
+            "explanation": "Iterating $n$ items and performing binary search per item takes $O(n \\log n)$ time."
+          }
+        },
+        {
+          "id": "q44-dsa-palindromic-substrings",
+          "title": "Q44: Palindromic Substrings (Expand Around Center)",
+          "content": "Given a string `s`, return the count of palindromic substrings in `s` using Expand Around Center method.",
+          "keyTakeaways": [
+            "Consider $2n - 1$ possible expansion centers (odd single characters and even adjacent character pairs).",
+            "Achieves $O(n^2)$ time and $O(1)$ space complexity."
+          ],
+          "codeExample": {
+            "title": "Center Expansion Palindrome Counter",
+            "language": "javascript",
+            "code": "function countSubstrings(s) {\n  let count = 0;\n  \n  function expand(left, right) {\n    let found = 0;\n    while (left >= 0 && right < s.length && s[left] === s[right]) {\n      found++;\n      left--;\n      right++;\n    }\n    return found;\n  }\n  \n  for (let i = 0; i < s.length; i++) {\n    count += expand(i, i);     // Odd length center\n    count += expand(i, i + 1); // Even length center\n  }\n  return count;\n}\n\nconsole.log(countSubstrings('aaa')); // 6 ('a','a','a','aa','aa','aaa')",
+            "explanation": "Iterates every character index, expanding outward for odd-length palindromes (`i, i`) and even-length palindromes (`i, i+1`), incrementing counts while characters match."
+          },
+          "interactiveQuiz": {
+            "question": "How many total potential palindrome centers exist for a string of length N?",
+            "options": ["2N - 1", "N", "N²", "N / 2"],
+            "correctIndex": 0,
+            "explanation": "There are $N$ single character centers and $N-1$ adjacent pair centers, totaling $2N-1$ centers."
+          }
+        },
+        {
+          "id": "q45-dsa-longest-palindromic-substring",
+          "title": "Q45: Longest Palindromic Substring",
+          "content": "Given a string `s`, return the longest palindromic substring in `s` using Expand Around Center approach.",
+          "keyTakeaways": [
+            "Expands around odd and even centers while keeping track of max substring bounds.",
+            "Runs in $O(n^2)$ time and $O(1)$ auxiliary space."
+          ],
+          "codeExample": {
+            "title": "Center Expansion Longest Palindrome",
+            "language": "javascript",
+            "code": "function longestPalindrome(s) {\n  let start = 0;\n  let maxLength = 0;\n  \n  function expand(left, right) {\n    while (left >= 0 && right < s.length && s[left] === s[right]) {\n      left--;\n      right++;\n    }\n    const len = right - left - 1;\n    if (len > maxLength) {\n      maxLength = len;\n      start = left + 1;\n    }\n  }\n  \n  for (let i = 0; i < s.length; i++) {\n    expand(i, i);\n    expand(i, i + 1);\n  }\n  return s.substring(start, start + maxLength);\n}\n\nconsole.log(longestPalindrome('babad')); // 'bab' or 'aba'",
+            "explanation": "Expands outward from odd and even center indices. When expansion breaks, calculates valid length (`right - left - 1`) and updates best `start` index and `maxLength`."
+          },
+          "interactiveQuiz": {
+            "question": "What is the auxiliary space complexity of the Expand Around Center method for Longest Palindromic Substring?",
+            "options": ["O(1)", "O(N)", "O(N²)", "O(log N)"],
+            "correctIndex": 0,
+            "explanation": "Tracking only indices (`start`, `maxLength`, `left`, `right`) uses constant $O(1)$ space."
+          }
+        },
+        {
+          "id": "q46-dsa-word-break",
+          "title": "Q46: Word Break (Dynamic Programming)",
+          "content": "Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into space-separated dictionary words.",
+          "keyTakeaways": [
+            "Boolean array `dp[i]` represents if prefix `s[0..i]` can be segmented.",
+            "State transition: `dp[i] = dp[j] && wordDict.has(s[j..i])` for $0 \\le j < i$."
+          ],
+          "codeExample": {
+            "title": "DP String Segmentation Word Break",
+            "language": "javascript",
+            "code": "function wordBreak(s, wordDict) {\n  const wordSet = new Set(wordDict);\n  const dp = new Array(s.length + 1).fill(false);\n  dp[0] = true; // Base case: empty string\n  \n  for (let i = 1; i <= s.length; i++) {\n    for (let j = 0; j < i; j++) {\n      if (dp[j] && wordSet.has(s.substring(j, i))) {\n        dp[i] = true;\n        break;\n      }\n    }\n  }\n  return dp[s.length];\n}\n\nconsole.log(wordBreak('leetcode', ['leet', 'code'])); // true",
+            "explanation": "`dp[i]` is true if there exists split index $j$ where `dp[j]` is true and substring `s[j..i]` is present in `wordSet`."
+          },
+          "interactiveQuiz": {
+            "question": "What does dp[i] = true signify in the Word Break dynamic programming array?",
+            "options": [
+              "The substring prefix s.substring(0, i) can be validly partitioned into dictionary words",
+              "The character s[i] is a vowel",
+              "wordDict contains word s[i]",
+              "The string ends at index i"
+            ],
+            "correctIndex": 0,
+            "explanation": "`dp[i]` tracks segmentability for prefix string length $i$ starting from index 0."
+          }
+        },
+        {
+          "id": "q47-dsa-pacific-atlantic-water-flow",
+          "title": "Q47: Pacific Atlantic Water Flow (Graph Multi-Source DFS)",
+          "content": "Find grid coordinate cells where rain water can flow to both Pacific (top/left) and Atlantic (bottom/right) oceans.",
+          "keyTakeaways": [
+            "Reverse flow simulation: DFS outward from ocean boundaries upstream to reachable higher/equal elevation land cells.",
+            "Cells reachable by both Pacific DFS and Atlantic DFS are valid answer coordinates."
+          ],
+          "codeExample": {
+            "title": "Reverse Flow Boundary DFS",
+            "language": "javascript",
+            "code": "function pacificAtlantic(heights) {\n  if (!heights || !heights.length) return [];\n  const rows = heights.length;\n  const cols = heights[0].length;\n  \n  const pacific = Array.from({ length: rows }, () => new Array(cols).fill(false));\n  const atlantic = Array.from({ length: rows }, () => new Array(cols).fill(false));\n  \n  function dfs(r, c, reachable, prevHeight) {\n    if (r < 0 || c < 0 || r >= rows || c >= cols || reachable[r][c] || heights[r][c] < prevHeight) {\n      return;\n    }\n    reachable[r][c] = true;\n    dfs(r + 1, c, reachable, heights[r][c]);\n    dfs(r - 1, c, reachable, heights[r][c]);\n    dfs(r, c + 1, reachable, heights[r][c]);\n    dfs(r, c - 1, reachable, heights[r][c]);\n  }\n  \n  for (let r = 0; r < rows; r++) {\n    dfs(r, 0, pacific, heights[r][0]);                // Left Pacific\n    dfs(r, cols - 1, atlantic, heights[r][cols - 1]); // Right Atlantic\n  }\n  for (let c = 0; c < cols; c++) {\n    dfs(0, c, pacific, heights[0][c]);                // Top Pacific\n    dfs(rows - 1, c, atlantic, heights[rows - 1][c]); // Bottom Atlantic\n  }\n  \n  const result = [];\n  for (let r = 0; r < rows; r++) {\n    for (let c = 0; c < cols; c++) {\n      if (pacific[r][c] && atlantic[r][c]) result.push([r, c]);\n    }\n  }\n  return result;\n}",
+            "explanation": "Runs DFS backward from Pacific edges and Atlantic edges upstream (heights[r][c] >= prevHeight). Cells marked true in both boolean grids are returned."
+          },
+          "interactiveQuiz": {
+            "question": "Why does the algorithm perform DFS backward from ocean boundaries instead of forward from every cell?",
+            "options": [
+              "Prevents redundant overlapping search evaluations, dropping complexity from O(rows² * cols²) down to O(rows * cols)",
+              "Because water flows upward in graph matrices",
+              "Forward DFS causes call stack overflow",
+              "To avoid using boolean visited matrices"
+            ],
+            "correctIndex": 0,
+            "explanation": "Starting at ocean borders requires traversing cells at most twice overall ($O(R \\times C)$ time), whereas probing each cell forward causes massive re-computations."
+          }
+        },
+        {
+          "id": "q48-dsa-sum-of-two-integers-bitwise",
+          "title": "Q48: Sum of Two Integers (Bitwise Logic)",
+          "content": "Calculate the sum of two integers `a` and `b` without using the operators `+` and `-`.",
+          "keyTakeaways": [
+            "XOR operator (`^`) calculates sum without carry.",
+            "AND operator (`&`) followed by bitwise left shift (`<< 1`) calculates carry values."
+          ],
+          "codeExample": {
+            "title": "Bitwise Addition",
+            "language": "javascript",
+            "code": "function getSum(a, b) {\n  while (b !== 0) {\n    let carry = (a & b) << 1;\n    a = a ^ b;\n    b = carry;\n  }\n  return a;\n}\n\nconsole.log(getSum(5, 7)); // 12",
+            "explanation": "`a & b` finds matching bit carries, shifted left by 1. `a ^ b` calculates half-adder sum. Process repeats until carry `b` becomes 0."
+          },
+          "interactiveQuiz": {
+            "question": "Which bitwise operator computes binary addition without handling carry bits?",
+            "options": ["XOR (^)", "AND (&)", "OR (|)", "NOT (~)"],
+            "correctIndex": 0,
+            "explanation": "XOR (`^`) performs binary addition for bit pairs ($1^1 = 0, 1^0 = 1, 0^0 = 0$), acting as a half-adder without carry."
+          }
+        },
+        {
+          "id": "q49-dsa-number-of-1-bits",
+          "title": "Q49: Number of 1 Bits (Hamming Weight)",
+          "content": "Write a function that takes an unsigned integer and returns the number of '1' bits it has (Hamming Weight).",
+          "keyTakeaways": [
+            "Brian Kernighan's bit manipulation trick `n = n & (n - 1)` clears the lowest set bit in $O(1)$ operations per set bit.",
+            "Loop iterations match the exact count of set bits rather than iterating all 32 bit positions."
+          ],
+          "codeExample": {
+            "title": "Brian Kernighan Bit Clearing Algorithm",
+            "language": "javascript",
+            "code": "function hammingWeight(n) {\n  let count = 0;\n  while (n !== 0) {\n    n = n & (n - 1);\n    count++;\n  }\n  return count;\n}\n\nconsole.log(hammingWeight(11)); // 3 (binary 1011 has three 1s)",
+            "explanation": "Evaluating `n & (n - 1)` drops the rightmost set bit (`1`) to `0` in each step, incrementing `count` until all set bits are cleared."
+          },
+          "interactiveQuiz": {
+            "question": "What effect does executing the bitwise operation `n & (n - 1)` have on binary integer `n`?",
+            "options": [
+              "Flips the lowest set bit (rightmost 1) to 0",
+              "Shifts all bits left by 1 position",
+              "Inverts all 0 and 1 bit values",
+              "Multiplies n by 2"
+            ],
+            "correctIndex": 0,
+            "explanation": "`n & (n - 1)` clears the least significant set bit (`1`), providing $O(\\text{set bits})$ counting performance."
+          }
+        },
+        {
+          "id": "q50-dsa-serialize-and-deserialize-binary-tree",
+          "title": "Q50: Serialize and Deserialize Binary Tree",
+          "content": "Design an algorithm to serialize a binary tree into a single string and deserialize that string back into the original binary tree structure.",
+          "keyTakeaways": [
+            "Pre-order traversal DFS converts tree to comma-separated string, using sentinel tokens (e.g. `'N'`) for null nodes.",
+            "Deserialization reconstructs nodes sequentially from queue tokens."
+          ],
+          "codeExample": {
+            "title": "Pre-Order DFS Tree Serialization",
+            "language": "javascript",
+            "code": "function serialize(root) {\n  const result = [];\n  function dfs(node) {\n    if (!node) {\n      result.push('N');\n      return;\n    }\n    result.push(node.val);\n    dfs(node.left);\n    dfs(node.right);\n  }\n  dfs(root);\n  return result.join(',');\n}\n\nfunction deserialize(data) {\n  const tokens = data.split(',');\n  let index = 0;\n  \n  function dfs() {\n    if (tokens[index] === 'N') {\n      index++;\n      return null;\n    }\n    const node = { val: parseInt(tokens[index++], 10), left: null, right: null };\n    node.left = dfs();\n    node.right = dfs();\n    return node;\n  }\n  return dfs();\n}",
+            "explanation": "`serialize` performs pre-order DFS adding node values or 'N' for nulls into a CSV string. `deserialize` consumes tokens sequentially, creating node objects recursively."
+          },
+          "interactiveQuiz": {
+            "question": "Why are explicit null markers ('N') required in pre-order tree serialization?",
+            "options": [
+              "To preserve exact tree structure so deserialization can uniquely rebuild subtrees without ambiguity",
+              "To mark leaf nodes for memory deallocation",
+              "To enable binary search",
+              "Required for JSON string syntax rules"
+            ],
+            "correctIndex": 0,
+            "explanation": "Including null leaf markers ensures pre-order token sequences uniquely describe tree node relationships without ambiguity."
           }
         }
       ]
