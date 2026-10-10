@@ -1,0 +1,1398 @@
+{
+  "courseId": "nodejs-interview-qa",
+  "courseName": "Node.js Interview Questions & Answers",
+  "title": "Top 80 Node.js Interview Questions & Mock Exam Prep",
+  "subtitle": "Comprehensive 80-question Q&A bank organized by concept for progressive interview preparation",
+  "category": "Interview Q&A",
+  "level": "Intermediate",
+  "estimatedTime": "3 Hours",
+  "accentColor": "#6366f1",
+  "keywords": ["nodejs", "javascript", "interview", "questions", "answers", "quiz", "express", "backend"],
+  "chapters": [
+    {
+      "id": "nodejs-runtime-fundamentals",
+      "title": "Node.js Runtime & JavaScript Foundations",
+      "summary": "Core Node.js runtime concepts, modules, callbacks, events, and asynchronous context.",
+      "estimatedMinutes": 30,
+      "sections": [
+        {
+          "id": "q1-global-object",
+          "title": "Q1: What is the global object in Node.js?",
+          "content": "The `global` object is the top-level namespace in Node.js, providing built-in functions, variables, and objects (such as `setTimeout`, `console`, and `Buffer`) across all modules.",
+          "keyTakeaways": [
+            "Provides globally accessible built-in properties and methods.",
+            "Equivalent to `window` in browser JavaScript environments."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the unified cross-platform global object reference introduced in modern JS?",
+            "options": ["window", "global", "globalThis", "root"],
+            "correctIndex": 2,
+            "explanation": "`globalThis` works universally across both browser environments and Node.js."
+          }
+        },
+        {
+          "id": "q2-commonjs-vs-esmodules",
+          "title": "Q2: What is the difference between CommonJS and ES Modules in Node.js?",
+          "content": "CommonJS uses `require()` and `module.exports` synchronously at runtime. ES Modules use `import` and `export` statements parsed asynchronously at compile time.",
+          "keyTakeaways": [
+            "CommonJS loads modules synchronously using `require()`.",
+            "ES Modules load modules using `import/export` syntax."
+          ],
+          "interactiveQuiz": {
+            "question": "Which file extension forces Node.js to treat a file as an ES Module by default?",
+            "options": [".js", ".cjs", ".mjs", ".node"],
+            "correctIndex": 2,
+            "explanation": "Files ending with `.mjs` are explicitly treated as ES Modules by Node.js."
+          }
+        },
+        {
+          "id": "q3-process-env",
+          "title": "Q3: How do environment variables work in Node.js?",
+          "content": "Environment variables are exposed at runtime on the `process.env` global object. Libraries like `dotenv` load key-value pairs from `.env` files into `process.env`.",
+          "keyTakeaways": [
+            "Access environmental settings via `process.env.VAR_NAME`.",
+            "Used to inject runtime configurations without hardcoding secrets."
+          ],
+          "interactiveQuiz": {
+            "question": "What npm package is commonly used to load .env file variables into process.env?",
+            "options": ["config", "dotenv", "env-loader", "nodepack"],
+            "correctIndex": 1,
+            "explanation": "The `dotenv` package loads variables from a `.env` file into `process.env`."
+          }
+        },
+        {
+          "id": "q4-node-env",
+          "title": "Q4: What is the purpose of NODE_ENV environment variable?",
+          "content": "`NODE_ENV` sets the execution environment (e.g., `production`, `development`). Libraries like Express optimize performance when set to `production`.",
+          "keyTakeaways": [
+            "Distinguishes development, testing, and production environments.",
+            "Enables runtime performance optimizations when set to `production`."
+          ],
+          "interactiveQuiz": {
+            "question": "What optimization does Express perform when NODE_ENV is set to 'production'?",
+            "options": [
+              "Disables HTTP logging",
+              "Caches view templates and CSS",
+              "Increases thread pool size",
+              "Disables database connections"
+            ],
+            "correctIndex": 1,
+            "explanation": "In production mode, Express caches compiled view templates to improve request handling speed."
+          }
+        },
+        {
+          "id": "q5-error-first-callbacks",
+          "title": "Q5: What is an error-first callback in Node.js?",
+          "content": "An error-first callback passes an error object as its first parameter. If no error occurred, the first parameter is `null` or `undefined`.",
+          "keyTakeaways": [
+            "First argument is reserved for errors: `(err, result) => {}`.",
+            "Standard convention in traditional asynchronous Node.js APIs."
+          ],
+          "interactiveQuiz": {
+            "question": "In error-first callbacks, what is the value of the error parameter when execution succeeds?",
+            "options": ["true", "false", "null or undefined", "0"],
+            "correctIndex": 2,
+            "explanation": "When successful, the error argument is passed as `null` or `undefined`."
+          }
+        },
+        {
+          "id": "q6-util-promisify",
+          "title": "Q6: What is util.promisify() in Node.js?",
+          "content": "`util.promisify()` converts standard callback-based functions (following error-first conventions) into functions returning Promises.",
+          "keyTakeaways": [
+            "Transforms callback-style functions into Promise-returning functions.",
+            "Enables clean `async/await` syntax integration."
+          ],
+          "interactiveQuiz": {
+            "question": "What function signature must a callback follow to work with util.promisify()?",
+            "options": ["(result, err)", "(err, value)", "(status, data)", "(data)"],
+            "correctIndex": 1,
+            "explanation": "Functions must adhere to standard error-first callback conventions `(err, value)`."
+          }
+        },
+        {
+          "id": "q7-event-emitter",
+          "title": "Q7: What is EventEmitter and how is it used?",
+          "content": "`EventEmitter` is a core module class that allows objects to emit named events that trigger registered listener functions.",
+          "keyTakeaways": [
+            "Implements the publisher-subscriber design pattern in Node.js.",
+            "Used heavily across built-in modules like HTTP and Streams."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method is used to attach a one-time event listener in EventEmitter?",
+            "options": ["on()", "once()", "addListener()", "emit()"],
+            "correctIndex": 1,
+            "explanation": "`once()` automatically removes the listener after it fires for the first time."
+          }
+        },
+        {
+          "id": "q8-async-hooks",
+          "title": "Q8: What is the async_hooks module in Node.js?",
+          "content": "The `async_hooks` core module tracks the lifecycle of asynchronous resources created within a Node.js application, useful for tracing context across async operations.",
+          "keyTakeaways": [
+            "Tracks creation and lifetime hooks for asynchronous resources.",
+            "Powers diagnostic tracing and async local context storage."
+          ],
+          "interactiveQuiz": {
+            "question": "Which core abstraction built on async_hooks maintains context across async operations?",
+            "options": ["AsyncLocalStorage", "EventEmitter", "Domain", "WorkerPool"],
+            "correctIndex": 0,
+            "explanation": "`AsyncLocalStorage` allows storing store data consistent throughout async execution flows."
+          }
+        },
+        {
+          "id": "q9-abortcontroller-in-node",
+          "title": "Q9: How is AbortController used to cancel asynchronous operations in Node.js?",
+          "content": "`AbortController` and `AbortSignal` are web standard APIs built into modern Node.js to gracefully cancel ongoing asynchronous operations (such as `fetch` HTTP requests, event listeners, file streams, or timers). Passing an `AbortSignal` to asynchronous APIs allows calling `controller.abort()` from anywhere in the code to reject pending promises immediately and release underlying resources.",
+          "keyTakeaways": [
+            "`AbortController` provides a standardized mechanism to cancel active asynchronous tasks.",
+            "Supported natively across Node.js core modules like `fs`, `http`, `events`, and `timers`."
+          ],
+          "interactiveQuiz": {
+            "question": "What property of AbortController is passed to asynchronous APIs to listen for cancellation events?",
+            "options": ["controller.signal", "controller.cancel", "controller.listener", "controller.handler"],
+            "correctIndex": 0,
+            "explanation": "The `controller.signal` instance (`AbortSignal`) is passed to APIs so they can detect when `controller.abort()` is called."
+          }
+        },
+        {
+          "id": "q10-domain-module-deprecation",
+          "title": "Q10: What was the Domain module in Node.js, why was it deprecated, and what replaced it?",
+          "content": "The `domain` module was designed to handle unhandled errors across multiple asynchronous operations by binding error handlers to execution contexts. It was deprecated because its implicit context binding led to subtle memory leaks, unpredictable state corruption, and severe performance overhead across the asynchronous call stack. It has been replaced by structured `try/catch` blocks with `async/await`, explicit error propagation patterns, and `AsyncLocalStorage` from the `async_hooks` module for implicit context tracking.",
+          "keyTakeaways": [
+            "`domain` was deprecated due to memory leaks, state corruption, and execution performance overhead.",
+            "Modern Node.js uses `AsyncLocalStorage` and explicit `async/await` error handling as robust replacements."
+          ],
+          "interactiveQuiz": {
+            "question": "Which module in modern Node.js provides thread-safe, asynchronous context propagation without the pitfalls of Domains?",
+            "options": ["AsyncLocalStorage", "EventEmitter", "Cluster", "VM"],
+            "correctIndex": 0,
+            "explanation": "`AsyncLocalStorage` allows storing data across asynchronous lifecycles cleanly without causing the state corruption issues associated with Domains."
+          }
+        }
+      ]
+    },
+    {
+      "id": "event-loop-async-concurrency",
+      "title": "Event Loop, Async Execution & Concurrency",
+      "summary": "How Node.js schedules asynchronous work, uses Libuv, and handles CPU-intensive workloads.",
+      "estimatedMinutes": 21,
+      "sections": [
+        {
+          "id": "q11-event-loop",
+          "title": "Q11: What is the Node.js Event Loop and how does it work?",
+          "content": "The Event Loop allows Node.js to perform non-blocking I/O operations despite JavaScript being single-threaded. It offloads tasks to the system kernel or Libuv thread pool. It cycles through phases: Timers, Pending Callbacks, Idle/Prepare, Poll, Check, and Close Callbacks.",
+          "keyTakeaways": [
+            "The Event Loop enables non-blocking I/O on a single thread.",
+            "Libuv handles asynchronous underlying operations and thread pooling."
+          ],
+          "interactiveQuiz": {
+            "question": "Which library manages the Event Loop in Node.js?",
+            "options": ["V8", "Libuv", "OpenSSL", "c-ares"],
+            "correctIndex": 1,
+            "explanation": "Libuv is the C library providing the event loop and thread pool in Node.js."
+          }
+        },
+        {
+          "id": "q12-reactor-pattern",
+          "title": "Q12: What is the Reactor Pattern in Node.js?",
+          "content": "The Reactor Pattern is a design pattern that handles service requests delivered concurrently to a service handler by demultiplexing incoming requests and dispatching them synchronously to associated request handlers.",
+          "keyTakeaways": [
+            "Core design pattern behind Node.js non-blocking architecture.",
+            "Uses an event demultiplexer to collect and dispatch async events."
+          ],
+          "interactiveQuiz": {
+            "question": "Which component in the Reactor Pattern collects I/O events and pushes them to the queue?",
+            "options": ["Call Stack", "Event Demultiplexer", "V8 Engine", "Garbage Collector"],
+            "correctIndex": 1,
+            "explanation": "The Event Demultiplexer monitors I/O sources and notifies when operations complete."
+          }
+        },
+        {
+          "id": "q13-process-nexttick",
+          "title": "Q13: What is the difference between process.nextTick() and setImmediate()?",
+          "content": "`process.nextTick()` fires immediately after the current operation finishes, before the Event Loop continues to any other phase. `setImmediate()` schedules callbacks in the Check phase of the Event Loop.",
+          "keyTakeaways": [
+            "`process.nextTick()` runs prior to the next Event Loop tick.",
+            "`setImmediate()` runs during the Event Loop Check phase."
+          ],
+          "interactiveQuiz": {
+            "question": "Which queue does process.nextTick() push callbacks onto?",
+            "options": ["Timer Queue", "Check Queue", "Microtask / NextTick Queue", "Poll Queue"],
+            "correctIndex": 2,
+            "explanation": "process.nextTick() executes microtasks immediately after the current synchronous block completes."
+          }
+        },
+        {
+          "id": "q14-event-loop-starvation",
+          "title": "Q14: What causes Event Loop starvation and how do you fix it?",
+          "content": "Event loop starvation happens when long-running synchronous code or continuous microtasks prevent the Event Loop from advancing to pending I/O phases. Break up work using `setImmediate()`.",
+          "keyTakeaways": [
+            "Heavy sync loops hold main thread control continuously.",
+            "Offload calculations to Worker Threads or partition iterations using `setImmediate()`."
+          ],
+          "interactiveQuiz": {
+            "question": "How can you partition long synchronous array processing to yield to I/O?",
+            "options": [
+              "Wrap each chunk in setImmediate()",
+              "Wrap each chunk in process.nextTick()",
+              "Use Sync Iterators",
+              "Increase V8 memory limit"
+            ],
+            "correctIndex": 0,
+            "explanation": "Using `setImmediate()` between data chunk processing allows the Event Loop to handle I/O."
+          }
+        },
+        {
+          "id": "q15-libuv-threadpool",
+          "title": "Q15: What is the default size of the Libuv thread pool, and how can it be changed?",
+          "content": "The default thread pool size in Libuv is 4. It can be changed by setting the `UV_THREADPOOL_SIZE` environment variable before starting the application (up to 1024).",
+          "keyTakeaways": ["Default thread pool size is 4 threads.", "Configurable using `UV_THREADPOOL_SIZE` environment variable."],
+          "interactiveQuiz": {
+            "question": "What is the default size of the Libuv thread pool?",
+            "options": ["2", "4", "8", "16"],
+            "correctIndex": 1,
+            "explanation": "Libuv allocates 4 worker threads by default to execute heavy background tasks."
+          }
+        },
+        {
+          "id": "q16-worker-threads",
+          "title": "Q16: What are Worker Threads in Node.js?",
+          "content": "Worker Threads (`worker_threads`) allow execution of CPU-bound JavaScript operations in parallel threads without blocking the main event loop.",
+          "keyTakeaways": [
+            "Worker Threads execute heavy JavaScript operations off the main loop.",
+            "Threads can share memory via `SharedArrayBuffer`."
+          ],
+          "interactiveQuiz": {
+            "question": "What scenario is best suited for Worker Threads?",
+            "options": ["Handling database queries", "CPU-heavy computations", "Serving static files", "Making API requests"],
+            "correctIndex": 1,
+            "explanation": "Worker Threads prevent CPU-intensive calculations from stalling the main Event Loop."
+          }
+        },
+        {
+          "id": "q17-event-loop-delay-and-monitoring",
+          "title": "Q17: What is Event Loop Delay (Lag) and how can you measure it in production?",
+          "content": "Event Loop Delay (or lag) measures the latency between when a timer callback is scheduled to execute and when it actually gets invoked by the Event Loop. High delay indicates that synchronous operations are blocking the main thread, delaying asynchronous task processing. Production metrics can track this using `perf_hooks` with `monitorEventLoopDelay()`, which samples execution intervals and generates histogram percentiles (p50, p99) of Event Loop lag.",
+          "keyTakeaways": [
+            "Event Loop lag indicates main thread blocking caused by heavy synchronous computation.",
+            "`perf_hooks.monitorEventLoopDelay()` samples and calculates precise latency histograms for monitoring."
+          ],
+          "interactiveQuiz": {
+            "question": "Which core Node.js module contains monitorEventLoopDelay() for latency tracking?",
+            "options": ["v8", "perf_hooks", "process", "async_hooks"],
+            "correctIndex": 1,
+            "explanation": "The `perf_hooks` module provides performance measurement APIs, including `monitorEventLoopDelay()`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "streams-buffers-data-processing",
+      "title": "Streams, Buffers & Data Processing",
+      "summary": "Streaming, backpressure, piping, binary data, compression, and efficient large-data processing.",
+      "estimatedMinutes": 27,
+      "sections": [
+        {
+          "id": "q18-streams",
+          "title": "Q18: What are Streams in Node.js and why are they used?",
+          "content": "Streams are data-handling channels used to read or write data sequentially. They conserve memory by processing data in chunks rather than reading entire files into memory at once.",
+          "keyTakeaways": [
+            "Streams process large datasets in small chunks to reduce memory consumption.",
+            "Four core types exist: Readable, Writable, Duplex, and Transform."
+          ],
+          "interactiveQuiz": {
+            "question": "Which stream type allows modifying data as it is being read and written?",
+            "options": ["Readable", "Writable", "Duplex", "Transform"],
+            "correctIndex": 3,
+            "explanation": "Transform streams are Duplex streams where the output is computed based on input modifications."
+          }
+        },
+        {
+          "id": "q19-backpressure",
+          "title": "Q19: What is backpressure in Node.js streams?",
+          "content": "Backpressure happens when data is emitted faster than a Writable stream can process it. Node.js manages this by buffering data and signaling the reader to pause until the `drain` event is emitted.",
+          "keyTakeaways": [
+            "Backpressure prevents high memory usage from unconsumed stream data.",
+            "The `drain` event notifies readers to resume writing."
+          ],
+          "interactiveQuiz": {
+            "question": "Which event signals that a stream buffer is empty and writing can resume?",
+            "options": ["pipe", "drain", "finish", "data"],
+            "correctIndex": 1,
+            "explanation": "The `drain` event indicates the Writable stream buffer has cleared."
+          }
+        },
+        {
+          "id": "q20-stream-piping",
+          "title": "Q20: What is stream piping in Node.js?",
+          "content": "Piping (`readable.pipe(writable)`) connects the output of a Readable stream directly into the input of a Writable stream, automatically handling flow control and backpressure.",
+          "keyTakeaways": [
+            "Connects readable source output directly into writable destinations.",
+            "Manages data flow and backpressure buffering automatically."
+          ],
+          "interactiveQuiz": {
+            "question": "Which stream method connects a Readable stream output to a Writable destination?",
+            "options": ["connect()", "pipe()", "link()", "bind()"],
+            "correctIndex": 1,
+            "explanation": "`pipe()` channels data chunks from a readable stream to a writable target."
+          }
+        },
+        {
+          "id": "q21-pipeline-vs-pipe",
+          "title": "Q21: Why should pipeline() from stream/promises be preferred over readable.pipe()?",
+          "content": "While `readable.pipe()` routes data between streams, it fails to handle error forwarding across all stream stages automatically, often leaving streams open and causing memory or file descriptor leaks. The `stream.pipeline()` helper properly forwards errors, cleans up unclosed underlying file descriptors, and supports Promise syntax via `stream/promises`.",
+          "keyTakeaways": [
+            "`pipe()` can leak file descriptors and stream handles when errors occur mid-stream.",
+            "`pipeline()` cleans up destroyed streams safely and provides built-in Promise support."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the primary advantage of stream.pipeline() over the traditional stream.pipe() method?",
+            "options": [
+              "Doubles stream throughput speed",
+              "Provides automatic error handling and complete stream resource cleanup",
+              "Converts readable streams into worker threads automatically",
+              "Eliminates the need for backpressure management"
+            ],
+            "correctIndex": 1,
+            "explanation": "`pipeline()` guarantees that when an error occurs in any stream stage, all streams in the chain are destroyed and cleaned up."
+          }
+        },
+        {
+          "id": "q22-buffer-class",
+          "title": "Q22: What is the Buffer class in Node.js?",
+          "content": "The `Buffer` class provides instances to store raw binary data outside the V8 heap in fixed-length memory allocations.",
+          "keyTakeaways": ["Buffers store raw binary data in memory.", "Useful when working with file systems or network streams."],
+          "interactiveQuiz": {
+            "question": "Where is memory allocated for Buffer instances in Node.js?",
+            "options": ["Inside V8 heap", "Outside V8 heap in unmanaged memory", "Inside Call Stack", "In WebAssembly memory"],
+            "correctIndex": 1,
+            "explanation": "Buffers allocate raw memory outside the V8 heap to improve performance."
+          }
+        },
+        {
+          "id": "q23-zero-copy-buffers",
+          "title": "Q23: What are Zero-Copy transfers and how are they achieved with Buffer.allocUnsafe()?",
+          "content": "`Buffer.alloc()` initializes memory by zero-filling the allocated space, preventing accidental exposure of sensitive lingering data. `Buffer.allocUnsafe()` allocates memory without zero-filling, making execution faster but introducing potential data leak security risks if uninitialized memory is read directly. Zero-copy operations avoid unnecessary memory copying by pointing multiple abstractions or operations to the exact same underlying memory reference using typed arrays (`ArrayBuffer`) or network stream descriptors.",
+          "keyTakeaways": [
+            "`Buffer.allocUnsafe()` skips memory zero-filling for higher performance, but requires immediate overwriting to avoid data leaks.",
+            "Zero-copy mechanisms share existing memory references to eliminate data duplication overhead during I/O."
+          ],
+          "interactiveQuiz": {
+            "question": "What security risk arises when using Buffer.allocUnsafe() without writing new data over it immediately?",
+            "options": [
+              "V8 garbage collection stops completely",
+              "Memory may contain uninitialized sensitive data previously allocated by other processes",
+              "The Event Loop immediately crashes with a segmentation fault",
+              "Buffer lengths become dynamic and unpredictable"
+            ],
+            "correctIndex": 1,
+            "explanation": "`allocUnsafe` reuses existing memory chunks without clearing them, potentially exposing lingering sensitive memory contents."
+          }
+        },
+        {
+          "id": "q24-string-decoder",
+          "title": "Q24: Why should string_decoder be used instead of buffer.toString() when parsing multi-byte streams?",
+          "content": "When streaming multi-byte UTF-8 encoded characters (e.g., emojis or non-Latin scripts), a data chunk boundary may split a multi-byte character sequence in half. Converting chunks using `buffer.toString()` outputs corrupt character symbols (``). The `string_decoder` module preserves incomplete multi-byte sequences at chunk boundaries until the next chunk arrives.",
+          "keyTakeaways": [
+            "`buffer.toString()` corrupts multi-byte UTF-8 characters split across stream chunk boundaries.",
+            "`StringDecoder` buffers incomplete multi-byte sequences until remaining bytes arrive."
+          ],
+          "interactiveQuiz": {
+            "question": "What issue occurs when using buffer.toString('utf8') on raw stream chunks containing split multi-byte characters?",
+            "options": [
+              "Throws an uncaught fatal exception",
+              "Produces corrupted representation characters (e.g., )",
+              "Causes a memory leak in the V8 heap",
+              "Blocks the main Event Loop"
+            ],
+            "correctIndex": 1,
+            "explanation": "Direct conversion of partial multi-byte sequences produces replacement/corrupted unicode characters."
+          }
+        },
+        {
+          "id": "q25-zlib-compression",
+          "title": "Q25: How is stream compression implemented using the zlib module?",
+          "content": "The `zlib` core module provides synchronous and asynchronous stream compression using Gzip, Deflate, or Brotli algorithms. Because `zlib` stream transforms (`createGzip()`, `createBrotliCompress()`) return Transform streams, they can be piped directly between file streams or HTTP response streams for low-memory data transfer.",
+          "keyTakeaways": [
+            "`zlib` offers Transform streams for Gzip, Deflate, and Brotli compression.",
+            "Piping compression streams minimizes heap memory consumption during file or HTTP transfers."
+          ],
+          "interactiveQuiz": {
+            "question": "Which stream class type do zlib compression methods inherit from in Node.js?",
+            "options": ["Readable", "Writable", "Transform", "PassThrough"],
+            "correctIndex": 2,
+            "explanation": "Compression utilities are Transform streams, accepting uncompressed chunks and outputting compressed byte streams."
+          }
+        },
+        {
+          "id": "q26-readline-module",
+          "title": "Q26: How does the readline module handle streaming line-by-line file input?",
+          "content": "The `readline` module reads input streams line-by-line without buffering entire files into memory. By pairing `readline.createInterface()` with a readable file stream (`fs.createReadStream()`), applications process massive log files line-by-line via `for await (const line of rl)` iterations with minimal memory footprints.",
+          "keyTakeaways": [
+            "`readline` processes text input line-by-line efficiently.",
+            "Ideal for parsing large log files streamingly without loading full files into memory."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method constructs a readline interface attached to standard or file input streams?",
+            "options": ["readline.createInterface()", "readline.readLineStream()", "readline.open()", "readline.parse()"],
+            "correctIndex": 0,
+            "explanation": "`readline.createInterface({ input: stream })` establishes a line-by-line stream parser interface."
+          }
+        }
+      ]
+    },
+    {
+      "id": "http-networking-realtime",
+      "title": "HTTP, Networking & Real-Time Communication",
+      "summary": "Node.js HTTP internals, DNS, connection reuse, HTTP/2, WebSockets, and SSE.",
+      "estimatedMinutes": 24,
+      "sections": [
+        {
+          "id": "q27-http-module",
+          "title": "Q27: How do you create a basic HTTP server using core Node.js modules?",
+          "content": "Use `http.createServer((req, res) => {})` to handle incoming HTTP connections, set response headers with `res.setHeader()`, and end the response using `res.end()`.",
+          "keyTakeaways": [
+            "Core `http` module creates web servers without external frameworks.",
+            "Request handlers accept `IncomingMessage` (`req`) and `ServerResponse` (`res`)."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method sends the final response body and signals request completion?",
+            "options": ["res.write()", "res.send()", "res.end()", "res.close()"],
+            "correctIndex": 2,
+            "explanation": "`res.end()` signals to the server that all response headers and body data have been sent."
+          }
+        },
+        {
+          "id": "q28-keep-alive-http",
+          "title": "Q28: What is HTTP Keep-Alive, and how do you configure connection pooling in Node.js?",
+          "content": "HTTP Keep-Alive reuses established TCP sockets for multiple HTTP request/response cycles, eliminating repeated TCP three-way handshake and TLS negotiation latencies. In Node.js, enable socket pooling by passing `keepAlive: true` and configuring `maxSockets` and `maxFreeSockets` on `http.Agent` or `https.Agent` instances.",
+          "keyTakeaways": [
+            "Keep-Alive avoids establishing new TCP sockets on every outgoing HTTP request.",
+            "Configured via `http.Agent({ keepAlive: true, maxSockets: 100 })`."
+          ],
+          "interactiveQuiz": {
+            "question": "Which parameter on http.Agent limits total parallel open connections permitted per origin host?",
+            "options": ["maxSockets", "keepAliveMsecs", "maxFreeSockets", "timeout"],
+            "correctIndex": 0,
+            "explanation": "`maxSockets` dictates the maximum number of concurrent sockets allowed per host origin."
+          }
+        },
+        {
+          "id": "q29-http2-multiplexing",
+          "title": "Q29: How does HTTP/2 multiplexing differ from HTTP/1.1 keep-alive in Node.js?",
+          "content": "In HTTP/1.1 with persistent connections (`keep-alive`), requests over a single TCP connection must be served sequentially (head-of-line blocking). HTTP/2 uses binary framing to split messages into independent frames transmitted over a single TCP socket concurrently (multiplexing). The Node.js `http2` core module supports stream prioritization, server push, and header compression (HPACK), allowing hundreds of concurrent requests without opening multiple parallel TCP connections.",
+          "keyTakeaways": [
+            "HTTP/1.1 causes head-of-line blocking by queueing requests sequentially on a connection.",
+            "HTTP/2 multiplexing sends interleaved binary frames over a single TCP connection simultaneously."
+          ],
+          "interactiveQuiz": {
+            "question": "Which HTTP/1.1 issue is directly eliminated by HTTP/2 multiplexing?",
+            "options": [
+              "DNS resolution latency",
+              "Head-of-line blocking at the application protocol layer",
+              "TLS handshake negotiation overhead",
+              "Server-side memory garbage collection delays"
+            ],
+            "correctIndex": 1,
+            "explanation": "Multiplexing allows concurrent request/response framing over a single connection, resolving HTTP layer head-of-line blocking."
+          }
+        },
+        {
+          "id": "q30-dns-lookup-blocking",
+          "title": "Q30: Why can dns.lookup be blocking in Node.js?",
+          "content": "`dns.lookup` uses the underlying operating system `getaddrinfo(3)` function synchronously on Libuv thread pool workers, whereas `dns.resolve` makes network calls asynchronously without thread pool workers.",
+          "keyTakeaways": [
+            "`dns.lookup` uses system resolver calls on Libuv threads.",
+            "`dns.resolve` bypasses system files (`/etc/hosts`) making network queries directly."
+          ],
+          "interactiveQuiz": {
+            "question": "Which DNS module function directly performs DNS queries over the network without Libuv thread pool workers?",
+            "options": ["dns.lookup", "dns.resolve", "dns.getHostByName", "dns.query"],
+            "correctIndex": 1,
+            "explanation": "`dns.resolve()` makes asynchronous network queries directly using asynchronous sockets."
+          }
+        },
+        {
+          "id": "q31-dns-caching-issues",
+          "title": "Q31: Why does Node.js core HTTP client lack built-in DNS caching and how do you resolve it?",
+          "content": "Node.js core `http.request()` resolves DNS hostnames on every single request using `dns.lookup()`, which executes system calls on the Libuv thread pool without caching results. Under heavy HTTP traffic, this can stall worker threads and cause socket bottlenecks. Developers mitigate this by using custom HTTPS Agents with lookup caching packages (e.g., `dnscache`) or keep-alive sockets.",
+          "keyTakeaways": [
+            "Core HTTP clients perform fresh DNS lookups per request without caching.",
+            "Absence of DNS caching causes thread pool saturation; fix using persistent agents or lookup caching modules."
+          ],
+          "interactiveQuiz": {
+            "question": "Which core subsystem handles dns.lookup() system resolution calls in Node.js?",
+            "options": ["V8 Heap", "Libuv Thread Pool", "Event Demultiplexer", "HTTP Parser"],
+            "correctIndex": 1,
+            "explanation": "`dns.lookup()` invokes operating system resolver routines, which execute on Libuv thread pool workers."
+          }
+        },
+        {
+          "id": "q32-web-sockets",
+          "title": "Q32: What are WebSockets and when should they be used over HTTP polling?",
+          "content": "WebSockets provide persistent, full-duplex TCP connections for real-time bidirectional communication. Use them for real-time features like chat applications or live data feeds.",
+          "keyTakeaways": [
+            "Full-duplex real-time communication over single TCP connections.",
+            "Eliminates overhead associated with HTTP header polling requests."
+          ],
+          "interactiveQuiz": {
+            "question": "Which protocol upgrade header converts an HTTP connection into a WebSocket?",
+            "options": ["Connection: Upgrade", "Transfer-Encoding: chunked", "Accept-Encoding: gzip", "Keep-Alive: timeout=5"],
+            "correctIndex": 0,
+            "explanation": "Clients request connection protocol upgrades via `Connection: Upgrade` headers."
+          }
+        },
+        {
+          "id": "q33-server-sent-events",
+          "title": "Q33: How do Server-Sent Events (SSE) work in Node.js and how do they differ from WebSockets?",
+          "content": "Server-Sent Events (SSE) provide unidirectional real-time text streaming from server to client over standard HTTP using the `text/event-stream` content type. Unlike WebSockets, which are full-duplex TCP connections, SSE runs over standard HTTP, includes native automatic client reconnection, and works seamlessly with standard HTTP proxies and load balancers.",
+          "keyTakeaways": [
+            "SSE enables single-direction text streaming using the standard `text/event-stream` MIME type.",
+            "WebSockets provide bidirectional TCP messaging, whereas SSE simplifies server-to-client updates over HTTP."
+          ],
+          "interactiveQuiz": {
+            "question": "Which HTTP Content-Type header must a Node.js response set to stream Server-Sent Events?",
+            "options": ["application/json", "text/event-stream", "multipart/form-data", "application/octet-stream"],
+            "correctIndex": 1,
+            "explanation": "Browsers require the `text/event-stream` header to parse incoming server data as EventSource events."
+          }
+        },
+        {
+          "id": "q34-cluster-sticky-sessions",
+          "title": "Q34: How do Sticky Sessions work when load balancing WebSocket connections across Node.js cluster workers?",
+          "content": "WebSockets require initial HTTP upgrades that transition into persistent TCP sockets. In a clustered Node.js environment, if handshake requests land on worker A but subsequent frames land on worker B, connection state breaks. Sticky sessions ensure that all requests from a single client IP or session cookie are routed consistently to the exact same worker process.",
+          "keyTakeaways": [
+            "Stateful protocols like WebSockets require persistent routing to the same worker instance.",
+            "Sticky sessions route requests consistently using IP hashing or session cookies."
+          ],
+          "interactiveQuiz": {
+            "question": "Why are sticky sessions required when load balancing WebSocket handshakes across multiple cluster workers?",
+            "options": [
+              "Worker threads cannot share CPU cores without sticky sessions",
+              "Ensures handshake and subsequent socket messages route to the same worker holding connection state",
+              "Prevents V8 garbage collector crashes during network upgrades",
+              "Required to pass CORS origin verification checks"
+            ],
+            "correctIndex": 1,
+            "explanation": "Because WebSocket connection state resides in process memory, all connection steps for a client must hit the same worker process."
+          }
+        }
+      ]
+    },
+    {
+      "id": "express-api-development",
+      "title": "Express.js & API Development",
+      "summary": "Express request processing, routing, request bodies, and cross-origin API access.",
+      "estimatedMinutes": 12,
+      "sections": [
+        {
+          "id": "q35-middleware",
+          "title": "Q35: What is middleware in Express.js?",
+          "content": "Middleware functions have access to the request object (`req`), response object (`res`), and the `next` function to perform code execution, request mutation, or end request cycles.",
+          "keyTakeaways": [
+            "Middleware processes incoming requests sequentially.",
+            "Calling `next()` passes execution to subsequent middleware functions."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens if middleware does not call next() and does not end res?",
+            "options": ["An error is thrown", "The request hangs indefinitely", "Express automatically calls next()", "The app crashes"],
+            "correctIndex": 1,
+            "explanation": "If `next()` is omitted and the response is not closed, the request remains pending."
+          }
+        },
+        {
+          "id": "q36-express-router",
+          "title": "Q36: What is Express Router and why is it used?",
+          "content": "Express `Router` creates modular, mountable route handlers. Routers allow splitting route definitions into separate files for better code organization and maintainability.",
+          "keyTakeaways": [
+            "Enables modular structure for API route handlers.",
+            "Acts as mini-middleware isolated to specific path prefixes."
+          ],
+          "interactiveQuiz": {
+            "question": "How do you instantiate an Express router instance?",
+            "options": ["express.CreateRouter()", "express.Router()", "new Express.Route()", "express.getRouter()"],
+            "correctIndex": 1,
+            "explanation": "`express.Router()` creates a new router instance for modular route definitions."
+          }
+        },
+        {
+          "id": "q37-body-parser",
+          "title": "Q37: Why was body-parser required in Express and how is it used now?",
+          "content": "Earlier Express versions required the `body-parser` module to parse incoming request bodies. Modern Express (v4.16+) includes built-in body parsing via `express.json()` and `express.urlencoded()`.",
+          "keyTakeaways": [
+            "Parses request payload bodies into `req.body`.",
+            "Built directly into modern Express releases (`express.json()`)."
+          ],
+          "interactiveQuiz": {
+            "question": "How do you parse JSON request bodies natively in modern Express.js?",
+            "options": [
+              "app.use(express.bodyParser())",
+              "app.use(express.json())",
+              "app.use(express.parseJSON())",
+              "app.use(express.query())"
+            ],
+            "correctIndex": 1,
+            "explanation": "`express.json()` is the built-in middleware for parsing JSON request payloads."
+          }
+        },
+        {
+          "id": "q38-cors-handling",
+          "title": "Q38: What is CORS and how do you enable it in Express.js?",
+          "content": "CORS (Cross-Origin Resource Sharing) is a browser security feature that restricts cross-origin HTTP requests. In Express, the `cors` middleware sets appropriate `Access-Control-Allow-Origin` HTTP headers.",
+          "keyTakeaways": [
+            "CORS prevents browser client access across different domain origins.",
+            "The `cors` package sets standard access headers automatically."
+          ],
+          "interactiveQuiz": {
+            "question": "Which HTTP response header allows cross-origin requests?",
+            "options": ["Access-Control-Allow-Origin", "X-Frame-Options", "Content-Security-Policy", "Strict-Transport-Security"],
+            "correctIndex": 0,
+            "explanation": "`Access-Control-Allow-Origin` dictates which origin domains can consume API resources."
+          }
+        }
+      ]
+    },
+    {
+      "id": "authentication-web-security",
+      "title": "Authentication, Sessions & Web Security",
+      "summary": "Authentication state, cookies, API protection, security middleware, and common web attacks.",
+      "estimatedMinutes": 21,
+      "sections": [
+        {
+          "id": "q39-jwt-authentication",
+          "title": "Q39: How does JWT authentication work in a Node.js REST API?",
+          "content": "JSON Web Tokens (JWT) contain encoded JSON claims signed with a secret or key. The server verifies the token sent in the `Authorization` header (`Bearer <token>`) on subsequent requests.",
+          "keyTakeaways": ["Stateless authentication mechanism for RESTful APIs.", "Tokens are signed to prevent client-side tampering."],
+          "interactiveQuiz": {
+            "question": "Which HTTP header is standard for passing JWT tokens?",
+            "options": ["Cookie", "Authorization", "X-API-Key", "Content-Type"],
+            "correctIndex": 1,
+            "explanation": "JWTs are typically passed in the `Authorization` header as a Bearer token."
+          }
+        },
+        {
+          "id": "q40-session-vs-token",
+          "title": "Q40: What is the difference between session-based and token-based state storage?",
+          "content": "Session authentication stores state server-side (in memory or Redis) mapped to a session ID cookie. Token-based authentication (JWT) stores cryptographically signed state client-side.",
+          "keyTakeaways": [
+            "Sessions store state server-side relying on session ID cookies.",
+            "Tokens store state statelessly within signed user tokens."
+          ],
+          "interactiveQuiz": {
+            "question": "Which data store is popular for managing distributed server-side sessions?",
+            "options": ["SQLite", "Redis", "Elasticsearch", "InfluxDB"],
+            "correctIndex": 1,
+            "explanation": "Redis is an in-memory key-value store frequently used for fast session storage."
+          }
+        },
+        {
+          "id": "q41-secure-cookies",
+          "title": "Q41: What security flags should be set on HTTP cookies in Node.js applications?",
+          "content": "Set `HttpOnly` to block client-side JavaScript access (mitigating XSS), `Secure` to enforce HTTPS transmission, and `SameSite=Strict` or `Lax` to prevent Cross-Site Request Forgery (CSRF).",
+          "keyTakeaways": [
+            "`HttpOnly` prevents client script access to cookies.",
+            "`Secure` ensures HTTPS transmission; `SameSite` prevents CSRF attacks."
+          ],
+          "interactiveQuiz": {
+            "question": "Which cookie flag prevents client-side document.cookie access in browsers?",
+            "options": ["Secure", "HttpOnly", "SameSite", "Domain"],
+            "correctIndex": 1,
+            "explanation": "The `HttpOnly` flag hides cookie data from client-side scripts, protecting against XSS exposure."
+          }
+        },
+        {
+          "id": "q42-rate-limiting",
+          "title": "Q42: How do you implement rate limiting in a Node.js API?",
+          "content": "Rate limiting restricts repeated requests from single IP addresses within time windows. Libraries like `express-rate-limit` backed by Redis record request frequencies.",
+          "keyTakeaways": [
+            "Protects endpoints against brute-force and Denial of Service (DoS) attacks.",
+            "Stores request counters in memory or distributed Redis instances."
+          ],
+          "interactiveQuiz": {
+            "question": "Which HTTP status code is standard for rate limit policy violations?",
+            "options": ["401 Unauthorized", "403 Forbidden", "429 Too Many Requests", "503 Service Unavailable"],
+            "correctIndex": 2,
+            "explanation": "HTTP status code `429 Too Many Requests` indicates rate limit thresholds were exceeded."
+          }
+        },
+        {
+          "id": "q43-helmet-js",
+          "title": "Q43: What is Helmet.js and why should Express applications use it?",
+          "content": "Helmet.js is Express security middleware that sets various HTTP response headers (like `Content-Security-Policy`, `X-Frame-Options`, `X-Content-Type-Options`) to guard against common web vulnerabilities.",
+          "keyTakeaways": [
+            "Secures HTTP headers automatically in Express apps.",
+            "Mitigates attacks like clickjacking, XSS, and MIME sniffing."
+          ],
+          "interactiveQuiz": {
+            "question": "Which security risk is mitigated by setting X-Frame-Options via Helmet?",
+            "options": ["SQL Injection", "Clickjacking", "Cross-Site Request Forgery", "Buffer Overflow"],
+            "correctIndex": 1,
+            "explanation": "`X-Frame-Options` prevents page embedding inside iframe tags, mitigating clickjacking."
+          }
+        },
+        {
+          "id": "q44-http-response-splitting",
+          "title": "Q44: What is HTTP Response Splitting and how does Node.js defend against it?",
+          "content": "HTTP Response Splitting occurs when untrusted user input containing carriage return (`\\r`) and line feed (`\\n`) characters is injected into HTTP response headers, allowing attackers to inject arbitrary headers or split responses. Node.js mitigates this by automatically throwing an error (`ERR_INVALID_HTTP_TOKEN`) if header keys or values contain CRLF characters.",
+          "keyTakeaways": [
+            "CRLF injection allows attackers to inject malicious headers or manipulate HTTP body content.",
+            "Node.js enforces strict internal header character validations to block CRLF injection attempts."
+          ],
+          "interactiveQuiz": {
+            "question": "Which character combination is used in HTTP Response Splitting attacks to inject unauthorized headers?",
+            "options": [
+              "Carriage Return and Line Feed (CRLF / \\r\\n)",
+              "Null byte (\\0)",
+              "HTML opening tags (<script>)",
+              "Unicode BOM mark"
+            ],
+            "correctIndex": 0,
+            "explanation": "Injecting CRLF characters allows separating header lines illegally to split HTTP responses."
+          }
+        },
+        {
+          "id": "q45-prototype-pollution",
+          "title": "Q45: What is Prototype Pollution and how do you protect Node.js applications against it?",
+          "content": "Prototype Pollution occurs when an attacker modifies the base JavaScript `Object.prototype` by injecting properties through recursive object merging or path traversal keys like `__proto__` or `constructor.prototype`. To prevent it, use `Object.create(null)` for plain key-value maps, freeze prototypes with `Object.freeze()`, validate JSON input schemas, or use modern map structures like `Map`.",
+          "keyTakeaways": [
+            "Prototype Pollution manipulates `Object.prototype` to inject unintended properties globally.",
+            "Mitigate using `Object.create(null)`, input validation libraries, or `Map` datatypes."
+          ],
+          "interactiveQuiz": {
+            "question": "Which object creation approach produces an object completely free from Object.prototype inheritance?",
+            "options": ["Object.create(null)", "new Object()", "Object.assign({})", "Object.freeze({})"],
+            "correctIndex": 0,
+            "explanation": "`Object.create(null)` constructs an object without any prototype chain, preventing property lookups from reaching `Object.prototype`."
+          }
+        }
+      ]
+    },
+    {
+      "id": "cryptography-runtime-security",
+      "title": "Cryptography & Secure Node.js",
+      "summary": "Cryptographic primitives, password hashing, integrity, TLS, sandboxing, and runtime permissions.",
+      "estimatedMinutes": 18,
+      "sections": [
+        {
+          "id": "q46-crypto-module",
+          "title": "Q46: What is the crypto module used for in Node.js?",
+          "content": "The `crypto` module provides cryptographic functionality, including wrappers for OpenSSL's hash, HMAC, cipher, decipher, sign, and verify functions.",
+          "keyTakeaways": [
+            "Provides built-in hashing, encryption, and signature generation.",
+            "Leverages native OpenSSL routines for performance."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method in crypto generates secure random bytes asynchronously?",
+            "options": ["crypto.randomBytes()", "crypto.getEntropy()", "crypto.generateUUID()", "crypto.createHash()"],
+            "correctIndex": 0,
+            "explanation": "`crypto.randomBytes()` generates cryptographically strong pseudo-random data."
+          }
+        },
+        {
+          "id": "q47-secure-hash-algorithms-scrypt",
+          "title": "Q47: Why is scrypt preferred over MD5 or SHA256 for user password hashing in Node.js?",
+          "content": "MD5 and SHA256 are fast cryptographic hashing algorithms designed for high-throughput checksum generation, making them vulnerable to rapid GPU hardware brute-force attacks. `crypto.scrypt()` is a memory-hard key derivation function deliberately designed to consume significant memory and CPU time, making hardware-accelerated brute-force cracking attempts impractical.",
+          "keyTakeaways": [
+            "Fast hash functions (SHA256, MD5) are vulnerable to GPU brute-force attacks.",
+            "`scrypt` imposes memory and CPU computational costs to defend against password cracking."
+          ],
+          "interactiveQuiz": {
+            "question": "What design trait makes crypto.scrypt() resilient against specialized GPU cracking hardware?",
+            "options": [
+              "It utilizes zero-copy buffer allocations",
+              "It is computationally memory-hard, requiring high memory overhead per attempt",
+              "It relies on asymmetric public-private key pairs",
+              "It executes inside worker thread pools by default"
+            ],
+            "correctIndex": 1,
+            "explanation": "Memory-hard algorithms require large memory allocations per calculation, severely bottlenecking parallel GPU cracking rigs."
+          }
+        },
+        {
+          "id": "q48-subresource-integrity",
+          "title": "Q48: What is Subresource Integrity (SRI) and how does Node.js crypto generate SRI hashes?",
+          "content": "Subresource Integrity (SRI) allows security systems to verify that fetched resources (such as scripts or assets) have not been manipulated. Node.js generates SRI hashes by hashing raw file content using cryptographic algorithms like SHA-384 or SHA-512 and encoding the result in base64 prefixed with the algorithm identifier (e.g., `sha384-<base64-hash>`).",
+          "keyTakeaways": [
+            "SRI guarantees file integrity by comparing cryptographic hashes against expectations.",
+            "Generated in Node.js via `crypto.createHash('sha384').update(data).digest('base64')`."
+          ],
+          "interactiveQuiz": {
+            "question": "What standard encoding format is used for SRI cryptographic hash digest strings?",
+            "options": ["Hex", "Base64", "UTF-8", "ASCII"],
+            "correctIndex": 1,
+            "explanation": "SRI hash metadata strings use base64 digest encoding formatted as `<algorithm>-<base64-string>`."
+          }
+        },
+        {
+          "id": "q49-tls-ssl-security",
+          "title": "Q49: How is mutual TLS (mTLS) implemented using the Node.js tls module?",
+          "content": "Mutual TLS (mTLS) requires both server and client to authenticate each other using X.509 digital certificates. In Node.js, this is implemented using the `tls` or `https` module by setting `requestCert: true` and `rejectUnauthorized: true` alongside specifying trusted Certificate Authorities (`ca`), server certificates (`cert`), and private keys (`key`).",
+          "keyTakeaways": [
+            "mTLS enforces bidirectional identity verification using SSL certificates.",
+            "Configured via `tls.createServer()` with `requestCert: true` and `rejectUnauthorized: true`."
+          ],
+          "interactiveQuiz": {
+            "question": "Which TLS option instructs a Node.js server to reject incoming client connections that lack valid certificates?",
+            "options": ["rejectUnauthorized: true", "requestCert: false", "secureProtocol: 'SSLv3'", "checkServerIdentity: true"],
+            "correctIndex": 0,
+            "explanation": "`rejectUnauthorized: true` forces the server to terminate incoming requests that fail client certificate validation."
+          }
+        },
+        {
+          "id": "q50-vm-module-sandbox",
+          "title": "Q50: What is the `vm` module, and why is it unsuitable as a security sandbox for untrusted code?",
+          "content": "The `vm` core module allows compiling and running JavaScript code within specific V8 context scopes. While useful for creating isolated execution contexts, it is **not** a security sandbox. Untrusted code running in a `vm` context can easily escape by accessing constructors of objects passed into the context (e.g., `this.constructor.constructor('return process')()`), granting full access to the host Node.js process and system environment. Isolated execution of untrusted code requires dedicated process-level or container-level isolation (e.g., Docker, WebAssembly sandboxes, or `isolated-vm`).",
+          "keyTakeaways": [
+            "The `vm` module isolates scope contexts, not process permissions or system security boundaries.",
+            "Untrusted code can escape `vm` contexts via object prototypes and constructor chains to execute arbitrary host code."
+          ],
+          "interactiveQuiz": {
+            "question": "How can untrusted code escape a basic Node.js `vm` context?",
+            "options": [
+              "By exploiting V8 garbage collection cycles",
+              "Via constructor properties on objects passed into the context scope",
+              "By emitting uncaught HTTP events",
+              "By overloading the Libuv thread pool buffer"
+            ],
+            "correctIndex": 1,
+            "explanation": "Untrusted code can traverse the `constructor` hierarchy of host objects passed in as context to access the outer `Function` and `process` global."
+          }
+        },
+        {
+          "id": "q51-permissions-model",
+          "title": "Q51: What is the Node.js Security Permission Model (--experimental-permission)?",
+          "content": "Node.js includes an experimental Permission Model enabling developers to restrict process capabilities during runtime execution. Using flags like `--allow-fs-read`, `--allow-fs-write`, `--allow-child-process`, or `--allow-worker`, admins can restrict access to host file system paths, process spawning, or worker thread creation.",
+          "keyTakeaways": [
+            "The Permission Model restricts system resource access at runtime level.",
+            "Controls access to file paths, worker creation, and child process execution via explicit flags."
+          ],
+          "interactiveQuiz": {
+            "question": "Which flag enables explicit path-level file system read restrictions in Node.js Permission Model?",
+            "options": ["--allow-fs-read", "--restrict-fs", "--enable-file-lock", "--secure-fs"],
+            "correctIndex": 0,
+            "explanation": "`--allow-fs-read=/path/` explicitly grants file read access exclusively to designated directories."
+          }
+        }
+      ]
+    },
+    {
+      "id": "filesystem-core-utilities",
+      "title": "Filesystem & Core Utilities",
+      "summary": "Core filesystem and path APIs and their impact on Node.js execution.",
+      "estimatedMinutes": 10,
+      "sections": [
+        {
+          "id": "q52-fs-module",
+          "title": "Q52: What is the difference between fs.readFile and fs.readFileSync?",
+          "content": "`fs.readFile` reads files asynchronously without blocking the Event Loop. `fs.readFileSync` blocks code execution until reading completes.",
+          "keyTakeaways": [
+            "`fs.readFile` is non-blocking asynchronous I/O.",
+            "`fs.readFileSync` blocks the main thread during file reading."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method should be avoided in production HTTP request handlers?",
+            "options": ["fs.readFile", "fs.readFileSync", "fs.promises.readFile", "fs.createReadStream"],
+            "correctIndex": 1,
+            "explanation": "Synchronous file operations block the Event Loop, reducing server request throughput."
+          }
+        },
+        {
+          "id": "q53-path-module",
+          "title": "Q53: What is the difference between path.join() and path.resolve()?",
+          "content": "`path.join()` joins all given path segments together using platform separators. `path.resolve()` resolves path segments into an absolute path, treating segments as roots if prefixed with `/`.",
+          "keyTakeaways": [
+            "`path.join()` concatenates path segments normalized.",
+            "`path.resolve()` constructs absolute paths working right-to-left."
+          ],
+          "interactiveQuiz": {
+            "question": "Which path method always returns an absolute path string?",
+            "options": ["path.join()", "path.resolve()", "path.normalize()", "path.relative()"],
+            "correctIndex": 1,
+            "explanation": "`path.resolve()` always resolves segments into a fully qualified absolute path."
+          }
+        }
+      ]
+    },
+    {
+      "id": "processes-clustering-deployment",
+      "title": "Processes, Clustering & Deployment",
+      "summary": "Child processes, clustering, process managers, graceful shutdown, packaging, and development runtime tooling.",
+      "estimatedMinutes": 21,
+      "sections": [
+        {
+          "id": "q54-cluster-module",
+          "title": "Q54: How does the Cluster module work in Node.js?",
+          "content": "The `cluster` module allows creating child processes (workers) that share server ports, enabling a multi-core system to handle higher application workloads.",
+          "keyTakeaways": [
+            "Clustering spawns multiple processes to utilize multi-core CPUs.",
+            "Worker processes share the same networking ports."
+          ],
+          "interactiveQuiz": {
+            "question": "How do cluster worker processes communicate with the primary process?",
+            "options": ["Shared memory", "IPC (Inter-Process Communication)", "HTTP requests", "WebSockets"],
+            "correctIndex": 1,
+            "explanation": "Cluster processes communicate using IPC channels provided by Node.js."
+          }
+        },
+        {
+          "id": "q55-clustering-vs-pm2",
+          "title": "Q55: What is the relationship between Node.js core Cluster module and PM2?",
+          "content": "PM2 wraps Node.js core `cluster` module under the hood, managing process lifecycles, health monitoring, load balancing, and dynamic scaling through simple configurations.",
+          "keyTakeaways": [
+            "PM2 builds upon the built-in Node.js cluster capabilities.",
+            "Provides operational management, automatic restarts, and CLI controls."
+          ],
+          "interactiveQuiz": {
+            "question": "What PM2 CLI flag activates cluster mode automatically for available CPU cores?",
+            "options": ["pm2 start app.js -i max", "pm2 cluster app.js", "pm2 start app.js --fork", "pm2 scale app.js"],
+            "correctIndex": 0,
+            "explanation": "`-i max` spawns clustered worker instances equal to the total available logical CPU cores."
+          }
+        },
+        {
+          "id": "q56-pm2-process-manager",
+          "title": "Q56: What is PM2 and why is it used in production Node.js deployment?",
+          "content": "PM2 is a production process manager for Node.js. It handles automatic application restarts on failures, application clustering, zero-downtime reloads, and log management.",
+          "keyTakeaways": [
+            "Keeps Node.js applications alive continuously.",
+            "Supports process clustering, log rotation, and zero-downtime restarts."
+          ],
+          "interactiveQuiz": {
+            "question": "Which PM2 feature enables zero-downtime application updates?",
+            "options": ["pm2 restart", "pm2 reload", "pm2 update", "pm2 reset"],
+            "correctIndex": 1,
+            "explanation": "`pm2 reload` performs a rolling zero-downtime reload across clustered worker instances."
+          }
+        },
+        {
+          "id": "q57-graceful-shutdown",
+          "title": "Q57: How do you implement a graceful shutdown in a Node.js server?",
+          "content": "Listen for termination signals (`SIGTERM`, `SIGINT`), stop accepting new incoming requests using `server.close()`, complete pending requests, close active database pools, and exit the process.",
+          "keyTakeaways": [
+            "Intercept process signals like `SIGTERM` and `SIGINT`.",
+            "Close server connections and database client pools cleanly before exiting."
+          ],
+          "interactiveQuiz": {
+            "question": "Which process termination signal is typically sent by orchestrators like Kubernetes to stop a container?",
+            "options": ["SIGKILL", "SIGTERM", "SIGINT", "SIGHUP"],
+            "correctIndex": 1,
+            "explanation": "`SIGTERM` is the standard termination signal sent to request clean process shutdowns."
+          }
+        },
+        {
+          "id": "q58-graceful-ipc-disconnection",
+          "title": "Q58: How do you gracefully disconnect a child process spawned via fork()?",
+          "content": "When spawning child processes using `child_process.fork()`, an IPC channel is established. To cleanly disconnect without abruptly killing ongoing tasks, call `child.disconnect()`. This closes the IPC channel, allows pending events to drain, and permits the child process to exit naturally once its event loop completes.",
+          "keyTakeaways": [
+            "`child.disconnect()` closes the Inter-Process Communication (IPC) channel cleanly.",
+            "Allows child processes to complete pending tasks and terminate without sending SIGKILL signals."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens when child.disconnect() is called on a IPC-connected child process?",
+            "options": [
+              "The child receives a SIGKILL signal immediately",
+              "The IPC channel closes and child process exits naturally when its event loop is empty",
+              "The main thread throws an UnhandledPromiseRejection",
+              "V8 heap memory for the child process is immediately freed"
+            ],
+            "correctIndex": 1,
+            "explanation": "`child.disconnect()` safely terminates IPC messaging while allowing active tasks inside the child process to finalize."
+          }
+        },
+        {
+          "id": "q59-single-executable-applications",
+          "title": "Q59: What are Single Executable Applications (SEA) in Node.js?",
+          "content": "Node.js supports bundling application code and assets directly into a single executable binary (SEA). Introduced natively in modern Node.js releases, SEA allows distributing Node.js applications as standalone executable binaries without requiring users to install the Node.js runtime environment separately on host targets.",
+          "keyTakeaways": [
+            "SEA packages JavaScript applications directly into standalone platform binaries.",
+            "Eliminates external Node.js runtime installation dependencies on target machines."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the primary operational benefit of creating a Single Executable Application (SEA)?",
+            "options": [
+              "Doubles code execution speed in V8",
+              "Runs application code without needing a separate pre-installed Node.js runtime",
+              "Bypasses operating system file permission checks",
+              "Automates production database migrations"
+            ],
+            "correctIndex": 1,
+            "explanation": "SEAs bundle the runtime and application source together so target host machines do not need Node.js pre-installed."
+          }
+        },
+        {
+          "id": "q60-node-watch-mode",
+          "title": "Q60: How does Node.js native watch mode work and how does it replace Nodemon?",
+          "content": "Node.js v18.11+ introduced a native file watching flag `--watch`. When started with `node --watch app.js`, Node.js monitors imported dependency files and automatically restarts the process whenever changes are saved, removing the need for external CLI dependencies like `nodemon` or `pm2-dev` during local development.",
+          "keyTakeaways": [
+            "Native `--watch` flag monitors imported application files for changes automatically.",
+            "Eliminates external development dependencies like Nodemon."
+          ],
+          "interactiveQuiz": {
+            "question": "Which built-in Node.js CLI flag enables native automatic process restarts on file changes?",
+            "options": ["--watch", "--reload", "--dev", "--live"],
+            "correctIndex": 0,
+            "explanation": "Running `node --watch entry.js` leverages native runtime file system watchers to restart execution on code changes."
+          }
+        }
+      ]
+    },
+    {
+      "id": "errors-diagnostics-reliability",
+      "title": "Errors, Diagnostics & Reliability",
+      "summary": "Failure handling, custom errors, crash behavior, and production diagnostics.",
+      "estimatedMinutes": 12,
+      "sections": [
+        {
+          "id": "q61-uncaught-exceptions",
+          "title": "Q61: How should uncaught exceptions be handled in Node.js?",
+          "content": "Listen to `process.on('uncaughtException')` to log diagnostic info, then perform a graceful application shutdown to prevent unpredictable state corruptions.",
+          "keyTakeaways": [
+            "Uncaught exceptions leave applications in an unreliable state.",
+            "Always log error diagnostics and restart the application process."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the recommended practice after capturing an uncaughtException?",
+            "options": ["Ignore it", "Gracefully terminate the process and restart", "Clear the call stack", "Emit a warnings event"],
+            "correctIndex": 1,
+            "explanation": "Node.js documentation recommends restarting the process to maintain application stability."
+          }
+        },
+        {
+          "id": "q62-unhandled-rejections",
+          "title": "Q62: How do you handle unhandled promise rejections in Node.js?",
+          "content": "Handle unhandled promise rejections using `process.on('unhandledRejection', callback)`. In modern Node.js versions, unhandled rejections terminate the process with a non-zero exit code by default.",
+          "keyTakeaways": [
+            "Failing to catch promise rejections triggers unhandled rejections.",
+            "Process listener enables central logging and clean teardown."
+          ],
+          "interactiveQuiz": {
+            "question": "Which process event fires when a Promise is rejected without a .catch() block?",
+            "options": ["uncaughtException", "unhandledRejection", "rejectionHandled", "promiseError"],
+            "correctIndex": 1,
+            "explanation": "`unhandledRejection` triggers whenever a promise rejects without a catch handler."
+          }
+        },
+        {
+          "id": "q63-custom-error-class",
+          "title": "Q63: How do you create custom Error classes in Node.js?",
+          "content": "Extend the built-in `Error` class and invoke `super(message)`. Capture stack traces using `Error.captureStackTrace(this, CustomErrorClass)`.",
+          "keyTakeaways": [
+            "Extend the standard JavaScript `Error` class.",
+            "Use `Error.captureStackTrace()` to preserve clean stack trace histories."
+          ],
+          "interactiveQuiz": {
+            "question": "Which V8 method captures formatted call stack lines on custom error objects?",
+            "options": ["Error.captureStackTrace()", "console.trace()", "Error.getStack()", "process.getStackTrace()"],
+            "correctIndex": 0,
+            "explanation": "`Error.captureStackTrace()` attaches a stack property representing execution points."
+          }
+        },
+        {
+          "id": "q64-diagnostic-reports",
+          "title": "Q64: What are Node.js Diagnostic Reports and how are they generated?",
+          "content": "Diagnostic Reports are JSON-formatted summary files generated by Node.js containing detailed runtime information, including call stacks, native stack traces, heap statistics, system environment variables, resource usage, and loaded native modules. They can be triggered automatically on crashes, uncaught exceptions, or fatal memory exhaustion, or manually using `process.report.writeReport()` or the command-line flag `--report-uncaught-exception`.",
+          "keyTakeaways": [
+            "Diagnostic reports output comprehensive JSON diagnostics for troubleshooting production crashes.",
+            "They capture call stacks, heap stats, native OS information, and process arguments without external tools."
+          ],
+          "interactiveQuiz": {
+            "question": "What format do Node.js Diagnostic Reports use to store runtime statistics?",
+            "options": ["XML", "JSON", "Protocol Buffers", "YAML"],
+            "correctIndex": 1,
+            "explanation": "Diagnostic Reports generate structured JSON files that are easy to parse with automated diagnostic tooling."
+          }
+        }
+      ]
+    },
+    {
+      "id": "v8-memory-performance",
+      "title": "V8, Memory & Performance",
+      "summary": "V8 execution, garbage collection, memory leaks, optimization, profiling, and tracing.",
+      "estimatedMinutes": 24,
+      "sections": [
+        {
+          "id": "q65-v8-garbage-collection",
+          "title": "Q65: How does V8 handle Garbage Collection in Node.js?",
+          "content": "V8 uses a generational garbage collector dividing memory into Young Generation (Scavenge algorithms for short-lived objects) and Old Generation (Mark-Sweep-Compact for long-lived objects).",
+          "keyTakeaways": [
+            "Generational memory structure: Young and Old Generation.",
+            "Uses Scavenger for quick short-lived sweeps and Mark-Sweep for long-lived objects."
+          ],
+          "interactiveQuiz": {
+            "question": "Which garbage collection algorithm handles short-lived objects in V8's Young Generation?",
+            "options": ["Mark-Sweep", "Scavenge", "Reference Counting", "Compact"],
+            "correctIndex": 1,
+            "explanation": "The Scavenge algorithm quickly evacuates live objects out of the Young Generation."
+          }
+        },
+        {
+          "id": "q66-garbage-collection-flags",
+          "title": "Q66: How do you increase memory limits for a Node.js process?",
+          "content": "Pass the `--max-old-space-size=<size_in_mb>` V8 flag during startup (e.g., `node --max-old-space-size=4096 app.js`) to expand the heap limit.",
+          "keyTakeaways": [
+            "Adjust V8 max heap boundaries via `--max-old-space-size`.",
+            "Prevents Out-Of-Memory (OOM) crashes during large data processing."
+          ],
+          "interactiveQuiz": {
+            "question": "Which CLI option sets maximum V8 Old Generation memory capacity to 4GB?",
+            "options": ["--max-old-space-size=4096", "--heap-limit=4096", "--v8-memory=4g", "--max-memory=4096"],
+            "correctIndex": 0,
+            "explanation": "`--max-old-space-size=4096` expands maximum V8 old generation memory heap to 4GB."
+          }
+        },
+        {
+          "id": "q67-memory-leaks",
+          "title": "Q67: What causes memory leaks in Node.js applications?",
+          "content": "Common causes include uncleaned global variables, active timer closures (`setInterval`), uncleared event listeners, and growing caching objects held in memory.",
+          "keyTakeaways": [
+            "Retained object references prevent V8 garbage collection.",
+            "Common sources: globals, forgotten event listeners, timers."
+          ],
+          "interactiveQuiz": {
+            "question": "Which tool can inspect memory heap snapshots of a Node.js process?",
+            "options": ["Chrome DevTools", "npm CLI", "Libuv inspect", "Express Debugger"],
+            "correctIndex": 0,
+            "explanation": "Connecting Node.js inspect mode to Chrome DevTools allows analyzing heap allocation snapshots."
+          }
+        },
+        {
+          "id": "q68-hidden-classes-and-inline-caches",
+          "title": "Q68: How do V8 Hidden Classes (Shapes) and Inline Caches affect Node.js performance?",
+          "content": "V8 dynamic optimization relies on Hidden Classes (also called Shapes) and Inline Caches (IC). When JavaScript objects share identical property structure and initialization order, V8 assigns them the same Hidden Class, enabling fast memory offset property lookups. If dynamic properties are added out of order or deleted (`delete obj.prop`), V8 creates new shapes or downgrades the property lookup to dictionary mode, slowing down property accesses.",
+          "keyTakeaways": [
+            "Initialize object properties in a consistent order to help V8 reuse Hidden Classes.",
+            "Avoid deleting properties (`delete obj.prop`); assign `undefined` or `null` instead to maintain optimized execution paths."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is deleting an object property using `delete obj.key` considered harmful for high-performance Node.js code?",
+            "options": [
+              "It forces an immediate garbage collection cycle",
+              "It changes the object's Hidden Class shape, dropping V8 property access optimizations",
+              "It leaks memory onto the system thread pool",
+              "It throws an unhandled error in strict mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "`delete` modifies the hidden class shape of an object, forcing V8 to fall back to slower dictionary-based property lookups."
+          }
+        },
+        {
+          "id": "q69-v8-jit-compiler",
+          "title": "Q69: How does the V8 execution pipeline (Ignition & TurboFan) execute Node.js JavaScript?",
+          "content": "V8 uses an interpreter named Ignition to parse JavaScript source code into bytecode for immediate execution. As functions run repeatedly, V8 collects profiling data (type feedback). If a function becomes 'hot', the TurboFan optimizing compiler converts the bytecode into highly optimized machine code. If runtime type assertions fail, V8 performs deoptimization and falls back to bytecode.",
+          "keyTakeaways": [
+            "Ignition compiles JavaScript source into bytecode for quick initial startup.",
+            "TurboFan compiles hot functions into machine code, deoptimizing if assumptions change."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the role of V8 TurboFan in Node.js runtime execution?",
+            "options": [
+              "Garbage collecting unused V8 old generation objects",
+              "Compiling hot bytecode functions into optimized native machine code",
+              "Managing the Libuv thread pool queues",
+              "Parsing JSON buffers into JavaScript object structures"
+            ],
+            "correctIndex": 1,
+            "explanation": "TurboFan is V8's optimizing compiler that turns frequently run bytecode into optimized machine code."
+          }
+        },
+        {
+          "id": "q70-v8-code-caching",
+          "title": "Q70: What is V8 Code Caching and how does it speed up Node.js application cold starts?",
+          "content": "When Node.js compiles JavaScript files into V8 bytecode, it can generate a binary cache of the compiled bytecode. On subsequent application cold starts, V8 loads the cached bytecode directly from disk via `v8.compileFunction()` or Module Code Caches, bypassing source code parsing and compilation phases entirely to accelerate cold start boot times.",
+          "keyTakeaways": [
+            "V8 Code Caching saves compiled bytecode to disk for reuse across application boots.",
+            "Reduces startup latency by bypassing source parsing and bytecode generation phases."
+          ],
+          "interactiveQuiz": {
+            "question": "Which compilation phase is bypassed when Node.js loads a file with V8 Code Cache available?",
+            "options": [
+              "Garbage collection sweeps",
+              "Source code parsing and initial bytecode compilation",
+              "Libuv event demultiplexing",
+              "Process environment initialization"
+            ],
+            "correctIndex": 1,
+            "explanation": "Code Caching loads pre-compiled bytecode directly, skipping initial lexical parsing and bytecode compilation."
+          }
+        },
+        {
+          "id": "q71-profiling-node-apps",
+          "title": "Q71: How do you profile CPU usage in a Node.js application?",
+          "content": "Run the application with the `--prof` V8 flag, perform load operations, and analyze the resulting tick log file using `node --prof-process isolate-*.log`.",
+          "keyTakeaways": [
+            "Generate V8 profiling logs using `--prof` flag.",
+            "Process output tick logs to identify performance bottleneck functions."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command-line flag enables V8 built-in CPU profiling tick logs?",
+            "options": ["--inspect", "--prof", "--trace-warnings", "--cpu-profile"],
+            "correctIndex": 1,
+            "explanation": "The `--prof` flag instructs V8 to sample CPU usage and generate profiling logs."
+          }
+        },
+        {
+          "id": "q72-system-diagnostics-trace-events",
+          "title": "Q72: How does the --trace-events-enabled flag assist in deep performance profiling?",
+          "content": "Launching Node.js with `--trace-events-enabled` records performance events across V8, Libuv, and Node.js core modules into log files. These trace log files can be imported directly into Chrome DevTools (`chrome://tracing`) or Speedscope to inspect detailed thread execution timelines, garbage collection pauses, and async task durations.",
+          "keyTakeaways": [
+            "`--trace-events-enabled` outputs low-level execution trace logs.",
+            "Trace files can be rendered in Chrome DevTools to visually inspect V8 and thread pool performance."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Chrome DevTools panel or URL is used to visually inspect trace event log files generated by Node.js?",
+            "options": ["chrome://inspect", "chrome://tracing", "chrome://memory-internals", "chrome://net-export"],
+            "correctIndex": 1,
+            "explanation": "`chrome://tracing` loads generated trace log files to visualize low-level runtime execution timelines."
+          }
+        }
+      ]
+    },
+    {
+      "id": "npm-dependencies-package-management",
+      "title": "npm, Dependencies & Package Management",
+      "summary": "Dependency locking, SemVer, package execution, auditing, and package-manager version consistency.",
+      "estimatedMinutes": 15,
+      "sections": [
+        {
+          "id": "q73-package-lock",
+          "title": "Q73: Why is package-lock.json important?",
+          "content": "`package-lock.json` locks the exact versions of dependencies installed in `node_modules`, ensuring deterministic installations across environments.",
+          "keyTakeaways": ["Guarantees identical dependency trees across environments.", "Prevents accidental breaks from semver updates."],
+          "interactiveQuiz": {
+            "question": "Which command installs exact versions listed in package-lock.json?",
+            "options": ["npm install", "npm update", "npm ci", "npm lock"],
+            "correctIndex": 2,
+            "explanation": "`npm ci` installs strictly based on `package-lock.json` for reproducible builds."
+          }
+        },
+        {
+          "id": "q74-semantic-versioning",
+          "title": "Q74: How does Semantic Versioning (SemVer) work in package.json dependencies?",
+          "content": "SemVer uses `MAJOR.MINOR.PATCH` format. Caret (`^1.2.3`) permits updates that do not modify the left-most non-zero digit. Tilde (`~1.2.3`) permits patch-level changes.",
+          "keyTakeaways": [
+            "Version components: MAJOR (breaking), MINOR (features), PATCH (fixes).",
+            "`^` allows minor/patch updates; `~` restricts updates to patches."
+          ],
+          "interactiveQuiz": {
+            "question": "Which symbol in package.json allows patch updates but blocks minor version bumps?",
+            "options": ["^", "~", "*", ">="],
+            "correctIndex": 1,
+            "explanation": "The tilde `~` restricts dependency upgrades strictly to patch-level bug fixes."
+          }
+        },
+        {
+          "id": "q75-npm-vs-npx",
+          "title": "Q75: What is the difference between npm and npx?",
+          "content": "`npm` is the package manager used to install, update, and manage project dependencies. `npx` is a package runner tool that executes binaries without requiring global installation.",
+          "keyTakeaways": [
+            "`npm` manages dependency installation and package publishing.",
+            "`npx` executes binary packages directly without prior global installation."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command runs a package CLI tool directly without installing it globally?",
+            "options": ["npm run", "npx", "npm exec", "node run"],
+            "correctIndex": 1,
+            "explanation": "`npx` downloads and executes temporary package binaries on demand."
+          }
+        },
+        {
+          "id": "q76-npm-audit",
+          "title": "Q76: What does `npm audit` do?",
+          "content": "`npm audit` checks configured dependency packages against known vulnerability databases and generates reports describing security risks and remediation paths.",
+          "keyTakeaways": [
+            "Scans installed dependencies for security vulnerabilities.",
+            "Generates vulnerability reports and automated fix actions."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command attempts to automatically update vulnerable dependencies?",
+            "options": ["npm audit fix", "npm update --force", "npm repair", "npm security fix"],
+            "correctIndex": 0,
+            "explanation": "`npm audit fix` automatically applies compatible updates for vulnerable dependencies."
+          }
+        },
+        {
+          "id": "q77-core-pack-and-pnpm",
+          "title": "Q77: What is Corepack and how does it alter package manager management in Node.js?",
+          "content": "Corepack is an official tool included with Node.js that manages alternative package managers like Yarn and pnpm. Instead of requiring global installations of specific package manager binaries via `npm install -g`, Corepack automatically identifies, downloads, and invokes the exact package manager version configured in a project's `package.json` `packageManager` field, ensuring identical tooling versions across contributor environments.",
+          "keyTakeaways": [
+            "Corepack manages package manager toolchains (Yarn, pnpm) without global npm installs.",
+            "Ensures team consistency by enforcing the exact package manager version declared in `package.json`."
+          ],
+          "interactiveQuiz": {
+            "question": "Which field in package.json does Corepack read to determine which package manager binary version to execute?",
+            "options": ["engines", "packageManager", "dependencies", "scripts"],
+            "correctIndex": 1,
+            "explanation": "Corepack reads the `packageManager` property (e.g., `\"packageManager\": \"pnpm@8.10.0\"`) to select and lock the required package manager tool."
+          }
+        }
+      ]
+    },
+    {
+      "id": "databases-testing",
+      "title": "Databases & Testing",
+      "summary": "Database selection and unit-testing doubles in Node.js applications.",
+      "estimatedMinutes": 10,
+      "sections": [
+        {
+          "id": "q78-nosql-vs-sql",
+          "title": "Q78: How do you choose between relational databases and MongoDB in Node.js?",
+          "content": "Use SQL (e.g., PostgreSQL) for strict ACID compliance, fixed schemas, and complex relations. Use MongoDB for flexible document structures, rapid prototyping, and horizontal scalability.",
+          "keyTakeaways": [
+            "SQL offers strict relational consistency and structured schema guarantees.",
+            "NoSQL offers flexible document schemas and easier horizontal scaling."
+          ],
+          "interactiveQuiz": {
+            "question": "Which object mapping library is commonly paired with MongoDB in Node.js applications?",
+            "options": ["Sequelize", "Prisma", "Mongoose", "TypeORM"],
+            "correctIndex": 2,
+            "explanation": "Mongoose is the standard ODM (Object Data Modeling) library for MongoDB and Node.js."
+          }
+        },
+        {
+          "id": "q79-stubbing-mocking",
+          "title": "Q79: What is the difference between mocks and stubs in Node.js unit testing?",
+          "content": "Stubs provide canned responses to method calls made during tests without recording call assertions. Mocks are pre-programmed with expectations regarding calls they should receive.",
+          "keyTakeaways": [
+            "Stubs return static predefined data during test execution.",
+            "Mocks verify specific behavioral interaction expectations."
+          ],
+          "interactiveQuiz": {
+            "question": "Which test double type asserts whether a specific method was invoked with particular arguments?",
+            "options": ["Dummy", "Stub", "Mock", "Spy"],
+            "correctIndex": 2,
+            "explanation": "Mocks verify behavioral interactions by enforcing expectation assertions."
+          }
+        }
+      ]
+    },
+    {
+      "id": "native-node-extensions",
+      "title": "Native Node.js Extensions",
+      "summary": "Native addons and Node-API compatibility.",
+      "estimatedMinutes": 10,
+      "sections": [
+        {
+          "id": "q80-cplusplus-addons",
+          "title": "Q80: What are C++ Addons and Node-API (N-API) in Node.js?",
+          "content": "C++ Addons are dynamically linked shared objects written in C++ that can be loaded into Node.js using `require()`. They provide bindings between JavaScript and native system libraries for performance-critical tasks. `Node-API` (formerly N-API) is an Application Programming Interface (API) that abstracts the underlying V8 JavaScript engine. Node-API guarantees Application Binary Interface (ABI) stability across Node.js versions, meaning compiled native addons do not need to be recompiled when upgrading the Node.js runtime version.",
+          "keyTakeaways": [
+            "C++ Addons enable direct interaction with system-level libraries and native machine execution speed.",
+            "Node-API provides ABI stability, allowing native modules to work across different Node.js major versions without recompilation."
+          ],
+          "interactiveQuiz": {
+            "question": "What primary problem does Node-API (N-API) solve for native C++ addon developers?",
+            "options": [
+              "Eliminates the need for a C++ compiler",
+              "Prevents the need to recompile native addons when Node.js major versions update",
+              "Automatically converts synchronous native code to non-blocking microtasks",
+              "Replaces the Libuv thread pool with system worker threads"
+            ],
+            "correctIndex": 1,
+            "explanation": "Node-API maintains ABI stability across Node.js versions, preserving compatibility without requiring native recompilation."
+          }
+        }
+      ]
+    }
+  ]
+}

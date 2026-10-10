@@ -1,0 +1,1990 @@
+{
+  "courseId": "git-mastery",
+  "courseName": "Git",
+  "title": "Git Mastery: From Fundamentals to Advanced Workflows",
+  "subtitle": "Learn Git from first commit to advanced branching, rebasing, collaboration, recovery, automation, and real-world team workflows.",
+  "category": "Developer Tools & Version Control",
+  "level": "Intermediate",
+  "estimatedTime": "7.5 Hours",
+  "accentColor": "#F05032",
+  "keywords": [
+    "git",
+    "version control",
+    "github",
+    "gitlab",
+    "branching",
+    "merging",
+    "rebasing",
+    "pull request",
+    "cherry-pick",
+    "git stash",
+    "git reset",
+    "git reflog",
+    "git hooks",
+    "git bisect",
+    "git workflows",
+    "devops"
+  ],
+  "chapters": [
+    {
+      "id": "git-fundamentals",
+      "title": "Git Fundamentals",
+      "summary": "Understand version control, Git's architecture, repositories, commits, the staging area, and the basic development workflow.",
+      "estimatedMinutes": 35,
+      "mediaImages": ["https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80"],
+      "sections": [
+        {
+          "id": "what-is-git",
+          "title": "What Is Git?",
+          "content": "Git is a distributed version control system designed to track changes in source code and other files. Unlike a simple backup system, Git records a history of changes so developers can inspect, compare, revert, branch, merge, and collaborate safely.\n\nGit is **distributed**, which means a cloned repository contains the complete repository history rather than depending on a single central server for normal version-control operations.\n\nA typical workflow is: modify files → inspect changes → stage changes → create a commit → share commits with a remote repository.",
+          "callout": {
+            "type": "info",
+            "title": "Git vs GitHub",
+            "message": "Git is the version-control system. GitHub, GitLab, and Bitbucket are services that host Git repositories and provide collaboration features."
+          },
+          "diagram": {
+            "type": "flowchart",
+            "title": "Basic Git Workflow",
+            "code": "flowchart LR\n  W[Working Directory] -->|git add| S[Staging Area]\n  S -->|git commit| L[Local Repository]\n  L -->|git push| R[Remote Repository]\n  R -->|git pull/fetch| L"
+          },
+          "codeExample": {
+            "title": "Create Your First Repository",
+            "language": "bash",
+            "code": "mkdir git-demo\ncd git-demo\ngit init\necho \"Hello Git\" > README.md\ngit add README.md\ngit commit -m \"Initial commit\"",
+            "explanation": "`git init` creates a Git repository. `git add` places a change into the staging area, and `git commit` permanently records the staged snapshot in the repository history."
+          },
+          "keyTakeaways": [
+            "Git tracks changes as a history of commits.",
+            "Git repositories contain their own local history.",
+            "The normal workflow moves changes from working directory to staging area and then into a commit."
+          ],
+          "interactiveQuiz": {
+            "question": "What is Git primarily used for?",
+            "options": [
+              "Managing database connections",
+              "Version control and tracking changes",
+              "Hosting websites",
+              "Compiling JavaScript"
+            ],
+            "correctIndex": 1,
+            "explanation": "Git is a distributed version control system used to track changes, maintain history, create branches, and collaborate on projects."
+          }
+        },
+        {
+          "id": "git-three-areas",
+          "title": "Working Directory, Staging Area, and Repository",
+          "content": "Git conceptually separates your project into three important areas. The **working directory** contains the files you are currently editing. The **staging area**, also called the index, contains changes selected for the next commit. The **repository** contains committed snapshots.\n\nThis separation lets you create focused commits. For example, if you modify three files but only one change is ready, you can stage only that file and commit it.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Git's Three Areas",
+            "code": "flowchart LR\n  A[Working Directory] -->|git add| B[Staging Area / Index]\n  B -->|git commit| C[Git Repository]\n  C -->|git restore| A\n  B -->|git restore --staged| A"
+          },
+          "codeExample": {
+            "title": "Stage Selectively",
+            "language": "bash",
+            "code": "git status\ngit add src/auth.js\ngit status\ngit commit -m \"Add authentication validation\"",
+            "explanation": "Only `src/auth.js` is staged, so the commit can contain that logical change without automatically including unrelated modifications."
+          },
+          "keyTakeaways": [
+            "Staging is a preparation step, not the same as committing.",
+            "Use selective staging to keep commits focused and reviewable.",
+            "The repository contains committed snapshots rather than an editable working copy."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Git area contains changes selected for the next commit?",
+            "options": ["Remote repository", "Working tree", "Staging area", "HEAD only"],
+            "correctIndex": 2,
+            "explanation": "The staging area, or index, contains changes that have been selected using commands such as `git add` and will be included in the next commit."
+          }
+        },
+        {
+          "id": "git-init-clone-status",
+          "title": "Initializing and Inspecting Repositories",
+          "content": "Use `git init` when starting version control in an existing directory. Use `git clone` when obtaining an existing repository. The `git status` command is one of the most frequently used Git commands because it explains the current state of tracked, modified, staged, and untracked files.",
+          "codeExample": {
+            "title": "Repository Inspection",
+            "language": "bash",
+            "code": "git init\ngit status\ngit log --oneline\ngit branch\ngit remote -v",
+            "explanation": "These commands help establish whether the directory is a repository, what changes exist, what commits are present, which branches exist, and which remote repositories are configured."
+          },
+          "callout": {
+            "type": "tip",
+            "title": "Use git status Frequently",
+            "message": "Running git status before staging, committing, switching branches, or cleaning files prevents many common Git mistakes."
+          },
+          "keyTakeaways": [
+            "`git init` creates a repository while `git clone` copies an existing repository.",
+            "`git status` is the primary command for understanding your current working state."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command creates a new Git repository in the current directory?",
+            "options": ["git clone", "git init", "git create", "git start"],
+            "correctIndex": 1,
+            "explanation": "`git init` initializes a new `.git` directory and turns the current directory into a Git repository."
+          }
+        },
+        {
+          "id": "commits-and-history",
+          "title": "Commits and Repository History",
+          "content": "A commit represents a recorded snapshot of the project's state. Each commit has an identifier, author information, timestamp, message, parent relationship, and references to the content tree.\n\nGood commit messages describe the intent of the change. Prefer small, logical commits such as `Fix token expiration validation` instead of vague messages such as `changes`.",
+          "codeExample": {
+            "title": "Inspect Commit History",
+            "language": "bash",
+            "code": "git log\ngit log --oneline --decorate --graph --all\ngit show HEAD\ngit show HEAD~1",
+            "explanation": "`git log` displays history, while `git show` displays the details of a particular commit. `HEAD~1` refers to the first parent of the current commit."
+          },
+          "keyTakeaways": [
+            "Commits form a directed history through parent relationships.",
+            "Useful commit messages communicate intent.",
+            "Graph views make branches and merges easier to understand."
+          ],
+          "interactiveQuiz": {
+            "question": "What does HEAD normally identify?",
+            "options": [
+              "The Git installation directory",
+              "The currently checked-out commit or branch reference",
+              "The remote server",
+              "The staging area"
+            ],
+            "correctIndex": 1,
+            "explanation": "HEAD is Git's symbolic reference to the currently checked-out position, commonly pointing to the current branch, which in turn points to a commit."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-staging-commits",
+      "title": "Staging, Commits, and Undoing Changes",
+      "summary": "Master staging techniques, diff inspection, commit creation, restoring files, and safely undoing changes.",
+      "estimatedMinutes": 40,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "git-diff",
+          "title": "Understanding git diff",
+          "content": "`git diff` compares your working tree with the staging area. `git diff --staged` compares the staged snapshot with the current commit. These commands are essential before committing because they let you verify exactly what will be recorded.",
+          "codeExample": {
+            "title": "Inspect Changes",
+            "language": "bash",
+            "code": "git diff\ngit diff --staged\ngit diff HEAD\ngit diff HEAD~1 HEAD",
+            "explanation": "`git diff` shows unstaged changes. `git diff --staged` shows staged changes. `git diff HEAD` compares the entire working state against HEAD."
+          },
+          "keyTakeaways": [
+            "Review `git diff` before staging.",
+            "Review `git diff --staged` before committing.",
+            "`git diff HEAD` combines the comparison against the current commit."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command shows changes currently staged for commit?",
+            "options": ["git diff", "git diff --staged", "git status --staged", "git show --staged"],
+            "correctIndex": 1,
+            "explanation": "`git diff --staged` compares the staging area against HEAD and therefore shows what the next commit would contain."
+          }
+        },
+        {
+          "id": "git-restore-and-unstage",
+          "title": "Restoring and Unstaging Files",
+          "content": "Modern Git provides `git restore` for restoring working-tree files and removing changes from the staging area. `git restore file.js` discards unstaged modifications to that file, while `git restore --staged file.js` removes it from the staging area without discarding its working-tree changes.",
+          "callout": {
+            "type": "warning",
+            "title": "Discarded Changes Can Be Lost",
+            "message": "`git restore file.js` can permanently discard uncommitted modifications to that file. Inspect the diff first if the changes matter."
+          },
+          "codeExample": {
+            "title": "Restore and Unstage",
+            "language": "bash",
+            "code": "git restore app.js\ngit restore --staged app.js\ngit restore --source=HEAD~1 app.js",
+            "explanation": "The first command restores the working file from the index. The second removes it from staging. The third restores the file from another commit."
+          },
+          "keyTakeaways": [
+            "`git restore --staged` unstages without discarding the working copy.",
+            "`git restore` can discard working-tree changes.",
+            "Use explicit source commits when restoring historical versions."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `git restore --staged file.js` do?",
+            "options": [
+              "Deletes the file",
+              "Unstages the file while keeping working-tree changes",
+              "Commits the file",
+              "Restores the file from origin"
+            ],
+            "correctIndex": 1,
+            "explanation": "The command removes the file from the index while leaving the modifications in the working tree."
+          }
+        },
+        {
+          "id": "git-amend",
+          "title": "Amending Commits",
+          "content": "When you have just created a commit and discover a small mistake, `git commit --amend` can replace the current commit with a corrected version. It is useful for fixing the latest commit message or adding forgotten changes.\n\nAmending changes the commit identity. Avoid rewriting a commit that has already been shared when other developers may depend on its original history.",
+          "codeExample": {
+            "title": "Amend the Latest Commit",
+            "language": "bash",
+            "code": "git add forgotten-file.js\ngit commit --amend --no-edit\n\ngit commit --amend -m \"Correct commit message\"",
+            "explanation": "`--no-edit` keeps the existing message. Supplying `-m` replaces it. Both operations create a replacement commit for the previous HEAD."
+          },
+          "keyTakeaways": [
+            "Amend is ideal for fixing the latest local commit.",
+            "Amending changes the commit hash.",
+            "Be careful when rewriting history that others have already pulled."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a common use for `git commit --amend`?",
+            "options": ["Create a new branch", "Fix or extend the latest commit", "Download a repository", "Delete all branches"],
+            "correctIndex": 1,
+            "explanation": "`git commit --amend` replaces the latest commit, allowing you to correct its message or add additional staged changes."
+          }
+        },
+        {
+          "id": "git-reset",
+          "title": "Understanding git reset",
+          "content": "`git reset` moves the current branch reference and can also modify the staging area and working tree depending on its mode. `--soft` moves HEAD while keeping changes staged. `--mixed`, the default, moves HEAD and resets the index while keeping working-tree changes. `--hard` resets HEAD, the index, and working tree.\n\nReset is powerful and should be used carefully, particularly on shared branches.",
+          "codeExample": {
+            "title": "Reset Modes",
+            "language": "bash",
+            "code": "git reset --soft HEAD~1\ngit reset --mixed HEAD~1\ngit reset --hard HEAD~1",
+            "explanation": "`--soft` preserves staged changes, `--mixed` preserves them only in the working tree, and `--hard` discards tracked working-tree and staging changes that differ from the target."
+          },
+          "callout": {
+            "type": "danger",
+            "title": "Use --hard Carefully",
+            "message": "`git reset --hard` can remove uncommitted tracked changes. Make sure important work is committed, stashed, or otherwise backed up before using it."
+          },
+          "keyTakeaways": [
+            "Soft reset preserves changes in the index.",
+            "Mixed reset is the default and unstages changes.",
+            "Hard reset can discard local tracked changes."
+          ],
+          "interactiveQuiz": {
+            "question": "Which reset mode keeps changes staged after moving HEAD?",
+            "options": ["--soft", "--mixed", "--hard", "--keep-index"],
+            "correctIndex": 0,
+            "explanation": "`git reset --soft` changes HEAD but leaves the index and working tree untouched, so the changes remain staged."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-branching",
+      "title": "Branches and Parallel Development",
+      "summary": "Learn how Git branches work, create feature branches, switch safely, track remote branches, and structure parallel development.",
+      "estimatedMinutes": 40,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "git-branches",
+          "title": "How Git Branches Work",
+          "content": "A Git branch is essentially a movable reference pointing to a commit. Creating a branch is cheap because Git does not duplicate the entire project. As new commits are created, the branch reference advances.\n\nThe special reference `HEAD` identifies the currently checked-out position.",
+          "diagram": {
+            "type": "mermaid",
+            "title": "Branch References",
+            "code": "gitGraph\n  commit id: \"A\"\n  commit id: \"B\"\n  branch feature\n  checkout feature\n  commit id: \"C\"\n  checkout main\n  commit id: \"D\""
+          },
+          "codeExample": {
+            "title": "Create and Switch Branches",
+            "language": "bash",
+            "code": "git branch feature/login\ngit switch feature/login\n\ngit switch -c feature/profile",
+            "explanation": "`git branch` creates a branch without switching to it. `git switch` changes the current branch, and `git switch -c` creates and checks out a new branch."
+          },
+          "keyTakeaways": [
+            "Branches are lightweight references to commits.",
+            "Feature branches isolate work from the main line.",
+            "`git switch -c` is a convenient modern command for creating and switching."
+          ],
+          "interactiveQuiz": {
+            "question": "What does a Git branch primarily represent?",
+            "options": ["A duplicate repository", "A movable reference to a commit", "A remote server", "A compressed archive"],
+            "correctIndex": 1,
+            "explanation": "A branch is a reference that points to a commit and moves forward as new commits are created on that branch."
+          }
+        },
+        {
+          "id": "git-switch-checkout",
+          "title": "git switch and git checkout",
+          "content": "`git checkout` historically handled both branch switching and file restoration, which can make commands ambiguous. Modern Git provides `git switch` for branch operations and `git restore` for file restoration.\n\n`checkout` remains valid and is widely encountered in existing projects, but `switch` and `restore` communicate intent more clearly.",
+          "codeExample": {
+            "title": "Modern Branch Commands",
+            "language": "bash",
+            "code": "git switch main\ngit switch -c feature/search\ngit branch --show-current",
+            "explanation": "These commands explicitly communicate branch operations and make scripts and workflows easier to understand."
+          },
+          "keyTakeaways": [
+            "`git switch` is focused on branch changes.",
+            "`git restore` is focused on restoring files.",
+            "`git checkout` is still valid but has multiple historical responsibilities."
+          ],
+          "interactiveQuiz": {
+            "question": "Which modern command is specifically designed for switching branches?",
+            "options": ["git restore", "git switch", "git move", "git branch-switch"],
+            "correctIndex": 1,
+            "explanation": "`git switch` was introduced to provide a clearer interface for changing and creating branches."
+          }
+        },
+        {
+          "id": "tracking-branches",
+          "title": "Tracking Branches",
+          "content": "A local branch can track a remote branch. This relationship allows commands such as `git pull` and `git push` to infer the upstream branch. You can configure it explicitly with `git push -u origin feature/login`.\n\nTracking information is metadata about branch relationships; it does not copy commits by itself.",
+          "codeExample": {
+            "title": "Set an Upstream Branch",
+            "language": "bash",
+            "code": "git switch -c feature/login\ngit push -u origin feature/login\ngit branch -vv",
+            "explanation": "The `-u` option establishes the remote branch as the upstream for the local branch. `git branch -vv` displays tracking relationships."
+          },
+          "keyTakeaways": [
+            "Upstream configuration connects a local branch with a remote-tracking branch.",
+            "`git push -u` commonly establishes the relationship during the first push."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `git push -u origin feature/login` commonly configure?",
+            "options": ["A merge strategy", "An upstream tracking relationship", "A Git hook", "A submodule"],
+            "correctIndex": 1,
+            "explanation": "The `-u` option sets the remote branch as the upstream branch for the local branch."
+          }
+        },
+        {
+          "id": "branch-management",
+          "title": "Listing, Renaming, and Deleting Branches",
+          "content": "Git provides commands for managing branch references. Local branches can be listed with `git branch`, renamed with `git branch -m`, and deleted with `git branch -d`. Remote branches can be removed using `git push origin --delete branch-name`.\n\nDeleting a branch does not automatically delete commits if those commits are still reachable through another reference.",
+          "codeExample": {
+            "title": "Branch Maintenance",
+            "language": "bash",
+            "code": "git branch\ngit branch -a\ngit branch -m old-name new-name\ngit branch -d feature/login\ngit push origin --delete feature/login",
+            "explanation": "These commands inspect local and remote-tracking branches, rename a local branch, delete a merged local branch, and remove a branch from the remote."
+          },
+          "keyTakeaways": [
+            "Use `-d` for safe deletion of merged branches.",
+            "Use `-D` only when intentionally forcing deletion.",
+            "Remote branch deletion is a push operation."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command safely deletes a merged local branch?",
+            "options": ["git branch -d feature", "git branch --remove feature", "git delete feature", "git rm-branch feature"],
+            "correctIndex": 0,
+            "explanation": "`git branch -d` performs a safety check and normally refuses to delete a branch whose commits have not been merged."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-merging-rebasing",
+      "title": "Merging, Rebasing, and Conflict Resolution",
+      "summary": "Understand merge commits, fast-forward merges, rebasing, conflict resolution, and when to choose each integration strategy.",
+      "estimatedMinutes": 50,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "git-merge",
+          "title": "Merging Branches",
+          "content": "Merging integrates the history of one branch into another. A fast-forward merge occurs when the target branch has not diverged and can simply move its reference forward. When branches have diverged, Git may create a merge commit that records both parent histories.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Merge Integration",
+            "code": "flowchart LR\n  A[main] --> B[Common Commit]\n  B --> C[main commits]\n  B --> D[feature commits]\n  C --> M[Merge Commit]\n  D --> M"
+          },
+          "codeExample": {
+            "title": "Merge a Feature",
+            "language": "bash",
+            "code": "git switch main\ngit merge feature/login\ngit log --oneline --graph --decorate --all",
+            "explanation": "The feature branch is merged into the currently checked-out `main` branch. Git chooses an appropriate merge strategy based on the relationship between the branches."
+          },
+          "keyTakeaways": [
+            "A merge preserves the original branch histories.",
+            "Fast-forward merging does not create an additional merge commit.",
+            "A merge commit can have two or more parents."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a fast-forward merge?",
+            "options": [
+              "A merge that deletes the source branch",
+              "A merge where the target reference can simply advance",
+              "A merge that always creates two commits",
+              "A merge performed only on GitHub"
+            ],
+            "correctIndex": 1,
+            "explanation": "When the target branch is an ancestor of the source branch, Git can move the target reference forward without creating a merge commit."
+          }
+        },
+        {
+          "id": "git-rebase",
+          "title": "Rebasing",
+          "content": "Rebase moves or replays commits onto a new base. It can create a cleaner, linear-looking history, but it rewrites commit identities because the replayed commits are new commits.\n\nA common workflow is rebasing a feature branch onto the latest `main` before opening a pull request.",
+          "codeExample": {
+            "title": "Rebase a Feature Branch",
+            "language": "bash",
+            "code": "git switch feature/login\ngit fetch origin\ngit rebase origin/main",
+            "explanation": "Git temporarily removes the feature commits, updates the base to `origin/main`, and replays those feature commits on top of it."
+          },
+          "callout": {
+            "type": "warning",
+            "title": "Rebase Rewrites History",
+            "message": "Do not casually rebase commits that other developers have already based work on. Shared history rewriting can force collaborators to reconcile divergent commit identities."
+          },
+          "keyTakeaways": [
+            "Rebase creates new commit identities for replayed commits.",
+            "Rebase can produce a linear history.",
+            "Avoid rewriting public history unless the team explicitly agrees."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does rebasing change commit hashes?",
+            "options": [
+              "Git encrypts the commits",
+              "Replayed commits have different parent relationships and therefore new identities",
+              "Git deletes commit messages",
+              "Branches always change hashes"
+            ],
+            "correctIndex": 1,
+            "explanation": "A commit's identity depends on its content and metadata, including its parent. Replaying it onto a different parent creates a different commit."
+          }
+        },
+        {
+          "id": "merge-conflicts",
+          "title": "Resolving Merge Conflicts",
+          "content": "A conflict occurs when Git cannot automatically reconcile changes, often because different branches modified overlapping lines. Git marks conflicted files with conflict markers such as `<<<<<<<`, `=======`, and `>>>>>>>`.\n\nThe resolution process is: inspect conflicts → edit the file into the desired final state → stage the resolved file → continue the merge or rebase.",
+          "codeExample": {
+            "title": "Resolve a Merge Conflict",
+            "language": "bash",
+            "code": "git status\n# edit conflicted files\ngit add src/app.js\ngit commit\n\n# During a rebase:\ngit add src/app.js\ngit rebase --continue",
+            "explanation": "After resolving the file contents, staging marks the conflict as resolved. During a merge, the next step is normally committing; during a rebase, use `git rebase --continue`."
+          },
+          "keyTakeaways": [
+            "Conflict markers must be removed from the final file.",
+            "Git considers a conflict resolved when the corrected file is staged.",
+            "`git rebase --abort` can safely cancel an in-progress rebase."
+          ],
+          "interactiveQuiz": {
+            "question": "What should you normally do after manually resolving a conflicted file?",
+            "options": ["Delete the repository", "Stage the resolved file", "Run git init again", "Push immediately without staging"],
+            "correctIndex": 1,
+            "explanation": "Staging the corrected file tells Git that the conflict has been resolved and the file is ready for the merge or rebase to continue."
+          }
+        },
+        {
+          "id": "rebase-interactive",
+          "title": "Interactive Rebase",
+          "content": "Interactive rebase lets you reorganize, edit, squash, reorder, or drop commits before sharing them. It is particularly useful for cleaning up a feature branch before review.\n\nCommands in an interactive rebase include `pick`, `reword`, `edit`, `squash`, `fixup`, and `drop`.",
+          "codeExample": {
+            "title": "Clean Up Recent Commits",
+            "language": "bash",
+            "code": "git rebase -i HEAD~4\n\n# Example todo:\n# pick abc123 Add login form\n# squash def456 Fix login form\n# reword 789abc Add validation\n# pick 012def Add tests",
+            "explanation": "The interactive todo list determines how Git should replay the selected commits."
+          },
+          "keyTakeaways": [
+            "Interactive rebase is useful for local history cleanup.",
+            "`squash` combines commits while allowing message editing.",
+            "`fixup` combines commits while discarding the fixup commit's message."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `squash` do in an interactive rebase?",
+            "options": ["Deletes the entire branch", "Combines a commit with the previous commit", "Pushes the commit", "Creates a tag"],
+            "correctIndex": 1,
+            "explanation": "`squash` combines the selected commit with the previous commit and normally opens an editor to construct the resulting commit message."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-remote-collaboration",
+      "title": "Remote Repositories and Team Collaboration",
+      "summary": "Learn fetch, pull, push, remotes, pull requests, fork-based collaboration, and safe synchronization with shared repositories.",
+      "estimatedMinutes": 45,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "git-remotes",
+          "title": "Remote Repositories",
+          "content": "A remote is a named reference to another Git repository. `origin` is the conventional name assigned to the repository from which a clone was created, but it is only a name and can be changed.\n\nUse `git remote -v` to inspect configured URLs and `git remote add` to add another remote.",
+          "codeExample": {
+            "title": "Manage Remotes",
+            "language": "bash",
+            "code": "git remote -v\ngit remote add upstream https://example.com/team/project.git\ngit remote set-url origin https://example.com/my/project.git\ngit remote remove upstream",
+            "explanation": "Remote names are local aliases for repository URLs. A project can have multiple remotes such as `origin` and `upstream`."
+          },
+          "keyTakeaways": [
+            "A remote is a local name pointing to another repository.",
+            "`origin` is conventional, not mandatory.",
+            "Multiple remotes can be configured."
+          ],
+          "interactiveQuiz": {
+            "question": "Is `origin` a special Git keyword that must always refer to GitHub?",
+            "options": ["Yes", "Yes, but only on Linux", "No, it is a conventional remote name", "Only for public repositories"],
+            "correctIndex": 2,
+            "explanation": "`origin` is simply the default remote name commonly created by `git clone`. It can point to any compatible Git repository."
+          }
+        },
+        {
+          "id": "git-fetch",
+          "title": "git fetch",
+          "content": "`git fetch` downloads new objects and updates remote-tracking references without changing your current working branch. It is useful when you want to inspect incoming changes before integrating them.",
+          "codeExample": {
+            "title": "Fetch and Inspect",
+            "language": "bash",
+            "code": "git fetch origin\ngit log main..origin/main --oneline\ngit diff main origin/main",
+            "explanation": "Fetching updates `origin/main`. You can then inspect commits and differences before deciding whether to merge or rebase."
+          },
+          "keyTakeaways": [
+            "`git fetch` does not normally modify your working branch.",
+            "It updates remote-tracking references such as `origin/main`.",
+            "Fetching before integration gives you control over how incoming changes are handled."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a key property of `git fetch`?",
+            "options": [
+              "It always merges remote changes",
+              "It downloads updates without integrating them into the current branch",
+              "It deletes local branches",
+              "It rewrites all commits"
+            ],
+            "correctIndex": 1,
+            "explanation": "`git fetch` downloads remote objects and updates remote-tracking references but does not automatically merge them into your current branch."
+          }
+        },
+        {
+          "id": "git-pull",
+          "title": "git pull",
+          "content": "`git pull` is commonly understood as fetch followed by integration. Depending on configuration, the integration can be a merge or a rebase. Because it combines multiple operations, understanding `fetch` separately is important when precise control is needed.",
+          "codeExample": {
+            "title": "Pull With Explicit Strategy",
+            "language": "bash",
+            "code": "git pull --ff-only\ngit pull --rebase\ngit fetch origin\ngit merge origin/main",
+            "explanation": "`--ff-only` refuses non-fast-forward integration, while `--rebase` rebases local commits on top of fetched changes. Fetch plus merge makes the individual steps explicit."
+          },
+          "keyTakeaways": [
+            "`git pull` performs fetching and integration.",
+            "Pull behavior can be configured or specified explicitly.",
+            "Use `git fetch` when you want to inspect changes before integrating."
+          ],
+          "interactiveQuiz": {
+            "question": "Why might a developer prefer `git fetch` followed by an explicit merge?",
+            "options": [
+              "It downloads less data",
+              "It allows inspection before integration",
+              "It disables Git history",
+              "It automatically resolves conflicts"
+            ],
+            "correctIndex": 1,
+            "explanation": "Separating fetching from integration gives the developer an opportunity to inspect incoming commits and differences before changing the current branch."
+          }
+        },
+        {
+          "id": "git-push",
+          "title": "Pushing Changes",
+          "content": "`git push` transfers local commits to a remote repository and updates remote references when permitted. Modern hosting platforms may reject pushes because of branch protection, authentication requirements, or non-fast-forward history.\n\nA push does not normally send every object in your entire repository; Git transfers the objects required to update the remote.",
+          "codeExample": {
+            "title": "Push a Branch",
+            "language": "bash",
+            "code": "git push -u origin feature/login\ngit push\ngit push --force-with-lease",
+            "explanation": "The first push establishes tracking. A normal push sends new commits. `--force-with-lease` is a safer history-rewrite mechanism than unconditional `--force` because it checks the expected remote state."
+          },
+          "callout": {
+            "type": "danger",
+            "title": "Prefer --force-with-lease",
+            "message": "When a history rewrite is genuinely required, prefer `--force-with-lease` because it helps avoid overwriting remote work that you have not seen."
+          },
+          "keyTakeaways": [
+            "Push transfers commits and updates remote references.",
+            "Protected branches can reject direct pushes.",
+            "`--force-with-lease` is safer than blind `--force`."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is `--force-with-lease` generally safer than `--force`?",
+            "options": [
+              "It encrypts commits",
+              "It checks that the remote reference is still at the expected state",
+              "It prevents all force pushes",
+              "It creates a backup branch automatically"
+            ],
+            "correctIndex": 1,
+            "explanation": "`--force-with-lease` checks that the remote branch has not advanced unexpectedly before replacing its history."
+          }
+        },
+        {
+          "id": "pull-requests-code-review",
+          "title": "Pull Requests and Code Review",
+          "content": "A pull request is a collaboration mechanism provided by platforms such as GitHub and GitLab. It allows a branch to be reviewed and discussed before integration. A pull request is not itself a Git object; it is a hosting-platform concept built around Git references and commits.\n\nA good pull request is focused, explains the problem and solution, includes tests, and minimizes unrelated changes.",
+          "keyTakeaways": [
+            "Pull requests are platform-level collaboration features.",
+            "Small focused pull requests are easier to review.",
+            "CI checks and code review can be required before merging."
+          ],
+          "interactiveQuiz": {
+            "question": "Is a pull request a native Git object?",
+            "options": ["Yes", "No, it is a collaboration feature provided by hosting platforms", "Only in Git 2.0", "Only when using SSH"],
+            "correctIndex": 1,
+            "explanation": "Git itself provides commits, branches, tags, refs, and other repository concepts. Pull requests are features implemented by services such as GitHub and GitLab."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-stash-cherry-pick-tags",
+      "title": "Stash, Cherry-Pick, Tags, and Releases",
+      "summary": "Learn practical tools for temporarily shelving work, selectively transferring commits, marking releases, and managing versions.",
+      "estimatedMinutes": 40,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "git-stash",
+          "title": "Temporarily Stashing Work",
+          "content": "`git stash` temporarily saves working-tree and staging changes so you can switch context without committing incomplete work. A stash is stored in Git's stash references and can later be applied or popped.\n\nModern Git also supports `git stash push -m` for descriptive stash messages and `git stash push -u` to include untracked files.",
+          "codeExample": {
+            "title": "Stash and Restore Work",
+            "language": "bash",
+            "code": "git stash push -m \"WIP login validation\"\ngit switch main\ngit switch feature/login\ngit stash list\ngit stash pop",
+            "explanation": "`stash push` saves the changes. `stash list` shows saved entries, while `stash pop` applies the latest stash and removes it if successful."
+          },
+          "keyTakeaways": [
+            "Stash is useful for temporarily incomplete work.",
+            "Use descriptive stash messages when maintaining multiple entries.",
+            "Stashes can conflict when applied to changed code."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the primary purpose of `git stash`?",
+            "options": ["Publish a release", "Temporarily save uncommitted work", "Delete commits", "Create a remote repository"],
+            "correctIndex": 1,
+            "explanation": "Stash temporarily stores changes so you can change branches or context without creating an incomplete commit."
+          }
+        },
+        {
+          "id": "git-cherry-pick",
+          "title": "Cherry-Picking Commits",
+          "content": "`git cherry-pick` applies the changes introduced by selected commits onto the current branch. It is useful when one specific fix is needed without merging an entire branch.\n\nCherry-picking creates a new commit on the destination branch, so the resulting commit normally has a different hash from the original.",
+          "codeExample": {
+            "title": "Apply a Specific Fix",
+            "language": "bash",
+            "code": "git switch release/1.4\ngit cherry-pick abc1234",
+            "explanation": "Git applies the changes from commit `abc1234` to the current branch and creates a new commit containing those changes."
+          },
+          "keyTakeaways": [
+            "Cherry-pick is useful for selective commit transfer.",
+            "The resulting commit is normally a new commit with a different hash.",
+            "Cherry-picking can introduce conflicts."
+          ],
+          "interactiveQuiz": {
+            "question": "What does cherry-pick primarily do?",
+            "options": [
+              "Deletes a selected commit",
+              "Applies the changes from a selected commit to the current branch",
+              "Renames a branch",
+              "Downloads an entire repository"
+            ],
+            "correctIndex": 1,
+            "explanation": "Cherry-pick takes the changes introduced by one or more commits and applies them to the currently checked-out branch."
+          }
+        },
+        {
+          "id": "git-tags",
+          "title": "Tags and Versioning",
+          "content": "Tags are references used to mark important points in history, commonly releases such as `v1.0.0`. Lightweight tags point directly to an object, while annotated tags store additional metadata such as tagger information, message, and date.",
+          "codeExample": {
+            "title": "Create a Release Tag",
+            "language": "bash",
+            "code": "git tag -a v1.0.0 -m \"Release 1.0.0\"\ngit tag\ngit show v1.0.0\ngit push origin v1.0.0",
+            "explanation": "The annotated tag marks the current commit with release metadata. Tags must be explicitly pushed unless using an appropriate tag push command."
+          },
+          "keyTakeaways": [
+            "Tags are useful for marking releases.",
+            "Annotated tags contain metadata and are generally preferred for releases.",
+            "Tags are not automatically pushed with ordinary branch pushes."
+          ],
+          "interactiveQuiz": {
+            "question": "Which command creates an annotated tag?",
+            "options": ["git tag -a v1.0.0 -m \"Release\"", "git tag --branch v1.0.0", "git release v1.0.0", "git mark v1.0.0"],
+            "correctIndex": 0,
+            "explanation": "The `-a` option creates an annotated tag and `-m` supplies its message."
+          }
+        },
+        {
+          "id": "git-log-advanced",
+          "title": "Advanced History Inspection",
+          "content": "Git history can be queried in many ways. `git log --author`, `--grep`, `--since`, path filters, and graph formatting allow you to locate specific changes. `git blame` identifies the commit associated with each line of a file and can be useful when investigating historical decisions.",
+          "codeExample": {
+            "title": "Search Git History",
+            "language": "bash",
+            "code": "git log --oneline --all --grep=\"authentication\"\ngit log --author=\"Suriya\" --oneline\ngit log -- src/auth.js\ngit blame src/auth.js",
+            "explanation": "These commands search commit messages, filter by author, restrict history to a file, and attribute lines to historical commits."
+          },
+          "callout": {
+            "type": "tip",
+            "title": "Use Blame for Context, Not Blame",
+            "message": "`git blame` is most useful for finding the commit and author associated with a line so you can inspect the surrounding historical context."
+          },
+          "keyTakeaways": [
+            "Git log can filter history by author, message, date, and path.",
+            "`git blame` is a historical attribution tool.",
+            "Inspect the associated commit to understand why a line was introduced."
+          ],
+          "interactiveQuiz": {
+            "question": "What is `git blame` primarily used for?",
+            "options": [
+              "Deleting bad commits",
+              "Showing which commit and author last changed each line",
+              "Merging branches",
+              "Publishing tags"
+            ],
+            "correctIndex": 1,
+            "explanation": "`git blame` annotates lines with information about the commit and author responsible for the latest change to those lines."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-recovery-debugging",
+      "title": "Git Recovery and Debugging",
+      "summary": "Recover lost commits, inspect reflogs, find regressions with bisect, and safely diagnose difficult repository states.",
+      "estimatedMinutes": 45,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "git-reflog",
+          "title": "Recovering Work with Reflog",
+          "content": "`git reflog` records movements of references such as HEAD and local branches. It can often help recover commits that are no longer reachable through normal branch references, such as after an accidental reset.\n\nReflog entries are local and are not part of the shared repository history.",
+          "codeExample": {
+            "title": "Recover an Accidentally Reset Commit",
+            "language": "bash",
+            "code": "git reflog\n# Find the previous HEAD\n\ngit branch recovery abc1234\ngit switch recovery",
+            "explanation": "After locating the desired historical HEAD position in the reflog, creating a new branch at that commit gives the commit a reachable reference again."
+          },
+          "callout": {
+            "type": "info",
+            "title": "Reflog Is a Safety Net",
+            "message": "A commit disappearing from normal branch history does not immediately mean its objects are gone. Reflog can provide a route back while the relevant objects remain available."
+          },
+          "keyTakeaways": [
+            "Reflog records local reference movements.",
+            "It is extremely useful after accidental reset or rebase operations.",
+            "Reflog is local and should not be treated as a shared backup."
+          ],
+          "interactiveQuiz": {
+            "question": "What is `git reflog` especially useful for?",
+            "options": [
+              "Creating GitHub accounts",
+              "Recovering previous local reference positions",
+              "Formatting code",
+              "Uploading binary files"
+            ],
+            "correctIndex": 1,
+            "explanation": "Reflog records local movements of references and can help locate commits that are no longer reachable from current branches."
+          }
+        },
+        {
+          "id": "git-bisect",
+          "title": "Finding Bugs with git bisect",
+          "content": "`git bisect` performs a binary search through commit history to locate the commit that introduced a regression. You mark a known bad commit and a known good commit, and Git repeatedly checks out a midpoint. You test that version and tell Git whether it is good or bad.",
+          "codeExample": {
+            "title": "Binary Search a Regression",
+            "language": "bash",
+            "code": "git bisect start\ngit bisect bad\ngit bisect good v1.0.0\n\n# test the checked-out commit\ngit bisect good\n# or\ngit bisect bad\n\ngit bisect reset",
+            "explanation": "Git narrows the search range by approximately half after every good/bad classification. Once finished, `git bisect reset` returns to the original branch."
+          },
+          "keyTakeaways": [
+            "Bisect is efficient for locating regressions in large histories.",
+            "Each classification should accurately reflect whether the tested revision is good or bad.",
+            "Automated tests can be used with `git bisect run`."
+          ],
+          "interactiveQuiz": {
+            "question": "What algorithmic strategy does `git bisect` use?",
+            "options": ["Linear search", "Binary search", "Hash table lookup", "Depth-first search"],
+            "correctIndex": 1,
+            "explanation": "Bisect repeatedly halves the range between known good and bad commits, making it a binary search over repository history."
+          }
+        },
+        {
+          "id": "git-clean",
+          "title": "Cleaning Untracked Files",
+          "content": "`git clean` removes untracked files from the working tree. It can be useful for returning a build directory to a clean state, but it is destructive because untracked files are not recoverable through Git history.\n\nAlways use a dry run first with `git clean -n`.",
+          "codeExample": {
+            "title": "Preview Before Cleaning",
+            "language": "bash",
+            "code": "git clean -n\ngit clean -nd\ngit clean -fd",
+            "explanation": "`-n` previews files, `-d` includes untracked directories, and `-f` performs the deletion. Never use destructive cleanup blindly."
+          },
+          "callout": {
+            "type": "danger",
+            "title": "Untracked Files Are Not Versioned",
+            "message": "Git cannot recover an untracked file after `git clean` removes it. Always preview the operation first."
+          },
+          "keyTakeaways": [
+            "`git clean -n` is the safest first step.",
+            "Untracked files are outside normal commit history.",
+            "Use `.gitignore` to prevent generated files from repeatedly appearing as untracked."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `git clean -n` do?",
+            "options": [
+              "Deletes all branches",
+              "Shows what would be removed without deleting it",
+              "Commits untracked files",
+              "Downloads ignored files"
+            ],
+            "correctIndex": 1,
+            "explanation": "`-n` means dry run. Git reports what it would remove without actually deleting the files."
+          }
+        },
+        {
+          "id": "detached-head",
+          "title": "Detached HEAD",
+          "content": "A detached HEAD occurs when HEAD points directly to a commit rather than to a branch reference. This is normal when inspecting historical commits or checking out tags. You can make temporary commits in this state, but those commits may become difficult to reach after switching away unless you create a branch.",
+          "codeExample": {
+            "title": "Recover Work from Detached HEAD",
+            "language": "bash",
+            "code": "git switch --detach abc1234\n# make changes and commit\n\ngit switch -c experiment\ngit log --oneline --decorate",
+            "explanation": "Creating a branch while detached gives the new commits a named reference so they remain easy to find."
+          },
+          "keyTakeaways": [
+            "Detached HEAD is not automatically an error.",
+            "It is common when inspecting commits and tags.",
+            "Create a branch if you want to preserve new commits made there."
+          ],
+          "interactiveQuiz": {
+            "question": "What does detached HEAD mean?",
+            "options": [
+              "Git has been deleted",
+              "HEAD points directly to a commit rather than a branch",
+              "The remote is unavailable",
+              "The repository has no commits"
+            ],
+            "correctIndex": 1,
+            "explanation": "In detached HEAD state, HEAD references a commit directly instead of following a branch reference."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-ignore-hooks-configuration",
+      "title": "Git Configuration, Ignore Rules, and Hooks",
+      "summary": "Configure Git, create effective .gitignore rules, use aliases, and understand client-side hooks.",
+      "estimatedMinutes": 35,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "git-config",
+          "title": "Git Configuration",
+          "content": "Git configuration exists at multiple levels: system, global, and local repository configuration. Local repository configuration has higher precedence than global configuration.\n\nCommon configuration includes user identity, default branch name, editor, aliases, and pull behavior.",
+          "codeExample": {
+            "title": "Configure Git Identity",
+            "language": "bash",
+            "code": "git config --global user.name \"Suriya\"\ngit config --global user.email \"developer@example.com\"\ngit config --global init.defaultBranch main\ngit config --list --show-origin",
+            "explanation": "Global configuration applies to repositories for the current user. Repository-local configuration can override global settings."
+          },
+          "keyTakeaways": [
+            "Git configuration can exist at multiple scopes.",
+            "Local repository configuration can override global settings.",
+            "Use `--show-origin` to understand where a configuration value came from."
+          ],
+          "interactiveQuiz": {
+            "question": "Which configuration generally has higher precedence: local repository configuration or global configuration?",
+            "options": ["Global", "Local repository", "System always", "They are always merged equally"],
+            "correctIndex": 1,
+            "explanation": "Repository-local configuration generally overrides global configuration for that repository."
+          }
+        },
+        {
+          "id": "gitignore",
+          "title": ".gitignore",
+          "content": "The `.gitignore` file defines patterns for files Git should normally leave untracked. Common examples include build output, dependency directories, local environment files, editor metadata, and logs.\n\nIgnoring a file does not remove it from history if it is already tracked. In that case, you need to remove it from the index while optionally keeping it on disk.",
+          "codeExample": {
+            "title": "Useful Ignore Rules",
+            "language": "bash",
+            "code": "# .gitignore\nnode_modules/\ndist/\n.env\n*.log\n.vscode/\n\n# Stop tracking an already committed environment file\ngit rm --cached .env",
+            "explanation": "The patterns ignore common generated or local files. `git rm --cached` removes a tracked file from Git's index while leaving the local file on disk."
+          },
+          "keyTakeaways": [
+            "Ignore rules affect untracked files.",
+            "Adding a tracked file to `.gitignore` does not automatically untrack it.",
+            "Never commit secrets such as production credentials."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens if a file is already tracked and you add it to `.gitignore`?",
+            "options": [
+              "Git automatically deletes it",
+              "Git stops tracking it immediately",
+              "It remains tracked until explicitly removed from the index",
+              "The repository becomes corrupted"
+            ],
+            "correctIndex": 2,
+            "explanation": "`.gitignore` primarily affects untracked files. A tracked file continues to be tracked until removed from the index."
+          }
+        },
+        {
+          "id": "git-aliases",
+          "title": "Git Aliases",
+          "content": "Git aliases create shorter commands for frequently used operations. They can improve productivity when used for commands that are stable and easy to remember.",
+          "codeExample": {
+            "title": "Create Useful Aliases",
+            "language": "bash",
+            "code": "git config --global alias.co checkout\ngit config --global alias.st status\ngit config --global alias.lg \"log --oneline --graph --decorate --all\"\n\ngit st\ngit lg",
+            "explanation": "Aliases are stored in Git configuration. Shell commands and complex aliases can be created, but keep aliases understandable for team environments."
+          },
+          "keyTakeaways": [
+            "Aliases are configuration conveniences.",
+            "Keep important team instructions independent of personal aliases.",
+            "Aliases can wrap complex Git commands."
+          ],
+          "interactiveQuiz": {
+            "question": "Where are Git aliases commonly stored when created with `git config --global`?",
+            "options": [
+              "Only in the repository's object database",
+              "In the user's global Git configuration",
+              "In GitHub",
+              "Inside every commit"
+            ],
+            "correctIndex": 1,
+            "explanation": "The `--global` scope stores the alias in the user's global Git configuration."
+          }
+        },
+        {
+          "id": "git-hooks",
+          "title": "Git Hooks",
+          "content": "Git hooks are scripts triggered by Git lifecycle events. Client-side hooks can run before commits, after commits, before pushes, and during other operations. Teams often use hooks to run formatting, linting, tests, or validation.\n\nHooks are local by default and are not automatically versioned simply because they exist in `.git/hooks`.",
+          "codeExample": {
+            "title": "Simple Pre-Commit Hook",
+            "language": "bash",
+            "code": "# .git/hooks/pre-commit\n#!/bin/sh\nnpm test\nif [ $? -ne 0 ]; then\n  echo \"Tests failed. Commit aborted.\"\n  exit 1\nfi",
+            "explanation": "A non-zero exit code from the pre-commit hook prevents the commit. Teams often use hook-management tools when hooks need to be shared consistently."
+          },
+          "keyTakeaways": [
+            "Hooks can enforce local development checks.",
+            "Client-side hooks can be bypassed or may not exist on every developer machine.",
+            "Critical validation should also run in CI."
+          ],
+          "interactiveQuiz": {
+            "question": "Which hook commonly runs before a commit is created?",
+            "options": ["pre-commit", "after-branch", "before-remote", "commit-start"],
+            "correctIndex": 0,
+            "explanation": "The `pre-commit` hook runs before Git creates the commit and can be used for checks such as linting and tests."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-advanced-internals",
+      "title": "Advanced Git Internals",
+      "summary": "Explore Git objects, hashes, refs, HEAD, the index, packfiles, and the mechanics behind Git's distributed architecture.",
+      "estimatedMinutes": 45,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "git-objects",
+          "title": "Git Objects",
+          "content": "Git stores data using objects. The core object types are **blob**, **tree**, **commit**, and **tag**. Blobs contain file contents, trees describe directory structures, commits point to trees and parent commits, and annotated tags can point to Git objects with metadata.\n\nObjects are addressed by cryptographic object IDs.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Git Object Model",
+            "code": "flowchart TD\n  C[Commit Object] --> T[Tree Object]\n  C --> P[Parent Commit]\n  T --> B1[Blob: file A]\n  T --> B2[Blob: file B]\n  T --> T2[Subdirectory Tree]"
+          },
+          "codeExample": {
+            "title": "Inspect an Object",
+            "language": "bash",
+            "code": "git cat-file -t HEAD\ngit cat-file -p HEAD\ngit cat-file -t HEAD^{tree}\ngit rev-parse HEAD",
+            "explanation": "`cat-file` can inspect Git objects. `rev-parse` resolves references such as HEAD to their object IDs."
+          },
+          "keyTakeaways": [
+            "Git stores content as objects rather than storing a sequence of file copies.",
+            "Commits point to trees and parent commits.",
+            "Object IDs provide stable content-addressed references."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Git object stores file contents?",
+            "options": ["Commit", "Tree", "Blob", "Ref"],
+            "correctIndex": 2,
+            "explanation": "A blob object stores file content. Tree objects organize blobs and subtrees into directory structures."
+          }
+        },
+        {
+          "id": "git-refs-head",
+          "title": "Refs and HEAD",
+          "content": "References, or refs, are names that point to Git objects. Branches and tags are examples of refs. `HEAD` is a special symbolic reference that usually points to the current branch.\n\nThis design explains why creating a branch is inexpensive: a branch is essentially a small reference rather than a copy of the entire repository.",
+          "codeExample": {
+            "title": "Inspect References",
+            "language": "bash",
+            "code": "git show-ref\ngit rev-parse HEAD\ngit symbolic-ref HEAD\ngit branch --show-current",
+            "explanation": "These commands reveal references, the current commit, the symbolic HEAD target, and the active branch."
+          },
+          "keyTakeaways": [
+            "Branches and tags are references.",
+            "HEAD normally points symbolically to the current branch.",
+            "References make branch creation and movement inexpensive."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is creating a Git branch usually cheap?",
+            "options": [
+              "Git copies every project file",
+              "A branch is essentially a reference to a commit",
+              "Git creates a new repository",
+              "Branches contain compressed source code"
+            ],
+            "correctIndex": 1,
+            "explanation": "A branch is fundamentally a reference that points to a commit, so creating one does not require copying the project's files."
+          }
+        },
+        {
+          "id": "git-index",
+          "title": "The Git Index",
+          "content": "The index is the data structure used as Git's staging area. It records the content that will form the next tree when a commit is created. Commands such as `git add` update the index.\n\nUnderstanding the index explains why staging and committing are separate operations.",
+          "codeExample": {
+            "title": "Inspect the Index",
+            "language": "bash",
+            "code": "git add src/app.js\ngit ls-files --stage\n\ngit diff\ngit diff --cached",
+            "explanation": "`git ls-files --stage` exposes entries in the index. `git diff` compares the working tree with the index, while `git diff --cached` compares the index with HEAD."
+          },
+          "keyTakeaways": [
+            "The index is Git's staging area.",
+            "`git add` updates the index.",
+            "The next commit is constructed from the staged index state."
+          ],
+          "interactiveQuiz": {
+            "question": "What does `git add` primarily update?",
+            "options": ["The remote server", "The Git index", "The GitHub pull request", "The commit history directly"],
+            "correctIndex": 1,
+            "explanation": "`git add` updates the index with the selected content. A commit is created later from the index."
+          }
+        },
+        {
+          "id": "git-packfiles-performance",
+          "title": "Objects, Packfiles, and Storage",
+          "content": "Git can store loose objects individually, but repositories commonly use packfiles to efficiently store and transfer many objects. Git can delta-compress related content to reduce storage requirements.\n\n`git gc` performs repository maintenance, including housekeeping and packing objects when appropriate.",
+          "codeExample": {
+            "title": "Repository Maintenance",
+            "language": "bash",
+            "code": "git count-objects -v\ngit gc\ngit verify-pack -v .git/objects/pack/*.idx",
+            "explanation": "These commands provide information about object storage and perform or inspect repository packing. Advanced storage commands should be used carefully."
+          },
+          "keyTakeaways": [
+            "Packfiles improve object storage and transfer efficiency.",
+            "Git can delta-compress related objects.",
+            "Repository maintenance is normally handled automatically or through standard Git maintenance commands."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a major purpose of Git packfiles?",
+            "options": ["Store passwords", "Efficiently store and transfer Git objects", "Replace branches", "Create pull requests"],
+            "correctIndex": 1,
+            "explanation": "Packfiles consolidate objects and can use compression and delta storage to make repositories more efficient."
+          }
+        }
+      ]
+    },
+    {
+      "id": "git-team-workflows-best-practices",
+      "title": "Professional Git Workflows",
+      "summary": "Apply Git effectively in real engineering teams using trunk-based development, GitFlow concepts, commit conventions, protected branches, and CI.",
+      "estimatedMinutes": 45,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "trunk-based-development",
+          "title": "Trunk-Based Development",
+          "content": "Trunk-based development keeps developers close to a shared main branch. Changes are integrated frequently, often through short-lived branches or directly behind appropriate safeguards. Feature flags can separate code deployment from feature activation.\n\nThe goal is to reduce long-running divergence and integration complexity.",
+          "keyTakeaways": [
+            "Keep branches short-lived.",
+            "Integrate frequently.",
+            "Use feature flags when incomplete code must be deployed safely."
+          ],
+          "interactiveQuiz": {
+            "question": "What is a key characteristic of trunk-based development?",
+            "options": [
+              "Very long-lived feature branches",
+              "Frequent integration into a shared main line",
+              "Never using CI",
+              "Never merging code"
+            ],
+            "correctIndex": 1,
+            "explanation": "Trunk-based development emphasizes frequent integration into the shared trunk/main branch and minimizes long-running divergence."
+          }
+        },
+        {
+          "id": "gitflow",
+          "title": "GitFlow and Release Branching",
+          "content": "GitFlow is a branching model that traditionally uses branches such as `main`, `develop`, feature branches, release branches, and hotfix branches. It can work well for products with structured release cycles, but many modern teams prefer simpler trunk-based workflows.\n\nThe important lesson is not to follow a branching model mechanically. Choose the simplest workflow that fits deployment, release, and compliance requirements.",
+          "keyTakeaways": [
+            "GitFlow is a workflow convention, not a Git feature.",
+            "Release-heavy products may benefit from dedicated release branches.",
+            "Simpler teams often benefit from trunk-based development."
+          ],
+          "interactiveQuiz": {
+            "question": "Is GitFlow built into Git as a special Git mode?",
+            "options": ["Yes", "No, it is a branching workflow convention", "Only in GitHub Enterprise", "Only in Git 3"],
+            "correctIndex": 1,
+            "explanation": "GitFlow describes a branching strategy implemented using ordinary Git branches and commands."
+          }
+        },
+        {
+          "id": "commit-message-conventions",
+          "title": "Commit Message Quality",
+          "content": "Good commit messages make repository history useful. A practical convention is to use a short imperative subject and add a body when context is required. Teams may adopt Conventional Commits such as `feat: add login validation`, `fix: handle expired token`, and `docs: update setup guide`.\n\nThe exact convention matters less than consistency and clarity.",
+          "codeExample": {
+            "title": "Examples",
+            "language": "bash",
+            "code": "git commit -m \"feat: add password reset flow\"\ngit commit -m \"fix: reject expired access tokens\"\ngit commit -m \"docs: clarify local development setup\"",
+            "explanation": "These messages communicate the type and intent of the change and can also support automated release tooling."
+          },
+          "keyTakeaways": [
+            "Commit messages should describe intent.",
+            "Consistent conventions improve history search and release automation.",
+            "Avoid vague messages such as `update`, `changes`, or `stuff`."
+          ],
+          "interactiveQuiz": {
+            "question": "Which is the strongest commit message?",
+            "options": ["changes", "fixed stuff", "fix: reject expired access tokens", "update files"],
+            "correctIndex": 2,
+            "explanation": "The message clearly identifies both the category and intent of the change."
+          }
+        },
+        {
+          "id": "protected-branches-ci",
+          "title": "Protected Branches and CI",
+          "content": "Production repositories commonly protect important branches. Protection can require pull requests, successful CI checks, reviews, signed commits, or status checks before integration.\n\nCI should validate important properties such as tests, linting, type checking, security scanning, and build success. Local hooks improve developer feedback but should not be the only enforcement mechanism.",
+          "keyTakeaways": [
+            "Protected branches reduce accidental direct changes.",
+            "CI provides centralized and repeatable validation.",
+            "Server-side checks are more reliable than relying only on local hooks."
+          ],
+          "interactiveQuiz": {
+            "question": "Why should critical checks also run in CI if pre-commit hooks already exist?",
+            "options": [
+              "Hooks never run locally",
+              "Local hooks can be absent or bypassed",
+              "CI makes Git faster",
+              "Hooks automatically delete branches"
+            ],
+            "correctIndex": 1,
+            "explanation": "Local hooks depend on developer configuration and can be bypassed. CI provides centralized validation for every relevant change."
+          }
+        }
+      ]
+    },
+    {
+      "id": "interview-questions",
+      "title": "Top Interview Questions & Practice",
+      "summary": "Master 50+ essential Git interview questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "estimatedMinutes": 75,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "junior-git-fundamentals",
+          "title": "Junior Fundamentals",
+          "content": "Test your understanding of Git's core concepts, repository structure, commits, staging, branches, and everyday commands.",
+          "keyTakeaways": [
+            "Understand Git's distributed model.",
+            "Know the difference between working tree, index, and repository.",
+            "Be able to explain common everyday commands."
+          ],
+          "interactiveQuiz": {
+            "question": "1. What is Git?",
+            "options": [
+              "A centralized database",
+              "A distributed version control system",
+              "A cloud hosting platform",
+              "A programming language"
+            ],
+            "correctIndex": 1,
+            "explanation": "Git is a distributed version control system used to track changes and collaborate on software projects."
+          }
+        },
+        {
+          "id": "git-fundamentals-quiz",
+          "title": "Core Git Concepts",
+          "content": "These questions cover the fundamental objects and areas that make Git different from simpler version-control systems.",
+          "interactiveQuiz": {
+            "question": "2. What does `git init` do?",
+            "options": [
+              "Downloads a remote repository",
+              "Creates a Git repository in the current directory",
+              "Creates a GitHub account",
+              "Creates a branch on a remote"
+            ],
+            "correctIndex": 1,
+            "explanation": "`git init` creates the `.git` directory and initializes the current directory as a Git repository."
+          }
+        },
+        {
+          "id": "staging-and-commits-quiz",
+          "title": "Staging and Commits",
+          "content": "Practice questions about the staging area, diffs, commits, amend, reset, and restoring files.",
+          "interactiveQuiz": {
+            "question": "3. What does `git add` do?",
+            "options": ["Creates a commit", "Updates the staging area with selected changes", "Pushes code to GitHub", "Creates a remote"],
+            "correctIndex": 1,
+            "explanation": "`git add` places selected content into the Git index, preparing it for the next commit."
+          }
+        },
+        {
+          "id": "branching-quiz",
+          "title": "Branching Questions",
+          "content": "Test your knowledge of branch references, HEAD, switching, tracking, and branch lifecycle.",
+          "interactiveQuiz": {
+            "question": "4. Why are Git branches lightweight?",
+            "options": [
+              "They contain no commits",
+              "They are essentially references to commits",
+              "They are stored only on GitHub",
+              "They duplicate all files"
+            ],
+            "correctIndex": 1,
+            "explanation": "A branch is essentially a reference pointing to a commit, so creating one does not require copying the project."
+          }
+        },
+        {
+          "id": "remote-quiz",
+          "title": "Remote Collaboration Questions",
+          "content": "Test remote repositories, fetch, pull, push, upstream branches, and pull requests.",
+          "interactiveQuiz": {
+            "question": "5. What does `git fetch` do?",
+            "options": [
+              "Fetches and automatically merges changes",
+              "Downloads remote updates without integrating them into the current branch",
+              "Deletes remote branches",
+              "Creates a pull request"
+            ],
+            "correctIndex": 1,
+            "explanation": "`git fetch` downloads objects and updates remote-tracking references without automatically changing the current branch."
+          }
+        },
+        {
+          "id": "intermediate-git-questions",
+          "title": "Intermediate Git Questions",
+          "content": "Challenge yourself with merge, rebase, conflicts, stash, cherry-pick, tags, and history inspection.",
+          "interactiveQuiz": {
+            "question": "6. What is the main difference between merge and rebase?",
+            "options": [
+              "Merge deletes history while rebase preserves it",
+              "Merge combines histories while rebase replays commits onto a new base",
+              "They are always identical",
+              "Rebase only works with remote repositories"
+            ],
+            "correctIndex": 1,
+            "explanation": "Merge integrates divergent histories, potentially creating a merge commit. Rebase replays commits onto another base and therefore rewrites their identities."
+          }
+        },
+        {
+          "id": "advanced-history-questions",
+          "title": "Advanced History Questions",
+          "content": "These questions focus on reflog, reset modes, detached HEAD, bisect, and history rewriting.",
+          "interactiveQuiz": {
+            "question": "7. What is the main purpose of `git reflog`?",
+            "options": ["List remote servers", "Record local reference movements for recovery", "Run tests", "Create tags"],
+            "correctIndex": 1,
+            "explanation": "Reflog records local updates to references and can help recover commits after resets, rebases, and other destructive-looking operations."
+          }
+        },
+        {
+          "id": "git-internals-questions",
+          "title": "Git Internals Questions",
+          "content": "Explore Git's object model, refs, the index, object IDs, and storage.",
+          "interactiveQuiz": {
+            "question": "8. Which object stores the contents of a file?",
+            "options": ["Tree", "Blob", "Commit", "Ref"],
+            "correctIndex": 1,
+            "explanation": "A blob stores file content. Trees organize blobs and subtrees, while commits point to trees and parent commits."
+          }
+        },
+        {
+          "id": "git-scenario-questions",
+          "title": "Real-World Scenarios",
+          "content": "Practice practical situations that commonly appear in Git interviews.",
+          "interactiveQuiz": {
+            "question": "9. You accidentally ran `git reset --hard HEAD~1`. What should you check first to recover the previous commit?",
+            "options": ["npm cache", "git reflog", "gitignore", "git remote"],
+            "correctIndex": 1,
+            "explanation": "The reflog records previous local HEAD positions. If the commit is still available, you can locate it there and create a branch or reset back to it."
+          }
+        },
+        {
+          "id": "git-team-questions",
+          "title": "Senior Git Workflow Questions",
+          "content": "These questions cover team practices, protected branches, CI, history rewriting, and repository design.",
+          "interactiveQuiz": {
+            "question": "10. Why should shared public history generally not be rebased casually?",
+            "options": [
+              "Rebase disables Git",
+              "Rebase changes commit identities and can disrupt collaborators",
+              "Rebase deletes remote repositories",
+              "Rebase prevents all merges"
+            ],
+            "correctIndex": 1,
+            "explanation": "Rebase creates new commit identities. If collaborators already based work on the old commits, rewriting them can create confusing divergence and require force pushes."
+          }
+        },
+        {
+          "id": "git-interview-11",
+          "title": "Interview Question 11",
+          "content": "Core Git knowledge.",
+          "interactiveQuiz": {
+            "question": "11. What does HEAD usually point to?",
+            "options": ["The remote repository", "The current branch", "The staging area", "The Git executable"],
+            "correctIndex": 1,
+            "explanation": "HEAD normally points symbolically to the currently checked-out branch, which points to the current commit."
+          }
+        },
+        {
+          "id": "git-interview-12",
+          "title": "Interview Question 12",
+          "content": "Core Git knowledge.",
+          "interactiveQuiz": {
+            "question": "12. Which command shows unstaged changes?",
+            "options": ["git diff", "git diff --staged", "git show --unstaged", "git status --diff"],
+            "correctIndex": 0,
+            "explanation": "`git diff` compares the working tree with the index and therefore shows unstaged changes."
+          }
+        },
+        {
+          "id": "git-interview-13",
+          "title": "Interview Question 13",
+          "content": "Core Git knowledge.",
+          "interactiveQuiz": {
+            "question": "13. Which command shows staged changes?",
+            "options": ["git diff", "git diff --staged", "git status --commit", "git staged"],
+            "correctIndex": 1,
+            "explanation": "`git diff --staged` compares the index with HEAD and shows what is currently staged."
+          }
+        },
+        {
+          "id": "git-interview-14",
+          "title": "Interview Question 14",
+          "content": "Core Git knowledge.",
+          "interactiveQuiz": {
+            "question": "14. What does `git commit --amend` do?",
+            "options": [
+              "Creates a remote branch",
+              "Replaces the latest commit with a corrected version",
+              "Downloads commits",
+              "Deletes the entire history"
+            ],
+            "correctIndex": 1,
+            "explanation": "Amend replaces the latest commit, allowing you to modify its message or include additional staged changes."
+          }
+        },
+        {
+          "id": "git-interview-15",
+          "title": "Interview Question 15",
+          "content": "Reset knowledge.",
+          "interactiveQuiz": {
+            "question": "15. Which reset mode leaves changes staged?",
+            "options": ["--soft", "--mixed", "--hard", "--delete"],
+            "correctIndex": 0,
+            "explanation": "`git reset --soft` moves HEAD while leaving both the index and working tree unchanged."
+          }
+        },
+        {
+          "id": "git-interview-16",
+          "title": "Interview Question 16",
+          "content": "Reset knowledge.",
+          "interactiveQuiz": {
+            "question": "16. What does default `git reset` mode do to the index?",
+            "options": [
+              "Leaves it unchanged",
+              "Resets it while keeping working-tree changes",
+              "Deletes the repository",
+              "Pushes it remotely"
+            ],
+            "correctIndex": 1,
+            "explanation": "The default mode is `--mixed`, which resets the index while leaving working-tree changes intact."
+          }
+        },
+        {
+          "id": "git-interview-17",
+          "title": "Interview Question 17",
+          "content": "Reset safety.",
+          "interactiveQuiz": {
+            "question": "17. Why is `git reset --hard` dangerous?",
+            "options": [
+              "It disables branches",
+              "It can discard tracked working-tree changes",
+              "It only works remotely",
+              "It creates infinite commits"
+            ],
+            "correctIndex": 1,
+            "explanation": "`--hard` resets HEAD, the index, and working tree to the target state, potentially discarding uncommitted tracked changes."
+          }
+        },
+        {
+          "id": "git-interview-18",
+          "title": "Interview Question 18",
+          "content": "Merge knowledge.",
+          "interactiveQuiz": {
+            "question": "18. When can a merge be fast-forward?",
+            "options": [
+              "When the target branch is an ancestor of the source branch",
+              "Only when conflicts exist",
+              "Only after a rebase",
+              "Only on GitHub"
+            ],
+            "correctIndex": 0,
+            "explanation": "A fast-forward is possible when the target branch has no commits that are not already ancestors of the source branch."
+          }
+        },
+        {
+          "id": "git-interview-19",
+          "title": "Interview Question 19",
+          "content": "Merge knowledge.",
+          "interactiveQuiz": {
+            "question": "19. How many parents can a normal merge commit have?",
+            "options": ["Zero", "One", "Two or more", "Exactly ten"],
+            "correctIndex": 2,
+            "explanation": "A typical two-way merge commit has two parents, one from each integrated line of development. Octopus merges can have more."
+          }
+        },
+        {
+          "id": "git-interview-20",
+          "title": "Interview Question 20",
+          "content": "Rebase knowledge.",
+          "interactiveQuiz": {
+            "question": "20. What does rebase primarily do?",
+            "options": [
+              "Replays commits onto another base",
+              "Deletes remote branches",
+              "Compresses images",
+              "Creates a GitHub organization"
+            ],
+            "correctIndex": 0,
+            "explanation": "Rebase takes commits from one history and replays them on top of a new base commit."
+          }
+        },
+        {
+          "id": "git-interview-21",
+          "title": "Interview Question 21",
+          "content": "Rebase knowledge.",
+          "interactiveQuiz": {
+            "question": "21. Why do rebased commits have different hashes?",
+            "options": [
+              "Git randomly changes hashes",
+              "Their parent and commit metadata change",
+              "Branches force new hashes",
+              "The files are encrypted"
+            ],
+            "correctIndex": 1,
+            "explanation": "A commit hash incorporates its content and metadata, including its parent. Replaying it changes its parent relationship and therefore its identity."
+          }
+        },
+        {
+          "id": "git-interview-22",
+          "title": "Interview Question 22",
+          "content": "Conflict resolution.",
+          "interactiveQuiz": {
+            "question": "22. What do `<<<<<<<` and `>>>>>>>` indicate?",
+            "options": ["Git tags", "Merge or rebase conflict markers", "Remote branches", "Commit signatures"],
+            "correctIndex": 1,
+            "explanation": "Git inserts conflict markers to show competing sections that require manual resolution."
+          }
+        },
+        {
+          "id": "git-interview-23",
+          "title": "Interview Question 23",
+          "content": "Conflict resolution.",
+          "interactiveQuiz": {
+            "question": "23. How do you tell Git a conflicted file is resolved?",
+            "options": ["git status --resolved", "git add file", "git resolve file", "git commit --resolve"],
+            "correctIndex": 1,
+            "explanation": "After editing the file into its desired final state, staging it with `git add` marks the conflict as resolved."
+          }
+        },
+        {
+          "id": "git-interview-24",
+          "title": "Interview Question 24",
+          "content": "Rebase conflict recovery.",
+          "interactiveQuiz": {
+            "question": "24. Which command cancels an in-progress rebase?",
+            "options": ["git rebase --abort", "git rebase --delete", "git abort rebase", "git reset --rebase"],
+            "correctIndex": 0,
+            "explanation": "`git rebase --abort` stops the current rebase and attempts to restore the repository to its pre-rebase state."
+          }
+        },
+        {
+          "id": "git-interview-25",
+          "title": "Interview Question 25",
+          "content": "Interactive rebase.",
+          "interactiveQuiz": {
+            "question": "25. What is interactive rebase commonly used for?",
+            "options": ["Cleaning local commit history", "Creating GitHub accounts", "Encrypting branches", "Installing Git"],
+            "correctIndex": 0,
+            "explanation": "Interactive rebase allows developers to reorder, edit, squash, reword, or drop commits."
+          }
+        },
+        {
+          "id": "git-interview-26",
+          "title": "Interview Question 26",
+          "content": "Cherry-pick.",
+          "interactiveQuiz": {
+            "question": "26. When is cherry-pick useful?",
+            "options": [
+              "When you need a specific commit's changes on another branch",
+              "When you want to delete Git",
+              "When you want to rename all files",
+              "When you need to initialize a repository"
+            ],
+            "correctIndex": 0,
+            "explanation": "Cherry-pick selectively applies the changes introduced by one or more commits to the current branch."
+          }
+        },
+        {
+          "id": "git-interview-27",
+          "title": "Interview Question 27",
+          "content": "Cherry-pick.",
+          "interactiveQuiz": {
+            "question": "27. Does cherry-pick preserve the original commit hash?",
+            "options": ["Always", "No, it normally creates a new commit", "Only for merge commits", "Only on GitHub"],
+            "correctIndex": 1,
+            "explanation": "Cherry-pick applies the changes and creates a new commit, so its identity normally differs from the source commit."
+          }
+        },
+        {
+          "id": "git-interview-28",
+          "title": "Interview Question 28",
+          "content": "Stash.",
+          "interactiveQuiz": {
+            "question": "28. What does `git stash` do?",
+            "options": ["Temporarily saves uncommitted changes", "Publishes a release", "Deletes all untracked files", "Creates a tag"],
+            "correctIndex": 0,
+            "explanation": "Stash temporarily stores changes so you can switch context without committing incomplete work."
+          }
+        },
+        {
+          "id": "git-interview-29",
+          "title": "Interview Question 29",
+          "content": "Stash.",
+          "interactiveQuiz": {
+            "question": "29. Which command includes untracked files in a stash?",
+            "options": ["git stash push -u", "git stash --tracked-only", "git stash add", "git stash include"],
+            "correctIndex": 0,
+            "explanation": "The `-u` or `--include-untracked` option includes untracked files in the stash."
+          }
+        },
+        {
+          "id": "git-interview-30",
+          "title": "Interview Question 30",
+          "content": "Remote repositories.",
+          "interactiveQuiz": {
+            "question": "30. What is `origin`?",
+            "options": ["A mandatory Git server", "A conventional name for a remote", "The first commit", "A branch type"],
+            "correctIndex": 1,
+            "explanation": "`origin` is a conventional remote name, commonly created automatically when cloning a repository."
+          }
+        },
+        {
+          "id": "git-interview-31",
+          "title": "Interview Question 31",
+          "content": "Remote repositories.",
+          "interactiveQuiz": {
+            "question": "31. What does `git remote -v` show?",
+            "options": ["Commit contents", "Configured remote names and URLs", "Only branches", "Git version"],
+            "correctIndex": 1,
+            "explanation": "`git remote -v` displays the configured remotes and their fetch and push URLs."
+          }
+        },
+        {
+          "id": "git-interview-32",
+          "title": "Interview Question 32",
+          "content": "Fetch and pull.",
+          "interactiveQuiz": {
+            "question": "32. What is the major difference between fetch and pull?",
+            "options": [
+              "Fetch downloads without integrating; pull fetches and integrates",
+              "Pull never downloads",
+              "Fetch only works locally",
+              "They are unrelated commands"
+            ],
+            "correctIndex": 0,
+            "explanation": "`git fetch` updates remote-tracking references without integrating into the current branch. `git pull` normally fetches and then integrates."
+          }
+        },
+        {
+          "id": "git-interview-33",
+          "title": "Interview Question 33",
+          "content": "Push.",
+          "interactiveQuiz": {
+            "question": "33. What does `git push -u origin feature` do?",
+            "options": ["Deletes feature", "Pushes the branch and establishes upstream tracking", "Rebases feature", "Creates a stash"],
+            "correctIndex": 1,
+            "explanation": "The `-u` option establishes the remote branch as the upstream branch for the local feature branch."
+          }
+        },
+        {
+          "id": "git-interview-34",
+          "title": "Interview Question 34",
+          "content": "Force pushing.",
+          "interactiveQuiz": {
+            "question": "34. Why is `--force-with-lease` safer than `--force`?",
+            "options": [
+              "It does not rewrite history",
+              "It checks the remote branch has not unexpectedly changed",
+              "It disables authentication",
+              "It prevents all remote updates"
+            ],
+            "correctIndex": 1,
+            "explanation": "Force-with-lease checks the expected remote state before replacing it, reducing the chance of overwriting another developer's unseen work."
+          }
+        },
+        {
+          "id": "git-interview-35",
+          "title": "Interview Question 35",
+          "content": "Tags.",
+          "interactiveQuiz": {
+            "question": "35. What are Git tags commonly used for?",
+            "options": [
+              "Marking important commits such as releases",
+              "Staging files",
+              "Resolving conflicts",
+              "Storing environment variables"
+            ],
+            "correctIndex": 0,
+            "explanation": "Tags provide stable names for important points in history, commonly release versions such as `v2.0.0`."
+          }
+        },
+        {
+          "id": "git-interview-36",
+          "title": "Interview Question 36",
+          "content": "Tags.",
+          "interactiveQuiz": {
+            "question": "36. What is an annotated tag?",
+            "options": [
+              "A tag containing metadata such as message and tagger information",
+              "A branch with no commits",
+              "A remote-only branch",
+              "A deleted tag"
+            ],
+            "correctIndex": 0,
+            "explanation": "Annotated tags are Git objects that contain metadata and can point to another Git object."
+          }
+        },
+        {
+          "id": "git-interview-37",
+          "title": "Interview Question 37",
+          "content": "History inspection.",
+          "interactiveQuiz": {
+            "question": "37. What does `git blame` show?",
+            "options": [
+              "Only merge conflicts",
+              "The commit and author associated with each line's latest change",
+              "Remote URLs",
+              "Branch protection settings"
+            ],
+            "correctIndex": 1,
+            "explanation": "`git blame` annotates lines with the commit and author responsible for the latest modification."
+          }
+        },
+        {
+          "id": "git-interview-38",
+          "title": "Interview Question 38",
+          "content": "Debugging.",
+          "interactiveQuiz": {
+            "question": "38. What problem does `git bisect` solve?",
+            "options": [
+              "Finding the commit that introduced a regression",
+              "Creating a remote",
+              "Compressing repository objects",
+              "Ignoring files"
+            ],
+            "correctIndex": 0,
+            "explanation": "Bisect performs a binary search between known good and bad commits to identify the likely regression-introducing commit."
+          }
+        },
+        {
+          "id": "git-interview-39",
+          "title": "Interview Question 39",
+          "content": "Detached HEAD.",
+          "interactiveQuiz": {
+            "question": "39. What happens when HEAD is detached?",
+            "options": ["HEAD points directly to a commit", "The repository is deleted", "The remote is removed", "Git stops working"],
+            "correctIndex": 0,
+            "explanation": "Detached HEAD means HEAD points directly to a commit rather than through a branch reference."
+          }
+        },
+        {
+          "id": "git-interview-40",
+          "title": "Interview Question 40",
+          "content": "Detached HEAD.",
+          "interactiveQuiz": {
+            "question": "40. How can you preserve commits created in detached HEAD state?",
+            "options": ["Create a branch pointing to the commit", "Run git clean", "Delete HEAD", "Run git init"],
+            "correctIndex": 0,
+            "explanation": "Creating a branch gives the detached commits a persistent named reference."
+          }
+        },
+        {
+          "id": "git-interview-41",
+          "title": "Interview Question 41",
+          "content": "Git internals.",
+          "interactiveQuiz": {
+            "question": "41. Which four object types form Git's core object model?",
+            "options": [
+              "Blob, tree, commit, tag",
+              "File, folder, branch, remote",
+              "Index, HEAD, branch, remote",
+              "Working tree, stash, tag, hook"
+            ],
+            "correctIndex": 0,
+            "explanation": "Git's core object types are blobs, trees, commits, and tags."
+          }
+        },
+        {
+          "id": "git-interview-42",
+          "title": "Interview Question 42",
+          "content": "Git internals.",
+          "interactiveQuiz": {
+            "question": "42. What does a tree object represent?",
+            "options": ["A directory structure containing entries", "A remote server", "A commit message", "A user account"],
+            "correctIndex": 0,
+            "explanation": "Tree objects represent directory structures and reference blobs and other trees."
+          }
+        },
+        {
+          "id": "git-interview-43",
+          "title": "Interview Question 43",
+          "content": "Git internals.",
+          "interactiveQuiz": {
+            "question": "43. What does a commit object point to?",
+            "options": ["A tree and parent commit(s)", "Only a remote URL", "Only a branch name", "Only a file"],
+            "correctIndex": 0,
+            "explanation": "A commit points to a tree representing the snapshot and to zero or more parent commits representing its history."
+          }
+        },
+        {
+          "id": "git-interview-44",
+          "title": "Interview Question 44",
+          "content": "Git index.",
+          "interactiveQuiz": {
+            "question": "44. What is the Git index?",
+            "options": ["The staging area", "The remote repository", "The commit log", "The Git executable"],
+            "correctIndex": 0,
+            "explanation": "The index is Git's staging area and records the content that will be used to create the next commit."
+          }
+        },
+        {
+          "id": "git-interview-45",
+          "title": "Interview Question 45",
+          "content": "Ignore rules.",
+          "interactiveQuiz": {
+            "question": "45. Does `.gitignore` automatically stop tracking an already tracked file?",
+            "options": ["Yes", "No", "Only on Windows", "Only after reboot"],
+            "correctIndex": 1,
+            "explanation": "Ignore rules primarily affect untracked files. An already tracked file remains tracked until removed from the index."
+          }
+        },
+        {
+          "id": "git-interview-46",
+          "title": "Interview Question 46",
+          "content": "Git hooks.",
+          "interactiveQuiz": {
+            "question": "46. Why should important checks not rely exclusively on local Git hooks?",
+            "options": [
+              "Hooks cannot run scripts",
+              "Hooks can be missing or bypassed",
+              "Hooks always slow Git",
+              "Hooks only work on remote servers"
+            ],
+            "correctIndex": 1,
+            "explanation": "Local hooks depend on developer configuration and can be bypassed, so important validation should also be enforced in CI or server-side checks."
+          }
+        },
+        {
+          "id": "git-interview-47",
+          "title": "Interview Question 47",
+          "content": "Team workflows.",
+          "interactiveQuiz": {
+            "question": "47. What is a major advantage of short-lived feature branches?",
+            "options": [
+              "They increase merge divergence",
+              "They reduce integration complexity",
+              "They prevent testing",
+              "They eliminate commits"
+            ],
+            "correctIndex": 1,
+            "explanation": "Short-lived branches reduce the amount of time changes diverge from the main line, making integration and review easier."
+          }
+        },
+        {
+          "id": "git-interview-48",
+          "title": "Interview Question 48",
+          "content": "Protected branches.",
+          "interactiveQuiz": {
+            "question": "48. Why are protected branches useful?",
+            "options": [
+              "They prevent Git from storing commits",
+              "They can require reviews and successful CI before integration",
+              "They make all branches read-only",
+              "They disable pull requests"
+            ],
+            "correctIndex": 1,
+            "explanation": "Protected branches can enforce repository policies such as pull requests, approvals, and successful status checks."
+          }
+        },
+        {
+          "id": "git-interview-49",
+          "title": "Interview Question 49",
+          "content": "Pull requests.",
+          "interactiveQuiz": {
+            "question": "49. Is a pull request itself a Git object?",
+            "options": [
+              "Yes",
+              "No, it is a hosting-platform collaboration feature",
+              "Only when using SSH",
+              "Only for private repositories"
+            ],
+            "correctIndex": 1,
+            "explanation": "Pull requests are provided by hosting platforms such as GitHub and GitLab and are built around Git branches and commits."
+          }
+        },
+        {
+          "id": "git-interview-50",
+          "title": "Interview Question 50",
+          "content": "History rewriting.",
+          "interactiveQuiz": {
+            "question": "50. Why can rewriting shared history be dangerous?",
+            "options": [
+              "It changes commit identities that collaborators may already reference",
+              "It deletes Git itself",
+              "It disables branches permanently",
+              "It prevents all future commits"
+            ],
+            "correctIndex": 0,
+            "explanation": "Rebase, amend, and reset can create different commit identities. Collaborators who already have the old history may experience divergence and require recovery steps."
+          }
+        },
+        {
+          "id": "git-interview-51",
+          "title": "Interview Question 51",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "51. A developer rebased a shared branch and force-pushed it. What is the primary risk?",
+            "options": [
+              "The repository becomes read-only",
+              "Other developers may have references to the replaced history",
+              "Git automatically deletes all tags",
+              "The working tree becomes encrypted"
+            ],
+            "correctIndex": 1,
+            "explanation": "Other developers may have based their work on the previous commit graph. Replacing that graph can cause divergent histories and lost references if not handled carefully."
+          }
+        },
+        {
+          "id": "git-interview-52",
+          "title": "Interview Question 52",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "52. You need to apply one production bug fix from `main` to an older release branch. Which command is often appropriate?",
+            "options": ["git cherry-pick", "git clean", "git init", "git stash clear"],
+            "correctIndex": 0,
+            "explanation": "Cherry-pick is appropriate when one specific commit needs to be applied to another branch without merging all of the source branch's history."
+          }
+        },
+        {
+          "id": "git-interview-53",
+          "title": "Interview Question 53",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "53. A bug appeared somewhere in the last 500 commits, and you have a reliable automated test. Which Git feature can dramatically reduce the search?",
+            "options": ["git bisect run", "git stash", "git tag", "git remote"],
+            "correctIndex": 0,
+            "explanation": "`git bisect` performs a binary search, and `git bisect run` can automate good/bad classification using a test command."
+          }
+        },
+        {
+          "id": "git-interview-54",
+          "title": "Interview Question 54",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "54. Your teammate says a commit disappeared after a reset. What should you recommend checking?",
+            "options": ["git reflog", "gitignore", "git config --global", "git clean -fd"],
+            "correctIndex": 0,
+            "explanation": "The reflog records previous local HEAD and branch positions and is often the quickest way to locate commits after accidental history movement."
+          }
+        },
+        {
+          "id": "git-interview-55",
+          "title": "Interview Question 55",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "55. A team wants a clean linear history but developers frequently rebase local feature branches. What is a sensible policy?",
+            "options": [
+              "Allow rewriting of shared main freely",
+              "Allow rebasing private/local branches but avoid rewriting shared history",
+              "Disable all branches",
+              "Never use commits"
+            ],
+            "correctIndex": 1,
+            "explanation": "Rebasing private branches is generally safe because fewer collaborators depend on their commit identities. Shared branches should normally use non-destructive integration policies."
+          }
+        },
+        {
+          "id": "git-interview-56",
+          "title": "Interview Question 56",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "56. A developer runs `git pull` and unexpectedly gets a merge commit. What is a likely explanation?",
+            "options": [
+              "The pull fetched changes and integrated them using merge",
+              "Git automatically ran bisect",
+              "Git deleted the upstream branch",
+              "The repository was converted to SVN"
+            ],
+            "correctIndex": 0,
+            "explanation": "`git pull` commonly performs fetch followed by merge unless configured otherwise. If local and remote histories diverged, the merge can produce a merge commit."
+          }
+        },
+        {
+          "id": "git-interview-57",
+          "title": "Interview Question 57",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "57. What is the best reason to use `git fetch` before deciding how to integrate remote changes?",
+            "options": [
+              "It allows you to inspect incoming history first",
+              "It automatically commits changes",
+              "It prevents all conflicts",
+              "It removes remote branches"
+            ],
+            "correctIndex": 0,
+            "explanation": "Fetching updates remote-tracking references without changing the current branch, allowing developers to inspect and choose an integration strategy."
+          }
+        },
+        {
+          "id": "git-interview-58",
+          "title": "Interview Question 58",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "58. A repository accidentally contains a committed API secret. Is adding `.env` to `.gitignore` enough?",
+            "options": [
+              "Yes",
+              "No, the secret must be removed from history and rotated",
+              "Only if GitHub is private",
+              "Only after deleting the branch"
+            ],
+            "correctIndex": 1,
+            "explanation": "Ignoring the file does not remove previously committed secrets. The credential should be revoked or rotated, and the sensitive data should be removed from repository history when appropriate."
+          }
+        },
+        {
+          "id": "git-interview-59",
+          "title": "Interview Question 59",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "59. Why should generated files such as `node_modules` generally not be committed?",
+            "options": [
+              "They are always executable",
+              "They are large generated dependencies that can be reproduced from package metadata",
+              "Git cannot store directories",
+              "They cannot be ignored"
+            ],
+            "correctIndex": 1,
+            "explanation": "Dependencies such as `node_modules` can be recreated from package manifests and lockfiles. Committing them adds unnecessary size and platform-specific noise."
+          }
+        },
+        {
+          "id": "git-interview-60",
+          "title": "Interview Question 60",
+          "content": "Senior scenario.",
+          "interactiveQuiz": {
+            "question": "60. What is a strong professional Git workflow for a team using protected main branches?",
+            "options": [
+              "Directly force-push main",
+              "Create a focused branch, commit logically, push it, open a pull request, run CI, review, and merge",
+              "Never create commits",
+              "Develop directly on tags"
+            ],
+            "correctIndex": 1,
+            "explanation": "A focused branch, logical commits, automated checks, code review, and protected integration provide a controlled and auditable workflow while keeping the main branch stable."
+          }
+        }
+      ]
+    }
+  ]
+}

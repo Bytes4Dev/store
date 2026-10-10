@@ -1,0 +1,2686 @@
+{
+  "courseId": "javascript-interview-questions",
+  "courseName": "JavaScript & DSA Comprehensive Interview Mastery",
+  "title": "Master 100+ JavaScript & DSA Interview Questions",
+  "subtitle": "Complete Q&A, coding problem bank, and data structures & algorithms guide with self-assessment checks for Javascript interview preparation",
+  "category": "Interview Q&A",
+  "level": "Comprehensive",
+  "estimatedTime": "6.5 Hours",
+  "accentColor": "#f7df1e",
+  "keywords": ["javascript", "dsa", "data-structures", "algorithms", "interview", "coding-questions", "quiz"],
+  "chapters": [
+    {
+      "id": "all-questions",
+      "title": "Complete Interview Questions & Answer Bank",
+      "summary": "Full collection of 50 JavaScript interview questions ranging from core fundamentals and coding challenges to advanced engine internals.",
+      "estimatedMinutes": 150,
+      "sections": [
+        {
+          "id": "q1-data-types",
+          "title": "Q1: What are the primitive data types in JavaScript vs objects?",
+          "content": "JavaScript has 7 primitive data types: `string`, `number`, `bigint`, `boolean`, `undefined`, `symbol`, and `null`. Primitives are immutable and passed by value. Objects (including arrays, functions, and plain objects) are mutable collections of key-value properties and are passed by reference.",
+          "keyTakeaways": [
+            "Primitive types are immutable and stored directly by value.",
+            "Objects are mutable reference types stored by memory location."
+          ],
+          "interactiveQuiz": {
+            "question": "What does typeof null return in JavaScript?",
+            "options": ["'null'", "'undefined'", "'object'", "'boolean'"],
+            "correctIndex": 2,
+            "explanation": "Due to a historical bug retained for backward compatibility, `typeof null` evaluates to `'object'`."
+          }
+        },
+        {
+          "id": "q2-var-let-const",
+          "title": "Q2: What is the difference between var, let, and const?",
+          "content": "`var` is function-scoped (or globally scoped) and hoisted with an initial value of `undefined`. `let` and `const` are block-scoped and hoisted into a Temporal Dead Zone (TDZ). `const` creates a read-only variable reference that cannot be reassigned after declaration.",
+          "keyTakeaways": [
+            "`var` is function-scoped; `let` and `const` are block-scoped.",
+            "`let` and `const` exist in the Temporal Dead Zone prior to declaration."
+          ],
+          "interactiveQuiz": {
+            "question": "What error occurs when accessing a let variable before its declaration line?",
+            "options": ["SyntaxError", "ReferenceError", "TypeError", "Returns undefined"],
+            "correctIndex": 1,
+            "explanation": "Accessing a `let` or `const` variable inside its Temporal Dead Zone throws a `ReferenceError`."
+          }
+        },
+        {
+          "id": "q3-coercion-equality",
+          "title": "Q3: What is the difference between == and === in JavaScript?",
+          "content": "`==` (loose equality) performs type coercion to convert operands to a common type before comparing. `===` (strict equality) checks for equality without type conversion; both the value and the type must match.",
+          "keyTakeaways": [
+            "`==` converts operands to the same type before comparison.",
+            "`===` compares both value and data type without coercion."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the result of the comparison: [] == false?",
+            "options": ["true", "false", "TypeError", "undefined"],
+            "correctIndex": 0,
+            "explanation": "An empty array `[]` coerces to `''`, which coerces to numeric `0`, matching `false` coerced to `0`."
+          }
+        },
+        {
+          "id": "q4-hoisting",
+          "title": "Q4: How does Hoisting work in JavaScript?",
+          "content": "Hoisting is JavaScript's behavior of moving variable and function declarations to the top of their containing scope during creation phase. Function declarations are hoisted with their complete definitions, `var` declarations are hoisted with `undefined`, while `let` and `const` remain uninitialized in the TDZ.",
+          "keyTakeaways": [
+            "Function declarations are hoisted with their definitions fully accessible.",
+            "`var` is hoisted as `undefined`; `let`/`const` are placed in the TDZ."
+          ],
+          "interactiveQuiz": {
+            "question": "What is printed when calling foo() declared as: var foo = function() { return 1; }; before assignment?",
+            "options": ["1", "TypeError: foo is not a function", "ReferenceError", "undefined"],
+            "correctIndex": 1,
+            "explanation": "`var foo` is hoisted initialized as `undefined`. Calling `undefined()` raises a `TypeError`."
+          }
+        },
+        {
+          "id": "q5-scope-chain",
+          "title": "Q5: What is Scope and the Scope Chain?",
+          "content": "Scope determines the accessibility of variables in code. JavaScript has Global Scope, Function Scope, and Block Scope. When a variable is referenced, JavaScript looks in the current scope; if not found, it traverses up the Scope Chain to outer enclosing scopes until it reaches the global scope.",
+          "keyTakeaways": [
+            "Lexical scope means inner scopes can access outer scope variables.",
+            "The scope chain lookup travels outward up to global scope."
+          ],
+          "interactiveQuiz": {
+            "question": "Where does lexical scope determine variable accessibility from?",
+            "options": [
+              "The location where functions are called",
+              "The location where functions/variables are defined in source code",
+              "The execution stack depth",
+              "The dynamic global object state"
+            ],
+            "correctIndex": 1,
+            "explanation": "Lexical scope is determined statically at code authoring time based on block/function structure."
+          }
+        },
+        {
+          "id": "q6-closures",
+          "title": "Q6: What is a Closure in JavaScript?",
+          "content": "A closure is the combination of a function bundled together with references to its surrounding lexical environment. Closures give inner functions access to an outer function's scope variables even after the outer function has finished executing.",
+          "keyTakeaways": [
+            "Functions retain references to variables in their lexical environment.",
+            "Powers state encapsulation, module patterns, and memoization."
+          ],
+          "interactiveQuiz": {
+            "question": "What will console.log print: for(var i=0; i<3; i++) { setTimeout(() => console.log(i), 100); }?",
+            "options": ["0, 1, 2", "3, 3, 3", "undefined, undefined, undefined", "0, 0, 0"],
+            "correctIndex": 1,
+            "explanation": "Because `var` is function-scoped, all timeouts close over the same single `i` variable whose final value is 3."
+          }
+        },
+        {
+          "id": "q7-coding-counter-closure",
+          "title": "Q7 [Coding]: Implement a counter function using closures that supports increment, decrement, and getValue.",
+          "content": "```js\nfunction createCounter(initialValue = 0) {\n  let count = initialValue;\n  return {\n    increment: () => ++count,\n    decrement: () => --count,\n    getValue: () => count\n  };\n}\n```\nThis encapsulates `count` inside a private closure, exposing only controlled modifier functions.",
+          "keyTakeaways": [
+            "Enables private variables without native class private fields.",
+            "Exposes object methods that maintain access to closed-over state."
+          ],
+          "interactiveQuiz": {
+            "question": "Can code outside createCounter access or modify the internal count variable directly?",
+            "options": [
+              "Yes, via counter.count",
+              "No, it is private inside the closure scope",
+              "Yes, if count is converted to string",
+              "Only in strict mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "`count` is enclosed strictly inside the function scope and cannot be mutated except via exposed closure methods."
+          }
+        },
+        {
+          "id": "q8-this-keyword",
+          "title": "Q8: How does the `this` keyword work in different execution contexts?",
+          "content": "The value of `this` depends on how a function is called: standard method call (`obj.fn()`) sets `this` to `obj`; plain function call sets `this` to `window`/`undefined` (strict mode); constructors (`new Fn()`) bind `this` to the new instance; arrow functions bind `this` lexically from their outer scope.",
+          "keyTakeaways": [
+            "Standard function `this` is bound dynamically at call time.",
+            "Arrow function `this` is determined statically from lexical outer scope."
+          ],
+          "interactiveQuiz": {
+            "question": "What is `this` inside an arrow function defined within an object method?",
+            "options": [
+              "The window/global object",
+              "The object instance containing the outer method",
+              "undefined",
+              "The arrow function itself"
+            ],
+            "correctIndex": 1,
+            "explanation": "Arrow functions do not bind their own `this`; they inherit `this` lexically from the enclosing method."
+          }
+        },
+        {
+          "id": "q9-call-apply-bind",
+          "title": "Q9: What is the difference between call(), apply(), and bind()?",
+          "content": "`call()` invokes a function with a specified `this` context and arguments passed individually (`fn.call(ctx, arg1, arg2)`). `apply()` invokes the function with arguments passed as an array (`fn.apply(ctx, [arg1, arg2])`). `bind()` returns a new function with `this` bound permanently.",
+          "keyTakeaways": [
+            "`call` accepts arguments comma-separated; `apply` accepts an array.",
+            "`bind` returns a bound copy of the function without immediate execution."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method executes a function immediately with an array of arguments?",
+            "options": ["call()", "apply()", "bind()", "construct()"],
+            "correctIndex": 1,
+            "explanation": "`apply()` accepts an array of arguments and executes the target function immediately."
+          }
+        },
+        {
+          "id": "q10-prototypes-inheritance",
+          "title": "Q10: How does Prototypal Inheritance work in JavaScript?",
+          "content": "Objects in JavaScript have an internal `[[Prototype]]` link (exposed as `__proto__`). When accessing a property on an object, JavaScript looks at the object first, then traverses up the prototype chain until the property is found or `null` is reached.",
+          "keyTakeaways": [
+            "Objects inherit properties and methods dynamically via prototype delegation.",
+            "Top of the prototype chain ends at `Object.prototype.__proto__ === null`."
+          ],
+          "interactiveQuiz": {
+            "question": "What method creates a new object using an existing object as its prototype?",
+            "options": ["Object.assign()", "Object.create()", "Object.setPrototypeOf()", "Object.freeze()"],
+            "correctIndex": 1,
+            "explanation": "`Object.create(proto)` initializes a new object whose `[[Prototype]]` points directly to `proto`."
+          }
+        },
+        {
+          "id": "q11-class-vs-constructor",
+          "title": "Q11: How do ES6 Classes relate to Prototypal Inheritance?",
+          "content": "ES6 Classes are syntactic sugar built on top of prototypal inheritance. Class methods are stored on the constructor's `prototype` property, and the `extends` keyword establishes prototype inheritance between prototype objects.",
+          "keyTakeaways": [
+            "Classes provide cleaner syntax over function prototypes.",
+            "Under the hood, classes use prototypal delegation and function constructors."
+          ],
+          "interactiveQuiz": {
+            "question": "Where are methods defined inside an ES6 class body attached?",
+            "options": [
+              "Directly onto each instance",
+              "Onto the class Constructor.prototype",
+              "In global scope",
+              "Inside V8 hidden stacks"
+            ],
+            "correctIndex": 1,
+            "explanation": "Methods defined in a class body are placed on `Class.prototype` to be shared efficiently across instances."
+          }
+        },
+        {
+          "id": "q12-arrow-functions",
+          "title": "Q12: How do Arrow Functions differ from Regular Functions?",
+          "content": "Arrow functions: 1) Do not bind their own `this` or `arguments` object. 2) Cannot be used as constructor functions with `new`. 3) Do not have a `prototype` property. 4) Cannot be used as generator functions.",
+          "keyTakeaways": ["Arrow functions inherit lexical `this` and `arguments`.", "They cannot act as constructors or generators."],
+          "interactiveQuiz": {
+            "question": "What error is thrown when invoking an arrow function with the `new` keyword?",
+            "options": ["TypeError: Arrow function is not a constructor", "ReferenceError", "SyntaxError", "No error is thrown"],
+            "correctIndex": 0,
+            "explanation": "Arrow functions lack internal `[[Construct]]` methods and throw a `TypeError` when instantiated with `new`."
+          }
+        },
+        {
+          "id": "q13-event-loop",
+          "title": "Q13: What is the JavaScript Event Loop?",
+          "content": "The Event Loop enables non-blocking asynchronous execution. JavaScript executes synchronous code on the single Call Stack. Asynchronous tasks offload to APIs and queue callbacks into the Microtask Queue (Promises) or Macrotask Queue (timers). The Event Loop empties the call stack, drains all microtasks, and then processes one macrotask.",
+          "keyTakeaways": [
+            "Call stack processes synchronous tasks sequentially.",
+            "Microtasks (Promises) take execution priority over Macrotasks (setTimeout)."
+          ],
+          "interactiveQuiz": {
+            "question": "Which queue has higher execution priority: Microtask or Macrotask Queue?",
+            "options": ["Macrotask Queue", "Microtask Queue", "Both execute in round-robin order", "Call Stack directly bypasses both"],
+            "correctIndex": 1,
+            "explanation": "The Event Loop clears the complete Microtask Queue before executing the next Macrotask."
+          }
+        },
+        {
+          "id": "q14-coding-event-loop-output",
+          "title": "Q14 [Coding]: Predict the execution output of this asynchronous code snippet.",
+          "content": "```js\nconsole.log('1');\nsetTimeout(() => console.log('2'), 0);\nPromise.resolve().then(() => console.log('3'));\nconsole.log('4');\n```\n**Output:** `1, 4, 3, 2`.\n**Reason:** Synchronous logs (`1`, `4`) run first. `Promise.then` enters the Microtask queue (`3`), executing before `setTimeout` in the Macrotask queue (`2`).",
+          "keyTakeaways": ["Synchronous code runs to completion first.", "Microtasks (`Promise`) run before Macrotasks (`setTimeout`)."],
+          "interactiveQuiz": {
+            "question": "In what order are the microtask and macrotask logged above?",
+            "options": ["2 then 3", "3 then 2", "Simultaneously", "Depends on CPU speed"],
+            "correctIndex": 1,
+            "explanation": "`3` is a Promise microtask and executes prior to timer macrotask `2`."
+          }
+        },
+        {
+          "id": "q15-promises",
+          "title": "Q15: What is a Promise and what are its three states?",
+          "content": "A Promise represents the eventual completion or failure of an asynchronous operation. Its states are: 1) `pending` (initial state), 2) `fulfilled` (operation succeeded), 3) `rejected` (operation failed). State transitions are immutable once settled.",
+          "keyTakeaways": [
+            "Promises encapsulate async outcomes in pending, fulfilled, or rejected states.",
+            "Transitions are permanent; settled states cannot change."
+          ],
+          "interactiveQuiz": {
+            "question": "What occurs if resolve() and reject() are both called inside the same Promise executor?",
+            "options": [
+              "Promise throws error",
+              "First settled call determines final state; subsequent calls are ignored",
+              "Promise stays pending",
+              "Rejects automatically"
+            ],
+            "correctIndex": 1,
+            "explanation": "A Promise can only settle once. Whichever settlement function executes first permanently locks state."
+          }
+        },
+        {
+          "id": "q16-async-await",
+          "title": "Q16: How does async/await work under the hood?",
+          "content": "`async/await` is syntactic sugar over Promises and Generators. An `async` function always returns a Promise. When `await` is encountered, function execution yields pause control back to the Event Loop until the awaited Promise settles.",
+          "keyTakeaways": [
+            "`async` functions wrap return values in resolved Promises.",
+            "`await` pauses async function execution without blocking the main event thread."
+          ],
+          "interactiveQuiz": {
+            "question": "What does an async function return if it explicitly returns a plain primitive value 42?",
+            "options": ["Number 42", "Promise.resolve(42)", "undefined", "Generator object"],
+            "correctIndex": 1,
+            "explanation": "`async` functions automatically wrap return values into resolved Promise instances."
+          }
+        },
+        {
+          "id": "q17-promise-combinators",
+          "title": "Q17: What is the difference between Promise.all, Promise.allSettled, Promise.race, and Promise.any?",
+          "content": "- `Promise.all()`: Resolves when all resolve; rejects immediately if any reject.\n- `Promise.allSettled()`: Resolves when all settle (fulfilled or rejected).\n- `Promise.race()`: Settles as soon as any promise settles.\n- `Promise.any()`: Resolves as soon as any promise fulfills; rejects if all reject.",
+          "keyTakeaways": [
+            "`Promise.all` fails fast on initial rejection.",
+            "`Promise.allSettled` guarantees tracking outcome states for every promise."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Promise combinator rejects ONLY if ALL input promises reject?",
+            "options": ["Promise.all", "Promise.race", "Promise.any", "Promise.allSettled"],
+            "correctIndex": 2,
+            "explanation": "`Promise.any` resolves on the first successful fulfillment and rejects only when all inputs reject."
+          }
+        },
+        {
+          "id": "q18-coding-promise-all-polyfill",
+          "title": "Q18 [Coding]: Implement a simple polyfill for Promise.all().",
+          "content": "```js\nfunction myPromiseAll(promises) {\n  return new Promise((resolve, reject) => {\n    let results = [];\n    let completed = 0;\n    if (promises.length === 0) return resolve([]);\n    promises.forEach((p, index) => {\n      Promise.resolve(p)\n        .then(val => {\n          results[index] = val;\n          completed++;\n          if (completed === promises.length) resolve(results);\n        })\n        .catch(reject);\n    });\n  });\n}\n```",
+          "keyTakeaways": [
+            "Tracks completed promise counts against total length.",
+            "Preserves array output index placement matching original input ordering."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is results[index] = val used instead of results.push(val) in Promise.all polyfills?",
+            "options": [
+              "To save memory allocations",
+              "To maintain correct original promise ordering regardless of completion speed",
+              "Because push is forbidden inside promises",
+              "To avoid array mutations"
+            ],
+            "correctIndex": 1,
+            "explanation": "Async promises resolve in arbitrary order. Direct index placement guarantees output matches input sequence."
+          }
+        },
+        {
+          "id": "q19-dom-bubbling-capturing",
+          "title": "Q19: What is Event Bubbling and Event Capturing in the DOM?",
+          "content": "DOM event propagation has 3 phases: 1) **Capturing Phase** (event travels down from document root to target), 2) **Target Phase** (event reaches target node), 3) **Bubbling Phase** (event bubbles up from target to document root). `addEventListener` defaults to handling events in the bubbling phase.",
+          "keyTakeaways": [
+            "Capturing travels downward; Bubbling travels upward.",
+            "Passing `{ capture: true }` attaches listeners to capturing phase."
+          ],
+          "interactiveQuiz": {
+            "question": "Which method stops an event from propagating further up or down the DOM tree?",
+            "options": ["event.preventDefault()", "event.stopPropagation()", "event.stopImmediatePropagation()", "event.cancel()"],
+            "correctIndex": 1,
+            "explanation": "`stopPropagation()` prevents the event from bubbling up or capturing further along the DOM path."
+          }
+        },
+        {
+          "id": "q20-event-delegation",
+          "title": "Q20: What is Event Delegation and why is it useful?",
+          "content": "Event Delegation is a pattern where a single event listener is attached to a parent element to manage events for all its present and future child elements by leveraging event bubbling and checking `event.target`.",
+          "keyTakeaways": [
+            "Reduces memory overhead by minimizing total event listener count.",
+            "Handles dynamically inserted child elements without requiring new listener attachments."
+          ],
+          "interactiveQuiz": {
+            "question": "Which event property points to the actual element that triggered the event?",
+            "options": ["event.currentTarget", "event.target", "event.srcElement", "event.delegateTarget"],
+            "correctIndex": 1,
+            "explanation": "`event.target` refers to the target element that initiated the event."
+          }
+        },
+        {
+          "id": "q21-coding-debounce",
+          "title": "Q21 [Coding]: Write a debounce function implementation.",
+          "content": "```js\nfunction debounce(fn, delay) {\n  let timer;\n  return function(...args) {\n    clearTimeout(timer);\n    timer = setTimeout(() => fn.apply(this, args), delay);\n  };\n}\n```\nDebouncing delays function execution until a specified idle duration has elapsed since the last event invocation.",
+          "keyTakeaways": [
+            "Resets timer on every new event trigger call.",
+            "Ideal for search auto-complete inputs and window resize handlers."
+          ],
+          "interactiveQuiz": {
+            "question": "When does a debounced function execute after rapid continuous triggers?",
+            "options": [
+              "At fixed interval ticks during events",
+              "Only after events pause for the specified delay duration",
+              "Immediately on initial trigger only",
+              "In background threads"
+            ],
+            "correctIndex": 1,
+            "explanation": "Debouncing waits for continuous event bursts to stop for `delay` milliseconds before firing once."
+          }
+        },
+        {
+          "id": "q22-coding-throttle",
+          "title": "Q22 [Coding]: Write a throttle function implementation.",
+          "content": "```js\nfunction throttle(fn, limit) {\n  let inThrottle;\n  return function(...args) {\n    if (!inThrottle) {\n      fn.apply(this, args);\n      inThrottle = true;\n      setTimeout(() => inThrottle = false, limit);\n    }\n  };\n}\n```\nThrottling enforces a maximum execution rate, ensuring the function fires at most once per defined time interval.",
+          "keyTakeaways": [
+            "Executes function at regular, rate-limited time intervals.",
+            "Ideal for scroll position tracking and window resize listeners."
+          ],
+          "interactiveQuiz": {
+            "question": "How does throttling differ from debouncing?",
+            "options": [
+              "Throttling runs code on worker threads",
+              "Throttling guarantees periodic execution during continuous triggers",
+              "Debouncing fires functions continuously",
+              "They are identical"
+            ],
+            "correctIndex": 1,
+            "explanation": "Throttling executes calls periodically at set intervals; debouncing postpones execution until events pause."
+          }
+        },
+        {
+          "id": "q23-deep-vs-shallow-copy",
+          "title": "Q23: What is the difference between a Shallow Copy and a Deep Copy?",
+          "content": "A shallow copy (`Object.assign()`, `{...obj}`) copies top-level properties, but nested objects/arrays retain memory references. A deep copy (`structuredClone()`, `JSON.parse(JSON.stringify())`) recursively duplicates all nested structures, creating completely independent object graphs.",
+          "keyTakeaways": [
+            "Shallow copy leaves nested objects linked by reference.",
+            "Deep copy duplicates all nested layers independently."
+          ],
+          "interactiveQuiz": {
+            "question": "Which modern native JavaScript global function performs deep copying safely?",
+            "options": ["Object.clone()", "structuredClone()", "JSON.clone()", "Object.deepCopy()"],
+            "correctIndex": 1,
+            "explanation": "`structuredClone()` is the modern native JS API for deep cloning complex values (including Maps, Sets, and Date)."
+          }
+        },
+        {
+          "id": "q24-coding-flatten-array",
+          "title": "Q24 [Coding]: Write a function to recursively flatten a deeply nested array.",
+          "content": "```js\nfunction flattenArray(arr) {\n  return arr.reduce((acc, val) => \n    Array.isArray(val) \n      ? acc.concat(flattenArray(val)) \n      : acc.concat(val), \n  []);\n}\n// Example: flattenArray([1, [2, [3, 4]], 5]) -> [1, 2, 3, 4, 5]\n```",
+          "keyTakeaways": [
+            "Uses recursion and `Array.isArray()` to unravel nested sub-arrays.",
+            "Native equivalent: `arr.flat(Infinity)`."
+          ],
+          "interactiveQuiz": {
+            "question": "What built-in Array prototype method flattens nested arrays to any depth directly?",
+            "options": ["arr.flat(Infinity)", "arr.flatten()", "arr.unroll()", "arr.compress()"],
+            "correctIndex": 0,
+            "explanation": "`arr.flat(Infinity)` recursively flattens nested sub-arrays to a single flat array."
+          }
+        },
+        {
+          "id": "q25-modules-es6-vs-cjs",
+          "title": "Q25: What is the difference between ES Modules (ESM) and CommonJS (CJS)?",
+          "content": "CommonJS (`require`/`module.exports`) is synchronous and evaluated dynamically at runtime. ES Modules (`import`/`export`) are asynchronous, statically analyzed at compile-time (enabling tree-shaking), and strict mode by default.",
+          "keyTakeaways": [
+            "CJS loads modules dynamically at runtime using `require()`.",
+            "ESM uses static `import/export` syntax allowing build optimization and tree-shaking."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does ES Module syntax enable Tree-Shaking optimization in bundlers?",
+            "options": [
+              "Because ESM runs on thread pools",
+              "Because ESM imports/exports are statically structure-analyzed before execution",
+              "Because ESM uses binary files",
+              "Because ESM disables strict mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "Static `import/export` structure lets bundlers detect and remove unused exports during compilation."
+          }
+        },
+        {
+          "id": "q26-currying",
+          "title": "Q26: What is Function Currying?",
+          "content": "Currying is a technique of transforming a function with multiple arguments into a sequence of functions that each take a single argument (`f(a, b, c)` into `f(a)(b)(c)`).",
+          "keyTakeaways": [
+            "Transforms multi-argument functions into unary function chains.",
+            "Enables partial application and higher-order functional composition."
+          ],
+          "interactiveQuiz": {
+            "question": "How would you call a curried function add(a)(b) to calculate 2 + 3?",
+            "options": ["add(2, 3)", "add(2)(3)", "add(2.3)", "add[2][3]"],
+            "correctIndex": 1,
+            "explanation": "Curried functions accept single arguments sequentially through chained function calls: `add(2)(3)`."
+          }
+        },
+        {
+          "id": "q27-coding-curry-implementation",
+          "title": "Q27 [Coding]: Implement a generic curry() helper function.",
+          "content": "```js\nfunction curry(fn) {\n  return function curried(...args) {\n    if (args.length >= fn.length) {\n      return fn.apply(this, args);\n    }\n    return function(...nextArgs) {\n      return curried.apply(this, args.concat(nextArgs));\n    };\n  };\n}\n```",
+          "keyTakeaways": [
+            "Compares gathered `args.length` against the expected function parameter count (`fn.length`).",
+            "Recursively returns outer wrapper functions until all parameters are fulfilled."
+          ],
+          "interactiveQuiz": {
+            "question": "What property of a Function object indicates its declared expected argument count?",
+            "options": ["fn.arguments", "fn.length", "fn.size", "fn.arity"],
+            "correctIndex": 1,
+            "explanation": "`fn.length` exposes the number of formal parameters expected by the function definition."
+          }
+        },
+        {
+          "id": "q28-map-set-weakmap-weakset",
+          "title": "Q28: What is the difference between Map, Set, WeakMap, and WeakSet?",
+          "content": "- `Map`: Key-value store accepting any data type key.\n- `Set`: Collection of unique values.\n- `WeakMap` / `WeakSet`: Hold garbage-collectable **weak references** strictly to objects/symbols. Their keys/elements are non-enumerable.",
+          "keyTakeaways": [
+            "`Map` supports keys of any type; `WeakMap` keys MUST be objects/symbols.",
+            "`WeakMap` references do not prevent garbage collection if no other references exist."
+          ],
+          "interactiveQuiz": {
+            "question": "Why are WeakMap keys non-enumerable?",
+            "options": [
+              "To boost execution speed",
+              "Because keys can be garbage collected at any non-deterministic time",
+              "To enforce strict mode",
+              "Because keys are stored on disk"
+            ],
+            "correctIndex": 1,
+            "explanation": "Since keys can be garbage collected asynchronously, iteration over WeakMap keys is non-deterministic and forbidden."
+          }
+        },
+        {
+          "id": "q29-symbols",
+          "title": "Q29: What are Symbols in JavaScript and what are their primary use cases?",
+          "content": "`Symbol` is a primitive type that returns guaranteed unique identifiers (`Symbol('id') !== Symbol('id')`). They are used to create private object property keys that avoid key collision issues across external modules.",
+          "keyTakeaways": [
+            "Symbols generate guaranteed unique primitive property keys.",
+            "Used for well-known metaprogramming symbols (e.g., `Symbol.iterator`)."
+          ],
+          "interactiveQuiz": {
+            "question": "Do Symbol object keys appear in standard for...in loops or Object.keys()?",
+            "options": [
+              "Yes, always",
+              "No, they are skipped by standard iterations",
+              "Only in strict mode",
+              "Only if converted to strings"
+            ],
+            "correctIndex": 1,
+            "explanation": "Symbol keys are ignored by standard iterations; retrieve them via `Object.getOwnPropertySymbols()`."
+          }
+        },
+        {
+          "id": "q30-generators-iterators",
+          "title": "Q30: How do Generators and Iterators work in JavaScript?",
+          "content": "An Iterator is an object with a `next()` method returning `{ value, done }`. Generators (`function*`) are special functions that can pause execution using `yield` and resume when `next()` is called on their returned Generator object.",
+          "keyTakeaways": [
+            "`yield` pauses generator functions and returns execution values.",
+            "Generators implement the iterable protocol automatically."
+          ],
+          "interactiveQuiz": {
+            "question": "Which keyword pauses execution inside a Generator function?",
+            "options": ["await", "yield", "pause", "stop"],
+            "correctIndex": 1,
+            "explanation": "The `yield` keyword yields control back to caller and pauses generator execution."
+          }
+        },
+        {
+          "id": "q31-proxy-reflect",
+          "title": "Q31: What are Proxy and Reflect objects in JavaScript?",
+          "content": "A `Proxy` object wraps a target object and intercepts fundamental operations (like property lookup, assignment, enumeration, function invocation) using trap handlers. `Reflect` provides built-in methods to perform default underlying JavaScript operations.",
+          "keyTakeaways": [
+            "Proxies enable metaprogramming by trapping object operations.",
+            "Used heavily in reactivity systems (like Vue 3 reactivity)."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Proxy trap intercepts property read access (e.g., obj.prop)?",
+            "options": ["set", "get", "apply", "has"],
+            "correctIndex": 1,
+            "explanation": "The `get` trap intercepts property read operations on proxied target objects."
+          }
+        },
+        {
+          "id": "q32-strict-mode",
+          "title": "Q32: What is Strict Mode ('use strict') and what changes does it enforce?",
+          "content": "Strict Mode enforces cleaner JavaScript execution rules: 1) Prevents accidental global variable creation. 2) Throws errors on silent fails (read-only writes). 3) Disables `with` statements. 4) Sets default `this` in plain functions to `undefined`.",
+          "keyTakeaways": ["Opt-in via `'use strict';` directive.", "Transforms silent runtime errors into explicit thrown exceptions."],
+          "interactiveQuiz": {
+            "question": "What is the value of `this` inside a standard plain function call in Strict Mode?",
+            "options": ["window object", "global object", "undefined", "null"],
+            "correctIndex": 2,
+            "explanation": "Strict mode sets `this` to `undefined` in un-bound plain function calls."
+          }
+        },
+        {
+          "id": "q33-garbage-collection",
+          "title": "Q33: How does Memory Management and Garbage Collection work in V8?",
+          "content": "JavaScript automatically manages memory using Mark-and-Sweep garbage collection algorithm. Roots (global variables, call stack references) are traversed. Any allocated memory object unreachable from roots during mark phase is swept and freed.",
+          "keyTakeaways": [
+            "V8 uses Mark-and-Sweep garbage collection algorithm.",
+            "Unreachable objects disconnected from root scope are marked for memory deallocation."
+          ],
+          "interactiveQuiz": {
+            "question": "What memory condition causes an object to be reclaimed during garbage collection?",
+            "options": [
+              "When object key count exceeds 100",
+              "When the object is unreachable from active roots",
+              "When Object.freeze() is called",
+              "When converted to JSON"
+            ],
+            "correctIndex": 1,
+            "explanation": "Objects unreachable via reference paths starting from root nodes are swept as garbage."
+          }
+        },
+        {
+          "id": "q34-coding-memoize-function",
+          "title": "Q34 [Coding]: Implement a generic memoize() utility function.",
+          "content": "```js\nfunction memoize(fn) {\n  const cache = new Map();\n  return function(...args) {\n    const key = JSON.stringify(args);\n    if (cache.has(key)) {\n      return cache.get(key);\n    }\n    const result = fn.apply(this, args);\n    cache.set(key, result);\n    return result;\n  };\n}\n```",
+          "keyTakeaways": [
+            "Caches calculation results using serialized stringified arguments as keys.",
+            "Avoids duplicate costly computations on identical input arguments."
+          ],
+          "interactiveQuiz": {
+            "question": "What trade-off does memoization introduce into applications?",
+            "options": [
+              "Higher CPU usage for lower RAM",
+              "Higher Memory (RAM) usage to save Computation (CPU) time",
+              "Slower DOM rendering speed",
+              "Forced asynchronous behavior"
+            ],
+            "correctIndex": 1,
+            "explanation": "Memoization trades increased memory storage space to avoid repeated computation time."
+          }
+        },
+        {
+          "id": "q35-mutation-observer",
+          "title": "Q35: What is MutationObserver and when should it be used?",
+          "content": "`MutationObserver` is a built-in API that provides the ability to watch for changes made to the DOM tree (child additions/removals, attribute mutations, text content modifications) asynchronously without performance polling.",
+          "keyTakeaways": ["Asynchronously monitors DOM tree mutations.", "Replaces legacy performance-heavy DOM mutation events."],
+          "interactiveQuiz": {
+            "question": "How are DOM mutation notifications delivered by MutationObserver?",
+            "options": [
+              "Synchronously inside the main thread frame",
+              "Asynchronously via microtask batches",
+              "In worker thread pools",
+              "Via HTTP SSE events"
+            ],
+            "correctIndex": 1,
+            "explanation": "`MutationObserver` callbacks fire asynchronously as microtasks before browser repaints."
+          }
+        },
+        {
+          "id": "q36-web-workers",
+          "title": "Q36: What are Web Workers and how do they communicate with the main thread?",
+          "content": "Web Workers allow running background JavaScript scripts in parallel threads separate from the main execution thread. Communication occurs via message passing using `worker.postMessage()` and `onmessage` event handlers.",
+          "keyTakeaways": [
+            "Runs heavy scripts in isolated background threads without UI thread blocking.",
+            "Workers lack direct access to DOM objects (`document`, `window`)."
+          ],
+          "interactiveQuiz": {
+            "question": "Can a standard Dedicated Web Worker directly manipulate DOM nodes using document.getElementById?",
+            "options": [
+              "Yes, unconditionally",
+              "No, workers do not have access to the DOM",
+              "Only in strict mode",
+              "Yes, if imported via ES modules"
+            ],
+            "correctIndex": 1,
+            "explanation": "Web Workers operate in isolated thread scopes without access to the DOM or `window` object."
+          }
+        },
+        {
+          "id": "q37-coding-array-prototype-map",
+          "title": "Q37 [Coding]: Write a custom polyfill for Array.prototype.map().",
+          "content": "```js\nArray.prototype.myMap = function(callback, thisArg) {\n  if (typeof callback !== 'function') {\n    throw new TypeError(callback + ' is not a function');\n  }\n  const result = [];\n  for (let i = 0; i < this.length; i++) {\n    if (i in this) { // Handles sparse arrays\n      result[i] = callback.call(thisArg, this[i], i, this);\n    }\n  }\n  return result;\n};\n```",
+          "keyTakeaways": [
+            "Iterates over input array elements and constructs a new mapped array.",
+            "Handles sparse array indices using `i in this` checks."
+          ],
+          "interactiveQuiz": {
+            "question": "Does Array.prototype.map() mutate the original calling array instance?",
+            "options": [
+              "Yes, it mutates in-place",
+              "No, it returns a new array instance",
+              "Only if callback returns objects",
+              "Only in strict mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "`map()` is a pure non-mutating transformation method that returns a brand new array."
+          }
+        },
+        {
+          "id": "q38-coding-array-prototype-reduce",
+          "title": "Q38 [Coding]: Write a custom polyfill for Array.prototype.reduce().",
+          "content": "```js\nArray.prototype.myReduce = function(callback, initialValue) {\n  let accumulator = initialValue;\n  let startIndex = 0;\n  if (accumulator === undefined) {\n    if (this.length === 0) throw new TypeError('Reduce of empty array with no initial value');\n    accumulator = this[0];\n    startIndex = 1;\n  }\n  for (let i = startIndex; i < this.length; i++) {\n    if (i in this) {\n      accumulator = callback(accumulator, this[i], i, this);\n    }\n  }\n  return accumulator;\n};\n```",
+          "keyTakeaways": [
+            "Initializes accumulator to `initialValue` or array element index 0.",
+            "Sequentially processes callback updates across array elements."
+          ],
+          "interactiveQuiz": {
+            "question": "What occurs if myReduce is called on an empty array without an initialValue parameter?",
+            "options": ["Returns undefined", "Returns empty array []", "Throws a TypeError", "Returns null"],
+            "correctIndex": 2,
+            "explanation": "Calling `reduce()` on an empty array without supplying an initial value throws a `TypeError`."
+          }
+        },
+        {
+          "id": "q39-requestanimationframe",
+          "title": "Q39: What is requestAnimationFrame() and why is it preferred over setInterval for animations?",
+          "content": "`requestAnimationFrame(cb)` instructs the browser to execute a specified callback before the next repaint frame (typically 60fps/120fps). It synchronizes with hardware display refresh rates and pauses execution in inactive background tabs to conserve power.",
+          "keyTakeaways": [
+            "Synchronizes animation updates directly with screen repaint frames.",
+            "Pauses automatically in hidden background browser tabs."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is requestAnimationFrame superior to setInterval(fn, 16) for smooth CSS/Canvas animations?",
+            "options": [
+              "Runs on GPU background threads",
+              "Matches screen refresh rates and pauses when tab is hidden",
+              "Bypasses the Event Loop entirely",
+              "Disables V8 garbage collection"
+            ],
+            "correctIndex": 1,
+            "explanation": "`requestAnimationFrame` aligns frame steps with monitor refresh rate and reduces resource usage when backgrounded."
+          }
+        },
+        {
+          "id": "q40-tail-call-optimization",
+          "title": "Q40: What is Tail Call Optimization (TCO)?",
+          "content": "Tail Call Optimization occurs when a recursive function call is the final execution statement inside a function. The engine reuses the current stack frame instead of allocating new stack frames, preventing stack overflow errors on infinite recursion.",
+          "keyTakeaways": [
+            "Reuses call stack frame when recursion occurs at tail position.",
+            "Prevents `Maximum call stack size exceeded` errors on deep recursions."
+          ],
+          "interactiveQuiz": {
+            "question": "Which requirement must be met for a function to qualify for Tail Call Optimization?",
+            "options": [
+              "Must be an arrow function",
+              "The recursive call must be the absolute final execution statement in the function",
+              "Must run in Web Workers",
+              "Must use async/await"
+            ],
+            "correctIndex": 1,
+            "explanation": "TCO requires that the function return value be directly the output of the recursive call without remaining outer frame operations."
+          }
+        },
+        {
+          "id": "q41-coding-deep-equal",
+          "title": "Q41 [Coding]: Write a deepEqual function to compare two objects deeply.",
+          "content": "```js\nfunction deepEqual(a, b) {\n  if (a === b) return true;\n  if (a == null || typeof a !== 'object' || b == null || typeof b !== 'object') {\n    return false;\n  }\n  const keysA = Object.keys(a);\n  const keysB = Object.keys(b);\n  if (keysA.length !== keysB.length) return false;\n  for (let key of keysA) {\n    if (!keysB.includes(key) || !deepEqual(a[key], b[key])) {\n      return false;\n    }\n  }\n  return true;\n}\n```",
+          "keyTakeaways": [
+            "Compares primitives via `===` and recursively inspects nested object keys.",
+            "Validates key count matching prior to recursive nested property checks."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the return value of deepEqual({a: 1, b: {c: 2}}, {a: 1, b: {c: 2}})?",
+            "options": ["false", "true", "TypeError", "undefined"],
+            "correctIndex": 1,
+            "explanation": "Both objects possess identical keys and structural primitive values across all nested layers."
+          }
+        },
+        {
+          "id": "q42-service-workers",
+          "title": "Q42: What are Service Workers and Progressive Web Apps (PWAs)?",
+          "content": "A Service Worker is an event-driven worker registered between client browsers and network backends. It intercepts network requests (`fetch` event), manages offline application caches (`CacheStorage`), and powers push notifications for PWAs.",
+          "keyTakeaways": ["Acts as a programmable network proxy client-side.", "Enables offline capability and background data sync."],
+          "interactiveQuiz": {
+            "question": "Which network event is intercepted by Service Workers to serve offline cached assets?",
+            "options": ["connect", "fetch", "push", "install"],
+            "correctIndex": 1,
+            "explanation": "Service Workers listen to the `fetch` event to intercept outgoing network calls and serve cached responses."
+          }
+        },
+        {
+          "id": "q43-cors-preflight",
+          "title": "Q43: What triggers a CORS Preflight OPTIONS request in browsers?",
+          "content": "A preflight `OPTIONS` request is sent automatically by browsers prior to cross-origin requests if: 1) Method is NOT `GET`, `HEAD`, or `POST`. 2) Custom HTTP headers (like `Authorization`) are included. 3) `Content-Type` is not simple (`application/json`).",
+          "keyTakeaways": [
+            "Preflight verifies cross-origin permissions using HTTP `OPTIONS` requests.",
+            "Triggered by non-simple headers or non-simple Content-Type values."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Content-Type triggers a CORS preflight request when sent in a POST request?",
+            "options": ["text/plain", "application/x-www-form-urlencoded", "application/json", "multipart/form-data"],
+            "correctIndex": 2,
+            "explanation": "`application/json` is classified as a non-simple MIME type, triggering an automated preflight request."
+          }
+        },
+        {
+          "id": "q44-big-o-complexity-js-methods",
+          "title": "Q44: What are the Time Complexities (Big O) of common Array operations?",
+          "content": "- `push()` / `pop()`: $O(1)$ (end of array).\n- `unshift()` / `shift()`: $O(n)$ (requires re-indexing elements).\n- `indexOf()` / `includes()`: $O(n)$ linear search.\n- `sort()`: $O(n \\log n)$ average time complexity.",
+          "keyTakeaways": [
+            "Adding/removing from start (`shift`/`unshift`) is $O(n)$.",
+            "Array access by numeric index (`arr[i]`) is $O(1)$."
+          ],
+          "interactiveQuiz": {
+            "question": "Why is array.unshift() an O(n) operation whereas array.push() is O(1)?",
+            "options": [
+              "Because unshift allocates memory on disk",
+              "Because unshift requires re-indexing every existing array element index",
+              "Because push uses worker threads",
+              "Because push mutates prototype chain"
+            ],
+            "correctIndex": 1,
+            "explanation": "Inserting an element at index 0 requires shifting all existing $n$ elements forward by 1 index."
+          }
+        },
+        {
+          "id": "q45-v8-hidden-classes",
+          "title": "Q45: How do V8 Hidden Classes (Shapes) optimize property access speed?",
+          "content": "V8 assigns Hidden Classes (Shapes) to objects. When objects share identical key property structures and declaration order, V8 reuses the same Hidden Class, enabling fast memory offset property lookups instead of dictionary hash lookups.",
+          "keyTakeaways": [
+            "Instantiate object properties in consistent order to reuse V8 shapes.",
+            "Avoid deleting properties (`delete obj.prop`) to prevent downgrading to slow dictionary mode."
+          ],
+          "interactiveQuiz": {
+            "question": "How should you nullify an object key without invalidating its V8 Hidden Class shape?",
+            "options": ["delete obj.key", "obj.key = undefined (or null)", "Object.remove(obj, key)", "Reflect.deleteProperty()"],
+            "correctIndex": 1,
+            "explanation": "Assigning `undefined` or `null` maintains object structure, preserving V8 hidden class optimizations."
+          }
+        },
+        {
+          "id": "q46-coding-flatten-object",
+          "title": "Q46 [Coding]: Write a function to flatten a deeply nested object using dot notation keys.",
+          "content": "```js\nfunction flattenObject(obj, prefix = '') {\n  return Object.keys(obj).reduce((acc, key) => {\n    const pre = prefix.length ? prefix + '.' : '';\n    if (typeof obj[key] === 'object' && obj[key] !== null && !Array.isArray(obj[key])) {\n      Object.assign(acc, flattenObject(obj[key], pre + key));\n    } else {\n      acc[pre + key] = obj[key];\n    }\n    return acc;\n  }, {});\n}\n// Input: { a: { b: 2 } } -> Output: { 'a.b': 2 }\n```",
+          "keyTakeaways": [
+            "Uses recursion to append nested keys into dot-separated paths.",
+            "Ignores primitive key value properties while drilling into child object trees."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the flattened key output for { user: { address: { city: 'Paris' } } }?",
+            "options": ["'city'", "'address.city'", "'user.address.city'", "'user/address/city'"],
+            "correctIndex": 2,
+            "explanation": "Nested object traversal joins property names using dot notation into `'user.address.city'`."
+          }
+        },
+        {
+          "id": "q47-memory-leaks-js",
+          "title": "Q47: What are common causes of Memory Leaks in client-side JavaScript?",
+          "content": "1) **Accidental global variables** (`window.leakedVar = ...`). 2) **Forgotten timers or callbacks** (`setInterval` retaining closed variables). 3) **Out-of-DOM references** (holding references to removed DOM nodes in JS arrays). 4) **Uncleared Event Listeners**.",
+          "keyTakeaways": [
+            "Always clear timers (`clearInterval`) and detach unused event listeners.",
+            "Remove JS variable references pointing to detached DOM nodes."
+          ],
+          "interactiveQuiz": {
+            "question": "Which situation leads to a Detached DOM Tree memory leak?",
+            "options": [
+              "Setting CSS visibility to hidden",
+              "Removing a DOM node from document while retaining a reference to it inside a JS variable",
+              "Using document.querySelector()",
+              "Freezing an object"
+            ],
+            "correctIndex": 1,
+            "explanation": "If a detached node is referenced in JS, GC cannot sweep the node or its child subtree from memory."
+          }
+        },
+        {
+          "id": "q48-iterator-protocol-coding",
+          "title": "Q48 [Coding]: Make a custom object iterable using Symbol.iterator.",
+          "content": "```js\nconst range = {\n  start: 1,\n  end: 3,\n  [Symbol.iterator]() {\n    let current = this.start;\n    let last = this.end;\n    return {\n      next() {\n        if (current <= last) {\n          return { value: current++, done: false };\n        }\n        return { value: undefined, done: true };\n      }\n    };\n  }\n};\n// Usage: for (let num of range) console.log(num); // Logs: 1, 2, 3\n```",
+          "keyTakeaways": [
+            "Implementing `[Symbol.iterator]` enables `for...of` loops and spread syntax (`[...obj]`).",
+            "Iterator methods return objects conforming to `{ value, done }` contracts."
+          ],
+          "interactiveQuiz": {
+            "question": "Which built-in loop syntax consumes objects that implement the Symbol.iterator interface?",
+            "options": ["for...in", "for...of", "while()", "do...while"],
+            "correctIndex": 1,
+            "explanation": "The `for...of` loop is specifically designed to consume objects implementing the iterable protocol."
+          }
+        },
+        {
+          "id": "q49-tree-shaking",
+          "title": "Q49: What is Tree Shaking and how does static analysis make it possible?",
+          "content": "Tree Shaking is a term for dead-code elimination in JavaScript bundlers (Webpack, Rollup). Static analysis of ES Module `import`/`export` statements enables bundlers to detect and remove un-referenced exports from final production bundles.",
+          "keyTakeaways": [
+            "Eliminates dead, unused JavaScript code from distribution bundles.",
+            "Requires ES Module static structure; fails with dynamic CommonJS `require()`."
+          ],
+          "interactiveQuiz": {
+            "question": "Why does dynamic `require()` syntax in CommonJS prevent effective tree shaking?",
+            "options": [
+              "Because CommonJS files are encrypted",
+              "Because dynamic module paths cannot be fully resolved prior to runtime execution",
+              "Because CJS runs on server environments",
+              "Because CJS files lack prototype properties"
+            ],
+            "correctIndex": 1,
+            "explanation": "Dynamic runtime paths in `require()` prevent static compilers from identifying unused module code safely."
+          }
+        },
+        {
+          "id": "q50-coding-pipe-compose",
+          "title": "Q50 [Coding]: Implement pipe() and compose() functional utilities.",
+          "content": "```js\n// pipe: Executes functions left-to-right\nconst pipe = (...fns) => (x) => fns.reduce((v, fn) => fn(v), x);\n\n// compose: Executes functions right-to-left\nconst compose = (...fns) => (x) => fns.reduceRight((v, fn) => fn(v), x);\n\n// Example usage:\nconst add5 = x => x + 5;\nconst double = x => x * 2;\n\npipe(add5, double)(10); // (10 + 5) * 2 = 30\ncompose(double, add5)(10); // (10 + 5) * 2 = 30\n```",
+          "keyTakeaways": [
+            "`pipe` processes transformations left-to-right via `Array.prototype.reduce()`.",
+            "`compose` processes transformations right-to-left via `Array.prototype.reduceRight()`."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the execution order difference between pipe() and compose()?",
+            "options": [
+              "pipe is asynchronous; compose is synchronous",
+              "pipe evaluates functions left-to-right; compose evaluates right-to-left",
+              "compose works only with arrow functions",
+              "They evaluate in identical sequence"
+            ],
+            "correctIndex": 1,
+            "explanation": "`pipe` chains execution left-to-right, whereas mathematical `compose` evaluates functions right-to-left."
+          }
+        }
+      ]
+    },
+    {
+      "id": "js-coding-challenges-25",
+      "title": "25 Progressive JavaScript Coding Questions (Easy to Difficult)",
+      "summary": "A 25-question coding bank structured from basic JavaScript string/array manipulations to advanced asynchronous control flow, custom polyfills, and engine metaprogramming.",
+      "estimatedMinutes": 180,
+      "sections": [
+        {
+          "id": "q51-coding-string-reverse",
+          "title": "Q51: Reverse a String Without Built-In Reverse",
+          "content": "To reverse a string manually, iterate backward from the last character to the first, appending each character to a new string. This demonstrates basic iteration and string accumulation.",
+          "keyTakeaways": [
+            "Iterates backward from the end of the string to assemble a new reversed string.",
+            "Runs with O(n) time complexity and O(n) space complexity."
+          ],
+          "codeExample": {
+            "title": "Manual String Reversal",
+            "language": "javascript",
+            "code": "function reverseString(str) {\n  let reversed = '';\n  for (let i = str.length - 1; i >= 0; i--) {\n    reversed += str[i];\n  }\n  return reversed;\n}\n\nconsole.log(reverseString('hello')); // 'olleh'",
+            "explanation": "By looping from str.length - 1 down to 0, each character is appended in reverse order without using Array.prototype.reverse()."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of reversing a string of length n character-by-character?",
+            "options": ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+            "correctIndex": 1,
+            "explanation": "Visiting each character in a string of length n takes linear time O(n)."
+          }
+        },
+        {
+          "id": "q52-coding-fizzbuzz",
+          "title": "Q52: Classic FizzBuzz Implementation",
+          "content": "Output numbers from 1 to N, replacing multiples of 3 with 'Fizz', 5 with 'Buzz', and multiples of both with 'FizzBuzz'. Check compound conditions (multiples of 15) before individual factors.",
+          "keyTakeaways": [
+            "Check for combined conditions (i % 15 === 0) before individual conditions.",
+            "Demonstrates basic modulo arithmetic and control flow branching."
+          ],
+          "codeExample": {
+            "title": "FizzBuzz Loop",
+            "language": "javascript",
+            "code": "function fizzBuzz(n) {\n  const result = [];\n  for (let i = 1; i <= n; i++) {\n    if (i % 15 === 0) result.push('FizzBuzz');\n    else if (i % 3 === 0) result.push('Fizz');\n    else if (i % 5 === 0) result.push('Buzz');\n    else result.push(i.toString());\n  }\n  return result;\n}\n\nconsole.log(fizzBuzz(15));",
+            "explanation": "Evaluating i % 15 first prevents multiples of both 3 and 5 from matching the earlier single-factor branches."
+          },
+          "interactiveQuiz": {
+            "question": "Why must the condition for 15 (or both 3 and 5) be checked first in FizzBuzz?",
+            "options": [
+              "Because modulo operations only work in descending order",
+              "Otherwise multiples of 15 would trigger the 3 or 5 branch earlier and skip 'FizzBuzz'",
+              "To avoid an out-of-bounds array error",
+              "It is optional and makes no difference"
+            ],
+            "correctIndex": 1,
+            "explanation": "If i % 3 is checked first, numbers like 15 hit the 'Fizz' block and miss 'FizzBuzz'."
+          }
+        },
+        {
+          "id": "q53-coding-palindrome-check",
+          "title": "Q53: Check if a String is a Palindrome",
+          "content": "Clean non-alphanumeric characters and convert to lower case, then use a two-pointer approach moving toward the center to check if the string reads identically forward and backward.",
+          "keyTakeaways": [
+            "Sanitizes strings using Regular Expressions prior to checking.",
+            "Uses a two-pointer approach to compare characters from opposite ends toward the center."
+          ],
+          "codeExample": {
+            "title": "Two-Pointer Palindrome Validation",
+            "language": "javascript",
+            "code": "function isPalindrome(str) {\n  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');\n  let left = 0;\n  let right = cleaned.length - 1;\n  while (left < right) {\n    if (cleaned[left] !== cleaned[right]) return false;\n    left++;\n    right--;\n  }\n  return true;\n}\n\nconsole.log(isPalindrome('A man, a plan, a canal: Panama')); // true",
+            "explanation": "Two pointers move inward from opposite ends, allowing early exit as soon as a non-matching character pair is found."
+          },
+          "interactiveQuiz": {
+            "question": "What is the primary benefit of a two-pointer approach over str === str.split('').reverse().join('')?",
+            "options": [
+              "It runs in O(1) time complexity",
+              "It can exit early on the first mismatched pair without processing the entire string",
+              "It bypasses string immutability",
+              "It avoids regular expression sanitization"
+            ],
+            "correctIndex": 1,
+            "explanation": "Two pointers can return false instantly upon finding a character mismatch."
+          }
+        },
+        {
+          "id": "q54-coding-find-max-min",
+          "title": "Q54: Find Minimum and Maximum Values in an Array",
+          "content": "Find both min and max values in a single pass across the array without relying on spread syntax with Math.min/Math.max, which can overflow the call stack on large arrays.",
+          "keyTakeaways": [
+            "Performs single-pass O(n) iteration to update bounds.",
+            "Avoids Math.max(...arr) which can throw a stack overflow error on very large arrays."
+          ],
+          "codeExample": {
+            "title": "Single-Pass Min/Max Finder",
+            "language": "javascript",
+            "code": "function findMinMax(arr) {\n  if (!arr.length) return { min: undefined, max: undefined };\n  let min = arr[0];\n  let max = arr[0];\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n  return { min, max };\n}\n\nconsole.log(findMinMax([3, 1, 9, 4, 2])); // { min: 1, max: 9 }",
+            "explanation": "Iterating once updates min and max tracking variables in O(n) time and O(1) auxiliary space."
+          },
+          "interactiveQuiz": {
+            "question": "Why can Math.max(...largeArray) fail on extremely large arrays (e.g. 100,000+ elements)?",
+            "options": [
+              "Math.max only works on small hardcoded numbers",
+              "Exceeds maximum call stack size due to argument spreading",
+              "Arrays automatically convert to strings when passed to Math.max",
+              "Math.max mutates the original array"
+            ],
+            "correctIndex": 1,
+            "explanation": "Spreading massive arrays passes millions of parameters onto the stack frame, triggering a call stack overflow."
+          }
+        },
+        {
+          "id": "q55-coding-chunk-array",
+          "title": "Q55: Chunk an Array into Sub-Arrays of Fixed Size",
+          "content": "Split an array into smaller sub-arrays of a target size by iterating through the source array in increments of the chunk size and calling Array.prototype.slice().",
+          "keyTakeaways": [
+            "Advances loop pointer by size steps.",
+            "Array.prototype.slice extracts chunks cleanly without mutating the source array."
+          ],
+          "codeExample": {
+            "title": "Array Chunking Helper",
+            "language": "javascript",
+            "code": "function chunkArray(arr, size) {\n  const chunked = [];\n  for (let i = 0; i < arr.length; i += size) {\n    chunked.push(arr.slice(i, i + size));\n  }\n  return chunked;\n}\n\nconsole.log(chunkArray([1, 2, 3, 4, 5], 2)); // [[1, 2], [3, 4], [5]]",
+            "explanation": "By incrementing the loop index by size each iteration, slice() extracts sub-arrays of exact length."
+          },
+          "interactiveQuiz": {
+            "question": "What is the result of chunkArray([1, 2, 3, 4, 5], 2)?",
+            "options": ["[[1, 2], [3, 4], [5]]", "[[1, 2], [3, 4, 5]]", "[[1, 2, 3], [4, 5]]", "[[1], [2], [3], [4], [5]]"],
+            "correctIndex": 0,
+            "explanation": "Chunks of size 2 extract elements in pairs, leaving the remaining odd element [5] in the final slice."
+          }
+        },
+        {
+          "id": "q56-coding-char-count",
+          "title": "Q56: Count Character Frequencies in a String",
+          "content": "Count the occurrence of each character in a string by accumulating counts inside a plain object map, initializing unseen characters to zero.",
+          "keyTakeaways": [
+            "Uses logical OR (||) to initialize missing object keys to zero.",
+            "Runs in linear O(n) time complexity relative to string length."
+          ],
+          "codeExample": {
+            "title": "Character Frequency Counter",
+            "language": "javascript",
+            "code": "function charFrequency(str) {\n  const freq = {};\n  for (let char of str) {\n    freq[char] = (freq[char] || 0) + 1;\n  }\n  return freq;\n}\n\nconsole.log(charFrequency('hello')); // { h: 1, e: 1, l: 2, o: 1 }",
+            "explanation": "The expression (freq[char] || 0) ensures that unvisited characters start at 0 before adding 1."
+          },
+          "interactiveQuiz": {
+            "question": "What value does freq[char] || 0 evaluate to if char is not yet present in the freq map?",
+            "options": ["undefined", "null", "0", "1"],
+            "correctIndex": 2,
+            "explanation": "If freq[char] is undefined (falsy), the logical OR falls back to 0."
+          }
+        },
+        {
+          "id": "q57-coding-array-dedup",
+          "title": "Q57: Remove Duplicate Values from an Array",
+          "content": "Deduplicate elements in an array using an ES6 Set for linear performance, or Array.prototype.filter() with indexOf() for a single-line functional approach.",
+          "keyTakeaways": [
+            "Set approach provides O(n) time complexity.",
+            "filter + indexOf provides O(n²) time complexity due to internal lookup overhead."
+          ],
+          "codeExample": {
+            "title": "Array Deduplication Approaches",
+            "language": "javascript",
+            "code": "// Approach 1: ES6 Set (Optimal O(n))\nconst uniqueSet = (arr) => [...new Set(arr)];\n\n// Approach 2: Array filter (O(n²))\nconst uniqueFilter = (arr) => arr.filter((item, index) => arr.indexOf(item) === index);\n\nconsole.log(uniqueSet([1, 2, 2, 3, 4, 4])); // [1, 2, 3, 4]",
+            "explanation": "ES6 Set automatically discards duplicate values in linear time, while filter + indexOf scans the array repeatedly."
+          },
+          "interactiveQuiz": {
+            "question": "Why is the Set approach preferred over filter + indexOf for large arrays?",
+            "options": [
+              "Set takes O(n) linear time, whereas indexOf inside filter takes quadratic O(n²) time",
+              "filter converts array elements to strings",
+              "Set preserves duplicate objects",
+              "filter does not work with numbers"
+            ],
+            "correctIndex": 0,
+            "explanation": "indexOf executes a full scan per iteration (O(n)), making filter + indexOf O(n²) overall."
+          }
+        },
+        {
+          "id": "q58-coding-object-invert",
+          "title": "Q58: Invert Keys and Values of an Object",
+          "content": "Swap the keys and values of a plain object into a new object using a for...in loop combined with a hasOwnProperty check to ignore prototype properties.",
+          "keyTakeaways": [
+            "Swaps keys and values into a new object.",
+            "Uses hasOwnProperty guard to prevent iterating inherited prototype properties."
+          ],
+          "codeExample": {
+            "title": "Object Key-Value Inversion",
+            "language": "javascript",
+            "code": "function invertObject(obj) {\n  const inverted = {};\n  for (let key in obj) {\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\n      inverted[obj[key]] = key;\n    }\n  }\n  return inverted;\n}\n\nconsole.log(invertObject({ a: 'x', b: 'y' })); // { x: 'a', y: 'b' }",
+            "explanation": "Maps each value obj[key] as a key in the new object, assigning the original key string as its value."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if an object contains multiple duplicate values during inversion (e.g. { a: 1, b: 1 })?",
+            "options": [
+              "Throws a DuplicateKeyError",
+              "Later values overwrite earlier keys under the inverted key target",
+              "Converts the value into an array automatically",
+              "Skips the secondary key"
+            ],
+            "correctIndex": 1,
+            "explanation": "Inverted keys are plain object properties; reassigning inverted[1] overwrites prior assignments."
+          }
+        },
+        {
+          "id": "q59-coding-object-pick-omit",
+          "title": "Q59: Implement Custom pick and omit Object Helpers",
+          "content": "Build pick(obj, keys) to extract specific properties into a new object, and omit(obj, keys) to create a copy that excludes specified keys.",
+          "keyTakeaways": ["Reduces object keys dynamically.", "Using a Set in omit allows O(1) key exclusion checks."],
+          "codeExample": {
+            "title": "Object Pick and Omit Utility",
+            "language": "javascript",
+            "code": "function pick(obj, keys) {\n  return keys.reduce((acc, key) => {\n    if (key in obj) acc[key] = obj[key];\n    return acc;\n  }, {});\n}\n\nfunction omit(obj, keys) {\n  const keySet = new Set(keys);\n  return Object.keys(obj).reduce((acc, key) => {\n    if (!keySet.has(key)) acc[key] = obj[key];\n    return acc;\n  }, {});\n}\n\nconst user = { id: 1, name: 'Alex', role: 'admin' };\nconsole.log(pick(user, ['name', 'role'])); // { name: 'Alex', role: 'admin' }\nconsole.log(omit(user, ['role']));         // { id: 1, name: 'Alex' }",
+            "explanation": "pick filters down to specified keys, while omit uses a Set lookup to drop listed keys efficiently."
+          },
+          "interactiveQuiz": {
+            "question": "What is the benefit of passing keys as a Set inside the omit function?",
+            "options": [
+              "Ensures keys are converted to numbers",
+              "Reduces exclusion lookup complexity from O(k) down to O(1) time per key",
+              "Prevents mutating the original object",
+              "Enables async execution"
+            ],
+            "correctIndex": 1,
+            "explanation": "Set.has() performs O(1) lookup checks compared to Array.includes() O(k) linear scans."
+          }
+        },
+        {
+          "id": "q60-coding-curry-add",
+          "title": "Q60: Implement Infinite Curried Addition sum(1)(2)(3)...()",
+          "content": "Create a function that continuously accumulates numbers across chained function calls until called with no arguments to signal termination.",
+          "keyTakeaways": [
+            "Uses closure state to accumulate sum values across chained calls.",
+            "Terminates recursive currying when invoked without arguments (b === undefined)."
+          ],
+          "codeExample": {
+            "title": "Infinitely Curried Sum",
+            "language": "javascript",
+            "code": "function sum(a) {\n  return function(b) {\n    if (b !== undefined) {\n      return sum(a + b);\n    }\n    return a;\n  };\n}\n\nconsole.log(sum(1)(2)(3)()); // 6\nconsole.log(sum(5)(10)());   // 15",
+            "explanation": "Each invocation returns a new sum function wrapping the updated total until b === undefined triggers the final total."
+          },
+          "interactiveQuiz": {
+            "question": "What acts as the base termination signal for ending the sum currying chain above?",
+            "options": [
+              "Reaching number 0",
+              "Invoking the returned function with no arguments (undefined)",
+              "A timeout interval",
+              "Calling .valueOf()"
+            ],
+            "correctIndex": 1,
+            "explanation": "An empty invocation () passes b = undefined, triggering the return of accumulated sum a."
+          }
+        },
+        {
+          "id": "q61-coding-promise-timeout",
+          "title": "Q61: Implement Promise Timeout (Cancel Race)",
+          "content": "Wrap a target Promise with a timeout reject mechanism using Promise.race, ensuring the operation fails if it exceeds a specified delay threshold.",
+          "keyTakeaways": [
+            "Promise.race resolves or rejects as soon as any promise in the array settles.",
+            "Combines target promise against a timer reject promise."
+          ],
+          "codeExample": {
+            "title": "Promise Timeout Wrapper",
+            "language": "javascript",
+            "code": "function promiseWithTimeout(promise, ms) {\n  const timeout = new Promise((_, reject) => {\n    setTimeout(() => reject(new Error(`Operation timed out after ${ms}ms`)), ms);\n  });\n  return Promise.race([promise, timeout]);\n}\n\nconst slowTask = new Promise(res => setTimeout(() => res('Done'), 2000));\npromiseWithTimeout(slowTask, 1000).catch(err => console.error(err.message));",
+            "explanation": "Promise.race resolves with the target result if it completes before the setTimeout reject fires."
+          },
+          "interactiveQuiz": {
+            "question": "If the main promise resolves in 500ms and the timeout is set to 1000ms, what is the output of Promise.race?",
+            "options": [
+              "Rejects with timeout error",
+              "Resolves with the value from the main promise",
+              "Waits 1000ms before returning main value",
+              "Returns both settled values in an array"
+            ],
+            "correctIndex": 1,
+            "explanation": "Because 500ms < 1000ms, the main promise settles first and wins the Promise.race."
+          }
+        },
+        {
+          "id": "q62-coding-bind-polyfill",
+          "title": "Q62: Write a Custom Function.prototype.bind Polyfill",
+          "content": "Implement a custom version of Function.prototype.bind that captures context and initial bound arguments, returning a function that accepts additional arguments at call time.",
+          "keyTakeaways": [
+            "Captures this target function inside a closure.",
+            "Concatenates initial boundArgs with execution call args during invocation."
+          ],
+          "codeExample": {
+            "title": "Function bind Polyfill",
+            "language": "javascript",
+            "code": "Function.prototype.myBind = function(context, ...boundArgs) {\n  const fn = this;\n  if (typeof fn !== 'function') {\n    throw new TypeError('Bind must be called on a function');\n  }\n  return function(...args) {\n    return fn.apply(context, [...boundArgs, ...args]);\n  };\n};\n\nfunction greet(greeting, punctuation) {\n  return `${greeting}, ${this.name}${punctuation}`;\n}\nconst bound = greet.myBind({ name: 'Alex' }, 'Hello');\nconsole.log(bound('!')); // 'Hello, Alex!'",
+            "explanation": "myBind returns a wrapper that applies the stored context and combines initial boundArgs with invocation arguments."
+          },
+          "interactiveQuiz": {
+            "question": "How are initial arguments passed to myBind merged with arguments passed to the bound execution function?",
+            "options": [
+              "Outer arguments are discarded",
+              "They are concatenated: [...boundArgs, ...args]",
+              "Inner arguments overwrite outer arguments",
+              "Merged into an object dictionary"
+            ],
+            "correctIndex": 1,
+            "explanation": "Partial application combines initial bound arguments with secondary execution arguments sequentially."
+          }
+        },
+        {
+          "id": "q63-coding-query-string-parser",
+          "title": "Q63: Write a URL Query String Parser and Builder",
+          "content": "Implement helper functions to convert URL query parameters into an object map and convert an object map back into an encoded URL query string.",
+          "keyTakeaways": [
+            "Processes delimiter split strings using split('&') and split('=').",
+            "Encodes and decodes special URI characters using encodeURIComponent and decodeURIComponent."
+          ],
+          "codeExample": {
+            "title": "Query Parser and Stringifier",
+            "language": "javascript",
+            "code": "function parseQuery(str) {\n  if (!str) return {};\n  const queryString = str.startsWith('?') ? str.slice(1) : str;\n  return queryString.split('&').reduce((acc, param) => {\n    const [key, value] = param.split('=');\n    if (key) acc[decodeURIComponent(key)] = decodeURIComponent(value || '');\n    return acc;\n  }, {});\n}\n\nfunction stringifyQuery(obj) {\n  return Object.entries(obj)\n    .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)\n    .join('&');\n}\n\nconsole.log(parseQuery('?name=Alex&age=25')); // { name: 'Alex', age: '25' }\nconsole.log(stringifyQuery({ a: '1', b: '2' })); // 'a=1&b=2'",
+            "explanation": "Splitting by delimiters extracts key-value pairs while URI encoding functions prevent character corruption."
+          },
+          "interactiveQuiz": {
+            "question": "Why must encodeURIComponent be used when stringifying query parameters?",
+            "options": [
+              "To convert objects into JSON strings",
+              "To escape reserved URL characters like &, =, ?, and spaces safely",
+              "To compress output string length",
+              "To enforce UTF-16 byte alignment"
+            ],
+            "correctIndex": 1,
+            "explanation": "Unescaped reserved characters inside parameter values corrupt URL parameter parsing delimiters."
+          }
+        },
+        {
+          "id": "q64-coding-pub-sub-async",
+          "title": "Q64: Implement an Async Publish-Subscribe Bus",
+          "content": "Create an event bus that supports asynchronous subscriber callbacks, returning a promise from publish() that resolves once all subscriber callbacks settle.",
+          "keyTakeaways": [
+            "Returns an un-subscribe teardown closure upon registration.",
+            "Uses Promise.all to execute and await subscriber handlers concurrently during publication."
+          ],
+          "codeExample": {
+            "title": "Async Event Bus",
+            "language": "javascript",
+            "code": "class AsyncEventBus {\n  constructor() {\n    this.subscribers = new Map();\n  }\n\n  subscribe(event, callback) {\n    if (!this.subscribers.has(event)) this.subscribers.set(event, new Set());\n    this.subscribers.get(event).add(callback);\n    return () => this.subscribers.get(event).delete(callback);\n  }\n\n  async publish(event, data) {\n    if (!this.subscribers.has(event)) return [];\n    const callbacks = Array.from(this.subscribers.get(event));\n    const promises = callbacks.map(cb => Promise.resolve().then(() => cb(data)));\n    return Promise.all(promises);\n  }\n}",
+            "explanation": "Publishing wraps each callback in a Promise, allowing Promise.all to await all subscriber operations concurrently."
+          },
+          "interactiveQuiz": {
+            "question": "What is the return result of publishing an event in the AsyncEventBus above?",
+            "options": [
+              "A Promise resolving to an array of output results from all subscriber callbacks",
+              "A boolean flag",
+              "The total subscriber count integer",
+              "undefined"
+            ],
+            "correctIndex": 0,
+            "explanation": "Promise.all returns a promise resolving to an array containing outcomes of subscriber callbacks."
+          }
+        },
+        {
+          "id": "q65-coding-virtual-dom-render",
+          "title": "Q65: Write a Simple Virtual DOM Render Function",
+          "content": "Implement a render(vnode) function that converts Virtual DOM element objects ({ type, props, children }) or text primitives into real DOM Node instances.",
+          "keyTakeaways": [
+            "Recursively processes tree node structures using DOM API creation calls.",
+            "Distinguishes text nodes, attribute props, and on event listener bindings."
+          ],
+          "codeExample": {
+            "title": "VNode to Real DOM Compiler",
+            "language": "javascript",
+            "code": "function render(vnode) {\n  if (typeof vnode === 'string' || typeof vnode === 'number') {\n    return document.createTextNode(String(vnode));\n  }\n  \n  const el = document.createElement(vnode.type);\n  \n  if (vnode.props) {\n    Object.entries(vnode.props).forEach(([key, val]) => {\n      if (key.startsWith('on')) {\n        el.addEventListener(key.slice(2).toLowerCase(), val);\n      } else {\n        el.setAttribute(key, val);\n      }\n    });\n  }\n  \n  if (vnode.children) {\n    vnode.children.forEach(child => el.appendChild(render(child)));\n  }\n  \n  return el;\n}",
+            "explanation": "Recursively converts element descriptors into real DOM nodes, registering event listeners for 'on' props."
+          },
+          "interactiveQuiz": {
+            "question": "How does the render function handle event props like onClick: fn?",
+            "options": [
+              "Sets element.setAttribute('onClick', fn)",
+              "Strips the 'on' prefix and attaches an event listener via addEventListener('click', fn)",
+              "Evaluates the function as inline script string",
+              "Ignores function props"
+            ],
+            "correctIndex": 1,
+            "explanation": "Prop names starting with on are sliced (onClick -> click) and registered using addEventListener."
+          }
+        },
+        {
+          "id": "q66-coding-async-waterfall",
+          "title": "Q66: Implement an Async Waterfall Sequencer",
+          "content": "Build an async pipeline helper that executes an array of asynchronous functions sequentially, passing the output of each function as input to the next.",
+          "keyTakeaways": [
+            "Chains Promise resolution steps sequentially using Array.prototype.reduce.",
+            "Executes asynchronous pipeline processing, passing forward computed outcomes."
+          ],
+          "codeExample": {
+            "title": "Sequential Async Pipeline",
+            "language": "javascript",
+            "code": "function asyncWaterfall(tasks, initialValue) {\n  return tasks.reduce((promiseChain, currentTask) => {\n    return promiseChain.then(result => currentTask(result));\n  }, Promise.resolve(initialValue));\n}\n\nconst add2 = async (x) => x + 2;\nconst mult3 = async (x) => x * 3;\n\nasyncWaterfall([add2, mult3], 5).then(console.log); // (5 + 2) * 3 = 21",
+            "explanation": "Array.reduce builds a continuous Promise chain where each task executes only after the previous task resolves."
+          },
+          "interactiveQuiz": {
+            "question": "How does asyncWaterfall guarantee sequential execution over concurrent Promise.all execution?",
+            "options": [
+              "By using Web Workers",
+              "By chaining .then() calls onto a single Promise reduce accumulator",
+              "By running code inside a while loop",
+              "By sorting tasks by execution speed"
+            ],
+            "correctIndex": 1,
+            "explanation": "Chaining .then() delegates next task execution until previous task promises settle."
+          }
+        },
+        {
+          "id": "q67-coding-deep-freeze",
+          "title": "Q67: Implement Deep Freeze for Complete Immutability",
+          "content": "Extend Object.freeze() to recursively freeze all nested object and array properties to guarantee complete object graph immutability.",
+          "keyTakeaways": [
+            "Native Object.freeze() is shallow and does not freeze nested object properties.",
+            "Recursively freezes child objects to guarantee deep immutability."
+          ],
+          "codeExample": {
+            "title": "Recursive Deep Freeze",
+            "language": "javascript",
+            "code": "function deepFreeze(obj) {\n  if (obj === null || typeof obj !== 'object') return obj;\n  \n  Object.freeze(obj);\n  \n  Object.getOwnPropertyNames(obj).forEach(prop => {\n    const val = obj[prop];\n    if (val !== null && typeof val === 'object' && !Object.isFrozen(val)) {\n      deepFreeze(val);\n    }\n  });\n  \n  return obj;\n}\n\nconst config = deepFreeze({ api: { host: 'localhost' } });\n// config.api.host = 'remote'; // Throws TypeError in strict mode",
+            "explanation": "Deep freeze invokes Object.freeze() at the current level, then recursively traverses and freezes all nested object properties."
+          },
+          "interactiveQuiz": {
+            "question": "What occurs when attempting to mutate a property on a deepFrozen object in strict mode?",
+            "options": [
+              "Fails silently without error",
+              "Throws a TypeError: Cannot assign to read only property",
+              "Mutates property temporarily until page refresh",
+              "Converts the property to undefined"
+            ],
+            "correctIndex": 1,
+            "explanation": "Mutating frozen object properties in strict mode raises an explicit TypeError."
+          }
+        },
+        {
+          "id": "q68-coding-batch-request-scheduler",
+          "title": "Q68: Implement a Time and Size Batch Request Scheduler",
+          "content": "Build a batcher that accumulates incoming items and flushes them to a processing handler whenever maximum batch size is reached OR maximum delay time elapses.",
+          "keyTakeaways": [
+            "Dual trigger batching: flushes immediately on max size or automatically on timer expiration.",
+            "Optimizes network requests by combining multiple individual calls into single batch payload calls."
+          ],
+          "codeExample": {
+            "title": "Batch Request Scheduler",
+            "language": "javascript",
+            "code": "class BatchScheduler {\n  constructor(batchHandler, maxSize = 5, maxDelay = 100) {\n    this.handler = batchHandler;\n    this.maxSize = maxSize;\n    this.maxDelay = maxDelay;\n    this.batch = [];\n    this.timer = null;\n  }\n\n  add(item) {\n    this.batch.push(item);\n    if (this.batch.length >= this.maxSize) {\n      this.flush();\n    } else if (!this.timer) {\n      this.timer = setTimeout(() => this.flush(), this.maxDelay);\n    }\n  }\n\n  flush() {\n    if (this.timer) clearTimeout(this.timer);\n    this.timer = null;\n    if (this.batch.length > 0) {\n      const itemsToProcess = [...this.batch];\n      this.batch = [];\n      this.handler(itemsToProcess);\n    }\n  }\n}",
+            "explanation": "Reaching maxSize triggers an immediate flush; otherwise a timer schedules a flush after maxDelay."
+          },
+          "interactiveQuiz": {
+            "question": "Why is the timer cleared inside flush() during max size execution triggers?",
+            "options": [
+              "To prevent a duplicate flush of empty or partial batches when the timer elapses later",
+              "To clear V8 heap memory",
+              "Because setTimeout functions are limited to one execution",
+              "To prevent syntax exceptions"
+            ],
+            "correctIndex": 0,
+            "explanation": "If max size triggers a flush early, clearing timer prevents firing duplicate empty flushes."
+          }
+        },
+        {
+          "id": "q69-coding-object-diff",
+          "title": "Q69: Calculate Structural Difference Between Two Objects",
+          "content": "Implement diffObjects(obj1, obj2) to compare two objects recursively and return a summary of added, removed, and updated properties.",
+          "keyTakeaways": [
+            "Combines key sets to evaluate deletions, additions, and mutations.",
+            "Recursively evaluates nested object structures to identify structural changes."
+          ],
+          "codeExample": {
+            "title": "Object Diffing Utility",
+            "language": "javascript",
+            "code": "function diffObjects(obj1, obj2) {\n  const diff = {};\n  const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);\n  \n  for (let key of allKeys) {\n    if (!(key in obj1)) {\n      diff[key] = { status: 'ADDED', value: obj2[key] };\n    } else if (!(key in obj2)) {\n      diff[key] = { status: 'REMOVED', value: obj1[key] };\n    } else if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object' && obj1[key] !== null && obj2[key] !== null) {\n      const nestedDiff = diffObjects(obj1[key], obj2[key]);\n      if (Object.keys(nestedDiff).length > 0) diff[key] = nestedDiff;\n    } else if (obj1[key] !== obj2[key]) {\n      diff[key] = { status: 'UPDATED', oldValue: obj1[key], newValue: obj2[key] };\n    }\n  }\n  return diff;\n}",
+            "explanation": "Collects keys across both objects to determine property additions, removals, and value mutations recursively."
+          },
+          "interactiveQuiz": {
+            "question": "How does the diffObjects algorithm identify a key that was REMOVED in obj2?",
+            "options": [
+              "key in obj1 is true, but key in obj2 is false",
+              "obj2[key] === null",
+              "typeof obj2[key] === 'undefined'",
+              "Object.isFrozen(obj2[key])"
+            ],
+            "correctIndex": 0,
+            "explanation": "Checking property presence (!(key in obj2)) identifies keys present in the source object but missing in target."
+          }
+        },
+        {
+          "id": "q70-coding-reactive-proxy-system",
+          "title": "Q70: Create a Reactive Auto-Tracking State Store Using Proxy",
+          "content": "Create an automated reactive store where accessing properties inside a watchEffect callback registers dependencies and mutating properties triggers re-execution.",
+          "keyTakeaways": [
+            "Core architecture powering reactivity in modern frameworks (e.g. Vue 3 Reactivity).",
+            "get traps track active effect dependencies; set traps notify and re-run dependent effects."
+          ],
+          "codeExample": {
+            "title": "Proxy-Based Reactive State Store",
+            "language": "javascript",
+            "code": "let activeEffect = null;\n\nfunction createReactiveStore(initialState) {\n  const deps = new Map();\n\n  return new Proxy(initialState, {\n    get(target, key, receiver) {\n      if (activeEffect) {\n        if (!deps.has(key)) deps.set(key, new Set());\n        deps.get(key).add(activeEffect);\n      }\n      return Reflect.get(target, key, receiver);\n    },\n    set(target, key, value, receiver) {\n      const result = Reflect.set(target, key, value, receiver);\n      if (deps.has(key)) {\n        deps.get(key).forEach(effect => effect());\n      }\n      return result;\n    }\n  });\n}\n\nfunction watchEffect(effect) {\n  activeEffect = effect;\n  effect();\n  activeEffect = null;\n}",
+            "explanation": "Active effects trigger getter traps to register keys as dependencies, allowing setter traps to re-run affected callbacks on change."
+          },
+          "interactiveQuiz": {
+            "question": "How does watchEffect automatically detect which store keys an effect function depends on?",
+            "options": [
+              "By parsing the function code string with Regex",
+              "By setting activeEffect and executing the function, causing getters on used state properties to record the dependency",
+              "By running inside Web Workers",
+              "By requiring hardcoded key lists from developers"
+            ],
+            "correctIndex": 1,
+            "explanation": "Executing the effect function triggers get proxy traps on accessed properties, registering dependencies automatically."
+          }
+        },
+        {
+          "id": "q71-coding-custom-instanceof",
+          "title": "Q71: Implement Custom myInstanceOf Operator",
+          "content": "Replicate the behavior of the instanceof operator by traversing the prototype chain of an object to check for matching constructor prototypes.",
+          "keyTakeaways": [
+            "Traverses Object.getPrototypeOf(obj) upward step by step.",
+            "Returns true if target constructor.prototype is found anywhere along the prototype chain."
+          ],
+          "codeExample": {
+            "title": "Custom instanceof Implementation",
+            "language": "javascript",
+            "code": "function myInstanceOf(obj, constructor) {\n  if (obj === null || typeof obj !== 'object' && typeof obj !== 'function') {\n    return false;\n  }\n  \n  let proto = Object.getPrototypeOf(obj);\n  const targetProto = constructor.prototype;\n  \n  while (proto !== null) {\n    if (proto === targetProto) return true;\n    proto = Object.getPrototypeOf(proto);\n  }\n  \n  return false;\n}\n\nconsole.log(myInstanceOf([], Array));  // true\nconsole.log(myInstanceOf([], Object)); // true",
+            "explanation": "Walks Object.getPrototypeOf(obj) upward until finding constructor.prototype or reaching the null prototype root."
+          },
+          "interactiveQuiz": {
+            "question": "What value does Object.getPrototypeOf() return when called at the top termination point of the prototype chain?",
+            "options": ["Object.prototype", "undefined", "null", "false"],
+            "correctIndex": 2,
+            "explanation": "Object.prototype.__proto__ evaluates to null, signaling the end of prototype chain traversal."
+          }
+        },
+        {
+          "id": "q72-coding-promise-all-settled-polyfill",
+          "title": "Q72: Implement Custom Promise.allSettled Polyfill",
+          "content": "Polyfill Promise.allSettled using Promise.all by wrapping individual inner promises so rejections resolve into structured result objects.",
+          "keyTakeaways": [
+            "Wraps each inner promise in .then() and .catch() blocks that map settlement to objects.",
+            "Leverages Promise.all over mapped promises since wrapped promises never reject."
+          ],
+          "codeExample": {
+            "title": "Promise.allSettled Polyfill",
+            "language": "javascript",
+            "code": "function myPromiseAllSettled(promises) {\n  return Promise.all(\n    promises.map(p => \n      Promise.resolve(p)\n        .then(value => ({ status: 'fulfilled', value }))\n        .catch(reason => ({ status: 'rejected', reason }))\n    )\n  );\n}\n\nmyPromiseAllSettled([Promise.resolve(1), Promise.reject('err')]).then(console.log);",
+            "explanation": "Handling rejections inside inner .catch() blocks ensures Promise.all receives only resolved outcome descriptors."
+          },
+          "interactiveQuiz": {
+            "question": "Why does myPromiseAllSettled wrapping allow Promise.all to resolve without rejecting early?",
+            "options": [
+              "Because inner .catch() handlers convert rejections into resolved fulfillment objects",
+              "Because Promise.allSettled disables error catching",
+              "Because input promises execute sequentially",
+              "Because rejection values are converted to 0"
+            ],
+            "correctIndex": 0,
+            "explanation": "Handling errors inside inner .catch() calls returns a resolved object, keeping Promise.all from rejecting."
+          }
+        },
+        {
+          "id": "q73-coding-virtual-dom-diff",
+          "title": "Q73: Build a Basic Virtual DOM Tree Diffing Engine",
+          "content": "Build a diffing engine that compares old and new Virtual DOM node trees recursively, generating patch descriptions for updates, replacements, and removals.",
+          "keyTakeaways": [
+            "Compares VNodes recursively to calculate minimal structural edits.",
+            "Replaces entire subtrees when VNode type tags differ."
+          ],
+          "codeExample": {
+            "title": "VNode Diffing Algorithm",
+            "language": "javascript",
+            "code": "function diff(oldVNode, newVNode) {\n  if (newVNode === undefined) {\n    return { type: 'REMOVE' };\n  }\n  if (typeof oldVNode === 'string' || typeof newVNode === 'string') {\n    if (oldVNode !== newVNode) return { type: 'TEXT', text: newVNode };\n    return null;\n  }\n  if (oldVNode.type !== newVNode.type) {\n    return { type: 'REPLACE', newVNode };\n  }\n  \n  const propsDiff = diffProps(oldVNode.props || {}, newVNode.props || {});\n  const childrenDiff = diffChildren(oldVNode.children || [], newVNode.children || []);\n  \n  return {\n    type: 'UPDATE',\n    props: propsDiff,\n    children: childrenDiff\n  };\n}\n\nfunction diffProps(oldProps, newProps) {\n  const patches = [];\n  for (let key in newProps) {\n    if (newProps[key] !== oldProps[key]) patches.push({ key, value: newProps[key] });\n  }\n  for (let key in oldProps) {\n    if (!(key in newProps)) patches.push({ key, value: undefined });\n  }\n  return patches;\n}\n\nfunction diffChildren(oldChildren, newChildren) {\n  const max = Math.max(oldChildren.length, newChildren.length);\n  const childPatches = [];\n  for (let i = 0; i < max; i++) {\n    childPatches.push(diff(oldChildren[i], newChildren[i]));\n  }\n  return childPatches;\n}",
+            "explanation": "Compares VNodes recursively, returning REPLACE patches when tag types change or UPDATE patches for modified props/children."
+          },
+          "interactiveQuiz": {
+            "question": "What patch action is returned when comparing two VNodes with different element type tags (e.g. div vs section)?",
+            "options": ["UPDATE patch", "REPLACE patch", "TEXT patch", "IGNORE patch"],
+            "correctIndex": 1,
+            "explanation": "Mismatched element types signal that the subtree cannot be updated in-place and must be completely replaced."
+          }
+        },
+        {
+          "id": "q74-coding-async-queue-priority",
+          "title": "Q74: Build a Priority-Based Asynchronous Job Queue",
+          "content": "Implement an asynchronous job queue that sorts queued tasks by numeric priority values so higher priority jobs execute first under concurrency limits.",
+          "keyTakeaways": [
+            "Orders pending tasks by priority before processing.",
+            "Enforces concurrency limits while processing high-priority tasks first."
+          ],
+          "codeExample": {
+            "title": "Priority Async Queue",
+            "language": "javascript",
+            "code": "class PriorityAsyncQueue {\n  constructor(concurrency = 2) {\n    this.concurrency = concurrency;\n    this.running = 0;\n    this.heap = [];\n  }\n\n  enqueue(task, priority = 0) {\n    return new Promise((resolve, reject) => {\n      this.heap.push({ task, priority, resolve, reject });\n      this.heap.sort((a, b) => b.priority - a.priority);\n      this.processNext();\n    });\n  }\n\n  processNext() {\n    if (this.running >= this.concurrency || this.heap.length === 0) return;\n    \n    const { task, resolve, reject } = this.heap.shift();\n    this.running++;\n    \n    Promise.resolve(task())\n      .then(resolve)\n      .catch(reject)\n      .finally(() => {\n        this.running--;\n        this.processNext();\n      });\n  }\n}",
+            "explanation": "Tasks are sorted by priority score upon insertion, ensuring highest-priority items shift out first when worker slots open."
+          },
+          "interactiveQuiz": {
+            "question": "In what order are pending tasks processed by the PriorityAsyncQueue above?",
+            "options": [
+              "FIFO (First In First Out) strictly",
+              "LIFO (Last In First Out) strictly",
+              "Highest priority score task first",
+              "Randomized selection"
+            ],
+            "correctIndex": 2,
+            "explanation": "Sorting by b.priority - a.priority ensures high-priority jobs shift out of the queue first."
+          }
+        },
+        {
+          "id": "q75-coding-stream-pipe-transform",
+          "title": "Q75: Build a Custom Stream Transform Pipeline Component",
+          "content": "Create a data stream processor that processes stream chunks sequentially through composed async transform middleware, allowing chunks to be modified or filtered out.",
+          "keyTakeaways": [
+            "Pipes individual stream chunks through sequentially composed transformation middleware.",
+            "Supports filtering chunks from the stream when transform functions return null or undefined."
+          ],
+          "codeExample": {
+            "title": "Transform Stream Pipeline",
+            "language": "javascript",
+            "code": "class DataPipeline {\n  constructor() {\n    this.transforms = [];\n  }\n\n  use(transformFn) {\n    this.transforms.push(transformFn);\n    return this;\n  }\n\n  async execute(sourceDataStream) {\n    const results = [];\n    for (let chunk of sourceDataStream) {\n      let currentData = chunk;\n      let skipped = false;\n      \n      for (let transform of this.transforms) {\n        currentData = await transform(currentData);\n        if (currentData === null || currentData === undefined) {\n          skipped = true;\n          break;\n        }\n      }\n      \n      if (!skipped) {\n        results.push(currentData);\n      }\n    }\n    return results;\n  }\n}\n\nconst pipeline = new DataPipeline()\n  .use(async x => x * 2)\n  .use(async x => x > 5 ? x : null);\n\npipeline.execute([1, 2, 4]).then(console.log); // [8]",
+            "explanation": "Applies sequential transforms to each chunk. Returning null inside any transform halts the middleware chain and drops the chunk."
+          },
+          "interactiveQuiz": {
+            "question": "What happens when a transformation function in the pipeline returns null for a specific chunk?",
+            "options": [
+              "Pipeline processing throws an exception",
+              "The chunk is skipped and discarded from remaining transformations and final results",
+              "The entire stream resets",
+              "Null is appended to the results array"
+            ],
+            "correctIndex": 1,
+            "explanation": "Returning null signals a filter step, breaking the transformation loop for that chunk and skipping emission."
+          }
+        }
+      ]
+    },
+    {
+      "id": "dsa-questions",
+      "title": "50 Essential Data Structures & Algorithms Coding Questions",
+      "summary": "A 50-question DSA problem bank covering arrays, strings, linked lists, trees, graphs, dynamic programming, and algorithm paradigms using the codeExample format.",
+      "estimatedMinutes": 210,
+      "sections": [
+        {
+          "id": "q1-dsa-two-sum",
+          "title": "Q1: Two Sum",
+          "content": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`. Use a Hash Map to reduce lookup complexity to O(1).",
+          "keyTakeaways": [
+            "Hash Map provides O(n) time complexity by storing complement values during iteration.",
+            "Avoids the naive O(n²) nested loop approach."
+          ],
+          "codeExample": {
+            "title": "Hash Map Two Sum Solution",
+            "language": "javascript",
+            "code": "function twoSum(nums, target) {\n  const map = new Map();\n  for (let i = 0; i < nums.length; i++) {\n    const complement = target - nums[i];\n    if (map.has(complement)) {\n      return [map.get(complement), i];\n    }\n    map.set(nums[i], i);\n  }\n  return [];\n}\n\nconsole.log(twoSum([2, 7, 11, 15], 9)); // [0, 1]",
+            "explanation": "As we iterate through nums, we calculate the complement required to reach target. If the complement exists in our map, we immediately return its stored index and the current index."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time and space complexity of the Hash Map solution for Two Sum?",
+            "options": [
+              "O(n) time and O(n) space",
+              "O(n²) time and O(1) space",
+              "O(n log n) time and O(n) space",
+              "O(1) time and O(n) space"
+            ],
+            "correctIndex": 0,
+            "explanation": "Iterating the array takes O(n) time, and storing elements in a map takes O(n) auxiliary space."
+          }
+        },
+        {
+          "id": "q2-dsa-valid-parentheses",
+          "title": "Q2: Valid Parentheses",
+          "content": "Given a string containing `()`, `{}`, and `[]`, determine if the input string is valid using a Stack data structure.",
+          "keyTakeaways": [
+            "Stacks enforce Last-In, First-Out (LIFO) tracking for nested structure validations.",
+            "The string is invalid if an unexpected closing bracket appears or if brackets remain on the stack at the end."
+          ],
+          "codeExample": {
+            "title": "Stack Parentheses Validator",
+            "language": "javascript",
+            "code": "function isValid(s) {\n  const stack = [];\n  const pairs = { ')': '(', '}': '{', ']': '[' };\n  \n  for (let char of s) {\n    if (char === '(' || char === '{' || char === '[') {\n      stack.push(char);\n    } else {\n      if (stack.pop() !== pairs[char]) return false;\n    }\n  }\n  return stack.length === 0;\n}\n\nconsole.log(isValid('({[]})')); // true",
+            "explanation": "Opening brackets are pushed onto the stack. When a closing bracket is encountered, we pop the stack and verify that it matches the corresponding opening bracket type."
+          },
+          "interactiveQuiz": {
+            "question": "What condition indicates an unclosed opening bracket after processing the entire string?",
+            "options": ["stack.length > 0", "stack.length === 0", "stack.pop() === null", "stack.includes(null)"],
+            "correctIndex": 0,
+            "explanation": "If opening brackets were pushed but never matched with a closing bracket, the stack remains non-empty."
+          }
+        },
+        {
+          "id": "q3-dsa-reverse-linked-list",
+          "title": "Q3: Reverse a Singly Linked List",
+          "content": "Reverse a singly linked list in-place by reassigning the `next` pointers using three iteration references: `prev`, `curr`, and `next`.",
+          "keyTakeaways": [
+            "Reverses pointers in linear O(n) time and O(1) auxiliary space.",
+            "Requires storing `curr.next` in a temporary pointer before updating node link."
+          ],
+          "codeExample": {
+            "title": "Iterative Linked List Reversal",
+            "language": "javascript",
+            "code": "function reverseList(head) {\n  let prev = null;\n  let curr = head;\n  while (curr !== null) {\n    let nextTemp = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = nextTemp;\n  }\n  return prev;\n}",
+            "explanation": "At each step, we save curr.next, point curr.next backward to prev, advance prev to curr, and move curr to the saved nextTemp pointer."
+          },
+          "interactiveQuiz": {
+            "question": "Which reference becomes the new head of the reversed linked list upon loop completion?",
+            "options": ["prev", "curr", "head", "nextTemp"],
+            "correctIndex": 0,
+            "explanation": "When `curr` reaches `null`, `prev` points to the last processed node, which is the new head of the reversed list."
+          }
+        },
+        {
+          "id": "q4-dsa-merge-two-sorted-lists",
+          "title": "Q4: Merge Two Sorted Lists",
+          "content": "Merge two sorted linked lists into one single sorted list by creating a dummy node and chaining smaller node values iteratively.",
+          "keyTakeaways": [
+            "A dummy head node simplifies boundary edge cases when building the merged list.",
+            "Runs in O(n + m) time complexity where n and m are lengths of the lists."
+          ],
+          "codeExample": {
+            "title": "Sorted List Merge",
+            "language": "javascript",
+            "code": "function mergeTwoLists(l1, l2) {\n  const dummy = { val: 0, next: null };\n  let tail = dummy;\n  \n  while (l1 !== null && l2 !== null) {\n    if (l1.val < l2.val) {\n      tail.next = l1;\n      l1 = l1.next;\n    } else {\n      tail.next = l2;\n      l2 = l2.next;\n    }\n    tail = tail.next;\n  }\n  \n  tail.next = l1 !== null ? l1 : l2;\n  return dummy.next;\n}",
+            "explanation": "Compares front nodes of both lists, attaches the smaller node to tail, and advances that list's pointer. Any remaining nodes are appended at the end."
+          },
+          "interactiveQuiz": {
+            "question": "Why is a dummy node used at the start of the algorithm?",
+            "options": [
+              "To avoid special-case conditionals when initializing the new head pointer",
+              "To double iteration processing speed",
+              "To make linked list nodes contiguous in V8 memory",
+              "To invert node values"
+            ],
+            "correctIndex": 0,
+            "explanation": "Using a dummy node avoids writing separate initial-assignment branches to establish the head pointer."
+          }
+        },
+        {
+          "id": "q5-dsa-binary-search",
+          "title": "Q5: Binary Search",
+          "content": "Search for a target value within a sorted array using the divide-and-conquer strategy, reducing the search space by half in each iteration.",
+          "keyTakeaways": ["Requires a sorted array input.", "Achieves logarithmic O(log n) time complexity."],
+          "codeExample": {
+            "title": "Binary Search Implementation",
+            "language": "javascript",
+            "code": "function binarySearch(nums, target) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left <= right) {\n    const mid = Math.floor(left + (right - left) / 2);\n    if (nums[mid] === target) return mid;\n    if (nums[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}\n\nconsole.log(binarySearch([-1, 0, 3, 5, 9, 12], 9)); // 4",
+            "explanation": "Calculates mid index safely. If target is larger than nums[mid], discards the left half; otherwise discards the right half."
+          },
+          "interactiveQuiz": {
+            "question": "Why is Math.floor(left + (right - left) / 2) preferred over Math.floor((left + right) / 2)?",
+            "options": [
+              "Prevents potential integer overflow issues in languages with fixed integer limits when left and right are very large",
+              "Executes faster in JavaScript engines",
+              "Required for floating point division",
+              "Allows handling negative indices"
+            ],
+            "correctIndex": 0,
+            "explanation": "Adding large bounds `(left + right)` directly can exceed max safe integer bounds in fixed 32-bit systems."
+          }
+        },
+        {
+          "id": "q6-dsa-maximum-subarray",
+          "title": "Q6: Maximum Subarray (Kadane's Algorithm)",
+          "content": "Find the contiguous subarray with the largest sum within an array of numbers using Kadane's dynamic programming algorithm.",
+          "keyTakeaways": [
+            "Kadane's algorithm runs in linear O(n) time complexity with O(1) space.",
+            "At each element, decides whether to extend the current sum or start a new subarray sum."
+          ],
+          "codeExample": {
+            "title": "Kadane's Algorithm Solution",
+            "language": "javascript",
+            "code": "function maxSubArray(nums) {\n  let currentSum = nums[0];\n  let maxSum = nums[0];\n  \n  for (let i = 1; i < nums.length; i++) {\n    currentSum = Math.max(nums[i], currentSum + nums[i]);\n    maxSum = Math.max(maxSum, currentSum);\n  }\n  return maxSum;\n}\n\nconsole.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // 6 (subarray [4,-1,2,1])",
+            "explanation": "currentSum updates to either the current item alone or current item plus previous running sum, whichever is greater, while maxSum tracks global maximum."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of Kadane's Algorithm?",
+            "options": ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"],
+            "correctIndex": 0,
+            "explanation": "Kadane's Algorithm scans the array in a single pass taking O(n) linear time."
+          }
+        },
+        {
+          "id": "q7-dsa-linked-list-cycle",
+          "title": "Q7: Linked List Cycle Detection (Floyd's Tortoise and Hare)",
+          "content": "Detect whether a linked list contains a cycle using two pointers moving at different speeds (slow moves 1 step, fast moves 2 steps).",
+          "keyTakeaways": [
+            "Floyd's algorithm detects cycles in O(n) time and O(1) space.",
+            "If a cycle exists, the fast pointer eventually catches up and equals the slow pointer."
+          ],
+          "codeExample": {
+            "title": "Floyd's Cycle Finding Algorithm",
+            "language": "javascript",
+            "code": "function hasCycle(head) {\n  let slow = head;\n  let fast = head;\n  \n  while (fast !== null && fast.next !== null) {\n    slow = slow.next;\n    fast = fast.next.next;\n    if (slow === fast) return true;\n  }\n  return false;\n}",
+            "explanation": "Slow moves one node at a time while fast moves two nodes. If there is no cycle, fast reaches null. If a cycle exists, fast meets slow inside the loop."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if Floyd's cycle detection is run on a linear list with no cycle?",
+            "options": [
+              "fast pointer reaches null and function returns false",
+              "Enters an infinite loop",
+              "Throws a NullPointer Exception",
+              "slow pointer becomes null first"
+            ],
+            "correctIndex": 0,
+            "explanation": "When no cycle exists, `fast` or `fast.next` hits `null`, breaking the loop cleanly."
+          }
+        },
+        {
+          "id": "q8-dsa-best-time-to-buy-and-sell-stock",
+          "title": "Q8: Best Time to Buy and Sell Stock",
+          "content": "Find the maximum profit possible from buying stock on one day and selling it on a future day given an array of daily stock prices.",
+          "keyTakeaways": [
+            "Single pass algorithm maintaining lowest price seen so far.",
+            "Achieves O(n) time and O(1) auxiliary space complexity."
+          ],
+          "codeExample": {
+            "title": "Max Profit Calculator",
+            "language": "javascript",
+            "code": "function maxProfit(prices) {\n  let minPrice = Infinity;\n  let maxProfit = 0;\n  \n  for (let price of prices) {\n    if (price < minPrice) {\n      minPrice = price;\n    } else if (price - minPrice > maxProfit) {\n      maxProfit = price - minPrice;\n    }\n  }\n  return maxProfit;\n}\n\nconsole.log(maxProfit([7, 1, 5, 3, 6, 4])); // 5 (Buy at 1, sell at 6)",
+            "explanation": "Tracks minPrice encountered up to the current day. Max profit is updated if selling today yields higher profit than previously recorded maximum."
+          },
+          "interactiveQuiz": {
+            "question": "What profit is returned if stock prices strictly decrease continuously (e.g. [7, 6, 4, 3, 1])?",
+            "options": ["0", "-1", "7", "undefined"],
+            "correctIndex": 0,
+            "explanation": "If no profitable transaction can be made, `maxProfit` remains initialized at `0`."
+          }
+        },
+        {
+          "id": "q9-dsa-invert-binary-tree",
+          "title": "Q9: Invert Binary Tree",
+          "content": "Invert or mirror a binary tree recursively by swapping left and right child pointers for every node in the tree.",
+          "keyTakeaways": ["Uses Depth-First Search (DFS) tree recursion.", "Swaps `.left` and `.right` pointers at every level."],
+          "codeExample": {
+            "title": "Recursive Binary Tree Inversion",
+            "language": "javascript",
+            "code": "function invertTree(root) {\n  if (root === null) return null;\n  \n  const temp = root.left;\n  root.left = invertTree(root.right);\n  root.right = invertTree(temp);\n  \n  return root;\n}",
+            "explanation": "Base case returns null. At each node, its left child receives the inverted right subtree and its right child receives the inverted left subtree."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of inverting a binary tree with N nodes?",
+            "options": ["O(N)", "O(log N)", "O(N²)", "O(1)"],
+            "correctIndex": 0,
+            "explanation": "Every node in the tree must be visited once, taking linear O(N) time."
+          }
+        },
+        {
+          "id": "q10-dsa-valid-anagram",
+          "title": "Q10: Valid Anagram",
+          "content": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s` (contains exact same character frequencies).",
+          "keyTakeaways": [
+            "Return false early if string lengths differ.",
+            "Use a single frequency map or fixed 26-character array to count frequencies."
+          ],
+          "codeExample": {
+            "title": "Frequency Map Anagram Check",
+            "language": "javascript",
+            "code": "function isAnagram(s, t) {\n  if (s.length !== t.length) return false;\n  const count = {};\n  \n  for (let char of s) {\n    count[char] = (count[char] || 0) + 1;\n  }\n  for (let char of t) {\n    if (!count[char]) return false;\n    count[char]--;\n  }\n  return true;\n}\n\nconsole.log(isAnagram('anagram', 'nagaram')); // true",
+            "explanation": "Increments character counts for string `s` and decrements for string `t`. If a character in `t` has zero count or doesn't exist, strings are not anagrams."
+          },
+          "interactiveQuiz": {
+            "question": "What is the space complexity if solving anagram verification using frequency map over ASCII/lowercase letters?",
+            "options": ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+            "correctIndex": 0,
+            "explanation": "Since the alphabet size is bounded (e.g. 26 lower-case letters), frequency map space complexity is constant O(1)."
+          }
+        },
+        {
+          "id": "q11-dsa-maximum-depth-binary-tree",
+          "title": "Q11: Maximum Depth of Binary Tree",
+          "content": "Calculate the maximum depth (number of nodes along the longest path from root to leaf) of a binary tree recursively.",
+          "keyTakeaways": ["Depth equals `1 + max(depth(left), depth(right))`.", "Base case for null nodes returns depth 0."],
+          "codeExample": {
+            "title": "Tree Maximum Depth (DFS)",
+            "language": "javascript",
+            "code": "function maxDepth(root) {\n  if (root === null) return 0;\n  const leftDepth = maxDepth(root.left);\n  const rightDepth = maxDepth(root.right);\n  return Math.max(leftDepth, rightDepth) + 1;\n}",
+            "explanation": "Recursively measures the depth of left and right child subtrees and returns the greater depth plus 1 for the current root node."
+          },
+          "interactiveQuiz": {
+            "question": "What is the worst-case space complexity of recursive maxDepth on a completely skewed tree?",
+            "options": ["O(N)", "O(log N)", "O(1)", "O(N²)"],
+            "correctIndex": 0,
+            "explanation": "In a completely unbalanced skewed tree (linked list structure), the call stack depth reaches O(N)."
+          }
+        },
+        {
+          "id": "q12-dsa-container-with-most-water",
+          "title": "Q12: Container With Most Water",
+          "content": "Given $n$ non-negative integers representing vertical lines, find two lines that together with the x-axis form a container holding the maximum water.",
+          "keyTakeaways": [
+            "Two-pointer approach moving inward from left and right edges.",
+            "Always advance the pointer holding the shorter height to search for larger area candidates."
+          ],
+          "codeExample": {
+            "title": "Two-Pointer Container Area Maximizer",
+            "language": "javascript",
+            "code": "function maxArea(height) {\n  let left = 0;\n  let right = height.length - 1;\n  let maxWater = 0;\n  \n  while (left < right) {\n    const width = right - left;\n    const h = Math.min(height[left], height[right]);\n    maxWater = Math.max(maxWater, width * h);\n    \n    if (height[left] < height[right]) left++;\n    else right--;\n  }\n  return maxWater;\n}\n\nconsole.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])); // 49",
+            "explanation": "Calculates container area bounded by shorter line. Advances shorter boundary pointer inward since moving the taller pointer could never increase height area."
+          },
+          "interactiveQuiz": {
+            "question": "Why is the shorter pointer moved inward in each iteration step?",
+            "options": [
+              "Because keeping the shorter line limits maximum area while width decreases",
+              "To keep pointers balanced",
+              "Required for binary search convergence",
+              "To prevent array boundary overflow"
+            ],
+            "correctIndex": 0,
+            "explanation": "Width decreases as pointers move inward; the only way to increase area is by finding a taller limiting line."
+          }
+        },
+        {
+          "id": "q13-dsa-three-sum",
+          "title": "Q13: 3Sum Problem",
+          "content": "Find all unique triplets in an array that sum to zero using sorting and two pointers.",
+          "keyTakeaways": ["Sort array first to enable two-pointer traversal and duplicate skipping.", "Runs in O(n²) time complexity."],
+          "codeExample": {
+            "title": "Sorted Two-Pointer 3Sum",
+            "language": "javascript",
+            "code": "function threeSum(nums) {\n  nums.sort((a, b) => a - b);\n  const result = [];\n  \n  for (let i = 0; i < nums.length - 2; i++) {\n    if (i > 0 && nums[i] === nums[i - 1]) continue; // Skip duplicates\n    let left = i + 1;\n    let right = nums.length - 1;\n    \n    while (left < right) {\n      const sum = nums[i] + nums[left] + nums[right];\n      if (sum === 0) {\n        result.push([nums[i], nums[left], nums[right]]);\n        while (left < right && nums[left] === nums[left + 1]) left++;\n        while (left < right && nums[right] === nums[right - 1]) right--;\n        left++;\n        right--;\n      } else if (sum < 0) left++;\n      else right--;\n    }\n  }\n  return result;\n}\n\nconsole.log(threeSum([-1, 0, 1, 2, -1, -4])); // [[-1, -1, 2], [-1, 0, 1]]",
+            "explanation": "Fixes item i and solves Two Sum for -nums[i] on the remaining sorted sub-array, skipping duplicate elements to ensure unique triplets."
+          },
+          "interactiveQuiz": {
+            "question": "What step prevents returning duplicate triplet sets in the output array?",
+            "options": [
+              "Skipping identical neighboring elements after sorting",
+              "Converting output array to a JSON string",
+              "Using a binary tree filter",
+              "Sorting the array in descending order"
+            ],
+            "correctIndex": 0,
+            "explanation": "Because the array is sorted, identical adjacent values can be skipped using `while` conditionals."
+          }
+        },
+        {
+          "id": "q14-dsa-climbing-stairs",
+          "title": "Q14: Climbing Stairs (Dynamic Programming)",
+          "content": "You are climbing a staircase requiring $n$ steps. Each time you can climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+          "keyTakeaways": [
+            "Follows Fibonacci sequence progression: $dp[i] = dp[i-1] + dp[i-2]$.",
+            "Can be solved in O(n) time and O(1) space using dynamic programming space optimization."
+          ],
+          "codeExample": {
+            "title": "DP Climbing Stairs Solution",
+            "language": "javascript",
+            "code": "function climbStairs(n) {\n  if (n <= 2) return n;\n  let prev2 = 1;\n  let prev1 = 2;\n  \n  for (let i = 3; i <= n; i++) {\n    let current = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = current;\n  }\n  return prev1;\n}\n\nconsole.log(climbStairs(5)); // 8",
+            "explanation": "To reach step i, you can arrive from step i-1 or step i-2. Summing these options gives total ways, matching Fibonacci transitions."
+          },
+          "interactiveQuiz": {
+            "question": "What is the space complexity of the variable-tracking dynamic programming approach above?",
+            "options": ["O(1)", "O(n)", "O(2ⁿ)", "O(log n)"],
+            "correctIndex": 0,
+            "explanation": "Tracking only the previous two step values requires constant O(1) auxiliary space."
+          }
+        },
+        {
+          "id": "q15-dsa-sliding-window-max-substring",
+          "title": "Q15: Longest Substring Without Repeating Characters",
+          "content": "Find the length of the longest substring without repeating characters using the Sliding Window pattern.",
+          "keyTakeaways": ["Sliding window uses two pointers (`left`, `right`) and a Set/Map.", "Achieves O(n) linear time complexity."],
+          "codeExample": {
+            "title": "Sliding Window Substring Search",
+            "language": "javascript",
+            "code": "function lengthOfLongestSubstring(s) {\n  const seen = new Set();\n  let left = 0;\n  let maxLength = 0;\n  \n  for (let right = 0; right < s.length; right++) {\n    while (seen.has(s[right])) {\n      seen.delete(s[left]);\n      left++;\n    }\n    seen.add(s[right]);\n    maxLength = Math.max(maxLength, right - left + 1);\n  }\n  return maxLength;\n}\n\nconsole.log(lengthOfLongestSubstring('abcabcbb')); // 3 ('abc')",
+            "explanation": "Right pointer expands window. When duplicate character is detected, left pointer contracts window until duplicate is removed from set."
+          },
+          "interactiveQuiz": {
+            "question": "What triggers the left window pointer to contract inward?",
+            "options": [
+              "Detecting a character already present inside the active seen set",
+              "Reaching the middle of the string",
+              "Finding a space character",
+              "Reaching window length 10"
+            ],
+            "correctIndex": 0,
+            "explanation": "When `s[right]` is inside `seen`, `left` increments and removes characters until uniqueness is restored."
+          }
+        },
+        {
+          "id": "q16-dsa-binary-tree-level-order-traversal",
+          "title": "Q16: Binary Tree Level Order Traversal (BFS)",
+          "content": "Perform level-order traversal on a binary tree using a Queue (Breadth-First Search) returning nodes grouped level by level.",
+          "keyTakeaways": [
+            "Breadth-First Search (BFS) processes nodes level by level using a queue.",
+            "Tracks level size (`queue.length`) at loop start to process nodes layer by layer."
+          ],
+          "codeExample": {
+            "title": "BFS Level Order Traversal",
+            "language": "javascript",
+            "code": "function levelOrder(root) {\n  if (!root) return [];\n  const result = [];\n  const queue = [root];\n  \n  while (queue.length > 0) {\n    const levelSize = queue.length;\n    const currentLevel = [];\n    \n    for (let i = 0; i < levelSize; i++) {\n      const node = queue.shift();\n      currentLevel.push(node.val);\n      if (node.left) queue.push(node.left);\n      if (node.right) queue.push(node.right);\n    }\n    result.push(currentLevel);\n  }\n  return result;\n}",
+            "explanation": "Queue processes nodes layer by layer. The inner loop iterates `levelSize` times to group current level values into a separate output subarray."
+          },
+          "interactiveQuiz": {
+            "question": "Which data structure is fundamentally required for Breadth-First Search (BFS)?",
+            "options": ["Queue (FIFO)", "Stack (LIFO)", "Priority Heap", "Hash Table"],
+            "correctIndex": 0,
+            "explanation": "BFS relies on First-In-First-Out (FIFO) queue ordering to process shallower nodes before deeper nodes."
+          }
+        },
+        {
+          "id": "q17-dsa-coin-change",
+          "title": "Q17: Coin Change (Dynamic Programming)",
+          "content": "Find the minimum number of coins needed to make up a given amount using bottom-up dynamic programming.",
+          "keyTakeaways": [
+            "Dynamic Programming lookup table array initialized to `Infinity`.",
+            "State transition: `dp[i] = min(dp[i], dp[i - coin] + 1)`."
+          ],
+          "codeExample": {
+            "title": "Bottom-Up DP Coin Change",
+            "language": "javascript",
+            "code": "function coinChange(coins, amount) {\n  const dp = new Array(amount + 1).fill(Infinity);\n  dp[0] = 0;\n  \n  for (let i = 1; i <= amount; i++) {\n    for (let coin of coins) {\n      if (i - coin >= 0) {\n        dp[i] = Math.min(dp[i], dp[i - coin] + 1);\n      }\n    }\n  }\n  return dp[amount] === Infinity ? -1 : dp[amount];\n}\n\nconsole.log(coinChange([1, 2, 5], 11)); // 3 (5 + 5 + 1)",
+            "explanation": "dp[i] stores min coins needed for amount i. Iterates through all available coins to find minimum coin combinations step by step."
+          },
+          "interactiveQuiz": {
+            "question": "What value does coinChange return if the target amount cannot be made by any coin combination?",
+            "options": ["-1", "0", "Infinity", "null"],
+            "correctIndex": 0,
+            "explanation": "If `dp[amount]` remains `Infinity` after loop evaluation, the function returns `-1`."
+          }
+        },
+        {
+          "id": "q18-dsa-validate-binary-search-tree",
+          "title": "Q18: Validate Binary Search Tree",
+          "content": "Determine if a given binary tree is a valid Binary Search Tree (BST) where left subtree values are strictly smaller and right subtree values are strictly larger than root.",
+          "keyTakeaways": [
+            "Pass lower and upper boundary bounds recursively during DFS traversal.",
+            "Checking only immediate child nodes is insufficient; subtrees must satisfy full boundary limits."
+          ],
+          "codeExample": {
+            "title": "BST Boundary Range Validation",
+            "language": "javascript",
+            "code": "function isValidBST(root, min = null, max = null) {\n  if (root === null) return true;\n  \n  if ((min !== null && root.val <= min) || (max !== null && root.val >= max)) {\n    return false;\n  }\n  \n  return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);\n}",
+            "explanation": "Validates node value against allowable min and max constraints. When stepping left, updates max bound to current node value; when stepping right, updates min bound."
+          },
+          "interactiveQuiz": {
+            "question": "Why is checking if root.left.val < root.val and root.right.val > root.val insufficient for verifying a BST?",
+            "options": [
+              "Deeper nodes in a right subtree could violate root constraints while being valid relative to their immediate parent",
+              "Binary Search Trees allow duplicate values anywhere",
+              "Leaves do not have values",
+              "Recursion stack bounds overflow"
+            ],
+            "correctIndex": 0,
+            "explanation": "All nodes in a right subtree must be greater than the ancestor root node, not just the immediate child."
+          }
+        },
+        {
+          "id": "q19-dsa-number-of-islands",
+          "title": "Q19: Number of Islands (Graph DFS/BFS)",
+          "content": "Count the number of distinct islands in a 2D grid of `'1'`s (land) and `'0'`s (water) using Depth-First Search (DFS).",
+          "keyTakeaways": [
+            "Treat grid as an undirected graph and sink visited land nodes by mutating `'1'` to `'0'`.",
+            "Increments island count on finding an unvisited `'1'` and triggers flood-fill DFS."
+          ],
+          "codeExample": {
+            "title": "Grid DFS Flood Fill Island Counter",
+            "language": "javascript",
+            "code": "function numIslands(grid) {\n  if (!grid || grid.length === 0) return 0;\n  let count = 0;\n  \n  function dfs(r, c) {\n    if (r < 0 || c < 0 || r >= grid.length || c >= grid[0].length || grid[r][c] === '0') {\n      return;\n    }\n    grid[r][c] = '0'; // Mark as visited by sinking land\n    dfs(r + 1, c);\n    dfs(r - 1, c);\n    dfs(r, c + 1);\n    dfs(r, c - 1);\n  }\n  \n  for (let r = 0; r < grid.length; r++) {\n    for (let c = 0; c < grid[0].length; c++) {\n      if (grid[r][c] === '1') {\n        count++;\n        dfs(r, c);\n      }\n    }\n  }\n  return count;\n}",
+            "explanation": "Scans every cell. When encountering land ('1'), increments island count and starts DFS flood-fill to mark all connected land cells as visited ('0')."
+          },
+          "interactiveQuiz": {
+            "question": "Why does the DFS function mutate grid[r][c] = '0' during flood fill?",
+            "options": [
+              "To sink visited land so it is not re-counted as a separate island later",
+              "To lower grid memory footprint",
+              "Because 0 values represent higher priority land",
+              "To avoid dynamic array resizing"
+            ],
+            "correctIndex": 0,
+            "explanation": "Mutating visited land cells to `'0'` acts as a visited tracking set without allocating auxiliary memory."
+          }
+        },
+        {
+          "id": "q20-dsa-kth-largest-element",
+          "title": "Q20: Kth Largest Element in an Array",
+          "content": "Find the $k$-th largest element in an unsorted array using QuickSelect partitioning algorithm or Min-Heap.",
+          "keyTakeaways": ["QuickSelect provides average O(n) time complexity.", "Avoids full array sorting which takes O(n log n)."],
+          "codeExample": {
+            "title": "QuickSelect Partition Algorithm",
+            "language": "javascript",
+            "code": "function findKthLargest(nums, k) {\n  const targetIndex = nums.length - k;\n  \n  function quickSelect(left, right) {\n    const pivot = nums[right];\n    let p = left;\n    \n    for (let i = left; i < right; i++) {\n      if (nums[i] <= pivot) {\n        [nums[i], nums[p]] = [nums[p], nums[i]];\n        p++;\n      }\n    }\n    [nums[p], nums[right]] = [nums[right], nums[p]];\n    \n    if (p === targetIndex) return nums[p];\n    if (p < targetIndex) return quickSelect(p + 1, right);\n    return quickSelect(left, p - 1);\n  }\n  \n  return quickSelect(0, nums.length - 1);\n}\n\nconsole.log(findKthLargest([3, 2, 1, 5, 6, 4], 2)); // 5",
+            "explanation": "Partitions array around pivot. If pivot index equals target position (length - k), returns target value; otherwise selectively recurses into the target partition half."
+          },
+          "interactiveQuiz": {
+            "question": "What is the average time complexity of QuickSelect?",
+            "options": ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
+            "correctIndex": 0,
+            "explanation": "By discarding half of the partition search space each step ($n + n/2 + n/4...$), QuickSelect achieves O(n) average time."
+          }
+        },
+        {
+          "id": "q21-dsa-course-schedule",
+          "title": "Q21: Course Schedule (Topological Sort / Cycle Detection)",
+          "content": "Determine if you can finish all courses given prerequisite pairs using Topological Sort / Kahn's Algorithm (In-degree array + BFS).",
+          "keyTakeaways": [
+            "If a directed graph contains a cycle, topological sorting is impossible.",
+            "Kahn's algorithm tracks in-degrees of nodes to identify valid task processing order."
+          ],
+          "codeExample": {
+            "title": "Kahn's Algorithm BFS Topological Sort",
+            "language": "javascript",
+            "code": "function canFinish(numCourses, prerequisites) {\n  const inDegree = new Array(numCourses).fill(0);\n  const adjList = new Map();\n  \n  for (let [course, pre] of prerequisites) {\n    if (!adjList.has(pre)) adjList.set(pre, []);\n    adjList.get(pre).push(course);\n    inDegree[course]++;\n  }\n  \n  const queue = [];\n  for (let i = 0; i < numCourses; i++) {\n    if (inDegree[i] === 0) queue.push(i);\n  }\n  \n  let processedCount = 0;\n  while (queue.length > 0) {\n    const current = queue.shift();\n    processedCount++;\n    \n    const neighbors = adjList.get(current) || [];\n    for (let neighbor of neighbors) {\n      inDegree[neighbor]--;\n      if (inDegree[neighbor] === 0) queue.push(neighbor);\n    }\n  }\n  return processedCount === numCourses;\n}\n\nconsole.log(canFinish(2, [[1, 0]])); // true",
+            "explanation": "Calculates in-degree counts for each node. Courses with 0 prerequisites enter the BFS queue. Decrements in-degrees of dependent courses as completed; returns true if all courses can be processed."
+          },
+          "interactiveQuiz": {
+            "question": "What condition indicates that prerequisites contain a cyclic dependency loop?",
+            "options": [
+              "processedCount is less than total numCourses",
+              "inDegree array contains only zeros",
+              "queue length exceeds numCourses",
+              "adjList is empty"
+            ],
+            "correctIndex": 0,
+            "explanation": "If a cycle exists, cyclic nodes never reach in-degree 0, leaving `processedCount < numCourses`."
+          }
+        },
+        {
+          "id": "q22-dsa-word-search",
+          "title": "Q22: Word Search (Backtracking)",
+          "content": "Determine if a target word exists in a 2D board of letters by constructing adjacent character paths using Backtracking DFS.",
+          "keyTakeaways": [
+            "Backtracking recursively explores possibilities and reverts choice state upon reaching dead ends.",
+            "Temporarily mark board cells (e.g. `'#'`) during exploration to prevent self-revisiting."
+          ],
+          "codeExample": {
+            "title": "2D Grid Backtracking Search",
+            "language": "javascript",
+            "code": "function exist(board, word) {\n  const rows = board.length;\n  const cols = board[0].length;\n  \n  function backtrack(r, c, index) {\n    if (index === word.length) return true;\n    if (r < 0 || c < 0 || r >= rows || c >= cols || board[r][c] !== word[index]) {\n      return false;\n    }\n    \n    const temp = board[r][c];\n    board[r][c] = '#'; // Mark cell as visited\n    \n    const found = backtrack(r + 1, c, index + 1) ||\n                  backtrack(r - 1, c, index + 1) ||\n                  backtrack(r, c + 1, index + 1) ||\n                  backtrack(r, c - 1, index + 1);\n                  \n    board[r][c] = temp; // Backtrack / restore state\n    return found;\n  }\n  \n  for (let r = 0; r < rows; r++) {\n    for (let c = 0; c < cols; c++) {\n      if (backtrack(r, c, 0)) return true;\n    }\n  }\n  return false;\n}",
+            "explanation": "Explores neighbors recursively if character matches word[index]. Restores cell state (board[r][c] = temp) when returning so other path branches can reuse the cell."
+          },
+          "interactiveQuiz": {
+            "question": "Why must board[r][c] be restored back to its original character value before returning from backtrack()?",
+            "options": [
+              "To allow other valid search path explorations to reuse the cell",
+              "To prevent browser layout thrashing",
+              "To trigger garbage collection",
+              "Required for regex operations"
+            ],
+            "correctIndex": 0,
+            "explanation": "Restoring state during backtracking ensures failed paths leave the grid unchanged for future search paths."
+          }
+        },
+        {
+          "id": "q23-dsa-merge-k-sorted-lists",
+          "title": "Q23: Merge K Sorted Lists",
+          "content": "Merge $k$ sorted linked lists into one consolidated sorted list using Divide and Conquer or Min-Heap.",
+          "keyTakeaways": [
+            "Divide and conquer merges pairs of lists iteratively.",
+            "Reduces time complexity to O(N log k) where N is total node count across k lists."
+          ],
+          "codeExample": {
+            "title": "Divide and Conquer List Merger",
+            "language": "javascript",
+            "code": "function mergeKLists(lists) {\n  if (!lists || lists.length === 0) return null;\n  \n  while (lists.length > 1) {\n    const mergedLists = [];\n    for (let i = 0; i < lists.length; i += 2) {\n      const l1 = lists[i];\n      const l2 = i + 1 < lists.length ? lists[i + 1] : null;\n      mergedLists.push(mergeTwoLists(l1, l2));\n    }\n    lists = mergedLists;\n  }\n  return lists[0];\n}\n\nfunction mergeTwoLists(l1, l2) {\n  const dummy = { val: 0, next: null };\n  let tail = dummy;\n  while (l1 && l2) {\n    if (l1.val < l2.val) { tail.next = l1; l1 = l1.next; }\n    else { tail.next = l2; l2 = l2.next; }\n    tail = tail.next;\n  }\n  tail.next = l1 || l2;\n  return dummy.next;\n}",
+            "explanation": "Pairs up lists and merges each pair using mergeTwoLists, halving the total number of lists each pass until only one sorted list remains."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of merging K sorted lists with total N nodes using Divide and Conquer?",
+            "options": ["O(N log k)", "O(N * k)", "O(N²)", "O(N)"],
+            "correctIndex": 0,
+            "explanation": "Halving $k$ lists takes $\\log k$ pair-merge passes, with each pass processing $N$ total nodes."
+          }
+        },
+        {
+          "id": "q24-dsa-trapping-rain-water",
+          "title": "Q24: Trapping Rain Water",
+          "content": "Calculate how much water an elevation map can trap after raining using Two Pointers.",
+          "keyTakeaways": [
+            "Water trapped at any position is bounded by $\\min(\\text{maxLeft}, \\text{maxRight}) - \\text{height}[i]$.",
+            "Two pointers allow tracking boundary bounds in O(n) time and O(1) space."
+          ],
+          "codeExample": {
+            "title": "Two-Pointer Water Trapping",
+            "language": "javascript",
+            "code": "function trap(height) {\n  let left = 0;\n  let right = height.length - 1;\n  let leftMax = 0;\n  let rightMax = 0;\n  let water = 0;\n  \n  while (left < right) {\n    if (height[left] < height[right]) {\n      if (height[left] >= leftMax) leftMax = height[left];\n      else water += leftMax - height[left];\n      left++;\n    } else {\n      if (height[right] >= rightMax) rightMax = height[right];\n      else water += rightMax - height[right];\n      right--;\n    }\n  }\n  return water;\n}\n\nconsole.log(trap([0,1,0,2,1,0,1,3,2,1,2,1])); // 6",
+            "explanation": "Maintains leftMax and rightMax bounds. Advances shorter pointer inward and adds trapped water based on difference between local max bound and bar height."
+          },
+          "interactiveQuiz": {
+            "question": "What determines the water level trapped above height[left] when height[left] < height[right]?",
+            "options": ["leftMax bound", "rightMax bound", "Average of leftMax and rightMax", "Total array length"],
+            "correctIndex": 0,
+            "explanation": "Because `height[left] < height[right]`, we know `rightMax` is at least equal to `height[right]`, so `leftMax` acts as the limiting boundary wall."
+          }
+        },
+        {
+          "id": "q25-dsa-median-of-two-sorted-arrays",
+          "title": "Q25: Median of Two Sorted Arrays",
+          "content": "Find the median of two sorted arrays `nums1` and `nums2` in O(log(min(m, n))) time complexity using Binary Search partitioning.",
+          "keyTakeaways": [
+            "Applies Binary Search on the smaller array to find a valid partition point.",
+            "Valid partition occurs when `maxLeftA <= minRightB` and `maxLeftB <= minRightA`."
+          ],
+          "codeExample": {
+            "title": "Binary Search Partition Median Finder",
+            "language": "javascript",
+            "code": "function findMedianSortedArrays(nums1, nums2) {\n  if (nums1.length > nums2.length) {\n    return findMedianSortedArrays(nums2, nums1); // Ensure nums1 is smaller\n  }\n  \n  const m = nums1.length;\n  const n = nums2.length;\n  let low = 0, high = m;\n  \n  while (low <= high) {\n    const partitionA = Math.floor((low + high) / 2);\n    const partitionB = Math.floor((m + n + 1) / 2) - partitionA;\n    \n    const maxLeftA = partitionA === 0 ? -Infinity : nums1[partitionA - 1];\n    const minRightA = partitionA === m ? Infinity : nums1[partitionA];\n    \n    const maxLeftB = partitionB === 0 ? -Infinity : nums2[partitionB - 1];\n    const minRightB = partitionB === n ? Infinity : nums2[partitionB];\n    \n    if (maxLeftA <= minRightB && maxLeftB <= minRightA) {\n      if ((m + n) % 2 === 0) {\n        return (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB)) / 2;\n      } else {\n        return Math.max(maxLeftA, maxLeftB);\n      }\n    } else if (maxLeftA > minRightB) {\n      high = partitionA - 1;\n    } else {\n      low = partitionA + 1;\n    }\n  }\n}\n\nconsole.log(findMedianSortedArrays([1, 3], [2])); // 2.0",
+            "explanation": "Executes binary search on smaller array nums1 to find partition splits where left halves elements are smaller than right halves elements, giving median in O(log(min(m, n))) time."
+          },
+          "interactiveQuiz": {
+            "question": "Why is Binary Search performed specifically on the smaller of the two input arrays?",
+            "options": [
+              "Minimizes search range bounds to guarantee O(log(min(m, n))) time complexity",
+              "Prevents array index out of bounds exceptions",
+              "Required because small arrays contain lower numbers",
+              "Allows in-place array mutation"
+            ],
+            "correctIndex": 0,
+            "explanation": "Binary searching the smaller array minimizes total search operations to logarithmic time relative to the smaller length `min(m, n)`."
+          }
+        },
+        {
+          "id": "q26-dsa-merge-intervals",
+          "title": "Q26: Merge Intervals",
+          "content": "Given an array of `intervals` where `intervals[i] = [start, end]`, merge all overlapping intervals and return an array of non-overlapping intervals that cover all intervals in the input.",
+          "keyTakeaways": [
+            "Sort intervals by start time first to enable linear single-pass merging.",
+            "Overlaps occur when the next interval's start time is less than or equal to the current interval's end time."
+          ],
+          "codeExample": {
+            "title": "Interval Sorting and Merging",
+            "language": "javascript",
+            "code": "function merge(intervals) {\n  if (!intervals.length) return [];\n  intervals.sort((a, b) => a[0] - b[0]);\n  \n  const merged = [intervals[0]];\n  \n  for (let i = 1; i < intervals.length; i++) {\n    const current = intervals[i];\n    const lastMerged = merged[merged.length - 1];\n    \n    if (current[0] <= lastMerged[1]) {\n      lastMerged[1] = Math.max(lastMerged[1], current[1]);\n    } else {\n      merged.push(current);\n    }\n  }\n  return merged;\n}\n\nconsole.log(merge([[1,3],[2,6],[8,10],[15,18]])); // [[1,6],[8,10],[15,18]]",
+            "explanation": "After sorting by start time, we iterate through intervals. If the current interval start is <= the previous interval end, we merge by expanding the previous end time; otherwise, we append the interval as a new non-overlapping range."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of the Merge Intervals algorithm?",
+            "options": ["O(N log N)", "O(N)", "O(N²)", "O(2ᴺ)"],
+            "correctIndex": 0,
+            "explanation": "Sorting the interval array takes O(N log N) time, which dominates the linear O(N) single-pass iteration."
+          }
+        },
+        {
+          "id": "q27-dsa-insert-interval",
+          "title": "Q27: Insert Interval",
+          "content": "You are given an array of non-overlapping intervals sorted by start time and a `newInterval`. Insert `newInterval` into the intervals such that the list remains sorted and non-overlapping.",
+          "keyTakeaways": [
+            "Process non-overlapping intervals before the new interval, merge all overlapping ones, then append remaining non-overlapping intervals.",
+            "Can be solved in a single O(N) linear pass without explicit full re-sorting."
+          ],
+          "codeExample": {
+            "title": "Linear Insert and Merge Interval",
+            "language": "javascript",
+            "code": "function insert(intervals, newInterval) {\n  const result = [];\n  let i = 0;\n  const n = intervals.length;\n  \n  // Add all intervals that end before newInterval starts\n  while (i < n && intervals[i][1] < newInterval[0]) {\n    result.push(intervals[i]);\n    i++;\n  }\n  \n  // Merge all overlapping intervals with newInterval\n  while (i < n && intervals[i][0] <= newInterval[1]) {\n    newInterval[0] = Math.min(newInterval[0], intervals[i][0]);\n    newInterval[1] = Math.max(newInterval[1], intervals[i][1]);\n    i++;\n  }\n  result.push(newInterval);\n  \n  // Add remaining intervals after newInterval\n  while (i < n) {\n    result.push(intervals[i]);\n    i++;\n  }\n  \n  return result;\n}\n\nconsole.log(insert([[1,3],[6,9]], [2,5])); // [[1,5],[6,9]]",
+            "explanation": "Splits the process into three distinct phases: collecting left disjoint intervals, iteratively updating the min start and max end of overlapping bounds, and collecting right disjoint intervals."
+          },
+          "interactiveQuiz": {
+            "question": "Why is explicit array sorting not required for the Insert Interval algorithm?",
+            "options": [
+              "Because input intervals are guaranteed to be sorted by start time initially",
+              "Because merge operations handle sorting automatically",
+              "Because intervals are stored in a binary heap",
+              "Because Javascript array push maintains sorted order"
+            ],
+            "correctIndex": 0,
+            "explanation": "The input interval array is pre-sorted, allowing linear O(N) partitioning around `newInterval`."
+          }
+        },
+        {
+          "id": "q28-dsa-non-overlapping-intervals",
+          "title": "Q28: Non-overlapping Intervals",
+          "content": "Given an array of intervals `intervals`, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.",
+          "keyTakeaways": [
+            "Greedy strategy: sort intervals by end time to preserve maximum remaining space.",
+            "Always pick the interval with the earliest end time to minimize collisions with future intervals."
+          ],
+          "codeExample": {
+            "title": "Greedy End-Time Interval Removal",
+            "language": "javascript",
+            "code": "function eraseOverlapIntervals(intervals) {\n  if (!intervals.length) return 0;\n  intervals.sort((a, b) => a[1] - b[1]); // Sort by end time\n  \n  let count = 0;\n  let prevEnd = intervals[0][1];\n  \n  for (let i = 1; i < intervals.length; i++) {\n    if (intervals[i][0] < prevEnd) {\n      count++; // Overlap detected; remove current interval\n    } else {\n      prevEnd = intervals[i][1]; // No overlap; update prevEnd\n    }\n  }\n  return count;\n}\n\nconsole.log(eraseOverlapIntervals([[1,2],[2,3],[3,4],[1,3]])); // 1",
+            "explanation": "Sorting by end times allows greedily keeping intervals that finish earliest. If the next interval starts before `prevEnd`, it must be removed to prevent overlap."
+          },
+          "interactiveQuiz": {
+            "question": "Why do we sort by end time rather than start time for greedy interval scheduling?",
+            "options": [
+              "Choosing intervals that finish earliest leaves maximum possible remaining room for future intervals",
+              "Sorting by start time requires O(N²) time",
+              "End times represent lower values",
+              "It prevents memory stack overflows"
+            ],
+            "correctIndex": 0,
+            "explanation": "Selecting intervals that complete earliest maximizes available window space for remaining candidate intervals."
+          }
+        },
+        {
+          "id": "q29-dsa-top-k-frequent-elements",
+          "title": "Q29: Top K Frequent Elements",
+          "content": "Given an integer array `nums` and an integer `k`, return the $k$ most frequent elements. Solve it in $O(n)$ time using Bucket Sort.",
+          "keyTakeaways": [
+            "Bucket Sort groups elements into array indices matching their exact frequency count.",
+            "Achieves $O(n)$ linear time complexity, beating $O(n \\log n)$ heap/sorting methods."
+          ],
+          "codeExample": {
+            "title": "Bucket Sort Top K Frequent",
+            "language": "javascript",
+            "code": "function topKFrequent(nums, k) {\n  const map = new Map();\n  for (let num of nums) {\n    map.set(num, (map.get(num) || 0) + 1);\n  }\n  \n  const buckets = Array.from({ length: nums.length + 1 }, () => []);\n  for (let [num, freq] of map) {\n    buckets[freq].push(num);\n  }\n  \n  const result = [];\n  for (let i = buckets.length - 1; i >= 0 && result.length < k; i--) {\n    if (buckets[i].length > 0) {\n      result.push(...buckets[i]);\n    }\n  }\n  return result.slice(0, k);\n}\n\nconsole.log(topKFrequent([1,1,1,2,2,3], 2)); // [1, 2]",
+            "explanation": "Counts occurrences in a Map, uses array indices as frequency buckets, and iterates backward from maximum possible frequency to extract top k items."
+          },
+          "interactiveQuiz": {
+            "question": "What determines the size of the buckets array in this Bucket Sort implementation?",
+            "options": [
+              "nums.length + 1 (the maximum possible frequency of any element)",
+              "k + 1",
+              "The maximum number value in nums",
+              "Fixed size of 100 elements"
+            ],
+            "correctIndex": 0,
+            "explanation": "An element can appear at most `nums.length` times, so allocating `nums.length + 1` buckets safely indexes all possible frequencies."
+          }
+        },
+        {
+          "id": "q30-dsa-encode-decode-strings",
+          "title": "Q30: Encode and Decode Strings",
+          "content": "Design an algorithm to encode a list of strings to a single string and decode that single string back to the original list of strings.",
+          "keyTakeaways": [
+            "Prefix each string with its character length followed by a delimiter (e.g. `4#code`).",
+            "Avoids parsing errors caused by delimiter characters appearing inside original string content."
+          ],
+          "codeExample": {
+            "title": "Length-Prefix String Serialization",
+            "language": "javascript",
+            "code": "function encode(strs) {\n  return strs.map(s => `${s.length}#${s}`).join('');\n}\n\nfunction decode(str) {\n  const result = [];\n  let i = 0;\n  while (i < str.length) {\n    let j = i;\n    while (str[j] !== '#') j++;\n    const length = parseInt(str.slice(i, j), 10);\n    i = j + 1;\n    result.push(str.slice(i, i + length));\n    i += length;\n  }\n  return result;\n}\n\nconst encoded = encode(['lint', 'code', 'love', 'you']);\nconsole.log(encoded); // '4#lint4#code4#love3#you'\nconsole.log(decode(encoded)); // ['lint', 'code', 'love', 'you']",
+            "explanation": "Encoding formats strings as `length#string`. Decoding locates `#`, parses integer `length`, and slices exact character byte segments safely."
+          },
+          "interactiveQuiz": {
+            "question": "Why is length-prefixing preferable to simple character delimiting (e.g. comma separation)?",
+            "options": [
+              "Because comma characters can exist inside original strings and break simple split algorithms",
+              "Length-prefixing compresses the string size",
+              "Comma separation takes O(N²) time",
+              "Length-prefixing works only with ASCII characters"
+            ],
+            "correctIndex": 0,
+            "explanation": "If a string contains the delimiter (e.g. `,`), simple splitting corrupts the string boundary; length-prefixing guarantees fixed byte slicing."
+          }
+        },
+        {
+          "id": "q31-dsa-longest-consecutive-sequence",
+          "title": "Q31: Longest Consecutive Sequence",
+          "content": "Given an unsorted array of integers `nums`, return the length of the longest consecutive elements sequence in $O(n)$ time.",
+          "keyTakeaways": [
+            "Store numbers in a Hash Set to perform $O(1)$ presence lookups.",
+            "Only attempt to build sequences from the start of a sequence (`!set.has(num - 1)`)."
+          ],
+          "codeExample": {
+            "title": "Hash Set Sequence Detection",
+            "language": "javascript",
+            "code": "function longestConsecutive(nums) {\n  const numSet = new Set(nums);\n  let longest = 0;\n  \n  for (let num of numSet) {\n    // Check if num is the start of a sequence\n    if (!numSet.has(num - 1)) {\n      let currentNum = num;\n      let currentStreak = 1;\n      \n      while (numSet.has(currentNum + 1)) {\n        currentNum++;\n        currentStreak++;\n      }\n      longest = Math.max(longest, currentStreak);\n    }\n  }\n  return longest;\n}\n\nconsole.log(longestConsecutive([100, 4, 200, 1, 3, 2])); // 4 ([1, 2, 3, 4])",
+            "explanation": "Converts array to Set. Loops through set, identifying sequence starters (`num - 1` missing). From starters, increments `currentNum` upward, measuring sequence length in $O(n)$ overall operations."
+          },
+          "interactiveQuiz": {
+            "question": "Why does the inner while loop not degrade the algorithm time complexity to O(N²)?",
+            "options": [
+              "Because the inner loop runs only for sequence starting elements, visiting each overall number at most twice",
+              "Because Set.has takes O(log N) time",
+              "Because array duplicates are removed",
+              "Because set iteration sorts elements automatically"
+            ],
+            "correctIndex": 0,
+            "explanation": "Only numbers that start sequences enter the inner while loop, guaranteeing linear $O(N)$ execution total."
+          }
+        },
+        {
+          "id": "q32-dsa-find-minimum-in-rotated-sorted-array",
+          "title": "Q32: Find Minimum in Rotated Sorted Array",
+          "content": "Given a sorted array of unique elements rotated between 1 and $n$ times, find the minimum element in $O(\\log n)$ time using Binary Search.",
+          "keyTakeaways": [
+            "Compare `nums[mid]` against `nums[right]` to determine which half is sorted.",
+            "If `nums[mid] > nums[right]`, minimum lies strictly in the right partition."
+          ],
+          "codeExample": {
+            "title": "Rotated Array Binary Search Minimum",
+            "language": "javascript",
+            "code": "function findMin(nums) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left < right) {\n    const mid = Math.floor(left + (right - left) / 2);\n    if (nums[mid] > nums[right]) {\n      left = mid + 1;\n    } else {\n      right = mid;\n    }\n  }\n  return nums[left];\n}\n\nconsole.log(findMin([3,4,5,1,2])); // 1",
+            "explanation": "If `nums[mid] > nums[right]`, pivot point and minimum element must be right of mid (`left = mid + 1`). Otherwise minimum is at mid or left of mid (`right = mid`)."
+          },
+          "interactiveQuiz": {
+            "question": "Why is `right = mid` used instead of `right = mid - 1` when `nums[mid] <= nums[right]`?",
+            "options": [
+              "Because `nums[mid]` itself could be the minimum element",
+              "To prevent array index underflow",
+              "Because `left` is not updated",
+              "To allow handling duplicate values"
+            ],
+            "correctIndex": 0,
+            "explanation": "When `nums[mid] <= nums[right]`, `nums[mid]` might be the minimum value, so mid must be retained within search space bounds."
+          }
+        },
+        {
+          "id": "q33-dsa-search-in-rotated-sorted-array",
+          "title": "Q33: Search in Rotated Sorted Array",
+          "content": "Given a rotated sorted array and a target integer, return its index or `-1` if not found in $O(\\log n)$ time using modified Binary Search.",
+          "keyTakeaways": [
+            "At least one partition half (`left..mid` or `mid..right`) is guaranteed to be sorted at any binary search step.",
+            "Check if target falls within sorted half boundaries to decide search direction."
+          ],
+          "codeExample": {
+            "title": "Rotated Sorted Array Search",
+            "language": "javascript",
+            "code": "function search(nums, target) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left <= right) {\n    const mid = Math.floor(left + (right - left) / 2);\n    if (nums[mid] === target) return mid;\n    \n    // Check if left partition is sorted\n    if (nums[left] <= nums[mid]) {\n      if (nums[left] <= target && target < nums[mid]) {\n        right = mid - 1;\n      } else {\n        left = mid + 1;\n      }\n    } else { // Right partition is sorted\n      if (nums[mid] < target && target <= nums[right]) {\n        left = mid + 1;\n      } else {\n        right = mid - 1;\n      }\n    }\n  }\n  return -1;\n}\n\nconsole.log(search([4,5,6,7,0,1,2], 0)); // 4",
+            "explanation": "Identifies which half is sorted. If target lies within bounds of the sorted half, moves search space into that range; otherwise shifts into opposite partition."
+          },
+          "interactiveQuiz": {
+            "question": "What structural guarantee enables binary search on a rotated sorted array?",
+            "options": [
+              "At every step, at least one half of the partition array remains strictly sorted",
+              "The array length is always even",
+              "The target value is always near mid",
+              "Rotation moves all elements into reverse order"
+            ],
+            "correctIndex": 0,
+            "explanation": "Splitting a rotated sorted array in half always produces at least one completely sorted subarray partition."
+          }
+        },
+        {
+          "id": "q34-dsa-reorder-list",
+          "title": "Q34: Reorder Linked List",
+          "content": "Reorder a singly linked list $L_0 \\to L_1 \\to \\dots \\to L_{n-1} \\to L_n$ into $L_0 \\to L_n \\to L_1 \\to L_{n-1} \\to L_2 \\to L_{n-2} \\dots$ in-place.",
+          "keyTakeaways": [
+            "1) Find middle using Fast/Slow pointers. 2) Reverse second half. 3) Interleave nodes from both halves.",
+            "Performs transformation in $O(n)$ time and $O(1)$ space."
+          ],
+          "codeExample": {
+            "title": "In-Place Linked List Interleaving",
+            "language": "javascript",
+            "code": "function reorderList(head) {\n  if (!head || !head.next) return;\n  \n  // 1. Find middle node\n  let slow = head, fast = head;\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n  }\n  \n  // 2. Reverse second half\n  let prev = null, curr = slow.next;\n  slow.next = null;\n  while (curr) {\n    let nextTemp = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = nextTemp;\n  }\n  \n  // 3. Interleave first half and reversed second half\n  let first = head, second = prev;\n  while (second) {\n    let tmp1 = first.next;\n    let tmp2 = second.next;\n    first.next = second;\n    second.next = tmp1;\n    first = tmp1;\n    second = tmp2;\n  }\n}",
+            "explanation": "Finds middle using slow/fast pointers, splits list, reverses second half, and weaves node pointers alternating between first and second sublists."
+          },
+          "interactiveQuiz": {
+            "question": "What three sub-algorithms are combined to solve the Reorder List problem in-place?",
+            "options": [
+              "Find Middle (Fast/Slow), Reverse Linked List, and Merge Interleaving",
+              "Binary Search, QuickSelect, and Breadth-First Search",
+              "Topological Sort, DFS, and Hash Map lookup",
+              "Kadane's Algorithm, Sliding Window, and Stack Pop"
+            ],
+            "correctIndex": 0,
+            "explanation": "Combining middle finding, second-half pointer reversal, and alternating node interleaving solves the problem in $O(1)$ auxiliary space."
+          }
+        },
+        {
+          "id": "q35-dsa-remove-nth-node-from-end-of-list",
+          "title": "Q35: Remove Nth Node From End of List",
+          "content": "Given the head of a linked list, remove the $n$-th node from the end of the list and return its head in a single pass.",
+          "keyTakeaways": [
+            "Use Two Pointers (`fast` and `slow`) offset by $n$ steps.",
+            "When `fast` reaches the list end, `slow` points directly before the target node to delete."
+          ],
+          "codeExample": {
+            "title": "Two-Pointer Offset Node Removal",
+            "language": "javascript",
+            "code": "function removeNthFromEnd(head, n) {\n  const dummy = { val: 0, next: head };\n  let fast = dummy;\n  let slow = dummy;\n  \n  // Advance fast pointer n steps ahead\n  for (let i = 0; i <= n; i++) {\n    fast = fast.next;\n  }\n  \n  // Move fast and slow together until fast reaches end\n  while (fast !== null) {\n    fast = fast.next;\n    slow = slow.next;\n  }\n  \n  // Remove target node\n  slow.next = slow.next.next;\n  return dummy.next;\n}",
+            "explanation": "Advances `fast` $n+1$ steps ahead. Moving both pointers at equal speed keeps `slow` exactly $n$ steps behind `fast`. When `fast` reaches `null`, `slow.next = slow.next.next` deletes target."
+          },
+          "interactiveQuiz": {
+            "question": "Why is a dummy node initialized before the head of the linked list?",
+            "options": [
+              "To safely handle cases where the head node itself must be removed",
+              "To double pointer travel speed",
+              "To convert the list into a circular structure",
+              "To calculate total node count"
+            ],
+            "correctIndex": 0,
+            "explanation": "If $n$ equals list length, the head node must be deleted; `dummy.next` seamlessly handles returning updated head node references."
+          }
+        },
+        {
+          "id": "q36-dsa-lowest-common-ancestor-of-bst",
+          "title": "Q36: Lowest Common Ancestor of a Binary Search Tree",
+          "content": "Given a Binary Search Tree (BST), find the lowest common ancestor (LCA) node of two given nodes `p` and `q`.",
+          "keyTakeaways": [
+            "Exploit BST properties: if both values are smaller than root, LCA lies in left subtree; if larger, in right subtree.",
+            "The split node where `p` and `q` diverge to opposite sides is the LCA."
+          ],
+          "codeExample": {
+            "title": "BST Lowest Common Ancestor Iterative Search",
+            "language": "javascript",
+            "code": "function lowestCommonAncestor(root, p, q) {\n  let curr = root;\n  \n  while (curr) {\n    if (p.val < curr.val && q.val < curr.val) {\n      curr = curr.left;\n    } else if (p.val > curr.val && q.val > curr.val) {\n      curr = curr.right;\n    } else {\n      return curr; // Divergence node found\n    }\n  }\n  return null;\n}",
+            "explanation": "Traverses tree using BST value properties. If both values are less than `curr.val`, move left. If both are greater, move right. Otherwise `curr` is the LCA."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of LCA search on a balanced Binary Search Tree?",
+            "options": ["O(log N)", "O(N)", "O(N²)", "O(1)"],
+            "correctIndex": 0,
+            "explanation": "On a balanced BST, traversing down node tree height takes logarithmic $O(\\log N)$ operations."
+          }
+        },
+        {
+          "id": "q37-dsa-implement-trie-prefix-tree",
+          "title": "Q37: Implement Trie (Prefix Tree)",
+          "content": "Implement a Trie with `insert`, `search`, and `startsWith` methods for efficient string retrieval.",
+          "keyTakeaways": [
+            "Tree data structure where nodes represent individual character character branches.",
+            "Enables $O(m)$ string insertions and prefix lookups where $m$ is string length."
+          ],
+          "codeExample": {
+            "title": "Trie Prefix Tree Implementation",
+            "language": "javascript",
+            "code": "class TrieNode {\n  constructor() {\n    this.children = {};\n    this.isEndOfWord = false;\n  }\n}\n\nclass Trie {\n  constructor() {\n    this.root = new TrieNode();\n  }\n\n  insert(word) {\n    let node = this.root;\n    for (let char of word) {\n      if (!node.children[char]) {\n        node.children[char] = new TrieNode();\n      }\n      node = node.children[char];\n    }\n    node.isEndOfWord = true;\n  }\n\n  search(word) {\n    let node = this.root;\n    for (let char of word) {\n      if (!node.children[char]) return false;\n      node = node.children[char];\n    }\n    return node.isEndOfWord;\n  }\n\n  startsWith(prefix) {\n    let node = this.root;\n    for (let char of prefix) {\n      if (!node.children[char]) return false;\n      node = node.children[char];\n    }\n    return true;\n  }\n}\n\nconst trie = new Trie();\ntrie.insert('apple');\nconsole.log(trie.search('apple'));   // true\nconsole.log(trie.startsWith('app')); // true",
+            "explanation": "Nodes contain a child map and end-of-word boolean. Character insertions create tree branches; searches follow character edges step by step."
+          },
+          "interactiveQuiz": {
+            "question": "What differentiates search(word) from startsWith(prefix) in a Trie?",
+            "options": [
+              "search verifies that the node reached has `isEndOfWord = true`",
+              "startsWith runs in O(N²) time",
+              "search checks string backwards",
+              "startsWith works only on root nodes"
+            ],
+            "correctIndex": 0,
+            "explanation": "`search` requires the final node to complete a full word (`isEndOfWord = true`), whereas `startsWith` accepts any matching prefix node."
+          }
+        },
+        {
+          "id": "q38-dsa-design-add-and-search-words-data-structure",
+          "title": "Q38: Design Add and Search Words Data Structure",
+          "content": "Design a data structure supporting adding words and searching words, where the '.' character can match any single letter.",
+          "keyTakeaways": [
+            "Combines Trie storage with DFS recursion when encountering wildcard `.` characters.",
+            "Wildcard `.` branches out to search all available children nodes at current tree depth."
+          ],
+          "codeExample": {
+            "title": "Trie Wildcard Search Engine",
+            "language": "javascript",
+            "code": "class WordDictionary {\n  constructor() {\n    this.root = {};\n  }\n\n  addWord(word) {\n    let node = this.root;\n    for (let char of word) {\n      if (!node[char]) node[char] = {};\n      node = node[char];\n    }\n    node.isEnd = true;\n  }\n\n  search(word) {\n    function dfs(node, i) {\n      if (i === word.length) return !!node.isEnd;\n      const char = word[i];\n      \n      if (char === '.') {\n        for (let key in node) {\n          if (key !== 'isEnd' && dfs(node[key], i + 1)) return true;\n        }\n        return false;\n      }\n      \n      if (!node[char]) return false;\n      return dfs(node[char], i + 1);\n    }\n    return dfs(this.root, 0);\n  }\n}\n\nconst wd = new WordDictionary();\nwd.addWord('bad');\nconsole.log(wd.search('.ad')); // true",
+            "explanation": "Extends basic Trie structure. If search character is `.`, loops through all child branches recursively; otherwise follows standard character branch."
+          },
+          "interactiveQuiz": {
+            "question": "How does the search algorithm process a wildcard '.' character during DFS?",
+            "options": [
+              "Iterates through every valid child key at current node, recursively attempting matches",
+              "Skips the character without evaluating",
+              "Converts '.' into an ASCII space character",
+              "Clears the dictionary cache"
+            ],
+            "correctIndex": 0,
+            "explanation": "Wildcards match any character, forcing DFS to evaluate all existing child branch paths for that level."
+          }
+        },
+        {
+          "id": "q39-dsa-subsets",
+          "title": "Q39: Subsets (Power Set Backtracking)",
+          "content": "Given an integer array `nums` of unique elements, return all possible subsets (the power set) using Backtracking.",
+          "keyTakeaways": [
+            "Generates $2^n$ total subsets.",
+            "Backtracking pattern: 1) Include choice, 2) Recurse, 3) Pop choice (backtrack)."
+          ],
+          "codeExample": {
+            "title": "Backtracking Power Set Generator",
+            "language": "javascript",
+            "code": "function subsets(nums) {\n  const result = [];\n  \n  function backtrack(index, current) {\n    result.push([...current]);\n    for (let i = index; i < nums.length; i++) {\n      current.push(nums[i]);\n      backtrack(i + 1, current);\n      current.pop(); // Backtrack step\n    }\n  }\n  \n  backtrack(0, []);\n  return result;\n}\n\nconsole.log(subsets([1, 2, 3])); \n// [[],[1],[1,2],[1,2,3],[1,3],[2],[2,3],[3]]",
+            "explanation": "Saves candidate array snapshot at every recursion step, iterates choices from current index, pushes choice, recurses, and pops choice to explore state options."
+          },
+          "interactiveQuiz": {
+            "question": "How many total subsets exist for a set containing N unique elements?",
+            "options": ["2ᴺ", "N!", "N²", "2 * N"],
+            "correctIndex": 0,
+            "explanation": "Each element has two options (include or exclude), resulting in $2^N$ total power set subsets."
+          }
+        },
+        {
+          "id": "q40-dsa-combination-sum",
+          "title": "Q40: Combination Sum",
+          "content": "Given an array of distinct integers `candidates` and a `target`, return all unique combinations where candidate numbers sum to target. Numbers can be reused infinitely.",
+          "keyTakeaways": [
+            "Backtracking recursion allows reusing current number by passing index `i` instead of `i + 1`.",
+            "Prunes exploration branches when `remain < 0`."
+          ],
+          "codeExample": {
+            "title": "Unbounded Choice Combination Sum",
+            "language": "javascript",
+            "code": "function combinationSum(candidates, target) {\n  const result = [];\n  \n  function backtrack(remain, current, start) {\n    if (remain === 0) {\n      result.push([...current]);\n      return;\n    }\n    if (remain < 0) return; // Prune branch\n    \n    for (let i = start; i < candidates.length; i++) {\n      current.push(candidates[i]);\n      backtrack(remain - candidates[i], current, i); // 'i' allows reusing same element\n      current.pop();\n    }\n  }\n  \n  backtrack(target, [], 0);\n  return result;\n}\n\nconsole.log(combinationSum([2, 3, 6, 7], 7)); // [[2, 2, 3], [7]]",
+            "explanation": "Prunes search when `remain < 0`. When `remain === 0`, saves combination. Reuses element by passing `i` to recursive call."
+          },
+          "interactiveQuiz": {
+            "question": "Why is the index parameter `i` passed to recursive backtrack(remain - candidates[i], current, i) instead of `i + 1`?",
+            "options": [
+              "To permit reusing the same candidate number unlimited times in a combination",
+              "To prevent array index errors",
+              "To force ascending output order",
+              "To clear candidate duplicates"
+            ],
+            "correctIndex": 0,
+            "explanation": "Passing index `i` retains current number access for subsequent branch steps, allowing infinite element reuse."
+          }
+        },
+        {
+          "id": "q41-dsa-house-robber",
+          "title": "Q41: House Robber (Dynamic Programming)",
+          "content": "Find the maximum money you can rob tonight without alerting police (cannot rob adjacent houses).",
+          "keyTakeaways": [
+            "State transition: $dp[i] = \\max(dp[i-1], dp[i-2] + \\text{nums}[i])$.",
+            "Optimizable to O(1) space tracking two previous max values (`rob1`, `rob2`)."
+          ],
+          "codeExample": {
+            "title": "DP House Robber O(1) Space",
+            "language": "javascript",
+            "code": "function rob(nums) {\n  let rob1 = 0;\n  let rob2 = 0;\n  \n  for (let n of nums) {\n    let temp = Math.max(n + rob1, rob2);\n    rob1 = rob2;\n    rob2 = temp;\n  }\n  return rob2;\n}\n\nconsole.log(rob([1, 2, 3, 1])); // 4 (Rob house 1 and 3)",
+            "explanation": "At house `n`, compares robbing current house plus max from two houses prior (`n + rob1`) against max from previous house (`rob2`). Shifts window values forward."
+          },
+          "interactiveQuiz": {
+            "question": "What constraint prevents taking the simple sum of all array elements in House Robber?",
+            "options": [
+              "Adjacent houses cannot be robbed on the same night",
+              "House values are negative",
+              "House count must be even",
+              "The list is sorted"
+            ],
+            "correctIndex": 0,
+            "explanation": "Robbing adjacent houses triggers security alarms, requiring choice between house $i-1$ vs house $i-2 + \\text{current}$."
+          }
+        },
+        {
+          "id": "q42-dsa-house-robber-ii",
+          "title": "Q42: House Robber II (Circular DP)",
+          "content": "All houses are arranged in a circle. Find max stolen money given adjacent houses cannot be robbed.",
+          "keyTakeaways": [
+            "Circular arrangement implies first house and last house are adjacent and cannot both be robbed.",
+            "Run standard House Robber algorithm twice: range `0..n-2` and range `1..n-1`, taking maximum result."
+          ],
+          "codeExample": {
+            "title": "Circular House Robber Solution",
+            "language": "javascript",
+            "code": "function rob(nums) {\n  if (nums.length === 1) return nums[0];\n  \n  function robLinear(arr) {\n    let rob1 = 0, rob2 = 0;\n    for (let n of arr) {\n      let temp = Math.max(n + rob1, rob2);\n      rob1 = rob2;\n      rob2 = temp;\n    }\n    return rob2;\n  }\n  \n  const case1 = robLinear(nums.slice(0, nums.length - 1));\n  const case2 = robLinear(nums.slice(1));\n  return Math.max(case1, case2);\n}\n\nconsole.log(rob([2, 3, 2])); // 3",
+            "explanation": "Splits problem into two linear sub-problems: excluding the last house (`0..n-2`) vs excluding the first house (`1..n-1`), returning whichever yield is higher."
+          },
+          "interactiveQuiz": {
+            "question": "How does House Robber II handle the circular house arrangement constraint?",
+            "options": [
+              "Runs linear House Robber twice: once excluding the first house and once excluding the last house",
+              "Sorts houses in descending order",
+              "Uses a 2D matrix DP table",
+              "Applies Graph Coloring"
+            ],
+            "correctIndex": 0,
+            "explanation": "First and last houses cannot both be chosen; evaluating subsets excluding either first or last resolves the circular conflict."
+          }
+        },
+        {
+          "id": "q43-dsa-longest-increasing-subsequence",
+          "title": "Q43: Longest Increasing Subsequence (LIS)",
+          "content": "Find the length of the longest strictly increasing subsequence in an integer array.",
+          "keyTakeaways": [
+            "Standard Dynamic Programming approach takes $O(n^2)$ time.",
+            "Patience Sorting with Binary Search optimizes LIS execution to $O(n \\log n)$ time."
+          ],
+          "codeExample": {
+            "title": "Patience Sort Binary Search LIS O(n log n)",
+            "language": "javascript",
+            "code": "function lengthOfLIS(nums) {\n  const tails = [];\n  \n  for (let num of nums) {\n    let left = 0;\n    let right = tails.length;\n    \n    while (left < right) {\n      const mid = Math.floor((left + right) / 2);\n      if (tails[mid] < num) left = mid + 1;\n      else right = mid;\n    }\n    \n    tails[left] = num;\n  }\n  return tails.length;\n}\n\nconsole.log(lengthOfLIS([10, 9, 2, 5, 3, 7, 101, 18])); // 4 ([2, 3, 7, 101])",
+            "explanation": "Maintains array `tails` storing smallest tail values of increasing subsequences. For each `num`, uses binary search to replace smallest element >= `num` or append `num` if larger than all tails."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of the Patience Sorting Binary Search LIS algorithm?",
+            "options": ["O(n log n)", "O(n²)", "O(n)", "O(2ⁿ)"],
+            "correctIndex": 0,
+            "explanation": "Iterating $n$ items and performing binary search per item takes $O(n \\log n)$ time."
+          }
+        },
+        {
+          "id": "q44-dsa-palindromic-substrings",
+          "title": "Q44: Palindromic Substrings (Expand Around Center)",
+          "content": "Given a string `s`, return the count of palindromic substrings in `s` using Expand Around Center method.",
+          "keyTakeaways": [
+            "Consider $2n - 1$ possible expansion centers (odd single characters and even adjacent character pairs).",
+            "Achieves $O(n^2)$ time and $O(1)$ space complexity."
+          ],
+          "codeExample": {
+            "title": "Center Expansion Palindrome Counter",
+            "language": "javascript",
+            "code": "function countSubstrings(s) {\n  let count = 0;\n  \n  function expand(left, right) {\n    let found = 0;\n    while (left >= 0 && right < s.length && s[left] === s[right]) {\n      found++;\n      left--;\n      right++;\n    }\n    return found;\n  }\n  \n  for (let i = 0; i < s.length; i++) {\n    count += expand(i, i);     // Odd length center\n    count += expand(i, i + 1); // Even length center\n  }\n  return count;\n}\n\nconsole.log(countSubstrings('aaa')); // 6 ('a','a','a','aa','aa','aaa')",
+            "explanation": "Iterates every character index, expanding outward for odd-length palindromes (`i, i`) and even-length palindromes (`i, i+1`), incrementing counts while characters match."
+          },
+          "interactiveQuiz": {
+            "question": "How many total potential palindrome centers exist for a string of length N?",
+            "options": ["2N - 1", "N", "N²", "N / 2"],
+            "correctIndex": 0,
+            "explanation": "There are $N$ single character centers and $N-1$ adjacent pair centers, totaling $2N-1$ centers."
+          }
+        },
+        {
+          "id": "q45-dsa-longest-palindromic-substring",
+          "title": "Q45: Longest Palindromic Substring",
+          "content": "Given a string `s`, return the longest palindromic substring in `s` using Expand Around Center approach.",
+          "keyTakeaways": [
+            "Expands around odd and even centers while keeping track of max substring bounds.",
+            "Runs in $O(n^2)$ time and $O(1)$ auxiliary space."
+          ],
+          "codeExample": {
+            "title": "Center Expansion Longest Palindrome",
+            "language": "javascript",
+            "code": "function longestPalindrome(s) {\n  let start = 0;\n  let maxLength = 0;\n  \n  function expand(left, right) {\n    while (left >= 0 && right < s.length && s[left] === s[right]) {\n      left--;\n      right++;\n    }\n    const len = right - left - 1;\n    if (len > maxLength) {\n      maxLength = len;\n      start = left + 1;\n    }\n  }\n  \n  for (let i = 0; i < s.length; i++) {\n    expand(i, i);\n    expand(i, i + 1);\n  }\n  return s.substring(start, start + maxLength);\n}\n\nconsole.log(longestPalindrome('babad')); // 'bab' or 'aba'",
+            "explanation": "Expands outward from odd and even center indices. When expansion breaks, calculates valid length (`right - left - 1`) and updates best `start` index and `maxLength`."
+          },
+          "interactiveQuiz": {
+            "question": "What is the auxiliary space complexity of the Expand Around Center method for Longest Palindromic Substring?",
+            "options": ["O(1)", "O(N)", "O(N²)", "O(log N)"],
+            "correctIndex": 0,
+            "explanation": "Tracking only indices (`start`, `maxLength`, `left`, `right`) uses constant $O(1)$ space."
+          }
+        },
+        {
+          "id": "q46-dsa-word-break",
+          "title": "Q46: Word Break (Dynamic Programming)",
+          "content": "Given a string `s` and a dictionary of strings `wordDict`, return `true` if `s` can be segmented into space-separated dictionary words.",
+          "keyTakeaways": [
+            "Boolean array `dp[i]` represents if prefix `s[0..i]` can be segmented.",
+            "State transition: `dp[i] = dp[j] && wordDict.has(s[j..i])` for $0 \\le j < i$."
+          ],
+          "codeExample": {
+            "title": "DP String Segmentation Word Break",
+            "language": "javascript",
+            "code": "function wordBreak(s, wordDict) {\n  const wordSet = new Set(wordDict);\n  const dp = new Array(s.length + 1).fill(false);\n  dp[0] = true; // Base case: empty string\n  \n  for (let i = 1; i <= s.length; i++) {\n    for (let j = 0; j < i; j++) {\n      if (dp[j] && wordSet.has(s.substring(j, i))) {\n        dp[i] = true;\n        break;\n      }\n    }\n  }\n  return dp[s.length];\n}\n\nconsole.log(wordBreak('leetcode', ['leet', 'code'])); // true",
+            "explanation": "`dp[i]` is true if there exists split index $j$ where `dp[j]` is true and substring `s[j..i]` is present in `wordSet`."
+          },
+          "interactiveQuiz": {
+            "question": "What does dp[i] = true signify in the Word Break dynamic programming array?",
+            "options": [
+              "The substring prefix s.substring(0, i) can be validly partitioned into dictionary words",
+              "The character s[i] is a vowel",
+              "wordDict contains word s[i]",
+              "The string ends at index i"
+            ],
+            "correctIndex": 0,
+            "explanation": "`dp[i]` tracks segmentability for prefix string length $i$ starting from index 0."
+          }
+        },
+        {
+          "id": "q47-dsa-pacific-atlantic-water-flow",
+          "title": "Q47: Pacific Atlantic Water Flow (Graph Multi-Source DFS)",
+          "content": "Find grid coordinate cells where rain water can flow to both Pacific (top/left) and Atlantic (bottom/right) oceans.",
+          "keyTakeaways": [
+            "Reverse flow simulation: DFS outward from ocean boundaries upstream to reachable higher/equal elevation land cells.",
+            "Cells reachable by both Pacific DFS and Atlantic DFS are valid answer coordinates."
+          ],
+          "codeExample": {
+            "title": "Reverse Flow Boundary DFS",
+            "language": "javascript",
+            "code": "function pacificAtlantic(heights) {\n  if (!heights || !heights.length) return [];\n  const rows = heights.length;\n  const cols = heights[0].length;\n  \n  const pacific = Array.from({ length: rows }, () => new Array(cols).fill(false));\n  const atlantic = Array.from({ length: rows }, () => new Array(cols).fill(false));\n  \n  function dfs(r, c, reachable, prevHeight) {\n    if (r < 0 || c < 0 || r >= rows || c >= cols || reachable[r][c] || heights[r][c] < prevHeight) {\n      return;\n    }\n    reachable[r][c] = true;\n    dfs(r + 1, c, reachable, heights[r][c]);\n    dfs(r - 1, c, reachable, heights[r][c]);\n    dfs(r, c + 1, reachable, heights[r][c]);\n    dfs(r, c - 1, reachable, heights[r][c]);\n  }\n  \n  for (let r = 0; r < rows; r++) {\n    dfs(r, 0, pacific, heights[r][0]);                // Left Pacific\n    dfs(r, cols - 1, atlantic, heights[r][cols - 1]); // Right Atlantic\n  }\n  for (let c = 0; c < cols; c++) {\n    dfs(0, c, pacific, heights[0][c]);                // Top Pacific\n    dfs(rows - 1, c, atlantic, heights[rows - 1][c]); // Bottom Atlantic\n  }\n  \n  const result = [];\n  for (let r = 0; r < rows; r++) {\n    for (let c = 0; c < cols; c++) {\n      if (pacific[r][c] && atlantic[r][c]) result.push([r, c]);\n    }\n  }\n  return result;\n}",
+            "explanation": "Runs DFS backward from Pacific edges and Atlantic edges upstream (heights[r][c] >= prevHeight). Cells marked true in both boolean grids are returned."
+          },
+          "interactiveQuiz": {
+            "question": "Why does the algorithm perform DFS backward from ocean boundaries instead of forward from every cell?",
+            "options": [
+              "Prevents redundant overlapping search evaluations, dropping complexity from O(rows² * cols²) down to O(rows * cols)",
+              "Because water flows upward in graph matrices",
+              "Forward DFS causes call stack overflow",
+              "To avoid using boolean visited matrices"
+            ],
+            "correctIndex": 0,
+            "explanation": "Starting at ocean borders requires traversing cells at most twice overall ($O(R \\times C)$ time), whereas probing each cell forward causes massive re-computations."
+          }
+        },
+        {
+          "id": "q48-dsa-sum-of-two-integers-bitwise",
+          "title": "Q48: Sum of Two Integers (Bitwise Logic)",
+          "content": "Calculate the sum of two integers `a` and `b` without using the operators `+` and `-`.",
+          "keyTakeaways": [
+            "XOR operator (`^`) calculates sum without carry.",
+            "AND operator (`&`) followed by bitwise left shift (`<< 1`) calculates carry values."
+          ],
+          "codeExample": {
+            "title": "Bitwise Addition",
+            "language": "javascript",
+            "code": "function getSum(a, b) {\n  while (b !== 0) {\n    let carry = (a & b) << 1;\n    a = a ^ b;\n    b = carry;\n  }\n  return a;\n}\n\nconsole.log(getSum(5, 7)); // 12",
+            "explanation": "`a & b` finds matching bit carries, shifted left by 1. `a ^ b` calculates half-adder sum. Process repeats until carry `b` becomes 0."
+          },
+          "interactiveQuiz": {
+            "question": "Which bitwise operator computes binary addition without handling carry bits?",
+            "options": ["XOR (^)", "AND (&)", "OR (|)", "NOT (~)"],
+            "correctIndex": 0,
+            "explanation": "XOR (`^`) performs binary addition for bit pairs ($1^1 = 0, 1^0 = 1, 0^0 = 0$), acting as a half-adder without carry."
+          }
+        },
+        {
+          "id": "q49-dsa-number-of-1-bits",
+          "title": "Q49: Number of 1 Bits (Hamming Weight)",
+          "content": "Write a function that takes an unsigned integer and returns the number of '1' bits it has (Hamming Weight).",
+          "keyTakeaways": [
+            "Brian Kernighan's bit manipulation trick `n = n & (n - 1)` clears the lowest set bit in $O(1)$ operations per set bit.",
+            "Loop iterations match the exact count of set bits rather than iterating all 32 bit positions."
+          ],
+          "codeExample": {
+            "title": "Brian Kernighan Bit Clearing Algorithm",
+            "language": "javascript",
+            "code": "function hammingWeight(n) {\n  let count = 0;\n  while (n !== 0) {\n    n = n & (n - 1);\n    count++;\n  }\n  return count;\n}\n\nconsole.log(hammingWeight(11)); // 3 (binary 1011 has three 1s)",
+            "explanation": "Evaluating `n & (n - 1)` drops the rightmost set bit (`1`) to `0` in each step, incrementing `count` until all set bits are cleared."
+          },
+          "interactiveQuiz": {
+            "question": "What effect does executing the bitwise operation `n & (n - 1)` have on binary integer `n`?",
+            "options": [
+              "Flips the lowest set bit (rightmost 1) to 0",
+              "Shifts all bits left by 1 position",
+              "Inverts all 0 and 1 bit values",
+              "Multiplies n by 2"
+            ],
+            "correctIndex": 0,
+            "explanation": "`n & (n - 1)` clears the least significant set bit (`1`), providing $O(\\text{set bits})$ counting performance."
+          }
+        },
+        {
+          "id": "q50-dsa-serialize-and-deserialize-binary-tree",
+          "title": "Q50: Serialize and Deserialize Binary Tree",
+          "content": "Design an algorithm to serialize a binary tree into a single string and deserialize that string back into the original binary tree structure.",
+          "keyTakeaways": [
+            "Pre-order traversal DFS converts tree to comma-separated string, using sentinel tokens (e.g. `'N'`) for null nodes.",
+            "Deserialization reconstructs nodes sequentially from queue tokens."
+          ],
+          "codeExample": {
+            "title": "Pre-Order DFS Tree Serialization",
+            "language": "javascript",
+            "code": "function serialize(root) {\n  const result = [];\n  function dfs(node) {\n    if (!node) {\n      result.push('N');\n      return;\n    }\n    result.push(node.val);\n    dfs(node.left);\n    dfs(node.right);\n  }\n  dfs(root);\n  return result.join(',');\n}\n\nfunction deserialize(data) {\n  const tokens = data.split(',');\n  let index = 0;\n  \n  function dfs() {\n    if (tokens[index] === 'N') {\n      index++;\n      return null;\n    }\n    const node = { val: parseInt(tokens[index++], 10), left: null, right: null };\n    node.left = dfs();\n    node.right = dfs();\n    return node;\n  }\n  return dfs();\n}",
+            "explanation": "`serialize` performs pre-order DFS adding node values or 'N' for nulls into a CSV string. `deserialize` consumes tokens sequentially, creating node objects recursively."
+          },
+          "interactiveQuiz": {
+            "question": "Why are explicit null markers ('N') required in pre-order tree serialization?",
+            "options": [
+              "To preserve exact tree structure so deserialization can uniquely rebuild subtrees without ambiguity",
+              "To mark leaf nodes for memory deallocation",
+              "To enable binary search",
+              "Required for JSON string syntax rules"
+            ],
+            "correctIndex": 0,
+            "explanation": "Including null leaf markers ensures pre-order token sequences uniquely describe tree node relationships without ambiguity."
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1191 @@
+{
+  "courseId": "html-interview-qa",
+  "courseName": "HTML & Web Fundamentals Interview Questions & Answers",
+  "title": "Top 50 HTML Interview Questions & Mock Exam Prep",
+  "subtitle": "A complete Q&A bank with code examples and interactive self-assessment checks covering core HTML, HTML5, Accessibility, Forms, and Web Performance",
+  "category": "Interview Q&A",
+  "level": "Intermediate",
+  "estimatedTime": "2.5 Hours",
+  "accentColor": "#e34f26",
+  "keywords": ["html", "html5", "web-development", "accessibility", "a11y", "forms", "semantic-html", "interview", "questions", "quiz"],
+  "chapters": [
+    {
+      "id": "html-interview-questions",
+      "title": "Complete HTML Interview Questions & Answer Bank",
+      "summary": "50 progressive HTML interview questions covering HTML5 semantics, accessibility (ARIA), web storage, media APIs, form validation, and web performance optimization.",
+      "estimatedMinutes": 150,
+      "sections": [
+        {
+          "id": "q1-doctype-declaration",
+          "title": "Q1: What is the <!DOCTYPE html> declaration and why is it required?",
+          "content": "The `<!DOCTYPE html>` declaration is an instruction to the web browser about the version of HTML used to render the document. It must be placed on the very first line of an HTML document. In HTML5, it triggers **Standards Mode** in modern browsers, preventing the browser from rendering the page in **Quirks Mode** or **Limited Standards Mode**, which emulate legacy browser behavior.",
+          "keyTakeaways": [
+            "Enforces rendering in Standards Mode across all modern browsers.",
+            "Prevents legacy Quirks Mode rendering inconsistencies."
+          ],
+          "codeExample": {
+            "title": "Minimal HTML5 Document Structure",
+            "language": "html",
+            "code": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Document</title>\n</head>\n<body>\n  <h1>Hello World</h1>\n</body>\n</html>",
+            "explanation": "The simple <!DOCTYPE html> declaration initiates HTML5 Standards Mode rendering without requiring legacy DTD references."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if a web developer omits the <!DOCTYPE html> declaration?",
+            "options": [
+              "The browser throws an uncaught JavaScript error",
+              "The browser enters Quirks Mode, rendering pages using legacy emulation rules",
+              "The HTML document fails to load entirely",
+              "Form inputs become read-only automatically"
+            ],
+            "correctIndex": 1,
+            "explanation": "Omitting the DOCTYPE declaration causes modern browsers to render in Quirks Mode, leading to layout and CSS box model inconsistencies."
+          }
+        },
+        {
+          "id": "q2-semantic-html",
+          "title": "Q2: What is Semantic HTML and why is it important?",
+          "content": "Semantic HTML means using HTML tags according to their intended structural meaning rather than purely for presentation (e.g., using `<header>`, `<nav>`, `<main>`, `<article>`, `<section>`, and `<footer>` instead of generic `<div>` tags). Semantic HTML improves web accessibility (screen readers), SEO indexing, and code maintainability.",
+          "keyTakeaways": [
+            "Describes meaning to browsers, search engines, and assistive technologies.",
+            "Improves SEO indexing and Screen Reader landmark navigation."
+          ],
+          "codeExample": {
+            "title": "Semantic Web Layout",
+            "language": "html",
+            "code": "<header>\n  <nav>\n    <a href=\"/home\">Home</a>\n  </nav>\n</header>\n<main>\n  <article>\n    <h2>Semantic Markup</h2>\n    <p>Semantic tags provide meaningful structure.</p>\n  </article>\n</main>\n<footer>\n  <p>&copy; 2026 Web Standards</p>\n</footer>",
+            "explanation": "Semantic landmarks establish structural hierarchies that allow screen readers to jump directly to primary page sections."
+          },
+          "interactiveQuiz": {
+            "question": "Which tag provides explicit main content landmark semantics to screen readers?",
+            "options": ["<section>", "<div>", "<main>", "<article>"],
+            "correctIndex": 2,
+            "explanation": "The `<main>` tag represents the dominant content unit of the `<body>` and defines a main landmark for screen readers."
+          }
+        },
+        {
+          "id": "q3-block-vs-inline",
+          "title": "Q3: What is the difference between Block-level and Inline elements?",
+          "content": "Block-level elements (e.g., `<div>`, `<p>`, `<h1>`, `<ul>`) start on a new line and expand horizontally to occupy the entire available width of their container. Inline elements (e.g., `<span>`, `<a>`, `<strong>`, `<em>`) flow inside textual content, taking up only as much width as required by their content, and do not respect vertical margins/padding.",
+          "keyTakeaways": [
+            "Block elements break onto new lines and occupy 100% container width.",
+            "Inline elements stay in line with surrounding text and ignore top/bottom margins."
+          ],
+          "codeExample": {
+            "title": "Block vs Inline Layout Behavior",
+            "language": "html",
+            "code": "<!-- Block Elements -->\n<div>First Block</div>\n<div>Second Block (Starts on new line)</div>\n\n<!-- Inline Elements -->\n<p>This is a <span style=\"color: red;\">red inline tag</span> inside text.</p>",
+            "explanation": "<div> elements stack vertically as block containers, while <span> stays inline within the text flow."
+          },
+          "interactiveQuiz": {
+            "question": "Which CSS properties are ignored by default on purely inline elements like <span>?",
+            "options": ["color and font-size", "top/bottom margin and explicit height", "left/right padding", "text-align and font-weight"],
+            "correctIndex": 1,
+            "explanation": "Standard inline elements ignore explicit `height`, `width`, and vertical (`top`/`bottom`) `margin` adjustments."
+          }
+        },
+        {
+          "id": "q4-script-async-defer",
+          "title": "Q4: What is the difference between <script>, <script async>, and <script defer>?",
+          "content": "Standard `<script>` blocks HTML parsing while fetching and executing JavaScript synchronously. `<script async>` fetches the script asynchronously in parallel with HTML parsing and executes it immediately as soon as downloading completes (blocking parsing briefly). `<script defer>` fetches asynchronously in parallel but postpones execution until HTML parsing is complete, maintaining script execution order.",
+          "keyTakeaways": [
+            "`async` executes immediately when downloaded, without guaranteeing execution order.",
+            "`defer` executes in order after the HTML parser builds the DOM tree."
+          ],
+          "codeExample": {
+            "title": "Asynchronous Script Loading Attributes",
+            "language": "html",
+            "code": "<!-- Blocks DOM Parsing -->\n<script src=\"app.js\"></script>\n\n<!-- Downloads in parallel, executes immediately on finish -->\n<script async src=\"analytics.js\"></script>\n\n<!-- Downloads in parallel, executes after DOM parsing completes -->\n<script defer src=\"main.js\"></script>",
+            "explanation": "Using `defer` guarantees that DOM elements are fully constructed before script execution begins."
+          },
+          "interactiveQuiz": {
+            "question": "Which script attribute guarantees that multiple external scripts execute in their exact document order after parsing completes?",
+            "options": ["async", "defer", "preload", "module"],
+            "correctIndex": 1,
+            "explanation": "The `defer` attribute preserves execution order for multiple scripts while waiting for HTML parsing to complete."
+          }
+        },
+        {
+          "id": "q5-link-rel-preload-prefetch",
+          "title": "Q5: What is the difference between rel='preload' and rel='prefetch' in resource links?",
+          "content": "`rel=\"preload\"` informs the browser to fetch a critical resource (e.g., fonts, critical CSS, key JS bundles) as quickly as possible because it is needed for the **current page view**. `rel=\"prefetch\"` asks the browser to fetch low-priority resources in the background during idle time because they might be needed for **subsequent navigation pages**.",
+          "keyTakeaways": [
+            "`preload` is high-priority for the current document rendering cycle.",
+            "`prefetch` is low-priority for future navigation transitions."
+          ],
+          "codeExample": {
+            "title": "Preloading vs Prefetching Assets",
+            "language": "html",
+            "code": "<!-- Critical font needed for current page render -->\n<link rel=\"preload\" href=\"/fonts/custom.woff2\" as=\"font\" type=\"font/woff2\" crossorigin>\n\n<!-- Page bundle likely needed on next navigation step -->\n<link rel=\"prefetch\" href=\"/js/checkout-page.js\">",
+            "explanation": "`preload` forces high priority loading for critical current view resources, while `prefetch` targets future routes."
+          },
+          "interactiveQuiz": {
+            "question": "Which resource link directive should be used for assets required on the *next* page a user is likely to visit?",
+            "options": ["rel=\"preload\"", "rel=\"prefetch\"", "rel=\"dns-prefetch\"", "rel=\"modulepreload\""],
+            "correctIndex": 1,
+            "explanation": "`rel=\"prefetch\"` caches assets during browser idle time for subsequent future page navigations."
+          }
+        },
+        {
+          "id": "q6-head-meta-viewport",
+          "title": "Q6: What is the purpose of the <meta name='viewport'> tag in mobile responsive design?",
+          "content": "The viewport meta tag instructs mobile web browsers how to control the page's dimensions and scaling behavior. Without this tag, mobile browsers render pages on a virtual desktop viewport (typically 980px wide) and scale the rendered output down, resulting in tiny text and broken mobile responsive CSS queries.",
+          "keyTakeaways": [
+            "Sets view layout width to match the physical device screen width.",
+            "Prevents mobile browsers from simulating desktop viewport scaling defaults."
+          ],
+          "codeExample": {
+            "title": "Standard Mobile Viewport Meta Tag",
+            "language": "html",
+            "code": "<head>\n  <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n</head>",
+            "explanation": "`width=device-width` matches screen width in device-independent pixels, and `initial-scale=1.0` establishes 1:1 zoom."
+          },
+          "interactiveQuiz": {
+            "question": "What occurs on mobile devices if the viewport meta tag is missing?",
+            "options": [
+              "Media queries run using true screen physical dimensions",
+              "The browser assumes a desktop viewport width (~980px) and zooms out the page",
+              "Touch events are completely disabled",
+              "Images fail to render"
+            ],
+            "correctIndex": 1,
+            "explanation": "Mobile browsers default to rendering pages inside a ~980px desktop viewport and scaling content down unless overridden by the viewport meta tag."
+          }
+        },
+        {
+          "id": "q7-src-vs-href",
+          "title": "Q7: What is the difference between the src and href attributes in HTML?",
+          "content": "`src` (Source) is used to embed or replace the current element with external resources (e.g., `<img>`, `<script>`, `<iframe>`). Loading a `src` resource halts parsing until it is fetched. `href` (Hypertext Reference) establishes a relationship between the current document and an external resource (e.g., `<a href=\"...\">`, `<link rel=\"stylesheet\" href=\"...\">`).",
+          "keyTakeaways": [
+            "`src` embeds external resources directly into the document.",
+            "`href` creates links or associations pointing to external documents."
+          ],
+          "codeExample": {
+            "title": "Usage of src vs href Attributes",
+            "language": "html",
+            "code": "<!-- href establishes relationship -->\n<link rel=\"stylesheet\" href=\"styles.css\">\n<a href=\"/about\">About Us</a>\n\n<!-- src embeds external content -->\n<script src=\"app.js\"></script>\n<img src=\"logo.png\" alt=\"Company Logo\">",
+            "explanation": "`href` links to resources, whereas `src` replaces the element node with embedded external data."
+          },
+          "interactiveQuiz": {
+            "question": "Which attribute is used to reference external images in an <img> tag?",
+            "options": ["href", "src", "link", "url"],
+            "correctIndex": 1,
+            "explanation": "The `src` attribute supplies the source URL of the embedded image file."
+          }
+        },
+        {
+          "id": "q8-img-srcset-sizes",
+          "title": "Q8: How do the srcset and sizes attributes enable responsive images?",
+          "content": "The `srcset` attribute defines a list of image sources along with width descriptors (e.g., `800w`). The `sizes` attribute specifies media conditions and image display layout widths. Browsers use this information to select and download the optimal image asset resolution based on device display density and screen size.",
+          "keyTakeaways": [
+            "`srcset` lists candidate image files alongside width descriptors.",
+            "`sizes` informs the browser of the image layout width across media query breakpoints."
+          ],
+          "codeExample": {
+            "title": "Responsive Images with srcset and sizes",
+            "language": "html",
+            "code": "<img src=\"small.jpg\"\n     srcset=\"small.jpg 400w, medium.jpg 800w, large.jpg 1200w\"\n     sizes=\"(max-width: 600px) 100vw, 50vw\"\n     alt=\"Responsive Landscape\">",
+            "explanation": "The browser checks screen density and CSS layout rules to download the exact image resolution needed, saving mobile bandwidth."
+          },
+          "interactiveQuiz": {
+            "question": "What descriptor is appended to image URLs inside the srcset attribute to declare asset pixel width?",
+            "options": ["px", "vw", "w", "x"],
+            "correctIndex": 2,
+            "explanation": "Width descriptors use the `w` character (e.g., `800w`) to indicate image file pixel dimensions to the browser."
+          }
+        },
+        {
+          "id": "q9-picture-element",
+          "title": "Q9: When should you use the <picture> element instead of <img> with srcset?",
+          "content": "Use the `<picture>` element for **art direction** (changing image cropping/aspect ratios for different viewports) or **type fallback support** (serving modern formats like WebP or AVIF with fallback to JPEG). Use `<img>` with `srcset` when you simply need the same image in different resolution sizes.",
+          "keyTakeaways": [
+            "`<picture>` handles art direction cropping changes and format fallback negotiation.",
+            "`<img srcset>` handles density/resolution switching for identical cropped images."
+          ],
+          "codeExample": {
+            "title": "Art Direction and Format Switching via <picture>",
+            "language": "html",
+            "code": "<picture>\n  <source srcset=\"hero.avif\" type=\"image/avif\">\n  <source srcset=\"hero.webp\" type=\"image/webp\">\n  <source media=\"(max-width: 600px)\" srcset=\"hero-mobile.jpg\">\n  <img src=\"hero-fallback.jpg\" alt=\"Hero Banner\">\n</picture>",
+            "explanation": "The browser matches `<source>` elements top-to-bottom and picks the first supported format or media rule."
+          },
+          "interactiveQuiz": {
+            "question": "What primary requirement calls for the <picture> element over an <img> with srcset?",
+            "options": [
+              "Lazy loading images asynchronously",
+              "Art direction (different cropped image variations for mobile vs desktop)",
+              "Centering images horizontally in CSS",
+              "Adding captions to graphics"
+            ],
+            "correctIndex": 1,
+            "explanation": "The `<picture>` tag is designed for art direction and negotiating multi-format image fallbacks."
+          }
+        },
+        {
+          "id": "q10-iframe-security-sandbox",
+          "title": "Q10: What is the sandbox attribute on <iframe> tags and why is it important?",
+          "content": "The `sandbox` attribute applies strict security restrictions to content embedded inside an `<iframe>`. An empty `sandbox` attribute restricts the iframe from executing scripts, submitting forms, opening popups, reading cookies, or accessing same-origin resources. Developers selectively re-enable features using flags like `allow-scripts` or `allow-forms`.",
+          "keyTakeaways": [
+            "Restricts untrusted third-party iframe content from executing malicious actions.",
+            "Selective flags (`allow-scripts`, `allow-forms`) grant explicit capabilities."
+          ],
+          "codeExample": {
+            "title": "Securing an Embed with Iframe Sandbox",
+            "language": "html",
+            "code": "<!-- Strict isolation: no scripts, no forms -->\n<iframe src=\"https://example.com/widget\" sandbox></iframe>\n\n<!-- Permitted capabilities explicitly whitelist scripts -->\n<iframe src=\"https://example.com/widget\"\n        sandbox=\"allow-scripts allow-forms\">\n</iframe>",
+            "explanation": "The `sandbox` attribute prevents cross-site scripting (XSS) and frame-busting exploits from untrusted third-party embeds."
+          },
+          "interactiveQuiz": {
+            "question": "What happens when an <iframe> is specified with an empty sandbox attribute (<iframe sandbox>)?",
+            "options": [
+              "It grants unrestricted root administrative permissions",
+              "It blocks scripts, forms, popups, and same-origin policies entirely",
+              "It converts iframe content into static image previews",
+              "It forces the iframe to load synchronously"
+            ],
+            "correctIndex": 1,
+            "explanation": "An empty `sandbox` attribute enforces maximum security restriction mode on the embedded document."
+          }
+        },
+        {
+          "id": "q11-localstorage-vs-sessionstorage-vs-cookies",
+          "title": "Q11: What are the differences between localStorage, sessionStorage, and Cookies?",
+          "content": "- `localStorage`: Stores up to ~5-10MB of key-value data persistently with **no expiration date** until manually cleared.\n- `sessionStorage`: Stores ~5MB of key-value data isolated to the active tab session (cleared when tab closes).\n- `Cookies`: Small data stores (~4KB) automatically sent to the server in HTTP request headers on every network call. Used primarily for authentication sessions.",
+          "keyTakeaways": [
+            "`localStorage` persists until explicit deletion; `sessionStorage` dies when tab closes.",
+            "Cookies are sent to the backend server automatically on every HTTP request."
+          ],
+          "codeExample": {
+            "title": "Client-Side Storage API Usage",
+            "language": "javascript",
+            "code": "// localStorage persists across browser restarts\nlocalStorage.setItem('theme', 'dark');\n\n// sessionStorage clears when tab closes\nsessionStorage.setItem('tempToken', 'xyz123');\n\n// Cookies sent with HTTP requests\ndocument.cookie = 'sessionId=abc; Secure; HttpOnly; SameSite=Strict';",
+            "explanation": "Web Storage APIs store data strictly on the client without automatically transmitting payloads over HTTP."
+          },
+          "interactiveQuiz": {
+            "question": "Which web storage mechanism automatically attaches its stored data to every outgoing HTTP request header?",
+            "options": ["localStorage", "sessionStorage", "IndexedDB", "Cookies"],
+            "correctIndex": 3,
+            "explanation": "Cookies are automatically passed in HTTP request headers, making them suitable for session tokens."
+          }
+        },
+        {
+          "id": "q12-form-input-types",
+          "title": "Q12: What modern HTML5 <input> types exist and what benefits do they offer?",
+          "content": "HTML5 introduced input types like `email`, `url`, `tel`, `number`, `range`, `date`, `color`, and `search`. These inputs provide native client-side validation, improve mobile accessibility by launching optimized virtual keyboards (e.g., numeric keypads for `type=\"number\"` or email layout for `type=\"email\"`), and provide built-in UI controls.",
+          "keyTakeaways": [
+            "Triggers mobile virtual keyboard adaptations (e.g. `@` keys for email).",
+            "Provides native browser input validation prior to form submission."
+          ],
+          "codeExample": {
+            "title": "HTML5 Specialized Form Inputs",
+            "language": "html",
+            "code": "<form>\n  <label for=\"email\">Email:</label>\n  <input type=\"email\" id=\"email\" required>\n\n  <label for=\"age\">Age:</label>\n  <input type=\"number\" id=\"age\" min=\"18\" max=\"99\">\n\n  <label for=\"dob\">Birthdate:</label>\n  <input type=\"date\" id=\"dob\">\n</form>",
+            "explanation": "Specialized input types prompt appropriate virtual keyboard modes on mobile devices and handle parsing validation."
+          },
+          "interactiveQuiz": {
+            "question": "What is a primary usability benefit of using <input type='tel'> on mobile devices?",
+            "options": [
+              "Automatically encrypts telephone numbers using HTTPS",
+              "Displays a numeric telephone keypad layout on mobile devices",
+              "Validates country calling codes via DNS",
+              "Dials the phone number on change"
+            ],
+            "correctIndex": 1,
+            "explanation": "`type=\"tel\"` invokes the mobile telephone keypad layout for easier phone number entry."
+          }
+        },
+        {
+          "id": "q13-form-validation-attributes",
+          "title": "Q13: How do native HTML5 form validation attributes work?",
+          "content": "HTML5 provides declarative validation attributes such as `required`, `minlength`, `maxlength`, `min`, `max`, `step`, and `pattern` (regular expressions). Browsers evaluate these constraints before triggering form submit actions and prevent form submission while displaying localized error popups if validation fails.",
+          "keyTakeaways": [
+            "`required` enforces non-empty input fields.",
+            "`pattern=\"[A-Z]{3}\"` validates input against explicit Regular Expressions."
+          ],
+          "codeExample": {
+            "title": "Native Declarative Form Validation",
+            "language": "html",
+            "code": "<form>\n  <!-- Must be 5 digits -->\n  <label for=\"zip\">Zip Code:</label>\n  <input type=\"text\" id=\"zip\" pattern=\"[0-9]{5}\" title=\"5 digit zip code\" required>\n  <button type=\"submit\">Submit</button>\n</form>",
+            "explanation": "If the entered value fails the `pattern` regular expression, the browser halts form submission and shows validation feedback."
+          },
+          "interactiveQuiz": {
+            "question": "Which attribute on a <form> element completely turns off native browser validation checks?",
+            "options": ["disabled", "novalidate", "autocomplete=\"off\"", "type=\"unvalidated\""],
+            "correctIndex": 1,
+            "explanation": "Adding `novalidate` to a `<form>` disables native browser validation checking during form submission."
+          }
+        },
+        {
+          "id": "q14-datalist-tag",
+          "title": "Q14: What is the <datalist> tag and how does it complement <input>?",
+          "content": "The `<datalist>` tag provides an autocomplete list of pre-defined options for an `<input>` element. Unlike a fixed `<select>` dropdown, `<datalist>` allows users to choose from suggested options or enter custom values freely.",
+          "keyTakeaways": [
+            "Connects to an `<input>` via matching `list` attribute ID references.",
+            "Combines flexible text input with suggested autocomplete options."
+          ],
+          "codeExample": {
+            "title": "Input Autocomplete with <datalist>",
+            "language": "html",
+            "code": "<label for=\"browser\">Choose a browser:</label>\n<input list=\"browsers\" id=\"browser\" name=\"browser\">\n\n<datalist id=\"browsers\">\n  <option value=\"Chrome\">\n  <option value=\"Firefox\">\n  <option value=\"Safari\">\n  <option value=\"Edge\">\n</datalist>",
+            "explanation": "The `list=\"browsers\"` attribute links the input to the `<datalist id=\"browsers\">` suggestions container."
+          },
+          "interactiveQuiz": {
+            "question": "How does an <input> element bind to a <datalist> container?",
+            "options": [
+              "Using the input's list attribute matching the datalist's id",
+              "By nesting the <input> inside the <datalist>",
+              "Using the for attribute on the datalist",
+              "Via data-target attributes"
+            ],
+            "correctIndex": 0,
+            "explanation": "An `<input list=\"my-id\">` associates with `<datalist id=\"my-id\">` through matching identifier strings."
+          }
+        },
+        {
+          "id": "q15-aria-accessibility",
+          "title": "Q15: What is ARIA (Accessible Rich Internet Applications) and when should it be used?",
+          "content": "ARIA is a set of roles, states, and properties (`role=\"...\"`, `aria-label=\"...\"`, `aria-expanded=\"...\"`) defined by the W3C to make web content accessible to assistive technology. **First Rule of ARIA**: Use native semantic HTML elements (`<button>`, `<nav>`) whenever possible before applying ARIA attributes to generic elements.",
+          "keyTakeaways": [
+            "Enhances accessibility when native semantic elements are insufficient.",
+            "First Rule of ARIA: Prefer native semantic tags over ARIA attributes on `<div>` nodes."
+          ],
+          "codeExample": {
+            "title": "Accessible Toggle Button with ARIA",
+            "language": "html",
+            "code": "<!-- Native button preferred -->\n<button aria-expanded=\"false\" aria-controls=\"menu-content\">\n  Toggle Menu\n</button>\n\n<div id=\"menu-content\" hidden>\n  <a href=\"/link\">Link 1</a>\n</div>",
+            "explanation": "`aria-expanded` and `aria-controls` communicate state changes to screen reader users."
+          },
+          "interactiveQuiz": {
+            "question": "What is the First Rule of ARIA according to W3C guidelines?",
+            "options": [
+              "Always add ARIA roles to every HTML tag",
+              "Use native semantic HTML elements instead of re-purposing elements with ARIA whenever possible",
+              "Use ARIA exclusively for mobile design",
+              "Replace screen readers with ARIA speech engines"
+            ],
+            "correctIndex": 1,
+            "explanation": "Native semantic HTML elements provide built-in keyboard accessibility and accessibility tree roles automatically."
+          }
+        },
+        {
+          "id": "q16-label-associations",
+          "title": "Q16: How do you associate a <label> with a form input correctly?",
+          "content": "Explicit association uses the `<label for=\"input-id\">` matching the `<input id=\"input-id\">`. Implicit association nests the `<input>` inside the `<label>` tag. Explicit association is widely preferred for robust assistive technology support.",
+          "keyTakeaways": [
+            "Explicit association matches `<label for=\"ID\">` with `<input id=\"ID\">`.",
+            "Increases click target size and announces input names to screen readers."
+          ],
+          "codeExample": {
+            "title": "Explicit Form Label Binding",
+            "language": "html",
+            "code": "<!-- Explicit Association (Recommended) -->\n<label for=\"username\">Username:</label>\n<input type=\"text\" id=\"username\" name=\"username\">\n\n<!-- Implicit Association -->\n<label>\n  Password:\n  <input type=\"password\" name=\"password\">\n</label>",
+            "explanation": "Clicking the associated `<label>` text focuses the corresponding form field automatically."
+          },
+          "interactiveQuiz": {
+            "question": "Which attribute on a <label> establishes explicit binding to an input's id?",
+            "options": ["name", "for", "target", "id"],
+            "correctIndex": 1,
+            "explanation": "The `for` attribute matches the target input's `id` attribute."
+          }
+        },
+        {
+          "id": "q17-canvas-vs-svg",
+          "title": "Q17: What is the difference between <canvas> and <svg>?",
+          "content": "- `<canvas>`: Immediate-mode raster surface drawn procedurally via JavaScript. Resolution-dependent, highly performant for thousands of animated objects (games, data visualizations), but has no internal DOM node tree.\n- `<svg>`: Retained-mode XML vector graphic format. Resolution-independent (scales crisply), supports CSS styling and event listeners on individual vector DOM shape nodes.",
+          "keyTakeaways": [
+            "`<canvas>` is raster-based and drawn procedurally using JS canvas context APIs.",
+            "`<svg>` is vector-based XML maintaining DOM shape nodes editable via CSS/JS."
+          ],
+          "codeExample": {
+            "title": "Canvas Drawing vs SVG Markup",
+            "language": "html",
+            "code": "<!-- Canvas (Raster drawn via JS) -->\n<canvas id=\"myCanvas\" width=\"200\" height=\"100\"></canvas>\n<script>\n  const ctx = document.getElementById('myCanvas').getContext('2d');\n  ctx.fillRect(10, 10, 50, 50);\n</script>\n\n<!-- SVG (DOM Vector nodes) -->\n<svg width=\"100\" height=\"100\">\n  <circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"red\" />\n</svg>",
+            "explanation": "SVG elements exist in the DOM and accept click handlers directly, whereas `<canvas>` renders pixels to a flat surface."
+          },
+          "interactiveQuiz": {
+            "question": "Which graphics format is resolution-independent and represented as XML nodes in the DOM?",
+            "options": ["<canvas>", "<svg>", "<img format=\"raster\">", "<picture>"],
+            "correctIndex": 1,
+            "explanation": "SVG is an XML vector graphics format maintaining selectable vector elements within the document DOM tree."
+          }
+        },
+        {
+          "id": "q18-meta-charset-utf8",
+          "title": "Q18: Why is <meta charset='UTF-8'> necessary in web documents?",
+          "content": "The `<meta charset=\"UTF-8\">` tag specifies the character encoding of the HTML document. UTF-8 covers almost all human languages, symbols, and emojis. Placing this tag early inside `<head>` prevents character corruption, cross-site scripting (XSS) character encoding exploits, and unexpected symbol rendering.",
+          "keyTakeaways": [
+            "Guarantees correct character parsing across human languages and symbols.",
+            "Must be placed within the first 1024 bytes of the document inside `<head>`."
+          ],
+          "codeExample": {
+            "title": "Declaring UTF-8 Encoding",
+            "language": "html",
+            "code": "<head>\n  <meta charset=\"UTF-8\">\n  <title>Global Web Page</title>\n</head>",
+            "explanation": "Declaring UTF-8 early ensures the browser parses subsequent textual characters correctly."
+          },
+          "interactiveQuiz": {
+            "question": "Where should the <meta charset=\"UTF-8\"> declaration be positioned in an HTML file?",
+            "options": [
+              "At the very end of <body>",
+              "Early within the <head> section before any textual content",
+              "Inside a <script> block",
+              "It is obsolete and should not be included"
+            ],
+            "correctIndex": 1,
+            "explanation": "Placing encoding declarations early in `<head>` ensures character parsing rules apply before rendering text."
+          }
+        },
+        {
+          "id": "q19-audio-video-media-tags",
+          "title": "Q19: How do native <audio> and <video> tags work with fallbacks?",
+          "content": "HTML5 `<audio>` and `<video>` tags allow embedding media natively without plugins. Nested `<source>` elements allow offering multiple file format codecs (e.g., MP4 and WebM), while fallback markup provides messaging for legacy browsers.",
+          "keyTakeaways": [
+            "Nested `<source>` elements allow browsers to choose supported format codecs.",
+            "Attributes like `controls`, `autoplay`, `muted`, and `loop` configure playback behavior."
+          ],
+          "codeExample": {
+            "title": "HTML5 Video Player with Fallbacks",
+            "language": "html",
+            "code": "<video controls width=\"600\" poster=\"thumbnail.jpg\">\n  <source src=\"movie.webm\" type=\"video/webm\">\n  <source src=\"movie.mp4\" type=\"video/mp4\">\n  Your browser does not support HTML5 video.\n</video>",
+            "explanation": "The browser attempts to play WebM first; if unsupported, it falls back to MP4."
+          },
+          "interactiveQuiz": {
+            "question": "Which video attribute is required by modern browsers to allow video autoplay without user interaction?",
+            "options": ["loop", "poster", "muted", "controls"],
+            "correctIndex": 2,
+            "explanation": "Modern browsers block unmuted video autoplay to prevent unexpected audio output; `muted` is required for autoplay."
+          }
+        },
+        {
+          "id": "q20-rel-noopener-noreferrer",
+          "title": "Q20: What is the purpose of rel='noopener noreferrer' on external links?",
+          "content": "When opening external links using `target=\"_blank\"`, the newly opened page gains access to the originating page's `window.opener` object, creating a security vulnerability (reverse tabnabbing). `rel=\"noopener\"` prevents `window.opener` access. `rel=\"noreferrer\"` also prevents sending the `Referer` HTTP header.",
+          "keyTakeaways": [
+            "Prevents reverse tabnabbing attacks on `target=\"_blank\"` links.",
+            "Blocks third-party destination sites from manipulating `window.opener`."
+          ],
+          "codeExample": {
+            "title": "Securing External Target Blank Links",
+            "language": "html",
+            "code": "<!-- Secure external link -->\n<a href=\"https://external.com\" target=\"_blank\" rel=\"noopener noreferrer\">\n  Visit External Site\n</a>",
+            "explanation": "`rel=\"noopener\"` severs the connection between the new tab's `window.opener` property and the origin page."
+          },
+          "interactiveQuiz": {
+            "question": "What security vulnerability is mitigated by adding rel=\"noopener\" to target=\"_blank\" links?",
+            "options": [
+              "SQL Injection",
+              "Reverse Tabnabbing (unauthorized redirection of originating tab via window.opener)",
+              "Cross-Site Request Forgery",
+              "CSS Redefinition"
+            ],
+            "correctIndex": 1,
+            "explanation": "`rel=\"noopener\"` blocks external tabs from using `window.opener.location` to redirect the parent tab."
+          }
+        },
+        {
+          "id": "q21-contenteditable-attribute",
+          "title": "Q21: What is the contenteditable attribute in HTML?",
+          "content": "The `contenteditable` attribute is an enumerated attribute that makes standard HTML elements (such as `<div>` or `<p>`) editable directly by users in the browser interface. It forms the foundation for Rich Text Editors (WYSIWYG editors) on the web.",
+          "keyTakeaways": [
+            "Transforms standard DOM nodes into inline editable areas.",
+            "Can be controlled using JavaScript DOM selection APIs."
+          ],
+          "codeExample": {
+            "title": "Editable Content Element",
+            "language": "html",
+            "code": "<div contenteditable=\"true\" style=\"border: 1px solid #ccc; padding: 10px;\">\n  This text can be edited directly by the user in the browser.\n</div>",
+            "explanation": "Setting `contenteditable=\"true\"` allows users to edit inner HTML/text content directly."
+          },
+          "interactiveQuiz": {
+            "question": "What primary feature is built using the contenteditable attribute?",
+            "options": [
+              "WYSIWYG Rich Text Editors",
+              "Client-side SQLite databases",
+              "CSS Animation Keyframes",
+              "Native Form Validation Rules"
+            ],
+            "correctIndex": 0,
+            "explanation": "`contenteditable` allows developers to construct interactive Rich Text WYSIWYG editors."
+          }
+        },
+        {
+          "id": "q22-custom-data-attributes",
+          "title": "Q22: What are custom data attributes (data-*) and how are they accessed in JavaScript?",
+          "content": "Custom data attributes (`data-*`) allow embedding custom metadata directly on standard HTML elements without violating HTML specifications. In JavaScript, these values are accessed via the element's `.dataset` DOM property or using `getAttribute()`. In CSS, they are selected via attribute selectors `[data-state='active']`.",
+          "keyTakeaways": [
+            "Store arbitrary custom data formatted as `data-attribute-name`.",
+            "Read and write values in JavaScript via `element.dataset.attributeName`."
+          ],
+          "codeExample": {
+            "title": "Custom Data Attributes Usage",
+            "language": "html",
+            "code": "<button id=\"userBtn\" data-user-id=\"9876\" data-role=\"admin\">User Profile</button>\n\n<script>\n  const btn = document.getElementById('userBtn');\n  console.log(btn.dataset.userId); // Output: \"9876\"\n  console.log(btn.dataset.role);   // Output: \"admin\"\n</script>",
+            "explanation": "`data-user-id` converts to camelCase `dataset.userId` inside JavaScript."
+          },
+          "interactiveQuiz": {
+            "question": "How does the HTML attribute data-user-role map into JavaScript's dataset object?",
+            "options": [
+              "element.dataset['data-user-role']",
+              "element.dataset.userRole",
+              "element.dataset.user_role",
+              "element.dataset.UserRole"
+            ],
+            "correctIndex": 1,
+            "explanation": "Hyphenated `data-*` names automatically map to camelCase keys inside `element.dataset`."
+          }
+        },
+        {
+          "id": "q23-template-and-slot-tags",
+          "title": "Q23: What are the <template> and <slot> tags in Web Components?",
+          "content": "The `<template>` tag holds client-side HTML markup that is parsed by the browser but **not rendered** on initial page load. It can be instantiated later via JavaScript using `importNode()`. The `<slot>` tag acts as a placeholder inside Web Component Shadow DOM trees into which light DOM content can be inserted.",
+          "keyTakeaways": [
+            "`<template>` content remains inert until cloned via JavaScript.",
+            "`<slot>` defines injection placeholders inside Shadow DOM components."
+          ],
+          "codeExample": {
+            "title": "Cloning an HTML Template",
+            "language": "html",
+            "code": "<template id=\"card-template\">\n  <div class=\"card\">\n    <h3 class=\"title\"></h3>\n  </div>\n</template>\n\n<script>\n  const temp = document.getElementById('card-template');\n  const clone = temp.content.cloneNode(true);\n  clone.querySelector('.title').textContent = 'Dynamic Card Title';\n  document.body.appendChild(clone);\n</script>",
+            "explanation": "Template content stays dormant until cloned and appended into the document tree."
+          },
+          "interactiveQuiz": {
+            "question": "Does content inside a <template> element execute scripts or load images during initial document parsing?",
+            "options": [
+              "Yes, scripts run immediately on page load",
+              "No, template content is inert until instantiated and appended to the DOM",
+              "Images load, but scripts are deferred",
+              "Templates render as hidden CSS blocks"
+            ],
+            "correctIndex": 1,
+            "explanation": "Markup within `<template>` remains inert (no media downloads, no script execution) until cloned."
+          }
+        },
+        {
+          "id": "q24-microdata-schema-org",
+          "title": "Q24: What is Microdata and Structured Data (JSON-LD) in HTML?",
+          "content": "Structured Data (Microdata attributes like `itemscope`, `itemtype`, or JSON-LD script blocks) provides machine-readable metadata about page entities (products, articles, recipes, events). Search engines use structured data to render Rich Snippets (star ratings, prices, event dates) in search results.",
+          "keyTakeaways": [
+            "Annotates page content with standard Schema.org vocabulary schemas.",
+            "Enables Rich Search Engine Result Page (SERP) features."
+          ],
+          "codeExample": {
+            "title": "Structured Data using JSON-LD",
+            "language": "html",
+            "code": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Product\",\n  \"name\": \"Wireless Headphones\",\n  \"offers\": {\n    \"@type\": \"Offer\",\n    \"price\": \"99.99\",\n    \"priceCurrency\": \"USD\"\n  }\n}\n</script>",
+            "explanation": "JSON-LD script blocks supply search engine crawlers with structured product data."
+          },
+          "interactiveQuiz": {
+            "question": "What is the primary benefit of embedding JSON-LD structured data in an HTML document?",
+            "options": [
+              "Improves CSS animation framerates",
+              "Allows search engines to display Rich Snippets in search results",
+              "Encrypted data storage on the client",
+              "Replaces JavaScript event handlers"
+            ],
+            "correctIndex": 1,
+            "explanation": "Structured data enables search engines to display rich result snippets (pricing, ratings, events)."
+          }
+        },
+        {
+          "id": "q25-web-accessibility-tree",
+          "title": "Q25: What is the Accessibility Tree and how does it relate to the DOM?",
+          "content": "The Accessibility Tree is created by the browser based on the DOM tree. The browser translates DOM elements into accessibility nodes containing roles, names, states, and properties. Screen readers and assistive technologies consume the Accessibility Tree rather than inspecting the raw DOM directly.",
+          "keyTakeaways": [
+            "Parallel data structure built by browsers alongside the DOM tree.",
+            "Consumed directly by screen readers to announce UI roles and states."
+          ],
+          "codeExample": {
+            "title": "DOM to Accessibility Tree Node Mapping",
+            "language": "html",
+            "code": "<!-- DOM Node -->\n<button aria-label=\"Close modal\">X</button>\n\n<!-- Accessibility Tree Mapping -->\n<!-- Role: button | Name: \"Close modal\" | Action: click -->",
+            "explanation": "`aria-label` overrides the textual content 'X', presenting the accessible name 'Close modal' to screen readers."
+          },
+          "interactiveQuiz": {
+            "question": "Which software technology consumes the Accessibility Tree to communicate web interfaces to visually impaired users?",
+            "options": ["CSS Preprocessors", "Screen Readers", "SQL Databases", "V8 JIT Compilers"],
+            "correctIndex": 1,
+            "explanation": "Screen readers parse Accessibility Tree nodes to speak roles, accessible names, and states to users."
+          }
+        },
+        {
+          "id": "q26-figure-figcaption",
+          "title": "Q26: How are <figure> and <figcaption> used together?",
+          "content": "The `<figure>` element represents self-contained content (like diagrams, photos, code snippets, or illustrations), and `<figcaption>` supplies an optional caption or legend for its parent `<figure>` container.",
+          "keyTakeaways": [
+            "`<figure>` encapsulates independent illustrative media.",
+            "`<figcaption>` must be placed as the first or last child inside `<figure>`."
+          ],
+          "codeExample": {
+            "title": "Figure with Associated Figcaption",
+            "language": "html",
+            "code": "<figure>\n  <img src=\"chart.png\" alt=\"Quarterly Sales Chart\">\n  <figcaption>Figure 1.1: Company quarterly revenue growth.</figcaption>\n</figure>",
+            "explanation": "Semantic pairing binds the visual graphic directly to its explanatory caption text."
+          },
+          "interactiveQuiz": {
+            "question": "Where must a <figcaption> tag be placed relative to its associated media?",
+            "options": [
+              "As a direct child inside a <figure> element",
+              "Inside the <img> tag",
+              "At the top of the <main> landmark",
+              "Inside the <head> section"
+            ],
+            "correctIndex": 0,
+            "explanation": "`<figcaption>` must be nested directly within a `<figure>` element."
+          }
+        },
+        {
+          "id": "q27-details-summary-tags",
+          "title": "Q27: How do native disclosure widgets work using <details> and <summary>?",
+          "content": "The `<details>` tag creates an interactive disclosure widget that can be expanded or collapsed without JavaScript. The `<summary>` element provides the visible label heading for the widget. Adding the `open` attribute expands the widget by default.",
+          "keyTakeaways": [
+            "Creates native collapsable accordions without requiring custom JavaScript.",
+            "Presence of `open` attribute controls expanded state."
+          ],
+          "codeExample": {
+            "title": "Native Collapsible Accordion",
+            "language": "html",
+            "code": "<details>\n  <summary>Frequently Asked Questions</summary>\n  <p>Here are the detailed answers to common inquiries.</p>\n</details>",
+            "explanation": "Clicking the `<summary>` element toggles the disclosure visibility of the nested `<p>` tag natively."
+          },
+          "interactiveQuiz": {
+            "question": "Which attribute expands a <details> element by default upon page load?",
+            "options": ["expanded", "open", "active", "visible"],
+            "correctIndex": 1,
+            "explanation": "Setting `<details open>` forces the disclosure widget to display in its expanded state on load."
+          }
+        },
+        {
+          "id": "q28-head-title-seo",
+          "title": "Q28: What is the significance of the <title> tag for Web Accessibility and SEO?",
+          "content": "The `<title>` tag defines the document name displayed in browser tab titles, bookmarks, and search engine results. It is the **first element announced** by screen readers when navigating to a new page, making accurate, unique titles critical for accessibility and search ranking.",
+          "keyTakeaways": [
+            "Crucial for screen readers, search engines, and browser tab identification.",
+            "Should be unique and descriptive for every page in a web application."
+          ],
+          "codeExample": {
+            "title": "Page Title Best Practice",
+            "language": "html",
+            "code": "<head>\n  <title>Shopping Cart | Acme Store</title>\n</head>",
+            "explanation": "Descriptive titles help search engines categorize pages and give screen reader users immediate context."
+          },
+          "interactiveQuiz": {
+            "question": "Why is a unique <title> tag critical when users navigate a Single Page Application (SPA)?",
+            "options": [
+              "Screen readers announce title updates to inform users that route navigation occurred",
+              "It resets CSS stylesheet rules",
+              "It forces a full TCP connection reload",
+              "It re-allocates JavaScript heap memory"
+            ],
+            "correctIndex": 0,
+            "explanation": "Updating document titles on route transitions notifies screen reader users that a new view has loaded."
+          }
+        },
+        {
+          "id": "q29-meta-robots",
+          "title": "Q29: What is the purpose of <meta name='robots'> directives?",
+          "content": "The `<meta name=\"robots\">` tag controls search engine indexing and link-following behavior for individual pages. Common directives include `index`/`noindex` (whether to index the page) and `follow`/`nofollow` (whether to follow links on the page).",
+          "keyTakeaways": [
+            "`noindex` prevents search engines from indexing private or staging pages.",
+            "`nofollow` tells crawlers not to follow links listed on the page."
+          ],
+          "codeExample": {
+            "title": "Blocking Search Engine Indexing",
+            "language": "html",
+            "code": "<head>\n  <!-- Prevent indexing and link following on admin pages -->\n  <meta name=\"robots\" content=\"noindex, nofollow\">\n</head>",
+            "explanation": "Tells search engine spiders to skip indexing the document and avoid following page hyper-links."
+          },
+          "interactiveQuiz": {
+            "question": "Which meta robots directive prevents search engines from adding a page to search index results?",
+            "options": ["nofollow", "noindex", "nosnippet", "noarchive"],
+            "correctIndex": 1,
+            "explanation": "`noindex` instructs search engine crawlers not to display the page in search results."
+          }
+        },
+        {
+          "id": "q30-svg-inline-vs-img",
+          "title": "Q30: What are the advantages of using Inline <svg> over embedding SVG via <img src='...'>?",
+          "content": "Inline SVG elements are injected directly into the HTML DOM. This allows developers to manipulate individual SVG vector shapes using CSS (`fill`, `stroke`, hover animations) and JavaScript event listeners. Embedded `<img src=\"vector.svg\">` images cannot be styled or targeted with CSS/JS internally.",
+          "keyTakeaways": [
+            "Inline SVG enables direct CSS shape styling (`fill`, `stroke`) and JS interactivity.",
+            "Embedding via `<img>` isolates the SVG into a separate un-styleable context."
+          ],
+          "codeExample": {
+            "title": "Styling Inline SVG via CSS",
+            "language": "html",
+            "code": "<style>\n  .icon:hover { fill: #6366f1; }\n</style>\n\n<svg class=\"icon\" width=\"24\" height=\"24\">\n  <circle cx=\"12\" cy=\"12\" r=\"10\" />\n</svg>",
+            "explanation": "Inline SVG paths and shapes accept direct CSS hover state fills and transitions."
+          },
+          "interactiveQuiz": {
+            "question": "What CSS capability is lost when rendering an SVG graphic using <img src=\"file.svg\">?",
+            "options": [
+              "Scaling the image dimensions",
+              "Styling individual internal SVG path shapes using CSS fill or stroke rules",
+              "Positioning the image using flexbox",
+              "Setting CSS margins"
+            ],
+            "correctIndex": 1,
+            "explanation": "`<img src>` isolates vector markup, preventing external CSS rules from targeting internal SVG paths."
+          }
+        },
+        {
+          "id": "q31-head-base-tag",
+          "title": "Q31: What is the <base> tag and how does it affect relative URLs?",
+          "content": "The `<base>` element specifies the base URL and default target for all relative URLs in a document. There can be at most one `<base>` element in a document, and it must be inside the `<head>` section.",
+          "keyTakeaways": [
+            "Establishes a baseline URL for all relative `href` and `src` paths.",
+            "Can set global `target=\"_blank\"` defaults for page hyperlinks."
+          ],
+          "codeExample": {
+            "title": "Setting Baseline URL",
+            "language": "html",
+            "code": "<head>\n  <base href=\"https://cdn.example.com/assets/\" target=\"_blank\">\n</head>\n<body>\n  <!-- Resolves to: https://cdn.example.com/assets/logo.png -->\n  <img src=\"logo.png\" alt=\"Logo\">\n</body>",
+            "explanation": "Relative paths automatically append onto the base URL defined in the `<base>` tag."
+          },
+          "interactiveQuiz": {
+            "question": "How many <base> tags are permitted in an HTML document?",
+            "options": ["Unlimited", "One per section", "Maximum of one inside <head>", "None"],
+            "correctIndex": 2,
+            "explanation": "HTML specifications permit a maximum of one `<base>` tag positioned inside the `<head>`."
+          }
+        },
+        {
+          "id": "q32-html-entities",
+          "title": "Q32: What are HTML Character Entities and why are they used?",
+          "content": "HTML Entities are special code sequences used to display reserved characters (like `<`, `>`, `&`, `\"`) that would otherwise be interpreted as HTML markup, or to render invisible and non-keyboard characters (like `&nbsp;`, `&copy;`).",
+          "keyTakeaways": [
+            "Prevents browsers from misinterpreting text as HTML tags (`&lt;` for `<`).",
+            "Encodes non-ASCII symbols and special characters."
+          ],
+          "codeExample": {
+            "title": "Escaping Reserved Characters",
+            "language": "html",
+            "code": "<!-- Displays literally: <div>Content</div> -->\n<p>&lt;div&gt;Content&lt;/div&gt;</p>\n\n<!-- Copyright symbol -->\n<p>&copy; 2026 Acme Corp</p>",
+            "explanation": "Character entities ensure reserved syntax symbols display as plain text."
+          },
+          "interactiveQuiz": {
+            "question": "Which entity represents the less-than symbol (<) safely in HTML?",
+            "options": ["&gt;", "&lt;", "&amp;", "&nbsp;"],
+            "correctIndex": 1,
+            "explanation": "`&lt;` (Less Than) escapes `<` characters to avoid triggering HTML tag parsing."
+          }
+        },
+        {
+          "id": "q33-iframe-loading-lazy",
+          "title": "Q33: How does native loading='lazy' work on <iframe> and <img> tags?",
+          "content": "The `loading=\"lazy\"` attribute defers fetching off-screen images and iframes until the user scrolls near them. This improves initial page load speed, reduces initial bandwidth consumption, and lowers memory usage.",
+          "keyTakeaways": [
+            "Defers loading off-screen assets until scrolled near the viewport threshold.",
+            "Native browser implementation requires no external JavaScript libraries."
+          ],
+          "codeExample": {
+            "title": "Native Deferred Asset Loading",
+            "language": "html",
+            "code": "<img src=\"large-image.jpg\" alt=\"Landscape\" loading=\"lazy\">\n<iframe src=\"https://maps.example.com\" loading=\"lazy\"></iframe>",
+            "explanation": "Browsers defer network fetches until the elements approach the active viewport area."
+          },
+          "interactiveQuiz": {
+            "question": "What is the primary performance benefit of adding loading=\"lazy\" to images placed below the fold?",
+            "options": [
+              "Applies image compression automatically",
+              "Reduces initial network payload and speeds up initial page load metrics",
+              "Converts images into inline SVG vectors",
+              "Disables CSS layout reflows"
+            ],
+            "correctIndex": 1,
+            "explanation": "`loading=\"lazy\"` delays fetching below-the-fold media, reducing initial network traffic."
+          }
+        },
+        {
+          "id": "q34-ol-vs-ul-vs-dl",
+          "title": "Q34: What are the structural differences between <ol>, <ul>, and <dl> lists?",
+          "content": "- `<ol>`: Ordered list where item sequence matters (numbered).\n- `<ul>`: Unordered list where item sequence is arbitrary (bulleted).\n- `<dl>`: Description list containing term (`<dt>`) and description (`<dd>`) key-value pairs (glossaries, metadata, key-value data).",
+          "keyTakeaways": [
+            "`<ol>` and `<ul>` contain `<li>` child elements.",
+            "`<dl>` contains paired `<dt>` (term) and `<dd>` (description) elements."
+          ],
+          "codeExample": {
+            "title": "Description List Structure",
+            "language": "html",
+            "code": "<dl>\n  <dt>HTML</dt>\n  <dd>HyperText Markup Language</dd>\n  <dt>CSS</dt>\n  <dd>Cascading Style Sheets</dd>\n</dl>",
+            "explanation": "Description lists structure key-value relationships such as terminology glossaries or configuration pairs."
+          },
+          "interactiveQuiz": {
+            "question": "Which child tags are valid direct descendants of a Description List (<dl>)?",
+            "options": ["<li> only", "<dt> and <dd>", "<option> and <optgroup>", "<section> and <article>"],
+            "correctIndex": 1,
+            "explanation": "Description lists `<dl>` hold term `<dt>` and description `<dd>` child nodes."
+          }
+        },
+        {
+          "id": "q35-form-enctype",
+          "title": "Q35: What is the enctype attribute on HTML forms and when must it be changed?",
+          "content": "The `enctype` attribute specifies how form data is encoded before transmission to the server. Default is `application/x-www-form-urlencoded`. When uploading files via `<input type=\"file\">`, `enctype` **must** be set to `multipart/form-data`.",
+          "keyTakeaways": [
+            "Default `application/x-www-form-urlencoded` encodes form data as query strings.",
+            "File uploads strictly require `multipart/form-data`."
+          ],
+          "codeExample": {
+            "title": "Multipart Encoding for File Uploads",
+            "language": "html",
+            "code": "<form action=\"/upload\" method=\"POST\" enctype=\"multipart/form-data\">\n  <label for=\"file\">Choose document:</label>\n  <input type=\"file\" id=\"file\" name=\"document\">\n  <button type=\"submit\">Upload</button>\n</form>",
+            "explanation": "Setting `enctype=\"multipart/form-data\"` prevents binary file data from being corrupted during transmission."
+          },
+          "interactiveQuiz": {
+            "question": "Which enctype option must be set on a <form> to handle binary file uploads?",
+            "options": ["application/x-www-form-urlencoded", "text/plain", "multipart/form-data", "application/json"],
+            "correctIndex": 2,
+            "explanation": "`multipart/form-data` is required to stream binary file payloads to backend servers."
+          }
+        },
+        {
+          "id": "q36-button-types",
+          "title": "Q36: What are the three type attributes for <button> elements and why is default type dangerous?",
+          "content": "Button types are `submit` (submits parent form), `reset` (resets form fields), and `button` (no default behavior, controlled via JS). By specification, the default type inside a `<form>` is `submit`, which can cause unintended form submissions if omitted.",
+          "keyTakeaways": [
+            "Types: `type=\"submit\"`, `type=\"button\"`, `type=\"reset\"`.",
+            "Always specify `type=\"button\"` on non-submitting interface buttons."
+          ],
+          "codeExample": {
+            "title": "Explicit Button Types",
+            "language": "html",
+            "code": "<form>\n  <!-- Submits form by default -->\n  <button type=\"submit\">Submit Form</button>\n\n  <!-- Safe JS trigger: will NOT submit form -->\n  <button type=\"button\" onclick=\"doSomething()\">Action</button>\n</form>",
+            "explanation": "Omitting the type attribute inside a form causes buttons to behave as `type=\"submit\"` by default."
+          },
+          "interactiveQuiz": {
+            "question": "What is the default type attribute of a <button> placed inside an HTML form if omitted?",
+            "options": ["type=\"button\"", "type=\"submit\"", "type=\"reset\"", "type=\"none\""],
+            "correctIndex": 1,
+            "explanation": "Unassigned buttons inside forms default to `type=\"submit\"`, triggering implicit form submission on click."
+          }
+        },
+        {
+          "id": "q37-tabindex-accessibility",
+          "title": "Q37: How does the tabindex attribute affect keyboard focus order?",
+          "content": "- `tabindex=\"0\"`: Inserts element into natural keyboard tab order matching DOM order.\n- `tabindex=\"-1\"`: Removes element from tab order, but allows programmatic focus via `.focus()`.\n- `tabindex=\"1+\"`: **Discouraged**. Sets explicit focus priority overriding natural DOM flow, creating confusing navigation traps.",
+          "keyTakeaways": [
+            "`tabindex=\"0\"` makes non-interactive elements focusable in DOM order.",
+            "`tabindex=\"-1\"` enables programmatic focus while removing from tab sequence."
+          ],
+          "codeExample": {
+            "title": "Managing Focus with tabindex",
+            "language": "html",
+            "code": "<!-- Focusable in natural tab order -->\n<div tabindex=\"0\">Custom Focusable Card</div>\n\n<!-- Focusable via JavaScript modal script only -->\n<div id=\"modal\" tabindex=\"-1\">Modal Window</div>",
+            "explanation": "`tabindex=\"-1\"` allows calling `document.getElementById('modal').focus()` without adding it to standard Tab keys."
+          },
+          "interactiveQuiz": {
+            "question": "What happens when an element is assigned tabindex=\"-1\"?",
+            "options": [
+              "It becomes completely unselectable in CSS",
+              "It is removed from sequential keyboard tabbing, but can receive focus programmatically via JS",
+              "It moves to the very first item in the tab order",
+              "It hides the element visually"
+            ],
+            "correctIndex": 1,
+            "explanation": "`tabindex=\"-1\"` removes elements from Tab order while keeping them focusable via `.focus()` calls."
+          }
+        },
+        {
+          "id": "q38-link-rel-canonical",
+          "title": "Q38: What is a canonical URL link tag (rel='canonical') and why is it used?",
+          "content": "The `<link rel=\"canonical\" href=\"...\">` tag specifies the definitive master URL for duplicate or near-duplicate pages (e.g., product pages with different sorting parameter query strings). It prevents duplicate content penalties in search engine indexing.",
+          "keyTakeaways": [
+            "Consolidates search engine indexing signals to a primary master URL.",
+            "Eliminates duplicate content penalties caused by URL query parameters."
+          ],
+          "codeExample": {
+            "title": "Canonical Link Declaration",
+            "language": "html",
+            "code": "<head>\n  <!-- Master authoritative page URL -->\n  <link rel=\"canonical\" href=\"https://example.com/products/phone\">\n</head>",
+            "explanation": "Search engines map parameterized page variants back to this authoritative canonical URL."
+          },
+          "interactiveQuiz": {
+            "question": "What issue does the rel=\"canonical\" link tag solve for SEO?",
+            "options": [
+              "Accelerates page JavaScript rendering",
+              "Resolves duplicate content issues by pointing search crawlers to the authoritative master URL",
+              "Prevents Cross-Site Scripting",
+              "Enables browser dark mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "Canonical links direct search engines to index the primary canonical URL for duplicate or parameterized pages."
+          }
+        },
+        {
+          "id": "q39-hidden-attribute",
+          "title": "Q39: What is the HTML5 hidden attribute and how does it compare to CSS display: none?",
+          "content": "The boolean `hidden` attribute indicates that an element is not currently relevant to the page state. Browsers apply `display: none` natively to `[hidden]` elements. However, an explicit CSS `display` rule will override the HTML `hidden` attribute unless styled explicitly with `[hidden] { display: none !important; }`.",
+          "keyTakeaways": [
+            "Native HTML attribute for hiding elements from view and accessibility trees.",
+            "Can be overridden by explicit CSS `display` property rules unless safeguarded."
+          ],
+          "codeExample": {
+            "title": "HTML hidden Attribute Usage",
+            "language": "html",
+            "code": "<!-- Native hiding attribute -->\n<div hidden>\n  This panel is hidden natively by the browser.\n</div>",
+            "explanation": "The browser applies user-agent stylesheet rule `[hidden] { display: none; }` to hide the container."
+          },
+          "interactiveQuiz": {
+            "question": "What CSS precedence rule applies if a CSS rule sets div { display: block; } on an element with <div hidden>?",
+            "options": [
+              "The element remains hidden",
+              "The CSS rule overrides the HTML hidden attribute and displays the element",
+              "The browser throws a stylesheet parsing warning",
+              "The div transforms into an inline element"
+            ],
+            "correctIndex": 1,
+            "explanation": "Author CSS rules take higher specificity precedence over user-agent `[hidden]` attribute defaults."
+          }
+        },
+        {
+          "id": "q40-web-vitals-dom-impact",
+          "title": "Q40: How does DOM node depth and tree size impact Core Web Vitals (INP / CLS)?",
+          "content": "Excessive DOM size (>1,500 nodes) or deep nesting (>32 levels) degrades web performance. Large DOM trees increase memory overhead, slow down query selectors, increase style computation costs, and prolong layout/reflow tasks, directly degrading **Interaction to Next Paint (INP)** and causing **Cumulative Layout Shift (CLS)** during dynamic DOM updates.",
+          "keyTakeaways": [
+            "Excessive DOM nodes slow down style calculations and layout reflows.",
+            "Degrades Interaction to Next Paint (INP) responsiveness metrics."
+          ],
+          "codeExample": {
+            "title": "Optimized Lean DOM Tree",
+            "language": "html",
+            "code": "<!-- Avoid Excessive Div Wrapping -->\n<!-- BAD: <div><div><div><span>Text</span></div></div></div> -->\n\n<!-- GOOD: Direct Lean Layout Structure -->\n<p class=\"card-title\">Text</p>",
+            "explanation": "Flattening DOM hierarchies reduces memory footprint and layout calculation passes."
+          },
+          "interactiveQuiz": {
+            "question": "Which Core Web Vital performance metric is directly degraded by heavy DOM recalculation rendering delays?",
+            "options": ["INP (Interaction to Next Paint)", "TTFB (Time to First Byte)", "DNS Lookup", "FCP"],
+            "correctIndex": 0,
+            "explanation": "Large DOM trees delay main thread rendering updates, directly increasing Interaction to Next Paint (INP) latency."
+          }
+        },
+        {
+          "id": "q41-noscript-tag",
+          "title": "Q41: What is the <noscript> tag and when is it rendered?",
+          "content": "The `<noscript>` element defines alternate content to display when JavaScript is explicitly disabled in the user's browser or if the browser does not support client-side scripting.",
+          "keyTakeaways": [
+            "Renders content exclusively when JavaScript execution is unavailable.",
+            "Used to notify users or supply non-JS fallback navigational workflows."
+          ],
+          "codeExample": {
+            "title": "JavaScript Disabled Fallback",
+            "language": "html",
+            "code": "<noscript>\n  <div class=\"warning\">\n    JavaScript is disabled in your browser. Please enable JS for full interactive functionality.\n  </div>\n</noscript>",
+            "explanation": "The inner warning displays only if the client browser halts JavaScript execution."
+          },
+          "interactiveQuiz": {
+            "question": "When does the browser render content placed inside a <noscript> tag?",
+            "options": [
+              "When JavaScript execution is disabled or unsupported",
+              "When the server returns a 404 HTTP status code",
+              "When CSS stylesheets fail to load",
+              "Only on mobile devices"
+            ],
+            "correctIndex": 0,
+            "explanation": "`<noscript>` renders its inner nodes when client JavaScript processing is disabled."
+          }
+        },
+        {
+          "id": "q42-autofocus-attribute",
+          "title": "Q42: What is the autofocus attribute and why should it be used with caution?",
+          "content": "The `autofocus` attribute directs browser focus to a specific form element upon page load. It must be used cautiously because automatically moving focus can disorient screen reader users, scroll the page unexpectedly, or trigger mobile virtual keyboards unexpectedly.",
+          "keyTakeaways": [
+            "Automatically moves input cursor focus upon page load.",
+            "May disrupt accessibility flow for screen reader users if unexpected."
+          ],
+          "codeExample": {
+            "title": "Input Autofocus Usage",
+            "language": "html",
+            "code": "<form>\n  <label for=\"search\">Search Query:</label>\n  <input type=\"text\" id=\"search\" autofocus>\n</form>",
+            "explanation": "Placing `autofocus` automatically places cursor focus inside the search box upon loading."
+          },
+          "interactiveQuiz": {
+            "question": "Why can auto-focusing inputs automatically create accessibility issues?",
+            "options": [
+              "It strips form validation constraints",
+              "It can jump screen reader focus unexpectedly and bypass page header content",
+              "It disables input typing",
+              "It forces full page re-renders"
+            ],
+            "correctIndex": 1,
+            "explanation": "Stealing focus automatically forces screen readers to skip landmark announcements and context header sections."
+          }
+        },
+        {
+          "id": "q43-fieldset-legend",
+          "title": "Q43: What are <fieldset> and <legend> tags and why are they vital for forms?",
+          "content": "The `<fieldset>` tag groups related controls and elements within a form, while the `<legend>` tag defines a caption for that group. This structure is essential for accessible radio button or checkbox groups, allowing screen readers to announce the group legend alongside each option.",
+          "keyTakeaways": [
+            "`<fieldset>` groups related form controls visually and semantically.",
+            "`<legend>` provides a group header announced by screen readers for inner controls."
+          ],
+          "codeExample": {
+            "title": "Accessible Radio Group with Fieldset",
+            "language": "html",
+            "code": "<fieldset>\n  <legend>Select Shipping Method:</legend>\n  \n  <input type=\"radio\" id=\"standard\" name=\"shipping\" value=\"standard\">\n  <label for=\"standard\">Standard Delivery</label>\n  \n  <input type=\"radio\" id=\"express\" name=\"shipping\" value=\"express\">\n  <label for=\"express\">Express Delivery</label>\n</fieldset>",
+            "explanation": "Screen readers read the `<legend>` group title before announcing individual radio choices."
+          },
+          "interactiveQuiz": {
+            "question": "Which tag provides the overarching group title for inputs nested inside a <fieldset>?",
+            "options": ["<legend>", "<label>", "<caption>", "<header>"],
+            "correctIndex": 0,
+            "explanation": "The `<legend>` tag defines the title for its surrounding `<fieldset>` input group."
+          }
+        },
+        {
+          "id": "q44-open-graph-meta-tags",
+          "title": "Q44: What are Open Graph (og:*) meta tags?",
+          "content": "Open Graph meta tags (e.g., `og:title`, `og:image`, `og:description`) allow web developers to control how page links appear when shared across social media platforms (Facebook, LinkedIn, Twitter/X, messaging apps).",
+          "keyTakeaways": [
+            "Controls rich card previews when URLs are shared across social messaging platforms.",
+            "Defines shared preview image, headline, and description metadata."
+          ],
+          "codeExample": {
+            "title": "Open Graph Social Meta Tags",
+            "language": "html",
+            "code": "<head>\n  <meta property=\"og:title\" content=\"Mastering Modern Web Layouts\">\n  <meta property=\"og:description\" content=\"Comprehensive guide to CSS grid and flexbox.\">\n  <meta property=\"og:image\" content=\"https://example.com/cover.jpg\">\n  <meta property=\"og:url\" content=\"https://example.com/guide\">\n</head>",
+            "explanation": "Social platforms read `og:*` properties to populate preview cards when URLs are shared."
+          },
+          "interactiveQuiz": {
+            "question": "Which metadata property defines the card preview image thumbnail displayed when sharing a URL on social media?",
+            "options": ["og:thumbnail", "og:image", "meta:picture", "twitter:icon"],
+            "correctIndex": 1,
+            "explanation": "The `og:image` property points to the image URL rendered inside social media shared link previews."
+          }
+        },
+        {
+          "id": "q45-dialog-element",
+          "title": "Q45: How does the native <dialog> element simplify modal popups?",
+          "content": "The `<dialog>` tag represents an interactive popup or modal window. Calling `.showModal()` opens the dialog natively as a top-layer modal, creating a native `::backdrop` background, handling Focus Trapping automatically, and resolving <kbd>Esc</kbd> key closing actions without custom libraries.",
+          "keyTakeaways": [
+            "Native modal popup support with automated focus trapping and ESC key closing.",
+            "Opened modally via `dialogElement.showModal()`."
+          ],
+          "codeExample": {
+            "title": "Native Dialog Modal Window",
+            "language": "html",
+            "code": "<dialog id=\"favDialog\">\n  <form method=\"dialog\">\n    <p>Confirm account deletion?</p>\n    <button value=\"cancel\">Cancel</button>\n    <button value=\"confirm\">Confirm</button>\n  </form>\n</dialog>\n\n<script>\n  const dialog = document.getElementById('favDialog');\n  // To open as modal: dialog.showModal();\n</script>",
+            "explanation": "`showModal()` positions the dialog in the browser's top-layer with native backdrop isolation."
+          },
+          "interactiveQuiz": {
+            "question": "Which JavaScript method opens a <dialog> element as a top-layer modal with backdrop focus trapping?",
+            "options": ["dialog.open()", "dialog.showModal()", "dialog.toggle()", "dialog.display()"],
+            "correctIndex": 1,
+            "explanation": "`showModal()` displays the dialog as a true modal with native backdrop overlays and focus trapping."
+          }
+        },
+        {
+          "id": "q46-dir-attribute",
+          "title": "Q46: What is the dir attribute and how does it support internationalization (i18n)?",
+          "content": "The `dir` attribute specifies the text direction for element content. It accepts `ltr` (left-to-right for English/Spanish), `rtl` (right-to-left for Arabic/Hebrew), and `auto` (lets the browser inspect character sets to decide direction automatically).",
+          "keyTakeaways": [
+            "Controls bidirectional text rendering flows (`ltr`, `rtl`, `auto`).",
+            "Essential for internationalization supporting right-to-left languages."
+          ],
+          "codeExample": {
+            "title": "Right-To-Left Text Direction",
+            "language": "html",
+            "code": "<html lang=\"ar\" dir=\"rtl\">\n<head>\n  <title>العربية</title>\n</head>\n<body>\n  <p>هذا النص باللغة العربية.</p>\n</body>\n</html>",
+            "explanation": "Setting `dir=\"rtl\"` flips layout text alignment and directional flows for Arabic script."
+          },
+          "interactiveQuiz": {
+            "question": "Which dir attribute value instructs the browser to automatically infer text direction based on written characters?",
+            "options": ["ltr", "rtl", "auto", "inherit"],
+            "correctIndex": 2,
+            "explanation": "`dir=\"auto\"` determines text direction dynamically by analyzing character types inside the node."
+          }
+        },
+        {
+          "id": "q47-inputmode-attribute",
+          "title": "Q47: What is the inputmode attribute and how does it differ from input type?",
+          "content": "While `type` alters the control behavior and validation rules, `inputmode` specifies which virtual keyboard layout to display on mobile devices without changing validation rules (e.g., displaying `inputmode=\"decimal\"` or `inputmode=\"numeric\"` for custom credit card fields).",
+          "keyTakeaways": [
+            "Configures mobile virtual keyboard layouts without altering data validation constraints.",
+            "Supports values like `decimal`, `numeric`, `tel`, `search`, and `email`."
+          ],
+          "codeExample": {
+            "title": "Custom Numeric Keypad via inputmode",
+            "language": "html",
+            "code": "<!-- Text type for custom formatting, but prompts numeric keypad -->\n<label for=\"pin\">Security PIN:</label>\n<input type=\"text\" id=\"pin\" inputmode=\"numeric\" pattern=\"[0-9]*\">",
+            "explanation": "`inputmode=\"numeric\"` brings up a number keypad on smartphones while maintaining text type processing."
+          },
+          "interactiveQuiz": {
+            "question": "How does inputmode differ from input type?",
+            "options": [
+              "inputmode changes mobile keyboard layouts without altering input parsing/validation rules",
+              "inputmode encrypts form values",
+              "inputmode converts text to uppercase",
+              "inputmode works only on desktop devices"
+            ],
+            "correctIndex": 0,
+            "explanation": "`inputmode` customizes virtual keyboard selection on mobile touchscreen devices independently of input type rules."
+          }
+        },
+        {
+          "id": "q48-manifest-json-pwa",
+          "title": "Q48: How does the <link rel='manifest'> file enable Progressive Web App (PWA) installation?",
+          "content": "The `<link rel=\"manifest\" href=\"/manifest.json\">` tag links an HTML document to a Web App Manifest file. This JSON file specifies the application name, start URL, theme colors, display modes (`standalone`), and desktop/mobile app launcher icons required for PWA installation.",
+          "keyTakeaways": [
+            "Links web documents to Web App Manifest files for PWA capabilities.",
+            "Enables 'Add to Home Screen' installation prompts and standalone window rendering."
+          ],
+          "codeExample": {
+            "title": "Linking Web App Manifest",
+            "language": "html",
+            "code": "<head>\n  <link rel=\"manifest\" href=\"/manifest.json\">\n  <meta name=\"theme-color\" content=\"#6366f1\">\n</head>",
+            "explanation": "Informs mobile operating systems how to display the PWA when launched from a home screen icon."
+          },
+          "interactiveQuiz": {
+            "question": "Which JSON manifest property dictates that a PWA should launch in its own window without browser address bars?",
+            "options": ["\"display\": \"standalone\"", "\"mode\": \"app\"", "\"window\": \"fullscreen\"", "\"target\": \"native\""],
+            "correctIndex": 0,
+            "explanation": "`\"display\": \"standalone\"` opens the PWA as a standalone application window, hiding browser navigation controls."
+          }
+        },
+        {
+          "id": "q49-content-security-policy-meta",
+          "title": "Q49: How do you configure a Content Security Policy (CSP) using HTML <meta> tags?",
+          "content": "A Content Security Policy can be declared inside HTML using `<meta http-equiv=\"Content-Security-Policy\" content=\"...\">`. CSP restricts the domains from which scripts, images, stylesheets, and fonts can be loaded, defending against Cross-Site Scripting (XSS) and data injection attacks.",
+          "keyTakeaways": [
+            "Defends against Cross-Site Scripting (XSS) attacks by whitelisting trusted script origins.",
+            "Configured via HTTP headers or `<meta http-equiv=\"Content-Security-Policy\">` tags."
+          ],
+          "codeExample": {
+            "title": "Meta CSP Header Policy",
+            "language": "html",
+            "code": "<head>\n  <!-- Allow scripts only from same-origin and trusted API -->\n  <meta http-equiv=\"Content-Security-Policy\"\n        content=\"default-src 'self'; script-src 'self' https://trustedapi.com;\">\n</head>",
+            "explanation": "Restricts script execution exclusively to same-origin domain and explicit trusted API URLs."
+          },
+          "interactiveQuiz": {
+            "question": "Which security vulnerability is primarily mitigated by establishing a Content Security Policy (CSP)?",
+            "options": ["Cross-Site Scripting (XSS)", "Buffer Overflows", "CSS Specificity Wars", "DNS Poisoning"],
+            "correctIndex": 0,
+            "explanation": "CSP mitigates XSS attacks by restricting unauthorized inline scripts and untrusted external script domains."
+          }
+        },
+        {
+          "id": "q50-shadow-dom-encapsulation",
+          "title": "Q50: What is Declarative Shadow DOM and how does it encapsulate HTML styles?",
+          "content": "Declarative Shadow DOM allows creating isolated Shadow DOM trees natively in HTML using `<template shadowrootmode=\"open\">`. Shadow DOM encapsulates DOM structures and CSS styles, preventing global CSS rules from leaking inside and component styles from bleeding out into the main document.",
+          "keyTakeaways": [
+            "Encapsulates CSS styles and DOM subtrees inside component boundaries.",
+            "Declarative Shadow DOM enables Server-Side Rendering (SSR) for Web Components."
+          ],
+          "codeExample": {
+            "title": "Declarative Shadow DOM Component",
+            "language": "html",
+            "code": "<custom-card>\n  <template shadowrootmode=\"open\">\n    <style>\n      /* Style applies strictly inside this shadow root */\n      h2 { color: indigo; }\n    </style>\n    <h2>Shadow Encapsulated Heading</h2>\n  </template>\n</custom-card>",
+            "explanation": "The `<style>` rules inside the shadow root apply exclusively to the inner `<h2>` node without bleeding into global document headings."
+          },
+          "interactiveQuiz": {
+            "question": "What primary operational benefit does Shadow DOM encapsulation offer?",
+            "options": [
+              "Prevents external CSS rules from accidentally leaking into component styles",
+              "Translates HTML to Assembly bytecode",
+              "Encrypts DOM elements in local storage",
+              "Disables all JavaScript execution"
+            ],
+            "correctIndex": 0,
+            "explanation": "Shadow DOM provides CSS style encapsulation, isolating component styling from global document stylesheets."
+          }
+        }
+      ]
+    }
+  ]
+}

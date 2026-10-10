@@ -1,0 +1,2084 @@
+{
+  "courseId": "nextjs-mastery",
+  "courseName": "Next.js",
+  "title": "Next.js — Complete Beginner to Expert Course",
+  "subtitle": "A deeply structured journey from React fundamentals and routing to Server Components, data fetching, caching, authentication, performance, deployment, and production architecture.",
+  "category": "Frontend & Full-Stack Development",
+  "level": "Advanced",
+  "estimatedTime": "18–24 Hours",
+  "accentColor": "#000000",
+  "keywords": [
+    "Next.js",
+    "React",
+    "App Router",
+    "Server Components",
+    "Client Components",
+    "SSR",
+    "SSG",
+    "ISR",
+    "Routing",
+    "Middleware",
+    "Server Actions",
+    "Caching",
+    "Authentication",
+    "Authorization",
+    "API Routes",
+    "Route Handlers",
+    "Next.js Performance",
+    "SEO",
+    "Deployment",
+    "TypeScript",
+    "Full Stack React"
+  ],
+  "chapters": [
+    {
+      "id": "nextjs-fundamentals",
+      "title": "Next.js Fundamentals and Project Architecture",
+      "summary": "Understand what Next.js solves, how it differs from plain React, how a Next.js application is structured, and how to create a production-ready project.",
+      "estimatedMinutes": 75,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "what-is-nextjs",
+          "title": "What Is Next.js?",
+          "content": "Next.js is a React framework for building applications that can render UI on the server, in the browser, or at build time. React primarily gives you a component model, while Next.js adds application-level capabilities such as routing, rendering strategies, server-side execution, optimization, metadata handling, image optimization, and backend endpoints.\n\nA useful mental model is: **React builds components; Next.js builds applications around those components.**\n\nFor example, a traditional React SPA may initially download JavaScript and then request data from an API. A Next.js application can render the initial page on the server, send HTML to the browser, and then hydrate interactive components.\n\nNext.js is particularly useful when you need SEO-friendly pages, fast initial rendering, authenticated applications, content-heavy websites, e-commerce applications, dashboards, or a single full-stack codebase.\n\nIt is important not to think of Next.js as simply 'React with routing'. The framework controls where code executes and provides mechanisms for deciding whether work belongs on the server, browser, build process, or request lifecycle.",
+          "callout": {
+            "type": "info",
+            "title": "Core Mental Model",
+            "message": "Before learning individual APIs, understand where code executes. In modern Next.js, the most important distinction is Server Component versus Client Component."
+          },
+          "keyTakeaways": [
+            "Next.js is a framework built around React.",
+            "It provides routing, rendering, optimization, server execution, and full-stack capabilities.",
+            "Modern Next.js applications should be designed around server-first rendering."
+          ]
+        },
+        {
+          "id": "react-vs-nextjs",
+          "title": "React vs Next.js",
+          "content": "React and Next.js solve different layers of the problem. React provides components, state, hooks, and rendering primitives. Next.js provides the application framework around React.\n\nIn a plain React application, you commonly install and configure routing, API communication, SEO libraries, bundling, code splitting, and deployment behavior yourself. Next.js provides conventions for many of these concerns.\n\nConsider a product page. In a React SPA, the browser might load JavaScript first and then fetch `/api/products/42`. In Next.js, the product page can be rendered on the server and the resulting HTML can already contain the product information.\n\nAnother important difference is that Next.js supports server-only code directly inside the application. Database queries, secrets, filesystem operations, and private credentials should remain on the server rather than being bundled into browser JavaScript.",
+          "diagram": {
+            "type": "architecture",
+            "title": "React and Next.js Responsibilities",
+            "code": "flowchart LR\nA[React] --> B[Components]\nA --> C[State and Hooks]\nA --> D[UI Rendering]\nE[Next.js] --> F[Routing]\nE --> G[Server Rendering]\nE --> H[Data Fetching]\nE --> I[Optimization]\nE --> J[Deployment Architecture]\nE --> A"
+          },
+          "keyTakeaways": [
+            "React is the UI library; Next.js is the application framework.",
+            "Next.js can keep sensitive server logic outside the browser.",
+            "The framework reduces the amount of infrastructure you must configure manually."
+          ]
+        },
+        {
+          "id": "create-nextjs-project",
+          "title": "Creating a Next.js Application",
+          "content": "The standard way to start a modern project is with the Next.js project generator. During setup you can choose TypeScript, ESLint, Tailwind CSS, a source directory, and the App Router.\n\nFor modern applications, the App Router should generally be preferred because it provides Server Components, nested layouts, loading states, error boundaries, streaming, and modern data-fetching patterns.\n\nA good production project should establish conventions early. Decide where reusable UI lives, where server-only modules live, how environment variables are named, how API clients are organized, and how domain-specific code is separated.",
+          "codeExample": {
+            "title": "Create a Next.js Project",
+            "language": "bash",
+            "code": "npx create-next-app@latest my-next-app\ncd my-next-app\nnpm run dev",
+            "explanation": "The generator creates the project structure and development tooling. The development server normally becomes available locally after running the dev script."
+          },
+          "keyTakeaways": [
+            "Use the official project generator instead of manually assembling framework configuration.",
+            "Prefer the App Router for new applications.",
+            "Establish architectural conventions before the project becomes large."
+          ]
+        },
+        {
+          "id": "nextjs-project-structure",
+          "title": "Understanding Project Structure",
+          "content": "The `app` directory is the center of an App Router application. A folder becomes a route when it contains the appropriate special file such as `page.tsx`.\n\nCommon special files include `layout.tsx`, `page.tsx`, `loading.tsx`, `error.tsx`, `not-found.tsx`, and `route.ts`.\n\nOther directories such as `components`, `lib`, `services`, and `types` are application conventions rather than mandatory Next.js requirements. A large application benefits from separating UI components from business logic and infrastructure code.\n\nA useful architecture is to keep route-specific UI near the route while keeping shared business logic in reusable modules.",
+          "codeExample": {
+            "title": "Example Application Structure",
+            "language": "typescript",
+            "code": "app/\n  layout.tsx\n  page.tsx\n  dashboard/\n    layout.tsx\n    page.tsx\n    loading.tsx\n    error.tsx\n  api/\n    users/\n      route.ts\ncomponents/\n  Button.tsx\n  UserCard.tsx\nlib/\n  db.ts\n  auth.ts\nservices/\n  user-service.ts\ntypes/\n  user.ts",
+            "explanation": "This structure separates routing concerns from reusable UI, infrastructure, and business logic."
+          },
+          "keyTakeaways": [
+            "Files inside `app` define application routing and rendering behavior.",
+            "Special Next.js files have framework-defined meanings.",
+            "Business logic should not become tightly coupled to page components."
+          ]
+        },
+        {
+          "id": "nextjs-environment-variables",
+          "title": "Environment Variables and Secrets",
+          "content": "Environment variables allow configuration to vary between development, staging, and production. Examples include database URLs, API secrets, OAuth credentials, and public application configuration.\n\nVariables intended only for server execution should not be exposed to browser code. Next.js uses the `NEXT_PUBLIC_` prefix for values that are intentionally exposed to client-side JavaScript.\n\nFor example, a database password must never be prefixed with `NEXT_PUBLIC_`. Doing so indicates that the value is intended to become part of the client bundle.",
+          "codeExample": {
+            "title": "Using Environment Variables",
+            "language": "typescript",
+            "code": "const databaseUrl = process.env.DATABASE_URL;\n\nconst publicApiUrl = process.env.NEXT_PUBLIC_API_URL;\n\nif (!databaseUrl) {\n  throw new Error('DATABASE_URL is not configured');\n}",
+            "explanation": "Server-only secrets can be accessed from server-side code. Public configuration can use the NEXT_PUBLIC_ prefix when browser exposure is intentional."
+          },
+          "callout": {
+            "type": "danger",
+            "title": "Never Expose Secrets",
+            "message": "Anything prefixed with NEXT_PUBLIC_ should be treated as public. Never place database credentials, private signing keys, or service secrets there."
+          },
+          "keyTakeaways": [
+            "Keep private secrets server-only.",
+            "Use `NEXT_PUBLIC_` only for intentionally public values.",
+            "Production secrets should be supplied through the deployment environment."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "app-router-and-routing",
+      "title": "App Router, Layouts, Navigation and Dynamic Routes",
+      "summary": "Master file-system routing, nested layouts, dynamic segments, route groups, parallel routes, intercepting routes, navigation, and URL design.",
+      "estimatedMinutes": 95,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "file-system-routing",
+          "title": "File-System Routing",
+          "content": "Next.js App Router uses the directory structure to define URLs. A `page.tsx` file represents a publicly reachable page at the corresponding route.\n\nFor example, `app/about/page.tsx` maps to `/about`, while `app/products/page.tsx` maps to `/products`.\n\nThe important distinction is between folders and pages. A folder alone does not necessarily create a user-facing route. The route becomes renderable when the required special file exists.",
+          "codeExample": {
+            "title": "Basic Routes",
+            "language": "typescript",
+            "code": "// app/page.tsx\nexport default function HomePage() {\n  return <h1>Home</h1>;\n}\n\n// app/about/page.tsx\nexport default function AboutPage() {\n  return <h1>About</h1>;\n}",
+            "explanation": "The two files produce `/` and `/about` respectively."
+          },
+          "keyTakeaways": [
+            "Folders represent URL segments.",
+            "A `page.tsx` file makes a segment renderable as a page.",
+            "Route structure should reflect the information architecture of the application."
+          ]
+        },
+        {
+          "id": "dynamic-route-segments",
+          "title": "Dynamic Routes and Route Parameters",
+          "content": "Dynamic segments allow one route to represent many resources. A folder such as `[id]` captures one URL segment.\n\nFor example, `app/products/[id]/page.tsx` can render `/products/101`, `/products/202`, and `/products/abc`.\n\nDynamic routes are especially useful for product pages, user profiles, blog posts, documentation pages, and database-backed resources.",
+          "codeExample": {
+            "title": "Dynamic Product Route",
+            "language": "typescript",
+            "code": "type ProductPageProps = {\n  params: Promise<{ id: string }>;\n};\n\nexport default async function ProductPage({ params }: ProductPageProps) {\n  const { id } = await params;\n\n  return <h1>Product: {id}</h1>;\n}",
+            "explanation": "The dynamic `[id]` segment provides the identifier captured from the URL."
+          },
+          "keyTakeaways": [
+            "Use `[segment]` for dynamic URL segments.",
+            "Dynamic parameters are useful for resource-oriented pages.",
+            "Validate dynamic parameters before using them in database queries."
+          ]
+        },
+        {
+          "id": "catch-all-routes",
+          "title": "Catch-All and Optional Catch-All Routes",
+          "content": "Catch-all segments are useful when a route can contain an arbitrary number of path segments. `[...slug]` captures one or more segments, while `[[...slug]]` also allows the route to match without any segments.\n\nDocumentation systems are a classic example. A documentation page might be available at `/docs/react/hooks/use-effect` where the entire path after `/docs` is represented by a slug array.",
+          "codeExample": {
+            "title": "Catch-All Documentation Route",
+            "language": "typescript",
+            "code": "export default async function DocsPage({\n  params\n}: {\n  params: Promise<{ slug: string[] }>;\n}) {\n  const { slug } = await params;\n\n  return <pre>{JSON.stringify(slug, null, 2)}</pre>;\n}",
+            "explanation": "A URL such as `/docs/react/hooks/use-effect` produces an array containing each captured path segment."
+          },
+          "keyTakeaways": [
+            "Use `[...slug]` when at least one segment is required.",
+            "Use `[[...slug]]` when the entire segment is optional.",
+            "Catch-all routes are useful for documentation and hierarchical content."
+          ]
+        },
+        {
+          "id": "nested-layouts",
+          "title": "Nested Layouts",
+          "content": "Layouts allow shared UI to persist across navigation. A root layout can contain global HTML structure, while nested layouts can provide section-specific navigation or context.\n\nImagine an application containing public pages and an admin dashboard. The dashboard can have a nested layout containing its sidebar, while the public layout remains independent.\n\nLayouts are not merely a way to avoid duplicated JSX. They define persistent UI boundaries and can improve the user experience during navigation.",
+          "codeExample": {
+            "title": "Dashboard Layout",
+            "language": "tsx",
+            "code": "export default function DashboardLayout({\n  children\n}: {\n  children: React.ReactNode;\n}) {\n  return (\n    <div className='dashboard'>\n      <aside>Dashboard Navigation</aside>\n      <main>{children}</main>\n    </div>\n  );\n}",
+            "explanation": "The dashboard layout wraps all pages nested beneath its directory."
+          },
+          "keyTakeaways": [
+            "Layouts are shared UI boundaries.",
+            "Nested layouts let different parts of an application have different shells.",
+            "Persistent navigation can live in a layout instead of being recreated in every page."
+          ]
+        },
+        {
+          "id": "route-groups",
+          "title": "Route Groups",
+          "content": "Route groups allow you to organize routes without adding the grouping folder to the URL. A folder such as `(marketing)` can group marketing pages while keeping the URLs clean.\n\nThis becomes valuable when different sections require different layouts. For example, `(auth)` can contain login and registration pages, while `(dashboard)` can contain authenticated application pages.",
+          "codeExample": {
+            "title": "Route Group Structure",
+            "language": "typescript",
+            "code": "app/\n  (marketing)/\n    page.tsx\n    pricing/\n      page.tsx\n  (auth)/\n    login/\n      page.tsx\n    register/\n      page.tsx",
+            "explanation": "The parentheses indicate organizational route groups. They do not become part of the public URL."
+          },
+          "keyTakeaways": [
+            "Route groups organize related routes without changing their URL.",
+            "They are useful for applying different layouts to different application areas.",
+            "Grouping is especially useful in large applications."
+          ]
+        },
+        {
+          "id": "next-navigation",
+          "title": "Navigation with Link and Router APIs",
+          "content": "Next.js provides navigation primitives designed to work with its routing architecture. The `Link` component is preferred for normal application navigation because it can provide framework-aware navigation and prefetching.\n\nClient components can use `useRouter`, `usePathname`, and `useSearchParams` when navigation depends on browser interaction.\n\nUse declarative links whenever possible. Imperative router calls are better suited for actions such as redirecting after form submission.",
+          "codeExample": {
+            "title": "Navigation Examples",
+            "language": "tsx",
+            "code": "import Link from 'next/link';\n\nexport default function Navigation() {\n  return (\n    <nav>\n      <Link href='/'>Home</Link>\n      <Link href='/products'>Products</Link>\n    </nav>\n  );\n}",
+            "explanation": "Link provides framework-aware navigation and should normally be preferred over manually manipulating window.location."
+          },
+          "keyTakeaways": [
+            "Prefer `Link` for normal internal navigation.",
+            "Use router hooks for interactive client-side navigation.",
+            "Do not use `window.location` as the default navigation mechanism."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-and-client-components",
+      "title": "Server Components and Client Components",
+      "summary": "Understand the most important architectural concept in modern Next.js: deciding which components execute on the server and which require browser capabilities.",
+      "estimatedMinutes": 110,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "server-components-default",
+          "title": "Server Components Are the Default",
+          "content": "In the App Router, components are Server Components by default. This means their rendering logic can execute on the server and their implementation does not automatically become part of the browser's JavaScript bundle.\n\nServer Components are excellent for data-heavy UI, database access, sensitive operations, and static content.\n\nA Server Component can directly call a server-side service. This is one of the biggest architectural differences between modern Next.js and a traditional client-only React application.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Server Component Execution",
+            "code": "flowchart LR\nBrowser --> Request[HTTP Request]\nRequest --> Server[Next.js Server]\nServer --> Data[Database / APIs]\nData --> Server\nServer --> HTML[Rendered UI]\nHTML --> Browser"
+          },
+          "keyTakeaways": [
+            "Server Components are the default in the App Router.",
+            "Server Components can access server-only resources.",
+            "Keeping computation on the server can reduce browser JavaScript."
+          ]
+        },
+        {
+          "id": "use-client-directive",
+          "title": "The use client Directive",
+          "content": "A component becomes a Client Component when its module begins with the `use client` directive.\n\nClient Components are appropriate when code needs browser APIs, event handlers, local state, effects, or client-side libraries that depend on the DOM.\n\nThe directive defines a boundary. Everything imported into that client boundary must be compatible with client execution. This means `use client` should not be added casually to large parent components.",
+          "codeExample": {
+            "title": "Interactive Client Component",
+            "language": "tsx",
+            "code": "'use client';\n\nimport { useState } from 'react';\n\nexport default function Counter() {\n  const [count, setCount] = useState(0);\n\n  return (\n    <button onClick={() => setCount(count + 1)}>\n      Count: {count}\n    </button>\n  );\n}",
+            "explanation": "useState and event handlers require browser-side React behavior, so the component must be a Client Component."
+          },
+          "keyTakeaways": [
+            "Use `use client` only when browser-side interactivity is required.",
+            "Client boundaries should be as small as practical.",
+            "Do not turn an entire application into Client Components unnecessarily."
+          ]
+        },
+        {
+          "id": "server-client-component-boundary",
+          "title": "Passing Data Across the Boundary",
+          "content": "Server Components can render Client Components and pass serializable props to them. A common pattern is to fetch data on the server and provide only the data required for interactivity to a client component.\n\nFor example, a product page can retrieve product information on the server while an `AddToCartButton` remains a Client Component.\n\nThis architecture allows the server to perform data access while the browser handles interaction.",
+          "codeExample": {
+            "title": "Server to Client Data Flow",
+            "language": "tsx",
+            "code": "import AddToCartButton from './AddToCartButton';\n\nexport default async function ProductPage() {\n  const product = await getProduct();\n\n  return (\n    <section>\n      <h1>{product.name}</h1>\n      <p>{product.price}</p>\n      <AddToCartButton productId={product.id} />\n    </section>\n  );\n}",
+            "explanation": "The server retrieves the product while the interactive button remains isolated as a Client Component."
+          },
+          "keyTakeaways": [
+            "Server Components can render Client Components.",
+            "Pass only the data needed by the client.",
+            "Keep database and secret-dependent logic on the server."
+          ]
+        },
+        {
+          "id": "server-only-modules",
+          "title": "Protecting Server-Only Modules",
+          "content": "A large application can accidentally import server-only functionality into client code. This can expose secrets or create build errors.\n\nThe `server-only` package can be used to explicitly mark modules that must never be imported into client code.\n\nThis is particularly useful for database clients, authentication utilities, payment providers, and internal service clients.",
+          "codeExample": {
+            "title": "Server-Only Service",
+            "language": "typescript",
+            "code": "import 'server-only';\n\nexport async function getPrivateUserData(userId: string) {\n  // Database access or private API access\n  return database.users.findById(userId);\n}",
+            "explanation": "Marking the module as server-only creates an explicit architectural boundary."
+          },
+          "callout": {
+            "type": "warning",
+            "title": "Think in Boundaries",
+            "message": "The important question is not simply 'does this component render?' but 'where should this code execute?'"
+          },
+          "keyTakeaways": [
+            "Use explicit server-only boundaries for sensitive modules.",
+            "Database clients should never become browser dependencies.",
+            "Server/client boundaries are architectural decisions, not just syntax."
+          ]
+        },
+        {
+          "id": "composition-patterns",
+          "title": "Composition Patterns for Server and Client Components",
+          "content": "One common mistake is moving an entire page into a Client Component because one small widget needs interactivity. Instead, compose a mostly server-rendered page around small client islands.\n\nFor example, a dashboard can contain server-rendered statistics, a server-rendered table, and a small client-side filter component.\n\nThis pattern reduces JavaScript while preserving rich interaction.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Server-First Component Composition",
+            "code": "flowchart TD\nPage[Server Page] --> Header[Server Header]\nPage --> Stats[Server Statistics]\nPage --> Table[Server Table]\nPage --> Filter[Client Filter]\nFilter --> Table"
+          },
+          "keyTakeaways": [
+            "Prefer small interactive islands instead of clientifying entire pages.",
+            "Compose Server and Client Components rather than choosing one globally.",
+            "The best boundary often occurs around the smallest interactive feature."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rendering-strategies",
+      "title": "Rendering Strategies: SSR, SSG, ISR, Dynamic and Streaming",
+      "summary": "Learn how Next.js decides when and where pages are rendered, including static generation, dynamic rendering, revalidation, streaming, and partial user experiences.",
+      "estimatedMinutes": 105,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "static-rendering",
+          "title": "Static Rendering",
+          "content": "Static rendering means content can be generated ahead of the request and reused. This is ideal for pages whose output does not need to change for every visitor.\n\nExamples include marketing pages, documentation, public blog articles, and product catalogs that do not require per-request personalization.\n\nStatic output can be delivered efficiently through a CDN because the server does not need to execute application logic for every request.",
+          "keyTakeaways": [
+            "Static rendering is excellent for stable public content.",
+            "Static pages can be distributed through caching infrastructure.",
+            "Static does not necessarily mean the source data can never change."
+          ]
+        },
+        {
+          "id": "dynamic-rendering",
+          "title": "Dynamic Rendering",
+          "content": "Dynamic rendering is appropriate when the response depends on request-specific information or data that must be resolved during the request.\n\nExamples include personalized dashboards, authenticated pages, request-specific authorization, or content that must always be fresh.\n\nDynamic rendering should be used intentionally because it can increase server work and reduce caching opportunities.",
+          "keyTakeaways": [
+            "Use dynamic rendering when request-specific information is required.",
+            "Personalization commonly requires dynamic execution.",
+            "Do not make every page dynamic without a reason."
+          ]
+        },
+        {
+          "id": "incremental-revalidation",
+          "title": "Incremental Revalidation",
+          "content": "Revalidation allows previously generated content to be reused while still allowing it to become fresh periodically or when explicitly invalidated.\n\nImagine a news homepage that can tolerate content being several seconds or minutes old. Revalidation can provide a useful balance between freshness and performance.\n\nThe key architectural question is not simply 'SSR or SSG?' but 'how fresh does this data actually need to be?'",
+          "codeExample": {
+            "title": "Time-Based Revalidation",
+            "language": "typescript",
+            "code": "const response = await fetch('[https://example.com/api/products](https://example.com/api/products)', {\n  next: {\n    revalidate: 60\n  }\n});\n\nconst products = await response.json();",
+            "explanation": "The fetch configuration expresses that cached data can be revalidated periodically rather than requiring a fresh request every time."
+          },
+          "keyTakeaways": [
+            "Revalidation is useful when data changes but does not need request-level freshness.",
+            "Choose freshness requirements based on business needs.",
+            "Caching strategy should be part of application architecture."
+          ]
+        },
+        {
+          "id": "streaming-and-suspense",
+          "title": "Streaming and Suspense",
+          "content": "Streaming allows a page to send useful UI to the browser before every piece of data is ready. React Suspense boundaries define areas that can show fallback content while slower server work completes.\n\nA dashboard might render its navigation immediately while a slow analytics query continues. The user sees the shell first instead of waiting for the slowest operation.\n\nStreaming is especially valuable when a page contains independent data sources with different response times.",
+          "codeExample": {
+            "title": "Suspense Boundary",
+            "language": "tsx",
+            "code": "import { Suspense } from 'react';\n\nexport default function Dashboard() {\n  return (\n    <main>\n      <h1>Dashboard</h1>\n\n      <Suspense fallback={<p>Loading analytics...</p>}>\n        <Analytics />\n      </Suspense>\n    </main>\n  );\n}",
+            "explanation": "The dashboard shell can be rendered while Analytics resolves independently."
+          },
+          "keyTakeaways": [
+            "Streaming improves perceived performance.",
+            "Suspense lets slow portions of a page load independently.",
+            "Do not create arbitrary Suspense boundaries; place them around meaningful slow or independent UI."
+          ]
+        },
+        {
+          "id": "loading-ui",
+          "title": "Route-Level Loading UI",
+          "content": "A `loading.tsx` file provides a route-level loading experience. Next.js can use it while the corresponding route content is being prepared.\n\nA good loading state should resemble the final page structure. Skeleton layouts are often better than generic spinners because they reduce layout shifts and communicate what is loading.",
+          "codeExample": {
+            "title": "Loading UI",
+            "language": "tsx",
+            "code": "export default function Loading() {\n  return (\n    <div aria-busy='true'>\n      <div className='skeleton skeleton-title' />\n      <div className='skeleton skeleton-card' />\n      <div className='skeleton skeleton-card' />\n    </div>\n  );\n}",
+            "explanation": "A route-level loading component provides immediate feedback while server-rendered content is being prepared."
+          },
+          "keyTakeaways": [
+            "Loading states are part of application UX.",
+            "Skeletons can communicate structure better than generic spinners.",
+            "Design loading states around realistic slow paths."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "data-fetching-and-caching",
+      "title": "Data Fetching, Caching and Revalidation",
+      "summary": "Learn server-side data fetching, fetch caching, request memoization, cache invalidation, parallel requests, waterfalls, and data-access architecture.",
+      "estimatedMinutes": 115,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "server-data-fetching",
+          "title": "Fetching Data in Server Components",
+          "content": "Server Components are a natural place to retrieve data because they can execute close to backend resources and do not require exposing API credentials to the browser.\n\nA page can directly call a backend service, database abstraction, or external API. This can eliminate unnecessary browser-to-Next.js-to-backend request chains.\n\nFor application architecture, distinguish between fetching data for rendering and creating an API for other clients. You do not need to create an API route merely to fetch data inside your own Server Component.",
+          "codeExample": {
+            "title": "Fetch Data on the Server",
+            "language": "typescript",
+            "code": "export default async function ProductsPage() {\n  const response = await fetch('[https://example.com/api/products');\n\n](https://example.com/api/products'%29;\n\n)  if (!response.ok) {\n    throw new Error('Failed to load products');\n  }\n\n  const products = await response.json();\n\n  return <ProductList products={products} />;\n}",
+            "explanation": "The server retrieves data before rendering the component."
+          },
+          "keyTakeaways": [
+            "Fetch render data on the server when possible.",
+            "Avoid creating unnecessary internal API hops.",
+            "Handle failed responses explicitly."
+          ]
+        },
+        {
+          "id": "parallel-data-fetching",
+          "title": "Avoiding Request Waterfalls",
+          "content": "A request waterfall occurs when independent requests are unnecessarily executed one after another.\n\nSuppose a dashboard needs users, revenue, and notifications. If those requests do not depend on one another, executing them sequentially increases total latency.\n\nUse `Promise.all` or equivalent parallelization when independent data sources can be requested simultaneously.",
+          "codeExample": {
+            "title": "Parallel Requests",
+            "language": "typescript",
+            "code": "const [users, revenue, notifications] = await Promise.all([\n  getUsers(),\n  getRevenue(),\n  getNotifications()\n]);",
+            "explanation": "All independent operations begin without waiting for the previous operation to finish."
+          },
+          "keyTakeaways": [
+            "Identify independent requests and execute them concurrently.",
+            "Waterfalls often become visible as latency grows.",
+            "Do not parallelize operations that genuinely depend on one another."
+          ]
+        },
+        {
+          "id": "fetch-caching-model",
+          "title": "Understanding the Caching Model",
+          "content": "Caching in Next.js is not a single global cache. Different layers can exist, including browser caching, CDN caching, server-side data caching, request memoization, and application-level caches.\n\nWhen debugging stale data, ask which layer contains the stale value. A page can appear stale because the data request is cached, because generated output is reused, or because an external CDN retains a response.\n\nCaching should be intentional. Sensitive user-specific responses should not accidentally be shared across users.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Typical Caching Layers",
+            "code": "flowchart LR\nBrowser --> CDN[CDN / Edge Cache]\nCDN --> Next[Next.js Server]\nNext --> DataCache[Data Cache]\nNext --> DB[(Database)]\nNext --> External[External API]"
+          },
+          "keyTakeaways": [
+            "Caching has multiple layers.",
+            "Always identify which layer is producing stale content.",
+            "User-specific data requires careful cache boundaries."
+          ]
+        },
+        {
+          "id": "cache-invalidation",
+          "title": "Cache Invalidation",
+          "content": "A cache is useful only if you can define when cached information should become invalid. Next.js provides mechanisms for invalidating cached data and routes after mutations.\n\nA product editing workflow is a good example. After changing a product in the database, related product pages, category listings, and search results may need invalidation.\n\nThe important design question is dependency mapping: which cached resources depend on this mutation?",
+          "codeExample": {
+            "title": "Invalidating a Path",
+            "language": "typescript",
+            "code": "'use server';\n\nimport { revalidatePath } from 'next/cache';\n\nexport async function updateProduct(id: string, name: string) {\n  await database.products.update({ id, name });\n  revalidatePath(`/products/${id}`);\n  revalidatePath('/products');\n}",
+            "explanation": "After a mutation, related paths can be marked for fresh rendering."
+          },
+          "keyTakeaways": [
+            "Every cached resource should have a freshness strategy.",
+            "Mutations should identify affected cached views.",
+            "Overly broad invalidation can waste server resources."
+          ]
+        },
+        {
+          "id": "database-access-patterns",
+          "title": "Direct Database Access from Server Components",
+          "content": "Because Server Components execute on the server, they can call database libraries directly. This can be more efficient than calling your own HTTP API from the server.\n\nFor example, a dashboard page can call `getOrders()` which uses Prisma, Mongoose, Drizzle, or another database abstraction. The browser receives rendered results rather than database credentials or internal query logic.\n\nHowever, database access should be placed behind a clean data-access layer so components do not become collections of raw queries.",
+          "codeExample": {
+            "title": "Data Access Layer",
+            "language": "typescript",
+            "code": "import 'server-only';\n\nexport async function getOrders(userId: string) {\n  return db.order.findMany({\n    where: { userId },\n    orderBy: { createdAt: 'desc' }\n  });\n}",
+            "explanation": "A dedicated server-only data-access function keeps database details away from UI components."
+          },
+          "keyTakeaways": [
+            "Server Components can access databases directly.",
+            "Keep database logic in a dedicated service or repository layer.",
+            "Never expose database credentials to the browser."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "server-actions-and-mutations",
+      "title": "Server Actions, Forms and Mutations",
+      "summary": "Learn how to implement secure server-side mutations using Server Actions, forms, validation, optimistic interfaces, and cache invalidation.",
+      "estimatedMinutes": 100,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "server-actions-introduction",
+          "title": "What Are Server Actions?",
+          "content": "Server Actions provide a way to define functions that execute on the server and can be invoked from supported React interactions such as forms.\n\nThey are useful for operations such as creating records, updating profiles, deleting resources, submitting feedback, or changing account settings.\n\nThe major advantage is that the mutation logic can remain on the server instead of requiring a manually created HTTP endpoint for every form operation.",
+          "codeExample": {
+            "title": "Basic Server Action",
+            "language": "typescript",
+            "code": "'use server';\n\nexport async function createComment(formData: FormData) {\n  const text = formData.get('text');\n\n  if (typeof text !== 'string' || !text.trim()) {\n    throw new Error('Comment is required');\n  }\n\n  await db.comment.create({\n    data: { text }\n  });\n}",
+            "explanation": "The action executes on the server and receives submitted form data."
+          },
+          "keyTakeaways": [
+            "Server Actions are designed for server-side mutations.",
+            "They can simplify form submission architecture.",
+            "Actions still require authentication and authorization."
+          ]
+        },
+        {
+          "id": "form-actions",
+          "title": "Progressive Form Handling",
+          "content": "Forms are a natural interface for server mutations. Instead of writing a client-side fetch request for every form, an action can be attached to the form submission.\n\nThis approach can work even before extensive client-side JavaScript is required. Interactive enhancements can then be layered on top.",
+          "codeExample": {
+            "title": "Form Using an Action",
+            "language": "tsx",
+            "code": "import { createComment } from './actions';\n\nexport default function CommentForm() {\n  return (\n    <form action={createComment}>\n      <textarea name='text' required />\n      <button type='submit'>Post comment</button>\n    </form>\n  );\n}",
+            "explanation": "The browser submits the form to the server-side action."
+          },
+          "keyTakeaways": [
+            "Forms provide a simple mutation interface.",
+            "Use meaningful `name` attributes so FormData contains expected fields.",
+            "Client-side validation can improve UX but must not replace server validation."
+          ]
+        },
+        {
+          "id": "server-action-validation",
+          "title": "Validation and Security",
+          "content": "Server Actions are server entry points and should be treated as externally reachable mutation boundaries. Never assume that because a button is hidden in the UI, the action cannot be invoked.\n\nValidate input on the server. Validate types, ranges, formats, ownership, and business rules. Libraries such as Zod can provide reusable schemas.\n\nAuthentication answers 'who are you?' Authorization answers 'are you allowed to perform this operation?' Both matter.",
+          "codeExample": {
+            "title": "Server Validation",
+            "language": "typescript",
+            "code": "'use server';\n\nimport { z } from 'zod';\n\nconst schema = z.object({\n  name: z.string().min(2).max(100)\n});\n\nexport async function updateProfile(formData: FormData) {\n  const result = schema.safeParse({\n    name: formData.get('name')\n  });\n\n  if (!result.success) {\n    return { error: 'Invalid name' };\n  }\n\n  const user = await requireUser();\n  await updateUser(user.id, result.data);\n}",
+            "explanation": "The action validates untrusted input before using it and also establishes the current user."
+          },
+          "callout": {
+            "type": "danger",
+            "title": "Never Trust the UI",
+            "message": "A disabled button, hidden field, or client-side validation is not a security boundary. Every server mutation must validate authorization and input."
+          },
+          "keyTakeaways": [
+            "Validate all mutation input on the server.",
+            "Check authorization for the specific resource and operation.",
+            "Treat Server Actions as security-sensitive entry points."
+          ]
+        },
+        {
+          "id": "optimistic-updates",
+          "title": "Optimistic UI Updates",
+          "content": "Optimistic updates change the interface immediately while the server operation is still running. They are useful when the expected operation is fast and reversible, such as liking a post or toggling a setting.\n\nThe UI should have a recovery strategy if the server rejects the mutation. Optimistic UI without error handling can create a mismatch between what the user sees and what the database contains.",
+          "codeExample": {
+            "title": "Optimistic Interaction",
+            "language": "tsx",
+            "code": "'use client';\n\nimport { useOptimistic } from 'react';\n\nexport function LikeButton({ liked }: { liked: boolean }) {\n  const [optimisticLiked, setOptimisticLiked] = useOptimistic(liked);\n\n  return (\n    <button onClick={() => setOptimisticLiked(!optimisticLiked)}>\n      {optimisticLiked ? 'Unlike' : 'Like'}\n    </button>\n  );\n}",
+            "explanation": "The optimistic state allows the interface to respond immediately while the server mutation is processed."
+          },
+          "keyTakeaways": [
+            "Optimistic updates improve perceived responsiveness.",
+            "Always design a failure or rollback strategy.",
+            "Use optimistic behavior for operations where temporary assumptions are acceptable."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "route-handlers-and-api-design",
+      "title": "Route Handlers and Full-Stack API Development",
+      "summary": "Build backend endpoints inside Next.js using Route Handlers, HTTP methods, validation, authentication, errors, pagination, and API design principles.",
+      "estimatedMinutes": 100,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "route-handlers-basics",
+          "title": "Route Handlers",
+          "content": "Route Handlers provide HTTP endpoints inside the App Router. A `route.ts` file can define handlers for methods such as GET, POST, PUT, PATCH, and DELETE.\n\nRoute Handlers are appropriate when an API must be consumed by external clients, browser code, webhooks, mobile applications, or third-party integrations.\n\nIf only a Server Component needs server-side data, directly calling the data layer is often simpler than creating an internal HTTP request.",
+          "codeExample": {
+            "title": "GET Route Handler",
+            "language": "typescript",
+            "code": "import { NextResponse } from 'next/server';\n\nexport async function GET() {\n  const users = await db.user.findMany();\n\n  return NextResponse.json({ users });\n}",
+            "explanation": "The GET handler retrieves data and returns a JSON response."
+          },
+          "keyTakeaways": [
+            "Route Handlers implement HTTP endpoints.",
+            "Use them for genuine API boundaries.",
+            "Avoid unnecessary internal HTTP calls from Server Components."
+          ]
+        },
+        {
+          "id": "post-and-request-body",
+          "title": "POST Requests and Request Bodies",
+          "content": "POST handlers typically parse JSON or form data and then validate it before performing a mutation.\n\nNever directly trust the request body. Clients can send malformed fields, unexpected types, oversized values, or malicious input.\n\nA good handler separates parsing, validation, authorization, business logic, and response formatting.",
+          "codeExample": {
+            "title": "Validated POST Handler",
+            "language": "typescript",
+            "code": "import { NextResponse } from 'next/server';\nimport { z } from 'zod';\n\nconst schema = z.object({\n  name: z.string().min(2)\n});\n\nexport async function POST(request: Request) {\n  const body = await request.json();\n  const result = schema.safeParse(body);\n\n  if (!result.success) {\n    return NextResponse.json(\n      { error: 'Invalid request' },\n      { status: 400 }\n    );\n  }\n\n  const user = await requireUser();\n  const created = await createUser(result.data, user.id);\n\n  return NextResponse.json(created, { status: 201 });\n}",
+            "explanation": "The handler validates input, authenticates the request, performs the mutation, and returns a meaningful HTTP status."
+          },
+          "keyTakeaways": [
+            "Parse and validate request bodies.",
+            "Authenticate and authorize before protected mutations.",
+            "Return appropriate HTTP status codes."
+          ]
+        },
+        {
+          "id": "api-error-handling",
+          "title": "API Error Handling",
+          "content": "APIs should provide predictable error structures. Avoid returning raw database exceptions or stack traces to clients.\n\nDifferentiate client errors such as invalid input from authentication failures, authorization failures, missing resources, conflicts, and unexpected server failures.\n\nA consistent error format makes frontend and external integrations easier to maintain.",
+          "codeExample": {
+            "title": "Consistent API Error",
+            "language": "typescript",
+            "code": "return NextResponse.json(\n  {\n    error: {\n      code: 'RESOURCE_NOT_FOUND',\n      message: 'Product was not found'\n    }\n  },\n  { status: 404 }\n);",
+            "explanation": "A stable error structure gives API consumers a predictable contract."
+          },
+          "keyTakeaways": [
+            "Do not leak internal exceptions.",
+            "Use meaningful status codes.",
+            "Define a consistent error response contract."
+          ]
+        },
+        {
+          "id": "pagination-and-filtering",
+          "title": "Pagination, Filtering and Sorting",
+          "content": "Large APIs should not return unlimited records. Pagination protects database performance, memory consumption, and response size.\n\nOffset pagination is straightforward and works well for many administrative interfaces. Cursor pagination can be more stable for rapidly changing datasets and large collections.\n\nFiltering and sorting parameters should be validated and constrained. Never directly concatenate arbitrary user input into database queries.",
+          "codeExample": {
+            "title": "Query Parameters",
+            "language": "typescript",
+            "code": "export async function GET(request: Request) {\n  const { searchParams } = new URL(request.url);\n  const page = Math.max(1, Number(searchParams.get('page') ?? 1));\n  const limit = Math.min(100, Math.max(1, Number(searchParams.get('limit') ?? 20)));\n\n  const users = await getUsers({ page, limit });\n\n  return Response.json({ users, page, limit });\n}",
+            "explanation": "The handler constrains pagination parameters instead of trusting arbitrary values."
+          },
+          "keyTakeaways": [
+            "Always bound pagination parameters.",
+            "Choose cursor or offset pagination based on workload.",
+            "Validate sorting and filtering inputs."
+          ]
+        },
+        {
+          "id": "webhooks",
+          "title": "Building Webhook Endpoints",
+          "content": "Webhook endpoints receive requests from external systems such as payment providers, GitHub, email platforms, or deployment systems.\n\nSecurity is especially important because webhooks are public endpoints. Providers commonly sign requests using a secret so your server can verify authenticity.\n\nWebhook handlers should be idempotent where possible because providers may retry the same event.",
+          "codeExample": {
+            "title": "Webhook Skeleton",
+            "language": "typescript",
+            "code": "export async function POST(request: Request) {\n  const rawBody = await request.text();\n  const signature = request.headers.get('x-webhook-signature');\n\n  verifySignature(rawBody, signature);\n\n  const event = JSON.parse(rawBody);\n  await processWebhookEvent(event);\n\n  return new Response('OK');\n}",
+            "explanation": "Signature verification should happen before trusting the webhook payload."
+          },
+          "callout": {
+            "type": "warning",
+            "title": "Design for Retries",
+            "message": "Webhook providers can retry events. Store event identifiers and make processing idempotent to prevent duplicate side effects."
+          },
+          "keyTakeaways": ["Verify webhook authenticity.", "Expect duplicate deliveries.", "Make webhook processing idempotent."]
+        }
+      ]
+    },
+    {
+      "id": "authentication-and-authorization",
+      "title": "Authentication, Authorization, Sessions and Security",
+      "summary": "Build secure authentication architecture, understand sessions and tokens, protect routes, enforce authorization, and avoid common security mistakes.",
+      "estimatedMinutes": 120,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "authentication-vs-authorization",
+          "title": "Authentication vs Authorization",
+          "content": "Authentication determines who the user is. Authorization determines what that user is allowed to do.\n\nFor example, a user can successfully authenticate as `alice@example.com` but still be unauthorized to access another user's invoice.\n\nA robust application checks authorization at the server boundary where the protected resource is accessed. Hiding a navigation link is not authorization.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Request Security Flow",
+            "code": "flowchart TD\nRequest --> Authenticate{Authenticated?}\nAuthenticate -->|No| Login[401 / Login]\nAuthenticate -->|Yes| Authorize{Authorized?}\nAuthorize -->|No| Forbidden[403 Forbidden]\nAuthorize -->|Yes| Resource[Access Resource]"
+          },
+          "keyTakeaways": [
+            "Authentication identifies the principal.",
+            "Authorization controls permissions.",
+            "Authorization must be enforced server-side."
+          ]
+        },
+        {
+          "id": "session-cookies",
+          "title": "Session-Based Authentication",
+          "content": "A session-based architecture commonly stores a session identifier in a secure cookie while the server maintains session state.\n\nCookies should normally use appropriate security attributes such as `HttpOnly`, `Secure`, and an intentional `SameSite` policy.\n\nAn `HttpOnly` cookie cannot be read by normal client-side JavaScript, reducing exposure to some token theft scenarios.",
+          "keyTakeaways": [
+            "Session cookies can keep authentication state out of application JavaScript.",
+            "Use secure cookie attributes.",
+            "Authentication architecture must consider CSRF, XSS, session fixation, and logout behavior."
+          ]
+        },
+        {
+          "id": "jwt-authentication",
+          "title": "JWT-Based Authentication",
+          "content": "A JSON Web Token can carry signed claims that allow a server to verify information without consulting session state for every request. However, JWTs are not automatically encrypted; signing and encryption solve different problems.\n\nJWT-based systems require careful decisions around expiration, refresh tokens, revocation, audience, issuer, and key management.\n\nFor browser applications, storing sensitive long-lived tokens in JavaScript-accessible storage can increase the impact of XSS. Cookie-based approaches are often preferable depending on the architecture.",
+          "keyTakeaways": [
+            "A signed JWT provides integrity, not necessarily confidentiality.",
+            "Short expiration and careful refresh-token design are important.",
+            "Token storage strategy is a major security decision."
+          ]
+        },
+        {
+          "id": "protecting-server-actions",
+          "title": "Protecting Server Actions and Route Handlers",
+          "content": "A protected page does not automatically protect every backend operation associated with it. A user might directly invoke a Route Handler or Server Action.\n\nEvery sensitive operation should establish the authenticated user and verify authorization for the target resource.\n\nFor example, `deleteInvoice(invoiceId)` must verify that the current user owns the invoice or has the appropriate role before deleting it.",
+          "codeExample": {
+            "title": "Authorization Check",
+            "language": "typescript",
+            "code": "export async function deleteInvoice(invoiceId: string) {\n  const user = await requireUser();\n  const invoice = await getInvoice(invoiceId);\n\n  if (!invoice || invoice.ownerId !== user.id) {\n    throw new Error('Not authorized');\n  }\n\n  await removeInvoice(invoiceId);\n}",
+            "explanation": "The operation verifies ownership at the mutation boundary rather than trusting the UI."
+          },
+          "keyTakeaways": [
+            "Protect mutations independently.",
+            "Check ownership or role permissions.",
+            "Never assume route-level protection covers every backend operation."
+          ]
+        },
+        {
+          "id": "csrf-xss-security",
+          "title": "CSRF, XSS and Input Security",
+          "content": "Cross-Site Request Forgery abuses a user's authenticated browser context to perform unwanted actions. Cross-Site Scripting attempts to execute attacker-controlled JavaScript in a user's browser.\n\nReact escapes normal text output, which provides an important baseline against XSS, but unsafe HTML rendering, third-party scripts, insecure DOM APIs, and poorly sanitized content can reintroduce risks.\n\nAuthentication architecture should consider CSRF protection, especially when authentication relies on cookies and cross-origin requests are involved.",
+          "callout": {
+            "type": "danger",
+            "title": "Security Is Not One Feature",
+            "message": "Authentication libraries do not eliminate application-level authorization, input validation, CSRF considerations, secret management, or secure coding practices."
+          },
+          "keyTakeaways": [
+            "Treat all external input as untrusted.",
+            "Avoid unsafe HTML injection unless content is properly sanitized.",
+            "Consider CSRF explicitly when using cookie-based authentication."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "metadata-seo-and-images",
+      "title": "SEO, Metadata, Images, Fonts and Assets",
+      "summary": "Build search-friendly pages using metadata, Open Graph information, structured content, optimized images, fonts, icons, and canonical URLs.",
+      "estimatedMinutes": 90,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "metadata-api",
+          "title": "Metadata API",
+          "content": "Next.js provides a metadata system for defining titles, descriptions, icons, Open Graph information, and other document metadata.\n\nMetadata can be defined statically or generated dynamically based on route parameters and fetched content.\n\nFor a blog post, for example, the title and description should come from the article rather than using the same metadata for every page.",
+          "codeExample": {
+            "title": "Static Metadata",
+            "language": "typescript",
+            "code": "import type { Metadata } from 'next';\n\nexport const metadata: Metadata = {\n  title: 'Products',\n  description: 'Explore our latest products.'\n};\n\nexport default function ProductsPage() {\n  return <h1>Products</h1>;\n}",
+            "explanation": "The metadata object defines document information for the route."
+          },
+          "keyTakeaways": [
+            "Every important public page should have meaningful metadata.",
+            "Dynamic pages can generate metadata from their content.",
+            "Avoid duplicate titles and descriptions across a large site."
+          ]
+        },
+        {
+          "id": "dynamic-metadata",
+          "title": "Dynamic Metadata",
+          "content": "Dynamic metadata is useful for product pages, blog posts, documentation, and other content-driven routes.\n\nThe metadata should accurately represent the page that the user is visiting. This improves search presentation and social sharing quality.\n\nMetadata generation can depend on route parameters and server-side data.",
+          "codeExample": {
+            "title": "Dynamic Product Metadata",
+            "language": "typescript",
+            "code": "export async function generateMetadata({\n  params\n}: {\n  params: Promise<{ id: string }>;\n}) {\n  const { id } = await params;\n  const product = await getProduct(id);\n\n  return {\n    title: product.name,\n    description: product.description\n  };\n}",
+            "explanation": "Metadata is generated using the product associated with the current dynamic route."
+          },
+          "keyTakeaways": [
+            "Dynamic metadata should correspond to dynamic content.",
+            "Metadata generation can use server-side data.",
+            "Missing content should be handled gracefully."
+          ]
+        },
+        {
+          "id": "next-image",
+          "title": "Image Optimization",
+          "content": "The Next.js Image component provides optimization features such as responsive sizing, lazy loading behavior, and controlled image delivery.\n\nImages are frequently among the largest assets on a webpage. Correct dimensions and formats can significantly affect performance.\n\nFor remote images, configure trusted image sources rather than accepting arbitrary remote URLs.",
+          "codeExample": {
+            "title": "Optimized Image",
+            "language": "tsx",
+            "code": "import Image from 'next/image';\n\nexport default function Profile() {\n  return (\n    <Image\n      src='/profile.jpg'\n      alt='Developer profile'\n      width={400}\n      height={400}\n      priority\n    />\n  );\n}",
+            "explanation": "The Image component receives dimensions and meaningful alternative text so Next.js can optimize delivery."
+          },
+          "keyTakeaways": [
+            "Always provide meaningful alt text for informative images.",
+            "Avoid shipping unnecessarily large images.",
+            "Configure remote image domains intentionally."
+          ]
+        },
+        {
+          "id": "font-optimization",
+          "title": "Font Optimization",
+          "content": "Fonts affect both visual design and page performance. Next.js provides mechanisms for integrating fonts while reducing layout shifts and external runtime dependencies.\n\nUse a consistent typography system rather than loading many font families and weights that are never used.\n\nFor performance-sensitive applications, measure the actual impact of font choices rather than assuming a particular font is faster.",
+          "keyTakeaways": [
+            "Load only the font weights you actually need.",
+            "Avoid unnecessary external font requests.",
+            "Typography should be evaluated as part of performance."
+          ]
+        },
+        {
+          "id": "sitemaps-robots",
+          "title": "Sitemaps and Robots",
+          "content": "Search engines need to understand which URLs exist and which areas should or should not be crawled. Next.js supports special conventions for generating sitemap and robots resources.\n\nA sitemap should contain canonical URLs that you want indexed. Robots rules should not be treated as an access-control mechanism because they are instructions to crawlers rather than authentication.",
+          "keyTakeaways": [
+            "Sitemaps help search engines discover important URLs.",
+            "Robots rules do not protect private resources.",
+            "Authentication must protect private content."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "middleware-and-request-lifecycle",
+      "title": "Middleware, Headers, Cookies and the Request Lifecycle",
+      "summary": "Understand request interception, middleware use cases, cookies, headers, redirects, rewrites, and where security and routing logic belongs.",
+      "estimatedMinutes": 85,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "request-lifecycle",
+          "title": "Understanding the Request Lifecycle",
+          "content": "A request passes through several layers before the final UI or API response is returned. Depending on the application and deployment platform, this can involve edge infrastructure, middleware or proxy logic, routing, server rendering, data access, and caching.\n\nUnderstanding this lifecycle helps explain why a redirect may happen before a page executes or why a response can be cached even though the page contains server code.",
+          "diagram": {
+            "type": "flowchart",
+            "title": "Simplified Request Lifecycle",
+            "code": "flowchart LR\nBrowser --> CDN\nCDN --> RequestLayer[Request Processing]\nRequestLayer --> Routing[Routing]\nRouting --> Middleware[Middleware / Proxy]\nMiddleware --> Render[Rendering / Route Handler]\nRender --> Data[Data Sources]\nData --> Render\nRender --> Browser"
+          },
+          "keyTakeaways": [
+            "A request can pass through multiple infrastructure layers.",
+            "Caching and routing decisions can happen before rendering.",
+            "Understanding the lifecycle makes debugging easier."
+          ]
+        },
+        {
+          "id": "middleware-use-cases",
+          "title": "Middleware Use Cases",
+          "content": "Middleware is useful for lightweight request-level logic such as redirects, rewrites, locale detection, and certain authentication-related routing decisions.\n\nIt should not become a general-purpose business-logic layer. Expensive database operations, complex business workflows, and large application services usually belong elsewhere.\n\nAlways consider the runtime and deployment constraints of middleware before importing libraries that depend on Node-specific APIs.",
+          "keyTakeaways": [
+            "Use middleware for lightweight request interception.",
+            "Keep heavy business logic out of middleware.",
+            "Understand the runtime supported by your deployment environment."
+          ]
+        },
+        {
+          "id": "cookies-and-headers",
+          "title": "Reading and Setting Cookies and Headers",
+          "content": "Cookies and headers are fundamental parts of HTTP. Cookies commonly represent browser state, while headers communicate metadata such as authorization, content type, locale, and caching information.\n\nServer code can read request information, while response logic can set cookies or headers when appropriate.\n\nCookie domain, path, Secure, HttpOnly, SameSite, and expiration settings must be considered carefully when building authentication across domains or subdomains.",
+          "codeExample": {
+            "title": "Reading a Cookie",
+            "language": "typescript",
+            "code": "import { cookies } from 'next/headers';\n\nexport async function getCurrentSession() {\n  const cookieStore = await cookies();\n  const session = cookieStore.get('session');\n\n  return session?.value;\n}",
+            "explanation": "Server-side code can read request cookies through the framework cookie API."
+          },
+          "keyTakeaways": [
+            "Cookie behavior depends on domain, path, SameSite, Secure, and browser rules.",
+            "HttpOnly cookies cannot be read by normal browser JavaScript.",
+            "Cross-subdomain authentication requires deliberate cookie-domain design."
+          ]
+        },
+        {
+          "id": "redirects-and-rewrites",
+          "title": "Redirects and Rewrites",
+          "content": "A redirect tells the client or browser to use another URL. A rewrite maps one URL to another destination without necessarily changing the visible browser URL.\n\nRedirects are useful when a resource has moved or authentication requires navigation to a login page. Rewrites can be useful for proxying or creating clean public URLs over internal paths.\n\nChoose between them based on whether the browser should know that the URL changed.",
+          "keyTakeaways": [
+            "Redirects change navigation.",
+            "Rewrites can preserve the visible URL while changing the destination.",
+            "URL behavior should be predictable and documented."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "state-management-and-client-data",
+      "title": "State Management, Forms and Client-Side Data",
+      "summary": "Learn when to use React state, URL state, server state, context, external stores, and client-side data libraries in a Next.js architecture.",
+      "estimatedMinutes": 95,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "local-state",
+          "title": "Local Component State",
+          "content": "Local state should be the default choice when state belongs to one interactive component. Examples include open/closed dropdowns, form input state, tab selection, and temporary UI state.\n\nDo not move every piece of state into Redux or another global store. Global state introduces synchronization and architectural complexity.",
+          "codeExample": {
+            "title": "Local State",
+            "language": "tsx",
+            "code": "'use client';\n\nimport { useState } from 'react';\n\nexport default function Accordion() {\n  const [open, setOpen] = useState(false);\n\n  return (\n    <button onClick={() => setOpen(value => !value)}>\n      {open ? 'Close' : 'Open'}\n    </button>\n  );\n}",
+            "explanation": "The open state belongs only to this interactive component, so local state is appropriate."
+          },
+          "keyTakeaways": [
+            "Keep local state local.",
+            "Do not introduce global state without a cross-component requirement.",
+            "Functional state updates are useful when the next value depends on the previous value."
+          ]
+        },
+        {
+          "id": "url-state",
+          "title": "URL State",
+          "content": "Some state should live in the URL rather than React state. Search terms, filters, sorting, pagination, and selected tabs can often be represented as query parameters.\n\nURL state is shareable, bookmarkable, and survives refreshes. This makes it particularly useful for search and catalog pages.",
+          "codeExample": {
+            "title": "Search URL",
+            "language": "text",
+            "code": "/products?search=laptop&sort=price&page=2",
+            "explanation": "The URL represents the current search state and can be shared with another user."
+          },
+          "keyTakeaways": [
+            "Use URL parameters for shareable navigation state.",
+            "URL state improves refresh and bookmarking behavior.",
+            "Validate and normalize query parameters."
+          ]
+        },
+        {
+          "id": "context-api",
+          "title": "React Context in Next.js",
+          "content": "Context is useful for client-side values that need to be shared across a subtree, such as theme preferences or UI state.\n\nBecause Context uses client-side React behavior, providers often need to be Client Components. The provider can then wrap only the part of the tree that actually needs the context.\n\nAvoid placing a huge global provider around the entire application if only a small section needs it.",
+          "keyTakeaways": [
+            "Context is useful for shared client-side state.",
+            "Keep providers as narrow as practical.",
+            "Context is not automatically a replacement for server-side data fetching."
+          ]
+        },
+        {
+          "id": "external-state-management",
+          "title": "Redux and External Stores",
+          "content": "External state libraries can still be useful in Next.js applications, especially when complex client-side state must be shared across many interactive components.\n\nHowever, distinguish server state from client state. Database records fetched from the server do not necessarily belong in a global Redux store.\n\nUse external stores for genuinely client-owned state such as complex editors, multi-step workflows, offline state, or sophisticated UI interactions.",
+          "keyTakeaways": [
+            "Do not automatically put server data into global client state.",
+            "External stores are best for complex shared client state.",
+            "Server Components and server-side data fetching can eliminate many client-state requirements."
+          ]
+        },
+        {
+          "id": "client-data-fetching",
+          "title": "Client-Side Data Fetching",
+          "content": "Client-side fetching is appropriate when data depends heavily on browser interaction, frequent polling, real-time updates, or client-controlled parameters.\n\nLibraries such as SWR or TanStack Query can provide caching, deduplication, retries, refetching, and mutation management.\n\nThe correct question is not 'Should I use a data-fetching library?' but 'Where does this data belong and who owns its freshness?'",
+          "keyTakeaways": [
+            "Use client fetching when browser-driven updates are important.",
+            "Server fetching is usually preferable for initial page content.",
+            "Choose a client data library based on actual state and synchronization requirements."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "performance-optimization",
+      "title": "Next.js Performance Engineering",
+      "summary": "Optimize JavaScript, rendering, network requests, images, fonts, caching, component boundaries, database access, and Core Web Vitals.",
+      "estimatedMinutes": 120,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "javascript-bundle-size",
+          "title": "Reduce Client JavaScript",
+          "content": "One of the most powerful performance strategies in modern Next.js is avoiding unnecessary client-side JavaScript.\n\nEvery Client Component creates a client boundary. Large libraries imported into those components can increase the browser bundle.\n\nKeep static and data-heavy UI on the server. Move only genuinely interactive pieces to the client.",
+          "keyTakeaways": [
+            "Server Components can reduce browser JavaScript.",
+            "Audit large dependencies imported into Client Components.",
+            "Small client boundaries are generally easier to optimize."
+          ]
+        },
+        {
+          "id": "dynamic-imports",
+          "title": "Lazy Loading and Dynamic Imports",
+          "content": "Some features are expensive but not needed immediately. Examples include charting libraries, rich text editors, code editors, maps, and large administrative widgets.\n\nThese features can often be loaded only when the user reaches the relevant interaction or page.\n\nLazy loading is most useful when it removes meaningful work from the critical path rather than merely splitting arbitrary components.",
+          "codeExample": {
+            "title": "Dynamic Import",
+            "language": "tsx",
+            "code": "import dynamic from 'next/dynamic';\n\nconst HeavyChart = dynamic(() => import('./HeavyChart'), {\n  loading: () => <p>Loading chart...</p>\n});\n\nexport default function Analytics() {\n  return <HeavyChart />;\n}",
+            "explanation": "The heavy component can be loaded separately instead of being part of the initial client bundle."
+          },
+          "keyTakeaways": [
+            "Lazy-load genuinely expensive, non-critical features.",
+            "Measure bundle impact before and after changes.",
+            "Do not split components simply because dynamic imports exist."
+          ]
+        },
+        {
+          "id": "waterfall-performance",
+          "title": "Finding and Eliminating Waterfalls",
+          "content": "Waterfalls occur when the next operation cannot start until the previous operation finishes. They can occur in network requests, database queries, component rendering, or client effects.\n\nLook for sequential `await` calls where operations are independent. Also examine nested components that each wait for their own data before rendering.\n\nStreaming and parallel data fetching can reduce the impact of unavoidable slow operations.",
+          "keyTakeaways": [
+            "Network waterfalls are a common source of latency.",
+            "Parallelize independent work.",
+            "Use streaming to avoid blocking the entire page on one slow component."
+          ]
+        },
+        {
+          "id": "core-web-vitals",
+          "title": "Core Web Vitals",
+          "content": "Performance should be evaluated using real user experience metrics. Important metrics include Largest Contentful Paint, Interaction to Next Paint, and Cumulative Layout Shift.\n\nLCP can be affected by server response time, image loading, fonts, and rendering. INP is influenced by JavaScript execution and interaction handlers. CLS is often caused by content whose dimensions are not reserved before loading.\n\nDo not optimize based only on local development speed. Production performance depends on real network conditions and devices.",
+          "keyTakeaways": [
+            "Measure real user experience rather than relying only on localhost.",
+            "Reserve image and content dimensions to reduce layout shifts.",
+            "Reduce long JavaScript tasks to improve interaction responsiveness."
+          ]
+        },
+        {
+          "id": "database-performance",
+          "title": "Database and Backend Performance",
+          "content": "Frontend performance can be limited by backend operations. A page that renders quickly still feels slow if database queries take seconds.\n\nUse appropriate indexes, avoid fetching unnecessary columns, paginate large collections, and eliminate N+1 query patterns.\n\nMeasure database latency independently from rendering latency so you can identify the actual bottleneck.",
+          "keyTakeaways": [
+            "Frontend optimization cannot compensate for inefficient database queries.",
+            "Indexes should reflect real query patterns.",
+            "Avoid N+1 queries in server-rendered pages."
+          ]
+        },
+        {
+          "id": "performance-debugging",
+          "title": "Performance Debugging Methodology",
+          "content": "Performance work should follow measurement rather than intuition. Start by identifying the slow user journey, measure network and rendering timings, locate the bottleneck, change one variable, and measure again.\n\nCommon bottleneck categories include server response time, database latency, external APIs, JavaScript execution, image delivery, font loading, and client-side rendering.\n\nA useful performance review should produce numbers rather than vague statements such as 'the page feels slow.'",
+          "keyTakeaways": [
+            "Measure before optimizing.",
+            "Separate server, network, browser, and database bottlenecks.",
+            "Verify that an optimization actually improves the target metric."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced-nextjs-architecture",
+      "title": "Advanced Architecture, Error Handling and Production Patterns",
+      "summary": "Design large Next.js applications with error boundaries, not-found handling, loading states, reusable services, observability, testing, and maintainable module boundaries.",
+      "estimatedMinutes": 115,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "error-boundaries",
+          "title": "Error Boundaries",
+          "content": "Errors can happen during data fetching, rendering, or client interaction. A route-level `error.tsx` component can provide a recovery UI for errors within a route segment.\n\nA good error experience should communicate what happened without exposing internal implementation details. It should also provide a recovery action where possible.\n\nNot every error should be treated as a fatal application-wide failure.",
+          "codeExample": {
+            "title": "Route Error Boundary",
+            "language": "tsx",
+            "code": "'use client';\n\nexport default function Error({\n  reset\n}: {\n  error: Error & { digest?: string };\n  reset: () => void;\n}) {\n  return (\n    <section>\n      <h2>Something went wrong.</h2>\n      <button onClick={() => reset()}>Try again</button>\n    </section>\n  );\n}",
+            "explanation": "The route can provide a recovery UI without exposing sensitive server details."
+          },
+          "keyTakeaways": [
+            "Handle errors close to the UI boundary where recovery is possible.",
+            "Do not expose stack traces or secrets to users.",
+            "Provide recovery actions when retrying can succeed."
+          ]
+        },
+        {
+          "id": "not-found-handling",
+          "title": "Not Found Pages",
+          "content": "A missing resource is different from a server failure. Next.js provides a `notFound` mechanism for rendering an appropriate not-found boundary.\n\nFor example, if `/products/123` does not exist, the application should produce a proper 404 experience rather than throwing an unrelated server error.",
+          "codeExample": {
+            "title": "Resource Not Found",
+            "language": "typescript",
+            "code": "import { notFound } from 'next/navigation';\n\nexport default async function ProductPage({\n  params\n}: {\n  params: Promise<{ id: string }>;\n}) {\n  const { id } = await params;\n  const product = await getProduct(id);\n\n  if (!product) {\n    notFound();\n  }\n\n  return <h1>{product.name}</h1>;\n}",
+            "explanation": "The route explicitly distinguishes a missing resource from an unexpected application failure."
+          },
+          "keyTakeaways": [
+            "Use 404 semantics for missing resources.",
+            "Do not treat every missing record as a 500 error.",
+            "Create useful not-found experiences."
+          ]
+        },
+        {
+          "id": "domain-driven-project-structure",
+          "title": "Domain-Oriented Project Architecture",
+          "content": "As an application grows, organizing code purely by technical type can become difficult. Instead of one giant `services` directory, consider organizing important logic around business domains.\n\nFor example, an e-commerce application might contain `features/orders`, `features/products`, and `features/payments`, each with domain-specific components, services, validation, and types.\n\nThe goal is not to follow one universal folder structure. The goal is to create boundaries that allow teams to change one business capability without understanding the entire codebase.",
+          "diagram": {
+            "type": "architecture",
+            "title": "Domain-Oriented Architecture",
+            "code": "flowchart TD\nApp --> Products\nApp --> Orders\nApp --> Payments\nProducts --> ProductUI\nProducts --> ProductService\nProducts --> ProductRepository\nOrders --> OrderUI\nOrders --> OrderService\nOrders --> OrderRepository\nPayments --> PaymentService\nPayments --> PaymentProvider"
+          },
+          "keyTakeaways": [
+            "Organize large applications around meaningful boundaries.",
+            "Keep business rules independent from UI where possible.",
+            "Folder structure should reduce coupling rather than merely categorize files."
+          ]
+        },
+        {
+          "id": "observability",
+          "title": "Logging, Monitoring and Observability",
+          "content": "Production applications need more than error messages shown to users. Observability involves logs, metrics, traces, request identifiers, and meaningful error context.\n\nA request ID can connect frontend-visible failures to backend logs. Structured logs are easier to search and analyze than arbitrary strings.\n\nNever log passwords, access tokens, session secrets, payment data, or unnecessary personal information.",
+          "codeExample": {
+            "title": "Structured Logging",
+            "language": "typescript",
+            "code": "logger.info({\n  event: 'product_created',\n  requestId,\n  userId,\n  productId\n});",
+            "explanation": "Structured fields make production logs easier to search and correlate."
+          },
+          "callout": {
+            "type": "warning",
+            "title": "Avoid Sensitive Logs",
+            "message": "Production logs frequently have broader access than application databases. Treat logging as a data-security boundary."
+          },
+          "keyTakeaways": [
+            "Use structured logs and correlation IDs.",
+            "Monitor both errors and performance.",
+            "Never log secrets or unnecessary sensitive data."
+          ]
+        },
+        {
+          "id": "testing-nextjs",
+          "title": "Testing Next.js Applications",
+          "content": "A production Next.js application should use multiple levels of testing. Unit tests validate isolated business logic. Component tests validate UI behavior. Integration tests validate interactions between modules. End-to-end tests validate complete user workflows.\n\nDo not test framework behavior that you do not own. Instead, test your application's business rules, authorization decisions, rendering outcomes, and important user journeys.",
+          "keyTakeaways": [
+            "Use different test levels for different risks.",
+            "Prioritize critical business workflows.",
+            "Test behavior rather than implementation details."
+          ]
+        },
+        {
+          "id": "production-configuration",
+          "title": "Production Configuration",
+          "content": "Production configuration should be explicit and reproducible. Environment variables, database connections, logging configuration, authentication secrets, external service credentials, and build settings should be documented.\n\nDo not rely on local development assumptions. Production may have different domains, HTTPS requirements, cookie behavior, caching, runtime constraints, and environment variables.\n\nA deployment checklist should include authentication, error handling, monitoring, database migrations, rollback strategy, and cache behavior.",
+          "keyTakeaways": [
+            "Production configuration differs from local development.",
+            "Document required environment variables.",
+            "Test domain, cookie, caching, and authentication behavior in a production-like environment."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "deployment-and-production",
+      "title": "Deployment, CI/CD and Production Operations",
+      "summary": "Learn how to prepare, build, deploy, scale, monitor, and maintain Next.js applications in production environments.",
+      "estimatedMinutes": 100,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "next-build",
+          "title": "Production Build",
+          "content": "The production build is different from development mode. It performs optimizations, creates deployable output, and exposes issues that may not appear during development.\n\nAlways run a production build before deployment. Type errors, invalid imports, unsupported runtime APIs, and environment problems can surface during this stage.",
+          "codeExample": {
+            "title": "Build and Start",
+            "language": "bash",
+            "code": "npm run build\nnpm run start",
+            "explanation": "The production build should be validated before the application is released."
+          },
+          "keyTakeaways": [
+            "Test the production build before deploying.",
+            "Do not assume development mode represents production behavior.",
+            "Validate required environment variables during deployment."
+          ]
+        },
+        {
+          "id": "deployment-platforms",
+          "title": "Deployment Models",
+          "content": "Next.js can be deployed using managed platforms, containers, or infrastructure you operate yourself. The correct model depends on traffic patterns, compliance requirements, networking, operational expertise, and cost.\n\nManaged platforms can simplify caching, builds, previews, and deployment. Container-based deployment can provide greater control over runtime and infrastructure.\n\nThe application architecture should not depend unnecessarily on one deployment environment unless that dependency provides meaningful value.",
+          "keyTakeaways": [
+            "Deployment strategy should match operational requirements.",
+            "Managed hosting reduces infrastructure responsibility.",
+            "Container deployment can provide greater infrastructure control."
+          ]
+        },
+        {
+          "id": "ci-cd",
+          "title": "CI/CD for Next.js",
+          "content": "Continuous integration should automatically validate code before it reaches production. A typical pipeline may run formatting checks, linting, type checking, unit tests, integration tests, and a production build.\n\nContinuous deployment can then promote validated builds through staging and production environments.\n\nThe exact pipeline should reflect application risk. A financial application should generally have stronger release controls than a small personal website.",
+          "codeExample": {
+            "title": "Typical CI Commands",
+            "language": "bash",
+            "code": "npm ci\nnpm run lint\nnpm run typecheck\nnpm test\nnpm run build",
+            "explanation": "These commands represent common validation stages in a CI pipeline."
+          },
+          "keyTakeaways": [
+            "Automate quality checks before deployment.",
+            "Build artifacts should be reproducible.",
+            "Use stronger release controls for higher-risk systems."
+          ]
+        },
+        {
+          "id": "scaling-nextjs",
+          "title": "Scaling Next.js Applications",
+          "content": "Scaling is not simply adding more application servers. You must understand which parts of the application are stateless, where sessions live, how caches behave, how database connections are managed, and which workloads can become bottlenecks.\n\nA horizontally scaled application should avoid storing important user state only in process memory unless that behavior is intentionally local.\n\nDatabase connection management becomes especially important when many server instances can start simultaneously.",
+          "keyTakeaways": [
+            "Design application servers to be horizontally scalable when required.",
+            "Do not depend on process-local state for shared application state.",
+            "Database and cache architecture often becomes the real scaling bottleneck."
+          ]
+        },
+        {
+          "id": "rollback-and-migrations",
+          "title": "Database Migrations and Rollbacks",
+          "content": "Application deployment and database schema changes must be coordinated carefully. A deployment can fail even when the application code is correct if the database migration is incompatible with the currently running version.\n\nPrefer backwards-compatible schema changes when possible. For example, add a new column before deploying code that requires it, then remove the old column only after the old code is no longer running.\n\nRollback planning is essential because application rollback does not automatically reverse database changes.",
+          "keyTakeaways": [
+            "Database changes can outlive application deployments.",
+            "Prefer backwards-compatible migration strategies.",
+            "A code rollback does not necessarily mean a database rollback."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "expert-patterns-and-troubleshooting",
+      "title": "Expert Patterns, Troubleshooting and Real-World Scenarios",
+      "summary": "Develop expert-level reasoning for architecture decisions, debugging stale data, authentication failures, performance problems, hydration issues, and production incidents.",
+      "estimatedMinutes": 120,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "hydration-mismatch",
+          "title": "Hydration Mismatch Problems",
+          "content": "Hydration mismatches occur when the HTML produced on the server does not match what React expects when the browser hydrates the application.\n\nCommon causes include rendering `Date.now()`, random values, browser-only APIs, locale-dependent formatting, or different data between server and client.\n\nA component that depends on browser-only information should usually read that information after hydration or remain entirely client-driven where appropriate.",
+          "codeExample": {
+            "title": "Avoid Browser-Dependent Initial Render",
+            "language": "tsx",
+            "code": "'use client';\n\nimport { useEffect, useState } from 'react';\n\nexport default function ClientWidth() {\n  const [width, setWidth] = useState<number | null>(null);\n\n  useEffect(() => {\n    setWidth(window.innerWidth);\n  }, []);\n\n  return <p>{width === null ? 'Loading...' : `${width}px`}</p>;\n}",
+            "explanation": "The browser-specific value is read after hydration instead of producing different initial server and client HTML."
+          },
+          "keyTakeaways": [
+            "Server and client initial output should be consistent.",
+            "Browser APIs do not exist during server rendering.",
+            "Avoid non-deterministic values in server-rendered markup."
+          ]
+        },
+        {
+          "id": "stale-data-debugging",
+          "title": "Debugging Stale Data",
+          "content": "When users report stale data, determine which cache layer is responsible before changing code. Check browser caching, CDN behavior, framework data caching, route output caching, database replicas, and application-level caches.\n\nA useful debugging technique is to trace one request from browser to database and identify where the old value is introduced.\n\nAvoid solving every stale-data problem by disabling caching globally. That may fix freshness while destroying performance.",
+          "keyTakeaways": [
+            "Find the stale layer before changing caching configuration.",
+            "Cache invalidation should follow data dependencies.",
+            "Freshness and performance must be balanced."
+          ]
+        },
+        {
+          "id": "auth-cookie-debugging",
+          "title": "Debugging Authentication Cookies",
+          "content": "Authentication failures across environments are often caused by cookie attributes rather than application logic. Check domain, path, Secure, HttpOnly, SameSite, expiration, scheme, and browser policies.\n\nFor cross-subdomain authentication, the cookie domain must be intentionally configured. A cookie set for one host is not automatically available to unrelated hosts.\n\nBrowser developer tools can reveal whether a cookie was stored, whether it is included in requests, and which attribute prevented transmission.",
+          "keyTakeaways": [
+            "Inspect cookie storage and request headers separately.",
+            "Domain and SameSite rules frequently cause cross-subdomain authentication bugs.",
+            "Do not debug authentication only from server logs; inspect browser behavior too."
+          ]
+        },
+        {
+          "id": "server-client-performance-tradeoffs",
+          "title": "Choosing Server vs Client Execution",
+          "content": "Expert Next.js development is largely about placing computation in the correct environment.\n\nUse the server for database access, secrets, heavy data preparation, authorization, and initial content. Use the browser for interactions, local state, animation, immediate UI responses, and browser APIs.\n\nThere is no universal rule that all data must be fetched on the server or that all interactive applications should use client-side fetching. The correct choice depends on latency, freshness, interaction requirements, SEO, security, and caching.",
+          "keyTakeaways": [
+            "Server versus client is an architectural tradeoff.",
+            "Security-sensitive operations belong on the server.",
+            "Interactive behavior belongs where it can provide the best user experience."
+          ]
+        },
+        {
+          "id": "production-incident-debugging",
+          "title": "Production Incident Reasoning",
+          "content": "When production fails, start with symptoms rather than assumptions. Identify when the problem began, whether all users are affected, which routes or regions are affected, and whether a deployment or infrastructure change occurred.\n\nThen inspect error rates, latency, logs, dependency health, database health, and recent changes.\n\nA strong engineer avoids making several unrelated changes simultaneously because that makes the root cause harder to identify.",
+          "keyTakeaways": [
+            "Start incident debugging with observable symptoms.",
+            "Correlate failures with recent deployments and infrastructure changes.",
+            "Change one major variable at a time when possible."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "nextjs-questions",
+      "title": "Top Nest.js Questions & Practice",
+      "summary": "Master 50+ essential Next.js questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "estimatedMinutes": 180,
+      "mediaImages": [
+        "[https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80](https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80)"
+      ],
+      "sections": [
+        {
+          "id": "junior-fundamentals-01",
+          "title": "Junior Fundamentals — Question 1",
+          "content": "Practice question covering the basic purpose of Next.js.",
+          "interactiveQuiz": {
+            "question": "What is Next.js primarily?",
+            "options": [
+              "A database engine",
+              "A React framework for building web applications",
+              "A CSS preprocessor",
+              "A JavaScript testing framework"
+            ],
+            "correctIndex": 1,
+            "explanation": "Next.js is a React framework that provides application-level capabilities such as routing, rendering, server execution, optimization, and deployment-oriented features."
+          }
+        },
+        {
+          "id": "junior-fundamentals-02",
+          "title": "Junior Fundamentals — Question 2",
+          "content": "Practice question covering the App Router.",
+          "interactiveQuiz": {
+            "question": "Which directory is the central routing directory in a modern Next.js App Router application?",
+            "options": ["routes", "pages", "app", "src/routes"],
+            "correctIndex": 2,
+            "explanation": "The App Router uses the `app` directory. A `page.tsx` inside a route segment defines the UI for that route."
+          }
+        },
+        {
+          "id": "junior-fundamentals-03",
+          "title": "Junior Fundamentals — Question 3",
+          "content": "Practice question about pages.",
+          "interactiveQuiz": {
+            "question": "What does `app/about/page.tsx` normally represent?",
+            "options": ["The `/about` route", "The `/page/about` route", "A middleware file", "An API endpoint"],
+            "correctIndex": 0,
+            "explanation": "The folder structure maps to URL segments, and `page.tsx` makes the segment renderable. Therefore this file represents `/about`."
+          }
+        },
+        {
+          "id": "junior-fundamentals-04",
+          "title": "Junior Fundamentals — Question 4",
+          "content": "Practice question about layouts.",
+          "interactiveQuiz": {
+            "question": "What is the primary purpose of a Next.js layout?",
+            "options": [
+              "To define database schemas",
+              "To provide shared UI around nested routes",
+              "To replace CSS",
+              "To create environment variables"
+            ],
+            "correctIndex": 1,
+            "explanation": "Layouts provide shared UI and can persist across navigation for routes nested beneath them."
+          }
+        },
+        {
+          "id": "junior-fundamentals-05",
+          "title": "Junior Fundamentals — Question 5",
+          "content": "Practice question about dynamic routes.",
+          "interactiveQuiz": {
+            "question": "What does a folder named `[id]` represent in the App Router?",
+            "options": ["A static route named id", "A dynamic route segment", "An API-only folder", "A route group"],
+            "correctIndex": 1,
+            "explanation": "Square brackets define dynamic segments. A route such as `/products/[id]` can match many product IDs."
+          }
+        },
+        {
+          "id": "junior-fundamentals-06",
+          "title": "Junior Fundamentals — Question 6",
+          "content": "Practice question about navigation.",
+          "interactiveQuiz": {
+            "question": "Which component should normally be used for internal navigation?",
+            "options": ["window.location only", "HTML iframe", "next/link Link", "document.navigate"],
+            "correctIndex": 2,
+            "explanation": "The Next.js `Link` component provides framework-aware internal navigation and can integrate with routing and prefetching."
+          }
+        },
+        {
+          "id": "junior-fundamentals-07",
+          "title": "Junior Fundamentals — Question 7",
+          "content": "Practice question about environment variables.",
+          "interactiveQuiz": {
+            "question": "What does the `NEXT_PUBLIC_` prefix indicate?",
+            "options": [
+              "The variable is encrypted",
+              "The variable is intended to be exposed to client-side code",
+              "The variable is available only in production",
+              "The variable is automatically secret"
+            ],
+            "correctIndex": 1,
+            "explanation": "The prefix indicates that the value may be exposed to browser-side code. Private secrets should not use this prefix."
+          }
+        },
+        {
+          "id": "junior-fundamentals-08",
+          "title": "Junior Fundamentals — Question 8",
+          "content": "Practice question about Server Components.",
+          "interactiveQuiz": {
+            "question": "In the App Router, what type of component is the default?",
+            "options": ["Client Component", "Server Component", "Web Component", "Static Component"],
+            "correctIndex": 1,
+            "explanation": "Components are Server Components by default. The `use client` directive establishes a Client Component boundary."
+          }
+        },
+        {
+          "id": "junior-fundamentals-09",
+          "title": "Junior Fundamentals — Question 9",
+          "content": "Practice question about client components.",
+          "interactiveQuiz": {
+            "question": "Which directive makes a component a Client Component?",
+            "options": ["`use browser`", "`client component`", "`use client`", "`use interactive`"],
+            "correctIndex": 2,
+            "explanation": "The module-level `use client` directive marks the component as part of the client component boundary."
+          }
+        },
+        {
+          "id": "junior-fundamentals-10",
+          "title": "Junior Fundamentals — Question 10",
+          "content": "Practice question about browser APIs.",
+          "interactiveQuiz": {
+            "question": "Why can't a normal Server Component directly use `window`?",
+            "options": [
+              "window is a database API",
+              "window is a browser-only API",
+              "Next.js removes all JavaScript",
+              "window only works with CSS"
+            ],
+            "correctIndex": 1,
+            "explanation": "Server Components execute on the server, where browser globals such as `window` do not exist."
+          }
+        },
+        {
+          "id": "junior-fundamentals-11",
+          "title": "Junior Fundamentals — Question 11",
+          "content": "Practice question about route groups.",
+          "interactiveQuiz": {
+            "question": "What is the purpose of `(marketing)` as an App Router folder?",
+            "options": [
+              "It creates a URL segment called marketing",
+              "It groups routes without adding the folder to the URL",
+              "It creates an API route",
+              "It enables JavaScript compression"
+            ],
+            "correctIndex": 1,
+            "explanation": "Parentheses create route groups. They organize routing and layouts without appearing in the public URL."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-01",
+          "title": "Core APIs & Rendering — Question 12",
+          "content": "Practice question about rendering.",
+          "interactiveQuiz": {
+            "question": "Which rendering strategy is generally suitable for content that rarely changes and can be generated ahead of requests?",
+            "options": ["Static rendering", "Always-client rendering", "WebSocket rendering", "Database rendering"],
+            "correctIndex": 0,
+            "explanation": "Static rendering is appropriate when content can be generated ahead of requests and reused efficiently."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-02",
+          "title": "Core APIs & Rendering — Question 13",
+          "content": "Practice question about dynamic rendering.",
+          "interactiveQuiz": {
+            "question": "Which scenario commonly requires dynamic rendering?",
+            "options": [
+              "A fixed documentation page",
+              "A personalized dashboard based on the current user",
+              "A static company logo",
+              "A CSS stylesheet"
+            ],
+            "correctIndex": 1,
+            "explanation": "Personalized content often depends on request-specific identity or state, making dynamic rendering appropriate."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-03",
+          "title": "Core APIs & Rendering — Question 14",
+          "content": "Practice question about revalidation.",
+          "interactiveQuiz": {
+            "question": "What is the main idea behind incremental revalidation?",
+            "options": [
+              "Never update content",
+              "Regenerate or refresh cached content according to a freshness strategy",
+              "Move all rendering to the browser",
+              "Disable caching completely"
+            ],
+            "correctIndex": 1,
+            "explanation": "Revalidation provides a middle ground between fully static content and fresh request-time rendering."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-04",
+          "title": "Core APIs & Rendering — Question 15",
+          "content": "Practice question about streaming.",
+          "interactiveQuiz": {
+            "question": "What does streaming primarily improve?",
+            "options": [
+              "Database schema design",
+              "The ability to send useful UI before all server work finishes",
+              "JavaScript syntax",
+              "CSS specificity"
+            ],
+            "correctIndex": 1,
+            "explanation": "Streaming lets portions of a response reach the browser as they become ready rather than waiting for the entire page."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-05",
+          "title": "Core APIs & Rendering — Question 16",
+          "content": "Practice question about Suspense.",
+          "interactiveQuiz": {
+            "question": "What is a common purpose of a React Suspense boundary in Next.js?",
+            "options": [
+              "Define a database table",
+              "Provide fallback UI while part of the tree is waiting",
+              "Encrypt environment variables",
+              "Create a route group"
+            ],
+            "correctIndex": 1,
+            "explanation": "Suspense boundaries allow a portion of the UI to display fallback content while the underlying work resolves."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-06",
+          "title": "Core APIs & Rendering — Question 17",
+          "content": "Practice question about loading UI.",
+          "interactiveQuiz": {
+            "question": "What is the purpose of `loading.tsx`?",
+            "options": [
+              "Define SQL migrations",
+              "Provide loading UI for a route segment",
+              "Configure TypeScript",
+              "Create a client-only database"
+            ],
+            "correctIndex": 1,
+            "explanation": "A route-level `loading.tsx` provides an immediate loading experience while the associated content is being prepared."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-07",
+          "title": "Core APIs & Rendering — Question 18",
+          "content": "Practice question about parallel requests.",
+          "interactiveQuiz": {
+            "question": "Which approach is best when three independent server requests can execute concurrently?",
+            "options": ["Await each one sequentially", "Use Promise.all", "Use setTimeout", "Render them through CSS"],
+            "correctIndex": 1,
+            "explanation": "`Promise.all` allows independent asynchronous operations to begin without waiting for each other unnecessarily."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-08",
+          "title": "Core APIs & Rendering — Question 19",
+          "content": "Practice question about Route Handlers.",
+          "interactiveQuiz": {
+            "question": "Which file convention defines an HTTP Route Handler in the App Router?",
+            "options": ["api.tsx", "server.tsx", "route.ts", "handler.jsx"],
+            "correctIndex": 2,
+            "explanation": "A `route.ts` file defines HTTP handlers such as GET, POST, PUT, PATCH, and DELETE."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-09",
+          "title": "Core APIs & Rendering — Question 20",
+          "content": "Practice question about status codes.",
+          "interactiveQuiz": {
+            "question": "Which status code normally represents a successfully created resource?",
+            "options": ["200", "201", "301", "500"],
+            "correctIndex": 1,
+            "explanation": "HTTP 201 Created indicates that a request successfully created a new resource."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-10",
+          "title": "Core APIs & Rendering — Question 21",
+          "content": "Practice question about missing resources.",
+          "interactiveQuiz": {
+            "question": "Which status code normally represents a missing resource?",
+            "options": ["201", "301", "404", "503"],
+            "correctIndex": 2,
+            "explanation": "HTTP 404 Not Found indicates that the requested resource could not be found."
+          }
+        },
+        {
+          "id": "core-apis-and-rendering-11",
+          "title": "Core APIs & Rendering — Question 22",
+          "content": "Practice question about Server Actions.",
+          "interactiveQuiz": {
+            "question": "What are Server Actions primarily intended to simplify?",
+            "options": [
+              "CSS animations",
+              "Server-side mutations invoked from supported React interactions",
+              "Database replication",
+              "Image compression only"
+            ],
+            "correctIndex": 1,
+            "explanation": "Server Actions provide a convenient way to execute server-side mutation logic from forms and supported React interactions."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-01",
+          "title": "Security & Data Architecture — Question 23",
+          "content": "Practice question about authorization.",
+          "interactiveQuiz": {
+            "question": "What is the difference between authentication and authorization?",
+            "options": [
+              "Authentication identifies the user; authorization determines permissions",
+              "Authentication encrypts data; authorization compresses data",
+              "Authentication is only for APIs; authorization is only for pages",
+              "There is no difference"
+            ],
+            "correctIndex": 0,
+            "explanation": "Authentication answers who the user is. Authorization determines whether that user can perform a particular operation."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-02",
+          "title": "Security & Data Architecture — Question 24",
+          "content": "Practice question about secure cookies.",
+          "interactiveQuiz": {
+            "question": "What does the HttpOnly cookie attribute primarily prevent?",
+            "options": [
+              "The server from reading the cookie",
+              "Normal client-side JavaScript from reading the cookie",
+              "HTTPS from being used",
+              "The browser from storing the cookie"
+            ],
+            "correctIndex": 1,
+            "explanation": "HttpOnly prevents normal JavaScript access to the cookie, reducing one avenue for token theft through client-side scripts."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-03",
+          "title": "Security & Data Architecture — Question 25",
+          "content": "Practice question about JWTs.",
+          "interactiveQuiz": {
+            "question": "Does a signed JWT automatically provide confidentiality?",
+            "options": [
+              "Yes, every JWT is encrypted",
+              "No, signing provides integrity but does not by itself encrypt the payload",
+              "Only when stored in localStorage",
+              "Only when using React"
+            ],
+            "correctIndex": 1,
+            "explanation": "A signed JWT protects integrity and authenticity of claims. Encryption is a separate concept."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-04",
+          "title": "Security & Data Architecture — Question 26",
+          "content": "Practice question about validation.",
+          "interactiveQuiz": {
+            "question": "Where should security-critical input validation happen?",
+            "options": ["Only in the browser", "Only in CSS", "On the server at the trust boundary", "Only in the database UI"],
+            "correctIndex": 2,
+            "explanation": "Client-side validation improves user experience but cannot be trusted for security. Server-side validation is mandatory."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-05",
+          "title": "Security & Data Architecture — Question 27",
+          "content": "Practice question about Server Actions.",
+          "interactiveQuiz": {
+            "question": "Should a Server Action assume that only the application's visible button can invoke it?",
+            "options": [
+              "Yes",
+              "Only in production",
+              "No, the action must validate authentication and authorization itself",
+              "Only if TypeScript is enabled"
+            ],
+            "correctIndex": 2,
+            "explanation": "Server Actions are server entry points. The UI is not a security boundary, so actions must independently validate access."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-06",
+          "title": "Security & Data Architecture — Question 28",
+          "content": "Practice question about data access.",
+          "interactiveQuiz": {
+            "question": "Why can direct database access from a Server Component be preferable to calling an internal API?",
+            "options": [
+              "It exposes database credentials",
+              "It can avoid an unnecessary HTTP hop",
+              "It forces the database into the browser",
+              "It disables caching"
+            ],
+            "correctIndex": 1,
+            "explanation": "Server Components can call server-side data-access functions directly, avoiding an unnecessary server-to-server HTTP round trip."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-07",
+          "title": "Security & Data Architecture — Question 29",
+          "content": "Practice question about authorization.",
+          "interactiveQuiz": {
+            "question": "A user is authenticated but tries to delete another user's invoice. What should happen?",
+            "options": [
+              "Allow it because authentication succeeded",
+              "Allow it if the button was visible",
+              "Deny the operation because authorization fails",
+              "Return HTTP 201"
+            ],
+            "correctIndex": 2,
+            "explanation": "Authentication does not grant permission to every resource. Authorization must verify ownership or another applicable permission."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-08",
+          "title": "Security & Data Architecture — Question 30",
+          "content": "Practice question about webhooks.",
+          "interactiveQuiz": {
+            "question": "Why should webhook handlers usually be idempotent?",
+            "options": [
+              "Webhooks can be delivered more than once",
+              "Webhooks never retry",
+              "Idempotency makes CSS faster",
+              "It disables authentication"
+            ],
+            "correctIndex": 0,
+            "explanation": "External providers can retry webhook delivery. Idempotent processing prevents duplicate side effects."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-09",
+          "title": "Security & Data Architecture — Question 31",
+          "content": "Practice question about database architecture.",
+          "interactiveQuiz": {
+            "question": "Why is a data-access layer useful in a large Next.js application?",
+            "options": [
+              "It makes HTML unnecessary",
+              "It separates database/business access from UI components",
+              "It guarantees zero latency",
+              "It automatically encrypts every database"
+            ],
+            "correctIndex": 1,
+            "explanation": "A data-access layer keeps persistence concerns separate from UI and makes business logic easier to test and maintain."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-10",
+          "title": "Security & Data Architecture — Question 32",
+          "content": "Practice question about caching personalized content.",
+          "interactiveQuiz": {
+            "question": "What is a major risk of incorrectly caching user-specific content?",
+            "options": [
+              "The CSS becomes invalid",
+              "One user's data could potentially be served to another user",
+              "The database automatically deletes records",
+              "The browser stops supporting JavaScript"
+            ],
+            "correctIndex": 1,
+            "explanation": "Shared caching must respect user-specific boundaries. Incorrect caching can create severe data isolation and privacy problems."
+          }
+        },
+        {
+          "id": "security-and-data-architecture-11",
+          "title": "Security & Data Architecture — Question 33",
+          "content": "Practice question about secrets.",
+          "interactiveQuiz": {
+            "question": "Which value should generally never use the NEXT_PUBLIC_ prefix?",
+            "options": ["A public analytics identifier", "A public API base URL", "A database password", "A public feature flag"],
+            "correctIndex": 2,
+            "explanation": "A database password is secret and should never intentionally be exposed to browser-side code."
+          }
+        },
+        {
+          "id": "performance-and-production-01",
+          "title": "Performance & Production — Question 34",
+          "content": "Practice question about client JavaScript.",
+          "interactiveQuiz": {
+            "question": "Why can minimizing Client Components improve performance?",
+            "options": [
+              "It removes the database",
+              "It can reduce browser JavaScript and client-side work",
+              "It disables HTML",
+              "It prevents server rendering"
+            ],
+            "correctIndex": 1,
+            "explanation": "Keeping more UI on the server can reduce the amount of JavaScript that must be downloaded, parsed, and executed in the browser."
+          }
+        },
+        {
+          "id": "performance-and-production-02",
+          "title": "Performance & Production — Question 35",
+          "content": "Practice question about waterfalls.",
+          "interactiveQuiz": {
+            "question": "Which pattern can create an unnecessary request waterfall?",
+            "options": ["Promise.all for independent operations", "Sequential awaits for unrelated requests", "Static HTML", "CDN caching"],
+            "correctIndex": 1,
+            "explanation": "Sequentially awaiting unrelated operations forces later work to wait unnecessarily for earlier work."
+          }
+        },
+        {
+          "id": "performance-and-production-03",
+          "title": "Performance & Production — Question 36",
+          "content": "Practice question about lazy loading.",
+          "interactiveQuiz": {
+            "question": "Which component is a strong candidate for lazy loading?",
+            "options": [
+              "A tiny text label",
+              "A large charting library used only on an analytics page",
+              "The HTML root element",
+              "A favicon"
+            ],
+            "correctIndex": 1,
+            "explanation": "Large, non-critical libraries can be loaded only when required to reduce initial client work."
+          }
+        },
+        {
+          "id": "performance-and-production-04",
+          "title": "Performance & Production — Question 37",
+          "content": "Practice question about images.",
+          "interactiveQuiz": {
+            "question": "Why should large images be optimized?",
+            "options": [
+              "Images never affect performance",
+              "Images can be among the largest resources transferred to users",
+              "Images automatically execute JavaScript",
+              "Images change database indexes"
+            ],
+            "correctIndex": 1,
+            "explanation": "Images can consume significant bandwidth and affect loading metrics, especially on mobile networks."
+          }
+        },
+        {
+          "id": "performance-and-production-05",
+          "title": "Performance & Production — Question 38",
+          "content": "Practice question about layout shift.",
+          "interactiveQuiz": {
+            "question": "Which practice helps reduce layout shifts caused by images?",
+            "options": [
+              "Avoid all images",
+              "Reserve appropriate image dimensions",
+              "Use random image dimensions",
+              "Load images without dimensions"
+            ],
+            "correctIndex": 1,
+            "explanation": "Reserving the required space prevents content from jumping when an image finishes loading."
+          }
+        },
+        {
+          "id": "performance-and-production-06",
+          "title": "Performance & Production — Question 39",
+          "content": "Practice question about production builds.",
+          "interactiveQuiz": {
+            "question": "Why should a production build be tested before deployment?",
+            "options": [
+              "Development and production behavior are always identical",
+              "Production builds can expose configuration and build-time problems",
+              "It changes database passwords automatically",
+              "It disables TypeScript"
+            ],
+            "correctIndex": 1,
+            "explanation": "Production builds exercise optimizations and build-time processing that may not occur in the same way during development."
+          }
+        },
+        {
+          "id": "performance-and-production-07",
+          "title": "Performance & Production — Question 40",
+          "content": "Practice question about horizontal scaling.",
+          "interactiveQuiz": {
+            "question": "What is a common requirement for horizontally scaled application servers?",
+            "options": [
+              "All user state must live in one process's memory",
+              "Shared application state should not depend on one process",
+              "The database must run inside the browser",
+              "Every request must use the same server forever"
+            ],
+            "correctIndex": 1,
+            "explanation": "Requests may reach different instances, so important shared state should be stored in appropriate shared infrastructure."
+          }
+        },
+        {
+          "id": "performance-and-production-08",
+          "title": "Performance & Production — Question 41",
+          "content": "Practice question about observability.",
+          "interactiveQuiz": {
+            "question": "What is the purpose of a request ID?",
+            "options": [
+              "To replace authentication",
+              "To correlate activity belonging to one request across logs and services",
+              "To compress HTML",
+              "To generate CSS classes"
+            ],
+            "correctIndex": 1,
+            "explanation": "Correlation IDs allow engineers to trace one request across logs, services, and infrastructure."
+          }
+        },
+        {
+          "id": "performance-and-production-09",
+          "title": "Performance & Production — Question 42",
+          "content": "Practice question about database performance.",
+          "interactiveQuiz": {
+            "question": "Which issue can significantly slow a data-heavy Next.js page?",
+            "options": ["An appropriate database index", "An N+1 query pattern", "A cached static asset", "A small CSS class"],
+            "correctIndex": 1,
+            "explanation": "N+1 queries can cause a large number of database round trips and severely increase server latency."
+          }
+        },
+        {
+          "id": "performance-and-production-10",
+          "title": "Performance & Production — Question 43",
+          "content": "Practice question about migrations.",
+          "interactiveQuiz": {
+            "question": "Why are backwards-compatible database migrations useful during deployments?",
+            "options": [
+              "They ensure old and new application versions can coexist temporarily",
+              "They eliminate the need for databases",
+              "They force every server to restart simultaneously",
+              "They encrypt all rows automatically"
+            ],
+            "correctIndex": 0,
+            "explanation": "During rolling deployments, old and new application versions may run simultaneously. Compatible schema transitions reduce deployment risk."
+          }
+        },
+        {
+          "id": "performance-and-production-11",
+          "title": "Performance & Production — Question 44",
+          "content": "Practice question about production debugging.",
+          "interactiveQuiz": {
+            "question": "What is generally the best first step during a production incident?",
+            "options": [
+              "Randomly change multiple systems",
+              "Identify the observable symptoms and scope of the failure",
+              "Delete the database",
+              "Disable authentication"
+            ],
+            "correctIndex": 1,
+            "explanation": "Understanding when, where, and how broadly the problem occurs helps narrow the root cause before making risky changes."
+          }
+        },
+        {
+          "id": "senior-scenarios-01",
+          "title": "Senior Real-World Scenarios — Question 45",
+          "content": "Senior-level architecture scenario.",
+          "interactiveQuiz": {
+            "question": "A product page needs database data and has one interactive Add to Cart button. What is generally the strongest architecture?",
+            "options": [
+              "Make the entire page a Client Component",
+              "Render product data on the server and isolate the button as a Client Component",
+              "Fetch the product only after browser hydration",
+              "Put the database query inside the button"
+            ],
+            "correctIndex": 1,
+            "explanation": "The product page can remain server-rendered while only the interactive button becomes client-side. This preserves server-side data access and minimizes browser JavaScript."
+          }
+        },
+        {
+          "id": "senior-scenarios-02",
+          "title": "Senior Real-World Scenarios — Question 46",
+          "content": "Senior-level caching scenario.",
+          "interactiveQuiz": {
+            "question": "A product update succeeds but the product listing still shows the old name. What should you investigate first?",
+            "options": [
+              "Whether the CSS file is too large",
+              "Which caching layer contains the stale result",
+              "Whether React supports strings",
+              "Whether HTML has been removed"
+            ],
+            "correctIndex": 1,
+            "explanation": "Stale data can originate from multiple cache layers. Identifying the layer responsible is more reliable than disabling all caching."
+          }
+        },
+        {
+          "id": "senior-scenarios-03",
+          "title": "Senior Real-World Scenarios — Question 47",
+          "content": "Senior-level authentication scenario.",
+          "interactiveQuiz": {
+            "question": "A cookie works on one subdomain but not another related subdomain. Which is the most relevant area to inspect?",
+            "options": ["CSS specificity", "Cookie Domain, Path, Secure, and SameSite attributes", "React prop names", "Image dimensions"],
+            "correctIndex": 1,
+            "explanation": "Cross-subdomain cookie behavior is governed by browser cookie attributes and security policies, especially Domain and SameSite."
+          }
+        },
+        {
+          "id": "senior-scenarios-04",
+          "title": "Senior Real-World Scenarios — Question 48",
+          "content": "Senior-level performance scenario.",
+          "interactiveQuiz": {
+            "question": "A dashboard waits for three independent APIs before displaying anything. What is the most appropriate first optimization?",
+            "options": [
+              "Call the APIs sequentially",
+              "Parallelize independent requests and consider streaming their UI",
+              "Move all APIs into CSS",
+              "Disable error handling"
+            ],
+            "correctIndex": 1,
+            "explanation": "Independent requests can execute concurrently, and Suspense/streaming can allow faster portions of the interface to appear before slower data arrives."
+          }
+        },
+        {
+          "id": "senior-scenarios-05",
+          "title": "Senior Real-World Scenarios — Question 49",
+          "content": "Senior-level API architecture scenario.",
+          "interactiveQuiz": {
+            "question": "A Server Component needs data from your own database. Should you always create a Route Handler and call it over HTTP?",
+            "options": [
+              "Yes, always",
+              "No, the Server Component can usually call a server-side data-access layer directly",
+              "Only if TypeScript is disabled",
+              "Only during development"
+            ],
+            "correctIndex": 1,
+            "explanation": "An internal HTTP hop is often unnecessary. Server Components can directly call server-side services or repositories."
+          }
+        },
+        {
+          "id": "senior-scenarios-06",
+          "title": "Senior Real-World Scenarios — Question 50",
+          "content": "Senior-level security scenario.",
+          "interactiveQuiz": {
+            "question": "A delete endpoint checks only whether a user is logged in. What security problem remains?",
+            "options": [
+              "None",
+              "The user may still be unauthorized to delete the specific resource",
+              "The endpoint automatically becomes static",
+              "The browser cannot send DELETE requests"
+            ],
+            "correctIndex": 1,
+            "explanation": "Authentication only establishes identity. The endpoint must also verify authorization, such as ownership or role permissions."
+          }
+        },
+        {
+          "id": "senior-scenarios-07",
+          "title": "Senior Real-World Scenarios — Question 51",
+          "content": "Senior-level Server Component scenario.",
+          "interactiveQuiz": {
+            "question": "Why should `use client` not be added to the top-level page merely because one child needs state?",
+            "options": [
+              "Client Components cannot render HTML",
+              "It can unnecessarily move a large portion of the tree into the client boundary",
+              "It disables TypeScript",
+              "It prevents all routing"
+            ],
+            "correctIndex": 1,
+            "explanation": "The client boundary can increase browser JavaScript and remove opportunities for server-side execution. Isolate the interactive child when possible."
+          }
+        },
+        {
+          "id": "senior-scenarios-08",
+          "title": "Senior Real-World Scenarios — Question 52",
+          "content": "Senior-level hydration scenario.",
+          "interactiveQuiz": {
+            "question": "A component renders `Date.now()` directly during server rendering and also on the client. Why can this cause a hydration warning?",
+            "options": [
+              "Dates are not valid JavaScript",
+              "The server and client can produce different initial markup",
+              "React cannot display numbers",
+              "Next.js removes Date"
+            ],
+            "correctIndex": 1,
+            "explanation": "The server and browser can calculate different timestamps, causing their initial output to differ."
+          }
+        },
+        {
+          "id": "senior-scenarios-09",
+          "title": "Senior Real-World Scenarios — Question 53",
+          "content": "Senior-level webhook scenario.",
+          "interactiveQuiz": {
+            "question": "A payment provider sends the same webhook twice and your system creates two orders. What design principle is missing?",
+            "options": ["Responsive CSS", "Idempotent webhook processing", "Static rendering", "Client Components"],
+            "correctIndex": 1,
+            "explanation": "Webhook consumers should tolerate retries. An event identifier or equivalent idempotency mechanism can prevent duplicate business effects."
+          }
+        },
+        {
+          "id": "senior-scenarios-10",
+          "title": "Senior Real-World Scenarios — Question 54",
+          "content": "Senior-level architecture scenario.",
+          "interactiveQuiz": {
+            "question": "A team stores important shared session state in process memory while running ten application instances. What is the primary architectural problem?",
+            "options": [
+              "Every instance automatically shares memory",
+              "Requests can reach different instances that do not have the same memory state",
+              "Process memory is always persistent",
+              "The browser automatically synchronizes server memory"
+            ],
+            "correctIndex": 1,
+            "explanation": "Process memory is local to one instance. Horizontally scaled systems generally need shared state infrastructure for state that must be available across instances."
+          }
+        },
+        {
+          "id": "senior-scenarios-11",
+          "title": "Senior Real-World Scenarios — Question 55",
+          "content": "Final expert architecture question.",
+          "interactiveQuiz": {
+            "question": "What is the strongest general principle for designing a large Next.js application?",
+            "options": [
+              "Make everything a Client Component",
+              "Make everything static regardless of requirements",
+              "Choose server/client execution, caching, data ownership, and rendering strategy based on the actual requirements of each feature",
+              "Put every operation inside middleware"
+            ],
+            "correctIndex": 2,
+            "explanation": "Expert Next.js architecture is about making deliberate decisions. Server execution, client execution, caching, rendering, data access, and APIs should be selected according to security, freshness, interaction, performance, and maintainability requirements."
+          }
+        }
+      ]
+    }
+  ]
+}
