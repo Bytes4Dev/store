@@ -1308,6 +1308,1289 @@
           }
         }
       ]
+    },
+    {
+      "id": "react-interview-questions-part-2",
+      "title": "Complete React.js Progressive Master Question Bank",
+      "summary": "50 progressive React.js interview questions covering JSX compilation, Virtual DOM & Fiber architecture, Hooks internals, state management, SSR/RSC, and performance profiling.",
+      "estimatedMinutes": 300,
+      "sections": [
+        {
+          "id": "q1-virtual-dom-reconciliation",
+          "title": "Q1: What is the Virtual DOM and how does Reconciliation work in React?",
+          "content": "The Virtual DOM (VDOM) is an in-memory lightweight JS object representation of the real DOM. When state or props change, React creates a new Virtual DOM tree and runs a diffing algorithm during **Reconciliation** to calculate the minimal set of real DOM operations required.",
+          "keyTakeaways": [
+            "Virtual DOM minimizes direct real DOM manipulations to boost rendering performance.",
+            "React uses a heuristics O(n) diffing algorithm during Reconciliation to compute minimal real DOM updates."
+          ],
+          "diagram": {
+            "type": "flowchart",
+            "title": "React Virtual DOM Reconciliation Lifecycle",
+            "code": "graph TD\n    A[State / Props Change] --> B[Create New Virtual DOM Tree]\n    B --> C[Diff against Previous Virtual DOM Tree]\n    C --> D[Generate Reconciled Fiber Patch]\n    D --> E[Batch Update Real DOM Nodes]"
+          },
+          "codeExample": {
+            "title": "Virtual DOM Representation Example",
+            "language": "javascript",
+            "code": "// What JSX converts into (Virtual DOM Node object)\nconst vdomNode = {\n  type: 'button',\n  props: {\n    className: 'btn-primary',\n    onClick: () => console.log('Clicked'),\n    children: 'Submit'\n  }\n};",
+            "explanation": "JSX elements compile to plain JS objects describing element node type, properties, event listeners, and children."
+          },
+          "interactiveQuiz": {
+            "question": "What is the primary benefit of React's Virtual DOM Reconciliation process?",
+            "options": [
+              "It directly mutates real DOM elements in real-time",
+              "It computes the minimal set of real DOM mutations required, avoiding expensive layout reflows",
+              "It replaces JavaScript with WebAssembly for DOM parsing",
+              "It automatically encrypts application state"
+            ],
+            "correctIndex": 1,
+            "explanation": "Virtual DOM diffing calculates minimal DOM mutations, preventing performance bottlenecks associated with full page reflows."
+          }
+        },
+        {
+          "id": "q2-react-fiber-architecture",
+          "title": "Q2: What is React Fiber and how does it improve application responsiveness?",
+          "content": "React Fiber is the re-implementation of React's core reconciliation algorithm introduced in React 16. It breaks rendering work into incremental units of work called **Fiber nodes**, enabling React to pause, resume, assign priority to, or abandon work as higher-priority user inputs arrive.",
+          "keyTakeaways": [
+            "Replaces synchronous stack reconciliation with asynchronous cooperative scheduling.",
+            "Enables time-slicing and priority-based scheduling for smooth 60fps user interactions."
+          ],
+          "diagram": {
+            "type": "architecture",
+            "title": "Fiber Priority Work Scheduler",
+            "code": "graph LR\n    SubGraph1[High Priority: User Input / Click] --> Scheduler[React Fiber Scheduler]\n    SubGraph2[Low Priority: Off-screen Data] --> Scheduler\n    Scheduler --> RenderPhase[Render Phase: Interruptible Work]\n    RenderPhase --> CommitPhase[Commit Phase: Synchronous DOM Mutation]"
+          },
+          "codeExample": {
+            "title": "Priority Work Interruption Model",
+            "language": "javascript",
+            "code": "// Fiber tree structure snippet (Internal React Node Representation)\nconst fiberNode = {\n  type: 'div',\n  child: childFiberNode,\n  sibling: siblingFiberNode,\n  return: parentFiberNode,\n  pendingProps: nextProps,\n  lanes: PriorityLanes // Tracks execution priority\n};",
+            "explanation": "Fiber nodes use child, sibling, and return pointers to traverse trees iteratively without locking the JS call stack."
+          },
+          "interactiveQuiz": {
+            "question": "Which phase of Fiber execution is interruptible by higher-priority tasks?",
+            "options": ["Commit Phase", "Render Phase", "DOM Mutation Phase", "componentDidMount Lifecycle"],
+            "correctIndex": 1,
+            "explanation": "The Render (Reconciliation) phase calculates tree diffs incrementally and can be interrupted by higher-priority inputs."
+          }
+        },
+        {
+          "id": "q3-jsx-compilation",
+          "title": "Q3: How is JSX compiled under the hood in modern React?",
+          "content": "JSX is a syntax extension for JavaScript. It does not run natively in browsers. Compilers like Babel transform JSX tags into `React.createElement()` calls (or `_jsxRuntime.jsx()` in React 17+ JSX transform) that return plain Virtual DOM objects.",
+          "keyTakeaways": [
+            "JSX is syntactic sugar for `React.createElement()` or `_jsx()` calls.",
+            "Modern JSX transform eliminates the need to explicitly import `React` in every file."
+          ],
+          "codeExample": {
+            "title": "JSX to JS Compilation Comparison",
+            "language": "javascript",
+            "code": "// 1. Input JSX\nconst element = <h1 className=\"title\">Hello World</h1>;\n\n// 2. Output (Compiled JS via Babel React 17+ Runtime)\nimport { jsx as _jsx } from 'react/jsx-runtime';\nconst element = _jsx('h1', { className: 'title', children: 'Hello World' });",
+            "explanation": "Compilers translate declarative JSX syntax into functional call trees creating React element descriptors."
+          },
+          "interactiveQuiz": {
+            "question": "What does a JSX tag <MyComponent /> evaluate to after compilation?",
+            "options": [
+              "An HTML element string",
+              "A JavaScript function call returning a Virtual DOM object",
+              "A direct WebGL canvas instruction",
+              "A DOM Node instance"
+            ],
+            "correctIndex": 1,
+            "explanation": "JSX compiles into JavaScript functions (`_jsx` or `createElement`) that output VDOM JS objects."
+          }
+        },
+        {
+          "id": "q4-state-vs-props",
+          "title": "Q4: What is the fundamental difference between State and Props?",
+          "content": "**Props** (short for properties) are read-only input parameters passed down from a parent component to a child component. **State** is internal data managed locally within a component that can change over time in response to user actions or network events, triggering re-renders.",
+          "keyTakeaways": [
+            "Props flow unidirectionally downward and are immutable by the child component.",
+            "State is local, mutable via state updater functions, and triggers re-renders on update."
+          ],
+          "codeExample": {
+            "title": "Props vs State Usage",
+            "language": "javascript",
+            "code": "function CounterContainer() {\n  const [count, setCount] = useState(0); // Local State\n  return <CounterDisplay value={count} onIncrement={() => setCount(count + 1)} />; // Passed as Props\n}\n\nfunction CounterDisplay({ value, onIncrement }) {\n  return <button onClick={onIncrement}>Count: {value}</button>;\n}",
+            "explanation": "CounterContainer owns the count state and passes it down alongside updater callbacks as props to CounterDisplay."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if a child component attempts to reassign props.title = 'New Title' directly?",
+            "options": [
+              "The parent component updates automatically",
+              "Throws a read-only mutation error or fails silently because props are immutable",
+              "State resets to initial values",
+              "Triggers an infinite re-render loop"
+            ],
+            "correctIndex": 1,
+            "explanation": "Props are strictly immutable within the child component receiving them."
+          }
+        },
+        {
+          "id": "q5-keys-in-lists",
+          "title": "Q5: Why are 'keys' required when rendering lists in React, and why avoid index keys?",
+          "content": "Keys give items in a list a stable identity. React uses keys during the reconciliation diffing process to identify which items were added, updated, or removed. Using array indices as keys can lead to subtle rendering bugs, input state corruption, and sub-optimal reconciliation if list items are reordered or filtered.",
+          "keyTakeaways": [
+            "Keys allow React to match Virtual DOM list nodes across re-renders efficiently.",
+            "Avoid array indices as keys when items can be reordered, inserted, or removed."
+          ],
+          "codeExample": {
+            "title": "Unique ID Key Mapping",
+            "language": "javascript",
+            "code": "function TodoList({ todos }) {\n  return (\n    <ul>\n      {todos.map(todo => (\n        // RECOMMENDED: Unique item ID key\n        <li key={todo.id}>{todo.text}</li>\n      ))}\n    </ul>\n  );\n}",
+            "explanation": "Using a unique todo.id ensures React preserves component state correctly when list items move."
+          },
+          "interactiveQuiz": {
+            "question": "What issue occurs when using array indices as keys for a dynamic reorderable list?",
+            "options": [
+              "React throws an uncaught syntax exception",
+              "Component state and input focus can attach to incorrect reordered list items",
+              "Virtual DOM diffing is disabled completely",
+              "List items convert to plain text strings"
+            ],
+            "correctIndex": 1,
+            "explanation": "When list elements reorder, matching indices cause local component instance states to stick to wrong positions."
+          }
+        },
+        {
+          "id": "q6-usestate-hook-internals",
+          "title": "Q6: How does useState work internally and why is state batching used?",
+          "content": "`useState` stores state variables inside the component Fiber node's linked list of hooks. Calling a state setter function enqueues a update action on the Fiber queue. React **batches** multiple state updates within event handlers into a single re-render cycle to optimize performance.",
+          "keyTakeaways": [
+            "Hook states are preserved inside a linked list attached to the component Fiber instance.",
+            "Automatic batching (React 18) combines multiple state updates into single re-render updates."
+          ],
+          "codeExample": {
+            "title": "Functional State Updates & Automatic Batching",
+            "language": "javascript",
+            "code": "function Counter() {\n  const [count, setCount] = useState(0);\n\n  const handleMultipleIncrements = () => {\n    // Functional updates queue operations on Fiber state queue\n    setCount(prev => prev + 1);\n    setCount(prev => prev + 1);\n    // React batches these calls into a single component re-render pass\n  };\n  return <button onClick={handleMultipleIncrements}>Count: {count}</button>;\n}",
+            "explanation": "Functional state updates evaluate sequentially against the queued Fiber state, updating count safely to 2."
+          },
+          "interactiveQuiz": {
+            "question": "Why should you pass a callback function to setState (setCount(prev => prev + 1)) when new state depends on previous state?",
+            "options": [
+              "Functional updates execute asynchronously on Web Workers",
+              "Functional updates guarantee reading the latest Fiber state queue value during batched executions",
+              "Callback functions bypass Virtual DOM diffing",
+              "Functional state setters prevent memory leaks"
+            ],
+            "correctIndex": 1,
+            "explanation": "Passing a updater callback reads directly from the Fiber queue, preventing stale closure issues during batched state calls."
+          }
+        },
+        {
+          "id": "q7-useeffect-lifecycle-management",
+          "title": "Q7: How does useEffect manage side-effects, dependencies, and cleanup cycles?",
+          "content": "`useEffect` executes side-effects after the component renders and DOM updates are committed. The **dependency array** controls when the effect executes: omitting it runs after every render, an empty array `[]` runs once on mount, and passing dependencies `[a, b]` runs when specified variables change. Returning a function triggers **cleanup** before re-executing or unmounting.",
+          "keyTakeaways": [
+            "Runs asynchronously after paint to prevent blocking browser rendering.",
+            "Cleanup function executes prior to effect re-execution and component unmounting."
+          ],
+          "diagram": {
+            "type": "flowchart",
+            "title": "useEffect Execution & Cleanup Lifecycle",
+            "code": "graph TD\n    A[Component Render & DOM Commit] --> B[Browser Screen Paint]\n    B --> C[Execute useEffect Side-Effect]\n    C --> D{State/Dep Changed or Unmount?}\n    D -- Yes --> E[Execute Cleanup Function]\n    E --> A"
+          },
+          "codeExample": {
+            "title": "useEffect Subscription & Cleanup Pattern",
+            "language": "javascript",
+            "code": "useEffect(() => {\n  const subscription = api.subscribeToData(id);\n  \n  // Cleanup closure function\n  return () => {\n    subscription.unsubscribe();\n  };\n}, [id]); // Re-subscribes if 'id' changes",
+            "explanation": "The returned unsubscribe function runs before re-subscribing on id change or when the component unmounts."
+          },
+          "interactiveQuiz": {
+            "question": "When does the cleanup function returned inside useEffect execute?",
+            "options": [
+              "Synchronously before the Virtual DOM is generated",
+              "Before the effect runs again on dependency updates, and when the component unmounts",
+              "Only when a JavaScript runtime error occurs",
+              "Immediately before the browser paints the initial render"
+            ],
+            "correctIndex": 1,
+            "explanation": "Cleanup functions run prior to effect re-execution on updated dependencies and during component unmount cleanup."
+          }
+        },
+        {
+          "id": "q8-rules-of-hooks",
+          "title": "Q8: What are the Rules of Hooks and why are they enforced?",
+          "content": "1) **Only call Hooks at the Top Level**: Don't call Hooks inside loops, conditions, or nested functions.\n2) **Only call Hooks from React Functions**: Call Hooks from Functional Components or Custom Hooks.\nEnforced because React relies on the exact execution order of Hooks across re-renders to map state variables to internal Fiber linked list nodes.",
+          "keyTakeaways": [
+            "React tracks Hook states using an ordered linked list on the Fiber node.",
+            "Conditional Hook calls alter execution order, mismatching state bindings."
+          ],
+          "codeExample": {
+            "title": "Rules of Hooks Violation vs Correct Pattern",
+            "language": "javascript",
+            "code": "// ❌ BAD: Conditional Hook call alters Hook execution order\nif (isLoggedIn) {\n  useEffect(() => fetchUserData(), []);\n}\n\n// ✅ GOOD: Keep Hook top-level, move condition inside Hook\nuseEffect(() => {\n  if (isLoggedIn) {\n    fetchUserData();\n  }\n}, [isLoggedIn]);",
+            "explanation": "Keeping useEffect at the top level guarantees that Hook index pointers match internal Fiber node linked lists."
+          },
+          "interactiveQuiz": {
+            "question": "Why does calling a Hook inside an IF statement break React applications?",
+            "options": [
+              "IF statements execute synchronously in V8",
+              "It corrupts React's internal Fiber linked list index mapping for subsequent hooks across renders",
+              "Hooks require switch statements instead",
+              "It forces component props to become mutable"
+            ],
+            "correctIndex": 1,
+            "explanation": "React indexes hook memory arrays sequentially; conditional execution breaks index mapping order."
+          }
+        },
+        {
+          "id": "q9-usememo-vs-usecallback",
+          "title": "Q9: What is the difference between useMemo and useCallback?",
+          "content": "- `useMemo`: Caches the **result value** of an expensive calculation (`useMemo(() => computeValue(a), [a])`).\n- `useCallback`: Caches the **function instance itself** between re-renders (`useCallback(() => handleClick(), [])`) to prevent breaking child component `React.memo` reference equality checks.",
+          "keyTakeaways": [
+            "`useMemo` memoizes computed return values.",
+            "`useCallback` memoizes function reference pointers across renders."
+          ],
+          "codeExample": {
+            "title": "useMemo vs useCallback Usage",
+            "language": "javascript",
+            "code": "// Memoize calculated result value\nconst expensiveValue = useMemo(() => {\n  return calculateBigData(data);\n}, [data]);\n\n// Memoize callback function reference pointer\nconst handleAction = useCallback(() => {\n  console.log('Action performed for id:', id);\n}, [id]);",
+            "explanation": "useMemo skips re-calculating big data when data is unchanged; useCallback maintains identical handleAction references."
+          },
+          "interactiveQuiz": {
+            "question": "What primary performance issue does useCallback solve when passing functions to memoized child components?",
+            "options": [
+              "It speeds up network request latency",
+              "It prevents re-creating function references on every render, preserving child React.memo optimization",
+              "It moves state calculations off the main browser thread",
+              "It compiles JavaScript functions to native WebAssembly"
+            ],
+            "correctIndex": 1,
+            "explanation": "Preserving function identity prevents child components wrapped in React.memo from unnecessary re-renders."
+          }
+        },
+        {
+          "id": "q10-useref-vs-usestate",
+          "title": "Q10: What is useRef and how does it differ from useState?",
+          "content": "`useRef` returns a mutable object `{ current: initialValue }` whose reference persists across re-renders. Modifying `ref.current` **does not trigger a component re-render**. It is used to access direct DOM nodes or store instance variables that shouldn't cause UI updates when mutated.",
+          "keyTakeaways": [
+            "Mutating `.current` updates values synchronously without causing a re-render.",
+            "Commonly used for imperative DOM access (focus, canvas, media playback) and timer IDs."
+          ],
+          "codeExample": {
+            "title": "DOM Focus Control with useRef",
+            "language": "javascript",
+            "code": "function TextInputWithFocus() {\n  const inputEl = useRef(null);\n  \n  const onButtonClick = () => {\n    // Imperative focus targeting\n    inputEl.current.focus();\n  };\n  \n  return (\n    <>\n      <input ref={inputEl} type=\"text\" />\n      <button onClick={onButtonClick}>Focus Input</button>\n    </>\n  );\n}",
+            "explanation": "inputEl.current references the underlying native HTMLInputElement node directly."
+          },
+          "interactiveQuiz": {
+            "question": "What happens to the UI component when you assign timerRef.current = setTimeout(...) inside a click handler?",
+            "options": [
+              "The component re-renders immediately",
+              "The ref value updates synchronously without triggering a component re-render",
+              "React throws an immutability exception",
+              "State resets to initial default values"
+            ],
+            "correctIndex": 1,
+            "explanation": "Updating ref properties alters instance memory without triggering component re-rendering."
+          }
+        },
+        {
+          "id": "q11-react-context-api",
+          "title": "Q11: How does the React Context API work and how do you prevent Context render thrashing?",
+          "content": "Context provides a mechanism to pass data through the component tree without manually passing props at every level ('prop drilling'). However, whenever a Context Provider value object updates, **all consuming components re-render**. To avoid render thrashing, split contexts by domain or memoize provider values with `useMemo`.",
+          "keyTakeaways": [
+            "Eliminates deep prop drilling across component hierarchies.",
+            "Unmemoized value objects (`value={{ state, dispatch }}`) create fresh references every render, forcing consumers to re-render."
+          ],
+          "codeExample": {
+            "title": "Memoizing Context Provider Values",
+            "language": "javascript",
+            "code": "function UserProvider({ children }) {\n  const [user, setUser] = useState(null);\n\n  // Memoize value to prevent consumer re-renders when parent re-renders\n  const contextValue = useMemo(() => ({ user, setUser }), [user]);\n\n  return (\n    <UserContext.Provider value={contextValue}>\n      {children}\n    </UserContext.Provider>\n  );\n}",
+            "explanation": "useMemo ensures contextValue maintains reference equality unless user state explicitly updates."
+          },
+          "interactiveQuiz": {
+            "question": "What causes all components calling useContext(MyContext) to re-render?",
+            "options": [
+              "When parent component props change",
+              "Whenever the value prop supplied to MyContext.Provider changes reference identity",
+              "When CSS stylesheets reload",
+              "When any child component calls useRef"
+            ],
+            "correctIndex": 1,
+            "explanation": "Context consumers automatically trigger re-renders whenever the Provider's value reference updates."
+          }
+        },
+        {
+          "id": "q12-react-memo-component-optimization",
+          "title": "Q12: How does React.memo optimize component rendering performance?",
+          "content": "`React.memo` is a higher-order component (HOC) that memoizes function component rendering outcomes. It skips re-rendering the component if incoming props have not changed according to a shallow comparison (`Object.is`).",
+          "keyTakeaways": [
+            "Performs shallow prop comparison before granting re-renders.",
+            "Can accept a custom comparison function `React.memo(Component, arePropsEqual)`."
+          ],
+          "codeExample": {
+            "title": "React.memo Component Wrapper",
+            "language": "javascript",
+            "code": "const ExpensiveChild = React.memo(function Child({ title }) {\n  console.log('Child Rendered');\n  return <h2>{title}</h2>;\n});\n\n// Custom comparison optional second parameter\nconst CustomMemoChild = React.memo(Child, (prevProps, nextProps) => {\n  return prevProps.id === nextProps.id;\n});",
+            "explanation": "ExpensiveChild skips re-execution when parent re-renders if title prop remains strictly unchanged."
+          },
+          "interactiveQuiz": {
+            "question": "What comparison technique does React.memo use by default on incoming component props?",
+            "options": [
+              "Deep recursive object comparison",
+              "Shallow reference equality comparison (Object.is)",
+              "JSON.stringify string comparison",
+              "Typeof type validation"
+            ],
+            "correctIndex": 1,
+            "explanation": "React.memo applies shallow reference comparison over top-level props."
+          }
+        },
+        {
+          "id": "q13-custom-hooks-abstraction",
+          "title": "Q13: What are Custom Hooks and what problem do they solve?",
+          "content": "Custom Hooks are JavaScript functions whose names start with `use` that can call other React Hooks. They allow extracting and sharing **stateful logic** across multiple components without altering component hierarchy structures (unlike older Render Props or HOC patterns).",
+          "keyTakeaways": [
+            "Extracts reusable stateful logic without duplicating code.",
+            "State inside custom hooks is isolated per component instance."
+          ],
+          "codeExample": {
+            "title": "Custom Window Width Hook",
+            "language": "javascript",
+            "code": "function useWindowSize() {\n  const [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });\n  \n  useEffect(() => {\n    const handleResize = () => setSize({ width: window.innerWidth, height: window.innerHeight });\n    window.addEventListener('resize', handleResize);\n    return () => window.removeEventListener('resize', handleResize);\n  }, []);\n  \n  return size;\n}",
+            "explanation": "Components using useWindowSize() encapsulate window resize listener subscriptions cleanly."
+          },
+          "interactiveQuiz": {
+            "question": "If two separate components call the same custom hook useFetchData(), do they share state variables?",
+            "options": [
+              "Yes, custom hooks behave like global singleton stores",
+              "No, every component calling a custom hook gets fully isolated local state and effects",
+              "Only if components are siblings",
+              "Yes, state is shared via React Context automatically"
+            ],
+            "correctIndex": 1,
+            "explanation": "Custom hooks share stateful logic patterns, but state memory allocations remain fully isolated per component invocation."
+          }
+        },
+        {
+          "id": "q14-synthetic-events-pooling",
+          "title": "Q14: How do React Synthetic Events work and how do they differ from native DOM events?",
+          "content": "React wraps browser native events inside cross-browser **SyntheticEvent** wrapper instances to guarantee property consistency across browsers. React uses **Event Delegation**, attaching single top-level event listeners to the root DOM container (`#root` in React 17+) rather than attaching listeners to individual DOM nodes.",
+          "keyTakeaways": [
+            "Cross-browser normalized event wrapper around browser native events.",
+            "Uses Event Delegation registered at the root React DOM container."
+          ],
+          "codeExample": {
+            "title": "Accessing Native Events from Synthetic Events",
+            "language": "javascript",
+            "code": "function FormComponent() {\n  const handleSubmit = (event) => {\n    event.preventDefault(); // SyntheticEvent method\n    console.log('Native Event Target:', event.nativeEvent.target); // Access underlying native DOM event\n  };\n  return <form onSubmit={handleSubmit}><button>Submit</button></form>;\n}",
+            "explanation": "event is a SyntheticEvent object, while event.nativeEvent exposes the underlying browser DOM Event object."
+          },
+          "interactiveQuiz": {
+            "question": "Where does React 17+ attach event listeners under its Event Delegation model?",
+            "options": [
+              "Directly to individual button and input HTML elements",
+              "To the root HTML document container (#root)",
+              "To the global window object",
+              "To Web Workers"
+            ],
+            "correctIndex": 1,
+            "explanation": "React 17+ attaches delegation event handlers to the root DOM container hosting the React tree."
+          }
+        },
+        {
+          "id": "q15-error-boundaries",
+          "title": "Q15: What are Error Boundaries and what types of errors can they catch?",
+          "content": "Error Boundaries are React Class Components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI. They catch errors during **rendering, lifecycle methods, and constructors**. They do NOT catch errors in event handlers, async code, SSR, or unhandled promise rejections.",
+          "keyTakeaways": [
+            "Defined using class methods `static getDerivedStateFromError()` or `componentDidCatch()`.",
+            "Prevents whole component tree unmounting due to uncaught rendering errors."
+          ],
+          "codeExample": {
+            "title": "Class Error Boundary Implementation",
+            "language": "javascript",
+            "code": "class ErrorBoundary extends React.Component {\n  state = { hasError: false };\n\n  static getDerivedStateFromError(error) {\n    return { hasError: true }; // Render fallback UI\n  }\n\n  componentDidCatch(error, errorInfo) {\n    logErrorToService(error, errorInfo);\n  }\n\n  render() {\n    if (this.state.hasError) return <h1>Something went wrong.</h1>;\n    return this.props.children;\n  }\n}",
+            "explanation": "Wrapping components inside ErrorBoundary safely catches rendering errors and displays fallback UI."
+          },
+          "interactiveQuiz": {
+            "question": "Which type of error CANNOT be caught by a React Error Boundary?",
+            "options": [
+              "An error thrown during child component render execution",
+              "An error thrown inside a child component constructor",
+              "An asynchronous error thrown inside an onClick event handler",
+              "An error thrown inside a getDerivedStateFromProps lifecycle"
+            ],
+            "correctIndex": 2,
+            "explanation": "Event handler errors occur outside render cycles and must be caught using standard try/catch blocks."
+          }
+        },
+        {
+          "id": "q16-uncontrolled-vs-controlled-components",
+          "title": "Q16: What is the difference between Controlled and Uncontrolled Components?",
+          "content": "- **Controlled Component**: Form input state is driven by React state (`value` + `onChange`). React acts as the 'single source of truth'.\n- **Uncontrolled Component**: Form input state is handled directly by the browser DOM. React reads input values imperatively using a `useRef` pointer.",
+          "keyTakeaways": [
+            "Controlled components provide instant validation and dynamic input control.",
+            "Uncontrolled components offer simpler integration for heavy file inputs or legacy forms."
+          ],
+          "codeExample": {
+            "title": "Controlled vs Uncontrolled Forms",
+            "language": "javascript",
+            "code": "// Controlled\nconst [val, setVal] = useState('');\n<input value={val} onChange={e => setVal(e.target.value)} />\n\n// Uncontrolled\nconst inputRef = useRef();\n<input ref={inputRef} defaultValue=\"Initial\" />",
+            "explanation": "Controlled inputs store text inside React state; uncontrolled inputs leave data storage to the DOM element."
+          },
+          "interactiveQuiz": {
+            "question": "Which form input type in HTML is always inherently an Uncontrolled Component in React?",
+            "options": ["<input type=\"text\">", "<input type=\"file\">", "<textarea>", "<select>"],
+            "correctIndex": 1,
+            "explanation": "File inputs (<input type='file'>) are read-only from a JS state perspective due to security restrictions."
+          }
+        },
+        {
+          "id": "q17-react-portals",
+          "title": "Q17: What are React Portals and when should you use them?",
+          "content": "Portals (`ReactDOM.createPortal(child, container)`) provide a way to render children into a DOM node that exists outside the DOM hierarchy of the parent component. Used for modals, tooltips, and popovers to bypass CSS z-index and `overflow: hidden` parent clipping.",
+          "keyTakeaways": [
+            "Renders HTML DOM output outside parent containers.",
+            "Events dispatched inside portals still bubble up through the React Virtual DOM component tree."
+          ],
+          "codeExample": {
+            "title": "Rendering Modal via Portal",
+            "language": "javascript",
+            "code": "import ReactDOM from 'react-dom';\n\nfunction Modal({ children }) {\n  return ReactDOM.createPortal(\n    <div class=\"modal-overlay\">{children}</div>,\n    document.getElementById('modal-root') // Mounted to body root\n  );\n}",
+            "explanation": "Modal renders inside #modal-root at the body level while retaining React parent-child context and event bubbling."
+          },
+          "interactiveQuiz": {
+            "question": "Does a click event originating inside a React Portal bubble up to its parent component in the React VDOM tree?",
+            "options": [
+              "No, because the real DOM node exists elsewhere in the document body",
+              "Yes, React Synthetic Event bubbling follows the Virtual DOM component hierarchy regardless of real DOM mounting points",
+              "Portals disable all event propagation",
+              "Only if using Class components"
+            ],
+            "correctIndex": 1,
+            "explanation": "Synthetic event bubbling operates across the Virtual DOM tree, ignoring real DOM portal mounting points."
+          }
+        },
+        {
+          "id": "q18-higher-order-components-hoc",
+          "title": "Q18: What is a Higher-Order Component (HOC) and how does it compare to Render Props?",
+          "content": "A Higher-Order Component is a pure function that takes a component as an argument and returns an enhanced new component (`const EnhancedComp = withFeature(WrappedComp)`). Render Props passes a render function prop to delegate UI rendering. Both patterns share component logic, though Custom Hooks have largely superseded them.",
+          "keyTakeaways": [
+            "HOC: `Component => EnhancedComponent` pattern.",
+            "Avoid mutating original wrapped components; pass unhandled props through."
+          ],
+          "codeExample": {
+            "title": "HOC Wrapper Pattern",
+            "language": "javascript",
+            "code": "function withAuthentication(WrappedComponent) {\n  return function AuthenticatedComponent(props) {\n    const { isAuthenticated } = useAuth();\n    if (!isAuthenticated) return <p>Access Denied</p>;\n    return <WrappedComponent {...props} />;\n  };\n}",
+            "explanation": "withAuthentication wraps components with auth authorization checks before rendering child components."
+          },
+          "interactiveQuiz": {
+            "question": "What common issue can occur when chaining multiple HOC wrappers together?",
+            "options": [
+              "Props collisions and obscured component hierarchy tree traceability",
+              "Browser thread starvation",
+              "Disables CSS styling",
+              "Automatic state mutations"
+            ],
+            "correctIndex": 0,
+            "explanation": "Chaining HOCs can lead to prop name collisions and deeply nested wrapper component trees."
+          }
+        },
+        {
+          "id": "q19-usereducer-hook",
+          "title": "Q19: When should you use useReducer instead of useState?",
+          "content": "`useReducer` is preferable for complex state logic involving multiple sub-values, nested state updates, or where the next state depends on the previous state across multiple user actions. It follows the Redux-like pattern `(state, action) => newState`.",
+          "keyTakeaways": [
+            "Centralizes complex state update logic into a pure reducer function.",
+            "Passes stable `dispatch` function pointers down to optimize child renders."
+          ],
+          "codeExample": {
+            "title": "useReducer State Machine",
+            "language": "javascript",
+            "code": "const initialState = { count: 0 };\nfunction reducer(state, action) {\n  switch (action.type) {\n    case 'increment': return { count: state.count + 1 };\n    case 'decrement': return { count: state.count - 1 };\n    default: throw new Error();\n  }\n}\n\nfunction Counter() {\n  const [state, dispatch] = useReducer(reducer, initialState);\n  return <button onClick={() => dispatch({ type: 'increment' })}>{state.count}</button>;\n}",
+            "explanation": "useReducer centralizes action updates inside pure functions, decoupling UI interactions from state mutation rules."
+          },
+          "interactiveQuiz": {
+            "question": "Is the dispatch function reference returned from useReducer guaranteed to be stable across re-renders?",
+            "options": [
+              "No, it changes every render like useState setters",
+              "Yes, React guarantees dispatch function identity stability, making it safe to omit from useEffect/useCallback dependency arrays",
+              "Only when using Redux Toolkit",
+              "Dispatch is only stable in Class components"
+            ],
+            "correctIndex": 1,
+            "explanation": "React guarantees `dispatch` identity stability across component re-renders."
+          }
+        },
+        {
+          "id": "q20-strict-mode-double-rendering",
+          "title": "Q20: Why does React StrictMode render components twice in development?",
+          "content": "`<React.StrictMode>` intentionally double-invokes component renders, `useState` updaters, and `useEffect` setup/cleanup functions in **development mode only**. This helps surface accidental side-effects during render phases, impure functions, and missing effect cleanups.",
+          "keyTakeaways": [
+            "Only active in Development builds; has zero performance impact in Production.",
+            "Surfaces side-effect bugs, impure renders, and uncleaned async subscriptions."
+          ],
+          "codeExample": {
+            "title": "Wrapping Application in StrictMode",
+            "language": "javascript",
+            "code": "import { StrictMode } from 'react';\nimport { createRoot } from 'react-dom/client';\n\nconst root = createRoot(document.getElementById('root'));\nroot.render(\n  <StrictMode>\n    <App />\n  </StrictMode>\n);",
+            "explanation": "StrictMode double-runs development mounts to ensure setup and cleanup cycles are completely symmetrical."
+          },
+          "interactiveQuiz": {
+            "question": "Does React StrictMode double-render components in Production environment builds?",
+            "options": [
+              "Yes, it ensures production data integrity",
+              "No, double rendering and StrictMode checks are completely disabled in Production builds",
+              "Only if client browsers enable DevTools",
+              "Yes, but only on mobile devices"
+            ],
+            "correctIndex": 1,
+            "explanation": "StrictMode checks run exclusively in Development mode, leaving Production runtime code un-impacted."
+          }
+        },
+        {
+          "id": "q21-react-18-concurrent-features",
+          "title": "Q21: What are React 18 Concurrent Features (useTransition, useDeferredValue)?",
+          "content": "Concurrent React allows React to pause, resume, and execute multiple component tree renders simultaneously. - `useTransition`: Marks state updates as **non-urgent transitions**, keeping UI responsive to clicks/typing.\n- `useDeferredValue`: Defers updating non-critical UI subtrees based on heavy values.",
+          "keyTakeaways": [
+            "Differentiates urgent updates (typing, clicking) from non-urgent transitions (filtering lists).",
+            "Prevents main thread locking during heavy render passes."
+          ],
+          "codeExample": {
+            "title": "useTransition Non-Urgent Update",
+            "language": "javascript",
+            "code": "function SearchApp() {\n  const [isPending, startTransition] = useTransition();\n  const [filterTerm, setFilterTerm] = useState('');\n\n  const handleChange = (e) => {\n    // Urgent update: Update input field text immediately\n    setInputValue(e.target.value);\n    \n    // Non-urgent transition: Render heavy filtered list in background\n    startTransition(() => {\n      setFilterTerm(e.target.value);\n    });\n  };\n}",
+            "explanation": "startTransition marks setFilterTerm as interruptible background work, leaving input text typing responsive."
+          },
+          "interactiveQuiz": {
+            "question": "Which Hook marks a state update as a non-urgent transition to prevent locking user typing input?",
+            "options": ["useDeferredValue", "useTransition", "useImperativeHandle", "useLayoutEffect"],
+            "correctIndex": 1,
+            "explanation": "useTransition wraps state setters to indicate non-urgent background render work."
+          }
+        },
+        {
+          "id": "q22-uselayouteffect-vs-useeffect",
+          "title": "Q22: What is the difference between useEffect and useLayoutEffect?",
+          "content": "- `useEffect`: Runs **asynchronously after** the DOM updates are committed and screen paint completes. Prevents blocking browser painting.\n- `useLayoutEffect`: Runs **synchronously after** DOM updates are committed but **before** the browser paints the screen. Use strictly to measure DOM geometry and prevent visual layout flicker.",
+          "keyTakeaways": [
+            "`useLayoutEffect` blocks browser paint until execution completes.",
+            "Use `useLayoutEffect` to read DOM dimensions and apply scroll positioning before user visual paint."
+          ],
+          "codeExample": {
+            "title": "DOM Measurement with useLayoutEffect",
+            "language": "javascript",
+            "code": "useLayoutEffect(() => {\n  // Read DOM measurements synchronously before browser paint\n  const { height } = ref.current.getBoundingClientRect();\n  setElementHeight(height);\n}, []);",
+            "explanation": "Measuring and updating state inside useLayoutEffect prevents visual layout flickering before screen paint."
+          },
+          "interactiveQuiz": {
+            "question": "Which effect Hook should be chosen if updating state causes visible screen element flickering when using useEffect?",
+            "options": ["useInsertionEffect", "useLayoutEffect", "useCallback", "useDeferredValue"],
+            "correctIndex": 1,
+            "explanation": "useLayoutEffect fires synchronously before paint, eliminating visual DOM state flickering."
+          }
+        },
+        {
+          "id": "q23-react-lazy-suspense-code-splitting",
+          "title": "Q23: How does React.lazy and Suspense enable route-based code splitting?",
+          "content": "`React.lazy()` allows rendering dynamic imports as standard components. `Suspense` wraps dynamic components and displays a fallback UI (like a loader spinner) while bundle JS chunks download asynchronously over the network.",
+          "keyTakeaways": [
+            "Splits large JavaScript bundles into smaller route chunks.",
+            "`Suspense` handles pending promise states cleanly using fallback props."
+          ],
+          "codeExample": {
+            "title": "Route-Based Code Splitting",
+            "language": "javascript",
+            "code": "import React, { Lazy, Suspense } from 'react';\n\n// Dynamic JS import bundle chunk\nconst AdminDashboard = React.lazy(() => import('./AdminDashboard'));\n\nfunction App() {\n  return (\n    <Suspense fallback={<Spinner />}>\n      <AdminDashboard />\n    </Suspense>\n  );\n}",
+            "explanation": "AdminDashboard bundle chunk downloads only when route renders, displaying Spinner in the interim."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if a React.lazy component fails to load due to a network bundle error?",
+            "options": [
+              "Suspense renders fallback endlessly",
+              "Triggers the nearest Error Boundary component if configured",
+              "React defaults to synchronous import fallback",
+              "The browser reloads the web page automatically"
+            ],
+            "correctIndex": 1,
+            "explanation": "Network loading failures for dynamic imports reject promises, caught cleanly by Error Boundaries."
+          }
+        },
+        {
+          "id": "q24-state-management-redux-vs-zustand",
+          "title": "Q24: How does Redux Toolkit compare against lightweight stores like Zustand?",
+          "content": "- **Redux Toolkit (RTK)**: Enforces structured unidirectional data flow, explicit actions, immutability via Immer, middleware support, and RTK Query for caching. Great for enterprise applications.\n- **Zustand**: Minimalist, un-opinionated state store operating on plain hooks without boilerplate action boilerplate, context providers, or heavy wrappers.",
+          "keyTakeaways": [
+            "RTK provides rigid structural patterns, Redux DevTools tracing, and data fetching.",
+            "Zustand provides hook-based state stores with zero provider wrapper requirement."
+          ],
+          "codeExample": {
+            "title": "Zustand Hook Store Example",
+            "language": "javascript",
+            "code": "import { create } from 'zustand';\n\nconst useStore = create((set) => ({\n  bears: 0,\n  increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),\n}));\n\nfunction BearCounter() {\n  const bears = useStore((state) => state.bears);\n  return <h1>{bears} Bears</h1>;\n}",
+            "explanation": "Zustand allows components to select specific store state selectors directly without Provider wrappers."
+          },
+          "interactiveQuiz": {
+            "question": "Does Zustand require wrapping the root component tree in a Context Provider?",
+            "options": [
+              "Yes, <ZustandProvider> is required",
+              "No, Zustand stores are plain hook calls usable without Provider tree wrappers",
+              "Only when using TypeScript",
+              "Yes, required for server rendering"
+            ],
+            "correctIndex": 1,
+            "explanation": "Zustand stores are direct executable hooks, requiring no Provider tree wrapping."
+          }
+        },
+        {
+          "id": "q25-server-components-vs-client-components",
+          "title": "Q25: What are React Server Components (RSC) and how do they differ from Client Components?",
+          "content": "React Server Components (RSC) run **exclusively on the server** during request or build execution. They don't ship JavaScript bundle bytes to the client, can query databases directly, and cannot use state or effects. Client Components (`'use client'`) ship JS bundles to browser engines and handle interactive events, state, and DOM effects.",
+          "keyTakeaways": [
+            "RSCs reduce client JS bundle sizes to zero bytes for server components.",
+            "Client components (`'use client'`) handle interactivity, state, and browser APIs."
+          ],
+          "diagram": {
+            "type": "architecture",
+            "title": "RSC vs Client Component Architecture",
+            "code": "graph TD\n    Server[Node.js Server Environment] --> RSC[Server Component: Direct DB Access / 0kB JS]\n    RSC --> Serialization[JSON-like Stream Payload]\n    Serialization --> Client[Client Browser]\n    Client --> CC[Client Component: 'use client' / State & Interactivity]"
+          },
+          "codeExample": {
+            "title": "React Server Component Direct DB Query",
+            "language": "javascript",
+            "code": "// Default: Server Component in Next.js App Router (No 'use client')\nimport db from '@/lib/db';\n\nexport default async function Page() {\n  // Direct database query on server without API endpoints\n  const posts = await db.query('SELECT * FROM posts');\n  return <ul>{posts.map(p => <li key={p.id}>{p.title}</li>)}</ul>;\n}",
+            "explanation": "Server Components execute database calls directly on Node.js servers, streaming HTML layout to browsers."
+          },
+          "interactiveQuiz": {
+            "question": "Which React feature allows calling useState() or onClick event listeners inside a Next.js App Router component?",
+            "options": [
+              "React Server Components",
+              "Adding the 'use client' directive at the top of the file to mark it as a Client Component",
+              "Wrapping component inside Suspense",
+              "Extending React.PureComponent"
+            ],
+            "correctIndex": 1,
+            "explanation": "Interactivity, hooks, and browser events require declaring the `'use client'` component boundary."
+          }
+        },
+        {
+          "id": "q26-forwardref-useimperativehandle",
+          "title": "Q26: What is forwardRef and useImperativeHandle, and when should you use them?",
+          "content": "`forwardRef` allows a component to pass a ref down to a child component. `useImperativeHandle` works with `forwardRef` to customize the imperative handle (methods/properties) exposed to the parent component, hiding internal implementation details.",
+          "keyTakeaways": [
+            "`forwardRef` passes refs down through child functional components.",
+            "`useImperativeHandle` limits exposed imperative methods (e.g. exposing `.focus()` instead of full DOM element)."
+          ],
+          "codeExample": {
+            "title": "Custom Imperative Methods via useImperativeHandle",
+            "language": "javascript",
+            "code": "const CustomInput = forwardRef((props, ref) => {\n  const inputRef = useRef();\n  \n  useImperativeHandle(ref, () => ({\n    focusInput: () => inputRef.current.focus()\n  }));\n  \n  return <input ref={inputRef} />;\n});",
+            "explanation": "Parent components calling ref.current.focusInput() execute the custom imperative handle."
+          },
+          "interactiveQuiz": {
+            "question": "What is the main reason to pair useImperativeHandle with forwardRef?",
+            "options": [
+              "To make function components run asynchronously",
+              "To expose controlled, explicit imperative functions to parents instead of raw DOM element refs",
+              "To bypass React's Virtual DOM",
+              "To enable Redux devtools"
+            ],
+            "correctIndex": 1,
+            "explanation": "useImperativeHandle encapsulates DOM nodes, exposing only selected parent execution methods."
+          }
+        },
+        {
+          "id": "q27-hydration-mismatch-errors",
+          "title": "Q27: What causes React Hydration Mismatch errors during SSR and how do you fix them?",
+          "content": "A Hydration error occurs when the pre-rendered HTML string generated on the server doesn't match the initial Virtual DOM tree generated during client-side hydration. Caused by using `window` checks, `Date.now()`, or `Math.random()` directly during render execution.",
+          "keyTakeaways": [
+            "Server HTML and initial Client Virtual DOM tree must be identical.",
+            "Fix by deferring browser-only values to `useEffect` or disabling SSR using dynamic imports."
+          ],
+          "codeExample": {
+            "title": "Fixing Hydration Differences",
+            "language": "javascript",
+            "code": "function DateDisplay() {\n  const [formattedDate, setFormattedDate] = useState('');\n\n  useEffect(() => {\n    // Safely update on client after hydration completes\n    setFormattedDate(new Date().toLocaleDateString());\n  }, []);\n\n  return <span>{formattedDate}</span>;\n}",
+            "explanation": "Deferring browser-specific date calculations to useEffect prevents SSR HTML mismatch failures."
+          },
+          "interactiveQuiz": {
+            "question": "Why does rendering typeof window !== 'undefined' ? 'Mobile' : 'Desktop' directly in JSX trigger a Hydration error?",
+            "options": [
+              "window is undefined on server, generating 'Desktop' HTML, but evaluates to 'Mobile' on client hydration",
+              "React blocks window object reads",
+              "Hydration requires WebGL support",
+              "Next.js disables string literals"
+            ],
+            "correctIndex": 0,
+            "explanation": "Mismatched server vs client HTML output triggers hydration warnings and breaks DOM node reconciliation."
+          }
+        },
+        {
+          "id": "q28-profiler-performance-debugging",
+          "title": "Q28: How do you profile and debug unnecessary re-renders using React DevTools Profiler?",
+          "content": "The React DevTools Profiler records component render metrics. It classifies renders using Flamecharts and Ranked charts, highlighting **why each component rendered** (e.g., 'Props changed', 'State changed', or 'Parent component rendered').",
+          "keyTakeaways": [
+            "Profiler pinpoints render durations and root causes.",
+            "Look for 'Parent component rendered' to identify components missing `React.memo`."
+          ],
+          "codeExample": {
+            "title": "Programmatic Profiler API Usage",
+            "language": "javascript",
+            "code": "import { Profiler } from 'react';\n\nfunction onRenderCallback(id, phase, actualDuration) {\n  console.log(`[${id}] ${phase} phase took ${actualDuration}ms`);\n}\n\n<Profiler id=\"Navigation\" onRender={onRenderCallback}>\n  <NavigationComponent />\n</Profiler>",
+            "explanation": "The Profiler component records exact render execution duration and phase lifecycle details."
+          },
+          "interactiveQuiz": {
+            "question": "In React DevTools Profiler, what does 'Parent component rendered' mean under render reason?",
+            "options": [
+              "The child component's internal state updated",
+              "The child component re-rendered simply because its parent re-rendered, not because its own props changed",
+              "The component was unmounted",
+              "A Context error occurred"
+            ],
+            "correctIndex": 1,
+            "explanation": "Un-memoized children automatically re-render whenever their parent component re-renders."
+          }
+        },
+        {
+          "id": "q29-optimistic-ui-updates",
+          "title": "Q29: How do you implement Optimistic UI updates with the useOptimistic Hook in React 19?",
+          "content": "React 19's `useOptimistic` hook allows immediately displaying an optimistic state result to users while a server background mutation is pending. If the network request fails, React rolls back the state automatically.",
+          "keyTakeaways": [
+            "Improves perceived latency by rendering expected mutation responses immediately.",
+            "Rolls back state safely if the background network action fails."
+          ],
+          "codeExample": {
+            "title": "React 19 useOptimistic Hook Usage",
+            "language": "javascript",
+            "code": "import { useOptimistic } from 'react';\n\nfunction Thread({ messages, sendMessage }) {\n  const [optimisticMessages, addOptimisticMessage] = useOptimistic(\n    messages,\n    (state, newText) => [...state, { text: newText, sending: true }]\n  );\n\n  const formAction = async (formData) => {\n    const text = formData.get('message');\n    addOptimisticMessage(text); // Immediately update UI\n    await sendMessage(text);     // Perform actual network mutation\n  };\n}",
+            "explanation": "useOptimistic immediately appends the pending message to state while sendMessage executes."
+          },
+          "interactiveQuiz": {
+            "question": "What primary user experience benefit does Optimistic UI provide?",
+            "options": [
+              "It encrypts payload network transmissions",
+              "It provides zero perceived latency by updating the UI immediately before server confirmation",
+              "It moves component rendering to CSS threads",
+              "It prevents network error exceptions"
+            ],
+            "correctIndex": 1,
+            "explanation": "Optimistic UI eliminates visual wait delays by rendering anticipated server responses immediately."
+          }
+        },
+        {
+          "id": "q30-useactionstate-hook-forms",
+          "title": "Q30: How does the useActionState Hook manage form submission state in React 19?",
+          "content": "`useActionState` (formerly `useFormState`) simplifies form handling by accepting an async action function and returning the updated state, form action trigger, and a `isPending` status flag.",
+          "keyTakeaways": [
+            "Handles pending status, server responses, and form errors natively.",
+            "Integrates seamlessly with Server Actions and HTML `<form action>` elements."
+          ],
+          "codeExample": {
+            "title": "useActionState Form Submission",
+            "language": "javascript",
+            "code": "import { useActionState } from 'react';\n\nasync function updateNameAction(previousState, formData) {\n  const name = formData.get('name');\n  return await api.updateName(name);\n}\n\nfunction Profile() {\n  const [state, formAction, isPending] = useActionState(updateNameAction, null);\n  return (\n    <form action={formAction}>\n      <input name=\"name\" />\n      <button disabled={isPending}>Save</button>\n      {state?.error && <p>{state.error}</p>}\n    </form>\n  );\n}",
+            "explanation": "useActionState manages isPending states and server action responses without manual useState calls."
+          },
+          "interactiveQuiz": {
+            "question": "Which flag returned from useActionState indicates that a form Server Action is actively pending?",
+            "options": ["isLoading", "isPending", "isSubmitting", "status"],
+            "correctIndex": 1,
+            "explanation": "useActionState exposes an explicit isPending boolean tracking action resolution."
+          }
+        },
+        {
+          "id": "q31-server-actions-data-mutations",
+          "title": "Q31: What are React Server Actions and how do they process form data mutations?",
+          "content": "Server Actions are asynchronous functions that execute on the server. They can be invoked from both Server and Client Components to perform data mutations, database updates, and revalidate cached data paths using `revalidatePath()`.",
+          "keyTakeaways": [
+            "Annotated using the `'use server'` directive.",
+            "Allows processing form actions directly on server environments without explicit REST/GraphQL API controllers."
+          ],
+          "codeExample": {
+            "title": "Server Action Definition",
+            "language": "javascript",
+            "code": "// app/actions.js\n'use server';\n\nimport { revalidatePath } from 'next/cache';\nimport db from '@/lib/db';\n\nexport async function createPost(formData) {\n  const title = formData.get('title');\n  await db.posts.create({ data: { title } });\n  revalidatePath('/posts'); // Invalidate and refresh cache\n}",
+            "explanation": "Server Actions mutate database records and invalidate cached UI paths directly from server functions."
+          },
+          "interactiveQuiz": {
+            "question": "Which directive marks a function as an executable Server Action in modern React frameworks?",
+            "options": ["'use client'", "'use server'", "'use action'", "'use api'"],
+            "correctIndex": 1,
+            "explanation": "The 'use server' string directive marks functions as server-executable Server Actions."
+          }
+        },
+        {
+          "id": "q32-reconciliation-diffing-rules",
+          "title": "Q32: What are the two core assumptions of React's O(n) diffing algorithm during Reconciliation?",
+          "content": "A general heuristic tree-diffing algorithm takes $O(n^3)$ operations. React achieves $O(n)$ by assuming:\n1) **Two elements of different types** will produce entirely different trees (dismantles and rebuilds subtrees).\n2) **Developer keys** hint at which child elements remain stable across renders in dynamic lists.",
+          "keyTakeaways": [
+            "Changing root tag types (`<div>` to `<section>`) unmounts and rebuilds the entire subtree.",
+            "Stable keys allow matching children across list re-ordering operations."
+          ],
+          "codeExample": {
+            "title": "Type Mismatch Subtree Replacement",
+            "language": "javascript",
+            "code": "// Render 1\n<div><Counter /></div>\n\n// Render 2: Type changes from <div> to <section>\n<section><Counter /></section>",
+            "explanation": "Because container type changed from div to section, React unmounts old Counter and builds new Counter instance."
+          },
+          "interactiveQuiz": {
+            "question": "What occurs when the top root element type changes from <div> to <main> between renders?",
+            "options": [
+              "React updates only the node wrapper attributes in place",
+              "React completely unmounts the old <div> subtree and mounts a brand new <main> tree",
+              "Virtual DOM diffing throws an exception",
+              "The browser triggers a full window reload"
+            ],
+            "correctIndex": 1,
+            "explanation": "Changing element node types causes React to tear down and rebuild the entire subtree."
+          }
+        },
+        {
+          "id": "q33-react-compiler-forget-auto-memoization",
+          "title": "Q33: How does the React Compiler (React Forget) automate memoization?",
+          "content": "The React Compiler is a build-time tool that analyzes JavaScript rules and auto-memoizes component render outputs, values, and callback pointers. It eliminates the need for manual `useMemo`, `useCallback`, and `React.memo` code across applications.",
+          "keyTakeaways": [
+            "Build-time compiler analyzing data flow to auto-memoize components.",
+            "Eliminates manual `useMemo` and `useCallback` boilerplate code."
+          ],
+          "codeExample": {
+            "title": "React Compiler Automatic Memoization",
+            "language": "javascript",
+            "code": "// Developer writes standard un-memoized code:\nfunction ProductList({ items }) {\n  const sorted = items.sort((a, b) => a.price - b.price);\n  return <div>{sorted.map(i => <Item key={i.id} item={i} />)}</div>;\n}\n// React Compiler automatically injects fine-grained memoization caches at build time!",
+            "explanation": "React Compiler auto-injects memoization cache checks without requiring manual useMemo code."
+          },
+          "interactiveQuiz": {
+            "question": "What primary manual developer task is automated by the React Compiler?",
+            "options": [
+              "Writing HTML form inputs",
+              "Manual memoization using useMemo, useCallback, and React.memo",
+              "Creating Webpack configurations",
+              "Writing SQL database queries"
+            ],
+            "correctIndex": 1,
+            "explanation": "React Compiler automatically injects fine-grained memoization into component code during compilation."
+          }
+        },
+        {
+          "id": "q34-flushsync-forced-updates",
+          "title": "Q34: What is flushSync and when should you use it?",
+          "content": "`flushSync` forces React to flush all pending state updates synchronously and update the real DOM immediately. Use it sparingly when you must read updated DOM measurements (like scroll positions) immediately after updating state.",
+          "keyTakeaways": [
+            "Forces immediate synchronous state processing and DOM commits.",
+            "Bypasses automatic batching; degrades rendering performance if overused."
+          ],
+          "codeExample": {
+            "title": "Forcing Immediate Synchronous DOM Commit",
+            "language": "javascript",
+            "code": "import { flushSync } from 'react-dom';\n\nconst handleClick = () => {\n  // Force immediate synchronous DOM commit\n  flushSync(() => {\n    setCount(count + 1);\n  });\n  // DOM is updated synchronously now\n  console.log('Scroll Height:', divRef.current.scrollHeight);\n};",
+            "explanation": "flushSync forces React to commit state updates to real DOM elements before executing subsequent code lines."
+          },
+          "interactiveQuiz": {
+            "question": "What operational downside occurs when frequently calling flushSync?",
+            "options": [
+              "It disables React Developer Tools",
+              "It breaks automatic batching performance optimizations, forcing expensive synchronous DOM reflows",
+              "It mutates component props",
+              "It cancels pending fetch promises"
+            ],
+            "correctIndex": 1,
+            "explanation": "flushSync forces immediate synchronous DOM commits, bypassing automatic batching performance benefits."
+          }
+        },
+        {
+          "id": "q35-usesyncexternalstore-hook",
+          "title": "Q35: Why was useSyncExternalStore introduced in React 18?",
+          "content": "`useSyncExternalStore` is a Hook recommended for reading and subscribing from external non-React store data sources (like Redux, Zustand, `window.navigator.onLine`, or browser media queries) safely without **tearing** during concurrent render execution.",
+          "keyTakeaways": [
+            "Prevents UI tearing (inconsistent UI visual states) during concurrent rendering.",
+            "Replaces legacy `useEffect` subscription patterns for external stores."
+          ],
+          "codeExample": {
+            "title": "Subscribing to Browser Online Status",
+            "language": "javascript",
+            "code": "function useOnlineStatus() {\n  return useSyncExternalStore(\n    (callback) => {\n      window.addEventListener('online', callback);\n      window.addEventListener('offline', callback);\n      return () => {\n        window.removeEventListener('online', callback);\n        window.removeEventListener('offline', callback);\n      };\n    },\n    () => navigator.onLine // Client snapshot\n  );\n}",
+            "explanation": "useSyncExternalStore safely reads navigator.onLine status without tearing during concurrent renders."
+          },
+          "interactiveQuiz": {
+            "question": "What issue ('tearing') can occur if reading external stores using standard useEffect in Concurrent Mode?",
+            "options": [
+              "The browser crashes with memory overflow",
+              "Different components display different visual values for the same global state during a single render pass",
+              "React state converts to plain strings",
+              "Network fetch requests duplicate"
+            ],
+            "correctIndex": 1,
+            "explanation": "Tearing occurs when concurrent rendering gets interrupted, rendering inconsistent state visuals across UI components."
+          }
+        },
+        {
+          "id": "q36-react-suspense-data-fetching",
+          "title": "Q36: How does Suspense-enabled Data Fetching work under the hood?",
+          "content": "When a component wrapped in `<Suspense>` reads data that is still loading, the data fetching library **throws a promise**. Suspense catches the thrown promise, pauses component tree rendering, displays the fallback UI, and retries rendering once the promise resolves.",
+          "keyTakeaways": [
+            "Components throw pending promises when data is loading.",
+            "Suspense catches promises, renders fallback UI, and resumes rendering upon resolution."
+          ],
+          "codeExample": {
+            "title": "Suspense Data Fetching Wrapper",
+            "language": "javascript",
+            "code": "function UserProfile({ userResource }) {\n  // Throws promise if pending; returns data if resolved\n  const user = userResource.read();\n  return <h1>{user.name}</h1>;\n}\n\n// Usage\n<Suspense fallback={<SkeletonLoader />}>\n  <UserProfile userResource={resource} />\n</Suspense>",
+            "explanation": "userResource.read() throws pending promise that Suspense catches to render SkeletonLoader."
+          },
+          "interactiveQuiz": {
+            "question": "What JavaScript primitive does a component 'throw' to signal to Suspense that data is currently loading?",
+            "options": ["Error object", "Promise object", "JSON string", "Boolean value"],
+            "correctIndex": 1,
+            "explanation": "Suspense architecture relies on components throwing a Promise when data fetching is in progress."
+          }
+        },
+        {
+          "id": "q37-react-dom-server-rendering-methods",
+          "title": "Q37: What is the difference between renderToString and renderToPipeableStream?",
+          "content": "- `renderToString`: Legacy synchronous SSR method that generates a complete HTML string. Blocks server response until the entire component tree finishes rendering.\n- `renderToPipeableStream` (Node.js) / `renderToReadableStream` (Edge): Modern streaming SSR method that streams HTML chunks progressively to the client as components resolve.",
+          "keyTakeaways": [
+            "`renderToString` is synchronous and blocks HTTP server responses.",
+            "`renderToPipeableStream` streams HTML chunks and enables Selective Hydration with Suspense."
+          ],
+          "codeExample": {
+            "title": "Streaming SSR with renderToPipeableStream",
+            "language": "javascript",
+            "code": "import { renderToPipeableStream } from 'react-dom/server';\n\napp.get('/', (req, res) => {\n  const stream = renderToPipeableStream(<App />,\n    {\n      bootstrapScripts: ['/main.js'],\n      onShellReady() {\n        res.statusCode = 200;\n        res.setHeader('content-type', 'text/html');\n        stream.pipe(res); // Stream HTML shell immediately!\n      }\n    }\n  );\n});",
+            "explanation": "Streaming SSR sends the HTML shell immediately, streaming suspended content as asynchronous promises resolve."
+          },
+          "interactiveQuiz": {
+            "question": "What performance advantage does renderToPipeableStream provide over legacy renderToString?",
+            "options": [
+              "It runs in browser Web Workers",
+              "It streams HTML shell chunks immediately and enables Progressive Selective Hydration",
+              "It disables client-side JavaScript execution",
+              "It removes the need for React.memo"
+            ],
+            "correctIndex": 1,
+            "explanation": "Streaming SSR pipes HTML shell chunks immediately, avoiding server response blocking."
+          }
+        },
+        {
+          "id": "q38-use-hook-react-19",
+          "title": "Q38: How does the new use() Hook operate in React 19?",
+          "content": "The `use()` Hook in React 19 reads the value of a resource like a **Promise** or **Context** directly inside render execution. Unlike standard Hooks, `use()` can be called conditionally inside `if` statements and loops.",
+          "keyTakeaways": [
+            "Unwraps promises and context resources inside render phases.",
+            "Allowed inside conditional statements and loops unlike standard Hooks."
+          ],
+          "codeExample": {
+            "title": "Conditional Promise Unwrapping with use()",
+            "language": "javascript",
+            "code": "import { use } from 'react';\n\nfunction Comments({ commentsPromise, showComments }) {\n  if (!showComments) return null; // Conditional execution permitted!\n  \n  // Unwraps promise value directly; integrates with Suspense\n  const comments = use(commentsPromise);\n  return <ul>{comments.map(c => <li key={c.id}>{c.text}</li>)}</ul>;\n}",
+            "explanation": "use() unwraps promises inside render methods and can safely execute conditionally."
+          },
+          "interactiveQuiz": {
+            "question": "Is the React 19 use() Hook permitted inside IF conditionals?",
+            "options": [
+              "No, it follows strict Hook rules",
+              "Yes, use() is flexible and can be called conditionally inside IF statements and loops",
+              "Only when using TypeScript",
+              "Only in Class components"
+            ],
+            "correctIndex": 1,
+            "explanation": "The use() API supports conditional execution inside render functions."
+          }
+        },
+        {
+          "id": "q39-key-reset-pattern",
+          "title": "Q39: How do you force a complete component state reset using the key prop?",
+          "content": "Passing a different `key` attribute value to a component forces React to treat it as a brand-new component instance. React unmounts the old instance, destroys its local state completely, and mounts a fresh instance with initial state.",
+          "keyTakeaways": [
+            "Changing key values forces full component instance teardown and state reset.",
+            "Cleaner pattern than writing manual reset `useEffect` handlers."
+          ],
+          "codeExample": {
+            "title": "Resetting Form Component State via Key Change",
+            "language": "javascript",
+            "code": "function UserProfileContainer({ userId }) {\n  // Changing userId key forces UserForm to reset internal form state completely\n  return <UserForm key={userId} userId={userId} />;\n}",
+            "explanation": "When userId changes, React unmounts old UserForm and initializes a clean form instance."
+          },
+          "interactiveQuiz": {
+            "question": "What happens to a child component's internal useState variables when its parent changes its key prop from 'A' to 'B'?",
+            "options": [
+              "State values are preserved",
+              "The component unmounts and all internal state is completely destroyed and re-initialized",
+              "State converts to props",
+              "Triggers a hydration error"
+            ],
+            "correctIndex": 1,
+            "explanation": "Changing key props forces React to tear down old component instances and recreate clean initial states."
+          }
+        },
+        {
+          "id": "q40-useimperativehandle-focus-trap",
+          "title": "Q40: How do you build an accessible Focus Trap component using refs and custom hooks?",
+          "content": "Focus trapping traps keyboard Tab navigation within active modal dialogs. Implemented by capturing focusable DOM elements (`button, [href], input, select, textarea`) inside a `useRef` container and wrapping `keydown` events to cycle focus between first and last elements.",
+          "keyTakeaways": [
+            "Traps Tab and Shift+Tab key navigation inside modal boundaries.",
+            "Crucial requirement for accessible WCAG modal dialog compliance."
+          ],
+          "codeExample": {
+            "title": "Modal Focus Trap Event Handling",
+            "language": "javascript",
+            "code": "function handleKeyDown(e) {\n  if (e.key !== 'Tab') return;\n  const focusables = modalRef.current.querySelectorAll('button, input, [href]');\n  const first = focusables[0];\n  const last = focusables[focusables.length - 1];\n\n  if (e.shiftKey && document.activeElement === first) {\n    last.focus(); e.preventDefault();\n  } else if (!e.shiftKey && document.activeElement === last) {\n    first.focus(); e.preventDefault();\n  }\n}",
+            "explanation": "Cycles Tab key focus between boundary elements inside the active modal overlay."
+          },
+          "interactiveQuiz": {
+            "question": "Why is Focus Trapping required inside web modal dialogs?",
+            "options": [
+              "To speed up CSS animations",
+              "To prevent keyboard users from tabbing onto hidden background content behind the modal",
+              "To compress Virtual DOM node sizes",
+              "To support touch screen gestures"
+            ],
+            "correctIndex": 1,
+            "explanation": "Focus trapping keeps keyboard focus contained within active modal boundaries, meeting accessibility requirements."
+          }
+        },
+        {
+          "id": "q41-component-composition-vs-inheritance",
+          "title": "Q41: Why does React favor Composition over Inheritance?",
+          "content": "React achieves code reuse using **Composition** (nesting components using `children` or explicit render props) rather than Class inheritance (`extends`). Composition is flexible, avoids tight coupling, and prevents deep inheritance hierarchies.",
+          "keyTakeaways": [
+            "Use the `children` prop or specialized props to pass UI elements.",
+            "Composition provides modular, flexible architecture over rigid class trees."
+          ],
+          "codeExample": {
+            "title": "Composition Container Pattern",
+            "language": "javascript",
+            "code": "function Dialog({ header, body, footer }) {\n  return (\n    <div className=\"dialog-box\">\n      <div className=\"header\">{header}</div>\n      <div className=\"body\">{body}</div>\n      <div className=\"footer\">{footer}</div>\n    </div>\n  );\n}",
+            "explanation": "Dialog accepts flexible component nodes as props rather than relying on class sub-typing."
+          },
+          "interactiveQuiz": {
+            "question": "Which prop name implicitly receives nested JSX elements placed inside component tags (<Card><p>Text</p></Card>)?",
+            "options": ["props.children", "props.nodes", "props.content", "props.elements"],
+            "correctIndex": 0,
+            "explanation": "Nested JSX content automatically passes into components as props.children."
+          }
+        },
+        {
+          "id": "q42-stale-closures-in-hooks",
+          "title": "Q42: What is a Stale Closure in React Hooks and how do you resolve it?",
+          "content": "A Stale Closure occurs when a closure function (like a `useEffect` or `useCallback`) captures state or prop variables from an earlier render pass and continues referencing those outdated values over time. Resolved by declaring dependencies accurately or using state updater callbacks.",
+          "keyTakeaways": [
+            "Functions capture variables from the specific render cycle in which they were created.",
+            "Fix by listing dependencies correctly or using functional state updaters (`setVal(v => v + 1)`)."
+          ],
+          "codeExample": {
+            "title": "Stale Closure Fix",
+            "language": "javascript",
+            "code": "// ❌ STALE CLOSURE: Captured initial count=0 continuously\nuseEffect(() => {\n  const id = setInterval(() => setCount(count + 1), 1000);\n  return () => clearInterval(id);\n}, []); // Missing count dependency!\n\n// ✅ FIX: Functional state update reads latest queue state\nuseEffect(() => {\n  const id = setInterval(() => setCount(prev => prev + 1), 1000);\n  return () => clearInterval(id);\n}, []);",
+            "explanation": "Functional updates eliminate reliance on closure-captured state variables inside interval timers."
+          },
+          "interactiveQuiz": {
+            "question": "What is the cause of a stale closure inside a useEffect callback?",
+            "options": [
+              "The browser memory is depleted",
+              "The effect closure holds variable references captured from a previous render pass due to empty/missing dependency arrays",
+              "React state mutates synchronously",
+              "The component was rendered on the server"
+            ],
+            "correctIndex": 1,
+            "explanation": "Missing dependencies leave closures referencing outdated variables from earlier render cycles."
+          }
+        },
+        {
+          "id": "q43-react-dom-server-components-payload",
+          "title": "Q43: What is the flight payload stream in React Server Components?",
+          "content": "When a server component renders, React serializes the component tree into a compact JSON-like binary format stream (often called the **RSC Payload** or Flight stream). The browser client parses this stream to construct Virtual DOM nodes and patch client views without triggering full page reloads.",
+          "keyTakeaways": [
+            "RSC Payload is a JSON-like stream representation of the component tree.",
+            "Contains rendered server nodes and placeholder references for Client Components."
+          ],
+          "codeExample": {
+            "title": "RSC Flight Stream Format Descriptor",
+            "language": "javascript",
+            "code": "// Conceptual RSC Flight Stream payload line:\nM1:{\"id\":\"./src/ClientComp.js\",\"chunks\":[\"main\"],\"name\":\"default\"}\nJ0:[\"$\",\"div\",null,{\"children\":[\"$\",\"$L1\",null,{\"title\":\"Server Data\"}]}]",
+            "explanation": "RSC stream encodes component tags and client module references for client hydration."
+          },
+          "interactiveQuiz": {
+            "question": "What format does a React Server Component response return over HTTP streams?",
+            "options": [
+              "Raw HTML strings only",
+              "A serialized JSON-like Virtual DOM tree stream (RSC Flight Payload)",
+              "Compiled WebAssembly bytecode",
+              "Base64 encoded PNG images"
+            ],
+            "correctIndex": 1,
+            "explanation": "Server components stream serialized Virtual DOM tree node payloads over network streams."
+          }
+        },
+        {
+          "id": "q44-uselayout-effect-paint-blocking",
+          "title": "Q44: Why can useLayoutEffect cause performance degradation if misused?",
+          "content": "`useLayoutEffect` runs synchronously after DOM mutations but **before the browser paints**. Because it blocks main thread painting until execution completes, executing heavy calculations inside `useLayoutEffect` causes noticeable screen lag and delays visual frames.",
+          "keyTakeaways": [
+            "Synchronous execution blocks browser paint operations.",
+            "Reserve exclusively for layout measurements; use `useEffect` for all standard side-effects."
+          ],
+          "codeExample": {
+            "title": "Blocking Paint Operations",
+            "language": "javascript",
+            "code": "// ❌ BAD: Blocking paint with heavy calculations\nuseLayoutEffect(() => {\n  computeHeavyLayout(data); // Blocks screen paint!\n}, [data]);\n\n// ✅ GOOD: Asynchronous non-blocking effect\nuseEffect(() => {\n  computeHeavyLayout(data);\n}, [data]);",
+            "explanation": "Offloading heavy computations to useEffect keeps screen frame painting smooth."
+          },
+          "interactiveQuiz": {
+            "question": "Why does heavy execution inside useLayoutEffect cause frame drops?",
+            "options": [
+              "It runs in background Web Workers",
+              "It executes synchronously on the main thread prior to browser paint, delaying screen frame rendering",
+              "It disables GPU hardware acceleration",
+              "It forces component unmounting"
+            ],
+            "correctIndex": 1,
+            "explanation": "Synchronous pre-paint execution blocks browser main thread rendering passes."
+          }
+        },
+        {
+          "id": "q45-virtualized-lists-performance",
+          "title": "Q45: How does Windowing/Virtualization improve long list rendering performance?",
+          "content": "List Virtualization (using tools like `react-window` or `tanstack-virtual`) renders **only the visible DOM items** currently inside the user's scroll viewport, dynamically creating and destroying DOM elements as scrolling occurs. This keeps DOM node counts under ~50 regardless of list size.",
+          "keyTakeaways": [
+            "Renders only visible items in scroll viewports.",
+            "Drastically lowers DOM node counts and memory consumption for thousands of array records."
+          ],
+          "codeExample": {
+            "title": "React Window Virtualized List",
+            "language": "javascript",
+            "code": "import { FixedSizeList as List } from 'react-window';\n\nfunction VirtualList({ items }) {\n  return (\n    <List height={400} itemCount={items.length} itemSize={35} width={300}>\n      {({ index, style }) => (\n        <div style={style}>Item {items[index]}</div>\n      )}\n    </List>\n  );\n}",
+            "explanation": "react-window renders only ~12 DOM rows required to fill the 400px height window."
+          },
+          "interactiveQuiz": {
+            "question": "How many DOM elements are rendered on screen when displaying a virtualized list of 100,000 items with a viewport capacity of 15 rows?",
+            "options": ["100,000 DOM elements", "Only approximately 15-20 visible DOM elements", "0 DOM elements", "1,000 DOM elements"],
+            "correctIndex": 1,
+            "explanation": "List virtualization renders only items fitting within active viewport scroll bounds."
+          }
+        },
+        {
+          "id": "q46-react-form-actions-reset",
+          "title": "Q46: How does automatic form resetting work with React 19 Form Actions?",
+          "content": "In React 19, passing an action handler to `<form action={fn}>` automatically resets the form inputs upon successful action completion if the action is synchronous or uses automatic Server Action transitions.",
+          "keyTakeaways": [
+            "Simplifies form cleanup without manual input reference resets.",
+            "Integrates natively with Progressive Enhancement when JS is disabled."
+          ],
+          "codeExample": {
+            "title": "React 19 Form Action Auto Reset",
+            "language": "javascript",
+            "code": "function CommentBox() {\n  async function submitComment(formData) {\n    'use server';\n    await saveComment(formData.get('comment'));\n  }\n\n  return (\n    <form action={submitComment}>\n      <textarea name=\"comment\" required />\n      <button type=\"submit\">Post</button>\n    </form>\n  );\n}",
+            "explanation": "Submitting the form executes submitComment and resets the textarea automatically."
+          },
+          "interactiveQuiz": {
+            "question": "What happens to input fields inside a React 19 <form action={serverAction}> after submission?",
+            "options": [
+              "Inputs become permanently disabled",
+              "Form fields reset automatically upon action completion",
+              "State throws a hydration error",
+              "Input values convert to uppercase"
+            ],
+            "correctIndex": 1,
+            "explanation": "React 19 Form Actions reset form fields automatically upon action completion."
+          }
+        },
+        {
+          "id": "q47-useformstatus-hook",
+          "title": "Q47: What is the useFormStatus Hook in React 19 and where must it be placed?",
+          "content": "`useFormStatus` gives status information about the parent `<form>` submission (`{ pending, data, method, action }`). Crucially, **it must be called from a component nested inside the `<form>`**, acting like a Context consumer.",
+          "keyTakeaways": [
+            "Reads pending status of surrounding parent HTML `<form>` elements.",
+            "Must be called inside a child component nested beneath `<form>`."
+          ],
+          "codeExample": {
+            "title": "Child Submit Button with useFormStatus",
+            "language": "javascript",
+            "code": "import { useFormStatus } from 'react-dom';\n\nfunction SubmitButton() {\n  // Reads status of parent <form>\n  const { pending } = useFormStatus();\n  return (\n    <button disabled={pending}>\n      {pending ? 'Submitting...' : 'Submit'}\n    </button>\n  );\n}\n\n// Usage inside form:\n<form action={action}><SubmitButton /></form>",
+            "explanation": "SubmitButton reads parent form pending status without requiring prop drilling."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if you call useFormStatus() inside the same component that renders the <form> tag itself?",
+            "options": [
+              "It works normally",
+              "It will NOT read the form status because it must be invoked from a child component nested inside <form>",
+              "React throws a compiler syntax exception",
+              "Form submission converts to GET requests"
+            ],
+            "correctIndex": 1,
+            "explanation": "useFormStatus behaves like a context consumer, requiring invocation from a descendant child component."
+          }
+        },
+        {
+          "id": "q48-server-components-security-boundaries",
+          "title": "Q48: How do Server Components enforce security boundaries for private API keys?",
+          "content": "Because Server Components run strictly on the server and are never bundled or sent to client browsers, private environment secrets (database credentials, private API keys) accessed inside Server Components **cannot leak to client bundles**.",
+          "keyTakeaways": [
+            "Server secrets stay isolated on Node.js/Edge server environments.",
+            "Importing `import 'server-only'` throws build errors if code accidentally leaks to client modules."
+          ],
+          "codeExample": {
+            "title": "Enforcing Server-Only Code Boundaries",
+            "language": "javascript",
+            "code": "// lib/secretService.js\nimport 'server-only'; // Throws build error if imported into Client Component\n\nexport async function getPrivateData() {\n  const key = process.env.VERY_PRIVATE_API_KEY;\n  return await fetch('https://api.internal', { headers: { Authorization: key } });\n}",
+            "explanation": "import 'server-only' raises build-time errors if secret code gets referenced by client bundles."
+          },
+          "interactiveQuiz": {
+            "question": "What is the purpose of the 'server-only' npm package in React Server Component architectures?",
+            "options": [
+              "To enable server-side WebGL rendering",
+              "To trigger build-time errors if server-only modules are accidentally imported into Client Components",
+              "To encrypt database passwords in LocalStorage",
+              "To disable CSS styling"
+            ],
+            "correctIndex": 1,
+            "explanation": "server-only safeguards security boundaries by preventing server code imports into client JS bundles."
+          }
+        },
+        {
+          "id": "q49-micro-frontends-module-federation-react",
+          "title": "Q49: How does Webpack Module Federation work in React Micro-Frontend architectures?",
+          "content": "Module Federation allows a JavaScript application to dynamically load asynchronous bundle chunks from another separate deployment at runtime. Micro-frontends share common dependencies (like `react` and `react-dom`) as singletons to avoid loading duplicate library scripts.",
+          "keyTakeaways": [
+            "Loads remote component bundles dynamically at runtime.",
+            "Shares singleton dependencies (`react`, `react-dom`) to avoid duplicate script loads."
+          ],
+          "codeExample": {
+            "title": "Module Federation Remote Import",
+            "language": "javascript",
+            "code": "import React, { lazy, Suspense } from 'react';\n\n// Import remote component dynamically across domain boundaries\nconst RemoteHeader = lazy(() => import('remoteApp/Header'));\n\nfunction ShellApp() {\n  return (\n    <Suspense fallback=\"Loading Remote Header...\">\n      <RemoteHeader />\n    </Suspense>\n  );\n}",
+            "explanation": "RemoteHeader downloads dynamically from a separate remote deployment at runtime."
+          },
+          "interactiveQuiz": {
+            "question": "Why must react and react-dom be configured as shared singletons in Webpack Module Federation?",
+            "options": [
+              "To compile React into WebAssembly",
+              "To ensure only one instance of React exists at runtime, preventing hook state context corruption across micro-apps",
+              "Because browsers allow only one JavaScript bundle",
+              "To disable CSS resets"
+            ],
+            "correctIndex": 1,
+            "explanation": "Multiple React runtime instances break hook execution contexts and state memory tracking."
+          }
+        },
+        {
+          "id": "q50-react-19-asset-loading-preload",
+          "title": "Q50: How does React 19 optimize asset loading with preloading APIs (preload, preconnect)?",
+          "content": "React 19 introduces native asset loading APIs (`preload`, `preconnect`, `prefetchDNS`) that hoist resource loading declarations to the document `<head>` dynamically. This starts downloading fonts, scripts, and stylesheets early before components render.",
+          "keyTakeaways": [
+            "Hoists resource loading declarations to document `<head>` automatically.",
+            "Reduces visual layout shifts and resource waterfall delays."
+          ],
+          "codeExample": {
+            "title": "React 19 Resource Preloading APIs",
+            "language": "javascript",
+            "code": "import { preload, preconnect } from 'react-dom';\n\nfunction FontWrapper() {\n  // Hoists preconnect & preload to document head automatically\n  preconnect('https://fonts.cdn.com');\n  preload('https://fonts.cdn.com/font.woff2', { as: 'font', type: 'font/woff2' });\n  \n  return <h1>Optimized Typography</h1>;\n}",
+            "explanation": "React hoists resource preloading calls directly to document head, fetching assets early."
+          },
+          "interactiveQuiz": {
+            "question": "What does calling preload('font.woff2', { as: 'font' }) inside a React 19 component do?",
+            "options": [
+              "Downloads the font using WebSockets",
+              "Hoists resource preloading tags directly into the document <head> to start fetching early",
+              "Converts the font to SVG vectors",
+              "Blocks component rendering until loaded"
+            ],
+            "correctIndex": 1,
+            "explanation": "React 19 asset preloading APIs hoist resource fetch declarations directly into document head tags."
+          }
+        }
+      ]
     }
   ]
 }
