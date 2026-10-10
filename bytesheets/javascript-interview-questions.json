@@ -1,13 +1,13 @@
 {
   "courseId": "javascript-interview-questions",
   "courseName": "JavaScript & DSA Comprehensive Interview Mastery",
-  "title": "Master 100 JavaScript, React, System Coding & DSA Interview Questions",
-  "subtitle": "Complete Q&A, coding problem bank, and data structures & algorithms guide with self-assessment checks for interview preparation",
+  "title": "Master 100+ JavaScript & DSA Interview Questions",
+  "subtitle": "Complete Q&A, coding problem bank, and data structures & algorithms guide with self-assessment checks for Javascript interview preparation",
   "category": "Interview Q&A",
   "level": "Comprehensive",
   "estimatedTime": "6.5 Hours",
   "accentColor": "#f7df1e",
-  "keywords": ["javascript", "react", "dsa", "data-structures", "algorithms", "interview", "coding-questions", "quiz"],
+  "keywords": ["javascript", "dsa", "data-structures", "algorithms", "interview", "coding-questions", "quiz"],
   "chapters": [
     {
       "id": "all-questions",
