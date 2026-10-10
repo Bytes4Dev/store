@@ -216,10 +216,7 @@
           "id": "q11-copilot-knowledge-bases-enterprise",
           "title": "Q11: Which GitHub Copilot tier introduces Knowledge Bases created from Markdown documentation?",
           "content": "**GitHub Copilot Enterprise** allows organization administrators to curate **Knowledge Bases** by attaching Markdown repositories/docs. Users can then ask Copilot Chat grounded questions using company-specific documentation as truth.",
-          "keyTakeaways": [
-            "Knowledge Bases are exclusive to Copilot Enterprise.",
-            "Indexes Markdown documentation across company repos."
-          ],
+          "keyTakeaways": ["Knowledge Bases are exclusive to Copilot Enterprise.", "Indexes Markdown documentation across company repos."],
           "interactiveQuiz": {
             "question": "Knowledge Bases derived from organization documentation repositories are available on which plan?",
             "options": ["Copilot Individual", "Copilot Business", "Copilot Enterprise", "Copilot Free"],
@@ -294,7 +291,7 @@
           "keyTakeaways": [
             "`Tab`: Accepts full suggestion.",
             "`Ctrl/Cmd + Right Arrow`: Accepts next word incrementally.",
-            `Esc`: Dismisses suggestion."
+            "`Esc`: Dismisses suggestion."
           ],
           "interactiveQuiz": {
             "question": "What keyboard shortcut accepts suggestions word-by-word in VS Code?",
@@ -627,8 +624,7 @@
         {
           "id": "q35-responsible-ai-accountability",
           "title": "Q35: Which Responsible AI principle emphasizes that human developers remain ultimately responsible for software deployment and outputs?",
-          "content": "**Accountability** mandates that human designers, developers, and deployment engineers remain strictly liable and responsible for the behavior, safety, and real-world impact of AI-assisted software."
-
+          "content": "**Accountability** mandates that human designers, developers, and deployment engineers remain strictly liable and responsible for the behavior, safety, and real-world impact of AI-assisted software.",
           "keyTakeaways": [
             "Accountability dictates human ownership over AI decisions.",
             "Copilot is an assistant; humans accept final code liability."
@@ -664,10 +660,7 @@
           "id": "q37-slash-command-setup-tests",
           "title": "Q37: How can developers ensure Copilot Chat follows organizational testing conventions when generating test suites?",
           "content": "Provide explicit **prompt context examples** or point Copilot to existing test spec files within the repository using `@workspace`. Copilot learns coding structure and framework choices from sample context.",
-          "keyTakeaways": [
-            "Include sample test snippets in prompt requests.",
-            "Keep an existing test file open in neighboring IDE tabs."
-          ],
+          "keyTakeaways": ["Include sample test snippets in prompt requests.", "Keep an existing test file open in neighboring IDE tabs."],
           "interactiveQuiz": {
             "question": "How do you direct Copilot Chat to adhere strictly to your company's custom Jest testing wrapper?",
             "options": [
@@ -839,13 +832,15 @@
           "id": "q47-copilot-chat-github-dot-com",
           "title": "Q47: Where can Copilot Chat be used on GitHub.com under a Copilot Enterprise license?",
           "content": "On **Copilot Enterprise**, Chat is embedded natively across GitHub.com: within **Repositories**, **Pull Requests**, **Issues**, **Discussions**, and the top global navigation bar.",
-          "keyTakeaways": [
-            "Native web chat integration across GitHub.com.",
-            "Allows querying repository contents without opening an IDE."
-          ],
+          "keyTakeaways": ["Native web chat integration across GitHub.com.", "Allows querying repository contents without opening an IDE."],
           "interactiveQuiz": {
             "question": "Can Copilot Enterprise users query Copilot Chat directly inside a web browser on GitHub.com?",
-            "options": ["No, IDE only", "Yes, across repositories, PRs, and issues on GitHub.com", "Only on mobile", "Only via terminal CLI"],
+            "options": [
+              "No, IDE only",
+              "Yes, across repositories, PRs, and issues on GitHub.com",
+              "Only on mobile",
+              "Only via terminal CLI"
+            ],
             "correctIndex": 1,
             "explanation": "Copilot Enterprise embeds web chat capabilities directly into GitHub.com pages."
           }
@@ -854,10 +849,7 @@
           "id": "q48-slash-command-new",
           "title": "Q48: Which command in Copilot Chat creates a boilerplate scaffold for a new application or project?",
           "content": "The `/new` slash command generates a complete multi-file project scaffold based on user-specified frameworks and parameters (e.g., `/new react application with typescript`).",
-          "keyTakeaways": [
-            "`/new`: Scaffolds full project file structures.",
-            "`/newNotebook`: Generates Jupyter Notebook layouts."
-          ],
+          "keyTakeaways": ["`/new`: Scaffolds full project file structures.", "`/newNotebook`: Generates Jupyter Notebook layouts."],
           "interactiveQuiz": {
             "question": "Which slash command scaffolds a brand-new multi-file project workspace?",
             "options": ["/create", "/new", "/scaffold", "/init"],
@@ -924,10 +916,7 @@
           "id": "q52-slash-command-notebook",
           "title": "Q52: Which command generates Jupyter Notebook structures and data science code blocks?",
           "content": "The `/newNotebook` command scaffolds Jupyter Notebooks (`.ipynb`) with markdown explanations and Python data processing blocks.",
-          "keyTakeaways": [
-            "`/newNotebook`: Generates structured Jupyter Notebooks.",
-            "Tailored for data science workflows."
-          ],
+          "keyTakeaways": ["`/newNotebook`: Generates structured Jupyter Notebooks.", "Tailored for data science workflows."],
           "interactiveQuiz": {
             "question": "Which command scaffolds Jupyter Notebook (.ipynb) files in Copilot Chat?",
             "options": ["/notebook", "/newNotebook", "/ipynb", "/python-script"],
@@ -939,10 +928,7 @@
           "id": "q53-copilot-ignore-files",
           "title": "Q53: What file can be added to a repository root to exclude specified paths from Copilot indexing?",
           "content": "In addition to organization-level settings, developers can add a `.copilotignore` file to repository roots to exclude sensitive file paths from local IDE Copilot processing.",
-          "keyTakeaways": [
-            "`.copilotignore`: Repository-level path exclusion file.",
-            "Functions similarly to `.gitignore`."
-          ],
+          "keyTakeaways": ["`.copilotignore`: Repository-level path exclusion file.", "Functions similarly to `.gitignore`."],
           "interactiveQuiz": {
             "question": "Which file in a repository root excludes matching file paths from Copilot context indexing?",
             "options": [".copilotignore", ".no-ai", ".gitignore-copilot", ".exclude-copilot"],
@@ -974,9 +960,7 @@
           "id": "q55-github-copilot-architecture-flow",
           "title": "Q55: What is the sequence of events when a developer triggers an inline code completion?",
           "content": "1. IDE captures local context surrounding cursor.\n2. Client constructs a prompt request payload.\n3. Secure proxy transmits request to the LLM backend.\n4. Model generates candidate completions.\n5. Post-processing filters check for secrets and duplication.\n6. Rendered in IDE as ghost text.",
-          "keyTakeaways": [
-            "Context capture $\to$ Prompt build $\to$ Proxy LLM call $\to$ Post-processing filter $\to$ Ghost text."
-          ],
+          "keyTakeaways": ["Context capture $\to$ Prompt build $\to$ Proxy LLM call $\to$ Post-processing filter $\to$ Ghost text."],
           "interactiveQuiz": {
             "question": "When does the Duplication Detection Filter run in the Copilot completion pipeline?",
             "options": [
@@ -993,10 +977,7 @@
           "id": "q56-copilot-business-vs-enterprise-licensing",
           "title": "Q56: Can an organization upgrade specific users to Copilot Enterprise while leaving others on Copilot Business?",
           "content": "Copilot licensing policies apply **at the organization level**; an organization chooses either Copilot Business or Copilot Enterprise for its managed seats.",
-          "keyTakeaways": [
-            "Plan tier applies organization-wide for managed seats.",
-            "Organizations can upgrade tiers in GitHub Settings."
-          ],
+          "keyTakeaways": ["Plan tier applies organization-wide for managed seats.", "Organizations can upgrade tiers in GitHub Settings."],
           "interactiveQuiz": {
             "question": "How are Copilot subscription plan tiers applied within a GitHub Organization?",
             "options": [
@@ -1048,10 +1029,7 @@
           "id": "q59-ide-shortcut-next-suggestion",
           "title": "Q59: How can a developer cycle to the NEXT inline code suggestion when multiple completions are available?",
           "content": "Pressing `Alt + ]` (Windows/Linux) or `Option + ]` (macOS) cycles forward to the next inline completion candidate.",
-          "keyTakeaways": [
-            "`Alt/Option + ]`: Cycle to next suggestion.",
-            "`Alt/Option + [`: Cycle to previous suggestion."
-          ],
+          "keyTakeaways": ["`Alt/Option + ]`: Cycle to next suggestion.", "`Alt/Option + [`: Cycle to previous suggestion."],
           "interactiveQuiz": {
             "question": "What shortcut cycles to the next available inline suggestion in VS Code?",
             "options": ["Alt/Option + ]", "Tab", "Ctrl + Space", "Cmd + Shift + N"],
@@ -1124,7 +1102,12 @@
           ],
           "interactiveQuiz": {
             "question": "Are your Copilot Chat thread history logs visible to other developers in your company?",
-            "options": ["Yes, public by default", "No, chat sessions are private to the individual user", "Only if marked public", "Visible to repo owners"],
+            "options": [
+              "Yes, public by default",
+              "No, chat sessions are private to the individual user",
+              "Only if marked public",
+              "Visible to repo owners"
+            ],
             "correctIndex": 1,
             "explanation": "Chat history is strictly isolated to the individual user account."
           }
@@ -1188,10 +1171,7 @@
           "id": "q67-prompt-engineering-few-shot-learning",
           "title": "Q67: What is 'Few-Shot Prompting' when framing requests for Copilot?",
           "content": "**Few-Shot Prompting** involves providing 1 to 3 concrete input/output examples within the prompt request to guide the model on desired format and structural conventions.",
-          "keyTakeaways": [
-            "Zero-Shot: No examples provided.",
-            "Few-Shot: Provides explicit input/output examples to guide the model."
-          ],
+          "keyTakeaways": ["Zero-Shot: No examples provided.", "Few-Shot: Provides explicit input/output examples to guide the model."],
           "interactiveQuiz": {
             "question": "What defines Few-Shot Prompting in AI interaction?",
             "options": [
@@ -1214,12 +1194,7 @@
           ],
           "interactiveQuiz": {
             "question": "Which markdown file automatically attaches repository guidelines to all Copilot Chat prompts in VS Code?",
-            "options": [
-              "README.md",
-              ".github/copilot-instructions.md",
-              "CONTRIBUTING.md",
-              ".copilotrc"
-            ],
+            "options": ["README.md", ".github/copilot-instructions.md", "CONTRIBUTING.md", ".copilotrc"],
             "correctIndex": 1,
             "explanation": "`.github/copilot-instructions.md` sets custom repo instructions for Copilot Chat."
           }
@@ -1263,10 +1238,7 @@
           "id": "q71-copilot-individual-telemetry-usage",
           "title": "Q71: On Copilot Individual, how are user prompts used if the telemetry sharing setting is left ON?",
           "content": "If left ON, GitHub uses prompt and completion telemetry to **analyze usage patterns, evaluate system performance, and fine-tune base AI models**. Users can opt out in profile settings.",
-          "keyTakeaways": [
-            "Opt-in data helps fine-tune general models.",
-            "Can be disabled at any time in individual profile settings."
-          ],
+          "keyTakeaways": ["Opt-in data helps fine-tune general models.", "Can be disabled at any time in individual profile settings."],
           "interactiveQuiz": {
             "question": "What is telemetry data used for when enabled on a Copilot Individual account?",
             "options": [
@@ -1289,7 +1261,12 @@
           ],
           "interactiveQuiz": {
             "question": "What resource type is targeted by Content Exclusion rules in GitHub Copilot?",
-            "options": ["File paths and repository URLs", "Network router IP addresses", "Operating system serial numbers", "IDE color themes"],
+            "options": [
+              "File paths and repository URLs",
+              "Network router IP addresses",
+              "Operating system serial numbers",
+              "IDE color themes"
+            ],
             "correctIndex": 0,
             "explanation": "Content Exclusion rules block specified file paths and repositories from prompt context."
           }
@@ -1349,7 +1326,12 @@
           ],
           "interactiveQuiz": {
             "question": "What class of AI models powers GitHub Copilot?",
-            "options": ["Convolutional Neural Networks (CNN)", "Large Language Models (LLM)", "Generative Adversarial Networks (GAN)", "Rule-based decision trees"],
+            "options": [
+              "Convolutional Neural Networks (CNN)",
+              "Large Language Models (LLM)",
+              "Generative Adversarial Networks (GAN)",
+              "Rule-based decision trees"
+            ],
             "correctIndex": 1,
             "explanation": "Copilot uses fine-tuned Large Language Models trained on code and text."
           }
@@ -1433,10 +1415,7 @@
           "id": "q81-copilot-enterprise-knowledge-base-sources",
           "title": "Q81: What data source formats are supported when building Knowledge Bases in Copilot Enterprise?",
           "content": "Knowledge Bases in Copilot Enterprise index **Markdown (.md) files** stored within designated organization repositories.",
-          "keyTakeaways": [
-            "Indexes Markdown documentation files (.md).",
-            "Enables grounded chat queries over internal docs."
-          ],
+          "keyTakeaways": ["Indexes Markdown documentation files (.md).", "Enables grounded chat queries over internal docs."],
           "interactiveQuiz": {
             "question": "Which file format is used to curate documentation for Copilot Enterprise Knowledge Bases?",
             "options": ["Markdown (.md)", "Binary .exe files", "Compressed .zip archives", "Raw PDF blobs"],
@@ -1488,10 +1467,7 @@
           "id": "q84-keyboard-shortcut-dismiss-suggestion",
           "title": "Q84: What key immediately dismisses an inline ghost text suggestion without accepting it?",
           "content": "Pressing the `Escape (Esc)` key dismisses ghost text suggestions in the editor.",
-          "keyTakeaways": [
-            "`Esc`: Dismisses inline suggestion.",
-            "`Tab`: Accepts inline suggestion."
-          ],
+          "keyTakeaways": ["`Esc`: Dismisses inline suggestion.", "`Tab`: Accepts inline suggestion."],
           "interactiveQuiz": {
             "question": "Which key dismisses an active ghost text completion suggestion?",
             "options": ["Tab", "Escape (Esc)", "Enter", "Spacebar"],
@@ -1523,13 +1499,15 @@
           "id": "q86-copilot-seat-cancellation-billing",
           "title": "Q86: What happens to billing when an admin removes a Copilot seat mid-month in Copilot Business?",
           "content": "Seat cancellations take effect at the end of the current billing cycle, or are pro-rated depending on subscription management settings.",
-          "keyTakeaways": [
-            "Seat allocations can be managed dynamically.",
-            "Billing updates reflect active assigned user count."
-          ],
+          "keyTakeaways": ["Seat allocations can be managed dynamically.", "Billing updates reflect active assigned user count."],
           "interactiveQuiz": {
             "question": "Where do organization admins adjust seat allocations for Copilot Business?",
-            "options": ["In GitHub Organization Billing/Copilot Settings", "In the client IDE", "Via an issue thread", "In the local terminal"],
+            "options": [
+              "In GitHub Organization Billing/Copilot Settings",
+              "In the client IDE",
+              "Via an issue thread",
+              "In the local terminal"
+            ],
             "correctIndex": 0,
             "explanation": "Seat allocations are managed under Organization Billing settings on GitHub.com."
           }
@@ -1558,10 +1536,7 @@
           "id": "q88-copilot-audit-logs-event-types",
           "title": "Q88: Which audit log event triggers when an admin changes the public code matching policy in an organization?",
           "content": "GitHub Organization Audit Logs capture policy updates under events such as `copilot.cfb_exact_match` or `copilot.public_code_suggestions`.",
-          "keyTakeaways": [
-            "Logs administrative setting changes for public code matching.",
-            "Ensures administrative compliance tracking."
-          ],
+          "keyTakeaways": ["Logs administrative setting changes for public code matching.", "Ensures administrative compliance tracking."],
           "interactiveQuiz": {
             "question": "Where can compliance officers verify when Copilot policy settings were updated?",
             "options": ["GitHub Organization Audit Logs", "In open pull requests", "In local .log files", "On public Twitter feeds"],
@@ -1573,10 +1548,7 @@
           "id": "q89-copilot-custom-instructions-location",
           "title": "Q89: Where can custom instructions for Copilot be defined at a personal user level in VS Code?",
           "content": "Personal custom instructions can be added to VS Code User Settings under `github.copilot.chat.codeGeneration.instructions`, applying instructions across all personal chat sessions.",
-          "keyTakeaways": [
-            "Personal instructions: VS Code User Settings.",
-            "Project instructions: `.github/copilot-instructions.md`."
-          ],
+          "keyTakeaways": ["Personal instructions: VS Code User Settings.", "Project instructions: `.github/copilot-instructions.md`."],
           "interactiveQuiz": {
             "question": "Where can a developer set personal default guidelines for all their local Copilot Chat sessions?",
             "options": [
@@ -1593,10 +1565,7 @@
           "id": "q90-prompt-engineering-zero-shot",
           "title": "Q90: What defines a 'Zero-Shot Prompt' when querying Copilot?",
           "content": "A **Zero-Shot Prompt** asks the model to perform a task directly **without providing prior examples** or sample input/output demonstrations.",
-          "keyTakeaways": [
-            "Zero-Shot: Direct request with no examples.",
-            "Few-Shot: Provides sample input/output demonstrations."
-          ],
+          "keyTakeaways": ["Zero-Shot: Direct request with no examples.", "Few-Shot: Provides sample input/output demonstrations."],
           "interactiveQuiz": {
             "question": "A prompt that asks Copilot to write a function without including any sample code examples is known as what?",
             "options": ["Zero-Shot Prompt", "Few-Shot Prompt", "Role Prompt", "Chain-of-Thought"],
@@ -1708,10 +1677,7 @@
           "id": "q97-copilot-enterprise-github-com-pr-summaries",
           "title": "Q97: Can Copilot Enterprise generate Pull Request summaries automatically during PR creation?",
           "content": "Yes. On **Copilot Enterprise**, developers can click the **'Copilot Summary'** button when opening a PR to auto-generate a summary of changes from staged diffs.",
-          "keyTakeaways": [
-            "Auto-summarizes PR diffs into prose and bulleted lists.",
-            "Saves time during PR authoring and code review."
-          ],
+          "keyTakeaways": ["Auto-summarizes PR diffs into prose and bulleted lists.", "Saves time during PR authoring and code review."],
           "interactiveQuiz": {
             "question": "Which feature generates PR descriptions on GitHub.com with a single click?",
             "options": ["Copilot PR Summaries", "GitHub Actions Linter", "Git Rebase Bot", "Markdown Previewer"],
@@ -1723,10 +1689,7 @@
           "id": "q98-responsible-ai-over-reliance-risk",
           "title": "Q98: What operational risk arises from developer 'Over-Reliance' on AI code generators?",
           "content": "Over-reliance occurs when developers accept AI completions without review, leading to un-detected bugs, security vulnerabilities, or a decline in deep codebase understanding.",
-          "keyTakeaways": [
-            "Always review and test generated code.",
-            "Maintain human oversight and active comprehension."
-          ],
+          "keyTakeaways": ["Always review and test generated code.", "Maintain human oversight and active comprehension."],
           "interactiveQuiz": {
             "question": "What is the primary risk of developer over-reliance on generative AI tools?",
             "options": [
@@ -1779,7 +1742,7 @@
             "explanation": "Prompt Engineering and IDE integration make up the largest functional portion of the exam."
           }
         },
-{
+        {
           "id": "q101-scenario-accidental-secret-leak",
           "title": "Q101 [Scenario]: A developer accidentally types an active AWS Secret Key into a file context while writing a function with Copilot active. What prevents this key from being exposed?",
           "content": "Before prompts reach the LLM backend or completions return to the IDE, Copilot's **Post-Processing & Proxy Security Filters** scan payloads for hardcoded secrets, API tokens, and private credentials. Furthermore, pairing Copilot with **GitHub Secret Scanning** blocks commits containing leaked keys.",
@@ -1789,12 +1752,7 @@
           ],
           "interactiveQuiz": {
             "question": "Which component acts as the immediate real-time guardrail blocking credentials before prompt transmission?",
-            "options": [
-              "Local OS Firewall",
-              "Copilot Proxy & Post-Processing Security Filters",
-              "Git Commit Hook",
-              "DNS Server Filter"
-            ],
+            "options": ["Local OS Firewall", "Copilot Proxy & Post-Processing Security Filters", "Git Commit Hook", "DNS Server Filter"],
             "correctIndex": 1,
             "explanation": "Real-time proxy and post-processing filters screen prompts and completions for credentials prior to LLM processing."
           }
@@ -1869,12 +1827,7 @@
           ],
           "interactiveQuiz": {
             "question": "What phenomenon occurred when Copilot generated bcrypt.hash_password_secure()?",
-            "options": [
-              "Compiler syntax optimization",
-              "Model Hallucination",
-              "Proxy filtering failure",
-              "Content exclusion match"
-            ],
+            "options": ["Compiler syntax optimization", "Model Hallucination", "Proxy filtering failure", "Content exclusion match"],
             "correctIndex": 1,
             "explanation": "Generating non-existent methods that sound statistically reasonable is a classic model hallucination."
           }
@@ -1889,12 +1842,7 @@
           ],
           "interactiveQuiz": {
             "question": "What Copilot Enterprise feature allows grounding queries across multiple internal documentation repos?",
-            "options": [
-              "Custom Rulesets",
-              "Copilot Knowledge Bases",
-              "GitHub Actions Secrets",
-              "Public Code Filters"
-            ],
+            "options": ["Custom Rulesets", "Copilot Knowledge Bases", "GitHub Actions Secrets", "Public Code Filters"],
             "correctIndex": 1,
             "explanation": "Knowledge Bases pull documentation from specified repos to provide grounded answers."
           }
@@ -1929,12 +1877,7 @@
           ],
           "interactiveQuiz": {
             "question": "What repository file automatically injects team style rules into all Copilot Chat interactions?",
-            "options": [
-              "CONTRIBUTING.md",
-              ".github/copilot-instructions.md",
-              "tsconfig.json",
-              ".eslintrc.js"
-            ],
+            "options": ["CONTRIBUTING.md", ".github/copilot-instructions.md", "tsconfig.json", ".eslintrc.js"],
             "correctIndex": 1,
             "explanation": "`.github/copilot-instructions.md` injects persistent custom instructions into chat context."
           }
@@ -1969,12 +1912,7 @@
           ],
           "interactiveQuiz": {
             "question": "What security risk involves malicious packages uploaded to registries matching common AI-hallucinated names?",
-            "options": [
-              "SQL Injection",
-              "Slopsquatting / Package Hallucination Attack",
-              "Cross-Site Scripting (XSS)",
-              "Buffer Overflow"
-            ],
+            "options": ["SQL Injection", "Slopsquatting / Package Hallucination Attack", "Cross-Site Scripting (XSS)", "Buffer Overflow"],
             "correctIndex": 1,
             "explanation": "Slopsquatting targets developers who accept and install hallucinated third-party package names."
           }
@@ -2129,12 +2067,7 @@
           ],
           "interactiveQuiz": {
             "question": "Which tool provides programmatic data for calculating enterprise Copilot adoption and acceptance metrics?",
-            "options": [
-              "Copilot Metrics REST API",
-              "Git Commit Logs",
-              "Personal Account Billing Tab",
-              "VS Code Output Channel"
-            ],
+            "options": ["Copilot Metrics REST API", "Git Commit Logs", "Personal Account Billing Tab", "VS Code Output Channel"],
             "correctIndex": 0,
             "explanation": "The Copilot Metrics REST API exposes organizational usage statistics for analytical reporting."
           }
@@ -2149,12 +2082,7 @@
           ],
           "interactiveQuiz": {
             "question": "What feature provides inline diff previews for quick code refactoring in VS Code?",
-            "options": [
-              "Sidebar Chat",
-              "Inline Chat (`Cmd/Ctrl + I`)",
-              "GitHub Mobile App",
-              "Copilot CLI"
-            ],
+            "options": ["Sidebar Chat", "Inline Chat (`Cmd/Ctrl + I`)", "GitHub Mobile App", "Copilot CLI"],
             "correctIndex": 1,
             "explanation": "Inline Chat allows requesting targeted edits and previewing diffs directly on selected lines."
           }
