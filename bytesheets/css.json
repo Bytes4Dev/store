@@ -1831,9 +1831,9 @@
       ]
     },
     {
-      "id": "interview-questions",
-      "title": "Top Interview Questions & Practice",
-      "summary": "Master 50+ essential CSS interview questions ranging from core fundamentals to advanced layout, browser behavior, accessibility, performance, and real-world scenarios.",
+      "id": "css-questions",
+      "title": "Top CSS Questions & Practice",
+      "summary": "Master 50+ essential CSS questions ranging from core fundamentals to advanced layout, browser behavior, accessibility, performance, and real-world scenarios.",
       "estimatedMinutes": 180,
       "sections": [
         {
