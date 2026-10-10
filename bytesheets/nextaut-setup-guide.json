@@ -1,0 +1,618 @@
+{
+  "courseId": "next-auth-on-next-js",
+  "courseName": "Next.js Authentication",
+  "title": "NextAuth.js on Next.js: Credentials, Google OAuth, Callbacks, Sessions, and UI",
+  "subtitle": "An end-to-end guide to Google OAuth setup, Credentials authentication, callbacks, JWT and session behavior, React hooks, sign-in/sign-out, protected pages and APIs, TypeScript, and deployment.",
+  "category": "Full-Stack Engineering",
+  "level": "Intermediate",
+  "estimatedTime": "4 Hours",
+  "accentColor": "#6B4EFF",
+  "keywords": [
+    "NextAuth.js",
+    "Auth.js",
+    "Next.js",
+    "Pages Router",
+    "App Router",
+    "Credentials Provider",
+    "Google OAuth",
+    "OAuth 2.0",
+    "JWT",
+    "JWE",
+    "SessionProvider",
+    "useSession",
+    "signIn",
+    "signOut",
+    "callbacks",
+    "authentication",
+    "authorization",
+    "TypeScript",
+    "API routes",
+    "security"
+  ],
+  "chapters": [
+    {
+      "id": "fundamentals-and-versions",
+      "title": "1. Fundamentals and Version Choice",
+      "summary": "Understand NextAuth/Auth.js, authentication versus authorization, and the version used throughout this guide.",
+      "estimatedMinutes": 15,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "what-nextauth-does",
+          "title": "What NextAuth.js Does",
+          "content": "NextAuth.js is the established name for the Next.js integration of Auth.js. It handles provider sign-in flows, callback endpoints, CSRF protections, cookies, and session retrieval. It does not automatically implement registration, password resets, your user database, roles, or application-specific permissions.\n\nThis tutorial's runnable main path targets **NextAuth v4 with the Pages Router** (`pages/`). It demonstrates Google OAuth and a Credentials provider that delegates password verification to a trusted backend. A later chapter explains v5/App Router differences."
+        },
+        {
+          "id": "authentication-vs-authorization",
+          "title": "Authentication vs Authorization",
+          "content": "Authentication establishes who the user is. Authorization decides what that user may access or change. A valid session does not automatically grant permission to every resource. Enforce permissions on the server for protected pages, API routes, and mutations; hiding a button in React is not security."
+        },
+        {
+          "id": "version-and-router",
+          "title": "Choose One Version and Router",
+          "content": "Check your installed package with `npm ls next-auth`. The main examples use v4: `pages/api/auth/[...nextauth].js`, `NextAuth(authOptions)`, `getServerSession(req, res, authOptions)`, and `callbackUrl`. Auth.js v5 commonly uses `auth.ts`, exports `handlers` and `auth`, and uses `auth()` in server contexts. Do not mix snippets across major versions.",
+          "callout": {
+            "type": "warning",
+            "title": "Version compatibility",
+            "message": "The current Auth.js documentation describes v5 and later in many places. Use the v4 docs for the runnable v4 implementation in this tutorial."
+          }
+        },
+        {
+          "id": "mental-model",
+          "title": "The Complete Authentication Flow",
+          "content": "A provider verifies identity; callbacks apply policy and shape token/session data; the browser receives a protected session cookie; UI hooks read safe session data; server checks authorize access.",
+          "diagram": {
+            "type": "mermaid",
+            "title": "Authentication flow",
+            "code": "flowchart TD\n A[Google or Credentials] --> B[Verify identity]\n B --> C[signIn callback]\n C --> D[JWT callback]\n D --> E[Session cookie]\n E --> F[session callback]\n F --> G[useSession UI]\n E --> H[Server session check]\n H --> I[Authorization]\n I --> J[Protected data]"
+          }
+        }
+      ]
+    },
+    {
+      "id": "install-and-configure",
+      "title": "2. Install and Configure NextAuth",
+      "summary": "Install the matching package, set secrets, create the catch-all API route, and confirm the auth endpoints work.",
+      "estimatedMinutes": 20,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "create-project",
+          "title": "Create or Inspect a Pages Router Project",
+          "content": "If you already have a Next.js Pages Router app, use it. Otherwise create a project and choose the Pages Router when prompted.",
+          "codeExample": {
+            "title": "Create a project",
+            "language": "bash",
+            "code": "npx create-next-app@latest nextauth-demo\ncd nextauth-demo",
+            "explanation": "Choose the Pages Router if prompted."
+          }
+        },
+        {
+          "id": "install-nextauth",
+          "title": "Install NextAuth v4",
+          "content": "Pin the major version so examples match the installed API.",
+          "codeExample": {
+            "title": "Install",
+            "language": "bash",
+            "code": "npm install next-auth@^4",
+            "explanation": "Use one package manager consistently.",
+            "tabs": [
+              {
+                "label": "npm",
+                "language": "bash",
+                "code": "npm install next-auth@^4"
+              },
+              {
+                "label": "pnpm",
+                "language": "bash",
+                "code": "pnpm add next-auth@^4"
+              },
+              {
+                "label": "yarn",
+                "language": "bash",
+                "code": "yarn add next-auth@^4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "generate-secret",
+          "title": "Generate a Strong Secret",
+          "content": "Generate a high-entropy secret for cryptographic operations and session protection. Keep it server-side and out of source control.",
+          "codeExample": {
+            "title": "Generate secret",
+            "language": "bash",
+            "code": "openssl rand -base64 32",
+            "explanation": "Copy the generated value into `.env.local`; do not use the sample text as a real secret."
+          }
+        },
+        {
+          "id": "environment-variables",
+          "title": "Configure Environment Variables",
+          "content": "Create `.env.local` at the project root. Add the Google credentials after creating them in the next chapter. `AUTH_API_URL` must be your real trusted backend.",
+          "codeExample": {
+            "title": "File: `.env.local`",
+            "language": "bash",
+            "code": "NEXTAUTH_URL=http://localhost:3000\nNEXTAUTH_SECRET=replace_with_generated_secret\nGOOGLE_CLIENT_ID=replace_with_google_client_id\nGOOGLE_CLIENT_SECRET=replace_with_google_client_secret\nAUTH_API_URL=https://api.your-domain.example",
+            "explanation": "Do not use `NEXT_PUBLIC_` for secrets. Restart the development server after environment changes."
+          }
+        },
+        {
+          "id": "api-route",
+          "title": "Create the NextAuth API Route",
+          "content": "Create `pages/api/auth/[...nextauth].js`. This catch-all route handles sign-in, sign-out, provider callbacks, CSRF, and session endpoints.",
+          "codeExample": {
+            "title": "File: `pages/api/auth/[...nextauth].js`",
+            "language": "javascript",
+            "code": "import NextAuth from \"next-auth\";\nimport GoogleProvider from \"next-auth/providers/google\";\nimport CredentialsProvider from \"next-auth/providers/credentials\";\n\nexport const authOptions = {\n  providers: [\n    GoogleProvider({\n      clientId: process.env.GOOGLE_CLIENT_ID,\n      clientSecret: process.env.GOOGLE_CLIENT_SECRET,\n    }),\n    CredentialsProvider({\n      name: \"Email and password\",\n      credentials: {\n        email: { label: \"Email\", type: \"email\" },\n        password: { label: \"Password\", type: \"password\" },\n      },\n      async authorize(credentials) {\n        if (!credentials?.email || !credentials?.password) return null;\n        const response = await fetch(`${process.env.AUTH_API_URL}/auth/login`, {\n          method: \"POST\",\n          headers: { \"Content-Type\": \"application/json\" },\n          body: JSON.stringify({ email: credentials.email, password: credentials.password }),\n          cache: \"no-store\",\n        });\n        if (!response.ok) return null;\n        const result = await response.json();\n        const user = result?.user;\n        if (!user?.id || !user?.email) return null;\n        return { id: String(user.id), name: user.name ?? null, email: user.email, image: user.image ?? null, role: user.role ?? \"user\" };\n      },\n    }),\n  ],\n  session: { strategy: \"jwt\" },\n};\n\nexport default NextAuth(authOptions);",
+            "explanation": "This baseline assumes your backend responds with `{ user: { id, email, name, image, role } }`. Adapt the endpoint and response parsing to your API. The backend must verify passwords securely."
+          }
+        },
+        {
+          "id": "verify-installation",
+          "title": "Verify the Auth Endpoint",
+          "content": "Run `npm run dev` and visit `/api/auth/providers`. It should list configured provider IDs. This confirms the route loads, but it does not prove Google credentials or the backend login flow works; test each flow separately.",
+          "codeExample": {
+            "title": "Run development server",
+            "language": "bash",
+            "code": "npm run dev",
+            "explanation": "Open `http://localhost:3000/api/auth/providers` in a browser."
+          }
+        }
+      ]
+    },
+    {
+      "id": "google-oauth",
+      "title": "3. Configure Google OAuth Credentials",
+      "summary": "Create the Google OAuth client, configure consent and redirect URIs, and diagnose common provider errors.",
+      "estimatedMinutes": 22,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "google-project",
+          "title": "Create a Google Cloud Project",
+          "content": "Open the [Google Cloud Console](https://console.cloud.google.com/) and create or select a project. Find Google Auth Platform or the OAuth consent configuration area; console labels may change over time."
+        },
+        {
+          "id": "consent-screen",
+          "title": "Configure Consent and Audience",
+          "content": "Set the app name, support email, developer contact, and audience. While the app is in testing mode, add test users if required. Request only identity scopes needed for sign-in (`openid`, `email`, `profile`). Google sign-in does not require Gmail or Drive access."
+        },
+        {
+          "id": "oauth-client",
+          "title": "Create a Web Application OAuth Client",
+          "content": "In the Google Auth Platform / Clients area, create an OAuth client of type **Web application**. For local development add authorized JavaScript origin `http://localhost:3000` and authorized redirect URI `http://localhost:3000/api/auth/callback/google`. For production add your real HTTPS origin and exact callback URL, e.g. `https://app.your-domain.example/api/auth/callback/google`.",
+          "callout": {
+            "type": "danger",
+            "title": "Redirect URI must match exactly",
+            "message": "Protocol, host, port, path, and trailing slash must match. Never use wildcard redirect URIs."
+          }
+        },
+        {
+          "id": "copy-client-secrets",
+          "title": "Copy Client ID and Client Secret",
+          "content": "Copy the Client ID and Client Secret from the Google console into `.env.local` as `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. The Client ID identifies the OAuth client; the secret is confidential and must remain on the server.",
+          "codeExample": {
+            "title": "Environment variables",
+            "language": "bash",
+            "code": "GOOGLE_CLIENT_ID=your-client-id.apps.googleusercontent.com\nGOOGLE_CLIENT_SECRET=your-client-secret",
+            "explanation": "These are placeholders. Rotate the secret in Google Cloud if it is exposed."
+          }
+        },
+        {
+          "id": "oauth-flow",
+          "title": "Understand the Google Redirect Flow",
+          "content": "The browser starts sign-in, NextAuth redirects to Google, Google authenticates the user, then redirects to the registered callback. NextAuth validates the OAuth response, runs callbacks, and establishes the app session. Use the NextAuth session to identify the user; do not treat Google's access token as your app session.",
+          "diagram": {
+            "type": "mermaid",
+            "title": "Google OAuth sequence",
+            "code": "sequenceDiagram\n participant U as Browser\n participant N as NextAuth\n participant G as Google\n U->>N: signIn('google')\n N-->>U: Redirect to Google\n U->>G: Authenticate / consent\n G-->>U: Redirect to callback URL\n U->>N: OAuth callback\n N-->>U: Session cookie\n U->>N: Request protected page\n N-->>U: Session data"
+          }
+        },
+        {
+          "id": "oauth-troubleshooting",
+          "title": "Fix Google OAuth Errors",
+          "content": "`redirect_uri_mismatch`: compare the exact callback URL with Google Cloud. `invalid_client`: verify the client ID and secret belong together. Access blocked: check audience, test-user list, and publishing status. Wrong callback host: verify `NEXTAUTH_URL` and reverse-proxy host/protocol settings. Restart or redeploy after changing environment variables.",
+          "callout": {
+            "type": "tip",
+            "title": "Official reference",
+            "message": "Google's OAuth documentation: https://developers.google.com/identity/protocols/oauth2/web-server"
+          }
+        }
+      ]
+    },
+    {
+      "id": "credentials-provider",
+      "title": "4. Credentials Provider and Password Verification",
+      "summary": "Implement safe credentials validation and understand exactly what the authorize function does and does not do.",
+      "estimatedMinutes": 22,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "credentials-purpose",
+          "title": "What Credentials Provider Does",
+          "content": "The Credentials provider lets you implement custom login logic. `authorize(credentials, request)` should return a minimal user object on success or `null` when credentials are rejected. It does not hash passwords, create a registration flow, rate-limit attempts, or automatically persist users."
+        },
+        {
+          "id": "authorize-function",
+          "title": "Implement `authorize()` Against Your Backend",
+          "content": "Use a trusted HTTPS backend for password verification. Normalize and validate input, send credentials only to that backend, handle unsuccessful responses, and return a stable user ID plus only the safe profile fields needed by the application.",
+          "codeExample": {
+            "title": "Authorize implementation",
+            "language": "javascript",
+            "code": "async authorize(credentials) {\n  const email = credentials?.email?.trim().toLowerCase();\n  const password = credentials?.password;\n  if (!email || typeof password !== \"string\" || !password) return null;\n\n  const response = await fetch(`${process.env.AUTH_API_URL}/auth/login`, {\n    method: \"POST\",\n    headers: { \"Content-Type\": \"application/json\" },\n    body: JSON.stringify({ email, password }),\n    cache: \"no-store\",\n  });\n  if (!response.ok) return null;\n\n  const result = await response.json();\n  const user = result?.user;\n  if (!user?.id || !user?.email) return null;\n  return {\n    id: String(user.id),\n    name: user.name ?? null,\n    email: user.email,\n    image: user.image ?? null,\n    role: user.role ?? \"user\",\n  };\n}",
+            "explanation": "Change the endpoint and response contract to your actual backend. The server must check account status, rate limits, MFA where applicable, and password hashes."
+          }
+        },
+        {
+          "id": "password-security",
+          "title": "Password Storage and Error Handling",
+          "content": "Never store plaintext passwords or invent a hashing algorithm. Use a maintained password-hashing algorithm such as Argon2id or bcrypt in the trusted backend. Return generic errors for unknown accounts and wrong passwords to reduce account enumeration. Never log raw credentials."
+        },
+        {
+          "id": "test-credentials",
+          "title": "Test Credentials Sign-In",
+          "content": "Create a test account through your real backend and test both valid and invalid login attempts. A successful `authorize` return needs a stable `id`; returning `null` rejects login. Do not hard-code production credentials in source code.",
+          "callout": {
+            "type": "warning",
+            "title": "Credentials are not a database",
+            "message": "The Credentials provider does not create user records or automatically persist credentials-authenticated users. Your identity backend owns that lifecycle."
+          }
+        }
+      ]
+    },
+    {
+      "id": "callbacks-and-sessions",
+      "title": "5. Callbacks, JWTs, and Sessions",
+      "summary": "Understand signIn, jwt, session, and redirect callbacks, event handlers, and safe custom claims.",
+      "estimatedMinutes": 30,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "callback-overview",
+          "title": "Callback Lifecycle",
+          "content": "The main NextAuth v4 callbacks are `signIn`, `redirect`, `jwt`, and `session`. `signIn` permits or denies login; `redirect` validates destinations; `jwt` adds claims when JWT sessions are used; `session` decides what is exposed to the client. Events are for side effects, not access-control decisions.",
+          "diagram": {
+            "type": "mermaid",
+            "title": "Callback flow",
+            "code": "flowchart TD\n A[Provider result] --> B[signIn policy]\n B -->|allowed| C[jwt callback]\n C --> D[Encrypted JWT session cookie]\n D --> E[session callback]\n E --> F[Client-visible session]\n B -->|denied| X[Stop sign-in]"
+          }
+        },
+        {
+          "id": "signin-callback",
+          "title": "`signIn`: Allow or Deny a User",
+          "content": "Return `true` to continue, `false` to deny, or a URL to redirect. Provider parameters differ. For Google, the profile commonly includes `email_verified`; do not assume every provider has that property. Check account status against a trusted source when required.",
+          "codeExample": {
+            "title": "Sign-in policy",
+            "language": "javascript",
+            "code": "callbacks: {\n  async signIn({ user, account, profile }) {\n    if (account?.provider === \"google\") {\n      return Boolean(user?.email && profile?.email_verified);\n    }\n    return Boolean(user?.email);\n  },\n},",
+            "explanation": "Adapt the policy to your actual provider and identity-verification requirements."
+          }
+        },
+        {
+          "id": "jwt-callback",
+          "title": "`jwt`: Store Selected Claims",
+          "content": "With JWT sessions, `jwt` runs at initial sign-in and when the token is processed later. At initial sign-in, `user` and `account` may be present; later calls may only have the existing `token`. Add only necessary claims such as stable user ID, role, or provider. Never store passwords, password hashes, or secrets.",
+          "codeExample": {
+            "title": "JWT callback",
+            "language": "javascript",
+            "code": "callbacks: {\n  async jwt({ token, user, account }) {\n    if (user) {\n      token.userId = user.id;\n      if (user.role) token.role = user.role;\n    }\n    if (account) token.provider = account.provider;\n    return token;\n  },\n},",
+            "explanation": "NextAuth's default JWT session token is encrypted as JWE. Do not assume it is a plain three-part signed JWT."
+          }
+        },
+        {
+          "id": "session-callback",
+          "title": "`session`: Expose Safe Fields",
+          "content": "The session callback controls what `useSession()` and session APIs return. By default, only a limited subset is exposed. Copy custom claims from `token` to the session explicitly. Anything returned in the session is readable by the browser, so never expose secrets.",
+          "codeExample": {
+            "title": "Session callback",
+            "language": "javascript",
+            "code": "callbacks: {\n  async session({ session, token }) {\n    if (session.user) {\n      session.user.id = token.userId ?? token.sub ?? \"\";\n      session.user.role = token.role ?? \"user\";\n    }\n    session.provider = token.provider ?? null;\n    return session;\n  },\n},",
+            "explanation": "A session role can guide UI rendering, but privileged server operations must verify authorization independently."
+          }
+        },
+        {
+          "id": "redirect-callback",
+          "title": "`redirect`: Restrict Destinations",
+          "content": "The redirect callback prevents unsafe open redirects. Allow relative URLs and same-origin absolute URLs, and fall back to the base URL for invalid or external URLs. Keep the default behavior if you do not need customization.",
+          "codeExample": {
+            "title": "Safe redirect callback",
+            "language": "javascript",
+            "code": "callbacks: {\n  async redirect({ url, baseUrl }) {\n    if (url.startsWith(\"/\")) return `${baseUrl}${url}`;\n    try {\n      if (new URL(url).origin === baseUrl) return url;\n    } catch {}\n    return baseUrl;\n  },\n},",
+            "explanation": "Do not return an arbitrary query-string URL."
+          }
+        },
+        {
+          "id": "events-and-logging",
+          "title": "Events vs Callbacks",
+          "content": "Events such as `signIn` and `signOut` are suitable for audit logging and side effects. Use callbacks for allow/deny policy. Log only safe metadata such as user ID, provider, and outcome. Never log passwords, cookies, session tokens, or client secrets.",
+          "codeExample": {
+            "title": "Safe audit event",
+            "language": "javascript",
+            "code": "events: {\n  async signIn({ user, account, isNewUser }) {\n    console.info(\"auth.signIn\", {\n      userId: user?.id ?? null,\n      provider: account?.provider ?? null,\n      isNewUser: Boolean(isNewUser),\n    });\n  },\n},",
+            "explanation": "Use a structured logger and your organization's privacy policy; avoid unnecessary personal data."
+          }
+        },
+        {
+          "id": "combined-callbacks",
+          "title": "Combine the Callbacks Correctly",
+          "content": "Put callback functions together inside one `callbacks` object. Do not define `callbacks` multiple times in the same JavaScript object, because later properties overwrite earlier ones. Test every provider, denied sign-ins, and redirect cases."
+        }
+      ]
+    },
+    {
+      "id": "client-hooks-and-ui",
+      "title": "6. Hooks, Sign In, Sign Out, and UI",
+      "summary": "Use SessionProvider and useSession, build Google and Credentials buttons, and implement a custom sign-in page.",
+      "estimatedMinutes": 25,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "session-provider",
+          "title": "Wrap the Pages Router with SessionProvider",
+          "content": "In `pages/_app.js`, wrap the application with `SessionProvider`. This enables client components to call `useSession()`. It is a UI session provider, not a server-side security boundary.",
+          "codeExample": {
+            "title": "File: `pages/_app.js`",
+            "language": "javascript",
+            "code": "import { SessionProvider } from \"next-auth/react\";\n\nexport default function App({ Component, pageProps: { session, ...pageProps } }) {\n  return (\n    <SessionProvider session={session}>\n      <Component {...pageProps} />\n    </SessionProvider>\n  );\n}",
+            "explanation": "Pass an initial session through page props where you already load it server-side."
+          }
+        },
+        {
+          "id": "use-session-hook",
+          "title": "Read Session with `useSession()`",
+          "content": "`useSession()` returns `{ data, status }`. Status is typically `loading`, `authenticated`, or `unauthenticated`. Handle the loading state to avoid flickering the wrong UI. Use this hook in components under `SessionProvider`; use `getServerSession` in server-side Pages Router code.",
+          "codeExample": {
+            "title": "Session status component",
+            "language": "javascript",
+            "code": "import { useSession } from \"next-auth/react\";\n\nexport default function AuthStatus() {\n  const { data: session, status } = useSession();\n  if (status === \"loading\") return <p>Checking session…</p>;\n  if (status === \"unauthenticated\") return <p>You are signed out.</p>;\n  return <p>Signed in as {session.user?.email}</p>;\n}",
+            "explanation": "Only render fields intentionally exposed by the session callback."
+          }
+        },
+        {
+          "id": "google-signin-button",
+          "title": "Sign In with Google",
+          "content": "Call `signIn(\"google\", { callbackUrl: \"/dashboard\" })` from `next-auth/react`. NextAuth performs the redirect and callback exchange.",
+          "codeExample": {
+            "title": "Google button",
+            "language": "javascript",
+            "code": "import { signIn } from \"next-auth/react\";\n\nexport default function GoogleSignInButton() {\n  return <button onClick={() => signIn(\"google\", { callbackUrl: \"/dashboard\" })}>Continue with Google</button>;\n}",
+            "explanation": "Ensure `/dashboard` is an allowed destination."
+          }
+        },
+        {
+          "id": "credentials-form",
+          "title": "Sign In with Credentials",
+          "content": "The field names passed to `signIn(\"credentials\", ...)` must match the configured provider fields. With `redirect: false`, handle the returned result and show a generic error. The actual password verification occurs server-side in `authorize`.",
+          "codeExample": {
+            "title": "Credentials form",
+            "language": "javascript",
+            "code": "import { useState } from \"react\";\nimport { signIn } from \"next-auth/react\";\n\nexport default function CredentialsForm() {\n  const [email, setEmail] = useState(\"\");\n  const [password, setPassword] = useState(\"\");\n  const [error, setError] = useState(\"\");\n  const [busy, setBusy] = useState(false);\n\n  async function submit(event) {\n    event.preventDefault();\n    setError(\"\");\n    setBusy(true);\n    try {\n      const result = await signIn(\"credentials\", {\n        email, password, redirect: false, callbackUrl: \"/dashboard\",\n      });\n      if (result?.error) setError(\"Invalid email or password.\");\n      else if (result?.url) window.location.assign(result.url);\n    } catch {\n      setError(\"Unable to sign in. Please try again.\");\n    } finally {\n      setBusy(false);\n    }\n  }\n\n  return <form onSubmit={submit}>\n    <label>Email <input type=\"email\" autoComplete=\"email\" required value={email} onChange={e => setEmail(e.target.value)} /></label>\n    <label>Password <input type=\"password\" autoComplete=\"current-password\" required value={password} onChange={e => setPassword(e.target.value)} /></label>\n    <button disabled={busy}>{busy ? \"Signing in…\" : \"Sign in\"}</button>\n    {error && <p role=\"alert\">{error}</p>}\n  </form>;\n}",
+            "explanation": "Do not log the form values. This example uses a generic error message and a loading state."
+          }
+        },
+        {
+          "id": "signout",
+          "title": "Sign Out",
+          "content": "Call `signOut()` from `next-auth/react`. In v4, `callbackUrl` sets the destination. If your backend also maintains its own session or refresh token, revoke it through a deliberate backend logout flow too.",
+          "codeExample": {
+            "title": "Sign-out button",
+            "language": "javascript",
+            "code": "import { signOut } from \"next-auth/react\";\n\nexport default function SignOutButton() {\n  return <button onClick={() => signOut({ callbackUrl: \"/\" })}>Sign out</button>;\n}",
+            "explanation": "Do not implement logout by only hiding UI or manually deleting arbitrary cookies."
+          }
+        },
+        {
+          "id": "custom-signin-page",
+          "title": "Create a Custom Sign-In Page",
+          "content": "Create `pages/auth/signin.js`, place the Google button and credentials form there, and configure `pages: { signIn: \"/auth/signin\" }` in `authOptions`. Ensure the sign-in page is public to avoid redirect loops.",
+          "codeExample": {
+            "title": "File: `pages/auth/signin.js`",
+            "language": "javascript",
+            "code": "import GoogleSignInButton from \"../../components/GoogleSignInButton\";\nimport CredentialsForm from \"../../components/CredentialsForm\";\n\nexport default function SignInPage() {\n  return <main><h1>Sign in</h1><GoogleSignInButton /><hr /><CredentialsForm /></main>;\n}",
+            "explanation": "Adjust import paths to match your file structure."
+          }
+        },
+        {
+          "id": "session-refresh",
+          "title": "Update and Refetch Session",
+          "content": "`useSession()` provides an `update()` method in supported v4 releases. Calling it refreshes session data; passing client data may trigger the update path. Treat all browser-supplied values as untrusted and validate them on the server. Avoid frequent polling unless your product needs it.",
+          "codeExample": {
+            "title": "Refresh session",
+            "language": "javascript",
+            "code": "import { useSession } from \"next-auth/react\";\n\nexport default function RefreshSessionButton() {\n  const { update } = useSession();\n  return <button onClick={() => update()}>Refresh session</button>;\n}",
+            "explanation": "Never accept a client-provided role or permission change without checking a trusted source."
+          }
+        }
+      ]
+    },
+    {
+      "id": "protect-pages-and-apis",
+      "title": "7. Protect Pages and API Routes",
+      "summary": "Use server-side session checks and enforce authorization for every protected resource.",
+      "estimatedMinutes": 25,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "protect-page",
+          "title": "Protect a Server-Rendered Page",
+          "content": "Use `getServerSession(req, res, authOptions)` in `getServerSideProps`. Redirect to sign-in if no session exists. Do not rely only on a client-side redirect because it is not a security boundary.",
+          "codeExample": {
+            "title": "File: `pages/dashboard.js`",
+            "language": "javascript",
+            "code": "import { getServerSession } from \"next-auth/next\";\nimport { authOptions } from \"./api/auth/[...nextauth]\";\n\nexport default function Dashboard({ email }) {\n  return <main><h1>Dashboard</h1><p>Signed in as {email}</p></main>;\n}\n\nexport async function getServerSideProps(context) {\n  const session = await getServerSession(context.req, context.res, authOptions);\n  if (!session) return { redirect: { destination: \"/auth/signin\", permanent: false } };\n  return { props: { email: session.user?.email ?? \"\" } };\n}",
+            "explanation": "Do not put secrets or sensitive records in returned props because they are serialized to the browser."
+          }
+        },
+        {
+          "id": "protect-api",
+          "title": "Protect an API Route",
+          "content": "Every protected API route must check session and authorization before returning data or performing mutations. Return 401 for unauthenticated requests and 403 for authenticated users without permission.",
+          "codeExample": {
+            "title": "File: `pages/api/private-data.js`",
+            "language": "javascript",
+            "code": "import { getServerSession } from \"next-auth/next\";\nimport { authOptions } from \"./auth/[...nextauth]\";\n\nexport default async function handler(req, res) {\n  const session = await getServerSession(req, res, authOptions);\n  if (!session) return res.status(401).json({ error: \"Unauthorized\" });\n  if (req.method !== \"GET\") {\n    res.setHeader(\"Allow\", \"GET\");\n    return res.status(405).json({ error: \"Method not allowed\" });\n  }\n  return res.status(200).json({ message: \"Protected data\", userId: session.user.id });\n}",
+            "explanation": "Adjust the relative import path for the actual route location, and validate inputs and permissions for every operation."
+          }
+        },
+        {
+          "id": "role-authorization",
+          "title": "Role-Based Authorization",
+          "content": "A role can be copied from a trusted backend into token/session claims. The browser-visible role may hide or show controls, but the server must check the role before privileged operations. For high-risk actions, fetch current permissions from the database or authorization service.",
+          "codeExample": {
+            "title": "Admin-only API check",
+            "language": "javascript",
+            "code": "if (!session) return res.status(401).json({ error: \"Unauthorized\" });\nif (session.user?.role !== \"admin\") {\n  return res.status(403).json({ error: \"Forbidden\" });\n}\n// Perform the privileged operation only after the checks.",
+            "explanation": "Place this check before the privileged operation. Do not trust a role supplied by the browser."
+          }
+        },
+        {
+          "id": "client-guard",
+          "title": "Client-Side Guard for UX",
+          "content": "Use `useSession` and a router redirect to improve navigation, but protect the API and data source independently. A client guard is not sufficient to secure a page or backend resource.",
+          "codeExample": {
+            "title": "Client guard",
+            "language": "javascript",
+            "code": "import { useEffect } from \"react\";\nimport { useRouter } from \"next/router\";\nimport { useSession } from \"next-auth/react\";\n\nexport default function PrivatePanel() {\n  const router = useRouter();\n  const { data: session, status } = useSession();\n  useEffect(() => {\n    if (status === \"unauthenticated\") router.replace(\"/auth/signin\");\n  }, [status, router]);\n  if (status !== \"authenticated\") return <p>Loading…</p>;\n  return <p>Welcome {session.user?.name ?? session.user?.email}</p>;\n}",
+            "explanation": "Use this for UI flow only; secure the server endpoints separately."
+          }
+        },
+        {
+          "id": "cookies-csrf",
+          "title": "Cookies, CSRF, and HTTPS",
+          "content": "NextAuth manages its authentication cookies and CSRF protections for built-in flows. Do not copy session cookies into localStorage or JavaScript. In production use HTTPS and secure cookie defaults. Cookie behavior depends on host, protocol, domain, SameSite, and Secure settings; customize only when you understand the implications.",
+          "callout": {
+            "type": "danger",
+            "title": "Keep session cookies private",
+            "message": "Never expose session cookies to client JavaScript or send them to unrelated services."
+          }
+        }
+      ]
+    },
+    {
+      "id": "database-and-account-linking",
+      "title": "8. Database, Adapters, and Account Linking",
+      "summary": "Understand JWT versus database sessions and plan persistent user records and provider linking.",
+      "estimatedMinutes": 18,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "jwt-vs-database",
+          "title": "JWT Sessions vs Database Sessions",
+          "content": "With `session: { strategy: \"jwt\" }`, session state is represented by an encrypted token in a cookie. With `strategy: \"database\"`, a session token references a server-side session record through an adapter. Adding an adapter can change the default strategy to database unless you explicitly set it. Credentials has limitations with database sessions in standard setups; verify compatibility for your exact version."
+        },
+        {
+          "id": "persist-users",
+          "title": "Will Google Login Create My User Record?",
+          "content": "Without a database adapter, NextAuth can establish a JWT session but does not create a durable application user record for you. If you need roles, organizations, billing, or audit history, persist users in your own database or use a supported adapter. An adapter maps Auth.js users/accounts/sessions to database records; it does not implement password hashing or registration for you."
+        },
+        {
+          "id": "account-linking",
+          "title": "Link Google and Credentials Accounts Safely",
+          "content": "A user may sign in with Google and later use a password for the same email. Decide whether these identities represent one account. Safe linking generally requires authenticating the existing account and deliberately linking the second provider, or a carefully reviewed verified-email policy. Never link accounts solely on a user-submitted email address; consider provider subject IDs, verified email status, recovery, and duplicate-email handling.",
+          "callout": {
+            "type": "warning",
+            "title": "Account linking is application logic",
+            "message": "Offering two providers does not automatically merge the identities in your business database."
+          }
+        }
+      ]
+    },
+    {
+      "id": "typescript-and-v5",
+      "title": "9. TypeScript and Auth.js v5 Differences",
+      "summary": "Add type augmentation for custom fields and recognize the v5/App Router integration shape.",
+      "estimatedMinutes": 22,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "typescript-augmentation",
+          "title": "Type Custom Session and JWT Fields",
+          "content": "If using TypeScript and adding `id`, `role`, or `provider`, augment the NextAuth types so the compiler matches runtime behavior.",
+          "codeExample": {
+            "title": "File: `types/next-auth.d.ts`",
+            "language": "typescript",
+            "code": "import \"next-auth\";\n\ndeclare module \"next-auth\" {\n  interface Session {\n    user: {\n      id: string;\n      role: string;\n      name?: string | null;\n      email?: string | null;\n      image?: string | null;\n    };\n    provider?: string | null;\n  }\n  interface User { role?: string; }\n}\n\ndeclare module \"next-auth/jwt\" {\n  interface JWT {\n    userId?: string;\n    role?: string;\n    provider?: string;\n  }\n}",
+            "explanation": "Ensure the declaration file is included by `tsconfig.json`. Adjust optional fields to match your actual callbacks."
+          }
+        },
+        {
+          "id": "v5-differences",
+          "title": "Important v5 Differences",
+          "content": "Auth.js v5 commonly defines `auth.ts` with `const { handlers, auth, signIn, signOut } = NextAuth(config)`. In the App Router, `app/api/auth/[...nextauth]/route.ts` exports the GET and POST handlers. Server-side session retrieval commonly uses `auth()`. In newer APIs, `redirectTo` is preferred over the deprecated `callbackUrl` option. Consult the migration guide and do not mix v4 and v5 code.",
+          "callout": {
+            "type": "warning",
+            "title": "Keep the main implementation consistent",
+            "message": "The complete Pages Router code in this tutorial targets NextAuth v4. Use the v5 docs end-to-end if your installed package is v5."
+          }
+        },
+        {
+          "id": "v5-shape",
+          "title": "Minimal v5 App Router Shape",
+          "content": "This is a migration reference only, not part of the runnable v4 Pages Router path. Complete the provider and callbacks using the current v5 docs for your release.",
+          "codeExample": {
+            "title": "File shape: `auth.ts`",
+            "language": "typescript",
+            "code": "import NextAuth from \"next-auth\";\nimport Google from \"next-auth/providers/google\";\nimport Credentials from \"next-auth/providers/credentials\";\n\nexport const { handlers, auth, signIn, signOut } = NextAuth({\n  providers: [\n    Google,\n    Credentials({\n      credentials: {\n        email: { label: \"Email\", type: \"email\" },\n        password: { label: \"Password\", type: \"password\" },\n      },\n      async authorize(credentials) {\n        if (!credentials?.email || !credentials?.password) return null;\n        const response = await fetch(`${process.env.AUTH_API_URL}/auth/login`, {\n          method: \"POST\",\n          headers: { \"Content-Type\": \"application/json\" },\n          body: JSON.stringify({ email: credentials.email, password: credentials.password }),\n          cache: \"no-store\",\n        });\n        if (!response.ok) return null;\n        const result = await response.json();\n        const user = result?.user;\n        if (!user?.id || !user?.email) return null;\n        return { id: String(user.id), name: user.name ?? null, email: user.email };\n      },\n    }),\n  ],\n});\n\n// app/api/auth/[...nextauth]/route.ts:\n// export const { GET, POST } = handlers;",
+            "explanation": "This shows the export shape only. Use the actual current v5 documentation for complete callbacks, session settings, and your exact Next.js version."
+          }
+        },
+        {
+          "id": "official-docs",
+          "title": "Official Documentation",
+          "content": "Use version-specific primary documentation:\n- [Auth.js Next.js reference](https://authjs.dev/reference/nextjs)\n- [Auth.js Credentials guide](https://authjs.dev/getting-started/providers/credentials)\n- [Auth.js Google provider](https://authjs.dev/reference/core/providers/google)\n- [Google OAuth web server guide](https://developers.google.com/identity/protocols/oauth2/web-server)\n- [NextAuth.js v4 documentation](https://next-auth.js.org/)\n\nThe current Auth.js site focuses on v5 and later; use the v4 documentation for the main implementation here."
+        }
+      ]
+    },
+    {
+      "id": "testing-and-deployment",
+      "title": "10. Testing, Debugging, and Production",
+      "summary": "Verify both providers, debug common failures, configure production secrets, and complete a security review.",
+      "estimatedMinutes": 20,
+      "mediaImages": [],
+      "sections": [
+        {
+          "id": "test-checklist",
+          "title": "Test the Complete Flow",
+          "content": "Test signed-out navigation, invalid credentials, successful credentials login, Google login, session persistence after refresh, sign-out, disallowed users, direct API access without a session, and insufficient roles. Confirm protected APIs return 401 or 403 as appropriate. Check that secrets and tokens never appear in browser bundles or logs.",
+          "keyTakeaways": [
+            "Test direct API calls, not just visible UI.",
+            "Verify both providers independently.",
+            "Test denied access and sign-out."
+          ]
+        },
+        {
+          "id": "troubleshooting",
+          "title": "Common Errors and Fixes",
+          "content": "`CLIENT_FETCH_ERROR`: inspect `/api/auth/session`, the route, and base URL. Secret errors: set `NEXTAUTH_SECRET` in the active environment. OAuth callback failure: verify client ID/secret, exact callback URI, `NEXTAUTH_URL`, and proxy headers. Credentials always fail: check backend URL, request body, response status, and required `user.id`/`user.email`. Session fields missing: check both `jwt` and `session` callbacks and confirm `SessionProvider` wraps the app. Redirect loop: ensure the sign-in page is public."
+        },
+        {
+          "id": "production-env",
+          "title": "Production Environment Variables",
+          "content": "Set production variables in your hosting provider's secret manager. Use the canonical HTTPS app URL, a production-specific strong secret, the correct Google OAuth client, and the real backend URL. Register the exact production callback URI with Google. Redeploy after changes.",
+          "codeExample": {
+            "title": "Production environment template",
+            "language": "bash",
+            "code": "NEXTAUTH_URL=https://app.your-domain.example\nNEXTAUTH_SECRET=unique_production_secret\nGOOGLE_CLIENT_ID=production_client_id\nGOOGLE_CLIENT_SECRET=production_client_secret\nAUTH_API_URL=https://api.your-domain.example",
+            "explanation": "Replace the example domains and values. Never commit real production secrets."
+          }
+        },
+        {
+          "id": "security-review",
+          "title": "Production Security Checklist",
+          "content": "Before launch, verify HTTPS, a unique secret, exact Google redirect URIs, strong password hashing and rate limiting in the backend, generic login errors, minimal session fields, server-side authorization for every protected resource, safe redirect handling, deliberate account-linking rules, patched dependencies, and safe logging. Do not expose provider secrets, passwords, session cookies, or unnecessary OAuth tokens."
+        },
+        {
+          "id": "final-model",
+          "title": "Final Mental Model",
+          "content": "Providers authenticate; `authorize` handles custom Credentials verification; `signIn` allows or denies; `jwt` stores selected claims for JWT sessions; `session` exposes safe fields; `useSession` reads client session state; `signIn` and `signOut` initiate auth actions; and server-side checks protect data and operations. Keep identity verification, session state, UI behavior, and authorization separate.",
+          "diagram": {
+            "type": "mermaid",
+            "title": "End-to-end mental model",
+            "code": "flowchart LR\n A[Google or Credentials] --> B[Identity verification]\n B --> C[signIn callback]\n C --> D[JWT/session]\n D --> E[Safe session fields]\n E --> F[Client hooks]\n D --> G[Server session check]\n G --> H[Authorization check]\n H --> I[Protected resource]"
+          }
+        }
+      ]
+    }
+  ]
+}
