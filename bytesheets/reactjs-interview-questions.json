@@ -1,5 +1,5 @@
 {
-  "courseId": "react-interview-qa",
+  "courseId": "react-interview-questions",
   "courseName": "React.js Interview Questions & Answers",
   "title": "Top 50 React Interview Questions & Mock Exam Prep",
   "subtitle": "Essential Q&A bank with self-assessment checks for complete React.js interview revision",
@@ -10,8 +10,8 @@
   "keywords": ["react", "javascript", "frontend", "interview", "questions", "answers", "quiz", "jsx", "hooks"],
   "chapters": [
     {
-      "id": "interview-questions",
-      "title": "Complete Interview Questions & Answer Bank",
+      "id": "react-interview-questions-part-1",
+      "title": "Part 1 - Complete Interview Questions & Answer Bank",
       "summary": "Full collection of 50 essential React interview questions, key takeaways, and self-assessment checks.",
       "estimatedMinutes": 120,
       "sections": [
@@ -1311,7 +1311,7 @@
     },
     {
       "id": "react-interview-questions-part-2",
-      "title": "Complete React.js Progressive Master Question Bank",
+      "title": "Part 2 - Complete React.js Progressive Master Question Bank",
       "summary": "50 progressive React.js interview questions covering JSX compilation, Virtual DOM & Fiber architecture, Hooks internals, state management, SSR/RSC, and performance profiling.",
       "estimatedMinutes": 300,
       "sections": [
