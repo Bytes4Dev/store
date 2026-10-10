@@ -1,0 +1,1217 @@
+{
+  "courseId": "nextjs-mastery-qa",
+  "courseName": "Next.js Full Stack Architecture & Interview Master Class",
+  "title": "Next.js Progressive Master Interview Question Bank",
+  "subtitle": "From App Router foundations and SSR/SSG rendering modes to React Server Components, Server Actions, Middleware, and Caching Architecture",
+  "category": "Interview Q&A",
+  "level": "Comprehensive",
+  "estimatedTime": "5 Hours",
+  "accentColor": "#000000",
+  "keywords": [
+    "nextjs",
+    "react",
+    "app-router",
+    "pages-router",
+    "ssr",
+    "ssg",
+    "isr",
+    "rsc",
+    "server-actions",
+    "middleware",
+    "interview",
+    "questions",
+    "quiz"
+  ],
+  "chapters": [
+    {
+      "id": "nextjs-interview-bank",
+      "title": "Complete Next.js Progressive Master Question Bank",
+      "summary": "50 progressive Next.js interview questions covering client/server routing, rendering strategies, caching architecture, data fetching, security, and optimization techniques.",
+      "estimatedMinutes": 300,
+      "sections": [
+        {
+          "id": "q1-what-is-nextjs",
+          "title": "Q1: What is Next.js and why use it over plain React?",
+          "content": "Next.js is a full-stack React framework built by Vercel. While plain React is a client-side rendering (CSR) library, Next.js provides hybrid rendering (SSR, SSG, ISR), file-based routing, automatic code splitting, image/font optimizations, Server Components, and API routes out of the box.",
+          "keyTakeaways": [
+            "Provides full-stack capabilities (Hybrid SSR, SSG, RSC, and API Route endpoints).",
+            "Enhances SEO, initial page load speeds, and Core Web Vitals automatically."
+          ],
+          "codeExample": {
+            "title": "File-based Page Definition",
+            "language": "javascript",
+            "code": "// app/about/page.js -> Creates /about route automatically\nexport default function AboutPage() {\n  return <h1>About Us</h1>;\n}",
+            "explanation": "Creating page.js inside the app/about folder instantly maps it to the /about URL path."
+          },
+          "interactiveQuiz": {
+            "question": "What primary performance drawback of traditional React Single Page Applications (SPAs) does Next.js solve?",
+            "options": [
+              "Inability to use CSS styling",
+              "Poor initial page load speeds (blank screen whiteout) and weak search engine crawler indexing",
+              "Disables JavaScript execution",
+              "Requires manual Webpack configurations"
+            ],
+            "correctIndex": 1,
+            "explanation": "Pre-rendering HTML on the server speeds up First Contentful Paint (FCP) and allows search engine crawlers to parse complete HTML content instantly."
+          }
+        },
+        {
+          "id": "q2-app-router-vs-pages-router",
+          "title": "Q2: What is the difference between the App Router and Pages Router in Next.js?",
+          "content": "- **Pages Router (`/pages`)**: Legacy routing model using file names as routes. Uses `getStaticProps` and `getServerSideProps` for data fetching. All components default to Client Components.\n- **App Router (`/app`)**: Modern router introduced in Next.js 13. Built on React Server Components (RSC), uses folder-based conventions (`page.js`, `layout.js`), nested layouts, streaming, and Server Actions.",
+          "keyTakeaways": [
+            "App Router defaults all components to Server Components.",
+            "App Router supports nested layouts and streaming Suspense boundaries natively."
+          ],
+          "diagram": {
+            "type": "architecture",
+            "title": "Pages Router vs App Router Mental Model",
+            "code": "graph TD\n    Pages[Pages Router: /pages] --> PageJS[page.js = Route]\n    Pages --> ClientDefault[Default: Client Components]\n    App[App Router: /app] --> FolderJS[folder/page.js = Route]\n    App --> ServerDefault[Default: React Server Components]\n    App --> SpecialFiles[Special Files: layout, loading, error, template]"
+          },
+          "codeExample": {
+            "title": "App Router Directory Structure",
+            "language": "text",
+            "code": "app/\n├── layout.js      # Shared root layout\n├── page.js        # Root '/' route page\n└── dashboard/\n    ├── layout.js  # Nested '/dashboard' layout\n    └── page.js    # '/dashboard' page route",
+            "explanation": "App Router uses directory hierarchies and special reserved file conventions."
+          },
+          "interactiveQuiz": {
+            "question": "What component model do files inside the App Router (/app) adopt by default?",
+            "options": ["Client Components", "React Server Components (RSC)", "Class Components", "Web Components"],
+            "correctIndex": 1,
+            "explanation": "The App Router defaults all components to React Server Components unless designated with 'use client'."
+          }
+        },
+        {
+          "id": "q3-rendering-modes-overview",
+          "title": "Q3: What are the main rendering modes supported by Next.js (SSR, SSG, ISR, CSR)?",
+          "content": "- **SSR (Server-Side Rendering)**: HTML generated on every user request.\n- **SSG (Static Site Generation)**: HTML built once at build time.\n- **ISR (Incremental Static Regeneration)**: Re-generates static HTML pages in the background after deployment without a full site rebuild.\n- **CSR (Client-Side Rendering)**: Rendered dynamically inside the browser.",
+          "keyTakeaways": [
+            "SSG offers maximum speed for static content (blogs, docs).",
+            "ISR updates static pages periodically on demand using background revalidation."
+          ],
+          "codeExample": {
+            "title": "Fetching Strategy Flags in App Router fetch()",
+            "language": "javascript",
+            "code": "// 1. SSG (Static Default)\nfetch('https://api.com/data', { cache: 'force-cache' });\n\n// 2. SSR (Dynamic per Request)\nfetch('https://api.com/data', { cache: 'no-store' });\n\n// 3. ISR (Revalidate every 60 seconds)\nfetch('https://api.com/data', { next: { revalidate: 60 } });",
+            "explanation": "App Router configures rendering behavior through options in native fetch calls."
+          },
+          "interactiveQuiz": {
+            "question": "Which rendering strategy allows updating a static landing page periodically after site deployment without triggering a full rebuild?",
+            "options": ["SSR", "SSG", "ISR (Incremental Static Regeneration)", "CSR"],
+            "correctIndex": 2,
+            "explanation": "ISR re-generates individual static pages in the background when requested after the revalidation timer expires."
+          }
+        },
+        {
+          "id": "q4-app-router-special-files",
+          "title": "Q4: What are the special file conventions in Next.js App Router?",
+          "content": "The App Router reserves explicit file names inside route folders:\n- `page.js`: Defines route UI.\n- `layout.js`: Defines shared UI surrounding child pages (persists state across navigation).\n- `template.js`: Similar to layout, but creates a **new instance** on every page navigation.\n- `loading.js`: Creates automatic Suspense fallback UI.\n- `error.js`: Creates an Error Boundary wrapper.",
+          "keyTakeaways": [
+            "`layout.js` stays mounted and preserves internal component state during route navigation.",
+            "`template.js` re-mounts on every route transition, re-running effects."
+          ],
+          "codeExample": {
+            "title": "Loading and Error Handlers",
+            "language": "javascript",
+            "code": "// app/dashboard/loading.js\nexport default function Loading() {\n  return <p>Loading dashboard stats...</p>;\n}\n\n// app/dashboard/error.js (Must be a Client Component)\n'use client';\nexport default function Error({ error, reset }) {\n  return <button onClick={() => reset()}>Try Again</button>;\n}",
+            "explanation": "loading.js wraps pages in Suspense; error.js isolates route errors inside an Error Boundary."
+          },
+          "interactiveQuiz": {
+            "question": "What is the key functional difference between layout.js and template.js in the App Router?",
+            "options": [
+              "template.js cannot receive children props",
+              "layout.js preserves state across navigations, while template.js creates a fresh instance on every navigation",
+              "layout.js runs on client only",
+              "template.js is restricted to the root directory"
+            ],
+            "correctIndex": 1,
+            "explanation": "Layouts persist DOM nodes and component state across navigations; templates re-render fresh DOM instances on every route change."
+          }
+        },
+        {
+          "id": "q5-server-components-vs-client-components",
+          "title": "Q5: How do React Server Components (RSC) differ from Client Components in Next.js?",
+          "content": "Server Components run exclusively on the server, send zero JS bundle code to browsers, and can query databases directly. Client Components are marked with `'use client'`, run on both server (for initial HTML) and browser, and handle interactivity, state (`useState`), and event listeners.",
+          "keyTakeaways": [
+            "Server Components reduce client JS bundle size to zero bytes.",
+            "Use `'use client'` at the top of a file only when event listeners or state hooks are required."
+          ],
+          "codeExample": {
+            "title": "Combining Server and Client Components",
+            "language": "javascript",
+            "code": "// app/page.js (Server Component)\nimport db from '@/lib/db';\nimport LikeButton from './LikeButton'; // Client Component\n\nexport default async function Page() {\n  const post = await db.post.findUnique({ id: 1 });\n  return (\n    <div>\n      <h1>{post.title}</h1>\n      <LikeButton postId={post.id} /> {/* Interactive Child */}\n    </div>\n  );\n}",
+            "explanation": "Server Components fetch database data directly and pass serialized props down to interactive Client Component children."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if you attempt to use useState() inside a component without declaring 'use client' in the App Router?",
+            "options": [
+              "Next.js falls back to CSR",
+              "Throws a build/runtime error stating that hooks are unsupported in Server Components",
+              "The state converts to a global variable",
+              "The page renders silently as empty HTML"
+            ],
+            "correctIndex": 1,
+            "explanation": "React state hooks require a client context established via the 'use client' directive."
+          }
+        },
+        {
+          "id": "q6-use-client-boundary",
+          "title": "Q6: What does the 'use client' directive actually define?",
+          "content": "The `'use client'` directive defines a **boundary** between the Server Component tree and the Client Component tree. Declaring `'use client'` at the top of a file marks that module and all of its imported dependencies as Client Components.",
+          "keyTakeaways": [
+            "`'use client'` establishes a module dependency boundary, not just a single-file flag.",
+            "Keep `'use client'` boundaries as low down the component tree as possible to minimize JS bundle size."
+          ],
+          "codeExample": {
+            "title": "Passing Server Components as Children to Client Boundaries",
+            "language": "javascript",
+            "code": "// ClientModal.js\n'use client';\nexport default function ClientModal({ children }) {\n  const [isOpen, setIsOpen] = useState(false);\n  return isOpen ? <div className=\"modal\">{children}</div> : null;\n}\n\n// Page.js (Server Component)\nexport default function Page() {\n  return (\n    <ClientModal>\n      <ServerDataComponent /> {/* Remains a Server Component! */}\n    </ClientModal>\n  );\n}",
+            "explanation": "Passing Server Components as `children` slots to Client Components keeps them rendered on the server."
+          },
+          "interactiveQuiz": {
+            "question": "How can you render a Server Component inside a Client Component wrapper without turning the Server Component into a client bundle item?",
+            "options": [
+              "It is strictly impossible",
+              "Pass the Server Component into the Client Component as a 'children' prop slot from a parent Server Component",
+              "Wrap it in an iframe",
+              "Use dynamic imports with { ssr: false }"
+            ],
+            "correctIndex": 1,
+            "explanation": "Passing components via children props preserves their server execution context."
+          }
+        },
+        {
+          "id": "q7-next-image-optimization",
+          "title": "Q7: How does the next/image Component optimize images?",
+          "content": "The `<Image />` component optimizes images automatically by:\n1. **Format conversion**: Serves WebP/AVIF images dynamically.\n2. **Resizing**: Generates responsive image srcsets based on device sizes.\n3. **CLS prevention**: Enforces explicit dimensions or aspect ratios to eliminate layout shifts.\n4. **Lazy loading**: Defers loading off-screen images until scrolled near viewport.",
+          "keyTakeaways": [
+            "Prevents Cumulative Layout Shift (CLS) by reserving display dimensions.",
+            "Converts images on-demand to AVIF/WebP, resizing images to device viewport width."
+          ],
+          "codeExample": {
+            "title": "next/image Usage",
+            "language": "javascript",
+            "code": "import Image from 'next/image';\nimport profilePic from './profile.jpg';\n\nexport default function Avatar() {\n  return (\n    <Image\n      src={profilePic}\n      alt=\"User Avatar\"\n      width={200}\n      height={200}\n      placeholder=\"blur\"\n      priority // Loads immediately above the fold\n    />\n  );\n}",
+            "explanation": "Setting priority disables lazy loading for above-the-fold hero assets to optimize LCP."
+          },
+          "interactiveQuiz": {
+            "question": "Which prop should be added to a next/image component if the image is an above-the-fold Hero banner image?",
+            "options": ["lazy={false}", "priority", "loading=\"eager\"", "preload"],
+            "correctIndex": 1,
+            "explanation": "Setting priority disables lazy loading, fetching critical LCP hero images immediately."
+          }
+        },
+        {
+          "id": "q8-next-font-optimization",
+          "title": "Q8: How does next/font optimize custom typography and prevent layout shift?",
+          "content": "`next/font` automatically downloads font files at build time and hosts them alongside static assets. It injects CSS `size-adjust` fallbacks to match font metrics, eliminating external network requests to Google Fonts and completely preventing **Flash of Unstyled Text (FOUT)** and Cumulative Layout Shift (CLS).",
+          "keyTakeaways": [
+            "Zero external network requests at runtime; fonts are self-hosted automatically.",
+            "Eliminates FOUT and CLS using size-adjust CSS fallbacks."
+          ],
+          "codeExample": {
+            "title": "Configuring Google Fonts in Layout",
+            "language": "javascript",
+            "code": "import { Inter } from 'next/font/google';\n\nconst inter = Inter({ subsets: ['latin'], display: 'swap' });\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang=\"en\" className={inter.className}>\n      <body>{children}</body>\n    </html>\n  );\n}",
+            "explanation": "Inter font files download at build time and apply via CSS class name selectors."
+          },
+          "interactiveQuiz": {
+            "question": "Does next/font make browser network calls to Google Fonts servers when users visit the site in production?",
+            "options": [
+              "Yes, on every page load",
+              "No, fonts are downloaded at build time and self-hosted locally alongside static assets",
+              "Only on mobile devices",
+              "Yes, using WebSockets"
+            ],
+            "correctIndex": 1,
+            "explanation": "next/font self-hosts font files during build time, removing runtime calls to external Google servers."
+          }
+        },
+        {
+          "id": "q9-dynamic-routes-and-catch-all",
+          "title": "Q9: How do Dynamic Routes, Catch-all, and Optional Catch-all routes work in Next.js?",
+          "content": "- **Dynamic Route (`[id]`)**: Matches single segment parameter (`/posts/1` -> `{ id: '1' }`).\n- **Catch-all (`[...slug]`)**: Matches multiple path segments (`/shop/clothes/shoes` -> `{ slug: ['clothes', 'shoes'] }`). Requires segment to exist.\n- **Optional Catch-all (`[[...slug]]`)**: Matches multiple segments AND root path (`/shop` -> `{ slug: undefined }`).",
+          "keyTakeaways": [
+            "`[id]` captures a single path segment.",
+            "`[...slug]` captures array of segments; `[[...slug]]` also matches the base route without segments."
+          ],
+          "codeExample": {
+            "title": "Reading Dynamic Route Params in App Router",
+            "language": "javascript",
+            "code": "// app/shop/[[...slug]]/page.js\nexport default async function ShopPage({ params }) {\n  const { slug } = await params; // Array or undefined\n  return <p>Active Path Categories: {slug ? slug.join(' > ') : 'Root Shop'}</p>;\n}",
+            "explanation": "Optional catch-all handles /shop, /shop/men, and /shop/men/shoes inside a single page file."
+          },
+          "interactiveQuiz": {
+            "question": "Which folder naming convention matches both /docs AND /docs/installation/setup?",
+            "options": ["app/docs/[slug]/page.js", "app/docs/[...slug]/page.js", "app/docs/[[...slug]]/page.js", "app/docs/(slug)/page.js"],
+            "correctIndex": 2,
+            "explanation": "Double brackets [[...slug]] create an optional catch-all route matching root /docs as well as nested paths."
+          }
+        },
+        {
+          "id": "q10-generate-static-params",
+          "title": "Q10: What is generateStaticParams and how does it replace getStaticPaths?",
+          "content": "In the App Router, `generateStaticParams` replaces the legacy `getStaticPaths`. Used inside dynamic routes (`[id]`), it returns an array of segment objects to pre-render routes at build time (SSG). Uncompiled routes fallback to dynamic on-demand rendering.",
+          "keyTakeaways": [
+            "Pre-renders dynamic routes (`[id]`) statically during build time.",
+            "Combines with `export const dynamicParams = false` to return 404 for non-generated paths."
+          ],
+          "codeExample": {
+            "title": "generateStaticParams Implementation",
+            "language": "javascript",
+            "code": "// app/posts/[id]/page.js\nexport async function generateStaticParams() {\n  const posts = await fetch('https://api.com/posts').then(res => res.json());\n  return posts.map(post => ({ id: String(post.id) }));\n}\n\nexport default async function PostPage({ params }) {\n  const { id } = await params;\n  return <h1>Post ID: {id}</h1>;\n}",
+            "explanation": "generateStaticParams outputs route parameters pre-rendered statically during build time."
+          },
+          "interactiveQuiz": {
+            "question": "What is the App Router equivalent of the legacy Pages Router getStaticPaths function?",
+            "options": ["generateMetadata", "generateStaticParams", "getStaticProps", "generateRoutes"],
+            "correctIndex": 1,
+            "explanation": "generateStaticParams statically generates dynamic route paths during app builds."
+          }
+        },
+        {
+          "id": "q11-route-groups",
+          "title": "Q11: What are Route Groups and how are parentheses folders used?",
+          "content": "Route Groups use parenthesized folder names like `(marketing)` or `(auth)`. They allow organizing route files without affecting the URL path structure. Useful for splitting application sub-trees to use different layout wrappers.",
+          "keyTakeaways": [
+            "Parentheses `(group)` omit folder names from the final browser URL path.",
+            "Allows multiple root layouts across separate route groups inside the app folder."
+          ],
+          "codeExample": {
+            "title": "Multiple Root Layouts with Route Groups",
+            "language": "text",
+            "code": "app/\n├── (marketing)/\n│   ├── layout.js   # Marketing Layout (with public Header/Footer)\n│   └── page.js     # URL: '/'\n└── (dashboard)/\n    ├── layout.js   # Dashboard Layout (with Sidebar/Auth Check)\n    └── page.js     # URL: '/dashboard'",
+            "explanation": "Routes are accessed via / and /dashboard without exposing (marketing) or (dashboard) in URLs."
+          },
+          "interactiveQuiz": {
+            "question": "What is the resolved URL path for a page located at app/(marketing)/about/page.js?",
+            "options": ["/(marketing)/about", "/about", "/marketing-about", "/app/about"],
+            "correctIndex": 1,
+            "explanation": "Folders in parentheses (marketing) are omitted from the browser URL path."
+          }
+        },
+        {
+          "id": "q12-parallel-routes",
+          "title": "Q12: What are Parallel Routes (@slot) in Next.js?",
+          "content": "Parallel Routes render one or more pages simultaneously inside the same layout using named **slots** (`@slot`). They allow building complex dashboard interfaces, modals, and conditional split-screen layouts with independent error and loading states.",
+          "keyTakeaways": [
+            "Folders prefixed with `@` define slot props passed directly into the parent layout.",
+            "Allows independent loading states and routing for split-screen interfaces."
+          ],
+          "codeExample": {
+            "title": "Parallel Route Slots in Layout",
+            "language": "javascript",
+            "code": "// Directory: app/dashboard/@analytics/page.js & app/dashboard/@team/page.js\n\n// app/dashboard/layout.js\nexport default function DashboardLayout({ children, analytics, team }) {\n  return (\n    <div>\n      {children}\n      <div className=\"grid-2-col\">\n        {analytics} {/* Renders @analytics/page.js */}\n        {team}      {/* Renders @team/page.js */}\n      </div>\n    </div>\n  );\n}",
+            "explanation": "@analytics and @team slots pass as props into DashboardLayout to render side-by-side."
+          },
+          "interactiveQuiz": {
+            "question": "How are slot folders designated when implementing Parallel Routes in the App Router?",
+            "options": [
+              "Prefix with parentheses: (slot)",
+              "Prefix with at symbol: @slot",
+              "Prefix with underscore: _slot",
+              "Prefix with bracket: [slot]"
+            ],
+            "correctIndex": 1,
+            "explanation": "At-symbol prefixes (@analytics) define parallel slot props for layout components."
+          }
+        },
+        {
+          "id": "q13-intercepting-routes",
+          "title": "Q13: What are Intercepting Routes and how do they power Modal overlays?",
+          "content": "Intercepting Routes allow loading a route inside the current layout while masking the URL path (e.g., opening a photo modal over a feed). When navigated to via client links, the intercepted route modal displays. When refreshed or accessed directly via URL, the full standalone page renders.",
+          "keyTakeaways": [
+            "Syntax conventions: `(.)` matches same level, `(..)` matches one level up, `(...)` matches root app.",
+            "Powers soft navigation modals while keeping URLs shareable."
+          ],
+          "codeExample": {
+            "title": "Photo Gallery Modal Interception",
+            "language": "text",
+            "code": "app/\n├── feed/\n│   ├── page.js\n│   └── photo/[id]/\n│       └── page.js         # Full standalone photo page (Hard Refresh)\n└── @modal/\n    └── (..)photo/[id]/\n        └── page.js         # Intercepted photo modal overlay (Soft Click)",
+            "explanation": "Clicking a photo in feed renders the photo inside @modal overlay; refreshing renders full photo page."
+          },
+          "interactiveQuiz": {
+            "question": "What happens when a user directly navigates to or hard-refreshes a shareable URL that uses an Intercepting Route?",
+            "options": [
+              "Next.js throws a 404 error",
+              "Next.js skips the modal interception and renders the full standalone page view",
+              "The browser crashes",
+              "Renders an empty screen"
+            ],
+            "correctIndex": 1,
+            "explanation": "Hard refreshes execute full server navigations, loading the standalone page view instead of the modal overlay."
+          }
+        },
+        {
+          "id": "q14-server-actions-data-mutations",
+          "title": "Q14: What are Server Actions and how do they eliminate API endpoints?",
+          "content": "Server Actions are asynchronous functions executed directly on the server. Annotated with `'use server'`, they can be called from client form submissions or event handlers to perform data mutations, set cookies, and revalidate cached paths without manual API route boilerplate.",
+          "keyTakeaways": [
+            "Annotated using `'use server'` directive.",
+            "Can be invoked directly from `<form action={myAction}>` or client button event callbacks."
+          ],
+          "codeExample": {
+            "title": "Server Action Definition and Usage",
+            "language": "javascript",
+            "code": "// app/actions.js\n'use server';\nimport { revalidatePath } from 'next/cache';\n\nexport async function updateProfile(formData) {\n  const name = formData.get('name');\n  await db.user.update({ where: { id: 1 }, data: { name } });\n  revalidatePath('/profile'); // Invalidate static cache\n}",
+            "explanation": "Server Actions run on Node.js/Edge servers, performing direct DB writes and cache revalidations."
+          },
+          "interactiveQuiz": {
+            "question": "Which directive marks a function or file as an executable Server Action in Next.js?",
+            "options": ["'use client'", "'use server'", "'use action'", "'use mutation'"],
+            "correctIndex": 1,
+            "explanation": "The 'use server' string directive marks functions as server-side executable actions."
+          }
+        },
+        {
+          "id": "q15-revalidatepath-and-revalidatetag",
+          "title": "Q15: How do revalidatePath and revalidateTag clear the Data Cache?",
+          "content": "Next.js aggressively caches fetch requests in the Data Cache. To purge stale cache data on demand:\n- `revalidatePath('/posts')`: Purges cached data associated with a specific URL route path.\n- `revalidateTag('posts-tag')`: Purges cached fetch requests tagged with a matching tag identifier (`fetch(url, { next: { tags: ['posts-tag'] } })`).",
+          "keyTakeaways": [
+            "`revalidatePath` purges route-specific cached data.",
+            "`revalidateTag` enables fine-grained multi-route cache purging."
+          ],
+          "codeExample": {
+            "title": "Tag-Based Fetch Cache Invalidation",
+            "language": "javascript",
+            "code": "// Fetching with tag\nfetch('https://api.com/posts', { next: { tags: ['posts'] } });\n\n// Inside Server Action\nimport { revalidateTag } from 'next/cache';\n\nexport async function addPost() {\n  await db.post.create(...);\n  revalidateTag('posts'); // Immediately purges all fetch calls tagged 'posts'\n}",
+            "explanation": "revalidateTag purges matching fetch records instantly across the entire application."
+          },
+          "interactiveQuiz": {
+            "question": "Why is revalidateTag preferable over revalidatePath for purging cached data shared across multiple pages?",
+            "options": [
+              "revalidateTag runs faster on client GPUs",
+              "revalidateTag purges specific tagged data requests across all pages simultaneously without targeting single URLs",
+              "revalidatePath is deprecated",
+              "revalidateTag does not require Server Actions"
+            ],
+            "correctIndex": 1,
+            "explanation": "Cache tags allow invalidating shared dataset queries across multiple route pages at once."
+          }
+        },
+        {
+          "id": "q16-nextjs-caching-architecture",
+          "title": "Q16: What are the four caching layers in Next.js App Router architecture?",
+          "content": "Next.js implements four distinct caching mechanisms:\n1. **Request Memoization**: Deduplicates identical GET fetch requests within a single React render tree pass (In-memory).\n2. **Data Cache**: Persists data across user requests on the server (Disk/Memory).\n3. **Full Route Cache**: Persists rendered HTML and RSC payload on the server for static routes.\n4. **Router Cache (Client-side)**: Stores RSC payloads in browser memory during active user sessions.",
+          "keyTakeaways": [
+            "Request Memoization lasts for a single render cycle.",
+            "Data Cache persists data across requests until manually revalidated."
+          ],
+          "diagram": {
+            "type": "architecture",
+            "title": "Next.js App Router 4-Tier Caching System",
+            "code": "graph TD\n    Client[Browser Client] --> RouterCache[1. Client Router Cache: In-Memory RSC]\n    RouterCache --> FullRoute[2. Full Route Cache: HTML & RSC Payload]\n    FullRoute --> DataCache[3. Data Cache: Server Persisted Fetch Data]\n    DataCache --> RequestMemo[4. Request Memoization: React Render Tree Deduplication]"
+          },
+          "interactiveQuiz": {
+            "question": "Which Next.js caching layer operates entirely inside browser client memory during active user navigation?",
+            "options": ["Data Cache", "Full Route Cache", "Client Router Cache", "Request Memoization"],
+            "correctIndex": 2,
+            "explanation": "The Client Router Cache stores rendered RSC payloads in browser memory to speed up client-side navigations."
+          }
+        },
+        {
+          "id": "q17-opting-out-of-caching",
+          "title": "Q17: How do you opt out of caching for dynamic routes?",
+          "content": "To force dynamic, real-time rendering on every request:\n1. Pass `{ cache: 'no-store' }` or `{ next: { revalidate: 0 } }` to `fetch()`.\n2. Export route segment configs: `export const dynamic = 'force-dynamic'`.\n3. Use dynamic functions like `cookies()`, `headers()`, or `searchParams`.",
+          "keyTakeaways": [
+            "Calling `cookies()` or `headers()` automatically converts a static route to dynamic rendering.",
+            "`export const dynamic = 'force-dynamic'` forces SSR across the entire page."
+          ],
+          "codeExample": {
+            "title": "Force Dynamic Route Config",
+            "language": "javascript",
+            "code": "// app/live-feed/page.js\nexport const dynamic = 'force-dynamic'; // Bypasses Full Route Cache\n\nexport default async function LiveFeed() {\n  const data = await fetch('https://api.com/feed').then(r => r.json());\n  return <div>Live Items: {data.length}</div>;\n}",
+            "explanation": "force-dynamic ensures the page renders on every incoming request on the server."
+          },
+          "interactiveQuiz": {
+            "question": "What happens to a static page route when you call cookies() or headers() inside its Server Component?",
+            "options": [
+              "Throws a build exception",
+              "Automatically converts the route from static pre-rendering to dynamic server-side rendering (SSR)",
+              "Converts the page to Client-Side Rendering",
+              "Disables CSS styling"
+            ],
+            "correctIndex": 1,
+            "explanation": "Reading request-time values (cookies, headers, searchParams) switches Next.js to dynamic SSR rendering."
+          }
+        },
+        {
+          "id": "q18-nextjs-middleware",
+          "title": "Q18: What is Next.js Middleware and where does it execute?",
+          "content": "Middleware (`middleware.js` in root) runs **before a request is completed**, directly at the Edge network layer (before hitting cache or route handlers). Commonly used for authentication checks, URL redirects, header modifications, and bot detection.",
+          "keyTakeaways": [
+            "Executes at the Edge network layer before matching routes.",
+            "Uses config matcher arrays to target specific request paths."
+          ],
+          "codeExample": {
+            "title": "Auth Redirect Middleware",
+            "language": "javascript",
+            "code": "// middleware.js\nimport { NextResponse } from 'next/server';\n\nexport function middleware(request) {\n  const token = request.cookies.get('token');\n  if (!token && request.nextUrl.pathname.startsWith('/dashboard')) {\n    return NextResponse.redirect(new URL('/login', request.url));\n  }\n  return NextResponse.next();\n}\n\nexport const config = {\n  matcher: ['/dashboard/:path*'],\n};",
+            "explanation": "Intercepts request routes to /dashboard, redirecting unauthenticated users to /login."
+          },
+          "interactiveQuiz": {
+            "question": "Where does Next.js Middleware execute relative to route handlers and page rendering?",
+            "options": [
+              "After the page finishes rendering in the browser",
+              "Before a request is completed, at the Edge network layer before hitting routes or cache",
+              "Only inside Node.js background workers",
+              "Inside Web Workers on client devices"
+            ],
+            "correctIndex": 1,
+            "explanation": "Middleware intercepts incoming requests early at the Edge layer before hitting backend page renders."
+          }
+        },
+        {
+          "id": "q19-route-handlers-api",
+          "title": "Q19: What are Route Handlers and how do they replace API Routes?",
+          "content": "Route Handlers (`route.js`) replace legacy Pages Router API routes (`/pages/api`). Defined inside the `/app` directory, they export named functions matching HTTP methods: `GET`, `POST`, `PUT`, `DELETE`, `PATCH`.",
+          "keyTakeaways": [
+            "Created inside `/app` directory using `route.js` files.",
+            "Export standard HTTP method functions (`export async function GET(request) {}`)."
+          ],
+          "codeExample": {
+            "title": "JSON Response Route Handler",
+            "language": "javascript",
+            "code": "// app/api/users/route.js\nimport { NextResponse } from 'next/server';\n\nexport async function GET() {\n  const users = [{ id: 1, name: 'Alice' }];\n  return NextResponse.json(users);\n}\n\nexport async function POST(request) {\n  const body = await request.json();\n  return NextResponse.json({ status: 'Created', data: body }, { status: 201 });\n}",
+            "explanation": "Maps REST API endpoints to GET and POST requests served from /api/users."
+          },
+          "interactiveQuiz": {
+            "question": "Can a route.js file coexist inside the exact same folder directory as a page.js file?",
+            "options": [
+              "Yes, they handle different methods",
+              "No, route.js and page.js cannot coexist in the same folder segment because both handle URL path resolution",
+              "Only if using route groups",
+              "Yes, in production builds"
+            ],
+            "correctIndex": 1,
+            "explanation": "route.js and page.js resolve to the exact same route segment and cannot coexist in the same directory."
+          }
+        },
+        {
+          "id": "q20-metadata-api-seo",
+          "title": "Q20: How does the Metadata API manage SEO head tags in the App Router?",
+          "content": "Next.js manages document `<head>` metadata by exporting static `metadata` objects or dynamic `generateMetadata()` functions from `layout.js` or `page.js` files. Next.js automatically deduplicates and hoists metadata tags into the final HTML output.",
+          "keyTakeaways": [
+            "Export static `metadata` object or dynamic `generateMetadata({ params })` function.",
+            "Supports Open Graph cards, Twitter metadata, and canonical links natively."
+          ],
+          "codeExample": {
+            "title": "Dynamic SEO Metadata Generation",
+            "language": "javascript",
+            "code": "// app/products/[id]/page.js\nexport async function generateMetadata({ params }) {\n  const { id } = await params;\n  const product = await fetchProduct(id);\n  return {\n    title: product.title,\n    description: product.summary,\n    openGraph: { images: [product.image] },\n  };\n}",
+            "explanation": "generateMetadata fetches product details dynamically to output customized meta tags."
+          },
+          "interactiveQuiz": {
+            "question": "Which function is exported from page.js to dynamically compute SEO page titles based on route parameters?",
+            "options": ["getMetaData()", "generateMetadata()", "useMetadata()", "setSEO()"],
+            "correctIndex": 1,
+            "explanation": "generateMetadata accepts route parameters and computes dynamic SEO meta tags on the server."
+          }
+        },
+        {
+          "id": "q21-streaming-suspense",
+          "title": "Q21: What is Streaming SSR and how do Suspense boundaries speed up TTFB?",
+          "content": "Streaming SSR breaks HTML page rendering into progressive chunks. Instead of delaying the entire server response until slow database queries complete, Next.js streams the initial HTML shell immediately. Slower subtrees wrapped in `<Suspense>` stream into place as data completes.",
+          "keyTakeaways": [
+            "Lowers Time to First Byte (TTFB) by sending HTML shell chunks immediately.",
+            "Wrapped via `loading.js` or explicit `<Suspense fallback={<Skeleton />}>` boundaries."
+          ],
+          "codeExample": {
+            "title": "Streaming Slow Subtree with Suspense",
+            "language": "javascript",
+            "code": "import { Suspense } from 'react';\nimport SlowFeed from './SlowFeed';\n\nexport default function Page() {\n  return (\n    <main>\n      <h1>Fast Static Header</h1>\n      <Suspense fallback={<p>Loading feed...</p>}>\n        <SlowFeed /> {/* Streams in asynchronously when resolved */}\n      </Suspense>\n    </main>\n  );\n}",
+            "explanation": "The page shell renders immediately; SlowFeed streams over HTTP as soon as data resolves."
+          },
+          "interactiveQuiz": {
+            "question": "What primary performance metric is improved by using Streaming SSR with Suspense boundaries?",
+            "options": ["Bundle size", "TTFB (Time to First Byte)", "CSS selector specificity", "Font download time"],
+            "correctIndex": 1,
+            "explanation": "Streaming SSR sends initial page layout shells immediately, lowering TTFB."
+          }
+        },
+        {
+          "id": "q22-use-router-vs-next-link",
+          "title": "Q22: When should you use <Link> versus the useRouter Hook for navigation?",
+          "content": "- `<Link href=\"...\">`: Primary navigation method. Automatically **prefetches** linked route JS and RSC payloads into viewport memory for instant transitions.\n- `useRouter()` (`next/navigation`): Used for programmatic imperative navigation inside event handlers (e.g., `router.push('/dashboard')` after form submission).",
+          "keyTakeaways": [
+            "Always prefer `<Link>` for visual anchor links due to automatic viewport prefetching.",
+            "Import `useRouter` strictly from `next/navigation` in the App Router (not `next/router`)."
+          ],
+          "codeExample": {
+            "title": "Link Prefetching and useRouter Navigation",
+            "language": "javascript",
+            "code": "import Link from 'next/link';\nimport { useRouter } from 'next/navigation'; // App Router import!\n\nexport function NavComponent() {\n  const router = useRouter();\n  \n  const handleAction = async () => {\n    await submitData();\n    router.push('/success'); // Imperative route change\n  };\n  \n  return <Link href=\"/about\">About</Link>; // Automatic prefetching\n}",
+            "explanation": "Link pre-fetches targets automatically; useRouter handles programmatic route redirects."
+          },
+          "interactiveQuiz": {
+            "question": "Which import path must be used for the useRouter hook inside the App Router?",
+            "options": ["next/router", "next/navigation", "next/app", "react-router-dom"],
+            "correctIndex": 1,
+            "explanation": "App Router requires importing useRouter from 'next/navigation'."
+          }
+        },
+        {
+          "id": "q23-server-only-package",
+          "title": "Q23: How does the server-only package safeguard private backend utility code?",
+          "content": "Importing `import 'server-only'` into utility files guarantees that private code (API tokens, database credentials) is never accidentally imported into Client Components. If a Client Component imports a `server-only` file, Next.js throws a **build-time error**.",
+          "keyTakeaways": [
+            "Protects sensitive server logic from leaking into client JavaScript bundles.",
+            "Throws explicit compilation errors during build time if boundary leaks occur."
+          ],
+          "codeExample": {
+            "title": "Enforcing Server-Only Boundary",
+            "language": "javascript",
+            "code": "// lib/db-queries.js\nimport 'server-only'; // Guarantees this file cannot be bundled for client\n\nexport async function getSensitiveData() {\n  return db.query('SELECT * FROM secret_table');\n}",
+            "explanation": "Importing server-only breaks builds instantly if client code attempts to import db-queries.js."
+          },
+          "interactiveQuiz": {
+            "question": "What occurs during build time if a Client Component ('use client') imports a module containing import 'server-only'?",
+            "options": [
+              "Module is converted to CSR silently",
+              "Next.js build fails immediately with a build-time safety error",
+              "Variables are deleted",
+              "Warning logged in runtime console"
+            ],
+            "correctIndex": 1,
+            "explanation": "server-only throws explicit build-time compilation errors to prevent security leaks."
+          }
+        },
+        {
+          "id": "q24-draft-mode",
+          "title": "Q24: What is Next.js Draft Mode and how does it benefit Headless CMS integrations?",
+          "content": "Draft Mode bypasses static page caching (SSG/ISR) to show preview content live from a Headless CMS (like Contentful or Sanity). Enabled via an API route calling `draftMode().enable()`, which sets a temporary cookie that forces routes to switch to dynamic SSR.",
+          "keyTakeaways": [
+            "Bypasses static page cache to render unpublished CMS drafts.",
+            "Uses secure browser cookies to enable live preview rendering."
+          ],
+          "codeExample": {
+            "title": "Enabling Draft Mode",
+            "language": "javascript",
+            "code": "// app/api/draft/route.js\nimport { draftMode } from 'next/headers';\n\nexport async function GET(request) {\n  const draft = await draftMode();\n  draft.enable(); // Sets cookie forcing dynamic SSR preview\n  return new Response('Draft mode enabled');\n}",
+            "explanation": "draft.enable() sets a preview cookie that instructs Next.js to render unpublished content dynamically."
+          },
+          "interactiveQuiz": {
+            "question": "How does Next.js signal to route pages that Draft Mode preview rendering is active?",
+            "options": [
+              "Local Storage flag",
+              "A secure HTTP cookie set by draftMode().enable()",
+              "URL query parameter",
+              "Global state variable"
+            ],
+            "correctIndex": 1,
+            "explanation": "Draft Mode uses a secure HTTP cookie to switch page rendering from static to dynamic SSR."
+          }
+        },
+        {
+          "id": "q25-dynamic-imports-next-dynamic",
+          "title": "Q25: How does next/dynamic perform code splitting and disable SSR for client libraries?",
+          "content": "`next/dynamic` is an extension of `React.lazy()`. It lazy-loads heavy client-side libraries or components on demand. Setting `{ ssr: false }` completely disables server-side pre-rendering for browser-only libraries (e.g., Chart.js or Leaflet maps).",
+          "keyTakeaways": [
+            "Splits heavy JS components into separate lazily loaded bundle chunks.",
+            "`{ ssr: false }` prevents server rendering failures for window-dependent client libraries."
+          ],
+          "codeExample": {
+            "title": "Disabling SSR for Browser-Only Library",
+            "language": "javascript",
+            "code": "import dynamic from 'next/dynamic';\n\n// Loads Leaflet Map component on client side only\nconst MapComponent = dynamic(() => import('./MapComponent'), {\n  ssr: false,\n  loading: () => <p>Loading Map...</p>,\n});\n\nexport default function Page() {\n  return <MapComponent />;\n}",
+            "explanation": "ssr: false prevents Leaflet from executing on Node.js servers where window/document is undefined."
+          },
+          "interactiveQuiz": {
+            "question": "Why should you pass { ssr: false } to next/dynamic when importing a canvas charting library?",
+            "options": [
+              "To speed up CSS processing",
+              "To prevent server execution errors caused by missing window/document DOM objects on Node.js servers",
+              "To force WebAssembly compilation",
+              "To compress image assets"
+            ],
+            "correctIndex": 1,
+            "explanation": "Disabling SSR prevents Node.js servers from executing browser-specific DOM APIs."
+          }
+        },
+        {
+          "id": "q26-static-exports-next-export",
+          "title": "Q26: What are Static Exports (output: 'export') and what features are disabled?",
+          "content": "Configuring `output: 'export'` in `next.config.js` builds a pure static HTML/CSS/JS site that can be hosted on any static storage bucket (like AWS S3 or Nginx). However, Node.js server features like **Server Actions, Middleware, Dynamic SSR routes, and Image Optimization** are disabled.",
+          "keyTakeaways": [
+            "Outputs static HTML assets for un-hosted web server deployments.",
+            "Disables Node.js runtime features (Server Actions, Middleware, SSR)."
+          ],
+          "codeExample": {
+            "title": "Configuring Static Export",
+            "language": "javascript",
+            "code": "// next.config.js\nmodule.exports = {\n  output: 'export', // Generates 'out' folder containing static HTML/CSS/JS\n  images: { unoptimized: true }, // Disables Node.js image processing\n};",
+            "explanation": "output: export produces static assets suitable for CDN or AWS S3 hosting."
+          },
+          "interactiveQuiz": {
+            "question": "Which core Next.js feature CANNOT be used when next.config.js is set to output: 'export'?",
+            "options": [
+              "Static Site Generation (SSG)",
+              "Next.js Middleware and Server Actions requiring a running Node.js server",
+              "CSS Modules",
+              "Tailwind CSS"
+            ],
+            "correctIndex": 1,
+            "explanation": "Static exports eliminate running Node.js servers, disabling Middleware and Server Actions."
+          }
+        },
+        {
+          "id": "q27-instrumentation-node-monitoring",
+          "title": "Q27: What is the instrumentation.js file used for in Next.js?",
+          "content": "The `instrumentation.js` file allows executing server initialization logic, performance monitoring setup, or observability tools (like OpenTelemetry, Sentry, or Datadog) as soon as the Next.js Node.js server starts up.",
+          "keyTakeaways": [
+            "Executes global server startup logic inside `register()` function.",
+            "Integrates APM observability tools (OpenTelemetry, Sentry) early."
+          ],
+          "codeExample": {
+            "title": "Registering OpenTelemetry in instrumentation.js",
+            "language": "javascript",
+            "code": "// instrumentation.js (Root directory)\nexport async function register() {\n  if (process.env.NEXT_RUNTIME === 'nodejs') {\n    await import('./telemetry-node');\n  }\n}",
+            "explanation": "register() executes once when the Next.js server instance launches."
+          },
+          "interactiveQuiz": {
+            "question": "Inside which exported function within instrumentation.js do you place server startup monitoring setup?",
+            "options": ["init()", "register()", "startup()", "bootstrap()"],
+            "correctIndex": 1,
+            "explanation": "Next.js calls the exported register() function inside instrumentation.js on server startup."
+          }
+        },
+        {
+          "id": "q28-request-memoization-deduplication",
+          "title": "Q28: How does Request Memoization work across React Server Component trees?",
+          "content": "React automatically extends native `fetch()` to **deduplicate identical GET requests** made across different components within the same render tree cycle. If 5 components call `fetch('https://api.com/user')`, Next.js executes the network call only once and shares the response.",
+          "keyTakeaways": [
+            "Deduplicates identical GET fetch requests within a single server render pass.",
+            "Eliminates the need to fetch data at root layouts and drill props down to children."
+          ],
+          "codeExample": {
+            "title": "Fetch Deduplication in Subcomponents",
+            "language": "javascript",
+            "code": "// Component A & Component B both execute this simultaneously during render:\nconst user = await fetch('https://api.com/user').then(r => r.json());\n// Request Memoization executes the HTTP call ONCE and shares the promise!",
+            "explanation": "Components fetch data independently without triggering duplicate network calls."
+          },
+          "interactiveQuiz": {
+            "question": "If three separate Server Components in the same render tree execute fetch('https://api.com/settings'), how many network calls are made to the external API?",
+            "options": ["3 network calls", "1 network call (deduplicated by Request Memoization)", "0 calls", "Depends on client browser"],
+            "correctIndex": 1,
+            "explanation": "React Request Memoization automatically deduplicates identical fetch GET calls within a single render pass."
+          }
+        },
+        {
+          "id": "q29-unauthorized-and-forbidden-errors",
+          "title": "Q29: How do unauthorized() and forbidden() handle access errors in Next.js 15?",
+          "content": "Next.js 15 introduced native `unauthorized()` and `forbidden()` functions. Throwing `unauthorized()` renders the nearest `unauthorized.js` boundary (HTTP 401). Throwing `forbidden()` renders the `forbidden.js` boundary (HTTP 403).",
+          "keyTakeaways": [
+            "`unauthorized()` triggers `unauthorized.js` (401 status).",
+            "`forbidden()` triggers `forbidden.js` (403 status)."
+          ],
+          "codeExample": {
+            "title": "Throwing Unauthorized Access Error",
+            "language": "javascript",
+            "code": "import { unauthorized } from 'next/navigation';\n\nexport default async function AdminPage() {\n  const session = await getSession();\n  if (!session) unauthorized(); // Renders unauthorized.js automatically\n  return <h1>Admin Panel</h1>;\n}",
+            "explanation": "unauthorized() halts rendering and renders the unauthorized.js boundary UI."
+          },
+          "interactiveQuiz": {
+            "question": "Which boundary file is rendered when unauthorized() is invoked inside a Next.js 15 Server Component?",
+            "options": ["error.js", "not-found.js", "unauthorized.js", "401.js"],
+            "correctIndex": 2,
+            "explanation": "unauthorized() triggers the unauthorized.js boundary file."
+          }
+        },
+        {
+          "id": "q30-partial-prerendering-ppr",
+          "title": "Q30: What is Partial Pre-rendering (PPR) in Next.js?",
+          "content": "Partial Pre-rendering (PPR) combines static pre-rendering and dynamic streaming in a single HTTP response. The static HTML shell (headers, layout) is served instantly from cache, while dynamic holes wrapped in `<Suspense>` stream in parallel over the same connection.",
+          "keyTakeaways": [
+            "Merges SSG speed with SSR dynamic streaming within a single page response.",
+            "Uses React Suspense boundaries to define dynamic holes inside static shells."
+          ],
+          "diagram": {
+            "type": "architecture",
+            "title": "Partial Pre-rendering (PPR) Visual Architecture",
+            "code": "graph TD\n    HTTPResponse[Single HTTP Response] --> StaticShell[Static Shell Served Instantly: Header, Sidebar, Layout]\n    HTTPResponse --> DynamicHoles[Dynamic Holes Stream Parallel: Cart, User Feed, Stock Data]"
+          },
+          "interactiveQuiz": {
+            "question": "How does Partial Pre-rendering (PPR) handle static and dynamic content on a single page?",
+            "options": [
+              "Converts the entire page to dynamic SSR",
+              "Serves a static HTML shell instantly while streaming dynamic Suspense holes in parallel",
+              "Disables server rendering",
+              "Requires two separate domains"
+            ],
+            "correctIndex": 1,
+            "explanation": "PPR serves static layout shells instantly while streaming dynamic Suspense holes over the same HTTP request."
+          }
+        },
+        {
+          "id": "q31-server-actions-optimistic-updates",
+          "title": "Q31: How do you pair useOptimistic with Server Actions for instant UI responses?",
+          "content": "To eliminate visual network delays, call `useOptimistic` inside client forms. When a user submits a form, the client state updates immediately with expected values. If the background Server Action succeeds, server state syncs; if it fails, UI state rolls back.",
+          "keyTakeaways": [
+            "Provides zero perceived UI latency during Server Action mutations.",
+            "Automatically reverts optimistic state updates if the server request fails."
+          ],
+          "codeExample": {
+            "title": "Optimistic UI Comment Form",
+            "language": "javascript",
+            "code": "'use client';\nimport { useOptimistic } from 'react';\nimport { addCommentAction } from './actions';\n\nexport function CommentList({ comments }) {\n  const [optimisticComments, addOptimistic] = useOptimistic(\n    comments,\n    (state, newText) => [...state, { text: newText, pending: true }]\n  );\n\n  const handleAction = async (formData) => {\n    const text = formData.get('comment');\n    addOptimistic(text); // Instant UI update\n    await addCommentAction(formData); // Server write\n  };\n\n  return (\n    <form action={handleAction}>\n      <input name=\"comment\" />\n      {optimisticComments.map((c, i) => <p key={i}>{c.text}</p>)}\n    </form>\n  );\n}",
+            "explanation": "addOptimistic immediately appends comment text to UI before addCommentAction finishes on server."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if a Server Action fails after useOptimistic has updated the client UI?",
+            "options": [
+              "Client crashes",
+              "React automatically rolls back the optimistic state update to match server reality",
+              "State remains mutated permanently",
+              "Triggers page reload"
+            ],
+            "correctIndex": 1,
+            "explanation": "React safely rolls back optimistic UI updates if server actions fail."
+          }
+        },
+        {
+          "id": "q32-custom-app-and-document-pages-router",
+          "title": "Q32: What were _app.js and _document.js in the legacy Pages Router?",
+          "content": "In the legacy Pages Router:\n- `_app.js`: Wrapped all page components. Used for global CSS imports, context providers, and layout persistence.\n- `_document.js`: Custom superset of HTML document tags (`<html>`, `<head>`, `<body>`). Executed strictly on the server to inject custom scripts or SSR style tags.",
+          "keyTakeaways": [
+            "`_app.js` handled component wrappers, global styles, and providers.",
+            "`_document.js` customized raw HTML document structures on the server."
+          ],
+          "codeExample": {
+            "title": "Pages Router Custom _app.js",
+            "language": "javascript",
+            "code": "// pages/_app.js (Pages Router Legacy)\nimport '../styles/globals.css';\n\nexport default function MyApp({ Component, pageProps }) {\n  return (\n    <ThemeProvider>\n      <Component {...pageProps} />\n    </ThemeProvider>\n  );\n}",
+            "explanation": "_app.js initialized global styles and providers across all Pages Router routes."
+          },
+          "interactiveQuiz": {
+            "question": "Which App Router file replaces both legacy _app.js and _document.js files?",
+            "options": ["app/page.js", "app/layout.js (Root Layout)", "app/template.js", "app/document.js"],
+            "correctIndex": 1,
+            "explanation": "Root app/layout.js handles root HTML/body markup as well as global CSS and providers."
+          }
+        },
+        {
+          "id": "q33-security-csrf-server-actions",
+          "title": "Q33: How does Next.js protect Server Actions against Cross-Site Request Forgery (CSRF)?",
+          "content": "Next.js Server Actions use strict built-in CSRF defenses. They verify the incoming `Origin` header against the application's target host header during HTTP POST requests. Requests from mismatching origins are rejected automatically.",
+          "keyTakeaways": [
+            "Verifies `Origin` vs `Host` headers automatically on Server Action POST requests.",
+            "Can configure trusted origins inside `next.config.js` (`experimental.serverActions.allowedOrigins`)."
+          ],
+          "interactiveQuiz": {
+            "question": "How does Next.js validate Server Action requests to prevent cross-site CSRF attacks?",
+            "options": [
+              "Uses Google CAPTCHA",
+              "Compares incoming Origin headers against theHost header",
+              "Requires RSA encryption keys on client",
+              "Disables HTTP POST requests"
+            ],
+            "correctIndex": 1,
+            "explanation": "Next.js validates that incoming request Origin headers match host domains."
+          }
+        },
+        {
+          "id": "q34-content-security-policy-nonces",
+          "title": "Q34: How do you configure Content Security Policy (CSP) nonces in Next.js Middleware?",
+          "content": "Content Security Policy (CSP) restricts unauthorized scripts. To allow inline Next.js framework scripts, Middleware generates a cryptographic **nonce** token per request, sets it on CSP response headers, and forwards it to Server Components via request headers.",
+          "keyTakeaways": [
+            "Generates cryptographic random nonces per request inside `middleware.js`.",
+            "Passes nonce to root layouts to authorize inline script tags."
+          ],
+          "codeExample": {
+            "title": "Generating CSP Nonce in Middleware",
+            "language": "javascript",
+            "code": "// middleware.js\nimport { NextResponse } from 'next/server';\n\nexport function middleware(request) {\n  const nonce = Buffer.from(crypto.randomUUID()).toString('base64');\n  const cspHeader = `script-src 'nonce-${nonce}' 'strict-dynamic';`;\n  \n  const requestHeaders = new Headers(request.headers);\n  requestHeaders.set('x-nonce', nonce);\n  \n  const response = NextResponse.next({ request: { headers: requestHeaders } });\n  response.headers.set('Content-Security-Policy', cspHeader);\n  return response;\n}",
+            "explanation": "Middleware generates a unique crypto nonce token passed via request headers."
+          },
+          "interactiveQuiz": {
+            "question": "Why are CSP nonces generated dynamically inside Middleware rather than static build files?",
+            "options": [
+              "Static nonces are incompatible with CSS",
+              "Cryptographic nonces must be unique per HTTP request to prevent replay attacks",
+              "Middleware compresses nonces",
+              "Nonces run in browser threads"
+            ],
+            "correctIndex": 1,
+            "explanation": "Nonces must be uniquely generated per HTTP request to guarantee CSP security."
+          }
+        },
+        {
+          "id": "q35-bundle-analyzer-optimization",
+          "title": "Q35: How do you analyze and optimize client bundle size using @next/bundle-analyzer?",
+          "content": "`@next/bundle-analyzer` visualizes the size of compiled JavaScript bundle chunks using interactive treemaps, making it easy to identify over-sized third-party packages (like `lodash` or `moment.js`) and replace them with dynamic imports or lighter alternatives.",
+          "keyTakeaways": [
+            "Generates visual treemaps of client and server bundle chunks.",
+            "Helps identify heavy libraries and target code splitting opportunities."
+          ],
+          "codeExample": {
+            "title": "Configuring Next Bundle Analyzer",
+            "language": "javascript",
+            "code": "// next.config.mjs\nimport withBundleAnalyzer from '@next/bundle-analyzer';\n\nconst bundleAnalyzer = withBundleAnalyzer({\n  enabled: process.env.ANALYZE === 'true',\n});\n\nexport default bundleAnalyzer({\n  /* standard next config options */\n});",
+            "explanation": "Running ANALYZE=true npm run build opens bundle treemaps in the browser."
+          },
+          "interactiveQuiz": {
+            "question": "What visual report does @next/bundle-analyzer generate during build time?",
+            "options": [
+              "SQL database schema diagrams",
+              "Interactive treemaps representing compiled JavaScript bundle chunk sizes",
+              "CSS specificity scores",
+              "User click heatmaps"
+            ],
+            "correctIndex": 1,
+            "explanation": "Bundle Analyzer outputs treemaps detailing JavaScript bundle chunk sizes."
+          }
+        },
+        {
+          "id": "q36-dynamic-routes-searchparams",
+          "title": "Q36: What is the difference between params and searchParams props in page components?",
+          "content": "- `params`: Contains dynamic route path segments defined in folder names (e.g., `/posts/[id]` -> `{ id: '123' }`).\n- `searchParams`: Contains URL query string parameters (e.g., `/shop?category=shoes` -> `{ category: 'shoes' }`).\nIn Next.js 15+, both `params` and `searchParams` are asynchronous Promises.",
+          "keyTakeaways": [
+            "`params` resolves path segments; `searchParams` resolves URL query variables.",
+            "In Next.js 15+, await `params` and `searchParams` before reading properties."
+          ],
+          "codeExample": {
+            "title": "Awaiting params and searchParams in Next.js 15+",
+            "language": "javascript",
+            "code": "// app/shop/[category]/page.js\nexport default async function Page({ params, searchParams }) {\n  const { category } = await params;\n  const { sort } = await searchParams;\n  return <div>Category: {category} | Sort By: {sort}</div>;\n}",
+            "explanation": "params and searchParams must be awaited prior to accessing properties in Next.js 15+."
+          },
+          "interactiveQuiz": {
+            "question": "What breaking change was introduced regarding params and searchParams props in Next.js 15?",
+            "options": [
+              "They were removed",
+              "They were converted into asynchronous Promises that must be awaited before reading properties",
+              "They can only be read inside Client Components",
+              "They require Redux context"
+            ],
+            "correctIndex": 1,
+            "explanation": "Next.js 15 made params and searchParams asynchronous Promises."
+          }
+        },
+        {
+          "id": "q37-router-cache-stale-times",
+          "title": "Q37: How do you configure Client Router Cache staleTimes in Next.js?",
+          "content": "The Client Router Cache stores rendered RSC payloads in browser memory. By default, dynamic routes stay fresh for 0 seconds and static routes stay fresh for 5 minutes. You can customize cache durations using `staleTimes` inside `next.config.js`.",
+          "keyTakeaways": [
+            "Controls browser memory cache durations for client routing.",
+            "Configured via `experimental.staleTimes.dynamic` in `next.config.js`."
+          ],
+          "codeExample": {
+            "title": "Configuring Router Cache Stale Times",
+            "language": "javascript",
+            "code": "// next.config.mjs\nexport default {\n  experimental: {\n    staleTimes: {\n      dynamic: 30, // Keep dynamic pages fresh in browser memory for 30s\n      static: 180, // Keep static pages fresh for 3 minutes\n    },\n  },\n};",
+            "explanation": "staleTimes adjusts client router cache retention in browser memory."
+          },
+          "interactiveQuiz": {
+            "question": "What is the default client Router Cache stale duration for dynamic routes in Next.js App Router?",
+            "options": ["5 minutes", "0 seconds (revalidated on client navigation)", "1 hour", "Infinite"],
+            "correctIndex": 1,
+            "explanation": "Dynamic routes default to a 0-second stale time in the client Router Cache."
+          }
+        },
+        {
+          "id": "q38-use-searchparams-suspense",
+          "title": "Q38: Why must components calling useSearchParams() be wrapped in a Suspense boundary?",
+          "content": "Calling `useSearchParams()` inside a Client Component makes reading search parameters dynamic. To prevent de-opting the entire route from static pre-rendering, Next.js requires wrapping components calling `useSearchParams()` inside a `<Suspense>` boundary.",
+          "keyTakeaways": [
+            "`useSearchParams()` accesses dynamic request-time URL query strings.",
+            "Wrapping inside `<Suspense>` isolates dynamic client rendering, preserving static page pre-rendering."
+          ],
+          "codeExample": {
+            "title": "Suspense Boundary around useSearchParams",
+            "language": "javascript",
+            "code": "'use client';\nimport { useSearchParams } from 'next/navigation';\nimport { Suspense } from 'react';\n\nfunction SearchBar() {\n  const searchParams = useSearchParams();\n  return <p>Query: {searchParams.get('q')}</p>;\n}\n\nexport default function Page() {\n  return (\n    <Suspense fallback={<p>Loading search...</p>}>\n      <SearchBar />\n    </Suspense>\n  );\n}",
+            "explanation": "Suspense isolates SearchBar dynamic query parameter reading, keeping the parent page static."
+          },
+          "interactiveQuiz": {
+            "question": "What build issue occurs if a Client Component calls useSearchParams() without a parent Suspense boundary during static site generation?",
+            "options": [
+              "CSS styles fail to load",
+              "The entire page de-opts from static pre-rendering, opting into dynamic client-side rendering",
+              "Database connection times out",
+              "Images fail to display"
+            ],
+            "correctIndex": 1,
+            "explanation": "Unwrapped useSearchParams calls cause static pre-rendering builds to de-opt into dynamic CSR."
+          }
+        },
+        {
+          "id": "q39-custom-route-matchers-middleware",
+          "title": "Q39: How do config matchers filter Middleware execution paths?",
+          "content": "By default, Middleware executes on every request route. The `config.matcher` array uses regular expression path matching to filter out static assets (`_next/static`, `favicon.ico`, images) and target specific API or dashboard paths.",
+          "keyTakeaways": [
+            "`config.matcher` prevents Middleware from executing on static image and asset routes.",
+            "Uses path-to-regexp pattern matching syntax."
+          ],
+          "codeExample": {
+            "title": "Middleware Config Matcher Pattern",
+            "language": "javascript",
+            "code": "// middleware.js\nexport const config = {\n  // Matches all request paths EXCEPT static files, _next, and favicons\n  matcher: ['/((?!_next/static|_next/image|favicon.ico|.*\\\\.(?:svg|png|jpg)).*)'],\n};",
+            "explanation": "Regex matcher excludes static framework files, avoiding unnecessary Edge middleware execution."
+          },
+          "interactiveQuiz": {
+            "question": "Why is it important to configure matcher rules inside middleware.js?",
+            "options": [
+              "To enable React Server Components",
+              "To exclude static assets and images from unnecessarily triggering middleware functions",
+              "To compress JavaScript code",
+              "To connect to database servers"
+            ],
+            "correctIndex": 1,
+            "explanation": "Excluding static assets prevents wasting Edge function executions on static images and CSS files."
+          }
+        },
+        {
+          "id": "q40-server-actions-field-errors",
+          "title": "Q40: How do you return structured form validation errors from Server Actions using Zod?",
+          "content": "Instead of throwing unhandled exceptions, Server Actions validate inputs using schema libraries like **Zod**. If validation fails, the action returns structured error objects `{ errors: ... }` consumed cleanly by client components using `useActionState`.",
+          "keyTakeaways": [
+            "Validate inputs server-side using Zod schemas (`schema.safeParse(data)`).",
+            "Return structured error objects instead of throwing exceptions."
+          ],
+          "codeExample": {
+            "title": "Zod Validation in Server Action",
+            "language": "javascript",
+            "code": "// actions.js\n'use server';\nimport { z } from 'zod';\n\nconst schema = z.object({\n  email: z.string().email(),\n});\n\nexport async function submitAction(prevState, formData) {\n  const result = schema.safeParse({ email: formData.get('email') });\n  if (!result.success) {\n    return { errors: result.error.flatten().fieldErrors };\n  }\n  return { success: true };\n}",
+            "explanation": "safeParse checks input data, returning typed field errors if validation fails."
+          },
+          "interactiveQuiz": {
+            "question": "What Zod method validates object data without throwing uncaught runtime exceptions?",
+            "options": ["schema.parse()", "schema.safeParse()", "schema.validate()", "schema.check()"],
+            "correctIndex": 1,
+            "explanation": "safeParse returns a result object with a success boolean and error objects without throwing exceptions."
+          }
+        },
+        {
+          "id": "q41-next-response-cookies-api",
+          "title": "Q41: How do you read, set, and delete cookies in Server Components and Server Actions?",
+          "content": "Next.js provides the `cookies()` API (`next/headers`). Inside Server Components, `cookies()` is **read-only**. Inside Server Actions and Route Handlers, `cookies()` supports setting (`set()`) and deleting (`delete()`) HTTP-only cookies.",
+          "keyTakeaways": [
+            "Server Components: Read-only access to cookies.",
+            "Server Actions & Route Handlers: Full read, write, and delete cookie mutations."
+          ],
+          "codeExample": {
+            "title": "Setting HTTP-Only Cookies in Server Action",
+            "language": "javascript",
+            "code": "'use server';\nimport { cookies } from 'next/headers';\n\nexport async function loginAction() {\n  const cookieStore = await cookies();\n  cookieStore.set('session', 'token123', {\n    httpOnly: true,\n    secure: true,\n    sameSite: 'lax',\n    path: '/',\n  });\n}",
+            "explanation": "cookieStore.set writes secure HTTP-only cookies directly from server functions."
+          },
+          "interactiveQuiz": {
+            "question": "Can you call cookies().set('key', 'value') directly inside a standard Server Component render function?",
+            "options": [
+              "Yes, anywhere in the app",
+              "No, cookies inside Server Components are read-only; mutations must occur inside Server Actions or Route Handlers",
+              "Only in production builds",
+              "Yes, if marked 'use client'"
+            ],
+            "correctIndex": 1,
+            "explanation": "Server Component rendering is read-only; cookie mutations require Server Actions or Route Handlers."
+          }
+        },
+        {
+          "id": "q42-third-party-script-optimization",
+          "title": "Q42: How does the next/script Component optimize third-party analytics loading?",
+          "content": "The `<Script />` component manages third-party JavaScript libraries (Google Analytics, Stripe, Ads) using execution strategies: `beforeInteractive` (early load), `afterInteractive` (default), `lazyOnload` (idle load), and `worker` (offloads to Web Worker via Partytown).",
+          "keyTakeaways": [
+            "Controls third-party script execution timing.",
+            "`strategy=\"worker\"` moves script processing off the main browser thread."
+          ],
+          "codeExample": {
+            "title": "Loading Analytics via next/script",
+            "language": "javascript",
+            "code": "import Script from 'next/script';\n\nexport default function RootLayout({ children }) {\n  return (\n    <html>\n      <body>\n        {children}\n        <Script\n          src=\"https://analytics.com/script.js\"\n          strategy=\"lazyOnload\" // Loads during browser idle time\n        />\n      </body>\n    </html>\n  );\n}",
+            "explanation": "lazyOnload defers third-party script loading until after core page assets complete."
+          },
+          "interactiveQuiz": {
+            "question": "Which next/script strategy defers third-party analytics scripts until browser idle time?",
+            "options": ["beforeInteractive", "afterInteractive", "lazyOnload", "worker"],
+            "correctIndex": 2,
+            "explanation": "lazyOnload waits until the main thread is idle before executing third-party scripts."
+          }
+        },
+        {
+          "id": "q43-next-og-image-generation",
+          "title": "Q43: How does ImageResponse (next/og) generate dynamic Open Graph images?",
+          "content": "`ImageResponse` uses Satori and Resvg under the hood to convert JSX flexbox code into PNG social share images dynamically at the Edge, eliminating external graphic editor pipelines.",
+          "keyTakeaways": [
+            "Generates dynamic Open Graph social preview images using JSX code.",
+            "Executes at Edge runtimes using HTML/CSS Flexbox subsets."
+          ],
+          "codeExample": {
+            "title": "Dynamic OG Image Generation Route",
+            "language": "javascript",
+            "code": "// app/api/og/route.js\nimport { ImageResponse } from 'next/og';\n\nexport async function GET(request) {\n  const { searchParams } = new URL(request.url);\n  const title = searchParams.get('title') || 'Default Title';\n  \n  return new ImageResponse(\n    (\n      <div style={{ fontSize: 60, color: 'white', background: 'black', width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>\n        {title}\n      </div>\n    ),\n    { width: 1200, height: 630 }\n  );\n}",
+            "explanation": "ImageResponse converts JSX layout objects into dynamic 1200x630 PNG Open Graph images."
+          },
+          "interactiveQuiz": {
+            "question": "What output format does the ImageResponse (next/og) constructor produce?",
+            "options": ["SVG text string", "PNG image file response", "Base64 encoded JSON", "HTML document"],
+            "correctIndex": 1,
+            "explanation": "ImageResponse returns dynamic PNG images for Open Graph social media sharing."
+          }
+        },
+        {
+          "id": "q44-deployment-architectures-vercel-vs-docker",
+          "title": "Q44: How do deployment architectures differ between Vercel and self-hosted Docker containers?",
+          "content": "- **Vercel**: Fully managed serverless execution. Routes deploy to Edge networks and Serverless Functions with zero infrastructure setup.\n- **Self-Hosted Docker**: Runs a persistent Node.js server container using `output: 'standalone'` in `next.config.js` to minimize image sizes.",
+          "keyTakeaways": [
+            "Vercel auto-splits routes into Edge and Serverless Lambdas.",
+            "Self-hosted Docker uses `output: 'standalone'` to produce lightweight minimal production builds."
+          ],
+          "codeExample": {
+            "title": "Standalone Output Config for Docker",
+            "language": "javascript",
+            "code": "// next.config.mjs\nexport default {\n  output: 'standalone', // Copies only necessary node_modules required for running server\n};",
+            "explanation": "standalone mode creates a minimal server bundle folder optimized for Docker containers."
+          },
+          "interactiveQuiz": {
+            "question": "What next.config.js setting reduces Docker image sizes by copying only necessary production dependencies?",
+            "options": ["output: 'export'", "output: 'standalone'", "output: 'minimal'", "target: 'server'"],
+            "correctIndex": 1,
+            "explanation": "output: 'standalone' builds a minimal Node.js server bundle optimized for container deployments."
+          }
+        },
+        {
+          "id": "q45-multi-zones-micro-frontends",
+          "title": "Q45: What is Next.js Multi-Zones architecture?",
+          "content": "Multi-Zones allow stitching multiple independently deployed Next.js applications together under a single domain URL using rewrites (e.g., App 1 handles `/`, App 2 handles `/blog`). Each zone maintains its own repository, build pipeline, and deployment schedule.",
+          "keyTakeaways": [
+            "Combines separate Next.js repositories under a unified main domain.",
+            "Uses `rewrites()` in `next.config.js` to proxy micro-frontend sub-paths."
+          ],
+          "codeExample": {
+            "title": "Multi-Zone Rewrites Configuration",
+            "language": "javascript",
+            "code": "// next.config.mjs (Main Shell App)\nexport default {\n  async rewrites() {\n    return [\n      {\n        source: '/blog/:path*',\n        destination: 'https://blog-zone.domain.com/blog/:path*',\n      },\n    ];\n  },\n};",
+            "explanation": "Proxies all /blog request paths transparently to an independent micro-frontend application deployment."
+          },
+          "interactiveQuiz": {
+            "question": "What Next.js configuration method proxies traffic across separate Multi-Zone applications under a shared main domain?",
+            "options": ["redirects()", "rewrites()", "headers()", "middleware()"],
+            "correctIndex": 1,
+            "explanation": "rewrites() routes incoming URL paths transparently to separate zone destinations without changing browser URLs."
+          }
+        },
+        {
+          "id": "q46-turbopack-bundler",
+          "title": "Q46: What is Turbopack and how does it replace Webpack in Next.js?",
+          "content": "Turbopack is an ultra-fast Rust-based incremental bundler built by Vercel designed as the successor to Webpack. It delivers up to 10x faster HMR (Hot Module Replacement) and faster initial development startup by caching function evaluations incrementally in Rust.",
+          "keyTakeaways": [
+            "Rust-powered incremental bundler replacing Webpack.",
+            "Provides ultra-fast local dev startup and Hot Module Replacement (HMR)."
+          ],
+          "codeExample": {
+            "title": "Launching Dev Server with Turbopack",
+            "language": "json",
+            "code": "// package.json\n{\n  \"scripts\": {\n    \"dev\": \"next dev --turbo\"\n  }\n}",
+            "explanation": "Passing --turbo enables the Turbopack engine for local development builds."
+          },
+          "interactiveQuiz": {
+            "question": "What programming language powers the Turbopack bundler architecture?",
+            "options": ["Go", "Rust", "C++", "TypeScript"],
+            "correctIndex": 1,
+            "explanation": "Turbopack is written in Rust for high performance and low-level memory efficiency."
+          }
+        },
+        {
+          "id": "q47-custom-route-handler-cors",
+          "title": "Q47: How do you configure Cross-Origin Resource Sharing (CORS) in Route Handlers?",
+          "content": "To allow external domains to make API requests to your Route Handlers (`route.js`), set standard CORS headers (`Access-Control-Allow-Origin`, `Access-Control-Allow-Methods`) on returned `NextResponse` objects and export an `OPTIONS` method handler.",
+          "keyTakeaways": [
+            "Requires exporting an `OPTIONS` preflight handler function.",
+            "Sets `Access-Control-Allow-*` headers on returned responses."
+          ],
+          "codeExample": {
+            "title": "CORS Route Handler Implementation",
+            "language": "javascript",
+            "code": "// app/api/external/route.js\nimport { NextResponse } from 'next/server';\n\nconst corsHeaders = {\n  'Access-Control-Allow-Origin': '*',\n  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',\n};\n\nexport async function OPTIONS() {\n  return NextResponse.json({}, { headers: corsHeaders });\n}\n\nexport async function GET() {\n  return NextResponse.json({ data: 'Public API' }, { headers: corsHeaders });\n}",
+            "explanation": "OPTIONS handles browser preflight checks; GET returns data along with explicit CORS origin headers."
+          },
+          "interactiveQuiz": {
+            "question": "Which HTTP method function must be exported from route.js to handle browser preflight CORS checks?",
+            "options": ["GET()", "POST()", "OPTIONS()", "HEAD()"],
+            "correctIndex": 2,
+            "explanation": "Browsers send preliminary OPTIONS requests during CORS preflight checks."
+          }
+        },
+        {
+          "id": "q48-error-handling-global-error",
+          "title": "Q48: What is global-error.js and how does it catch Root Layout errors?",
+          "content": "While `error.js` catches errors inside nested page subtrees, it **cannot catch errors thrown inside the root app/layout.js**. To catch root layout exceptions, define `app/global-error.js`, which must define its own `<html>` and `<body>` HTML tags.",
+          "keyTakeaways": [
+            "Catches errors thrown inside the root layout component (`app/layout.js`).",
+            "Must define custom `<html>` and `<body>` document tags."
+          ],
+          "codeExample": {
+            "title": "Root Global Error Boundary",
+            "language": "javascript",
+            "code": "// app/global-error.js (Must be a Client Component)\n'use client';\n\nexport default function GlobalError({ error, reset }) {\n  return (\n    <html>\n      <body>\n        <h2>Root Layout Error Captured</h2>\n        <button onClick={() => reset()}>Reset System</button>\n      </body>\n    </html>\n  );\n}",
+            "explanation": "global-error.js catches root layout failures, replacing the root HTML document structure."
+          },
+          "interactiveQuiz": {
+            "question": "Why must global-error.js include its own <html> and <body> tags?",
+            "options": [
+              "Because it replaces the entire root layout when root app/layout.js throws an unhandled error",
+              "To enable Tailwind CSS",
+              "It runs inside an iframe",
+              "Required for SEO indexing"
+            ],
+            "correctIndex": 0,
+            "explanation": "global-error.js captures failures occurring within the root layout itself, replacing the root DOM structure."
+          }
+        },
+        {
+          "id": "q49-server-actions-use-form-status",
+          "title": "Q49: How does the useFormStatus Hook track parent Server Action pending states?",
+          "content": "`useFormStatus` tracks the pending status of a parent `<form>`. Crucially, **it must be called inside a child component nested beneath the `<form>`**, functioning like a Context consumer.",
+          "keyTakeaways": [
+            "Reads pending state, form data, and HTTP submission methods.",
+            "Must be invoked inside a child component nested within the form tags."
+          ],
+          "codeExample": {
+            "title": "Submit Button Component with useFormStatus",
+            "language": "javascript",
+            "code": "'use client';\nimport { useFormStatus } from 'react-dom';\n\nexport function SubmitButton() {\n  const { pending } = useFormStatus(); // Reads parent <form> state\n  return (\n    <button disabled={pending}>\n      {pending ? 'Saving Changes...' : 'Save'}\n    </button>\n  );\n}",
+            "explanation": "SubmitButton reads parent form pending status without requiring prop drilling."
+          },
+          "interactiveQuiz": {
+            "question": "Where must a component calling useFormStatus() be located relative to the <form> element?",
+            "options": [
+              "Inside the exact same file rendering the <form>",
+              "Inside a descendant child component nested beneath the parent <form>",
+              "In root app/layout.js",
+              "Inside middleware.js"
+            ],
+            "correctIndex": 1,
+            "explanation": "useFormStatus acts like a context consumer and must be invoked within a descendant child component."
+          }
+        },
+        {
+          "id": "q50-nextjs-15-uncached-fetch-defaults",
+          "title": "Q50: How did fetch() default caching change between Next.js 14 and Next.js 15?",
+          "content": "In Next.js 14, `fetch()` requests defaulted to aggressive caching (`cache: 'force-cache'`). In **Next.js 15**, `fetch()` GET requests default to **uncached (`cache: 'no-store'`)** by default. To cache requests in Next.js 15, developers must explicitly pass `{ cache: 'force-cache' }` or set revalidate timers.",
+          "keyTakeaways": [
+            "Next.js 14 default: `force-cache` (cached static default).",
+            "Next.js 15 default: `no-store` (uncached dynamic default)."
+          ],
+          "codeExample": {
+            "title": "Explicit Caching in Next.js 15+",
+            "language": "javascript",
+            "code": "// Next.js 15: fetch is UNCACHED by default!\n// To explicitly cache in Next.js 15:\nconst data = await fetch('https://api.com/data', {\n  cache: 'force-cache', // Explicitly enables Data Cache\n});",
+            "explanation": "Next.js 15 switched fetch defaults to uncached, requiring explicit flags for data caching."
+          },
+          "interactiveQuiz": {
+            "question": "What is the default caching behavior for fetch() GET requests in Next.js 15?",
+            "options": [
+              "cache: 'force-cache' (Cached statically by default)",
+              "cache: 'no-store' (Uncached dynamic requests by default)",
+              "cache: 'only-if-cached'",
+              "cache: 'reload'"
+            ],
+            "correctIndex": 1,
+            "explanation": "Next.js 15 changed fetch defaults from force-cache to no-store (uncached)."
+          }
+        }
+      ]
+    }
+  ]
+}
