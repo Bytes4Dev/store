@@ -863,34 +863,46 @@
       ]
     },
     {
-      "id": "js-coding-challenges",
+      "id": "js-coding-challenges-25",
       "title": "25 Progressive JavaScript Coding Questions (Easy to Difficult)",
       "summary": "A 25-question coding bank structured from basic JavaScript string/array manipulations to advanced asynchronous control flow, custom polyfills, and engine metaprogramming.",
       "estimatedMinutes": 180,
       "sections": [
         {
           "id": "q51-coding-string-reverse",
-          "title": "Q51 [Coding - Easy]: Reverse a String Without Built-In Reverse",
-          "content": "Write a function to reverse a string manually without using `Array.prototype.reverse()`.\n\n```js\nfunction reverseString(str) {\n  let reversed = '';\n  for (let i = str.length - 1; i >= 0; i--) {\n    reversed += str[i];\n  }\n  return reversed;\n}\n```",
+          "title": "Q51: Reverse a String Without Built-In Reverse",
+          "content": "To reverse a string manually, iterate backward from the last character to the first, appending each character to a new string. This demonstrates basic iteration and string accumulation.",
           "keyTakeaways": [
             "Iterates backward from the end of the string to assemble a new reversed string.",
-            "Time complexity is $O(n)$, and space complexity is $O(n)$."
+            "Runs with O(n) time complexity and O(n) space complexity."
           ],
+          "codeExample": {
+            "title": "Manual String Reversal",
+            "language": "javascript",
+            "code": "function reverseString(str) {\n  let reversed = '';\n  for (let i = str.length - 1; i >= 0; i--) {\n    reversed += str[i];\n  }\n  return reversed;\n}\n\nconsole.log(reverseString('hello')); // 'olleh'",
+            "explanation": "By looping from str.length - 1 down to 0, each character is appended in reverse order without using Array.prototype.reverse()."
+          },
           "interactiveQuiz": {
             "question": "What is the time complexity of reversing a string of length n character-by-character?",
             "options": ["O(1)", "O(n)", "O(n²)", "O(log n)"],
             "correctIndex": 1,
-            "explanation": "Visiting each character in a string of length $n$ takes linear time $O(n)$."
+            "explanation": "Visiting each character in a string of length n takes linear time O(n)."
           }
         },
         {
           "id": "q52-coding-fizzbuzz",
-          "title": "Q52 [Coding - Easy]: Classic FizzBuzz Implementation",
-          "content": "Write a function that outputs numbers from 1 to $N$, replacing multiples of 3 with `'Fizz'`, 5 with `'Buzz'`, and multiples of both with `'FizzBuzz'`.\n\n```js\nfunction fizzBuzz(n) {\n  const result = [];\n  for (let i = 1; i <= n; i++) {\n    if (i % 15 === 0) result.push('FizzBuzz');\n    else if (i % 3 === 0) result.push('Fizz');\n    else if (i % 5 === 0) result.push('Buzz');\n    else result.push(i.toString());\n  }\n  return result;\n}\n```",
+          "title": "Q52: Classic FizzBuzz Implementation",
+          "content": "Output numbers from 1 to N, replacing multiples of 3 with 'Fizz', 5 with 'Buzz', and multiples of both with 'FizzBuzz'. Check compound conditions (multiples of 15) before individual factors.",
           "keyTakeaways": [
-            "Check for combined conditions (`i % 15 === 0`) before individual conditions.",
+            "Check for combined conditions (i % 15 === 0) before individual conditions.",
             "Demonstrates basic modulo arithmetic and control flow branching."
           ],
+          "codeExample": {
+            "title": "FizzBuzz Loop",
+            "language": "javascript",
+            "code": "function fizzBuzz(n) {\n  const result = [];\n  for (let i = 1; i <= n; i++) {\n    if (i % 15 === 0) result.push('FizzBuzz');\n    else if (i % 3 === 0) result.push('Fizz');\n    else if (i % 5 === 0) result.push('Buzz');\n    else result.push(i.toString());\n  }\n  return result;\n}\n\nconsole.log(fizzBuzz(15));",
+            "explanation": "Evaluating i % 15 first prevents multiples of both 3 and 5 from matching the earlier single-factor branches."
+          },
           "interactiveQuiz": {
             "question": "Why must the condition for 15 (or both 3 and 5) be checked first in FizzBuzz?",
             "options": [
@@ -900,17 +912,23 @@
               "It is optional and makes no difference"
             ],
             "correctIndex": 1,
-            "explanation": "If `i % 3` is checked first, numbers like 15 hit the 'Fizz' block and miss 'FizzBuzz'."
+            "explanation": "If i % 3 is checked first, numbers like 15 hit the 'Fizz' block and miss 'FizzBuzz'."
           }
         },
         {
           "id": "q53-coding-palindrome-check",
-          "title": "Q53 [Coding - Easy]: Check if a String is a Palindrome",
-          "content": "Write a function to check if a string reads the same forward and backward, ignoring non-alphanumeric characters and case.\n\n```js\nfunction isPalindrome(str) {\n  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');\n  let left = 0;\n  let right = cleaned.length - 1;\n  while (left < right) {\n    if (cleaned[left] !== cleaned[right]) return false;\n    left++;\n    right--;\n  }\n  return true;\n}\n```",
+          "title": "Q53: Check if a String is a Palindrome",
+          "content": "Clean non-alphanumeric characters and convert to lower case, then use a two-pointer approach moving toward the center to check if the string reads identically forward and backward.",
           "keyTakeaways": [
             "Sanitizes strings using Regular Expressions prior to checking.",
             "Uses a two-pointer approach to compare characters from opposite ends toward the center."
           ],
+          "codeExample": {
+            "title": "Two-Pointer Palindrome Validation",
+            "language": "javascript",
+            "code": "function isPalindrome(str) {\n  const cleaned = str.toLowerCase().replace(/[^a-z0-9]/g, '');\n  let left = 0;\n  let right = cleaned.length - 1;\n  while (left < right) {\n    if (cleaned[left] !== cleaned[right]) return false;\n    left++;\n    right--;\n  }\n  return true;\n}\n\nconsole.log(isPalindrome('A man, a plan, a canal: Panama')); // true",
+            "explanation": "Two pointers move inward from opposite ends, allowing early exit as soon as a non-matching character pair is found."
+          },
           "interactiveQuiz": {
             "question": "What is the primary benefit of a two-pointer approach over str === str.split('').reverse().join('')?",
             "options": [
@@ -920,17 +938,23 @@
               "It avoids regular expression sanitization"
             ],
             "correctIndex": 1,
-            "explanation": "Two pointers can return `false` instantly upon finding a character mismatch."
+            "explanation": "Two pointers can return false instantly upon finding a character mismatch."
           }
         },
         {
           "id": "q54-coding-find-max-min",
-          "title": "Q54 [Coding - Easy]: Find Minimum and Maximum Values in an Array",
-          "content": "Write a function to find both min and max values in a single array traversal without using `Math.min`/`Math.max` spread syntax.\n\n```js\nfunction findMinMax(arr) {\n  if (!arr.length) return { min: undefined, max: undefined };\n  let min = arr[0];\n  let max = arr[0];\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n  return { min, max };\n}\n```",
+          "title": "Q54: Find Minimum and Maximum Values in an Array",
+          "content": "Find both min and max values in a single pass across the array without relying on spread syntax with Math.min/Math.max, which can overflow the call stack on large arrays.",
           "keyTakeaways": [
-            "Performs single-pass $O(n)$ iteration to update bounds.",
-            "Avoids `Math.max(...arr)` which can throw a stack overflow error on very large arrays."
+            "Performs single-pass O(n) iteration to update bounds.",
+            "Avoids Math.max(...arr) which can throw a stack overflow error on very large arrays."
           ],
+          "codeExample": {
+            "title": "Single-Pass Min/Max Finder",
+            "language": "javascript",
+            "code": "function findMinMax(arr) {\n  if (!arr.length) return { min: undefined, max: undefined };\n  let min = arr[0];\n  let max = arr[0];\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n  return { min, max };\n}\n\nconsole.log(findMinMax([3, 1, 9, 4, 2])); // { min: 1, max: 9 }",
+            "explanation": "Iterating once updates min and max tracking variables in O(n) time and O(1) auxiliary space."
+          },
           "interactiveQuiz": {
             "question": "Why can Math.max(...largeArray) fail on extremely large arrays (e.g. 100,000+ elements)?",
             "options": [
@@ -945,42 +969,60 @@
         },
         {
           "id": "q55-coding-chunk-array",
-          "title": "Q55 [Coding - Easy]: Chunk an Array into Sub-Arrays of Fixed Size",
-          "content": "Write a function that splits an array into smaller sub-arrays of specified size.\n\n```js\nfunction chunkArray(arr, size) {\n  const chunked = [];\n  for (let i = 0; i < arr.length; i += size) {\n    chunked.push(arr.slice(i, i + size));\n  }\n  return chunked;\n}\n```",
+          "title": "Q55: Chunk an Array into Sub-Arrays of Fixed Size",
+          "content": "Split an array into smaller sub-arrays of a target size by iterating through the source array in increments of the chunk size and calling Array.prototype.slice().",
           "keyTakeaways": [
-            "Advances loop pointer by `size` steps.",
-            "`Array.prototype.slice` extracts chunks cleanly without mutating the source array."
+            "Advances loop pointer by size steps.",
+            "Array.prototype.slice extracts chunks cleanly without mutating the source array."
           ],
+          "codeExample": {
+            "title": "Array Chunking Helper",
+            "language": "javascript",
+            "code": "function chunkArray(arr, size) {\n  const chunked = [];\n  for (let i = 0; i < arr.length; i += size) {\n    chunked.push(arr.slice(i, i + size));\n  }\n  return chunked;\n}\n\nconsole.log(chunkArray([1, 2, 3, 4, 5], 2)); // [[1, 2], [3, 4], [5]]",
+            "explanation": "By incrementing the loop index by size each iteration, slice() extracts sub-arrays of exact length."
+          },
           "interactiveQuiz": {
             "question": "What is the result of chunkArray([1, 2, 3, 4, 5], 2)?",
             "options": ["[[1, 2], [3, 4], [5]]", "[[1, 2], [3, 4, 5]]", "[[1, 2, 3], [4, 5]]", "[[1], [2], [3], [4], [5]]"],
             "correctIndex": 0,
-            "explanation": "Chunks of size 2 extract elements in pairs, leaving the remaining odd element `[5]` in the final slice."
+            "explanation": "Chunks of size 2 extract elements in pairs, leaving the remaining odd element [5] in the final slice."
           }
         },
         {
           "id": "q56-coding-char-count",
-          "title": "Q56 [Coding - Medium-Easy]: Count Character Frequencies in a String",
-          "content": "Write a function that returns a frequency object counting occurrences of each character in a string.\n\n```js\nfunction charFrequency(str) {\n  const freq = {};\n  for (let char of str) {\n    freq[char] = (freq[char] || 0) + 1;\n  }\n  return freq;\n}\n```",
+          "title": "Q56: Count Character Frequencies in a String",
+          "content": "Count the occurrence of each character in a string by accumulating counts inside a plain object map, initializing unseen characters to zero.",
           "keyTakeaways": [
-            "Uses logical OR (`||`) to initialize missing object keys to zero.",
-            "Runs in linear $O(n)$ time complexity relative to string length."
+            "Uses logical OR (||) to initialize missing object keys to zero.",
+            "Runs in linear O(n) time complexity relative to string length."
           ],
+          "codeExample": {
+            "title": "Character Frequency Counter",
+            "language": "javascript",
+            "code": "function charFrequency(str) {\n  const freq = {};\n  for (let char of str) {\n    freq[char] = (freq[char] || 0) + 1;\n  }\n  return freq;\n}\n\nconsole.log(charFrequency('hello')); // { h: 1, e: 1, l: 2, o: 1 }",
+            "explanation": "The expression (freq[char] || 0) ensures that unvisited characters start at 0 before adding 1."
+          },
           "interactiveQuiz": {
             "question": "What value does freq[char] || 0 evaluate to if char is not yet present in the freq map?",
             "options": ["undefined", "null", "0", "1"],
             "correctIndex": 2,
-            "explanation": "If `freq[char]` is `undefined` (falsy), the logical OR falls back to `0`."
+            "explanation": "If freq[char] is undefined (falsy), the logical OR falls back to 0."
           }
         },
         {
           "id": "q57-coding-array-dedup",
-          "title": "Q57 [Coding - Medium-Easy]: Remove Duplicate Values from an Array",
-          "content": "Demonstrate multiple techniques to remove duplicate elements from an array while preserving unique values.\n\n```js\n// Approach 1: ES6 Set\nconst uniqueSet = (arr) => [...new Set(arr)];\n\n// Approach 2: Array.prototype.filter\nconst uniqueFilter = (arr) => arr.filter((item, index) => arr.indexOf(item) === index);\n```",
+          "title": "Q57: Remove Duplicate Values from an Array",
+          "content": "Deduplicate elements in an array using an ES6 Set for linear performance, or Array.prototype.filter() with indexOf() for a single-line functional approach.",
           "keyTakeaways": [
-            "`Set` approach provides $O(n)$ time complexity.",
-            "`filter + indexOf` provides $O(n^2)$ time complexity due to internal lookup overhead."
+            "Set approach provides O(n) time complexity.",
+            "filter + indexOf provides O(n²) time complexity due to internal lookup overhead."
           ],
+          "codeExample": {
+            "title": "Array Deduplication Approaches",
+            "language": "javascript",
+            "code": "// Approach 1: ES6 Set (Optimal O(n))\nconst uniqueSet = (arr) => [...new Set(arr)];\n\n// Approach 2: Array filter (O(n²))\nconst uniqueFilter = (arr) => arr.filter((item, index) => arr.indexOf(item) === index);\n\nconsole.log(uniqueSet([1, 2, 2, 3, 4, 4])); // [1, 2, 3, 4]",
+            "explanation": "ES6 Set automatically discards duplicate values in linear time, while filter + indexOf scans the array repeatedly."
+          },
           "interactiveQuiz": {
             "question": "Why is the Set approach preferred over filter + indexOf for large arrays?",
             "options": [
@@ -990,17 +1032,23 @@
               "filter does not work with numbers"
             ],
             "correctIndex": 0,
-            "explanation": "`indexOf` executes a full scan per iteration ($O(n)$), making `filter + indexOf` $O(n^2)$ overall."
+            "explanation": "indexOf executes a full scan per iteration (O(n)), making filter + indexOf O(n²) overall."
           }
         },
         {
           "id": "q58-coding-object-invert",
-          "title": "Q58 [Coding - Medium-Easy]: Invert Keys and Values of an Object",
-          "content": "Write a function that swaps object keys with their corresponding values.\n\n```js\nfunction invertObject(obj) {\n  const inverted = {};\n  for (let key in obj) {\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\n      inverted[obj[key]] = key;\n    }\n  }\n  return inverted;\n}\n```",
+          "title": "Q58: Invert Keys and Values of an Object",
+          "content": "Swap the keys and values of a plain object into a new object using a for...in loop combined with a hasOwnProperty check to ignore prototype properties.",
           "keyTakeaways": [
             "Swaps keys and values into a new object.",
-            "Uses `hasOwnProperty` guard to prevent iterating inherited prototype properties."
+            "Uses hasOwnProperty guard to prevent iterating inherited prototype properties."
           ],
+          "codeExample": {
+            "title": "Object Key-Value Inversion",
+            "language": "javascript",
+            "code": "function invertObject(obj) {\n  const inverted = {};\n  for (let key in obj) {\n    if (Object.prototype.hasOwnProperty.call(obj, key)) {\n      inverted[obj[key]] = key;\n    }\n  }\n  return inverted;\n}\n\nconsole.log(invertObject({ a: 'x', b: 'y' })); // { x: 'a', y: 'b' }",
+            "explanation": "Maps each value obj[key] as a key in the new object, assigning the original key string as its value."
+          },
           "interactiveQuiz": {
             "question": "What happens if an object contains multiple duplicate values during inversion (e.g. { a: 1, b: 1 })?",
             "options": [
@@ -1010,14 +1058,20 @@
               "Skips the secondary key"
             ],
             "correctIndex": 1,
-            "explanation": "Inverted keys are plain object properties; reassigning `inverted[1]` overwrites prior assignments."
+            "explanation": "Inverted keys are plain object properties; reassigning inverted[1] overwrites prior assignments."
           }
         },
         {
           "id": "q59-coding-object-pick-omit",
-          "title": "Q59 [Coding - Medium]: Implement Custom pick and omit Object Helpers",
-          "content": "Create two functions: `pick(obj, keys)` returning an object with only listed keys, and `omit(obj, keys)` returning an object excluding listed keys.\n\n```js\nfunction pick(obj, keys) {\n  return keys.reduce((acc, key) => {\n    if (key in obj) acc[key] = obj[key];\n    return acc;\n  }, {});\n}\n\nfunction omit(obj, keys) {\n  const keySet = new Set(keys);\n  return Object.keys(obj).reduce((acc, key) => {\n    if (!keySet.has(key)) acc[key] = obj[key];\n    return acc;\n  }, {});\n}\n```",
-          "keyTakeaways": ["Reduces object keys dynamically.", "Using a `Set` in `omit` allows $O(1)$ key exclusion checks."],
+          "title": "Q59: Implement Custom pick and omit Object Helpers",
+          "content": "Build pick(obj, keys) to extract specific properties into a new object, and omit(obj, keys) to create a copy that excludes specified keys.",
+          "keyTakeaways": ["Reduces object keys dynamically.", "Using a Set in omit allows O(1) key exclusion checks."],
+          "codeExample": {
+            "title": "Object Pick and Omit Utility",
+            "language": "javascript",
+            "code": "function pick(obj, keys) {\n  return keys.reduce((acc, key) => {\n    if (key in obj) acc[key] = obj[key];\n    return acc;\n  }, {});\n}\n\nfunction omit(obj, keys) {\n  const keySet = new Set(keys);\n  return Object.keys(obj).reduce((acc, key) => {\n    if (!keySet.has(key)) acc[key] = obj[key];\n    return acc;\n  }, {});\n}\n\nconst user = { id: 1, name: 'Alex', role: 'admin' };\nconsole.log(pick(user, ['name', 'role'])); // { name: 'Alex', role: 'admin' }\nconsole.log(omit(user, ['role']));         // { id: 1, name: 'Alex' }",
+            "explanation": "pick filters down to specified keys, while omit uses a Set lookup to drop listed keys efficiently."
+          },
           "interactiveQuiz": {
             "question": "What is the benefit of passing keys as a Set inside the omit function?",
             "options": [
@@ -1027,17 +1081,23 @@
               "Enables async execution"
             ],
             "correctIndex": 1,
-            "explanation": "`Set.has()` performs $O(1)$ lookup checks compared to `Array.includes()` $O(k)$ linear scans."
+            "explanation": "Set.has() performs O(1) lookup checks compared to Array.includes() O(k) linear scans."
           }
         },
         {
           "id": "q60-coding-curry-add",
-          "title": "Q60 [Coding - Medium]: Implement Infinite Curried Addition sum(1)(2)(3)...()",
-          "content": "Implement an infinitely curried function that sums numbers until called with no arguments.\n\n```js\nfunction sum(a) {\n  return function(b) {\n    if (b !== undefined) {\n      return sum(a + b);\n    }\n    return a;\n  };\n}\n// Usage: sum(1)(2)(3)() -> 6\n```",
+          "title": "Q60: Implement Infinite Curried Addition sum(1)(2)(3)...()",
+          "content": "Create a function that continuously accumulates numbers across chained function calls until called with no arguments to signal termination.",
           "keyTakeaways": [
             "Uses closure state to accumulate sum values across chained calls.",
-            "Terminates recursive currying when invoked without arguments (`b === undefined`)."
+            "Terminates recursive currying when invoked without arguments (b === undefined)."
           ],
+          "codeExample": {
+            "title": "Infinitely Curried Sum",
+            "language": "javascript",
+            "code": "function sum(a) {\n  return function(b) {\n    if (b !== undefined) {\n      return sum(a + b);\n    }\n    return a;\n  };\n}\n\nconsole.log(sum(1)(2)(3)()); // 6\nconsole.log(sum(5)(10)());   // 15",
+            "explanation": "Each invocation returns a new sum function wrapping the updated total until b === undefined triggers the final total."
+          },
           "interactiveQuiz": {
             "question": "What acts as the base termination signal for ending the sum currying chain above?",
             "options": [
@@ -1047,17 +1107,23 @@
               "Calling .valueOf()"
             ],
             "correctIndex": 1,
-            "explanation": "An empty invocation `()` passes `b = undefined`, triggering the return of accumulated sum `a`."
+            "explanation": "An empty invocation () passes b = undefined, triggering the return of accumulated sum a."
           }
         },
         {
           "id": "q61-coding-promise-timeout",
-          "title": "Q61 [Coding - Medium]: Implement Promise Timeout (Cancel Race)",
-          "content": "Write a wrapper function `promiseWithTimeout(promise, ms)` that rejects if the target promise does not settle within $ms$ milliseconds.\n\n```js\nfunction promiseWithTimeout(promise, ms) {\n  const timeout = new Promise((_, reject) => {\n    setTimeout(() => reject(new Error(`Operation timed out after ${ms}ms`)), ms);\n  });\n  return Promise.race([promise, timeout]);\n}\n```",
+          "title": "Q61: Implement Promise Timeout (Cancel Race)",
+          "content": "Wrap a target Promise with a timeout reject mechanism using Promise.race, ensuring the operation fails if it exceeds a specified delay threshold.",
           "keyTakeaways": [
-            "`Promise.race` resolves or rejects as soon as any promise in the array settles.",
+            "Promise.race resolves or rejects as soon as any promise in the array settles.",
             "Combines target promise against a timer reject promise."
           ],
+          "codeExample": {
+            "title": "Promise Timeout Wrapper",
+            "language": "javascript",
+            "code": "function promiseWithTimeout(promise, ms) {\n  const timeout = new Promise((_, reject) => {\n    setTimeout(() => reject(new Error(`Operation timed out after ${ms}ms`)), ms);\n  });\n  return Promise.race([promise, timeout]);\n}\n\nconst slowTask = new Promise(res => setTimeout(() => res('Done'), 2000));\npromiseWithTimeout(slowTask, 1000).catch(err => console.error(err.message));",
+            "explanation": "Promise.race resolves with the target result if it completes before the setTimeout reject fires."
+          },
           "interactiveQuiz": {
             "question": "If the main promise resolves in 500ms and the timeout is set to 1000ms, what is the output of Promise.race?",
             "options": [
@@ -1067,17 +1133,23 @@
               "Returns both settled values in an array"
             ],
             "correctIndex": 1,
-            "explanation": "Because 500ms < 1000ms, the main promise settles first and wins the `Promise.race`."
+            "explanation": "Because 500ms < 1000ms, the main promise settles first and wins the Promise.race."
           }
         },
         {
           "id": "q62-coding-bind-polyfill",
-          "title": "Q62 [Coding - Medium]: Write a Custom Function.prototype.bind Polyfill",
-          "content": "Implement a custom polyfill for `Function.prototype.bind` that supports context binding and partial argument application.\n\n```js\nFunction.prototype.myBind = function(context, ...boundArgs) {\n  const fn = this;\n  if (typeof fn !== 'function') {\n    throw new TypeError('Bind must be called on a function');\n  }\n  return function(...args) {\n    return fn.apply(context, [...boundArgs, ...args]);\n  };\n}\n```",
+          "title": "Q62: Write a Custom Function.prototype.bind Polyfill",
+          "content": "Implement a custom version of Function.prototype.bind that captures context and initial bound arguments, returning a function that accepts additional arguments at call time.",
           "keyTakeaways": [
-            "Captures `this` target function inside a closure.",
-            "Concatenates initial `boundArgs` with execution call `args` during invocation."
+            "Captures this target function inside a closure.",
+            "Concatenates initial boundArgs with execution call args during invocation."
           ],
+          "codeExample": {
+            "title": "Function bind Polyfill",
+            "language": "javascript",
+            "code": "Function.prototype.myBind = function(context, ...boundArgs) {\n  const fn = this;\n  if (typeof fn !== 'function') {\n    throw new TypeError('Bind must be called on a function');\n  }\n  return function(...args) {\n    return fn.apply(context, [...boundArgs, ...args]);\n  };\n};\n\nfunction greet(greeting, punctuation) {\n  return `${greeting}, ${this.name}${punctuation}`;\n}\nconst bound = greet.myBind({ name: 'Alex' }, 'Hello');\nconsole.log(bound('!')); // 'Hello, Alex!'",
+            "explanation": "myBind returns a wrapper that applies the stored context and combines initial boundArgs with invocation arguments."
+          },
           "interactiveQuiz": {
             "question": "How are initial arguments passed to myBind merged with arguments passed to the bound execution function?",
             "options": [
@@ -1092,12 +1164,18 @@
         },
         {
           "id": "q63-coding-query-string-parser",
-          "title": "Q63 [Coding - Medium]: Write a URL Query String Parser and Builder",
-          "content": "Implement functions to parse a URL query string into an object and serialize an object back into a query string.\n\n```js\nfunction parseQuery(str) {\n  if (!str) return {};\n  const queryString = str.startsWith('?') ? str.slice(1) : str;\n  return queryString.split('&').reduce((acc, param) => {\n    const [key, value] = param.split('=');\n    if (key) acc[decodeURIComponent(key)] = decodeURIComponent(value || '');\n    return acc;\n  }, {});\n}\n\nfunction stringifyQuery(obj) {\n  return Object.entries(obj)\n    .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)\n    .join('&');\n}\n```",
+          "title": "Q63: Write a URL Query String Parser and Builder",
+          "content": "Implement helper functions to convert URL query parameters into an object map and convert an object map back into an encoded URL query string.",
           "keyTakeaways": [
-            "Processes delimiter split strings using `split('&')` and `split('=')`.",
-            "Encodes and decodes special URI characters using `encodeURIComponent` and `decodeURIComponent`."
+            "Processes delimiter split strings using split('&') and split('=').",
+            "Encodes and decodes special URI characters using encodeURIComponent and decodeURIComponent."
           ],
+          "codeExample": {
+            "title": "Query Parser and Stringifier",
+            "language": "javascript",
+            "code": "function parseQuery(str) {\n  if (!str) return {};\n  const queryString = str.startsWith('?') ? str.slice(1) : str;\n  return queryString.split('&').reduce((acc, param) => {\n    const [key, value] = param.split('=');\n    if (key) acc[decodeURIComponent(key)] = decodeURIComponent(value || '');\n    return acc;\n  }, {});\n}\n\nfunction stringifyQuery(obj) {\n  return Object.entries(obj)\n    .map(([key, val]) => `${encodeURIComponent(key)}=${encodeURIComponent(val)}`)\n    .join('&');\n}\n\nconsole.log(parseQuery('?name=Alex&age=25')); // { name: 'Alex', age: '25' }\nconsole.log(stringifyQuery({ a: '1', b: '2' })); // 'a=1&b=2'",
+            "explanation": "Splitting by delimiters extracts key-value pairs while URI encoding functions prevent character corruption."
+          },
           "interactiveQuiz": {
             "question": "Why must encodeURIComponent be used when stringifying query parameters?",
             "options": [
@@ -1112,12 +1190,18 @@
         },
         {
           "id": "q64-coding-pub-sub-async",
-          "title": "Q64 [Coding - Medium-Hard]: Implement an Async Publish-Subscribe Bus",
-          "content": "Build an event bus where subscriber callbacks can be asynchronous, and publishing awaits all subscriber Promises concurrently.\n\n```js\nclass AsyncEventBus {\n  constructor() {\n    this.subscribers = new Map();\n  }\n\n  subscribe(event, callback) {\n    if (!this.subscribers.has(event)) this.subscribers.set(event, new Set());\n    this.subscribers.get(event).add(callback);\n    return () => this.subscribers.get(event).delete(callback);\n  }\n\n  async publish(event, data) {\n    if (!this.subscribers.has(event)) return [];\n    const callbacks = Array.from(this.subscribers.get(event));\n    const promises = callbacks.map(cb => Promise.resolve().then(() => cb(data)));\n    return Promise.all(promises);\n  }\n}\n```",
+          "title": "Q64: Implement an Async Publish-Subscribe Bus",
+          "content": "Create an event bus that supports asynchronous subscriber callbacks, returning a promise from publish() that resolves once all subscriber callbacks settle.",
           "keyTakeaways": [
             "Returns an un-subscribe teardown closure upon registration.",
-            "Uses `Promise.all` to execute and await subscriber handlers concurrently during publication."
+            "Uses Promise.all to execute and await subscriber handlers concurrently during publication."
           ],
+          "codeExample": {
+            "title": "Async Event Bus",
+            "language": "javascript",
+            "code": "class AsyncEventBus {\n  constructor() {\n    this.subscribers = new Map();\n  }\n\n  subscribe(event, callback) {\n    if (!this.subscribers.has(event)) this.subscribers.set(event, new Set());\n    this.subscribers.get(event).add(callback);\n    return () => this.subscribers.get(event).delete(callback);\n  }\n\n  async publish(event, data) {\n    if (!this.subscribers.has(event)) return [];\n    const callbacks = Array.from(this.subscribers.get(event));\n    const promises = callbacks.map(cb => Promise.resolve().then(() => cb(data)));\n    return Promise.all(promises);\n  }\n}",
+            "explanation": "Publishing wraps each callback in a Promise, allowing Promise.all to await all subscriber operations concurrently."
+          },
           "interactiveQuiz": {
             "question": "What is the return result of publishing an event in the AsyncEventBus above?",
             "options": [
@@ -1127,17 +1211,23 @@
               "undefined"
             ],
             "correctIndex": 0,
-            "explanation": "`Promise.all` returns a promise resolving to an array containing outcomes of subscriber callbacks."
+            "explanation": "Promise.all returns a promise resolving to an array containing outcomes of subscriber callbacks."
           }
         },
         {
           "id": "q65-coding-virtual-dom-render",
-          "title": "Q65 [Coding - Medium-Hard]: Write a Simple Virtual DOM Render Function",
-          "content": "Implement a basic `render(vnode)` function that transforms Virtual DOM objects `{ type, props, children }` into real DOM Nodes.\n\n```js\nfunction render(vnode) {\n  if (typeof vnode === 'string' || typeof vnode === 'number') {\n    return document.createTextNode(String(vnode));\n  }\n  \n  const el = document.createElement(vnode.type);\n  \n  if (vnode.props) {\n    Object.entries(vnode.props).forEach(([key, val]) => {\n      if (key.startsWith('on')) {\n        el.addEventListener(key.slice(2).toLowerCase(), val);\n      } else {\n        el.setAttribute(key, val);\n      }\n    });\n  }\n  \n  if (vnode.children) {\n    vnode.children.forEach(child => el.appendChild(render(child)));\n  }\n  \n  return el;\n}\n```",
+          "title": "Q65: Write a Simple Virtual DOM Render Function",
+          "content": "Implement a render(vnode) function that converts Virtual DOM element objects ({ type, props, children }) or text primitives into real DOM Node instances.",
           "keyTakeaways": [
             "Recursively processes tree node structures using DOM API creation calls.",
-            "Distinguishes text nodes, attribute props, and `on` event listener bindings."
+            "Distinguishes text nodes, attribute props, and on event listener bindings."
           ],
+          "codeExample": {
+            "title": "VNode to Real DOM Compiler",
+            "language": "javascript",
+            "code": "function render(vnode) {\n  if (typeof vnode === 'string' || typeof vnode === 'number') {\n    return document.createTextNode(String(vnode));\n  }\n  \n  const el = document.createElement(vnode.type);\n  \n  if (vnode.props) {\n    Object.entries(vnode.props).forEach(([key, val]) => {\n      if (key.startsWith('on')) {\n        el.addEventListener(key.slice(2).toLowerCase(), val);\n      } else {\n        el.setAttribute(key, val);\n      }\n    });\n  }\n  \n  if (vnode.children) {\n    vnode.children.forEach(child => el.appendChild(render(child)));\n  }\n  \n  return el;\n}",
+            "explanation": "Recursively converts element descriptors into real DOM nodes, registering event listeners for 'on' props."
+          },
           "interactiveQuiz": {
             "question": "How does the render function handle event props like onClick: fn?",
             "options": [
@@ -1147,17 +1237,23 @@
               "Ignores function props"
             ],
             "correctIndex": 1,
-            "explanation": "Prop names starting with `on` are sliced (`onClick` -> `click`) and registered using `addEventListener`."
+            "explanation": "Prop names starting with on are sliced (onClick -> click) and registered using addEventListener."
           }
         },
         {
           "id": "q66-coding-async-waterfall",
-          "title": "Q66 [Coding - Medium-Hard]: Implement an Async Waterfall Sequencer",
-          "content": "Implement a utility that runs an array of asynchronous tasks in strict sequence, passing the result of each task as the input argument to the next.\n\n```js\nfunction asyncWaterfall(tasks, initialValue) {\n  return tasks.reduce((promiseChain, currentTask) => {\n    return promiseChain.then(result => currentTask(result));\n  }, Promise.resolve(initialValue));\n}\n```",
+          "title": "Q66: Implement an Async Waterfall Sequencer",
+          "content": "Build an async pipeline helper that executes an array of asynchronous functions sequentially, passing the output of each function as input to the next.",
           "keyTakeaways": [
-            "Chains Promise resolution steps sequentially using `Array.prototype.reduce`.",
+            "Chains Promise resolution steps sequentially using Array.prototype.reduce.",
             "Executes asynchronous pipeline processing, passing forward computed outcomes."
           ],
+          "codeExample": {
+            "title": "Sequential Async Pipeline",
+            "language": "javascript",
+            "code": "function asyncWaterfall(tasks, initialValue) {\n  return tasks.reduce((promiseChain, currentTask) => {\n    return promiseChain.then(result => currentTask(result));\n  }, Promise.resolve(initialValue));\n}\n\nconst add2 = async (x) => x + 2;\nconst mult3 = async (x) => x * 3;\n\nasyncWaterfall([add2, mult3], 5).then(console.log); // (5 + 2) * 3 = 21",
+            "explanation": "Array.reduce builds a continuous Promise chain where each task executes only after the previous task resolves."
+          },
           "interactiveQuiz": {
             "question": "How does asyncWaterfall guarantee sequential execution over concurrent Promise.all execution?",
             "options": [
@@ -1167,17 +1263,23 @@
               "By sorting tasks by execution speed"
             ],
             "correctIndex": 1,
-            "explanation": "Chaining `.then()` delegates next task execution until previous task promises settle."
+            "explanation": "Chaining .then() delegates next task execution until previous task promises settle."
           }
         },
         {
           "id": "q67-coding-deep-freeze",
-          "title": "Q67 [Coding - Medium-Hard]: Implement Deep Freeze for Complete Immutability",
-          "content": "Extend `Object.freeze()` to recursively freeze nested objects and array properties deeply.\n\n```js\nfunction deepFreeze(obj) {\n  if (obj === null || typeof obj !== 'object') return obj;\n  \n  Object.freeze(obj);\n  \n  Object.getOwnPropertyNames(obj).forEach(prop => {\n    const val = obj[prop];\n    if (val !== null && typeof val === 'object' && !Object.isFrozen(val)) {\n      deepFreeze(val);\n    }\n  });\n  \n  return obj;\n}\n```",
+          "title": "Q67: Implement Deep Freeze for Complete Immutability",
+          "content": "Extend Object.freeze() to recursively freeze all nested object and array properties to guarantee complete object graph immutability.",
           "keyTakeaways": [
-            "Native `Object.freeze()` is shallow and does not freeze nested object properties.",
+            "Native Object.freeze() is shallow and does not freeze nested object properties.",
             "Recursively freezes child objects to guarantee deep immutability."
           ],
+          "codeExample": {
+            "title": "Recursive Deep Freeze",
+            "language": "javascript",
+            "code": "function deepFreeze(obj) {\n  if (obj === null || typeof obj !== 'object') return obj;\n  \n  Object.freeze(obj);\n  \n  Object.getOwnPropertyNames(obj).forEach(prop => {\n    const val = obj[prop];\n    if (val !== null && typeof val === 'object' && !Object.isFrozen(val)) {\n      deepFreeze(val);\n    }\n  });\n  \n  return obj;\n}\n\nconst config = deepFreeze({ api: { host: 'localhost' } });\n// config.api.host = 'remote'; // Throws TypeError in strict mode",
+            "explanation": "Deep freeze invokes Object.freeze() at the current level, then recursively traverses and freezes all nested object properties."
+          },
           "interactiveQuiz": {
             "question": "What occurs when attempting to mutate a property on a deepFrozen object in strict mode?",
             "options": [
@@ -1187,17 +1289,23 @@
               "Converts the property to undefined"
             ],
             "correctIndex": 1,
-            "explanation": "Mutating frozen object properties in strict mode raises an explicit `TypeError`."
+            "explanation": "Mutating frozen object properties in strict mode raises an explicit TypeError."
           }
         },
         {
           "id": "q68-coding-batch-request-scheduler",
-          "title": "Q68 [Coding - Hard]: Implement a Time and Size Batch Request Scheduler",
-          "content": "Build a batcher that accumulates incoming items and flushes them to a processing function when either maximum batch size is reached OR maximum delay time elapses.\n\n```js\nclass BatchScheduler {\n  constructor(batchHandler, maxSize = 5, maxDelay = 100) {\n    this.handler = batchHandler;\n    this.maxSize = maxSize;\n    this.maxDelay = maxDelay;\n    this.batch = [];\n    this.timer = null;\n  }\n\n  add(item) {\n    this.batch.push(item);\n    if (this.batch.length >= this.maxSize) {\n      this.flush();\n    } else if (!this.timer) {\n      this.timer = setTimeout(() => this.flush(), this.maxDelay);\n    }\n  }\n\n  flush() {\n    if (this.timer) clearTimeout(this.timer);\n    this.timer = null;\n    if (this.batch.length > 0) {\n      const itemsToProcess = [...this.batch];\n      this.batch = [];\n      this.handler(itemsToProcess);\n    }\n  }\n}\n```",
+          "title": "Q68: Implement a Time and Size Batch Request Scheduler",
+          "content": "Build a batcher that accumulates incoming items and flushes them to a processing handler whenever maximum batch size is reached OR maximum delay time elapses.",
           "keyTakeaways": [
             "Dual trigger batching: flushes immediately on max size or automatically on timer expiration.",
             "Optimizes network requests by combining multiple individual calls into single batch payload calls."
           ],
+          "codeExample": {
+            "title": "Batch Request Scheduler",
+            "language": "javascript",
+            "code": "class BatchScheduler {\n  constructor(batchHandler, maxSize = 5, maxDelay = 100) {\n    this.handler = batchHandler;\n    this.maxSize = maxSize;\n    this.maxDelay = maxDelay;\n    this.batch = [];\n    this.timer = null;\n  }\n\n  add(item) {\n    this.batch.push(item);\n    if (this.batch.length >= this.maxSize) {\n      this.flush();\n    } else if (!this.timer) {\n      this.timer = setTimeout(() => this.flush(), this.maxDelay);\n    }\n  }\n\n  flush() {\n    if (this.timer) clearTimeout(this.timer);\n    this.timer = null;\n    if (this.batch.length > 0) {\n      const itemsToProcess = [...this.batch];\n      this.batch = [];\n      this.handler(itemsToProcess);\n    }\n  }\n}",
+            "explanation": "Reaching maxSize triggers an immediate flush; otherwise a timer schedules a flush after maxDelay."
+          },
           "interactiveQuiz": {
             "question": "Why is the timer cleared inside flush() during max size execution triggers?",
             "options": [
@@ -1207,17 +1315,23 @@
               "To prevent syntax exceptions"
             ],
             "correctIndex": 0,
-            "explanation": "If max size triggers a flush early, clearing `timer` prevents firing duplicate empty flushes."
+            "explanation": "If max size triggers a flush early, clearing timer prevents firing duplicate empty flushes."
           }
         },
         {
           "id": "q69-coding-object-diff",
-          "title": "Q69 [Coding - Hard]: Calculate Structural Difference Between Two Objects",
-          "content": "Write a function `diffObjects(obj1, obj2)` returning an object highlighting updated, added, or removed properties between two objects.\n\n```js\nfunction diffObjects(obj1, obj2) {\n  const diff = {};\n  const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);\n  \n  for (let key of allKeys) {\n    if (!(key in obj1)) {\n      diff[key] = { status: 'ADDED', value: obj2[key] };\n    } else if (!(key in obj2)) {\n      diff[key] = { status: 'REMOVED', value: obj1[key] };\n    } else if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object' && obj1[key] !== null && obj2[key] !== null) {\n      const nestedDiff = diffObjects(obj1[key], obj2[key]);\n      if (Object.keys(nestedDiff).length > 0) diff[key] = nestedDiff;\n    } else if (obj1[key] !== obj2[key]) {\n      diff[key] = { status: 'UPDATED', oldValue: obj1[key], newValue: obj2[key] };\n    }\n  }\n  return diff;\n}\n```",
+          "title": "Q69: Calculate Structural Difference Between Two Objects",
+          "content": "Implement diffObjects(obj1, obj2) to compare two objects recursively and return a summary of added, removed, and updated properties.",
           "keyTakeaways": [
             "Combines key sets to evaluate deletions, additions, and mutations.",
             "Recursively evaluates nested object structures to identify structural changes."
           ],
+          "codeExample": {
+            "title": "Object Diffing Utility",
+            "language": "javascript",
+            "code": "function diffObjects(obj1, obj2) {\n  const diff = {};\n  const allKeys = new Set([...Object.keys(obj1), ...Object.keys(obj2)]);\n  \n  for (let key of allKeys) {\n    if (!(key in obj1)) {\n      diff[key] = { status: 'ADDED', value: obj2[key] };\n    } else if (!(key in obj2)) {\n      diff[key] = { status: 'REMOVED', value: obj1[key] };\n    } else if (typeof obj1[key] === 'object' && typeof obj2[key] === 'object' && obj1[key] !== null && obj2[key] !== null) {\n      const nestedDiff = diffObjects(obj1[key], obj2[key]);\n      if (Object.keys(nestedDiff).length > 0) diff[key] = nestedDiff;\n    } else if (obj1[key] !== obj2[key]) {\n      diff[key] = { status: 'UPDATED', oldValue: obj1[key], newValue: obj2[key] };\n    }\n  }\n  return diff;\n}",
+            "explanation": "Collects keys across both objects to determine property additions, removals, and value mutations recursively."
+          },
           "interactiveQuiz": {
             "question": "How does the diffObjects algorithm identify a key that was REMOVED in obj2?",
             "options": [
@@ -1227,17 +1341,23 @@
               "Object.isFrozen(obj2[key])"
             ],
             "correctIndex": 0,
-            "explanation": "Checking property presence (`!(key in obj2)`) identifies keys present in the source object but missing in target."
+            "explanation": "Checking property presence (!(key in obj2)) identifies keys present in the source object but missing in target."
           }
         },
         {
           "id": "q70-coding-reactive-proxy-system",
-          "title": "Q70 [Coding - Hard]: Create a Reactive Auto-Tracking State Store Using Proxy",
-          "content": "Implement a reactive state store that automatically runs subscriber effect functions whenever accessed state properties mutate.\n\n```js\nlet activeEffect = null;\n\nfunction createReactiveStore(initialState) {\n  const deps = new Map(); // key -> Set of activeEffect functions\n\n  return new Proxy(initialState, {\n    get(target, key, receiver) {\n      if (activeEffect) {\n        if (!deps.has(key)) deps.set(key, new Set());\n        deps.get(key).add(activeEffect);\n      }\n      return Reflect.get(target, key, receiver);\n    },\n    set(target, key, value, receiver) {\n      const result = Reflect.set(target, key, value, receiver);\n      if (deps.has(key)) {\n        deps.get(key).forEach(effect => effect());\n      }\n      return result;\n    }\n  });\n}\n\nfunction watchEffect(effect) {\n  activeEffect = effect;\n  effect(); // Run initially to trigger dependency getter traps\n  activeEffect = null;\n}\n```",
+          "title": "Q70: Create a Reactive Auto-Tracking State Store Using Proxy",
+          "content": "Create an automated reactive store where accessing properties inside a watchEffect callback registers dependencies and mutating properties triggers re-execution.",
           "keyTakeaways": [
             "Core architecture powering reactivity in modern frameworks (e.g. Vue 3 Reactivity).",
-            "`get` traps track active effect dependencies; `set` traps notify and re-run dependent effects."
+            "get traps track active effect dependencies; set traps notify and re-run dependent effects."
           ],
+          "codeExample": {
+            "title": "Proxy-Based Reactive State Store",
+            "language": "javascript",
+            "code": "let activeEffect = null;\n\nfunction createReactiveStore(initialState) {\n  const deps = new Map();\n\n  return new Proxy(initialState, {\n    get(target, key, receiver) {\n      if (activeEffect) {\n        if (!deps.has(key)) deps.set(key, new Set());\n        deps.get(key).add(activeEffect);\n      }\n      return Reflect.get(target, key, receiver);\n    },\n    set(target, key, value, receiver) {\n      const result = Reflect.set(target, key, value, receiver);\n      if (deps.has(key)) {\n        deps.get(key).forEach(effect => effect());\n      }\n      return result;\n    }\n  });\n}\n\nfunction watchEffect(effect) {\n  activeEffect = effect;\n  effect();\n  activeEffect = null;\n}",
+            "explanation": "Active effects trigger getter traps to register keys as dependencies, allowing setter traps to re-run affected callbacks on change."
+          },
           "interactiveQuiz": {
             "question": "How does watchEffect automatically detect which store keys an effect function depends on?",
             "options": [
@@ -1247,32 +1367,44 @@
               "By requiring hardcoded key lists from developers"
             ],
             "correctIndex": 1,
-            "explanation": "Executing the effect function triggers `get` proxy traps on accessed properties, registering dependencies automatically."
+            "explanation": "Executing the effect function triggers get proxy traps on accessed properties, registering dependencies automatically."
           }
         },
         {
           "id": "q71-coding-custom-instanceof",
-          "title": "Q71 [Coding - Hard]: Implement Custom myInstanceOf Operator",
-          "content": "Write a function `myInstanceOf(obj, constructor)` that reproduces the behavior of the `instanceof` operator by walking prototype chains.\n\n```js\nfunction myInstanceOf(obj, constructor) {\n  if (obj === null || typeof obj !== 'object' && typeof obj !== 'function') {\n    return false;\n  }\n  \n  let proto = Object.getPrototypeOf(obj);\n  const targetProto = constructor.prototype;\n  \n  while (proto !== null) {\n    if (proto === targetProto) return true;\n    proto = Object.getPrototypeOf(proto);\n  }\n  \n  return false;\n}\n```",
+          "title": "Q71: Implement Custom myInstanceOf Operator",
+          "content": "Replicate the behavior of the instanceof operator by traversing the prototype chain of an object to check for matching constructor prototypes.",
           "keyTakeaways": [
-            "Traverses `Object.getPrototypeOf(obj)` upward step by step.",
-            "Returns `true` if target `constructor.prototype` is found anywhere along the prototype chain."
+            "Traverses Object.getPrototypeOf(obj) upward step by step.",
+            "Returns true if target constructor.prototype is found anywhere along the prototype chain."
           ],
+          "codeExample": {
+            "title": "Custom instanceof Implementation",
+            "language": "javascript",
+            "code": "function myInstanceOf(obj, constructor) {\n  if (obj === null || typeof obj !== 'object' && typeof obj !== 'function') {\n    return false;\n  }\n  \n  let proto = Object.getPrototypeOf(obj);\n  const targetProto = constructor.prototype;\n  \n  while (proto !== null) {\n    if (proto === targetProto) return true;\n    proto = Object.getPrototypeOf(proto);\n  }\n  \n  return false;\n}\n\nconsole.log(myInstanceOf([], Array));  // true\nconsole.log(myInstanceOf([], Object)); // true",
+            "explanation": "Walks Object.getPrototypeOf(obj) upward until finding constructor.prototype or reaching the null prototype root."
+          },
           "interactiveQuiz": {
             "question": "What value does Object.getPrototypeOf() return when called at the top termination point of the prototype chain?",
             "options": ["Object.prototype", "undefined", "null", "false"],
             "correctIndex": 2,
-            "explanation": "`Object.prototype.__proto__` evaluates to `null`, signaling the end of prototype chain traversal."
+            "explanation": "Object.prototype.__proto__ evaluates to null, signaling the end of prototype chain traversal."
           }
         },
         {
           "id": "q72-coding-promise-all-settled-polyfill",
-          "title": "Q72 [Coding - Hard]: Implement Custom Promise.allSettled Polyfill",
-          "content": "Write a custom implementation of `Promise.allSettled()` that guarantees returning outcome objects `{ status, value }` or `{ status, reason }` for all input promises.\n\n```js\nfunction myPromiseAllSettled(promises) {\n  return Promise.all(\n    promises.map(p => \n      Promise.resolve(p)\n        .then(value => ({ status: 'fulfilled', value }))\n        .catch(reason => ({ status: 'rejected', reason }))\n    )\n  );\n}\n```",
+          "title": "Q72: Implement Custom Promise.allSettled Polyfill",
+          "content": "Polyfill Promise.allSettled using Promise.all by wrapping individual inner promises so rejections resolve into structured result objects.",
           "keyTakeaways": [
-            "Wraps each inner promise in `.then()` and `.catch()` blocks that map settlement to objects.",
-            "Leverages `Promise.all` over mapped promises since wrapped promises never reject."
+            "Wraps each inner promise in .then() and .catch() blocks that map settlement to objects.",
+            "Leverages Promise.all over mapped promises since wrapped promises never reject."
           ],
+          "codeExample": {
+            "title": "Promise.allSettled Polyfill",
+            "language": "javascript",
+            "code": "function myPromiseAllSettled(promises) {\n  return Promise.all(\n    promises.map(p => \n      Promise.resolve(p)\n        .then(value => ({ status: 'fulfilled', value }))\n        .catch(reason => ({ status: 'rejected', reason }))\n    )\n  );\n}\n\nmyPromiseAllSettled([Promise.resolve(1), Promise.reject('err')]).then(console.log);",
+            "explanation": "Handling rejections inside inner .catch() blocks ensures Promise.all receives only resolved outcome descriptors."
+          },
           "interactiveQuiz": {
             "question": "Why does myPromiseAllSettled wrapping allow Promise.all to resolve without rejecting early?",
             "options": [
@@ -1282,17 +1414,23 @@
               "Because rejection values are converted to 0"
             ],
             "correctIndex": 0,
-            "explanation": "Handling errors inside inner `.catch()` calls returns a resolved object, keeping `Promise.all` from rejecting."
+            "explanation": "Handling errors inside inner .catch() calls returns a resolved object, keeping Promise.all from rejecting."
           }
         },
         {
           "id": "q73-coding-virtual-dom-diff",
-          "title": "Q73 [Coding - Expert]: Build a Basic Virtual DOM Tree Diffing Engine",
-          "content": "Write a simple diffing function that compares two Virtual DOM trees and computes patch objects representing required DOM updates.\n\n```js\nfunction diff(oldVNode, newVNode) {\n  if (newVNode === undefined) {\n    return { type: 'REMOVE' };\n  }\n  if (typeof oldVNode === 'string' || typeof newVNode === 'string') {\n    if (oldVNode !== newVNode) return { type: 'TEXT', text: newVNode };\n    return null;\n  }\n  if (oldVNode.type !== newVNode.type) {\n    return { type: 'REPLACE', newVNode };\n  }\n  \n  const propsDiff = diffProps(oldVNode.props || {}, newVNode.props || {});\n  const childrenDiff = diffChildren(oldVNode.children || [], newVNode.children || []);\n  \n  return {\n    type: 'UPDATE',\n    props: propsDiff,\n    children: childrenDiff\n  };\n}\n\nfunction diffProps(oldProps, newProps) {\n  const patches = [];\n  for (let key in newProps) {\n    if (newProps[key] !== oldProps[key]) patches.push({ key, value: newProps[key] });\n  }\n  for (let key in oldProps) {\n    if (!(key in newProps)) patches.push({ key, value: undefined });\n  }\n  return patches;\n}\n\nfunction diffChildren(oldChildren, newChildren) {\n  const max = Math.max(oldChildren.length, newChildren.length);\n  const childPatches = [];\n  for (let i = 0; i < max; i++) {\n    childPatches.push(diff(oldChildren[i], newChildren[i]));\n  }\n  return childPatches;\n}\n```",
+          "title": "Q73: Build a Basic Virtual DOM Tree Diffing Engine",
+          "content": "Build a diffing engine that compares old and new Virtual DOM node trees recursively, generating patch descriptions for updates, replacements, and removals.",
           "keyTakeaways": [
             "Compares VNodes recursively to calculate minimal structural edits.",
-            "Replaces entire subtrees when VNode `type` tags differ."
+            "Replaces entire subtrees when VNode type tags differ."
           ],
+          "codeExample": {
+            "title": "VNode Diffing Algorithm",
+            "language": "javascript",
+            "code": "function diff(oldVNode, newVNode) {\n  if (newVNode === undefined) {\n    return { type: 'REMOVE' };\n  }\n  if (typeof oldVNode === 'string' || typeof newVNode === 'string') {\n    if (oldVNode !== newVNode) return { type: 'TEXT', text: newVNode };\n    return null;\n  }\n  if (oldVNode.type !== newVNode.type) {\n    return { type: 'REPLACE', newVNode };\n  }\n  \n  const propsDiff = diffProps(oldVNode.props || {}, newVNode.props || {});\n  const childrenDiff = diffChildren(oldVNode.children || [], newVNode.children || []);\n  \n  return {\n    type: 'UPDATE',\n    props: propsDiff,\n    children: childrenDiff\n  };\n}\n\nfunction diffProps(oldProps, newProps) {\n  const patches = [];\n  for (let key in newProps) {\n    if (newProps[key] !== oldProps[key]) patches.push({ key, value: newProps[key] });\n  }\n  for (let key in oldProps) {\n    if (!(key in newProps)) patches.push({ key, value: undefined });\n  }\n  return patches;\n}\n\nfunction diffChildren(oldChildren, newChildren) {\n  const max = Math.max(oldChildren.length, newChildren.length);\n  const childPatches = [];\n  for (let i = 0; i < max; i++) {\n    childPatches.push(diff(oldChildren[i], newChildren[i]));\n  }\n  return childPatches;\n}",
+            "explanation": "Compares VNodes recursively, returning REPLACE patches when tag types change or UPDATE patches for modified props/children."
+          },
           "interactiveQuiz": {
             "question": "What patch action is returned when comparing two VNodes with different element type tags (e.g. div vs section)?",
             "options": ["UPDATE patch", "REPLACE patch", "TEXT patch", "IGNORE patch"],
@@ -1302,12 +1440,18 @@
         },
         {
           "id": "q74-coding-async-queue-priority",
-          "title": "Q74 [Coding - Expert]: Build a Priority-Based Asynchronous Job Queue",
-          "content": "Implement a job queue where tasks carry numeric priority values (higher priority executes first), managing worker concurrency constraints.\n\n```js\nclass PriorityAsyncQueue {\n  constructor(concurrency = 2) {\n    this.concurrency = concurrency;\n    this.running = 0;\n    this.heap = []; // Priority queue storage\n  }\n\n  enqueue(task, priority = 0) {\n    return new Promise((resolve, reject) => {\n      this.heap.push({ task, priority, resolve, reject });\n      this.heap.sort((a, b) => b.priority - a.priority); // Higher priority first\n      this.processNext();\n    });\n  }\n\n  processNext() {\n    if (this.running >= this.concurrency || this.heap.length === 0) return;\n    \n    const { task, resolve, reject } = this.heap.shift();\n    this.running++;\n    \n    Promise.resolve(task())\n      .then(resolve)\n      .catch(reject)\n      .finally(() => {\n        this.running--;\n        this.processNext();\n      });\n  }\n}\n```",
+          "title": "Q74: Build a Priority-Based Asynchronous Job Queue",
+          "content": "Implement an asynchronous job queue that sorts queued tasks by numeric priority values so higher priority jobs execute first under concurrency limits.",
           "keyTakeaways": [
             "Orders pending tasks by priority before processing.",
             "Enforces concurrency limits while processing high-priority tasks first."
           ],
+          "codeExample": {
+            "title": "Priority Async Queue",
+            "language": "javascript",
+            "code": "class PriorityAsyncQueue {\n  constructor(concurrency = 2) {\n    this.concurrency = concurrency;\n    this.running = 0;\n    this.heap = [];\n  }\n\n  enqueue(task, priority = 0) {\n    return new Promise((resolve, reject) => {\n      this.heap.push({ task, priority, resolve, reject });\n      this.heap.sort((a, b) => b.priority - a.priority);\n      this.processNext();\n    });\n  }\n\n  processNext() {\n    if (this.running >= this.concurrency || this.heap.length === 0) return;\n    \n    const { task, resolve, reject } = this.heap.shift();\n    this.running++;\n    \n    Promise.resolve(task())\n      .then(resolve)\n      .catch(reject)\n      .finally(() => {\n        this.running--;\n        this.processNext();\n      });\n  }\n}",
+            "explanation": "Tasks are sorted by priority score upon insertion, ensuring highest-priority items shift out first when worker slots open."
+          },
           "interactiveQuiz": {
             "question": "In what order are pending tasks processed by the PriorityAsyncQueue above?",
             "options": [
@@ -1317,17 +1461,23 @@
               "Randomized selection"
             ],
             "correctIndex": 2,
-            "explanation": "Sorting by `b.priority - a.priority` ensures high-priority jobs shift out of the queue first."
+            "explanation": "Sorting by b.priority - a.priority ensures high-priority jobs shift out of the queue first."
           }
         },
         {
           "id": "q75-coding-stream-pipe-transform",
-          "title": "Q75 [Coding - Expert]: Build a Custom Stream Transform Pipeline Component",
-          "content": "Write a custom Readable-to-Writable data pipeline simulator that transforms data chunks through multiple async transform middleware functions with backpressure support.\n\n```js\nclass DataPipeline {\n  constructor() {\n    this.transforms = [];\n  }\n\n  use(transformFn) {\n    this.transforms.push(transformFn);\n    return this;\n  }\n\n  async execute(sourceDataStream) {\n    const results = [];\n    for (let chunk of sourceDataStream) {\n      let currentData = chunk;\n      let skipped = false;\n      \n      for (let transform of this.transforms) {\n        currentData = await transform(currentData);\n        if (currentData === null || currentData === undefined) {\n          skipped = true;\n          break;\n        }\n      }\n      \n      if (!skipped) {\n        results.push(currentData);\n      }\n    }\n    return results;\n  }\n}\n```",
+          "title": "Q75: Build a Custom Stream Transform Pipeline Component",
+          "content": "Create a data stream processor that processes stream chunks sequentially through composed async transform middleware, allowing chunks to be modified or filtered out.",
           "keyTakeaways": [
             "Pipes individual stream chunks through sequentially composed transformation middleware.",
-            "Supports filtering chunks from the stream when transform functions return `null` or `undefined`."
+            "Supports filtering chunks from the stream when transform functions return null or undefined."
           ],
+          "codeExample": {
+            "title": "Transform Stream Pipeline",
+            "language": "javascript",
+            "code": "class DataPipeline {\n  constructor() {\n    this.transforms = [];\n  }\n\n  use(transformFn) {\n    this.transforms.push(transformFn);\n    return this;\n  }\n\n  async execute(sourceDataStream) {\n    const results = [];\n    for (let chunk of sourceDataStream) {\n      let currentData = chunk;\n      let skipped = false;\n      \n      for (let transform of this.transforms) {\n        currentData = await transform(currentData);\n        if (currentData === null || currentData === undefined) {\n          skipped = true;\n          break;\n        }\n      }\n      \n      if (!skipped) {\n        results.push(currentData);\n      }\n    }\n    return results;\n  }\n}\n\nconst pipeline = new DataPipeline()\n  .use(async x => x * 2)\n  .use(async x => x > 5 ? x : null);\n\npipeline.execute([1, 2, 4]).then(console.log); // [8]",
+            "explanation": "Applies sequential transforms to each chunk. Returning null inside any transform halts the middleware chain and drops the chunk."
+          },
           "interactiveQuiz": {
             "question": "What happens when a transformation function in the pipeline returns null for a specific chunk?",
             "options": [
@@ -1337,7 +1487,7 @@
               "Null is appended to the results array"
             ],
             "correctIndex": 1,
-            "explanation": "Returning `null` signals a filter step, breaking the transformation loop for that chunk and skipping emission."
+            "explanation": "Returning null signals a filter step, breaking the transformation loop for that chunk and skipping emission."
           }
         }
       ]
