@@ -1,6 +1,6 @@
 {
   "courseId": "nextjs-mastery-qa",
-  "courseName": "Next.js Full Stack Architecture & Interview Master Class",
+  "courseName": "Next.js Full Stack Interview Questions",
   "title": "Next.js Progressive Master Interview Question Bank",
   "subtitle": "From App Router foundations and SSR/SSG rendering modes to React Server Components, Server Actions, Middleware, and Caching Architecture",
   "category": "Interview Q&A",
@@ -1209,6 +1209,1678 @@
             ],
             "correctIndex": 1,
             "explanation": "Next.js 15 changed fetch defaults from force-cache to no-store (uncached)."
+          }
+        },
+        {
+          "id": "q51-rsc-wire-format-protocol",
+          "title": "Q51: What is the RSC Wire Format (Flight Protocol) and how does the client reconcile it into the DOM?",
+          "content": "The RSC Wire Format is a streaming, line-delimited JSON-like serialization protocol emitted by the server. Instead of sending raw HTML or client JS bundles, it streams typed tuples representing Virtual DOM nodes, component props, suspended promises, and client module references (`$L1`, `$S2`). The client runtime reads this stream incrementally and reconciles VDOM nodes directly without resetting client state.",
+          "keyTakeaways": [
+            "Encodes Virtual DOM structures, client module boundaries, and pending Suspense promises into a single line-delimited stream.",
+            "Allows soft client-side route transitions to patch VDOM trees while preserving state in active Client Components."
+          ],
+          "diagram": {
+            "type": "architecture",
+            "title": "RSC Flight Stream Parsing & Reconciliation Pipeline",
+            "code": "graph TD\n    NodeServer[Server Node.js Process] --> FlightEncoder[RSC Flight Stream Encoder]\n    FlightEncoder --> LineStream[\"M1: Client Chunk Reference\\nJ0: VDOM Tuple [$ L1, {title: 'Data'}]\"]\n    LineStream --> ClientBrowser[Client Runtime Browser]\n    ClientBrowser --> VDOMReconciler[React VDOM Diffing Engine]\n    VDOMReconciler --> RealDOM[Patch Real DOM Nodes]"
+          },
+          "codeExample": {
+            "title": "Conceptual Flight Stream Response Line",
+            "language": "text",
+            "code": "M1:{\"id\":\"./src/Header.client.js\",\"chunks\":[\"main\"],\"name\":\"default\"}\nJ0:[\"$\",\"div\",null,{\"children\":[\"$\",\"$L1\",null,{\"title\":\"Live Feed\"}]}]\nP2:{\"status\":\"fulfilled\",\"value\":{\"id\":101}}",
+            "explanation": "M lines register client module chunks; J lines construct VDOM node trees referencing client modules ($L1) and promises ($P2)."
+          },
+          "interactiveQuiz": {
+            "question": "What primary operational benefit does the RSC Wire Format offer during client-side route transitions?",
+            "options": [
+              "It converts JavaScript code to WebAssembly",
+              "It streams Virtual DOM updates that patch page subtrees while preserving state in un-rendered Client Components",
+              "It disables CSS style recalculations",
+              "It encrypts payload data automatically using RSA keys"
+            ],
+            "correctIndex": 1,
+            "explanation": "Streaming VDOM tuples allows React to reconcile updated page regions without unmounting un-modified Client Components."
+          }
+        },
+        {
+          "id": "q52-experimental-taint-api",
+          "title": "Q52: How do experimental_taintUniqueValue and experimental_taintObjectReference enforce data security boundaries?",
+          "content": "React Taint APIs prevent sensitive server-side objects or raw string values (such as database tokens, user passwords, or API secrets) from accidentally leaking into Client Component props or serialization boundaries. If a tainted object or value passes across a Server-to-Client boundary, React throws a critical runtime boundary error during rendering.",
+          "keyTakeaways": [
+            "`experimental_taintObjectReference` flags entire object references to block serialization to client bundles.",
+            "`experimental_taintUniqueValue` flags specific string values (like private keys) to prevent transmission."
+          ],
+          "codeExample": {
+            "title": "Tainting Sensitive Objects in Data Layer",
+            "language": "javascript",
+            "code": "import { experimental_taintObjectReference } from 'react';\n\nexport async function getUserSession(id) {\n  const user = await db.user.findUnique({ where: { id } });\n  // Flags object reference; throws error if returned to Client Component\n  experimental_taintObjectReference(\n    'Do not pass raw user session objects directly to Client Components!',\n    user\n  );\n  return user;\n}",
+            "explanation": "If a developer attempts to pass `user` into a Client Component prop, React halts compilation and throws the specified security message."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if a Server Component attempts to pass a tainted object prop into a Client Component?",
+            "options": [
+              "Object is converted to null silently",
+              "React throws a critical compilation/runtime error blocking serialization to the client",
+              "Data is stored in LocalStorage",
+              "The object converts to a JSON string"
+            ],
+            "correctIndex": 1,
+            "explanation": "Taint APIs throw explicit errors to block sensitive server objects from crossing into client bundle streams."
+          }
+        },
+        {
+          "id": "q53-custom-cache-handler-adapter",
+          "title": "Q53: How do you implement a Custom Cache Handler in Next.js to replace local disk Data Caching with Redis?",
+          "content": "In multi-server container environments (like Kubernetes or AWS ECS), Next.js's default local filesystem Data Cache causes cache drift across server replicas. Implementing a custom Cache Handler class (pointing `cacheHandler` in `next.config.js` to a Redis or Memcached adapter) synchronizes `revalidateTag` and `revalidatePath` state globally across all deployed server instances.",
+          "keyTakeaways": [
+            "Synchronizes Data Cache states across distributed multi-instance container pods.",
+            "Replaces disk storage with centralized Redis memory datastores."
+          ],
+          "codeExample": {
+            "title": "Custom Redis Cache Handler Class",
+            "language": "javascript",
+            "code": "// cache-handler.mjs\nimport { createClient } from 'redis';\nconst redis = createClient({ url: process.env.REDIS_URL });\nawait redis.connect();\n\nexport default class CacheHandler {\n  async get(key) {\n    const data = await redis.get(key);\n    return data ? JSON.parse(data) : null;\n  }\n  async set(key, data, ctx) {\n    await redis.set(key, JSON.stringify(data), { EX: ctx.revalidate });\n  }\n  async revalidateTag(tag) {\n    // Purge tagged keys from Redis memory across all servers\n    const keys = await redis.sMembers(`tag:${tag}`);\n    if (keys.length) await redis.del(keys);\n  }\n}",
+            "explanation": "Custom Cache Handlers route Next.js cache `get`, `set`, and `revalidateTag` calls directly to centralized Redis infrastructure."
+          },
+          "interactiveQuiz": {
+            "question": "Why is a custom Redis Cache Handler necessary when deploying Next.js across a multi-replica Kubernetes cluster?",
+            "options": [
+              "To enable CSS Modules",
+              "To prevent cache drift and ensure revalidateTag calls invalidate cached data across all server replicas simultaneously",
+              "To reduce Docker image byte sizes",
+              "To run React Server Components in browser threads"
+            ],
+            "correctIndex": 1,
+            "explanation": "Centralizing the Data Cache in Redis ensures all container replicas share an identical cache state and respond to revalidation events concurrently."
+          }
+        },
+        {
+          "id": "q54-edge-vs-nodejs-runtime-internals",
+          "title": "Q54: What are the low-level execution environment differences between the Edge Runtime and Node.js Runtime?",
+          "content": "The **Node.js Runtime** runs inside standard V8 engines with full access to Node APIs (`fs`, `child_process`, native C++ addons). The **Edge Runtime** runs inside lightweight V8 Isolates (similar to Cloudflare Workers). It offers fast cold-start speeds (<5ms) and low memory footprints, but restricts usage to Web Standard APIs (`fetch`, `Request`, `Response`), blocking native Node packages.",
+          "keyTakeaways": [
+            "Edge Runtime: Powered by V8 Isolates; ultra-fast cold starts; restricted to Web Standard APIs.",
+            "Node.js Runtime: Full Node.js ecosystem access; supports filesystem operations and native binary modules."
+          ],
+          "diagram": {
+            "type": "architecture",
+            "title": "V8 Isolate Edge Runtime vs Node.js Execution Engine",
+            "code": "graph LR\n    EdgeRequest[Incoming Request] --> V8Isolate[Edge Runtime: V8 Isolate Container]\n    V8Isolate --> WebAPI[\"Web Standard APIs (fetch, Web Crypto)\"]\n    NodeRequest[Incoming Request] --> NodeEngine[Node.js Runtime: Full Process Container]\n    NodeEngine --> NodeAPI[\"Node APIs (fs, net, child_process, C++ Addons)\"]"
+          },
+          "interactiveQuiz": {
+            "question": "Which operation will fail at runtime if executed inside a route configured with export const runtime = 'edge'?",
+            "options": [
+              "Executing a native fetch() HTTP GET request",
+              "Reading files from disk using the Node.js native fs module (fs.readFileSync)",
+              "Reading HTTP request cookies via next/headers",
+              "Parsing JSON objects"
+            ],
+            "correctIndex": 1,
+            "explanation": "The Edge Runtime excludes Node.js filesystem APIs (`fs`), supporting Web Standard APIs exclusively."
+          }
+        },
+        {
+          "id": "q55-server-action-closure-serialization",
+          "title": "Q55: How does closure state serialization operate in Server Actions and what security risks does it introduce?",
+          "content": "When a Server Action is defined inside a component function body, it forms a closure over variables declared in that scope. Next.js automatically serializes these closed-over variables into encrypted hidden fields or flight payload parameters. If sensitive server values are accidentally captured in closure scope, they can be transmitted over the wire or tampered with if encryption keys drift.",
+          "keyTakeaways": [
+            "Closed-over scope variables inside Server Actions are serialized and transmitted over network streams.",
+            "Avoid binding sensitive database secrets inside client-callable Server Action closure scopes."
+          ],
+          "codeExample": {
+            "title": "Explicit Binding vs Scope Capture in Server Actions",
+            "language": "javascript",
+            "code": "// ❌ Implicit Scope Capture: 'secretKey' is serialized into payload\nexport function Component({ secretKey }) {\n  async function action() {\n    'use server';\n    await processPayment(secretKey); // Serializes secretKey over wire!\n  }\n}\n\n// ✅ Safe Pattern: Pass explicit validated IDs, fetch secrets server-side\nasync function safeAction(paymentId) {\n  'use server';\n  const secretKey = process.env.PAYMENT_SECRET; // Read safely on server\n  await processPayment(paymentId, secretKey);\n}",
+            "explanation": "Reading secrets directly from server environment variables inside top-level actions avoids serializing scope variables into payload streams."
+          },
+          "interactiveQuiz": {
+            "question": "What happens to variables referenced inside an inline Server Action closure function when rendered?",
+            "options": [
+              "They are deleted from server memory",
+              "Next.js serializes closed-over scope variables into payload parameters transmitted over the wire",
+              "They are automatically saved to Redis",
+              "They convert to global CSS variables"
+            ],
+            "correctIndex": 1,
+            "explanation": "Closure variables are serialized into action boundary payloads, making scope variable exposure a security consideration."
+          }
+        },
+        {
+          "id": "q56-static-indicator-and-ppr-prerender",
+          "title": "Q56: How does the Prerender Indicator and PPR Build Tree analysis detect dynamic leaks?",
+          "content": "During `next build`, Next.js parses the AST of every component tree to build an internal **Prerender Manifest**. It flags components calling dynamic functions (`cookies()`, `headers()`, `searchParams`) or uncached `fetch` calls. If dynamic calls execute outside an explicit `<Suspense>` boundary during PPR builds, Next.js throws build warnings or forces the entire route path into dynamic SSR.",
+          "keyTakeaways": [
+            "Build engine constructs an AST manifest identifying static vs dynamic rendering branches.",
+            "Dynamic calls outside Suspense boundaries force whole route subtrees into dynamic rendering mode."
+          ],
+          "codeExample": {
+            "title": "Isolating Dynamic Leaks using Suspense",
+            "language": "javascript",
+            "code": "// app/dashboard/page.js\nimport { Suspense } from 'react';\nimport DynamicCart from './DynamicCart'; // Calls cookies()\n\nexport default function Page() {\n  return (\n    <div>\n      <h1>Static Shell Header</h1> {/* Preserved as SSG */}\n      <Suspense fallback={<p>Loading cart...</p>}>\n        <DynamicCart /> {/* Isolated dynamic leak */}\n      </Suspense>\n    </div>\n  );\n}",
+            "explanation": "Wrapping DynamicCart in Suspense isolates the dynamic cookie check, keeping Page's outer HTML shell statically pre-rendered."
+          },
+          "interactiveQuiz": {
+            "question": "What is the consequence of calling headers() inside a top-level layout component without Suspense wrappers?",
+            "options": [
+              "Next.js converts the layout to Client Components",
+              "The entire layout and all child route pages de-opt from static pre-rendering into dynamic request-time rendering",
+              "The app throws a CSS syntax error",
+              "Database connection pools close"
+            ],
+            "correctIndex": 1,
+            "explanation": "Calling dynamic request functions at the layout level without Suspense protection opts the entire sub-tree out of static optimization."
+          }
+        },
+        {
+          "id": "q57-multi-tenant-subdomain-routing-middleware",
+          "title": "Q57: How do you build a dynamic Multi-Tenant Subdomain Routing engine using Middleware?",
+          "content": "Multi-tenant platforms (e.g., `tenant1.app.com` vs `tenant2.app.com`) parse host header signatures inside `middleware.js`. Middleware extracts the subdomain token, checks tenant mapping logic, and executes an internal `NextResponse.rewrite()` to point requests to custom tenant route folders (`app/tenants/[tenant]/...`) without altering browser address bars.",
+          "keyTakeaways": [
+            "Extracts host header signatures inside Edge Middleware.",
+            "Rewrites URL paths dynamically to tenant-specific route folders transparently."
+          ],
+          "codeExample": {
+            "title": "Subdomain Rewriting in Middleware",
+            "language": "javascript",
+            "code": "// middleware.js\nimport { NextResponse } from 'next/server';\n\nexport function middleware(req) {\n  const hostname = req.headers.get('host');\n  const subdomain = hostname.split('.')[0]; // Extracts 'tenant1'\n  \n  if (subdomain !== 'www' && subdomain !== 'app') {\n    // Transparently rewrite /about to /tenants/tenant1/about\n    return NextResponse.rewrite(\n      new URL(`/tenants/${subdomain}${req.nextUrl.pathname}`, req.url)\n    );\n  }\n  return NextResponse.next();\n}",
+            "explanation": "NextResponse.rewrite routes requests internally to dynamic tenant folders without exposing internal paths in user address bars."
+          },
+          "interactiveQuiz": {
+            "question": "Why is NextResponse.rewrite() preferred over NextResponse.redirect() for multi-tenant subdomain routing?",
+            "options": [
+              "redirect() runs faster on Edge workers",
+              "rewrite() maps the request to an internal route folder on the server without changing the user's browser URL address bar",
+              "redirect() breaks HTTPS certificates",
+              "rewrite() clears browser cookies"
+            ],
+            "correctIndex": 1,
+            "explanation": "Rewriting maps requests to tenant routes on the server while leaving the user's custom domain/subdomain intact in address bars."
+          }
+        },
+        {
+          "id": "q58-react-cache-function-memoization",
+          "title": "Q58: How does React's cache() function operate for non-fetch data requests?",
+          "content": "While Next.js automatically patches `fetch()` to deduplicate GET requests, custom database client queries (e.g., Prisma, Drizzle, or ORM calls) are not deduplicated automatically. Wrapping ORM functions in React's `cache()` memoizes function execution results per render pass based on argument identity.",
+          "keyTakeaways": [
+            "`cache()` deduplicates non-fetch functions (Prisma, SQL queries) during a single render pass.",
+            "Memoizes function return values based on argument references (`Object.is`)."
+          ],
+          "codeExample": {
+            "title": "Memoizing ORM Queries with React cache()",
+            "language": "javascript",
+            "code": "import { cache } from 'react';\nimport db from '@/lib/db';\n\n// Memoizes database calls across different components within the SAME render pass\nexport const getUser = cache(async (userId) => {\n  return await db.user.findUnique({ where: { id: userId } });\n});",
+            "explanation": "Multiple components invoking getUser(101) within a single request pass execute only one database query."
+          },
+          "interactiveQuiz": {
+            "question": "What primary operational limitation applies to React's cache() function compared to Next.js Data Cache?",
+            "options": [
+              "cache() only works in Client Components",
+              "cache() memoizes function calls for a single server request render pass only, whereas Data Cache persists across requests",
+              "cache() requires a Redis database",
+              "cache() mutates function parameters"
+            ],
+            "correctIndex": 1,
+            "explanation": "React's `cache()` is a request-scoped memoization wrapper that expires as soon as the active request render pass finishes."
+          }
+        },
+        {
+          "id": "q59-memory-leak-debugging-server-heap",
+          "title": "Q59: How do you diagnose and resolve Node.js Server Heap Memory Leaks in Next.js production deployments?",
+          "content": "Server heap leaks in Next.js typically stem from uncleaned global variables, event listeners attached outside component lifecycles, growing in-memory custom caches, or un-ended database stream connections. Diagnosed by analyzing heap snapshots (`node --inspect`), generating heap dumps via `process.memoryUsage()`, and verifying garbage collection passes.",
+          "keyTakeaways": [
+            "Avoid creating module-level global array/map singletons that store request state.",
+            "Generate heap snapshots using `node --inspect` to inspect retainers across request lifecycles."
+          ],
+          "codeExample": {
+            "title": "Memory Leak Anti-Pattern vs Safe Pattern",
+            "language": "javascript",
+            "code": "// ❌ LEAK: Global array retains every user request payload in memory forever!\nconst requestLog = [];\nexport async function GET(req) {\n  requestLog.push(req.url); // Memory grows indefinitely until crash!\n  return Response.json({ ok: true });\n}\n\n// ✅ SAFE: Stateless execution or external logger\nexport async function GET(req) {\n  logger.info(req.url); // Streams log to stdout for external collection\n  return Response.json({ ok: true });\n}",
+            "explanation": "Storing request data inside global module variables keeps items alive in Node memory, causing eventual heap exhaustion crashes."
+          },
+          "interactiveQuiz": {
+            "question": "Which code pattern is a frequent root cause of Node.js heap memory leaks in Next.js Route Handlers?",
+            "options": [
+              "Returning NextResponse.json()",
+              "Pushing request payload objects into module-level global array singletons that persist across requests",
+              "Calling await fetch() with cache: 'no-store'",
+              "Exporting async functions"
+            ],
+            "correctIndex": 1,
+            "explanation": "Global array singletons store request objects indefinitely, preventing Node garbage collection from freeing memory."
+          }
+        },
+        {
+          "id": "q60-optimizing-serverless-cold-starts",
+          "title": "Q60: What architectural strategies minimize Serverless Function Cold Starts in Next.js deployments?",
+          "content": "Serverless Cold Starts occur when a platform provisions a new container instance to handle incoming traffic. Optimized by:\n1) Reducing deployment bundle sizes via `output: 'standalone'`.\n2) Deferring heavy package imports using dynamic `import()` inside handlers.\n3) Initializing database connection pools outside function handler execution bodies.\n4) Utilizing Edge Runtime for latency-critical API routes.",
+          "keyTakeaways": [
+            "Initialize persistent database client singletons outside request handler functions.",
+            "Use dynamic imports to defer loading heavy server libraries until route invocation."
+          ],
+          "codeExample": {
+            "title": "Database Singleton Connection Pattern",
+            "language": "javascript",
+            "code": "// lib/db.js - Executed once during container boot (Cold Start)\nimport { PrismaClient } from '@prisma/client';\n\nconst globalForPrisma = global;\nexport const prisma = globalForPrisma.prisma || new PrismaClient();\nif (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;\n\n// Route Handler uses existing warm pool instance\nexport async function GET() {\n  const users = await prisma.user.findMany();\n  return Response.json(users);\n}",
+            "explanation": "Re-using the Prisma client singleton avoids opening new database connection pools on every serverless invocation."
+          },
+          "interactiveQuiz": {
+            "question": "Why should database connection pool initialization (e.g. new PrismaClient()) be placed outside Route Handler function bodies?",
+            "options": [
+              "To prevent syntax errors in TypeScript",
+              "To re-use existing database connection pools across warm serverless invocations instead of recreating pools on every request",
+              "To disable CSS style updates",
+              "To convert SQL queries to JSON"
+            ],
+            "correctIndex": 1,
+            "explanation": "Instantiating client connections globally allows warm serverless containers to re-use connection pools across requests."
+          }
+        },
+        {
+          "id": "q61-stale-while-revalidate-cache-control",
+          "title": "Q61: How does Next.js handle HTTP Cache-Control headers for static vs dynamic assets at the CDN layer?",
+          "content": "Next.js manages CDN caching behavior via tailored `Cache-Control` headers:\n- **Static Assets (`/_next/static/...`)**: Served with `Cache-Control: public, max-age=31536000, immutable` because file names include content hashes.\n- **Dynamic / Revalidated Pages**: Served with `s-maxage=3600, stale-while-revalidate=59`, instructing CDNs to serve stale content while asynchronously fetching updated pages from origin in the background.",
+          "keyTakeaways": [
+            "Hashed static assets use `immutable` headers for infinite browser caching.",
+            "Dynamic SSG/ISR pages use `stale-while-revalidate` to decouple CDN delivery from origin rendering delays."
+          ],
+          "interactiveQuiz": {
+            "question": "Why do JS/CSS assets inside /_next/static/ safely include the immutable Cache-Control directive?",
+            "options": [
+              "Because static assets never contain JavaScript",
+              "Because asset file names contain unique build content hashes, ensuring updated code always generates new URLs",
+              "To disable CDN caching completely",
+              "To force Edge middleware execution"
+            ],
+            "correctIndex": 1,
+            "explanation": "Content-hashed file names guarantee that code modifications yield new URLs, making infinite immutable browser caching safe."
+          }
+        },
+        {
+          "id": "q62-server-sent-events-sse-streaming",
+          "title": "Q62: How do you implement Server-Sent Events (SSE) streaming inside App Router Route Handlers?",
+          "content": "Server-Sent Events (SSE) maintain an open HTTP connection to stream real-time text/event updates to client browsers. Implemented in Route Handlers using `TransformStream` or `ReadableStream` instances with `headers: { 'Content-Type': 'text/event-stream', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive' }`.",
+          "keyTakeaways": [
+            "Uses `ReadableStream` pipelines inside Route Handlers.",
+            "Requires explicit `text/event-stream` response headers."
+          ],
+          "codeExample": {
+            "title": "Real-time SSE Route Handler Stream",
+            "language": "javascript",
+            "code": "// app/api/sse/route.js\nexport async function GET() {\n  const encoder = new TextEncoder();\n  const stream = new ReadableStream({\n    async start(controller) {\n      for (let i = 0; i < 5; i++) {\n        controller.enqueue(encoder.encode(`data: ${JSON.stringify({ time: new Date() })}\\n\\n`));\n        await new Promise(r => setTimeout(r, 1000));\n      }\n      controller.close();\n    }\n  });\n  return new Response(stream, {\n    headers: {\n      'Content-Type': 'text/event-stream',\n      'Cache-Control': 'no-cache',\n      'Connection': 'keep-alive',\n    }\n  });\n}",
+            "explanation": "Enqueuing encoded event lines over an open ReadableStream pushes real-time event updates to client EventSource listeners."
+          },
+          "interactiveQuiz": {
+            "question": "Which response header is mandatory when returning a ReadableStream from an SSE Route Handler?",
+            "options": [
+              "Content-Type: application/json",
+              "Content-Type: text/event-stream",
+              "Content-Type: multipart/form-data",
+              "Content-Type: text/html"
+            ],
+            "correctIndex": 1,
+            "explanation": "text/event-stream informs the client browser to parse incoming stream chunks as EventSource messages."
+          }
+        },
+        {
+          "id": "q63-hydration-overlay-suppression-vs-fix",
+          "title": "Q63: What is suppressHydrationWarning and when is its usage acceptable versus anti-pattern?",
+          "content": "`suppressHydrationWarning` suppresses React hydration mismatch warnings on specific DOM elements. It is acceptable **only** when rendering elements whose attributes intentionally depend on client browser state (such as theme class names, timestamps, or language detection). Using it to hide systemic application state bugs or structural HTML layout mismatches is an anti-pattern.",
+          "keyTakeaways": [
+            "Suppresses single-level hydration mismatch warnings in DevTools.",
+            "Only affects element attributes where applied; does not apply recursively to deep subtrees."
+          ],
+          "codeExample": {
+            "title": "Legitimate suppressHydrationWarning Usage",
+            "language": "javascript",
+            "code": "// app/layout.js\nexport default function RootLayout({ children }) {\n  return (\n    // Suppresses theme attribute mismatch caused by client theme script modifications\n    <html lang=\"en\" suppressHydrationWarning>\n      <body className=\"bg-white dark:bg-black\">{children}</body>\n    </html>\n  );\n}",
+            "explanation": "Safe usage for root html element attribute modifications made by theme script injections prior to hydration."
+          },
+          "interactiveQuiz": {
+            "question": "Does applying suppressHydrationWarning to a <div> container suppress hydration errors recursively for all child elements nested deep inside it?",
+            "options": [
+              "Yes, it suppresses all descendant warnings",
+              "No, it only suppresses attribute mismatch warnings on the specific element tag to which it is attached",
+              "It converts the subtree to Client Components",
+              "It disables React StrictMode"
+            ],
+            "correctIndex": 1,
+            "explanation": "suppressHydrationWarning is intentionally non-recursive, affecting attribute checks on the target element tag only."
+          }
+        },
+        {
+          "id": "q64-server-actions-rate-limiting",
+          "title": "Q64: How do you implement Distributed Rate Limiting for Server Actions to prevent brute-force attacks?",
+          "content": "Because Server Actions expose public HTTP POST endpoints under the hood (`_next/action`), they must be protected against brute-force attacks and abuse. Implemented by extracting client IP addresses via `headers()` and checking rate counters inside Redis (using sliding window algorithms via `@upstash/ratelimit`) before processing action payloads.",
+          "keyTakeaways": [
+            "Server Actions expose public HTTP endpoints that require active rate limiting.",
+            "Track request IP hashes against Redis sliding-window counters before processing action logic."
+          ],
+          "codeExample": {
+            "title": "Rate-Limiting Server Actions with Redis",
+            "language": "javascript",
+            "code": "'use server';\nimport { headers } from 'next/headers';\nimport { Ratelimit } from '@upstash/ratelimit';\nimport { Redis } from '@upstash/redis';\n\nconst ratelimit = new Ratelimit({ redis: Redis.fromEnv(), limiter: Ratelimit.slidingWindow(5, '10 s') });\n\nexport async function sensitiveAction() {\n  const headerList = await headers();\n  const ip = headerList.get('x-forwarded-for') || '127.0.0.1';\n  \n  const { success } = await ratelimit.limit(ip);\n  if (!success) throw new Error('Too many requests. Please slow down.');\n  \n  // Execute sensitive write operations\n}",
+            "explanation": "Reading client IP headers and evaluating sliding-window limits halts execution if rate limits are exceeded."
+          },
+          "interactiveQuiz": {
+            "question": "Why are Server Actions susceptible to automated brute-force attacks if left un-protected?",
+            "options": [
+              "Because they execute in browser Web Workers",
+              "Because Next.js compiles Server Actions into publicly accessible HTTP POST endpoints that can be targeted by external HTTP scripts",
+              "Because Server Actions disable CORS",
+              "Because they store state in LocalStorage"
+            ],
+            "correctIndex": 1,
+            "explanation": "Server Actions compile to POST endpoint URLs, requiring explicit rate limiting to prevent automated abuse."
+          }
+        },
+        {
+          "id": "q65-rewrites-vs-redirects-next-config",
+          "title": "Q65: What are the differences between rewrites, redirects, and headers in next.config.js?",
+          "content": "- **`redirects()`**: Returns HTTP 301/302 responses, forcing the browser to update its address bar URL to a new location.\n- **`rewrites()`**: Acts as an internal proxy. Maps an incoming request URL to a different destination path or external server transparently without updating the browser URL.\n- **`headers()`**: Injects custom HTTP headers (CSP, CORS, Security headers) onto matching request responses.",
+          "keyTakeaways": [
+            "`redirects()` changes user browser URL address bar locations.",
+            "`rewrites()` maps requests to internal/external destinations proxying content transparently."
+          ],
+          "codeExample": {
+            "title": "Rewrites and Redirects Declaration",
+            "language": "javascript",
+            "code": "// next.config.mjs\nexport default {\n  async redirects() {\n    return [{ source: '/old-blog/:slug', destination: '/posts/:slug', permanent: true }]; // 301 Redirect\n  },\n  async rewrites() {\n    return [{ source: '/api-proxy/:path*', destination: 'https://backend.internal/:path*' }]; // Proxy\n  },\n};",
+            "explanation": "redirects issue 301 browser changes; rewrites proxy requests transparently to internal/external destinations."
+          },
+          "interactiveQuiz": {
+            "question": "Which configuration method in next.config.js acts as a transparent proxy mapping incoming paths to external microservices without altering user browser URLs?",
+            "options": ["redirects()", "rewrites()", "headers()", "webpack()"],
+            "correctIndex": 1,
+            "explanation": "rewrites act as reverse proxies, fetching content from destination servers while preserving original browser URLs."
+          }
+        },
+        {
+          "id": "q66-react-server-components-memory-isolation",
+          "title": "Q66: How does Next.js isolate execution memory between concurrent server requests in Server Components?",
+          "content": "Node.js runs on a single event loop process where global variables are shared across all incoming requests. Next.js relies on React's internal **AsyncLocalStorage** implementation (`AsyncLocalStorage` context bounds) to isolate request-scoped data (such as `cookies()`, `headers()`, and `draftMode()`) preventing request state pollution across concurrent user sessions.",
+          "keyTakeaways": [
+            "AsyncLocalStorage binds request contexts to specific asynchronous execution tracks.",
+            "Prevents user session data leaks across concurrent request loops in Node.js processes."
+          ],
+          "interactiveQuiz": {
+            "question": "Which Node.js mechanism does Next.js use under the hood to safely isolate request-scoped data like cookies() across concurrent server requests?",
+            "options": ["Web Workers", "AsyncLocalStorage", "Child Processes", "Cluster Module"],
+            "correctIndex": 1,
+            "explanation": "AsyncLocalStorage maintains isolated asynchronous execution contexts across concurrent request loops in Node.js."
+          }
+        },
+        {
+          "id": "q67-static-site-generation-revalidation-race-conditions",
+          "title": "Q67: How does Next.js resolve Race Conditions during concurrent Incremental Static Regeneration (ISR) triggers?",
+          "content": "When a stale ISR static page receives concurrent requests from hundreds of users simultaneously, Next.js serves the **stale cached page** to all incoming users immediately. In the background, Next.js acquires an internal revalidation lock, triggering a single regeneration process. Once complete, the Data and Route caches update atomically for subsequent requests.",
+          "keyTakeaways": [
+            "Serves stale cached HTML to concurrent users immediately during background re-generation.",
+            "Uses background lock flags to execute a single re-render pass, preventing origin server overload."
+          ],
+          "interactiveQuiz": {
+            "question": "What happens when 1,000 concurrent user requests hit a stale ISR page whose revalidate timer has expired?",
+            "options": [
+              "All 1,000 requests trigger parallel background origin re-renders simultaneously",
+              "All 1,000 users receive the stale cached page instantly, while a single background worker re-generates the updated page atomically",
+              "Server returns HTTP 503 Service Unavailable",
+              "The browser forces client-side rendering"
+            ],
+            "correctIndex": 1,
+            "explanation": "ISR serves stale HTML immediately while executing a single background regeneration, protecting servers from traffic spikes."
+          }
+        },
+        {
+          "id": "q68-next-third-parties-optimization",
+          "title": "Q68: What performance advantages does the @next/third-parties library provide for Google Analytics and YouTube embeds?",
+          "content": "The `@next/third-parties` package provides optimized React wrappers (`<GoogleAnalytics />`, `<YouTubeEmbed />`) that defer loading heavy third-party iframe scripts and tracking SDKs until user interaction or idle cycles. `<YouTubeEmbed />` renders a light CSS thumbnail preview image first, fetching heavy iframe scripts only when clicked.",
+          "keyTakeaways": [
+            "Replaces heavy initial third-party iframe scripts with light placeholder preview images.",
+            "Drastically reduces initial JavaScript execution time and LCP/INP performance bottlenecks."
+          ],
+          "codeExample": {
+            "title": "Optimized YouTube Embed Usage",
+            "language": "javascript",
+            "code": "import { YouTubeEmbed } from '@next/third-parties/google';\n\nexport default function Page() {\n  return (\n    // Renders lightweight thumbnail preview; downloads full iframe JS on click\n    <YouTubeEmbed videoid=\"ogfYd705cRs\" height={400} params=\"controls=0\" />\n  );\n}",
+            "explanation": "YouTubeEmbed defers loading YouTube's ~500kB iframe player script until the user interacts with the thumbnail image."
+          },
+          "interactiveQuiz": {
+            "question": "How does the YouTubeEmbed component from @next/third-parties prevent heavy third-party scripts from impacting initial page load scores?",
+            "options": [
+              "It converts video files to MP4 clips",
+              "It renders a lightweight visual thumbnail placeholder first, fetching heavy YouTube iframe JS scripts only upon user click",
+              "It disables video audio tracks",
+              "It runs video decoding in Web Assembly"
+            ],
+            "correctIndex": 1,
+            "explanation": "Deferring iframe JS scripts until thumbnail click events keeps main browser threads clear during initial page loads."
+          }
+        },
+        {
+          "id": "q69-middleware-to-server-action-header-forwarding",
+          "title": "Q69: How do you forward custom context headers from Middleware into Server Components and Server Actions?",
+          "content": "Edge Middleware cannot pass JavaScript object variables directly to down-stream Server Components. To communicate context (such as verified user IDs or geo-location tags), Middleware mutates request headers via `request.headers.set('x-user-id', userId)`. Server Components and Actions read these headers using `headers()`.",
+          "keyTakeaways": [
+            "Mutate request headers inside Middleware using `requestHeaders.set()`.bias",
+            "Read custom context headers inside Server Components/Actions via `headers().get('x-user-id')`."
+          ],
+          "codeExample": {
+            "title": "Header Injection and Retrieval Pattern",
+            "language": "javascript",
+            "code": "// 1. middleware.js\nexport function middleware(req) {\n  const reqHeaders = new Headers(req.headers);\n  reqHeaders.set('x-geo-country', req.geo?.country || 'US');\n  return NextResponse.next({ request: { headers: reqHeaders } });\n}\n\n// 2. app/page.js (Server Component)\nimport { headers } from 'next/headers';\nexport default async function Page() {\n  const headerList = await headers();\n  const country = headerList.get('x-geo-country');\n  return <p>User Country Context: {country}</p>;\n}",
+            "explanation": "Middleware injects custom x-geo-country headers into request context, consumed natively inside Server Components."
+          },
+          "interactiveQuiz": {
+            "question": "How can Next.js Middleware pass request contextual information to down-stream Server Components?",
+            "options": [
+              "By assigning global state variables",
+              "By mutating request headers (request.headers.set) in Middleware and reading them via headers() in Server Components",
+              "By saving data to browser LocalStorage",
+              "By mutating URL path query strings"
+            ],
+            "correctIndex": 1,
+            "explanation": "Injecting custom HTTP request headers inside Middleware allows downstream Server Components to read context via headers()."
+          }
+        },
+        {
+          "id": "q70-turbopack-persistent-caching-architecture",
+          "title": "Q70: How does Turbopack's Turbo Engine achieve fine-grained incremental execution caching?",
+          "content": "Turbopack is built on the **Turbo Engine**—a graph-based incremental computation framework written in Rust. Instead of re-compiling whole files or module graphs when code changes, the Turbo Engine tracks function inputs and outputs in a dynamic dependency graph. When a code modification occurs, only affected function nodes re-evaluate.",
+          "keyTakeaways": [
+            "Uses a fine-grained function-level execution dependency graph written in Rust.",
+            "Re-evaluates strictly the exact function nodes impacted by code changes, delivering instant HMR."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the primary architectural difference between Webpack file-based compilation and Turbopack's Turbo Engine?",
+            "options": [
+              "Turbopack compiles JavaScript to C++ binary files",
+              "Turbopack tracks fine-grained function-level input/output dependency graphs in memory, re-evaluating only changed function nodes",
+              "Webpack runs only on Edge networks",
+              "Turbopack disables source maps"
+            ],
+            "correctIndex": 1,
+            "explanation": "Turbopack's Turbo Engine models incremental execution at the individual function level rather than re-building full module files."
+          }
+        },
+        {
+          "id": "q71-server-action-optimistic-rollback-failure",
+          "title": "Q71: How do you handle complex transaction rollbacks when a Server Action fails midway through execution?",
+          "content": "Because Server Actions execute arbitrary Node.js code, multi-step mutations (e.g., charge credit card -> update database -> send email) can fail halfway through. Complex Server Actions must wrap mutations inside atomic database transactions (`db.$transaction()`) and implement explicit compensation logic (e.g. issuing refund calls if email delivery fails) to prevent database corruption.",
+          "keyTakeaways": [
+            "Wrap multi-table database writes inside atomic transactions (`db.$transaction`).",
+            "Structure actions to fail safely before executing irreversible external API side-effects."
+          ],
+          "codeExample": {
+            "title": "Atomic Database Transaction in Server Action",
+            "language": "javascript",
+            "code": "'use server';\nimport db from '@/lib/db';\n\nexport async function processOrderAction(orderData) {\n  return await db.$transaction(async (tx) => {\n    // 1. Deduct account balance\n    const user = await tx.user.update({ where: { id: orderData.userId }, data: { balance: { decrement: orderData.amount } } });\n    if (user.balance < 0) throw new Error('Insufficient funds'); // Rolls back transaction!\n    \n    // 2. Create order record\n    return await tx.order.create({ data: orderData });\n  });\n}",
+            "explanation": "Using database transactions guarantees that if account balance drops below zero, all writes roll back automatically."
+          },
+          "interactiveQuiz": {
+            "question": "Why should multi-step database writes inside Server Actions be wrapped within explicit database transactions?",
+            "options": [
+              "To speed up CSS styling",
+              "To guarantee atomicity, ensuring that if any step fails, all preceding database mutations roll back automatically",
+              "To enable Client Router Cache",
+              "To convert SQL to JSON"
+            ],
+            "correctIndex": 1,
+            "explanation": "Atomic transactions guarantee that failing multi-step writes roll back completely, preventing partial database state corruption."
+          }
+        },
+        {
+          "id": "q72-next-font-variable-subsets",
+          "title": "Q72: How do Variable Font Subsetting and CSS Display Swap optimize font delivery in Next.js?",
+          "content": "`next/font` strips unused glyph characters from font files via **font subsetting** (e.g. `subsets: ['latin']`), reducing font file sizes by up to 80%. When paired with `display: 'swap'`, the browser renders fallback system fonts instantly, swapping in custom fonts once downloaded without blocking screen text rendering.",
+          "keyTakeaways": [
+            "Subsetting removes unused character glyphs to minimize font file byte size.",
+            "`display: 'swap'` prevents Flash of Invisible Text (FOIT) by utilizing system fallback fonts."
+          ],
+          "interactiveQuiz": {
+            "question": "What performance issue is prevented by specifying display: 'swap' inside next/font declarations?",
+            "options": [
+              "Flash of Invisible Text (FOIT), where text remains invisible until custom font files download",
+              "Cumulative Layout Shift (CLS)",
+              "Server cold starts",
+              "Memory leaks"
+            ],
+            "correctIndex": 0,
+            "explanation": "display: 'swap' instructs browsers to display fallback system fonts immediately, preventing invisible text delays."
+          }
+        },
+        {
+          "id": "q73-server-component-security-data-leakage",
+          "title": "Q73: What is the Server-Side Data Exposure anti-pattern in Server Components and how do Data Transfer Objects (DTOs) resolve it?",
+          "content": "When a Server Component queries a database record (`SELECT * FROM users`), the resulting database object may contain private hash fields (`password_hash`, `two_factor_secret`). Passing this raw object to a Client Component prop serializes **all** object keys into the RSC Flight stream exposed in browser devtools. Using Data Transfer Objects (DTOs) strips non-public keys before passing props.",
+          "keyTakeaways": [
+            "Never pass raw database model objects containing private fields directly into Client Component props.",
+            "Map database models to explicit public Data Transfer Objects (DTOs) before returning data."
+          ],
+          "codeExample": {
+            "title": "DTO Mapping Anti-Pattern vs Fix",
+            "language": "javascript",
+            "code": "// ❌ DANGEROUS: Exposes password_hash in browser devtools Flight payload!\nexport default async function Page() {\n  const user = await db.user.findUnique({ id: 1 });\n  return <UserProfile user={user} />; // Client Component\n}\n\n// ✅ SAFE DTO PATTERN: Explicitly pick public fields\nexport default async function Page() {\n  const user = await db.user.findUnique({ id: 1 });\n  const userDTO = { id: user.id, name: user.name, avatar: user.avatar }; // Strips password_hash\n  return <UserProfile user={userDTO} />;\n}",
+            "explanation": "Explicitly selecting public properties in a DTO prevents secret database column keys from leaking into client network payloads."
+          },
+          "interactiveQuiz": {
+            "question": "Why is passing raw database records (e.g., Prisma model outputs) directly into Client Component props considered a security anti-pattern?",
+            "options": [
+              "Because Client Components convert objects to strings",
+              "Because all object properties (including hidden fields like password_hash) are serialized into the public RSC Flight payload viewable in browser DevTools",
+              "Because it breaks React hooks",
+              "Because it disables Next.js caching"
+            ],
+            "correctIndex": 1,
+            "explanation": "RSC props sent to Client Components are serialized into network payload streams where sensitive un-stripped database columns can be inspected."
+          }
+        },
+        {
+          "id": "q74-static-params-dynamic-io-next15",
+          "title": "Q74: How does the Dynamic I/O flag (experimental.dynamicIO) operate in Next.js 15?",
+          "content": "Next.js 15 introduced `experimental.dynamicIO`. It fundamentally changes how static vs dynamic code is evaluated by requiring explicit `use cache` directives for cached data functions. Any uncached fetch or dynamic data access (`cookies()`, `headers()`) executed outside a `use cache` block automatically marks that data operation as dynamic without requiring route-level overrides.",
+          "keyTakeaways": [
+            "Introduces explicit `use cache` directives for granular function-level caching.",
+            "Separates code execution from route-level dynamic config flags."
+          ],
+          "codeExample": {
+            "title": "Granular Function Caching with 'use cache'",
+            "language": "javascript",
+            "code": "// Next.js 15 Dynamic I/O pattern\nasync function getCachedProducts() {\n  'use cache'; // Granular function-level caching directive\n  return await db.products.findMany();\n}\n\nexport default async function Page() {\n  const products = await getCachedProducts();\n  return <div>Products: {products.length}</div>;\n}",
+            "explanation": "The 'use cache' directive enables fine-grained function-level caching under the Next.js 15 Dynamic I/O architecture."
+          },
+          "interactiveQuiz": {
+            "question": "What new directive was introduced alongside Next.js 15 Dynamic I/O to mark specific async functions for caching?",
+            "options": ["'use static'", "'use cache'", "'use memo'", "'use ssg'"],
+            "correctIndex": 1,
+            "explanation": "The 'use cache' directive explicitly designates async function calculations for caching under Dynamic I/O."
+          }
+        },
+        {
+          "id": "q75-enterprise-zero-downtime-deployment",
+          "title": "Q75: How do you achieve Zero-Downtime Blue-Green Deployments for Next.js when handling skew across build assets?",
+          "content": "During deployments, active client browsers running build `v1` may request JavaScript chunks (`/_next/static/v1/...`) after origin servers have updated to build `v2` (yielding 404 chunk load errors). Solved by:\n1) Hosting build static assets on an immutable external CDN storage bucket (AWS S3/CloudFront).\n2) Configuring Multi-Version asset fallback handling on Edge routers.\n3) Implementing error boundary catchers that trigger `window.location.reload()` on ChunkLoadErrors.",
+          "keyTakeaways": [
+            "Upload static build chunks to persistent external CDNs so legacy asset hashes remain available across deployments.",
+            "Implement client-side ChunkLoadError boundaries that perform window reloads to load active deployment assets."
+          ],
+          "codeExample": {
+            "title": "Client-Side ChunkLoadError Auto-Reload Boundary",
+            "language": "javascript",
+            "code": "// components/ChunkErrorWrapper.js\n'use client';\nimport { useEffect } from 'react';\n\nexport function ChunkErrorWrapper({ children }) {\n  useEffect(() => {\n    const handleError = (e) => {\n      if (e.message?.includes('Loading chunk') || e.name === 'ChunkLoadError') {\n        window.location.reload(); // Force refresh to fetch active deployment build HTML\n      }\n    };\n    window.addEventListener('error', handleError);\n    return () => window.removeEventListener('error', handleError);\n  }, []);\n  return children;\n}",
+            "explanation": "Intercepts version skew ChunkLoadErrors, triggering full page reloads to fetch current deployment assets."
+          },
+          "interactiveQuiz": {
+            "question": "What primary operational issue causes 'ChunkLoadError: Loading chunk failed' in active user browser sessions during new production deployments?",
+            "options": [
+              "Database connection failures",
+              "User browser attempts to fetch static JS chunk hashes belonging to previous builds that were deleted from origin servers during deployment",
+              "CSS specificity collisions",
+              "Invalid SSL certificates"
+            ],
+            "correctIndex": 1,
+            "explanation": "Version skew occurs when client sessions request old build asset hashes that no longer exist on newly updated origin servers."
+          }
+        }
+      ]
+    },
+    {
+      "id": "pages-router-interview-questions",
+      "title": "Optional - Pages Router Comprehensive Interview Question Bank",
+      "summary": "50 progressive interview questions focusing exclusively on the Next.js Pages Router directory, lifecycle methods, data fetching strategies, custom configurations, and migration paths.",
+      "estimatedMinutes": 300,
+      "sections": [
+        {
+          "id": "q1-pages-router-file-based-routing",
+          "title": "Q1: How does file-based routing work in the Pages Router?",
+          "content": "In the Pages Router, every file inside the `pages/` directory automatically maps to a public URL route based on its filename. Files like `pages/index.js` map to `/`, `pages/about.js` maps to `/about`, and nested directories like `pages/blog/first-post.js` map to `/blog/first-post`.",
+          "keyTakeaways": ["Files inside `pages/` directly map to URL endpoints.", "`index.js` serves as the root file for any directory."],
+          "codeExample": {
+            "title": "Basic Pages Route Definition",
+            "language": "javascript",
+            "code": "// pages/contact.js -> Maps to /contact\nexport default function Contact() {\n  return <h1>Contact Us</h1>;\n}",
+            "explanation": "Exporting a React component as default from a file in pages/ instantly registers the route."
+          },
+          "interactiveQuiz": {
+            "question": "What is the corresponding URL for a file located at pages/dashboard/settings.js?",
+            "options": ["/dashboard-settings", "/dashboard/settings", "/pages/dashboard/settings", "/settings"],
+            "correctIndex": 1,
+            "explanation": "File paths inside pages/ map directly to URL routes, making pages/dashboard/settings.js accessible at /dashboard/settings."
+          }
+        },
+        {
+          "id": "q2-getstaticprops-ssg",
+          "title": "Q2: What is getStaticProps and when should you use it?",
+          "content": "`getStaticProps` is an async function that runs exclusively on the server at build time. It fetches data required to pre-render static HTML pages (SSG). Use it for pages with data that doesn't change on every user request, such as marketing pages, blogs, or documentation.",
+          "keyTakeaways": [
+            "Runs only on the server during `next build`.",
+            "Passes fetched data as props to the default exported page component."
+          ],
+          "codeExample": {
+            "title": "SSG Data Fetching with getStaticProps",
+            "language": "javascript",
+            "code": "// pages/posts.js\nexport async function getStaticProps() {\n  const res = await fetch('https://api.example.com/posts');\n  const posts = await res.json();\n\n  return {\n    props: { posts }, // Passed to the page component\n  };\n}\n\nexport default function Posts({ posts }) {\n  return <ul>{posts.map(p => <li key={p.id}>{p.title}</li>)}</ul>;\n}",
+            "explanation": "getStaticProps fetches data at build time and supplies it as props to the page component."
+          },
+          "interactiveQuiz": {
+            "question": "Where does getStaticProps execute when a user visits the site in production?",
+            "options": [
+              "In the user's browser client",
+              "It does not execute at request time in production; it runs during build time",
+              "Inside a Web Worker",
+              "On every scroll event"
+            ],
+            "correctIndex": 1,
+            "explanation": "getStaticProps executes on the server during the build process, generating static HTML and JSON files."
+          }
+        },
+        {
+          "id": "q3-getserversideprops-ssr",
+          "title": "Q3: What is getServerSideProps and how does it differ from getStaticProps?",
+          "content": "`getServerSideProps` executes on every incoming request on the server. Unlike `getStaticProps` (which builds once), it fetches fresh data per request before rendering HTML. Use it when data must be computed at request time (e.g., user-specific dashboards or dynamic search queries).",
+          "keyTakeaways": [
+            "Runs on every HTTP request on the server.",
+            "Slower initial TTFB compared to getStaticProps because HTML is built per request."
+          ],
+          "codeExample": {
+            "title": "SSR Data Fetching with getServerSideProps",
+            "language": "javascript",
+            "code": "// pages/profile.js\nexport async function getServerSideProps(context) {\n  const { req, res } = context;\n  const user = await fetchUserFromSession(req);\n\n  return {\n    props: { user },\n  };\n}",
+            "explanation": "getServerSideProps receives request context (req, res, query) and computes fresh props per request."
+          },
+          "interactiveQuiz": {
+            "question": "Which parameter object does getServerSideProps receive to access request headers and cookies?",
+            "options": ["props", "context", "params", "state"],
+            "correctIndex": 1,
+            "explanation": "The context object contains req, res, query, params, and resolvedUrl for request-time access."
+          }
+        },
+        {
+          "id": "q4-getstaticpaths-dynamic-ssg",
+          "title": "Q4: How does getStaticPaths work alongside getStaticProps for dynamic routes?",
+          "content": "When using dynamic routes (e.g., `pages/posts/[id].js`) with `getStaticProps`, `getStaticPaths` defines the list of path instances that must be pre-rendered to static HTML during build time.",
+          "keyTakeaways": [
+            "Defines which dynamic parameter paths to pre-render at build time.",
+            "Must be paired with `getStaticProps` on dynamic routes."
+          ],
+          "codeExample": {
+            "title": "Defining Static Path Instances",
+            "language": "javascript",
+            "code": "// pages/posts/[id].js\nexport async function getStaticPaths() {\n  return {\n    paths: [\n      { params: { id: '1' } },\n      { params: { id: '2' } }\n    ],\n    fallback: false,\n  };\n}",
+            "explanation": "Returns an array of path parameter objects that Next.js will pre-render statically during build."
+          },
+          "interactiveQuiz": {
+            "question": "Which function MUST be used alongside getStaticProps on dynamic routes like pages/blog/[slug].js?",
+            "options": ["getServerSideProps", "getStaticPaths", "getInitialProps", "useRouter"],
+            "correctIndex": 1,
+            "explanation": "Dynamic pages using getStaticProps require getStaticPaths to tell Next.js which paths to generate."
+          }
+        },
+        {
+          "id": "q5-fallback-modes-getstaticpaths",
+          "title": "Q5: What are the differences between fallback: false, fallback: true, and fallback: 'blocking'?",
+          "content": "- `fallback: false`: Ungenerated paths return a 404 page.\n- `fallback: true`: Serves a fallback page (`router.isFallback`) instantly, fetches data in the background, then swaps in content.\n- `fallback: 'blocking'`: SSRs the new page on the first request, pausing navigation until HTML is rendered, then caches it for future visits.",
+          "keyTakeaways": [
+            "`false`: Strict 404 for missing paths.",
+            "`true`: Shows fallback UI while generating in background.",
+            "`blocking`: Server-renders on demand before sending response (no fallback spinner)."
+          ],
+          "interactiveQuiz": {
+            "question": "Which fallback setting blocks initial page delivery until full HTML is generated on the server for uncached paths?",
+            "options": ["fallback: false", "fallback: true", "fallback: 'blocking'", "fallback: 'eager'"],
+            "correctIndex": 2,
+            "explanation": "fallback: 'blocking' server-side renders the requested path synchronously on first visit without client loading states."
+          }
+        },
+        {
+          "id": "q6-incremental-static-regeneration-pages",
+          "title": "Q6: How does Incremental Static Regeneration (ISR) work in the Pages Router?",
+          "content": "ISR allows static pages to be updated in the background without re-building the entire site. By adding a `revalidate` property (in seconds) to `getStaticProps`, Next.js regenerates the page in the background when requests come in after the timer expires.",
+          "keyTakeaways": [
+            "Enable by returning `revalidate: <seconds>` in `getStaticProps`.",
+            "Combines static page performance with periodic dynamic updates."
+          ],
+          "codeExample": {
+            "title": "ISR Configuration in getStaticProps",
+            "language": "javascript",
+            "code": "export async function getStaticProps() {\n  const data = await fetchData();\n  return {\n    props: { data },\n    revalidate: 60, // Next.js will attempt revalidation every 60 seconds\n  };\n}",
+            "explanation": "Setting revalidate: 60 ensures static HTML updates in the background when requested after 60 seconds."
+          },
+          "interactiveQuiz": {
+            "question": "What happens when a user requests an ISR page 120 seconds after build time if revalidate is set to 60?",
+            "options": [
+              "The browser gets a 404 error",
+              "The user gets the cached static page instantly, and Next.js triggers background page regeneration",
+              "The request fails until rebuild completes",
+              "The site performs a full static rebuild"
+            ],
+            "correctIndex": 1,
+            "explanation": "ISR serves stale static HTML immediately while re-generating the page in the background for future visitors."
+          }
+        },
+        {
+          "id": "q7-getinitialprops-legacy",
+          "title": "Q7: What is getInitialProps and why is it generally discouraged in modern Pages Router apps?",
+          "content": "`getInitialProps` was the original data fetching method in Next.js. It runs on both server (initial load) and client (route transitions). Disadvantage: using `getInitialProps` in `_app.js` disables Automatic Static Optimization for the **entire application**.",
+          "keyTakeaways": [
+            "Executes on server during initial load and on client during navigation.",
+            "Disables global Automatic Static Optimization if placed in `_app.js`."
+          ],
+          "interactiveQuiz": {
+            "question": "What is the main side effect of defining getInitialProps inside pages/_app.js?",
+            "options": [
+              "Disables CSS styling",
+              "Disables Automatic Static Optimization across all pages in the app",
+              "Prevents client-side routing",
+              "Forces all pages to static HTML"
+            ],
+            "correctIndex": 1,
+            "explanation": "Adding getInitialProps to _app.js forces Next.js to server-render every page, opting out of automatic static pre-rendering."
+          }
+        },
+        {
+          "id": "q8-custom-app-file",
+          "title": "Q8: What is pages/_app.js used for in the Pages Router?",
+          "content": "`pages/_app.js` initializes all pages. Use it to persist layouts across page changes, inject global CSS, maintain state across navigations (e.g., Redux or React Context providers), and handle global error tracking.",
+          "keyTakeaways": [
+            "Wraps every page component in the application.",
+            "Used for importing global CSS and configuring context providers."
+          ],
+          "codeExample": {
+            "title": "Custom _app.js Implementation",
+            "language": "javascript",
+            "code": "// pages/_app.js\nimport '../styles/globals.css';\n\nexport default function MyApp({ Component, pageProps }) {\n  return (\n    <Layout>\n      <Component {...pageProps} />\n    </Layout>\n  );\n}",
+            "explanation": "Component represents the active page; pageProps contains pre-fetched props from data methods."
+          },
+          "interactiveQuiz": {
+            "question": "Which prop in pages/_app.js represents the current active page component being rendered?",
+            "options": ["pageProps", "Component", "router", "children"],
+            "correctIndex": 1,
+            "explanation": "Component is the active page passed into _app.js by Next.js."
+          }
+        },
+        {
+          "id": "q9-custom-document-file",
+          "title": "Q9: What is pages/_document.js and how does it differ from pages/_app.js?",
+          "content": "`_document.js` customizes the raw HTML document structure (`<html>`, `<head>`, `<body>`). It executes **only on the server** during initial rendering (never on the client). Do not use it for application state or event handlers.",
+          "keyTakeaways": [
+            "Customizes top-level `<html>`, `<Head>`, and `<body>` tags.",
+            "Executes strictly on the server; cannot attach client event listeners or React state."
+          ],
+          "codeExample": {
+            "title": "Custom _document.js Structure",
+            "language": "javascript",
+            "code": "// pages/_document.js\nimport { Html, Head, Main, NextScript } from 'next/document';\n\nexport default function Document() {\n  return (\n    <Html lang=\"en\">\n      <Head />\n      <body>\n        <Main />\n        <NextScript />\n      </body>\n    </Html>\n  );\n}",
+            "explanation": "Main renders active page markup; NextScript injects framework JavaScript scripts."
+          },
+          "interactiveQuiz": {
+            "question": "Can you use React hooks like useState() inside pages/_document.js?",
+            "options": [
+              "Yes, for theme toggling",
+              "No, because _document.js renders exclusively on the server and is not hydrated on the client",
+              "Only in development mode",
+              "Yes, if wrapped in useEffect"
+            ],
+            "correctIndex": 1,
+            "explanation": "_document.js is never hydrated in the browser, making client state and effects unsupported."
+          }
+        },
+        {
+          "id": "q10-automatic-static-optimization",
+          "title": "Q10: What is Automatic Static Optimization in the Pages Router?",
+          "content": "Next.js automatically determines if a page can be rendered statically. If a page has no blocking data fetching methods (`getServerSideProps` or `getInitialProps`), Next.js pre-renders the page to static HTML at build time automatically.",
+          "keyTakeaways": [
+            "Opt-in by omitting server-side data fetching functions.",
+            "Generates static HTML files for maximum CDN performance."
+          ],
+          "interactiveQuiz": {
+            "question": "How do you enable Automatic Static Optimization for a page file inside pages/?",
+            "options": [
+              "Export const static = true",
+              "Omit getServerSideProps and getInitialProps from the page file",
+              "Wrap component in React.memo",
+              "Set target: static in next.config.js"
+            ],
+            "correctIndex": 1,
+            "explanation": "Pages lacking request-time data fetching methods are automatically identified and built as static HTML."
+          }
+        },
+        {
+          "id": "q11-dynamic-routes-pages",
+          "title": "Q11: How do single dynamic routes work in pages/[id].js?",
+          "content": "Square bracket syntax `[id].js` creates a dynamic route segment. The parameter value is extracted in `getServerSideProps` / `getStaticProps` via `context.params.id`, or on the client using `useRouter().query.id`.",
+          "keyTakeaways": [
+            "Folder/file names like `[param].js` match dynamic path segments.",
+            "Access dynamic values via `context.params` or `useRouter().query`."
+          ],
+          "codeExample": {
+            "title": "Accessing Dynamic Route Params",
+            "language": "javascript",
+            "code": "// pages/user/[id].js\nimport { useRouter } from 'next/router';\n\nexport default function User() {\n  const router = useRouter();\n  const { id } = router.query;\n  return <p>User ID: {id}</p>;\n}",
+            "explanation": "useRouter().query extracts dynamic parameters from the URL."
+          },
+          "interactiveQuiz": {
+            "question": "In pages/products/[category].js, how do you read 'category' inside getServerSideProps?",
+            "options": ["context.req.category", "context.params.category", "context.query.id", "useRouter().category"],
+            "correctIndex": 1,
+            "explanation": "Route parameters are accessible on context.params inside server data functions."
+          }
+        },
+        {
+          "id": "q12-catch-all-routes-pages",
+          "title": "Q12: What are Catch-all routes [...slug].js in the Pages Router?",
+          "content": "Catch-all routes using `[...slug].js` match multiple nested URL path segments. For example, `pages/post/[...slug].js` matches `/post/a`, `/post/a/b`, and `/post/a/b/c`. Query parameters return `slug` as an array of path segments (`['a', 'b', 'c']`).",
+          "keyTakeaways": ["Syntax: `[...slug].js` matches multiple URL path segments.", "Extracted as an array of string segments."],
+          "interactiveQuiz": {
+            "question": "For the file pages/docs/[...slug].js, what value does router.query.slug hold when visiting /docs/api/v1/users?",
+            "options": ["\"api/v1/users\"", "[\"api\", \"v1\", \"users\"]", "[\"docs\", \"api\", \"v1\", \"users\"]", "undefined"],
+            "correctIndex": 1,
+            "explanation": "Catch-all routes parse matched sub-paths into a string array."
+          }
+        },
+        {
+          "id": "q13-optional-catch-all-routes-pages",
+          "title": "Q13: How do Optional Catch-all routes [[...slug]].js work?",
+          "content": "Optional catch-all routes using double brackets `[[...slug]].js` match dynamic nested segments AND the base route without parameters (`/docs`, `/docs/a`, `/docs/a/b`). On the base path `/docs`, `slug` is `undefined`.",
+          "keyTakeaways": [
+            "Matches target base paths alongside nested sub-routes.",
+            "Prevents creating a separate `index.js` file for root paths."
+          ],
+          "interactiveQuiz": {
+            "question": "What is router.query.slug for pages/shop/[[...slug]].js when navigating to /shop?",
+            "options": ["[]", "[\"shop\"]", "undefined", "null"],
+            "correctIndex": 2,
+            "explanation": "Optional catch-all routes set the parameter to undefined on root base paths."
+          }
+        },
+        {
+          "id": "q14-api-routes-basics",
+          "title": "Q14: What are API Routes in pages/api/ and how are they created?",
+          "content": "Files inside `pages/api/` map to HTTP API endpoints rather than HTML pages. They export a default request handler function `function handler(req, res)` that runs on Node.js server runtimes.",
+          "keyTakeaways": [
+            "Files in `pages/api/` serve JSON/data responses instead of HTML UI.",
+            "Handler functions receive standard Node.js req and res objects."
+          ],
+          "codeExample": {
+            "title": "Basic API Route Handler",
+            "language": "javascript",
+            "code": "// pages/api/hello.js -> Maps to /api/hello\nexport default function handler(req, res) {\n  res.status(200).json({ message: 'Hello World' });\n}",
+            "explanation": "Default exported handler manages incoming requests to the /api/hello endpoint."
+          },
+          "interactiveQuiz": {
+            "question": "Do files inside pages/api/ generate frontend React HTML component outputs?",
+            "options": [
+              "Yes, if they return JSX",
+              "No, API routes serve backend server endpoints and data payloads",
+              "Only when loaded via <Link>",
+              "Yes, in development mode"
+            ],
+            "correctIndex": 1,
+            "explanation": "API routes are backend Node.js functions returning data formats like JSON or XML."
+          }
+        },
+        {
+          "id": "q15-api-middleware-connect",
+          "title": "Q15: How do you use Node.js middleware in Pages Router API routes?",
+          "content": "API handlers can execute standard Express/Connect middleware helper functions or custom wrapper functions to inspect request headers, authenticate tokens, or log requests before returning data.",
+          "keyTakeaways": [
+            "Wrap API handlers or use helper functions to integrate custom middleware.",
+            "Runs within standard Node.js server contexts."
+          ],
+          "codeExample": {
+            "title": "API Middleware Wrapper Pattern",
+            "language": "javascript",
+            "code": "function withAuth(handler) {\n  return async (req, res) => {\n    if (!req.headers.authorization) {\n      return res.status(401).json({ error: 'Unauthorized' });\n    }\n    return handler(req, res);\n  };\n}\n\nexport default withAuth(function handler(req, res) {\n  res.status(200).json({ data: 'Secret Data' });\n});",
+            "explanation": "Wrapper functions execute authentication logic prior to calling core request handlers."
+          },
+          "interactiveQuiz": {
+            "question": "Where does custom API route middleware execute in the Pages Router?",
+            "options": [
+              "Inside client browser threads",
+              "On the Node.js server prior to responding to HTTP requests",
+              "On CDN edge nodes exclusively",
+              "In build scripts"
+            ],
+            "correctIndex": 1,
+            "explanation": "API route logic and middleware run on the backend Node.js server context."
+          }
+        },
+        {
+          "id": "q16-custom-404-500-pages",
+          "title": "Q16: How do custom 404 and 500 error pages work in the Pages Router?",
+          "content": "- `pages/404.js`: Static error page rendered at build time for missing routes.\n- `pages/500.js`: Server error page pre-rendered or computed when server exceptions occur.",
+          "keyTakeaways": ["`pages/404.js` is statically pre-rendered at build time.", "`pages/500.js` handles unhandled server errors."],
+          "codeExample": {
+            "title": "Custom 404 Page Definition",
+            "language": "javascript",
+            "code": "// pages/404.js\nexport default function Custom404() {\n  return <h1>404 - Page Not Found</h1>;\n}",
+            "explanation": "Next.js builds pages/404.js statically to serve instantly on missing route queries."
+          },
+          "interactiveQuiz": {
+            "question": "Is pages/404.js built as static HTML or dynamic SSR by default?",
+            "options": ["Dynamic SSR", "Statically pre-rendered at build time", "Client-side rendered only", "Generated on demand"],
+            "correctIndex": 1,
+            "explanation": "pages/404.js is statically built during next build for instant CDN delivery."
+          }
+        },
+        {
+          "id": "q17-next-head-component",
+          "title": "Q17: How does next/head manage document metadata in the Pages Router?",
+          "content": "The `<Head>` component from `next/head` allows appending metadata tags (`<title>`, `<meta>`, `<link>`) to the HTML `<head>` section from individual page files.",
+          "keyTakeaways": [
+            "Injects HTML head metadata from page components.",
+            "Use the `key` attribute to prevent duplicate meta tag rendering."
+          ],
+          "codeExample": {
+            "title": "Adding Page Metadata with next/head",
+            "language": "javascript",
+            "code": "import Head from 'next/head';\n\nexport default function About() {\n  return (\n    <div>\n      <Head>\n        <title>About Us | My Company</title>\n        <meta name=\"description\" content=\"Learn about our mission\" key=\"desc\" />\n      </Head>\n      <p>About Page Content</p>\n    </div>\n  );\n}",
+            "explanation": "next/head hoists title and description tags into the document head region."
+          },
+          "interactiveQuiz": {
+            "question": "Why should you add a key attribute to meta tags inside next/head?",
+            "options": [
+              "To speed up React rendering",
+              "To ensure duplicate meta tags are overwritten rather than duplicated when rendering nested components",
+              "Required for CSS styling",
+              "To enable static exports"
+            ],
+            "correctIndex": 1,
+            "explanation": "The key attribute allows Next.js to deduplicate and replace meta tags correctly."
+          }
+        },
+        {
+          "id": "q18-next-router-events",
+          "title": "Q18: How do you listen to route navigation events using useRouter?",
+          "content": "`router.events` allows subscribing to route change events like `routeChangeStart`, `routeChangeComplete`, and `routeChangeError`. Commonly used to display global loading progress bars (e.g. NProgress).",
+          "keyTakeaways": [
+            "Subscribe via `router.events.on(eventName, handler)` inside `useEffect`.",
+            "Clean up listeners using `router.events.off()`."
+          ],
+          "codeExample": {
+            "title": "Subscribing to Route Events",
+            "language": "javascript",
+            "code": "import { useRouter } from 'next/router';\nimport { useEffect } from 'react';\n\nexport default function App({ Component, pageProps }) {\n  const router = useRouter();\n  useEffect(() => {\n    const handleStart = (url) => console.log(`Navigating to: ${url}`);\n    router.events.on('routeChangeStart', handleStart);\n    return () => router.events.off('routeChangeStart', handleStart);\n  }, [router]);\n  return <Component {...pageProps} />;\n}",
+            "explanation": "Listens for navigation initialization and cleans up event handlers on unmount."
+          },
+          "interactiveQuiz": {
+            "question": "Which router event fires immediately when a client-side route transition is triggered?",
+            "options": ["routeChangeComplete", "routeChangeStart", "beforeHistoryChange", "hashChangeStart"],
+            "correctIndex": 1,
+            "explanation": "routeChangeStart fires as soon as a user clicks a link or calls router.push()."
+          }
+        },
+        {
+          "id": "q19-shallow-routing-pages",
+          "title": "Q19: What is Shallow Routing in the Pages Router?",
+          "content": "Shallow routing allows changing the URL without re-running data fetching methods (`getStaticProps`, `getServerSideProps`). Call `router.push('/page?query=1', undefined, { shallow: true })` to update state in the URL while preserving active page component state.",
+          "keyTakeaways": [
+            "Updates URL query string without re-triggering server data methods.",
+            "Only works for URL changes inside the **same page**."
+          ],
+          "codeExample": {
+            "title": "Executing Shallow Navigation",
+            "language": "javascript",
+            "code": "import { useRouter } from 'next/router';\n\nexport default function Page() {\n  const router = useRouter();\n  const updateFilter = (filter) => {\n    router.push(`/search?filter=${filter}`, undefined, { shallow: true });\n  };\n  return <button onClick={() => updateFilter('active')}>Filter</button>;\n}",
+            "explanation": "Updates query parameter in the address bar without executing page data functions."
+          },
+          "interactiveQuiz": {
+            "question": "Does shallow routing prevent getStaticProps/getServerSideProps from re-executing when navigating to a DIFFERENT page file?",
+            "options": [
+              "Yes, shallow routing works globally across all pages",
+              "No, shallow routing only works for URL changes within the same active page component",
+              "Only in production",
+              "Yes, if prefetching is disabled"
+            ],
+            "correctIndex": 1,
+            "explanation": "Shallow routing functions exclusively for state/query updates on the currently active page."
+          }
+        },
+        {
+          "id": "q20-pages-directory-custom-server",
+          "title": "Q20: When and why would you use a Custom Server (server.js) with Pages Router?",
+          "content": "A custom Node.js server (using Express or Fastify) was traditionally used to integrate custom backend routing or legacy HTTP proxies. **Warning**: Custom servers disable Automatic Static Optimization and cannot be deployed to serverless environments like Vercel.",
+          "keyTakeaways": [
+            "Integrates custom Node.js frameworks (Express) with Next.js page rendering.",
+            "Disables Vercel serverless deployments and static optimization."
+          ],
+          "interactiveQuiz": {
+            "question": "What primary feature is lost when using a custom Express server.js file with Next.js?",
+            "options": [
+              "CSS Module support",
+              "Automatic Static Optimization and Serverless deployment compatibility",
+              "TypeScript support",
+              "Image optimization"
+            ],
+            "correctIndex": 1,
+            "explanation": "Custom servers bypass Next.js default serverless builds and static optimization mechanisms."
+          }
+        },
+        {
+          "id": "q21-on-demand-revalidation-pages",
+          "title": "Q21: How do you trigger On-Demand ISR Revalidation in the Pages Router?",
+          "content": "On-Demand Revalidation purges static cache files immediately via an API route without waiting for the `revalidate` timer to expire. Call `res.revalidate('/target-page-path')` inside an authenticated API route handler.",
+          "keyTakeaways": [
+            "Purges static page cache instantly on content updates.",
+            "Triggered via `res.revalidate('/path')` inside API routes."
+          ],
+          "codeExample": {
+            "title": "API Route Revalidation Handler",
+            "language": "javascript",
+            "code": "// pages/api/revalidate.js\nexport default async function handler(req, res) {\n  if (req.query.secret !== process.env.MY_SECRET_TOKEN) {\n    return res.status(401).json({ message: 'Invalid token' });\n  }\n  try {\n    await res.revalidate('/posts/1');\n    return res.json({ revalidated: true });\n  } catch (err) {\n    return res.status(500).send('Error revalidating');\n  }\n}",
+            "explanation": "res.revalidate immediately rebuilds the target static page cache."
+          },
+          "interactiveQuiz": {
+            "question": "Which response method triggers On-Demand Revalidation inside a Pages Router API route?",
+            "options": ["res.purge('/path')", "res.revalidate('/path')", "res.reload('/path')", "res.refresh('/path')"],
+            "correctIndex": 1,
+            "explanation": "res.revalidate('/path') purges and regenerates the specified static HTML path on demand."
+          }
+        },
+        {
+          "id": "q22-pages-dynamic-imports",
+          "title": "Q22: How does next/dynamic perform code splitting in the Pages Router?",
+          "content": "`next/dynamic` wraps standard `import()` calls to lazy-load React components, splitting them into separate JS chunks. Setting `{ ssr: false }` skips server-side rendering for browser-only libraries.",
+          "keyTakeaways": [
+            "Reduces initial bundle size by lazy-loading components on demand.",
+            "Use `{ ssr: false }` for browser-dependent modules."
+          ],
+          "codeExample": {
+            "title": "Lazy Loading Component with next/dynamic",
+            "language": "javascript",
+            "code": "import dynamic from 'next/dynamic';\n\nconst HeavyChart = dynamic(() => import('../components/HeavyChart'), {\n  ssr: false,\n  loading: () => <p>Loading Chart...</p>,\n});\n\nexport default function Dashboard() {\n  return <HeavyChart />;\n}",
+            "explanation": "HeavyChart is split into an independent JS chunk and rendered exclusively on the client."
+          },
+          "interactiveQuiz": {
+            "question": "What parameter setting in next/dynamic prevents a heavy client chart library from rendering on Node.js servers?",
+            "options": ["{ clientOnly: true }", "{ ssr: false }", "{ static: true }", "{ lazy: true }"],
+            "correctIndex": 1,
+            "explanation": "ssr: false skips server-side rendering execution for client-bound modules."
+          }
+        },
+        {
+          "id": "q23-preview-mode-pages",
+          "title": "Q23: What was Preview Mode in the Pages Router and how was it enabled?",
+          "content": "Preview Mode bypassed static pre-rendering (SSG) to fetch draft content from Headless CMSs. Enabled by an API route calling `res.setPreviewData({})`, which set preview cookies that forced `getStaticProps` to render dynamically at request time.",
+          "keyTakeaways": [
+            "Bypasses SSG build cache to show unpublished draft content.",
+            "Enabled via `res.setPreviewData({})` inside API routes."
+          ],
+          "interactiveQuiz": {
+            "question": "How does Pages Router Preview Mode signal getStaticProps to render draft content dynamically?",
+            "options": [
+              "Sets global browser storage",
+              "Sets secure preview HTTP cookies",
+              "Modifies environment variables",
+              "Sends a WebSocket frame"
+            ],
+            "correctIndex": 1,
+            "explanation": "res.setPreviewData() sets HTTP cookies that instruct Next.js to run getStaticProps dynamically per request."
+          }
+        },
+        {
+          "id": "q24-page-level-layouts-pattern",
+          "title": "Q24: How do you implement persistent Page-Level Layouts in the Pages Router?",
+          "content": "Attach a custom `.getLayout` function property to individual page components. In `pages/_app.js`, execute `Component.getLayout()` to wrap active pages without unmounting shared layouts during navigation.",
+          "keyTakeaways": [
+            "Attaches custom `.getLayout` properties to page component functions.",
+            "Preserves component state and scroll position across page transitions."
+          ],
+          "codeExample": {
+            "title": "Page-Level Layout Setup",
+            "language": "javascript",
+            "code": "// pages/dashboard.js\nexport default function Dashboard() { return <h1>Dashboard</h1>; }\nDashboard.getLayout = function getLayout(page) {\n  return <SidebarLayout>{page}</SidebarLayout>;\n};\n\n// pages/_app.js\nexport default function MyApp({ Component, pageProps }) {\n  const getLayout = Component.getLayout || ((page) => page);\n  return getLayout(<Component {...pageProps} />);\n}",
+            "explanation": "_app.js executes the page's getLayout function to maintain layout tree persistence."
+          },
+          "interactiveQuiz": {
+            "question": "What advantage does the getLayout pattern offer over wrapping page JSX directly in a layout component inside each file?",
+            "options": [
+              "Disables JavaScript processing",
+              "Persists layout state and DOM nodes across route changes without re-mounting shared layouts",
+              "Speeds up CSS downloads",
+              "Enables static exports"
+            ],
+            "correctIndex": 1,
+            "explanation": "Executing getLayout in _app.js keeps shared layout components mounted across route changes, preserving state."
+          }
+        },
+        {
+          "id": "q25-pages-custom-webpack-config",
+          "title": "Q25: How do you extend Webpack configuration inside next.config.js for the Pages Router?",
+          "content": "Custom Webpack configurations are defined inside the `webpack` property in `next.config.js`. It receives the existing `config` object and options (`isServer`, `dev`, `webpack`) to mutate or append plugins.",
+          "keyTakeaways": [
+            "Extend Webpack rules using `next.config.js`.",
+            "Check `options.isServer` to target server vs client bundle configurations."
+          ],
+          "codeExample": {
+            "title": "Extending Webpack in next.config.js",
+            "language": "javascript",
+            "code": "// next.config.js\nmodule.exports = {\n  webpack: (config, { isServer }) => {\n    if (!isServer) {\n      config.resolve.fallback.fs = false; // Fixes client-side fs module resolution\n    }\n    return config;\n  },\n};",
+            "explanation": "Modifies resolution fallbacks to prevent bundling Node modules into client bundles."
+          },
+          "interactiveQuiz": {
+            "question": "Which flag inside next.config.js webpack options determines if Webpack is bundling server code?",
+            "options": ["options.isNode", "options.isServer", "options.targetServer", "options.ssr"],
+            "correctIndex": 1,
+            "explanation": "options.isServer evaluates to true when Webpack builds the server-side bundle."
+          }
+        },
+        {
+          "id": "q26-getstaticprops-context-object",
+          "title": "Q26: What properties are available on the context parameter in getStaticProps?",
+          "content": "The `context` parameter in `getStaticProps` provides keys: `params` (dynamic path parameters), `preview` (boolean for preview mode), `previewData`, `locale`, `locales`, and `defaultLocale`.",
+          "keyTakeaways": ["`params` contains dynamic URL route parameters.", "Contains localization and preview mode metadata."],
+          "interactiveQuiz": {
+            "question": "Is req (the HTTP Request object) available inside getStaticProps context?",
+            "options": [
+              "Yes, always",
+              "No, because getStaticProps executes at build time when no user HTTP request exists",
+              "Only in development mode",
+              "Yes, if fallback is true"
+            ],
+            "correctIndex": 1,
+            "explanation": "getStaticProps runs at build time, meaning no user HTTP request (req) object exists."
+          }
+        },
+        {
+          "id": "q27-getserversideprops-context-object",
+          "title": "Q27: What properties are available on the context parameter in getServerSideProps?",
+          "content": "`getServerSideProps` context includes: `req` (HTTP IncomingMessage), `res` (HTTP ServerResponse), `query` (URL query string and path params), `params`, `resolvedUrl`, `locale`, `locales`, and `defaultLocale`.",
+          "keyTakeaways": [
+            "Provides direct access to Node.js HTTP `req` and `res` objects.",
+            "`query` contains both query string parameters and path parameters."
+          ],
+          "interactiveQuiz": {
+            "question": "Which object in getServerSideProps context allows reading client request cookies?",
+            "options": ["context.cookies", "context.req.headers.cookie (or context.req.cookies)", "context.params", "context.res"],
+            "correctIndex": 1,
+            "explanation": "Client cookies are transmitted in HTTP headers, accessed via context.req."
+          }
+        },
+        {
+          "id": "q28-pages-i18n-routing",
+          "title": "Q28: How does Internationalized (i18n) Routing work in the Pages Router?",
+          "content": "Next.js provides built-in internationalized routing configured in `next.config.js`. Supports two strategies: **Sub-path Routing** (`/en/blog`, `/fr/blog`) and **Domain Routing** (`example.com/blog`, `example.fr/blog`).",
+          "keyTakeaways": [
+            "Configure `i18n` object in `next.config.js` with `locales` and `defaultLocale`.",
+            "Access active locale via `useRouter().locale` or `context.locale`."
+          ],
+          "codeExample": {
+            "title": "i18n Configuration",
+            "language": "javascript",
+            "code": "// next.config.js\nmodule.exports = {\n  i18n: {\n    locales: ['en', 'fr', 'es'],\n    defaultLocale: 'en',\n  },\n};",
+            "explanation": "Automatically handles sub-path localization routing across all pages."
+          },
+          "interactiveQuiz": {
+            "question": "How do you access the active locale string inside getStaticProps?",
+            "options": ["context.req.locale", "context.locale", "useRouter().locale", "process.env.LOCALE"],
+            "correctIndex": 1,
+            "explanation": "context.locale provides the active locale string inside server data fetching methods."
+          }
+        },
+        {
+          "id": "q29-pages-redirects-data-fetching",
+          "title": "Q29: How do you trigger server-side redirects inside getStaticProps or getServerSideProps?",
+          "content": "Return a `redirect` object from `getStaticProps` or `getServerSideProps` containing `destination` (string) and `permanent` (boolean: `true` for 308, `false` for 307) or `statusCode`.",
+          "keyTakeaways": [
+            "Return `{ redirect: { destination: '/login', permanent: false } }`.",
+            "Halts page rendering and issues an immediate HTTP redirect response."
+          ],
+          "codeExample": {
+            "title": "Server-Side Redirect in getServerSideProps",
+            "language": "javascript",
+            "code": "export async function getServerSideProps(context) {\n  const session = await getSession(context.req);\n  if (!session) {\n    return {\n      redirect: {\n        destination: '/login',\n        permanent: false,\n      },\n    };\n  }\n  return { props: { user: session.user } };\n}",
+            "explanation": "Unauthenticated requests are redirected server-side before page rendering occurs."
+          },
+          "interactiveQuiz": {
+            "question": "What status code is returned when setting permanent: false inside a server redirect object?",
+            "options": ["301", "302 / 307", "308", "404"],
+            "correctIndex": 1,
+            "explanation": "permanent: false issues a temporary redirect (307 Temporary Redirect)."
+          }
+        },
+        {
+          "id": "q30-pages-notfound-return",
+          "title": "Q30: How do you return a 404 response from getStaticProps or getServerSideProps?",
+          "content": "Return `{ notFound: true }` from `getStaticProps` or `getServerSideProps`. Next.js immediately stops page rendering and serves the custom `pages/404.js` page with a 404 HTTP status code.",
+          "keyTakeaways": [
+            "Return `{ notFound: true }` when target database items do not exist.",
+            "Renders the custom 404 error page automatically."
+          ],
+          "codeExample": {
+            "title": "Returning 404 for Missing Database Records",
+            "language": "javascript",
+            "code": "export async function getStaticProps({ params }) {\n  const post = await fetchPost(params.id);\n  if (!post) {\n    return { notFound: true }; // Triggers 404 page\n  }\n  return { props: { post } };\n}",
+            "explanation": "If fetchPost returns null, notFound: true renders the 404 error page."
+          },
+          "interactiveQuiz": {
+            "question": "What happens when getStaticProps returns { notFound: true }?",
+            "options": [
+              "App throws an uncaught JavaScript error",
+              "Next.js returns an HTTP 404 status and renders pages/404.js",
+              "Redirects to the home page /",
+              "Renders the page with empty props"
+            ],
+            "correctIndex": 1,
+            "explanation": "returning { notFound: true } instructs Next.js to serve the 404 page and return a 404 status."
+          }
+        },
+        {
+          "id": "q31-script-optimization-pages",
+          "title": "Q31: How does next/script manage third-party script loading in the Pages Router?",
+          "content": "The `next/script` component optimizes third-party JS execution timing via strategies: `beforeInteractive` (injected in head before hydration), `afterInteractive` (default, loaded after page hydration), and `lazyOnload` (loaded during idle time).",
+          "keyTakeaways": [
+            "Controls third-party script execution timing.",
+            "Prevents third-party scripts from blocking initial page rendering."
+          ],
+          "interactiveQuiz": {
+            "question": "Which strategy in next/script should be used for critical analytics or bot detection scripts that must execute before page hydration?",
+            "options": ["afterInteractive", "beforeInteractive", "lazyOnload", "worker"],
+            "correctIndex": 1,
+            "explanation": "beforeInteractive injects scripts into the initial server HTML head so they run before main hydration scripts."
+          }
+        },
+        {
+          "id": "q32-custom-api-route-config",
+          "title": "Q32: How do you disable the default body parser in Pages Router API routes?",
+          "content": "Export a `config` object from the API route file with `api: { bodyParser: false }`. Disabling body parsing is necessary when processing raw file streams, file uploads (e.g. using `multer` or `formidable`), or verifying raw webhooks (like Stripe).",
+          "keyTakeaways": [
+            "Export `export const config = { api: { bodyParser: false } }`.",
+            "Required for raw request body stream processing."
+          ],
+          "codeExample": {
+            "title": "Disabling Body Parser for Webhooks",
+            "language": "javascript",
+            "code": "// pages/api/webhook.js\nexport const config = {\n  api: {\n    bodyParser: false, // Disables default JSON body parsing\n  },\n};\n\nexport default async function handler(req, res) {\n  // Process raw stream (e.g., Stripe signature verification)\n}",
+            "explanation": "Disabling bodyParser grants direct access to the unparsed HTTP request stream."
+          },
+          "interactiveQuiz": {
+            "question": "Why must you set bodyParser: false when receiving raw Stripe webhook events in an API route?",
+            "options": [
+              "Stripe API requires XML formatting",
+              "Signature verification requires the exact unparsed raw binary/string request body",
+              "To speed up JSON parsing",
+              "Next.js does not support JSON bodies"
+            ],
+            "correctIndex": 1,
+            "explanation": "Cryptographic webhook signatures require calculating hashes over the raw unparsed request body."
+          }
+        },
+        {
+          "id": "q33-pages-css-modules-support",
+          "title": "Q33: How do CSS Modules work in the Pages Router?",
+          "content": "Next.js supports CSS Modules out of the box using the `.module.css` extension. Styles defined inside CSS modules are scoped locally to the importing component file to avoid global class name collisions.",
+          "keyTakeaways": ["Use `[name].module.css` files.", "Automatically generates unique scoped CSS class names."],
+          "codeExample": {
+            "title": "Importing CSS Modules",
+            "language": "javascript",
+            "code": "import styles from './Button.module.css';\n\nexport default function Button() {\n  return <button className={styles.btnPrimary}>Click Me</button>;\n}",
+            "explanation": "styles.btnPrimary resolves to a unique scoped class name string like Button_btnPrimary__1a2b3."
+          },
+          "interactiveQuiz": {
+            "question": "Where can global un-scoped CSS stylesheets (e.g., import '../styles/global.css') be imported in the Pages Router?",
+            "options": ["In any page file", "Exclusively inside pages/_app.js", "Inside pages/_document.js", "Inside pages/api files"],
+            "correctIndex": 1,
+            "explanation": "To prevent global CSS specificity conflicts, global stylesheets can only be imported in pages/_app.js."
+          }
+        },
+        {
+          "id": "q34-client-side-navigation-pages",
+          "title": "Q34: How does client-side navigation work using next/link in the Pages Router?",
+          "content": "The `<Link href=\"...\">` component performs client-side transitions using HTML5 History APIs without triggering full browser page reloads. When a Link enters the browser viewport, Next.js automatically **prefetches** the page's JS bundle and JSON data in the background.",
+          "keyTakeaways": [
+            "Enables fast SPA navigation without full page reloads.",
+            "Automatically prefetches linked page assets when scrolled into the viewport."
+          ],
+          "interactiveQuiz": {
+            "question": "What asset does Next.js prefetch when a <Link href=\"/about\"> enters the viewport for an SSG page?",
+            "options": [
+              "The raw source code file",
+              "The page's compiled JavaScript bundle and static JSON props data file",
+              "The entire database",
+              "Nothing until clicked"
+            ],
+            "correctIndex": 1,
+            "explanation": "Next.js prefetches the JS component bundle and JSON props payload to enable instant client-side rendering upon click."
+          }
+        },
+        {
+          "id": "q35-pages-env-variables",
+          "title": "Q35: How are Environment Variables handled in the Pages Router?",
+          "content": "Environment variables defined in `.env.local` are private to the server runtime by default. To expose environment variables to the browser client, prefix their names with `NEXT_PUBLIC_` (e.g. `NEXT_PUBLIC_API_URL`).",
+          "keyTakeaways": [
+            "Server-only by default (`process.env.DB_PASS`).",
+            "Prefix with `NEXT_PUBLIC_` to inline variables into client JavaScript bundles."
+          ],
+          "codeExample": {
+            "title": "Accessing Environment Variables",
+            "language": "javascript",
+            "code": "// Available ONLY on the server (getStaticProps / getServerSideProps / API routes)\nconst dbPassword = process.env.DB_PASSWORD;\n\n// Inlined into client JavaScript bundles (accessible in React components)\nconst publicUrl = process.env.NEXT_PUBLIC_ANALYTICS_KEY;",
+            "explanation": "NEXT_PUBLIC_ variables are replaced with their inline literal values during build compilation."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if you reference process.env.SECRET_KEY (without NEXT_PUBLIC_) inside a client React component function?",
+            "options": [
+              "Next.js throws a build error",
+              "It evaluates to undefined on the client to prevent security leaks",
+              "It exposes the key in the client JavaScript bundle",
+              "It prompts the user for a password"
+            ],
+            "correctIndex": 1,
+            "explanation": "Variables lacking NEXT_PUBLIC_ are omitted from client bundles, resolving to undefined in browser scripts."
+          }
+        },
+        {
+          "id": "q36-pages-custom-server-response-headers",
+          "title": "Q36: How do you attach custom HTTP response headers to pages in the Pages Router?",
+          "content": "Custom response headers can be set globally in `next.config.js` via the `headers()` async function, or per-request inside `getServerSideProps` using `context.res.setHeader('Header-Name', 'Value')`.",
+          "keyTakeaways": [
+            "Global headers: Configure `headers()` in `next.config.js`.",
+            "Dynamic headers: Call `context.res.setHeader()` in `getServerSideProps`."
+          ],
+          "codeExample": {
+            "title": "Setting Headers in getServerSideProps",
+            "language": "javascript",
+            "code": "export async function getServerSideProps({ res }) {\n  res.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');\n  return { props: { time: new Date().toISOString() } };\n}",
+            "explanation": "Sets custom HTTP Cache-Control headers directly on the Node.js response object."
+          },
+          "interactiveQuiz": {
+            "question": "Can you call context.res.setHeader() inside getStaticProps?",
+            "options": [
+              "Yes, always",
+              "No, because getStaticProps runs at build time and does not process individual HTTP response objects",
+              "Only in development",
+              "Yes, if fallback is blocking"
+            ],
+            "correctIndex": 1,
+            "explanation": "getStaticProps runs at build time when no active HTTP server response (res) exists."
+          }
+        },
+        {
+          "id": "q37-pages-custom-app-getinitialprops-caveat",
+          "title": "Q37: How do you structure pages/_app.js if you MUST use getInitialProps?",
+          "content": "If `_app.js` uses `getInitialProps`, you must manually execute `App.getInitialProps(appContext)` and spread `appProps.pageProps` to preserve page-level data fetching.",
+          "keyTakeaways": [
+            "Must execute `App.getInitialProps(appContext)` explicitly.",
+            "Opt-out of static optimization globally across all pages."
+          ],
+          "codeExample": {
+            "title": "Custom App getInitialProps Pattern",
+            "language": "javascript",
+            "code": "import App from 'next/app';\n\nfunction MyApp({ Component, pageProps }) {\n  return <Component {...pageProps} />;\n}\n\nMyApp.getInitialProps = async (appContext) => {\n  const appProps = await App.getInitialProps(appContext);\n  return { ...appProps };\n};\n\nexport default MyApp;",
+            "explanation": "Executes framework App.getInitialProps to gather pageProps for the active component."
+          },
+          "interactiveQuiz": {
+            "question": "What is the recommended modern alternative to adding global data fetching in pages/_app.js with getInitialProps?",
+            "options": [
+              "Use React Context or SWR/React Query for client-side data fetching where needed",
+              "Use Redux Saga",
+              "Write a custom Webpack plugin",
+              "Use window.fetch in inline scripts"
+            ],
+            "correctIndex": 0,
+            "explanation": "Fetching global client state with SWR/React Query preserves static optimization for individual pages."
+          }
+        },
+        {
+          "id": "q38-pages-trailing-slash-config",
+          "title": "Q38: How does trailingSlash configuration affect Pages Router routing?",
+          "content": "Setting `trailingSlash: true` in `next.config.js` redirects URLs without trailing slashes to their trailing slash equivalent (`/about` -> `/about/`). Static export builds output `about/index.html` instead of `about.html`.",
+          "keyTakeaways": ["Configured via `trailingSlash: true` in `next.config.js`.", "Shapes static export HTML folder structures."],
+          "interactiveQuiz": {
+            "question": "When trailingSlash: true is configured, what HTML file path is generated for pages/contact.js during static export?",
+            "options": ["contact.html", "contact/index.html", "pages/contact.html", "index/contact.html"],
+            "correctIndex": 1,
+            "explanation": "trailingSlash: true generates subfolder index files (contact/index.html) to match trailing slash directory URLs."
+          }
+        },
+        {
+          "id": "q39-pages-amp-support",
+          "title": "Q39: How did Accelerated Mobile Pages (AMP) work in the Pages Router?",
+          "content": "The Pages Router supported AMP via `export const config = { amp: true }` (pure AMP) or `amp: 'hybrid'` (serves both standard HTML and AMP routes like `/page?amp=1`). Use `useAmp()` hook to inspect rendering mode.",
+          "keyTakeaways": [
+            "Configured via `export const config = { amp: true | 'hybrid' }`.",
+            "Note: AMP support is legacy and removed in modern App Router setups."
+          ],
+          "interactiveQuiz": {
+            "question": "Which hook in the Pages Router determined if a component was currently rendering in AMP mode for hybrid AMP pages?",
+            "options": ["useRouter()", "useAmp()", "useAMPMode()", "useStatic()"],
+            "correctIndex": 1,
+            "explanation": "useAmp() returned true when rendering the AMP version of a hybrid page."
+          }
+        },
+        {
+          "id": "q40-pages-serverless-target-legacy",
+          "title": "Q40: What was target: 'serverless' in legacy Next.js Pages Router builds?",
+          "content": "Legacy Next.js builds offered `target: 'serverless'`, compiling every page inside `pages/` into an independent self-contained Node.js Lambda function rather than a single monolithic server instance. (Deprecated in modern versions in favor of automatic Vercel serverless splitting).",
+          "keyTakeaways": [
+            "Compiled individual pages into standalone isolated Lambda functions.",
+            "Replaced by modern automatic serverless platform slicing."
+          ],
+          "interactiveQuiz": {
+            "question": "Why was target: 'serverless' historically useful for cloud deployments?",
+            "options": [
+              "It removed JavaScript entirely",
+              "It split pages into isolated functions so scaling one page didn't require scaling the entire monolithic app",
+              "It converted React to Vue",
+              "It disabled CSS loading"
+            ],
+            "correctIndex": 1,
+            "explanation": "Isolated serverless functions allowed granular scaling and independent cold-start execution per route."
+          }
+        },
+        {
+          "id": "q41-pages-basepath-configuration",
+          "title": "Q41: How does the basePath configuration option work in next.config.js?",
+          "content": "`basePath: '/docs'` hosting allows serving a Next.js application under a URL sub-path instead of root domain paths. All `<Link>` components and asset paths automatically prepend the specified basePath prefix.",
+          "keyTakeaways": [
+            "Configured via `basePath: '/prefix'` in `next.config.js`.",
+            "Prefixes all routes and internal links automatically."
+          ],
+          "codeExample": {
+            "title": "Setting basePath in next.config.js",
+            "language": "javascript",
+            "code": "// next.config.js\nmodule.exports = {\n  basePath: '/sub-app',\n};",
+            "explanation": "Pages in pages/about.js are automatically served from /sub-app/about."
+          },
+          "interactiveQuiz": {
+            "question": "If basePath: '/portal' is set, what URL corresponds to pages/settings.js?",
+            "options": ["/settings", "/portal/settings", "/settings/portal", "/pages/portal/settings"],
+            "correctIndex": 1,
+            "explanation": "basePath automatically prepends /portal to all route paths."
+          }
+        },
+        {
+          "id": "q42-pages-dynamic-routes-priority",
+          "title": "Q42: What is the route specificity matching priority in the Pages Router?",
+          "content": "When URL paths match multiple route patterns, Next.js evaluates route priority in strict order:\n1. **Predefined explicit routes** (`pages/post/create.js`)\n2. **Dynamic routes** (`pages/post/[id].js`)\n3. **Catch-all routes** (`pages/post/[...slug].js`) \n4. **Optional Catch-all routes** (`pages/post/[[...slug]].js`)",
+          "keyTakeaways": [
+            "Explicit static route files take precedence over dynamic wildcard files.",
+            "Optional catch-all files have the lowest specificity priority."
+          ],
+          "interactiveQuiz": {
+            "question": "Which page file handles the incoming URL /posts/new if both pages/posts/new.js and pages/posts/[id].js exist?",
+            "options": [
+              "pages/posts/[id].js",
+              "pages/posts/new.js",
+              "Both execute simultaneously",
+              "Next.js throws a route collision error"
+            ],
+            "correctIndex": 1,
+            "explanation": "Explicit predefined route files (new.js) always take precedence over dynamic parameter routes ([id].js)."
+          }
+        },
+        {
+          "id": "q43-pages-swr-data-fetching",
+          "title": "Q43: How is SWR used for client-side data fetching alongside SSG in Pages Router?",
+          "content": "A common pattern combines SSG for initial skeleton HTML with SWR (`useSWR`) on the client for live data revalidation. Initial static data can be passed to SWR as `fallbackData` inside `getStaticProps`.",
+          "keyTakeaways": [
+            "Combines static page pre-rendering with dynamic client-side hydration.",
+            "Pass initial props to SWR's `fallbackData` option."
+          ],
+          "codeExample": {
+            "title": "Combining SSG with Client SWR Revalidation",
+            "language": "javascript",
+            "code": "import useSWR from 'swr';\n\nexport async function getStaticProps() {\n  const initialData = await fetchStockData();\n  return { props: { initialData } };\n}\n\nexport default function Stock({ initialData }) {\n  const { data } = useSWR('/api/stock', fetcher, { fallbackData: initialData });\n  return <div>Current Price: {data.price}</div>;\n}",
+            "explanation": "Pre-renders initialData statically at build time, while useSWR polls for live client-side updates."
+          },
+          "interactiveQuiz": {
+            "question": "What role does fallbackData play when passing getStaticProps data into the useSWR hook?",
+            "options": [
+              "Serves as error logging output",
+              "Provides initial data for rendering before client-side fetching completes",
+              "Disables network calls",
+              "Converts JSON to XML"
+            ],
+            "correctIndex": 1,
+            "explanation": "fallbackData populates SWR initial state instantly with server pre-rendered data during client hydration."
+          }
+        },
+        {
+          "id": "q44-pages-custom-webpack-loaders",
+          "title": "Q44: How do you configure SVG inline loading in Pages Router next.config.js using @svgr/webpack?",
+          "content": "To import SVG files directly as React components in the Pages Router, extend `next.config.js` with Webpack module rules targeting `@svgr/webpack`.",
+          "keyTakeaways": [
+            "Extends Webpack module rules for custom file extensions.",
+            "Allows importing `.svg` files directly as React component functions."
+          ],
+          "codeExample": {
+            "title": "SVGR Webpack Config",
+            "language": "javascript",
+            "code": "// next.config.js\nmodule.exports = {\n  webpack(config) {\n    config.module.rules.push({\n      test: /\\.svg$/i,\n      use: ['@svgr/webpack'],\n    });\n    return config;\n  },\n};",
+            "explanation": "Allows writing import Logo from './logo.svg' and rendering <Logo /> directly in JSX."
+          },
+          "interactiveQuiz": {
+            "question": "Where do you append custom file transformation loaders in a Next.js application?",
+            "options": [
+              "Inside pages/_app.js",
+              "Inside the webpack function in next.config.js",
+              "Inside pages/_document.js",
+              "In package.json scripts"
+            ],
+            "correctIndex": 1,
+            "explanation": "Webpack loader rules are added to config.module.rules within next.config.js."
+          }
+        },
+        {
+          "id": "q45-pages-router-migration-to-app-router-coexistence",
+          "title": "Q45: Can the pages/ directory and app/ directory coexist in the same Next.js project?",
+          "content": "Yes! Next.js supports incremental migration. The `pages/` directory and `app/` directory can coexist in the same codebase. Routes defined in `app/` take priority over identical paths in `pages/`.",
+          "keyTakeaways": [
+            "Supports step-by-step incremental migration.",
+            "`app/` directory routes take precedence over matching `pages/` routes."
+          ],
+          "interactiveQuiz": {
+            "question": "If both pages/about.js and app/about/page.js exist in the same codebase, which file renders when navigating to /about?",
+            "options": [
+              "pages/about.js",
+              "app/about/page.js (App Router takes priority)",
+              "Next.js throws a build error",
+              "A random page is selected"
+            ],
+            "correctIndex": 1,
+            "explanation": "App Router routes take precedence over matching Pages Router paths during incremental migration."
+          }
+        },
+        {
+          "id": "q46-migrating-getserversideprops-to-app-router",
+          "title": "Q46: How do you migrate a Pages Router component with getServerSideProps to the App Router?",
+          "content": "In the App Router, delete `getServerSideProps`. Convert the page component into an `async` Server Component, and call dynamic `fetch('...', { cache: 'no-store' })` or query databases directly inside the component body.",
+          "keyTakeaways": [
+            "Replace `getServerSideProps` with direct async calls inside React Server Components.",
+            "Use `{ cache: 'no-store' }` or dynamic functions (`cookies()`, `headers()`) to force request-time rendering."
+          ],
+          "codeExample": {
+            "title": "Migration Example",
+            "language": "javascript",
+            "code": "// BEFORE (pages/user.js)\nexport async function getServerSideProps() {\n  const user = await fetchUser();\n  return { props: { user } };\n}\nexport default function Page({ user }) { return <h1>{user.name}</h1>; }\n\n// AFTER (app/user/page.js)\nexport default async function Page() {\n  const user = await fetchUser(); // Direct execution in Server Component!\n  return <h1>{user.name}</h1>;\n}",
+            "explanation": "App Router eliminates getServerSideProps wrapper code in favor of async Server Components."
+          },
+          "interactiveQuiz": {
+            "question": "What replaces getServerSideProps when migrating a page to an App Router Server Component?",
+            "options": [
+              "useServerEffect hook",
+              "Direct async fetch/database calls inside the Server Component body",
+              "getServerProps function",
+              "getAppProps function"
+            ],
+            "correctIndex": 1,
+            "explanation": "React Server Components run asynchronously on the server, executing data fetching directly inside the component function body."
+          }
+        },
+        {
+          "id": "q47-migrating-getstaticprops-getstaticpaths-to-app-router",
+          "title": "Q47: How do you migrate getStaticProps and getStaticPaths to the App Router?",
+          "content": "- `getStaticProps`: Replaced by standard `fetch()` calls inside Server Components (which cache by default or using `{ cache: 'force-cache' }`).\n- `getStaticPaths`: Replaced by `export async function generateStaticParams()`.",
+          "keyTakeaways": [
+            "`getStaticProps` -> native cached `fetch()` calls inside Server Components.",
+            "`getStaticPaths` -> `generateStaticParams()`."
+          ],
+          "interactiveQuiz": {
+            "question": "Which function replaces getStaticPaths when migrating a dynamic route to the App Router?",
+            "options": ["generateStaticParams", "getStaticRoutes", "exportStaticPaths", "generateAppPaths"],
+            "correctIndex": 0,
+            "explanation": "generateStaticParams outputs route parameters for dynamic route pre-rendering in the App Router."
+          }
+        },
+        {
+          "id": "q48-pages-router-client-side-only-components",
+          "title": "Q48: How do you prevent a component from rendering during SSR in the Pages Router?",
+          "content": "To render a component exclusively on the client in the Pages Router:\n1. Wrap import with `next/dynamic(() => import(...), { ssr: false })`.\n2. Or check `typeof window !== 'undefined'` / wrap render in a `useEffect` mounted state check.",
+          "keyTakeaways": [
+            "Use `next/dynamic` with `{ ssr: false }`.",
+            "Prevents hydration errors for window/document dependent libraries."
+          ],
+          "codeExample": {
+            "title": "Mounted Effect Pattern for Client-Only Rendering",
+            "language": "javascript",
+            "code": "import { useState, useEffect } from 'react';\n\nexport default function ClientOnly({ children }) {\n  const [hasMounted, setHasMounted] = useState(false);\n  useEffect(() => { setHasMounted(true); }, []);\n  if (!hasMounted) return null;\n  return <>{children}</>;\n}",
+            "explanation": "useEffect fires exclusively on the client after mount, preventing server pre-rendering of children."
+          },
+          "interactiveQuiz": {
+            "question": "Why does evaluating window.innerWidth directly inside a component's render body cause a hydration mismatch error?",
+            "options": [
+              "Because window is undefined during server pre-rendering, producing mismatched server and client HTML markup",
+              "Because window is a React keyword",
+              "Because CSS modules require pixels",
+              "It works without errors"
+            ],
+            "correctIndex": 0,
+            "explanation": "Server rendering lacks window objects; accessing them directly creates mismatching HTML structures during client hydration."
+          }
+        },
+        {
+          "id": "q49-pages-api-route-cors-headers",
+          "title": "Q49: How do you enable Cross-Origin Resource Sharing (CORS) in Pages Router API routes?",
+          "content": "To enable CORS in an API route, attach standard CORS response headers (`Access-Control-Allow-Origin`, `Access-Control-Allow-Methods`) directly using `res.setHeader()`, or wrap the handler using the `cors` npm package.",
+          "keyTakeaways": [
+            "Set `Access-Control-Allow-Origin` using `res.setHeader()`.",
+            "Handle HTTP `OPTIONS` preflight requests explicitly."
+          ],
+          "codeExample": {
+            "title": "CORS Headers in API Route",
+            "language": "javascript",
+            "code": "export default async function handler(req, res) {\n  res.setHeader('Access-Control-Allow-Origin', '*');\n  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');\n  if (req.method === 'OPTIONS') {\n    return res.status(200).end(); // Respond to preflight\n  }\n  return res.json({ status: 'success' });\n}",
+            "explanation": "Responds to OPTIONS preflight checks and sets origin headers to permit cross-site requests."
+          },
+          "interactiveQuiz": {
+            "question": "Which HTTP request method must be handled to respond to browser CORS preflight checks inside an API route handler?",
+            "options": ["GET", "POST", "OPTIONS", "HEAD"],
+            "correctIndex": 2,
+            "explanation": "Browsers automatically send an HTTP OPTIONS request prior to cross-origin requests to verify permission headers."
+          }
+        },
+        {
+          "id": "q50-pages-router-summary-strengths-weaknesses",
+          "title": "Q50: What are the main architectural tradeoffs of the Pages Router compared to the App Router?",
+          "content": "- **Pages Router Strengths**: Simple mental model, proven stability, straightforward page-level data methods (`getStaticProps`/`getServerSideProps`), extensive legacy ecosystem support.\n- **Pages Router Tradeoffs**: Larger client JS bundle sizes (no React Server Components), rigid page-level layout constraints (lacks nested layout tree persistence), coarse request-time data fetching granularities.",
+          "keyTakeaways": [
+            "Pages Router: Page-centric rendering with mandatory client hydration.",
+            "App Router: Component-centric rendering powered by React Server Components and nested layouts."
+          ],
+          "interactiveQuiz": {
+            "question": "What primary React capability is available natively in the App Router but absent in the Pages Router architecture?",
+            "options": ["Client-side state", "React Server Components (RSC) and nested persistence layouts", "JSX syntax", "CSS Modules"],
+            "correctIndex": 1,
+            "explanation": "The App Router is built on React Server Components and nested layout trees, capabilities absent from the Pages Router."
           }
         }
       ]
