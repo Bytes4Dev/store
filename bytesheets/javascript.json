@@ -1514,11 +1514,11 @@
       ]
     },
     {
-      "id": "interview-questions",
-      "title": "Top Interview Questions & Practice",
-      "summary": "Master 50+ essential interview questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "id": "javascript-questions",
+      "title": "Top Javascript Questions & Practice",
+      "summary": "Master 50+ essential Javascript questions ranging from core fundamentals to senior-level real-world scenarios.",
       "estimatedMinutes": 180,
-      "mediaImages": ["https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=1200&q=80"],
+      "mediaImages": [],
       "sections": [
         {
           "id": "junior-fundamentals-01",

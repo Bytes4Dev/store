@@ -1372,15 +1372,15 @@
       ]
     },
     {
-      "id": "interview-questions",
-      "title": "Top Interview Questions & Practice",
-      "summary": "Master 60 essential React interview questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "id": "reactjs-questions",
+      "title": "Top ReactJS Questions & Practice",
+      "summary": "Master 60 essential ReactJS  questions ranging from core fundamentals to senior-level real-world scenarios.",
       "estimatedMinutes": 120,
       "sections": [
         {
           "id": "junior-fundamentals-question-1",
           "title": "Junior Fundamentals — Question 1",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is React?",
@@ -1392,7 +1392,7 @@
         {
           "id": "junior-fundamentals-question-2",
           "title": "Junior Fundamentals — Question 2",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is JSX?",
@@ -1404,7 +1404,7 @@
         {
           "id": "junior-fundamentals-question-3",
           "title": "Junior Fundamentals — Question 3",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a React component?",
@@ -1416,7 +1416,7 @@
         {
           "id": "junior-fundamentals-question-4",
           "title": "Junior Fundamentals — Question 4",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What are props?",
@@ -1428,7 +1428,7 @@
         {
           "id": "junior-fundamentals-question-5",
           "title": "Junior Fundamentals — Question 5",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is state?",
@@ -1440,7 +1440,7 @@
         {
           "id": "junior-fundamentals-question-6",
           "title": "Junior Fundamentals — Question 6",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Why should render logic be pure?",
@@ -1457,7 +1457,7 @@
         {
           "id": "junior-fundamentals-question-7",
           "title": "Junior Fundamentals — Question 7",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What does a key identify in a React list?",
@@ -1469,7 +1469,7 @@
         {
           "id": "junior-fundamentals-question-8",
           "title": "Junior Fundamentals — Question 8",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Why are stable IDs preferred over array indexes as keys?",
@@ -1486,7 +1486,7 @@
         {
           "id": "junior-fundamentals-question-9",
           "title": "Junior Fundamentals — Question 9",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What does useState return?",
@@ -1498,7 +1498,7 @@
         {
           "id": "junior-fundamentals-question-10",
           "title": "Junior Fundamentals — Question 10",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What does a state setter do?",
@@ -1515,7 +1515,7 @@
         {
           "id": "core-apis-and-state-question-1",
           "title": "Core APIs & State Management — Question 1",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "When should a functional state updater be used?",
@@ -1527,7 +1527,7 @@
         {
           "id": "core-apis-and-state-question-2",
           "title": "Core APIs & State Management — Question 2",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is lifting state up?",
@@ -1544,7 +1544,7 @@
         {
           "id": "core-apis-and-state-question-3",
           "title": "Core APIs & State Management — Question 3",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is Context primarily useful for?",
@@ -1561,7 +1561,7 @@
         {
           "id": "core-apis-and-state-question-4",
           "title": "Core APIs & State Management — Question 4",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Is Context automatically a replacement for all global state management?",
@@ -1573,7 +1573,7 @@
         {
           "id": "core-apis-and-state-question-5",
           "title": "Core APIs & State Management — Question 5",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is useReducer best suited for?",
@@ -1585,7 +1585,7 @@
         {
           "id": "core-apis-and-state-question-6",
           "title": "Core APIs & State Management — Question 6",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What should a reducer avoid?",
@@ -1597,7 +1597,7 @@
         {
           "id": "core-apis-and-state-question-7",
           "title": "Core APIs & State Management — Question 7",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is derived state?",
@@ -1609,7 +1609,7 @@
         {
           "id": "core-apis-and-state-question-8",
           "title": "Core APIs & State Management — Question 8",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a controlled input?",
@@ -1626,7 +1626,7 @@
         {
           "id": "core-apis-and-state-question-9",
           "title": "Core APIs & State Management — Question 9",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Which prop controls a checkbox's boolean state?",
@@ -1638,7 +1638,7 @@
         {
           "id": "core-apis-and-state-question-10",
           "title": "Core APIs & State Management — Question 10",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a good reason to use a reducer?",
@@ -1655,7 +1655,7 @@
         {
           "id": "hooks-and-effects-question-1",
           "title": "Hooks, Effects & Closures — Question 1",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Where can Hooks be called?",
@@ -1667,7 +1667,7 @@
         {
           "id": "hooks-and-effects-question-2",
           "title": "Hooks, Effects & Closures — Question 2",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Why must Hooks not be called conditionally?",
@@ -1684,7 +1684,7 @@
         {
           "id": "hooks-and-effects-question-3",
           "title": "Hooks, Effects & Closures — Question 3",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is useEffect primarily for?",
@@ -1701,7 +1701,7 @@
         {
           "id": "hooks-and-effects-question-4",
           "title": "Hooks, Effects & Closures — Question 4",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is effect cleanup for?",
@@ -1713,7 +1713,7 @@
         {
           "id": "hooks-and-effects-question-5",
           "title": "Hooks, Effects & Closures — Question 5",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a stale closure?",
@@ -1725,7 +1725,7 @@
         {
           "id": "hooks-and-effects-question-6",
           "title": "Hooks, Effects & Closures — Question 6",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What does useRef provide?",
@@ -1742,7 +1742,7 @@
         {
           "id": "hooks-and-effects-question-7",
           "title": "Hooks, Effects & Closures — Question 7",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "When should state be preferred over a ref?",
@@ -1754,7 +1754,7 @@
         {
           "id": "hooks-and-effects-question-8",
           "title": "Hooks, Effects & Closures — Question 8",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What does useMemo cache?",
@@ -1766,7 +1766,7 @@
         {
           "id": "hooks-and-effects-question-9",
           "title": "Hooks, Effects & Closures — Question 9",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What does useCallback cache?",
@@ -1778,7 +1778,7 @@
         {
           "id": "hooks-and-effects-question-10",
           "title": "Hooks, Effects & Closures — Question 10",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Should every callback be wrapped in useCallback?",
@@ -1795,7 +1795,7 @@
         {
           "id": "rendering-performance-question-1",
           "title": "Rendering, Reconciliation & Performance — Question 1",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Does every React render imply a DOM mutation?",
@@ -1807,7 +1807,7 @@
         {
           "id": "rendering-performance-question-2",
           "title": "Rendering, Reconciliation & Performance — Question 2",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What influences component identity in a list?",
@@ -1819,7 +1819,7 @@
         {
           "id": "rendering-performance-question-3",
           "title": "Rendering, Reconciliation & Performance — Question 3",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What can changing a key intentionally do?",
@@ -1831,7 +1831,7 @@
         {
           "id": "rendering-performance-question-4",
           "title": "Rendering, Reconciliation & Performance — Question 4",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is reconciliation?",
@@ -1848,7 +1848,7 @@
         {
           "id": "rendering-performance-question-5",
           "title": "Rendering, Reconciliation & Performance — Question 5",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is memoization primarily used for?",
@@ -1865,7 +1865,7 @@
         {
           "id": "rendering-performance-question-6",
           "title": "Rendering, Reconciliation & Performance — Question 6",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is list virtualization?",
@@ -1882,7 +1882,7 @@
         {
           "id": "rendering-performance-question-7",
           "title": "Rendering, Reconciliation & Performance — Question 7",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is code splitting?",
@@ -1899,7 +1899,7 @@
         {
           "id": "rendering-performance-question-8",
           "title": "Rendering, Reconciliation & Performance — Question 8",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a transition useful for?",
@@ -1916,7 +1916,7 @@
         {
           "id": "rendering-performance-question-9",
           "title": "Rendering, Reconciliation & Performance — Question 9",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a common first step in performance work?",
@@ -1933,7 +1933,7 @@
         {
           "id": "rendering-performance-question-10",
           "title": "Rendering, Reconciliation & Performance — Question 10",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Why can narrow state ownership improve performance?",
@@ -1950,7 +1950,7 @@
         {
           "id": "advanced-patterns-question-1",
           "title": "Advanced React & Architecture — Question 1",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is an error boundary used for?",
@@ -1967,7 +1967,7 @@
         {
           "id": "advanced-patterns-question-2",
           "title": "Advanced React & Architecture — Question 2",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What does Suspense provide?",
@@ -1984,7 +1984,7 @@
         {
           "id": "advanced-patterns-question-3",
           "title": "Advanced React & Architecture — Question 3",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a portal?",
@@ -1996,7 +1996,7 @@
         {
           "id": "advanced-patterns-question-4",
           "title": "Advanced React & Architecture — Question 4",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Why are portals useful for dialogs?",
@@ -2013,7 +2013,7 @@
         {
           "id": "advanced-patterns-question-5",
           "title": "Advanced React & Architecture — Question 5",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a compound component pattern?",
@@ -2030,7 +2030,7 @@
         {
           "id": "advanced-patterns-question-6",
           "title": "Advanced React & Architecture — Question 6",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a headless component?",
@@ -2047,7 +2047,7 @@
         {
           "id": "advanced-patterns-question-7",
           "title": "Advanced React & Architecture — Question 7",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is a server-state cache concerned with?",
@@ -2064,7 +2064,7 @@
         {
           "id": "advanced-patterns-question-8",
           "title": "Advanced React & Architecture — Question 8",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Where should authorization be enforced?",
@@ -2076,7 +2076,7 @@
         {
           "id": "advanced-patterns-question-9",
           "title": "Advanced React & Architecture — Question 9",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "What is feature-based architecture?",
@@ -2093,7 +2093,7 @@
         {
           "id": "advanced-patterns-question-10",
           "title": "Advanced React & Architecture — Question 10",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Why validate server responses on the client when correctness requires it?",
@@ -2110,7 +2110,7 @@
         {
           "id": "senior-scenarios-question-1",
           "title": "Senior-Level Real-World Scenarios — Question 1",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "An older search request finishes after a newer request. What should happen?",
@@ -2122,7 +2122,7 @@
         {
           "id": "senior-scenarios-question-2",
           "title": "Senior-Level Real-World Scenarios — Question 2",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "An effect calculates fullName from firstName and lastName. What is usually better?",
@@ -2134,7 +2134,7 @@
         {
           "id": "senior-scenarios-question-3",
           "title": "Senior-Level Real-World Scenarios — Question 3",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "A dashboard's rapidly changing clock state causes many unrelated widgets to render. What should you investigate first?",
@@ -2146,7 +2146,7 @@
         {
           "id": "senior-scenarios-question-4",
           "title": "Senior-Level Real-World Scenarios — Question 4",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "A user can modify a browser request to call an admin API. Where must permission checks occur?",
@@ -2158,7 +2158,7 @@
         {
           "id": "senior-scenarios-question-5",
           "title": "Senior-Level Real-World Scenarios — Question 5",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "A form has loading, success, and error booleans that reach impossible combinations. What is better?",
@@ -2175,7 +2175,7 @@
         {
           "id": "senior-scenarios-question-6",
           "title": "Senior-Level Real-World Scenarios — Question 6",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "A 100,000-row table is slow because every row is mounted. What is likely useful?",
@@ -2187,7 +2187,7 @@
         {
           "id": "senior-scenarios-question-7",
           "title": "Senior-Level Real-World Scenarios — Question 7",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "A production app has a huge initial JavaScript bundle. What is a likely improvement?",
@@ -2199,7 +2199,7 @@
         {
           "id": "senior-scenarios-question-8",
           "title": "Senior-Level Real-World Scenarios — Question 8",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "A context contains a huge object updated very frequently. What should you consider?",
@@ -2216,7 +2216,7 @@
         {
           "id": "senior-scenarios-question-9",
           "title": "Senior-Level Real-World Scenarios — Question 9",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "A dialog closes but keyboard focus is lost. What should be fixed?",
@@ -2228,7 +2228,7 @@
         {
           "id": "senior-scenarios-question-10",
           "title": "Senior-Level Real-World Scenarios — Question 10",
-          "content": "Choose the best answer. In a real interview, explain the reasoning and the trade-off rather than only naming the option.",
+          "content": "",
           "keyTakeaways": ["Explain the underlying React mental model.", "Connect the answer to a production scenario."],
           "interactiveQuiz": {
             "question": "Tests fail whenever internal class names change. What does that suggest?",
