@@ -1491,6 +1491,581 @@
           }
         }
       ]
+    },
+    {
+      "id": "dsa-questions-25",
+      "title": "25 Essential Data Structures & Algorithms Coding Questions",
+      "summary": "A 25-question DSA problem bank covering arrays, strings, linked lists, trees, graphs, dynamic programming, and algorithm paradigms using the codeExample format.",
+      "estimatedMinutes": 210,
+      "sections": [
+        {
+          "id": "q1-dsa-two-sum",
+          "title": "Q1: Two Sum",
+          "content": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`. Use a Hash Map to reduce lookup complexity to O(1).",
+          "keyTakeaways": [
+            "Hash Map provides O(n) time complexity by storing complement values during iteration.",
+            "Avoids the naive O(n²) nested loop approach."
+          ],
+          "codeExample": {
+            "title": "Hash Map Two Sum Solution",
+            "language": "javascript",
+            "code": "function twoSum(nums, target) {\n  const map = new Map();\n  for (let i = 0; i < nums.length; i++) {\n    const complement = target - nums[i];\n    if (map.has(complement)) {\n      return [map.get(complement), i];\n    }\n    map.set(nums[i], i);\n  }\n  return [];\n}\n\nconsole.log(twoSum([2, 7, 11, 15], 9)); // [0, 1]",
+            "explanation": "As we iterate through nums, we calculate the complement required to reach target. If the complement exists in our map, we immediately return its stored index and the current index."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time and space complexity of the Hash Map solution for Two Sum?",
+            "options": [
+              "O(n) time and O(n) space",
+              "O(n²) time and O(1) space",
+              "O(n log n) time and O(n) space",
+              "O(1) time and O(n) space"
+            ],
+            "correctIndex": 0,
+            "explanation": "Iterating the array takes O(n) time, and storing elements in a map takes O(n) auxiliary space."
+          }
+        },
+        {
+          "id": "q2-dsa-valid-parentheses",
+          "title": "Q2: Valid Parentheses",
+          "content": "Given a string containing `()`, `{}`, and `[]`, determine if the input string is valid using a Stack data structure.",
+          "keyTakeaways": [
+            "Stacks enforce Last-In, First-Out (LIFO) tracking for nested structure validations.",
+            "The string is invalid if an unexpected closing bracket appears or if brackets remain on the stack at the end."
+          ],
+          "codeExample": {
+            "title": "Stack Parentheses Validator",
+            "language": "javascript",
+            "code": "function isValid(s) {\n  const stack = [];\n  const pairs = { ')': '(', '}': '{', ']': '[' };\n  \n  for (let char of s) {\n    if (char === '(' || char === '{' || char === '[') {\n      stack.push(char);\n    } else {\n      if (stack.pop() !== pairs[char]) return false;\n    }\n  }\n  return stack.length === 0;\n}\n\nconsole.log(isValid('({[]})')); // true",
+            "explanation": "Opening brackets are pushed onto the stack. When a closing bracket is encountered, we pop the stack and verify that it matches the corresponding opening bracket type."
+          },
+          "interactiveQuiz": {
+            "question": "What condition indicates an unclosed opening bracket after processing the entire string?",
+            "options": ["stack.length > 0", "stack.length === 0", "stack.pop() === null", "stack.includes(null)"],
+            "correctIndex": 0,
+            "explanation": "If opening brackets were pushed but never matched with a closing bracket, the stack remains non-empty."
+          }
+        },
+        {
+          "id": "q3-dsa-reverse-linked-list",
+          "title": "Q3: Reverse a Singly Linked List",
+          "content": "Reverse a singly linked list in-place by reassigning the `next` pointers using three iteration references: `prev`, `curr`, and `next`.",
+          "keyTakeaways": [
+            "Reverses pointers in linear O(n) time and O(1) auxiliary space.",
+            "Requires storing `curr.next` in a temporary pointer before updating node link."
+          ],
+          "codeExample": {
+            "title": "Iterative Linked List Reversal",
+            "language": "javascript",
+            "code": "function reverseList(head) {\n  let prev = null;\n  let curr = head;\n  while (curr !== null) {\n    let nextTemp = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = nextTemp;\n  }\n  return prev;\n}",
+            "explanation": "At each step, we save curr.next, point curr.next backward to prev, advance prev to curr, and move curr to the saved nextTemp pointer."
+          },
+          "interactiveQuiz": {
+            "question": "Which reference becomes the new head of the reversed linked list upon loop completion?",
+            "options": ["prev", "curr", "head", "nextTemp"],
+            "correctIndex": 0,
+            "explanation": "When `curr` reaches `null`, `prev` points to the last processed node, which is the new head of the reversed list."
+          }
+        },
+        {
+          "id": "q4-dsa-merge-two-sorted-lists",
+          "title": "Q4: Merge Two Sorted Lists",
+          "content": "Merge two sorted linked lists into one single sorted list by creating a dummy node and chaining smaller node values iteratively.",
+          "keyTakeaways": [
+            "A dummy head node simplifies boundary edge cases when building the merged list.",
+            "Runs in O(n + m) time complexity where n and m are lengths of the lists."
+          ],
+          "codeExample": {
+            "title": "Sorted List Merge",
+            "language": "javascript",
+            "code": "function mergeTwoLists(l1, l2) {\n  const dummy = { val: 0, next: null };\n  let tail = dummy;\n  \n  while (l1 !== null && l2 !== null) {\n    if (l1.val < l2.val) {\n      tail.next = l1;\n      l1 = l1.next;\n    } else {\n      tail.next = l2;\n      l2 = l2.next;\n    }\n    tail = tail.next;\n  }\n  \n  tail.next = l1 !== null ? l1 : l2;\n  return dummy.next;\n}",
+            "explanation": "Compares front nodes of both lists, attaches the smaller node to tail, and advances that list's pointer. Any remaining nodes are appended at the end."
+          },
+          "interactiveQuiz": {
+            "question": "Why is a dummy node used at the start of the algorithm?",
+            "options": [
+              "To avoid special-case conditionals when initializing the new head pointer",
+              "To double iteration processing speed",
+              "To make linked list nodes contiguous in V8 memory",
+              "To invert node values"
+            ],
+            "correctIndex": 0,
+            "explanation": "Using a dummy node avoids writing separate initial-assignment branches to establish the head pointer."
+          }
+        },
+        {
+          "id": "q5-dsa-binary-search",
+          "title": "Q5: Binary Search",
+          "content": "Search for a target value within a sorted array using the divide-and-conquer strategy, reducing the search space by half in each iteration.",
+          "keyTakeaways": ["Requires a sorted array input.", "Achieves logarithmic O(log n) time complexity."],
+          "codeExample": {
+            "title": "Binary Search Implementation",
+            "language": "javascript",
+            "code": "function binarySearch(nums, target) {\n  let left = 0;\n  let right = nums.length - 1;\n  \n  while (left <= right) {\n    const mid = Math.floor(left + (right - left) / 2);\n    if (nums[mid] === target) return mid;\n    if (nums[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}\n\nconsole.log(binarySearch([-1, 0, 3, 5, 9, 12], 9)); // 4",
+            "explanation": "Calculates mid index safely. If target is larger than nums[mid], discards the left half; otherwise discards the right half."
+          },
+          "interactiveQuiz": {
+            "question": "Why is Math.floor(left + (right - left) / 2) preferred over Math.floor((left + right) / 2)?",
+            "options": [
+              "Prevents potential integer overflow issues in languages with fixed integer limits when left and right are very large",
+              "Executes faster in JavaScript engines",
+              "Required for floating point division",
+              "Allows handling negative indices"
+            ],
+            "correctIndex": 0,
+            "explanation": "Adding large bounds `(left + right)` directly can exceed max safe integer bounds in fixed 32-bit systems."
+          }
+        },
+        {
+          "id": "q6-dsa-maximum-subarray",
+          "title": "Q6: Maximum Subarray (Kadane's Algorithm)",
+          "content": "Find the contiguous subarray with the largest sum within an array of numbers using Kadane's dynamic programming algorithm.",
+          "keyTakeaways": [
+            "Kadane's algorithm runs in linear O(n) time complexity with O(1) space.",
+            "At each element, decides whether to extend the current sum or start a new subarray sum."
+          ],
+          "codeExample": {
+            "title": "Kadane's Algorithm Solution",
+            "language": "javascript",
+            "code": "function maxSubArray(nums) {\n  let currentSum = nums[0];\n  let maxSum = nums[0];\n  \n  for (let i = 1; i < nums.length; i++) {\n    currentSum = Math.max(nums[i], currentSum + nums[i]);\n    maxSum = Math.max(maxSum, currentSum);\n  }\n  return maxSum;\n}\n\nconsole.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // 6 (subarray [4,-1,2,1])",
+            "explanation": "currentSum updates to either the current item alone or current item plus previous running sum, whichever is greater, while maxSum tracks global maximum."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of Kadane's Algorithm?",
+            "options": ["O(n)", "O(n log n)", "O(n²)", "O(2ⁿ)"],
+            "correctIndex": 0,
+            "explanation": "Kadane's Algorithm scans the array in a single pass taking O(n) linear time."
+          }
+        },
+        {
+          "id": "q7-dsa-linked-list-cycle",
+          "title": "Q7: Linked List Cycle Detection (Floyd's Tortoise and Hare)",
+          "content": "Detect whether a linked list contains a cycle using two pointers moving at different speeds (slow moves 1 step, fast moves 2 steps).",
+          "keyTakeaways": [
+            "Floyd's algorithm detects cycles in O(n) time and O(1) space.",
+            "If a cycle exists, the fast pointer eventually catches up and equals the slow pointer."
+          ],
+          "codeExample": {
+            "title": "Floyd's Cycle Finding Algorithm",
+            "language": "javascript",
+            "code": "function hasCycle(head) {\n  let slow = head;\n  let fast = head;\n  \n  while (fast !== null && fast.next !== null) {\n    slow = slow.next;\n    fast = fast.next.next;\n    if (slow === fast) return true;\n  }\n  return false;\n}",
+            "explanation": "Slow moves one node at a time while fast moves two nodes. If there is no cycle, fast reaches null. If a cycle exists, fast meets slow inside the loop."
+          },
+          "interactiveQuiz": {
+            "question": "What happens if Floyd's cycle detection is run on a linear list with no cycle?",
+            "options": [
+              "fast pointer reaches null and function returns false",
+              "Enters an infinite loop",
+              "Throws a NullPointer Exception",
+              "slow pointer becomes null first"
+            ],
+            "correctIndex": 0,
+            "explanation": "When no cycle exists, `fast` or `fast.next` hits `null`, breaking the loop cleanly."
+          }
+        },
+        {
+          "id": "q8-dsa-best-time-to-buy-and-sell-stock",
+          "title": "Q8: Best Time to Buy and Sell Stock",
+          "content": "Find the maximum profit possible from buying stock on one day and selling it on a future day given an array of daily stock prices.",
+          "keyTakeaways": [
+            "Single pass algorithm maintaining lowest price seen so far.",
+            "Achieves O(n) time and O(1) auxiliary space complexity."
+          ],
+          "codeExample": {
+            "title": "Max Profit Calculator",
+            "language": "javascript",
+            "code": "function maxProfit(prices) {\n  let minPrice = Infinity;\n  let maxProfit = 0;\n  \n  for (let price of prices) {\n    if (price < minPrice) {\n      minPrice = price;\n    } else if (price - minPrice > maxProfit) {\n      maxProfit = price - minPrice;\n    }\n  }\n  return maxProfit;\n}\n\nconsole.log(maxProfit([7, 1, 5, 3, 6, 4])); // 5 (Buy at 1, sell at 6)",
+            "explanation": "Tracks minPrice encountered up to the current day. Max profit is updated if selling today yields higher profit than previously recorded maximum."
+          },
+          "interactiveQuiz": {
+            "question": "What profit is returned if stock prices strictly decrease continuously (e.g. [7, 6, 4, 3, 1])?",
+            "options": ["0", "-1", "7", "undefined"],
+            "correctIndex": 0,
+            "explanation": "If no profitable transaction can be made, `maxProfit` remains initialized at `0`."
+          }
+        },
+        {
+          "id": "q9-dsa-invert-binary-tree",
+          "title": "Q9: Invert Binary Tree",
+          "content": "Invert or mirror a binary tree recursively by swapping left and right child pointers for every node in the tree.",
+          "keyTakeaways": ["Uses Depth-First Search (DFS) tree recursion.", "Swaps `.left` and `.right` pointers at every level."],
+          "codeExample": {
+            "title": "Recursive Binary Tree Inversion",
+            "language": "javascript",
+            "code": "function invertTree(root) {\n  if (root === null) return null;\n  \n  const temp = root.left;\n  root.left = invertTree(root.right);\n  root.right = invertTree(temp);\n  \n  return root;\n}",
+            "explanation": "Base case returns null. At each node, its left child receives the inverted right subtree and its right child receives the inverted left subtree."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of inverting a binary tree with N nodes?",
+            "options": ["O(N)", "O(log N)", "O(N²)", "O(1)"],
+            "correctIndex": 0,
+            "explanation": "Every node in the tree must be visited once, taking linear O(N) time."
+          }
+        },
+        {
+          "id": "q10-dsa-valid-anagram",
+          "title": "Q10: Valid Anagram",
+          "content": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s` (contains exact same character frequencies).",
+          "keyTakeaways": [
+            "Return false early if string lengths differ.",
+            "Use a single frequency map or fixed 26-character array to count frequencies."
+          ],
+          "codeExample": {
+            "title": "Frequency Map Anagram Check",
+            "language": "javascript",
+            "code": "function isAnagram(s, t) {\n  if (s.length !== t.length) return false;\n  const count = {};\n  \n  for (let char of s) {\n    count[char] = (count[char] || 0) + 1;\n  }\n  for (let char of t) {\n    if (!count[char]) return false;\n    count[char]--;\n  }\n  return true;\n}\n\nconsole.log(isAnagram('anagram', 'nagaram')); // true",
+            "explanation": "Increments character counts for string `s` and decrements for string `t`. If a character in `t` has zero count or doesn't exist, strings are not anagrams."
+          },
+          "interactiveQuiz": {
+            "question": "What is the space complexity if solving anagram verification using frequency map over ASCII/lowercase letters?",
+            "options": ["O(1)", "O(n)", "O(n²)", "O(log n)"],
+            "correctIndex": 0,
+            "explanation": "Since the alphabet size is bounded (e.g. 26 lower-case letters), frequency map space complexity is constant O(1)."
+          }
+        },
+        {
+          "id": "q11-dsa-maximum-depth-binary-tree",
+          "title": "Q11: Maximum Depth of Binary Tree",
+          "content": "Calculate the maximum depth (number of nodes along the longest path from root to leaf) of a binary tree recursively.",
+          "keyTakeaways": ["Depth equals `1 + max(depth(left), depth(right))`.", "Base case for null nodes returns depth 0."],
+          "codeExample": {
+            "title": "Tree Maximum Depth (DFS)",
+            "language": "javascript",
+            "code": "function maxDepth(root) {\n  if (root === null) return 0;\n  const leftDepth = maxDepth(root.left);\n  const rightDepth = maxDepth(root.right);\n  return Math.max(leftDepth, rightDepth) + 1;\n}",
+            "explanation": "Recursively measures the depth of left and right child subtrees and returns the greater depth plus 1 for the current root node."
+          },
+          "interactiveQuiz": {
+            "question": "What is the worst-case space complexity of recursive maxDepth on a completely skewed tree?",
+            "options": ["O(N)", "O(log N)", "O(1)", "O(N²)"],
+            "correctIndex": 0,
+            "explanation": "In a completely unbalanced skewed tree (linked list structure), the call stack depth reaches O(N)."
+          }
+        },
+        {
+          "id": "q12-dsa-container-with-most-water",
+          "title": "Q12: Container With Most Water",
+          "content": "Given $n$ non-negative integers representing vertical lines, find two lines that together with the x-axis form a container holding the maximum water.",
+          "keyTakeaways": [
+            "Two-pointer approach moving inward from left and right edges.",
+            "Always advance the pointer holding the shorter height to search for larger area candidates."
+          ],
+          "codeExample": {
+            "title": "Two-Pointer Container Area Maximizer",
+            "language": "javascript",
+            "code": "function maxArea(height) {\n  let left = 0;\n  let right = height.length - 1;\n  let maxWater = 0;\n  \n  while (left < right) {\n    const width = right - left;\n    const h = Math.min(height[left], height[right]);\n    maxWater = Math.max(maxWater, width * h);\n    \n    if (height[left] < height[right]) left++;\n    else right--;\n  }\n  return maxWater;\n}\n\nconsole.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7])); // 49",
+            "explanation": "Calculates container area bounded by shorter line. Advances shorter boundary pointer inward since moving the taller pointer could never increase height area."
+          },
+          "interactiveQuiz": {
+            "question": "Why is the shorter pointer moved inward in each iteration step?",
+            "options": [
+              "Because keeping the shorter line limits maximum area while width decreases",
+              "To keep pointers balanced",
+              "Required for binary search convergence",
+              "To prevent array boundary overflow"
+            ],
+            "correctIndex": 0,
+            "explanation": "Width decreases as pointers move inward; the only way to increase area is by finding a taller limiting line."
+          }
+        },
+        {
+          "id": "q13-dsa-three-sum",
+          "title": "Q13: 3Sum Problem",
+          "content": "Find all unique triplets in an array that sum to zero using sorting and two pointers.",
+          "keyTakeaways": ["Sort array first to enable two-pointer traversal and duplicate skipping.", "Runs in O(n²) time complexity."],
+          "codeExample": {
+            "title": "Sorted Two-Pointer 3Sum",
+            "language": "javascript",
+            "code": "function threeSum(nums) {\n  nums.sort((a, b) => a - b);\n  const result = [];\n  \n  for (let i = 0; i < nums.length - 2; i++) {\n    if (i > 0 && nums[i] === nums[i - 1]) continue; // Skip duplicates\n    let left = i + 1;\n    let right = nums.length - 1;\n    \n    while (left < right) {\n      const sum = nums[i] + nums[left] + nums[right];\n      if (sum === 0) {\n        result.push([nums[i], nums[left], nums[right]]);\n        while (left < right && nums[left] === nums[left + 1]) left++;\n        while (left < right && nums[right] === nums[right - 1]) right--;\n        left++;\n        right--;\n      } else if (sum < 0) left++;\n      else right--;\n    }\n  }\n  return result;\n}\n\nconsole.log(threeSum([-1, 0, 1, 2, -1, -4])); // [[-1, -1, 2], [-1, 0, 1]]",
+            "explanation": "Fixes item i and solves Two Sum for -nums[i] on the remaining sorted sub-array, skipping duplicate elements to ensure unique triplets."
+          },
+          "interactiveQuiz": {
+            "question": "What step prevents returning duplicate triplet sets in the output array?",
+            "options": [
+              "Skipping identical neighboring elements after sorting",
+              "Converting output array to a JSON string",
+              "Using a binary tree filter",
+              "Sorting the array in descending order"
+            ],
+            "correctIndex": 0,
+            "explanation": "Because the array is sorted, identical adjacent values can be skipped using `while` conditionals."
+          }
+        },
+        {
+          "id": "q14-dsa-climbing-stairs",
+          "title": "Q14: Climbing Stairs (Dynamic Programming)",
+          "content": "You are climbing a staircase requiring $n$ steps. Each time you can climb 1 or 2 steps. In how many distinct ways can you climb to the top?",
+          "keyTakeaways": [
+            "Follows Fibonacci sequence progression: $dp[i] = dp[i-1] + dp[i-2]$.",
+            "Can be solved in O(n) time and O(1) space using dynamic programming space optimization."
+          ],
+          "codeExample": {
+            "title": "DP Climbing Stairs Solution",
+            "language": "javascript",
+            "code": "function climbStairs(n) {\n  if (n <= 2) return n;\n  let prev2 = 1;\n  let prev1 = 2;\n  \n  for (let i = 3; i <= n; i++) {\n    let current = prev1 + prev2;\n    prev2 = prev1;\n    prev1 = current;\n  }\n  return prev1;\n}\n\nconsole.log(climbStairs(5)); // 8",
+            "explanation": "To reach step i, you can arrive from step i-1 or step i-2. Summing these options gives total ways, matching Fibonacci transitions."
+          },
+          "interactiveQuiz": {
+            "question": "What is the space complexity of the variable-tracking dynamic programming approach above?",
+            "options": ["O(1)", "O(n)", "O(2ⁿ)", "O(log n)"],
+            "correctIndex": 0,
+            "explanation": "Tracking only the previous two step values requires constant O(1) auxiliary space."
+          }
+        },
+        {
+          "id": "q15-dsa-sliding-window-max-substring",
+          "title": "Q15: Longest Substring Without Repeating Characters",
+          "content": "Find the length of the longest substring without repeating characters using the Sliding Window pattern.",
+          "keyTakeaways": ["Sliding window uses two pointers (`left`, `right`) and a Set/Map.", "Achieves O(n) linear time complexity."],
+          "codeExample": {
+            "title": "Sliding Window Substring Search",
+            "language": "javascript",
+            "code": "function lengthOfLongestSubstring(s) {\n  const seen = new Set();\n  let left = 0;\n  let maxLength = 0;\n  \n  for (let right = 0; right < s.length; right++) {\n    while (seen.has(s[right])) {\n      seen.delete(s[left]);\n      left++;\n    }\n    seen.add(s[right]);\n    maxLength = Math.max(maxLength, right - left + 1);\n  }\n  return maxLength;\n}\n\nconsole.log(lengthOfLongestSubstring('abcabcbb')); // 3 ('abc')",
+            "explanation": "Right pointer expands window. When duplicate character is detected, left pointer contracts window until duplicate is removed from set."
+          },
+          "interactiveQuiz": {
+            "question": "What triggers the left window pointer to contract inward?",
+            "options": [
+              "Detecting a character already present inside the active seen set",
+              "Reaching the middle of the string",
+              "Finding a space character",
+              "Reaching window length 10"
+            ],
+            "correctIndex": 0,
+            "explanation": "When `s[right]` is inside `seen`, `left` increments and removes characters until uniqueness is restored."
+          }
+        },
+        {
+          "id": "q16-dsa-binary-tree-level-order-traversal",
+          "title": "Q16: Binary Tree Level Order Traversal (BFS)",
+          "content": "Perform level-order traversal on a binary tree using a Queue (Breadth-First Search) returning nodes grouped level by level.",
+          "keyTakeaways": [
+            "Breadth-First Search (BFS) processes nodes level by level using a queue.",
+            "Tracks level size (`queue.length`) at loop start to process nodes layer by layer."
+          ],
+          "codeExample": {
+            "title": "BFS Level Order Traversal",
+            "language": "javascript",
+            "code": "function levelOrder(root) {\n  if (!root) return [];\n  const result = [];\n  const queue = [root];\n  \n  while (queue.length > 0) {\n    const levelSize = queue.length;\n    const currentLevel = [];\n    \n    for (let i = 0; i < levelSize; i++) {\n      const node = queue.shift();\n      currentLevel.push(node.val);\n      if (node.left) queue.push(node.left);\n      if (node.right) queue.push(node.right);\n    }\n    result.push(currentLevel);\n  }\n  return result;\n}",
+            "explanation": "Queue processes nodes layer by layer. The inner loop iterates `levelSize` times to group current level values into a separate output subarray."
+          },
+          "interactiveQuiz": {
+            "question": "Which data structure is fundamentally required for Breadth-First Search (BFS)?",
+            "options": ["Queue (FIFO)", "Stack (LIFO)", "Priority Heap", "Hash Table"],
+            "correctIndex": 0,
+            "explanation": "BFS relies on First-In-First-Out (FIFO) queue ordering to process shallower nodes before deeper nodes."
+          }
+        },
+        {
+          "id": "q17-dsa-coin-change",
+          "title": "Q17: Coin Change (Dynamic Programming)",
+          "content": "Find the minimum number of coins needed to make up a given amount using bottom-up dynamic programming.",
+          "keyTakeaways": [
+            "Dynamic Programming lookup table array initialized to `Infinity`.",
+            "State transition: `dp[i] = min(dp[i], dp[i - coin] + 1)`."
+          ],
+          "codeExample": {
+            "title": "Bottom-Up DP Coin Change",
+            "language": "javascript",
+            "code": "function coinChange(coins, amount) {\n  const dp = new Array(amount + 1).fill(Infinity);\n  dp[0] = 0;\n  \n  for (let i = 1; i <= amount; i++) {\n    for (let coin of coins) {\n      if (i - coin >= 0) {\n        dp[i] = Math.min(dp[i], dp[i - coin] + 1);\n      }\n    }\n  }\n  return dp[amount] === Infinity ? -1 : dp[amount];\n}\n\nconsole.log(coinChange([1, 2, 5], 11)); // 3 (5 + 5 + 1)",
+            "explanation": "dp[i] stores min coins needed for amount i. Iterates through all available coins to find minimum coin combinations step by step."
+          },
+          "interactiveQuiz": {
+            "question": "What value does coinChange return if the target amount cannot be made by any coin combination?",
+            "options": ["-1", "0", "Infinity", "null"],
+            "correctIndex": 0,
+            "explanation": "If `dp[amount]` remains `Infinity` after loop evaluation, the function returns `-1`."
+          }
+        },
+        {
+          "id": "q18-dsa-validate-binary-search-tree",
+          "title": "Q18: Validate Binary Search Tree",
+          "content": "Determine if a given binary tree is a valid Binary Search Tree (BST) where left subtree values are strictly smaller and right subtree values are strictly larger than root.",
+          "keyTakeaways": [
+            "Pass lower and upper boundary bounds recursively during DFS traversal.",
+            "Checking only immediate child nodes is insufficient; subtrees must satisfy full boundary limits."
+          ],
+          "codeExample": {
+            "title": "BST Boundary Range Validation",
+            "language": "javascript",
+            "code": "function isValidBST(root, min = null, max = null) {\n  if (root === null) return true;\n  \n  if ((min !== null && root.val <= min) || (max !== null && root.val >= max)) {\n    return false;\n  }\n  \n  return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);\n}",
+            "explanation": "Validates node value against allowable min and max constraints. When stepping left, updates max bound to current node value; when stepping right, updates min bound."
+          },
+          "interactiveQuiz": {
+            "question": "Why is checking if root.left.val < root.val and root.right.val > root.val insufficient for verifying a BST?",
+            "options": [
+              "Deeper nodes in a right subtree could violate root constraints while being valid relative to their immediate parent",
+              "Binary Search Trees allow duplicate values anywhere",
+              "Leaves do not have values",
+              "Recursion stack bounds overflow"
+            ],
+            "correctIndex": 0,
+            "explanation": "All nodes in a right subtree must be greater than the ancestor root node, not just the immediate child."
+          }
+        },
+        {
+          "id": "q19-dsa-number-of-islands",
+          "title": "Q19: Number of Islands (Graph DFS/BFS)",
+          "content": "Count the number of distinct islands in a 2D grid of `'1'`s (land) and `'0'`s (water) using Depth-First Search (DFS).",
+          "keyTakeaways": [
+            "Treat grid as an undirected graph and sink visited land nodes by mutating `'1'` to `'0'`.",
+            "Increments island count on finding an unvisited `'1'` and triggers flood-fill DFS."
+          ],
+          "codeExample": {
+            "title": "Grid DFS Flood Fill Island Counter",
+            "language": "javascript",
+            "code": "function numIslands(grid) {\n  if (!grid || grid.length === 0) return 0;\n  let count = 0;\n  \n  function dfs(r, c) {\n    if (r < 0 || c < 0 || r >= grid.length || c >= grid[0].length || grid[r][c] === '0') {\n      return;\n    }\n    grid[r][c] = '0'; // Mark as visited by sinking land\n    dfs(r + 1, c);\n    dfs(r - 1, c);\n    dfs(r, c + 1);\n    dfs(r, c - 1);\n  }\n  \n  for (let r = 0; r < grid.length; r++) {\n    for (let c = 0; c < grid[0].length; c++) {\n      if (grid[r][c] === '1') {\n        count++;\n        dfs(r, c);\n      }\n    }\n  }\n  return count;\n}",
+            "explanation": "Scans every cell. When encountering land ('1'), increments island count and starts DFS flood-fill to mark all connected land cells as visited ('0')."
+          },
+          "interactiveQuiz": {
+            "question": "Why does the DFS function mutate grid[r][c] = '0' during flood fill?",
+            "options": [
+              "To sink visited land so it is not re-counted as a separate island later",
+              "To lower grid memory footprint",
+              "Because 0 values represent higher priority land",
+              "To avoid dynamic array resizing"
+            ],
+            "correctIndex": 0,
+            "explanation": "Mutating visited land cells to `'0'` acts as a visited tracking set without allocating auxiliary memory."
+          }
+        },
+        {
+          "id": "q20-dsa-kth-largest-element",
+          "title": "Q20: Kth Largest Element in an Array",
+          "content": "Find the $k$-th largest element in an unsorted array using QuickSelect partitioning algorithm or Min-Heap.",
+          "keyTakeaways": ["QuickSelect provides average O(n) time complexity.", "Avoids full array sorting which takes O(n log n)."],
+          "codeExample": {
+            "title": "QuickSelect Partition Algorithm",
+            "language": "javascript",
+            "code": "function findKthLargest(nums, k) {\n  const targetIndex = nums.length - k;\n  \n  function quickSelect(left, right) {\n    const pivot = nums[right];\n    let p = left;\n    \n    for (let i = left; i < right; i++) {\n      if (nums[i] <= pivot) {\n        [nums[i], nums[p]] = [nums[p], nums[i]];\n        p++;\n      }\n    }\n    [nums[p], nums[right]] = [nums[right], nums[p]];\n    \n    if (p === targetIndex) return nums[p];\n    if (p < targetIndex) return quickSelect(p + 1, right);\n    return quickSelect(left, p - 1);\n  }\n  \n  return quickSelect(0, nums.length - 1);\n}\n\nconsole.log(findKthLargest([3, 2, 1, 5, 6, 4], 2)); // 5",
+            "explanation": "Partitions array around pivot. If pivot index equals target position (length - k), returns target value; otherwise selectively recurses into the target partition half."
+          },
+          "interactiveQuiz": {
+            "question": "What is the average time complexity of QuickSelect?",
+            "options": ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
+            "correctIndex": 0,
+            "explanation": "By discarding half of the partition search space each step ($n + n/2 + n/4...$), QuickSelect achieves O(n) average time."
+          }
+        },
+        {
+          "id": "q21-dsa-course-schedule",
+          "title": "Q21: Course Schedule (Topological Sort / Cycle Detection)",
+          "content": "Determine if you can finish all courses given prerequisite pairs using Topological Sort / Kahn's Algorithm (In-degree array + BFS).",
+          "keyTakeaways": [
+            "If a directed graph contains a cycle, topological sorting is impossible.",
+            "Kahn's algorithm tracks in-degrees of nodes to identify valid task processing order."
+          ],
+          "codeExample": {
+            "title": "Kahn's Algorithm BFS Topological Sort",
+            "language": "javascript",
+            "code": "function canFinish(numCourses, prerequisites) {\n  const inDegree = new Array(numCourses).fill(0);\n  const adjList = new Map();\n  \n  for (let [course, pre] of prerequisites) {\n    if (!adjList.has(pre)) adjList.set(pre, []);\n    adjList.get(pre).push(course);\n    inDegree[course]++;\n  }\n  \n  const queue = [];\n  for (let i = 0; i < numCourses; i++) {\n    if (inDegree[i] === 0) queue.push(i);\n  }\n  \n  let processedCount = 0;\n  while (queue.length > 0) {\n    const current = queue.shift();\n    processedCount++;\n    \n    const neighbors = adjList.get(current) || [];\n    for (let neighbor of neighbors) {\n      inDegree[neighbor]--;\n      if (inDegree[neighbor] === 0) queue.push(neighbor);\n    }\n  }\n  return processedCount === numCourses;\n}\n\nconsole.log(canFinish(2, [[1, 0]])); // true",
+            "explanation": "Calculates in-degree counts for each node. Courses with 0 prerequisites enter the BFS queue. Decrements in-degrees of dependent courses as completed; returns true if all courses can be processed."
+          },
+          "interactiveQuiz": {
+            "question": "What condition indicates that prerequisites contain a cyclic dependency loop?",
+            "options": [
+              "processedCount is less than total numCourses",
+              "inDegree array contains only zeros",
+              "queue length exceeds numCourses",
+              "adjList is empty"
+            ],
+            "correctIndex": 0,
+            "explanation": "If a cycle exists, cyclic nodes never reach in-degree 0, leaving `processedCount < numCourses`."
+          }
+        },
+        {
+          "id": "q22-dsa-word-search",
+          "title": "Q22: Word Search (Backtracking)",
+          "content": "Determine if a target word exists in a 2D board of letters by constructing adjacent character paths using Backtracking DFS.",
+          "keyTakeaways": [
+            "Backtracking recursively explores possibilities and reverts choice state upon reaching dead ends.",
+            "Temporarily mark board cells (e.g. `'#'`) during exploration to prevent self-revisiting."
+          ],
+          "codeExample": {
+            "title": "2D Grid Backtracking Search",
+            "language": "javascript",
+            "code": "function exist(board, word) {\n  const rows = board.length;\n  const cols = board[0].length;\n  \n  function backtrack(r, c, index) {\n    if (index === word.length) return true;\n    if (r < 0 || c < 0 || r >= rows || c >= cols || board[r][c] !== word[index]) {\n      return false;\n    }\n    \n    const temp = board[r][c];\n    board[r][c] = '#'; // Mark cell as visited\n    \n    const found = backtrack(r + 1, c, index + 1) ||\n                  backtrack(r - 1, c, index + 1) ||\n                  backtrack(r, c + 1, index + 1) ||\n                  backtrack(r, c - 1, index + 1);\n                  \n    board[r][c] = temp; // Backtrack / restore state\n    return found;\n  }\n  \n  for (let r = 0; r < rows; r++) {\n    for (let c = 0; c < cols; c++) {\n      if (backtrack(r, c, 0)) return true;\n    }\n  }\n  return false;\n}",
+            "explanation": "Explores neighbors recursively if character matches word[index]. Restores cell state (board[r][c] = temp) when returning so other path branches can reuse the cell."
+          },
+          "interactiveQuiz": {
+            "question": "Why must board[r][c] be restored back to its original character value before returning from backtrack()?",
+            "options": [
+              "To allow other valid search path explorations to reuse the cell",
+              "To prevent browser layout thrashing",
+              "To trigger garbage collection",
+              "Required for regex operations"
+            ],
+            "correctIndex": 0,
+            "explanation": "Restoring state during backtracking ensures failed paths leave the grid unchanged for future search paths."
+          }
+        },
+        {
+          "id": "q23-dsa-merge-k-sorted-lists",
+          "title": "Q23: Merge K Sorted Lists",
+          "content": "Merge $k$ sorted linked lists into one consolidated sorted list using Divide and Conquer or Min-Heap.",
+          "keyTakeaways": [
+            "Divide and conquer merges pairs of lists iteratively.",
+            "Reduces time complexity to O(N log k) where N is total node count across k lists."
+          ],
+          "codeExample": {
+            "title": "Divide and Conquer List Merger",
+            "language": "javascript",
+            "code": "function mergeKLists(lists) {\n  if (!lists || lists.length === 0) return null;\n  \n  while (lists.length > 1) {\n    const mergedLists = [];\n    for (let i = 0; i < lists.length; i += 2) {\n      const l1 = lists[i];\n      const l2 = i + 1 < lists.length ? lists[i + 1] : null;\n      mergedLists.push(mergeTwoLists(l1, l2));\n    }\n    lists = mergedLists;\n  }\n  return lists[0];\n}\n\nfunction mergeTwoLists(l1, l2) {\n  const dummy = { val: 0, next: null };\n  let tail = dummy;\n  while (l1 && l2) {\n    if (l1.val < l2.val) { tail.next = l1; l1 = l1.next; }\n    else { tail.next = l2; l2 = l2.next; }\n    tail = tail.next;\n  }\n  tail.next = l1 || l2;\n  return dummy.next;\n}",
+            "explanation": "Pairs up lists and merges each pair using mergeTwoLists, halving the total number of lists each pass until only one sorted list remains."
+          },
+          "interactiveQuiz": {
+            "question": "What is the time complexity of merging K sorted lists with total N nodes using Divide and Conquer?",
+            "options": ["O(N log k)", "O(N * k)", "O(N²)", "O(N)"],
+            "correctIndex": 0,
+            "explanation": "Halving $k$ lists takes $\\log k$ pair-merge passes, with each pass processing $N$ total nodes."
+          }
+        },
+        {
+          "id": "q24-dsa-trapping-rain-water",
+          "title": "Q24: Trapping Rain Water",
+          "content": "Calculate how much water an elevation map can trap after raining using Two Pointers.",
+          "keyTakeaways": [
+            "Water trapped at any position is bounded by $\\min(\\text{maxLeft}, \\text{maxRight}) - \\text{height}[i]$.",
+            "Two pointers allow tracking boundary bounds in O(n) time and O(1) space."
+          ],
+          "codeExample": {
+            "title": "Two-Pointer Water Trapping",
+            "language": "javascript",
+            "code": "function trap(height) {\n  let left = 0;\n  let right = height.length - 1;\n  let leftMax = 0;\n  let rightMax = 0;\n  let water = 0;\n  \n  while (left < right) {\n    if (height[left] < height[right]) {\n      if (height[left] >= leftMax) leftMax = height[left];\n      else water += leftMax - height[left];\n      left++;\n    } else {\n      if (height[right] >= rightMax) rightMax = height[right];\n      else water += rightMax - height[right];\n      right--;\n    }\n  }\n  return water;\n}\n\nconsole.log(trap([0,1,0,2,1,0,1,3,2,1,2,1])); // 6",
+            "explanation": "Maintains leftMax and rightMax bounds. Advances shorter pointer inward and adds trapped water based on difference between local max bound and bar height."
+          },
+          "interactiveQuiz": {
+            "question": "What determines the water level trapped above height[left] when height[left] < height[right]?",
+            "options": ["leftMax bound", "rightMax bound", "Average of leftMax and rightMax", "Total array length"],
+            "correctIndex": 0,
+            "explanation": "Because `height[left] < height[right]`, we know `rightMax` is at least equal to `height[right]`, so `leftMax` acts as the limiting boundary wall."
+          }
+        },
+        {
+          "id": "q25-dsa-median-of-two-sorted-arrays",
+          "title": "Q25: Median of Two Sorted Arrays",
+          "content": "Find the median of two sorted arrays `nums1` and `nums2` in O(log(min(m, n))) time complexity using Binary Search partitioning.",
+          "keyTakeaways": [
+            "Applies Binary Search on the smaller array to find a valid partition point.",
+            "Valid partition occurs when `maxLeftA <= minRightB` and `maxLeftB <= minRightA`."
+          ],
+          "codeExample": {
+            "title": "Binary Search Partition Median Finder",
+            "language": "javascript",
+            "code": "function findMedianSortedArrays(nums1, nums2) {\n  if (nums1.length > nums2.length) {\n    return findMedianSortedArrays(nums2, nums1); // Ensure nums1 is smaller\n  }\n  \n  const m = nums1.length;\n  const n = nums2.length;\n  let low = 0, high = m;\n  \n  while (low <= high) {\n    const partitionA = Math.floor((low + high) / 2);\n    const partitionB = Math.floor((m + n + 1) / 2) - partitionA;\n    \n    const maxLeftA = partitionA === 0 ? -Infinity : nums1[partitionA - 1];\n    const minRightA = partitionA === m ? Infinity : nums1[partitionA];\n    \n    const maxLeftB = partitionB === 0 ? -Infinity : nums2[partitionB - 1];\n    const minRightB = partitionB === n ? Infinity : nums2[partitionB];\n    \n    if (maxLeftA <= minRightB && maxLeftB <= minRightA) {\n      if ((m + n) % 2 === 0) {\n        return (Math.max(maxLeftA, maxLeftB) + Math.min(minRightA, minRightB)) / 2;\n      } else {\n        return Math.max(maxLeftA, maxLeftB);\n      }\n    } else if (maxLeftA > minRightB) {\n      high = partitionA - 1;\n    } else {\n      low = partitionA + 1;\n    }\n  }\n}\n\nconsole.log(findMedianSortedArrays([1, 3], [2])); // 2.0",
+            "explanation": "Executes binary search on smaller array nums1 to find partition splits where left halves elements are smaller than right halves elements, giving median in O(log(min(m, n))) time."
+          },
+          "interactiveQuiz": {
+            "question": "Why is Binary Search performed specifically on the smaller of the two input arrays?",
+            "options": [
+              "Minimizes search range bounds to guarantee O(log(min(m, n))) time complexity",
+              "Prevents array index out of bounds exceptions",
+              "Required because small arrays contain lower numbers",
+              "Allows in-place array mutation"
+            ],
+            "correctIndex": 0,
+            "explanation": "Binary searching the smaller array minimizes total search operations to logarithmic time relative to the smaller length `min(m, n)`."
+          }
+        }
+      ]
     }
   ]
 }
