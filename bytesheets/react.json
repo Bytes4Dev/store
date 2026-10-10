@@ -1372,9 +1372,9 @@
       ]
     },
     {
-      "id": "interview-questions",
-      "title": "Top Interview Questions & Practice",
-      "summary": "Master 60 essential React interview questions ranging from core fundamentals to senior-level real-world scenarios.",
+      "id": "reactjs-questions",
+      "title": "Top ReactJS Questions & Practice",
+      "summary": "Master 60 essential ReactJS  questions ranging from core fundamentals to senior-level real-world scenarios.",
       "estimatedMinutes": 120,
       "sections": [
         {
