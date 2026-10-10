@@ -878,6 +878,801 @@
             "The read pointer scans elements while the write pointer places unique values.",
             "Achieves $O(n)$ time complexity and $O(1)$ space complexity by modifying the array in-place."
           ]
+        },
+        {
+          "id": "count-odd-numbers-in-an-array",
+          "title": "11. Count Odd Numbers in an Array",
+          "content": "Given an array of integers, count how many values are odd.\n\n### How It Works & Algorithmic Design\nAn integer is odd when dividing it by `2` leaves a remainder of `1` or `-1`. We can detect this using the modulo operator:\n1. Initialize `count = 0`.\n2. Traverse every element in the array.\n3. Check whether `value % 2 !== 0`.\n4. If the condition is true, increment `count`.\n5. Return the final count.\n\n### Why This Approach Works Best\nEvery element must be inspected once, giving $O(n)$ time complexity. Only one counter is required, so the auxiliary space is $O(1)$.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Counting / Modulo",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[2, 5, 7, 8, 11, 14]",
+                  "explanation": "The array contains both even and odd numbers."
+                },
+                {
+                  "label": "Evaluation",
+                  "value": "2 -> Even | 5 -> Odd | 7 -> Odd | 8 -> Even | 11 -> Odd | 14 -> Even",
+                  "explanation": "Only odd values increase the counter."
+                },
+                {
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "The odd numbers are 5, 7, and 11."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Count odd values",
+            "explanation": "Traverse the array and use modulo 2 to determine whether each number is odd.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countOdd(arr) {\n  let count = 0;\n  for (const value of arr) {\n    if (value % 2 !== 0) count++;\n  }\n  return count;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function countOdd(arr: number[]): number {\n  let count = 0;\n  for (const value of arr) {\n    if (value % 2 !== 0) count++;\n  }\n  return count;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int countOdd(int[] arr) {\n        int count = 0;\n        for (int value : arr) {\n            if (value % 2 != 0) count++;\n        }\n        return count;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_odd(arr: list[int]) -> int:\n    count = 0\n    for value in arr:\n        if value % 2 != 0:\n            count += 1\n    return count"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "The modulo operator helps determine whether an integer is odd or even.",
+            "Every element must be checked, so the time complexity is O(n).",
+            "Only a counter is required, giving O(1) auxiliary space."
+          ]
+        },
+        {
+          "id": "calculate-the-average-of-array-elements",
+          "title": "12. Calculate the Average of Array Elements",
+          "content": "Given an array of numbers, calculate the average of all elements.\n\n### How It Works & Algorithmic Design\nThe average is calculated as `sum / count`:\n1. Initialize a `sum` variable to `0`.\n2. Traverse every element and add it to `sum`.\n3. After traversal, divide `sum` by the number of elements.\n4. Handle an empty array separately because division by zero is invalid.\n\n### Why This Approach Works Best\nThe array only needs to be traversed once. The algorithm requires $O(n)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Accumulator",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[10, 20, 30, 40]",
+                  "explanation": "Four numerical values are provided."
+                },
+                {
+                  "label": "Sum",
+                  "value": "10 + 20 + 30 + 40 = 100",
+                  "explanation": "All values are accumulated."
+                },
+                {
+                  "label": "Output",
+                  "value": "25",
+                  "explanation": "Average = 100 / 4 = 25."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Calculate array average",
+            "explanation": "First calculate the total sum and then divide it by the number of elements.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function average(arr) {\n  if (arr.length === 0) return null;\n  let sum = 0;\n  for (const value of arr) {\n    sum += value;\n  }\n  return sum / arr.length;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function average(arr: number[]): number | null {\n  if (arr.length === 0) return null;\n  let sum = 0;\n  for (const value of arr) {\n    sum += value;\n  }\n  return sum / arr.length;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static Double average(int[] arr) {\n        if (arr == null || arr.length == 0) return null;\n        long sum = 0;\n        for (int value : arr) {\n            sum += value;\n        }\n        return (double) sum / arr.length;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def average(arr: list[int]) -> float | None:\n    if not arr:\n        return None\n    total = 0\n    for value in arr:\n        total += value\n    return total / len(arr)"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Average is calculated as total sum divided by number of elements.",
+            "Always handle an empty array before dividing.",
+            "The algorithm runs in O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "find-index-of-largest-element",
+          "title": "13. Find the Index of the Largest Element",
+          "content": "Given an array of numbers, find the index of the largest element.\n\n### How It Works & Algorithmic Design\nInstead of storing only the maximum value, maintain the index where the maximum occurs:\n1. Start with `maxIndex = 0`.\n2. Compare each element with `arr[maxIndex]`.\n3. If a larger element is found, update `maxIndex`.\n4. Return the index after completing the scan.\n5. Return `-1` for an empty array.\n\n### Why This Approach Works Best\nA single linear traversal is enough. The algorithm requires $O(n)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Linear Scan",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[10, 4, 25, 7, 18]",
+                  "explanation": "The largest value is 25."
+                },
+                {
+                  "label": "Index Tracking",
+                  "value": "maxIndex=0 -> 2",
+                  "explanation": "When 25 is encountered, its index becomes the new maximum index."
+                },
+                {
+                  "label": "Output",
+                  "value": "2",
+                  "explanation": "The largest element is located at index 2."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Find index of maximum",
+            "explanation": "Track the index of the largest value instead of only storing the value.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function largestIndex(arr) {\n  if (!arr.length) return -1;\n  let maxIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIndex]) {\n      maxIndex = i;\n    }\n  }\n  return maxIndex;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function largestIndex(arr: number[]): number {\n  if (!arr.length) return -1;\n  let maxIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIndex]) {\n      maxIndex = i;\n    }\n  }\n  return maxIndex;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int largestIndex(int[] arr) {\n        if (arr == null || arr.length == 0) return -1;\n        int maxIndex = 0;\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > arr[maxIndex]) {\n                maxIndex = i;\n            }\n        }\n        return maxIndex;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def largest_index(arr: list[int]) -> int:\n    if not arr:\n        return -1\n    max_index = 0\n    for i in range(1, len(arr)):\n        if arr[i] > arr[max_index]:\n            max_index = i\n    return max_index"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Store the index rather than only the maximum value.",
+            "Comparing against arr[maxIndex] avoids maintaining two separate pieces of state.",
+            "The solution uses O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "find-index-of-smallest-element",
+          "title": "14. Find the Index of the Smallest Element",
+          "content": "Given an array of numbers, find the index of the smallest element.\n\n### How It Works & Algorithmic Design\nUse the same tracking pattern as maximum-index search, but compare for smaller values:\n1. Initialize `minIndex = 0`.\n2. Traverse the remaining elements.\n3. If `arr[i] < arr[minIndex]`, update `minIndex`.\n4. Return `minIndex`.\n5. Return `-1` if the array is empty.\n\n### Why This Approach Works Best\nNo sorting is required. One pass gives $O(n)$ time with $O(1)$ extra space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Linear Scan",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[8, 3, 12, 1, 6]",
+                  "explanation": "The smallest value is 1."
+                },
+                {
+                  "label": "Index Tracking",
+                  "value": "minIndex=0 -> 1 -> 3",
+                  "explanation": "The index changes whenever a smaller value is discovered."
+                },
+                {
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "The smallest element is at index 3."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Find index of minimum",
+            "explanation": "Maintain the index of the smallest value encountered during the traversal.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function smallestIndex(arr) {\n  if (!arr.length) return -1;\n  let minIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < arr[minIndex]) {\n      minIndex = i;\n    }\n  }\n  return minIndex;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function smallestIndex(arr: number[]): number {\n  if (!arr.length) return -1;\n  let minIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < arr[minIndex]) {\n      minIndex = i;\n    }\n  }\n  return minIndex;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int smallestIndex(int[] arr) {\n        if (arr == null || arr.length == 0) return -1;\n        int minIndex = 0;\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] < arr[minIndex]) {\n                minIndex = i;\n            }\n        }\n        return minIndex;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def smallest_index(arr: list[int]) -> int:\n    if not arr:\n        return -1\n    min_index = 0\n    for i in range(1, len(arr)):\n        if arr[i] < arr[min_index]:\n            min_index = i\n    return min_index"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Track the index of the smallest element instead of only the value.",
+            "Initialize the index using the first valid element.",
+            "The algorithm runs in O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "count-positive-negative-and-zero-values",
+          "title": "15. Count Positive, Negative, and Zero Values",
+          "content": "Given an array of integers, count how many values are positive, negative, and zero.\n\n### How It Works & Algorithmic Design\nEach value belongs to exactly one of three categories:\n1. If `value > 0`, increment the positive counter.\n2. If `value < 0`, increment the negative counter.\n3. Otherwise, increment the zero counter.\n4. Return all three counts.\n\n### Why This Approach Works Best\nA single traversal classifies every element. The algorithm uses $O(n)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Conditional Counting",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[-3, 5, 0, 8, -2, 0]",
+                  "explanation": "The array contains all three possible categories."
+                },
+                {
+                  "label": "Counts",
+                  "value": "Positive=2 | Negative=2 | Zero=2",
+                  "explanation": "Each number increments exactly one counter."
+                },
+                {
+                  "label": "Output",
+                  "value": "{ positive: 2, negative: 2, zero: 2 }",
+                  "explanation": "The three counters represent the classification."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Count number categories",
+            "explanation": "Use three counters and classify each value using conditional comparisons.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function countTypes(arr) {\n  let positive = 0;\n  let negative = 0;\n  let zero = 0;\n\n  for (const value of arr) {\n    if (value > 0) positive++;\n    else if (value < 0) negative++;\n    else zero++;\n  }\n\n  return { positive, negative, zero };\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function countTypes(arr: number[]): { positive: number; negative: number; zero: number } {\n  let positive = 0;\n  let negative = 0;\n  let zero = 0;\n\n  for (const value of arr) {\n    if (value > 0) positive++;\n    else if (value < 0) negative++;\n    else zero++;\n  }\n\n  return { positive, negative, zero };\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int[] countTypes(int[] arr) {\n        int positive = 0;\n        int negative = 0;\n        int zero = 0;\n\n        for (int value : arr) {\n            if (value > 0) positive++;\n            else if (value < 0) negative++;\n            else zero++;\n        }\n\n        return new int[]{positive, negative, zero};\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def count_types(arr: list[int]) -> dict:\n    positive = 0\n    negative = 0\n    zero = 0\n\n    for value in arr:\n        if value > 0:\n            positive += 1\n        elif value < 0:\n            negative += 1\n        else:\n            zero += 1\n\n    return {\"positive\": positive, \"negative\": negative, \"zero\": zero}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Use mutually exclusive conditions when every value belongs to exactly one category.",
+            "Three counters are sufficient for this problem.",
+            "The solution requires O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "separate-even-and-odd-numbers",
+          "title": "16. Separate Even and Odd Numbers",
+          "content": "Given an array of integers, create two collections containing the even and odd numbers separately.\n\n### How It Works & Algorithmic Design\nTraverse the input once:\n1. Create an empty collection for even numbers.\n2. Create an empty collection for odd numbers.\n3. For every value, use `value % 2` to determine its category.\n4. Add the value to the corresponding collection.\n5. Return both collections.\n\n### Why This Approach Works Best\nEvery element is inspected once. Because the output itself can contain up to $n$ elements, the auxiliary/output space is $O(n)$.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Filtering / Array Traversal",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[1, 4, 7, 8, 10, 13]",
+                  "explanation": "Mixed even and odd values."
+                },
+                {
+                  "label": "Separated Values",
+                  "value": "Even=[4,8,10] | Odd=[1,7,13]",
+                  "explanation": "Each number is placed into exactly one output collection."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Separate even and odd values",
+            "explanation": "Create two output arrays and classify each number using modulo.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function separateEvenOdd(arr) {\n  const even = [];\n  const odd = [];\n\n  for (const value of arr) {\n    if (value % 2 === 0) even.push(value);\n    else odd.push(value);\n  }\n\n  return { even, odd };\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function separateEvenOdd(arr: number[]): { even: number[]; odd: number[] } {\n  const even: number[] = [];\n  const odd: number[] = [];\n\n  for (const value of arr) {\n    if (value % 2 === 0) even.push(value);\n    else odd.push(value);\n  }\n\n  return { even, odd };\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "import java.util.*;\n\npublic class Solution {\n    public static Map<String, List<Integer>> separateEvenOdd(int[] arr) {\n        List<Integer> even = new ArrayList<>();\n        List<Integer> odd = new ArrayList<>();\n\n        for (int value : arr) {\n            if (value % 2 == 0) even.add(value);\n            else odd.add(value);\n        }\n\n        Map<String, List<Integer>> result = new HashMap<>();\n        result.put(\"even\", even);\n        result.put(\"odd\", odd);\n        return result;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def separate_even_odd(arr: list[int]) -> dict:\n    even = []\n    odd = []\n\n    for value in arr:\n        if value % 2 == 0:\n            even.append(value)\n        else:\n            odd.append(value)\n\n    return {\"even\": even, \"odd\": odd}"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Modulo provides a simple way to classify even and odd numbers.",
+            "Every input value is visited exactly once.",
+            "The output arrays require O(n) space in the worst case."
+          ]
+        },
+        {
+          "id": "find-the-second-smallest-element",
+          "title": "17. Find the Second Smallest Element",
+          "content": "Find the second smallest distinct element in an array without sorting it.\n\n### How It Works & Algorithmic Design\nMaintain two values: the smallest and second smallest:\n1. Initialize both to positive infinity.\n2. For each value, if it is smaller than the current smallest, move the smallest value into second smallest.\n3. Otherwise, if it is greater than the smallest but smaller than the second smallest, update second smallest.\n4. Return `null` if a distinct second smallest value does not exist.\n\n### Why This Approach Works Best\nSorting would require $O(n \\log n)$ time. Tracking two values allows a single $O(n)$ traversal with $O(1)$ extra space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Two-Value Tracking",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[8, 3, 5, 1, 4]",
+                  "explanation": "The smallest value is 1 and the second smallest distinct value is 3."
+                },
+                {
+                  "label": "Tracking",
+                  "value": "smallest=1 | secondSmallest=3",
+                  "explanation": "The two smallest distinct values are tracked during one traversal."
+                },
+                {
+                  "label": "Output",
+                  "value": "3",
+                  "explanation": "3 is the second smallest distinct value."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Find second smallest",
+            "explanation": "Track the two smallest distinct values during a single traversal.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function secondSmallest(arr) {\n  let first = Infinity;\n  let second = Infinity;\n\n  for (const x of arr) {\n    if (x < first) {\n      second = first;\n      first = x;\n    } else if (x > first && x < second) {\n      second = x;\n    }\n  }\n\n  return second === Infinity ? null : second;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function secondSmallest(arr: number[]): number | null {\n  let first = Infinity;\n  let second = Infinity;\n\n  for (const x of arr) {\n    if (x < first) {\n      second = first;\n      first = x;\n    } else if (x > first && x < second) {\n      second = x;\n    }\n  }\n\n  return second === Infinity ? null : second;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static Integer secondSmallest(int[] arr) {\n        int first = Integer.MAX_VALUE;\n        int second = Integer.MAX_VALUE;\n\n        for (int x : arr) {\n            if (x < first) {\n                second = first;\n                first = x;\n            } else if (x > first && x < second) {\n                second = x;\n            }\n        }\n\n        return second == Integer.MAX_VALUE ? null : second;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def second_smallest(arr: list[int]) -> int | None:\n    first = float('inf')\n    second = float('inf')\n\n    for x in arr:\n        if x < first:\n            second = first\n            first = x\n        elif first < x < second:\n            second = x\n\n    return None if second == float('inf') else second"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Track the two smallest distinct values instead of sorting.",
+            "The condition x > first prevents duplicate minimum values from becoming second smallest.",
+            "The algorithm runs in O(n) time and O(1) space."
+          ]
+        },
+        {
+          "id": "copy-an-array-without-built-in-copy-methods",
+          "title": "18. Copy an Array Without Using Built-in Copy Methods",
+          "content": "Create a new array containing the same elements as the input array without using built-in array copy methods.\n\n### How It Works & Algorithmic Design\nUse direct traversal:\n1. Create an empty result array.\n2. Visit every element of the source array.\n3. Add each value to the result array.\n4. Return the newly created array.\n\n### Why This Approach Works Best\nThe operation demonstrates basic array traversal and explicit construction. Since a new array containing all $n$ elements is created, the space complexity is $O(n)$.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Traversal / Array Construction",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(n)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[10, 20, 30]",
+                  "explanation": "The source array contains three values."
+                },
+                {
+                  "label": "Copy Process",
+                  "value": "result=[] -> [10] -> [10,20] -> [10,20,30]",
+                  "explanation": "Each source element is manually added to the new array."
+                },
+                {
+                  "label": "Output",
+                  "value": "[10, 20, 30]",
+                  "explanation": "The returned array contains the same values but is a separate array."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Manually copy an array",
+            "explanation": "Create a new array and copy each element one by one.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function copyArray(arr) {\n  const result = [];\n  for (const value of arr) {\n    result.push(value);\n  }\n  return result;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function copyArray(arr: number[]): number[] {\n  const result: number[] = [];\n  for (const value of arr) {\n    result.push(value);\n  }\n  return result;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static int[] copyArray(int[] arr) {\n        int[] result = new int[arr.length];\n        for (int i = 0; i < arr.length; i++) {\n            result[i] = arr[i];\n        }\n        return result;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def copy_array(arr: list[int]) -> list[int]:\n    result = []\n    for value in arr:\n        result.append(value)\n    return result"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Manual copying demonstrates basic traversal and array construction.",
+            "The original array remains unchanged.",
+            "Creating a new array requires O(n) additional space."
+          ]
+        },
+        {
+          "id": "find-the-difference-between-maximum-and-minimum",
+          "title": "19. Find the Difference Between Maximum and Minimum",
+          "content": "Given an array of numbers, find the difference between the largest and smallest values.\n\n### How It Works & Algorithmic Design\nInstead of sorting the array:\n1. Track the maximum value.\n2. Track the minimum value.\n3. Traverse the array once and update both when necessary.\n4. Return `max - min`.\n5. Handle an empty array appropriately.\n\n### Why This Approach Works Best\nSorting is unnecessary. Both extremes can be found in one pass, resulting in $O(n)$ time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Linear Scan",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[4, 10, 2, 8, 15]",
+                  "explanation": "Maximum is 15 and minimum is 2."
+                },
+                {
+                  "label": "Calculation",
+                  "value": "15 - 2 = 13",
+                  "explanation": "Subtract the smallest value from the largest value."
+                },
+                {
+                  "label": "Output",
+                  "value": "13",
+                  "explanation": "The range between the minimum and maximum is 13."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Find max-min difference",
+            "explanation": "Track both extremes during one traversal and subtract them at the end.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function maxMinDifference(arr) {\n  if (!arr.length) return null;\n\n  let min = arr[0];\n  let max = arr[0];\n\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n\n  return max - min;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function maxMinDifference(arr: number[]): number | null {\n  if (!arr.length) return null;\n\n  let min = arr[0];\n  let max = arr[0];\n\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n\n  return max - min;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static Integer maxMinDifference(int[] arr) {\n        if (arr == null || arr.length == 0) return null;\n\n        int min = arr[0];\n        int max = arr[0];\n\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] < min) min = arr[i];\n            if (arr[i] > max) max = arr[i];\n        }\n\n        return max - min;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def max_min_difference(arr: list[int]) -> int | None:\n    if not arr:\n        return None\n\n    minimum = maximum = arr[0]\n    for value in arr[1:]:\n        if value < minimum:\n            minimum = value\n        if value > maximum:\n            maximum = value\n\n    return maximum - minimum"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Maximum and minimum can be found simultaneously.",
+            "Sorting is unnecessary for calculating the range.",
+            "The algorithm requires O(n) time and O(1) auxiliary space."
+          ]
+        },
+        {
+          "id": "check-if-array-contains-a-given-element",
+          "title": "20. Check if an Array Contains a Given Element",
+          "content": "Given an array and a target value, determine whether the target exists in the array.\n\n### How It Works & Algorithmic Design\nUse a basic linear search:\n1. Traverse the array from left to right.\n2. Compare every value with the target.\n3. Return `true` immediately when a match is found.\n4. If the loop completes without finding the target, return `false`.\n\n### Why This Approach Works Best\nFor an unsorted array, there is no information that allows us to skip arbitrary positions. Linear search provides $O(n)$ worst-case time and $O(1)$ auxiliary space.",
+          "metaChips": [
+            {
+              "label": "Difficulty",
+              "value": "Easy",
+              "variant": "success"
+            },
+            {
+              "label": "Pattern",
+              "value": "Linear Search / Boolean Search",
+              "variant": "neutral"
+            },
+            {
+              "label": "Time",
+              "value": "O(n)",
+              "variant": "neutral"
+            },
+            {
+              "label": "Space",
+              "value": "O(1)",
+              "variant": "neutral"
+            }
+          ],
+          "dataCards": [
+            {
+              "title": "Example Walkthrough",
+              "items": [
+                {
+                  "label": "Input",
+                  "value": "[5, 8, 12, 3, 20], Target=12",
+                  "explanation": "The target exists in the array."
+                },
+                {
+                  "label": "Search",
+                  "value": "5 -> 8 -> 12",
+                  "explanation": "The search stops as soon as 12 is found."
+                },
+                {
+                  "label": "Output",
+                  "value": "true",
+                  "explanation": "The target exists at index 2."
+                }
+              ]
+            }
+          ],
+          "codeExample": {
+            "title": "Check whether target exists",
+            "explanation": "Use linear search and return immediately when the target is found.",
+            "tabs": [
+              {
+                "label": "JavaScript",
+                "language": "javascript",
+                "code": "function contains(arr, target) {\n  for (const value of arr) {\n    if (value === target) return true;\n  }\n  return false;\n}"
+              },
+              {
+                "label": "TypeScript",
+                "language": "typescript",
+                "code": "function contains(arr: number[], target: number): boolean {\n  for (const value of arr) {\n    if (value === target) return true;\n  }\n  return false;\n}"
+              },
+              {
+                "label": "Java",
+                "language": "java",
+                "code": "public class Solution {\n    public static boolean contains(int[] arr, int target) {\n        for (int value : arr) {\n            if (value == target) return true;\n        }\n        return false;\n    }\n}"
+              },
+              {
+                "label": "Python",
+                "language": "python",
+                "code": "def contains(arr: list[int], target: int) -> bool:\n    for value in arr:\n        if value == target:\n            return True\n    return False"
+              }
+            ]
+          },
+          "keyTakeaways": [
+            "Linear search can answer existence questions directly.",
+            "Early return avoids unnecessary comparisons when the target is found.",
+            "Worst-case time is O(n), while auxiliary space is O(1)."
+          ]
         }
       ]
     },
@@ -889,7 +1684,7 @@
       "sections": [
         {
           "id": "reverse-a-string",
-          "title": "11. Reverse a String",
+          "title": "01. Reverse a String",
           "content": "Reverse a given input string.\n\n### How It Works & Algorithmic Design\nStrings can be processed using either **Built-In Language Methods** or an **In-Place Two-Pointer Character Array Swap**:\n1. **Two-Pointer Approach**: Convert the string into a mutable character array. Place `left = 0` and `right = length - 1`. Swap characters while incrementing `left` and decrementing `right` until they meet in the middle.\n2. **Language Idioms**: Languages like Python (`s[::-1]`) or Java (`StringBuilder.reverse()`) offer optimized native operations.\n\n### Why This Approach Works Best\nBoth methods run in linear time $O(n)$. Understanding the manual pointer-swap mechanism is essential for interviews, especially when working with languages that treat strings as immutable.",
           "metaChips": [
             {
@@ -969,7 +1764,7 @@
         },
         {
           "id": "check-whether-a-string-is-a-palindrome",
-          "title": "12. Check Whether a String Is a Palindrome",
+          "title": "02. Check Whether a String Is a Palindrome",
           "content": "Determine whether a string reads the same forward and backward.\n\n### How It Works & Algorithmic Design\nThis uses the **Symmetric Two-Pointer Check**:\n1. **Pointer Positions**: Set `left = 0` and `right = s.length - 1`.\n2. **Symmetry Test**: Compare `s[left]` and `s[right]`:\n   - If `s[left] !== s[right]`, the string is not symmetrical. Immediately return `false`.\n   - Otherwise, advance `left++` and retreat `right--` toward the middle.\n3. **Completion**: If pointers cross (`left >= right`) without a character mismatch, return `true`.\n\n### Why This Approach Works Best\nRather than reversing the entire string (which takes extra space and time), this method checks characters in-place and stops early on the first mismatch. It processes at most $n/2$ comparisons, achieving $O(n)$ time and $O(1)$ extra space.",
           "metaChips": [
             {
@@ -1069,7 +1864,7 @@
         },
         {
           "id": "count-vowels-in-a-string",
-          "title": "13. Count Vowels in a String",
+          "title": "03. Count Vowels in a String",
           "content": "Count the number of vowels (`a`, `e`, `i`, `o`, `u` - case insensitive) in a given string.\n\n### How It Works & Algorithmic Design\nThis applies **Set-Based Lookups** within a **Linear Character Pass**:\n1. **Vowel Set Lookup**: Store target vowels (`aeiouAEIOU`) in a Hash Set or string lookup table. Checking existence in a Hash Set takes constant time ($O(1)$).\n2. **Counting Loop**: Iterate over every character `ch` in the string.\n3. **Evaluation**: If `vowelSet.has(ch)`, increment `count++`.\n4. **Return**: Return the accumulated count.\n\n### Why This Approach Works Best\nUsing a set lookup avoids writing long `if-else` condition chains. The linear traversal processes the string in $O(n)$ time complexity while requiring only $O(1)$ auxiliary space for the fixed 10-character vowel set.",
           "metaChips": [
             {
@@ -1149,7 +1944,7 @@
         },
         {
           "id": "find-the-frequency-of-each-character",
-          "title": "14. Find the Frequency of Each Character",
+          "title": "04. Find the Frequency of Each Character",
           "content": "Construct a frequency table mapping each character in a string to its total number of occurrences.\n\n### How It Works & Algorithmic Design\nThis relies on **Hash Map Frequency Counting**:\n1. **Hash Map Setup**: Initialize an empty key-value Hash Map `freqMap`.\n2. **Character Scanning**: Iterate through each character `ch` in the string.\n3. **Map Update**: \n   - If `ch` exists as a key in `freqMap`, increment its associated value (`freqMap[ch] + 1`).\n   - If `ch` is not in `freqMap`, insert it with an initial value of `1` (`freqMap[ch] = 1`).\n4. **Result**: Return the populated frequency map.\n\n### Why This Approach Works Best\nHash Map insertions and lookups take $O(1)$ average time. Scanning the string of length $n$ takes $O(n)$ time. The space complexity is $O(k)$, where $k$ is the number of unique characters in the alphabet (at most $O(1)$ for fixed character sets like ASCII or lowercase English letters).",
           "metaChips": [
             {
@@ -1229,7 +2024,7 @@
         },
         {
           "id": "check-if-two-strings-are-anagrams",
-          "title": "15. Check if Two Strings are Anagrams",
+          "title": "05. Check if Two Strings are Anagrams",
           "content": "Given two strings `s` and `t`, return `true` if `t` is an anagram of `s`, and `false` otherwise.\n\n### How It Works & Algorithmic Design\nAn anagram contains the exact same characters with the exact same frequencies, reordered. \n1. **Length Pre-Check**: If `s.length !== t.length`, they cannot be anagrams. Return `false` immediately.\n2. **Frequency Map**: Traverse string `s` and record character counts in a Hash Map (or a fixed 26-element array for lowercase English letters).\n3. **Frequency Verification**: Traverse string `t`. For each character, check if it exists in the map with a count $> 0$. Decrement its count in the map. If a character is missing or its count reaches negative, return `false`.\n4. **Completion**: If all characters in `t` match and exhaust the counts in `s`, return `true`.\n\n### Why This Approach Works Best\nSorting both strings takes $O(n \\log n)$ time. Using a frequency map checks anagrams in $O(n)$ time complexity and $O(k)$ space (where $k$ is the alphabet size, $O(1)$ for fixed character sets).",
           "metaChips": [
             {
@@ -1309,7 +2104,7 @@
         },
         {
           "id": "first-non-repeating-character-in-a-string",
-          "title": "16. First Non-Repeating Character in a String",
+          "title": "06. First Non-Repeating Character in a String",
           "content": "Find the first non-repeating character in a string and return its index. If it does not exist, return `-1`.\n\n### How It Works & Algorithmic Design\nThis requires a **Two-Pass Algorithm using a Frequency Map**:\n1. **First Pass (Counting)**: Iterate through the string from index $0$ to $n-1$ and build a frequency dictionary mapping each character to its occurrence count.\n2. **Second Pass (Position Lookup)**: Iterate through the string a second time from left to right. Look up each character's count in the frequency map. The first character with a count equal to `1` is our answer; return its current loop index.\n3. **Fallback**: If all characters have counts $> 1$, return `-1`.\n\n### Why This Approach Works Best\nChecking every character against the rest of the string using nested loops takes $O(n^2)$ time. The two-pass Hash Map pattern reduces the time complexity to optimal linear $O(n)$ while taking $O(1)$ space for fixed alphabets.",
           "metaChips": [
             {
@@ -1394,7 +2189,7 @@
         },
         {
           "id": "two-sum",
-          "title": "17. Two Sum",
+          "title": "07. Two Sum",
           "content": "Given an array of integers `nums` and an integer `target`, return indices of the two numbers such that they add up to `target`.\n\n### How It Works & Algorithmic Design\nThis is solved using the **Hash Map Complement Pattern**:\n1. **Mathematical Relation**: For any element $x = \\text{nums}[i]$, its required complementary pair is $y = \\text{target} - x$.\n2. **Hash Map Storage**: Maintain a Hash Map where key = `array element value` and value = `array index`.\n3. **Single Pass**: Loop through `nums` using index $i$:\n   - Compute `complement = target - nums[i]`.\n   - Check if `complement` exists in the Hash Map.\n   - If it exists, return `[hashMap.get(complement), i]`.\n   - If not, insert `hashMap.put(nums[i], i)` and continue.\n\n### Why This Approach Works Best\nBrute force nested loops take $O(n^2)$ time. Sorting followed by two pointers takes $O(n \\log n)$ time and loses original indices. Hash Map lookup gives optimal $O(n)$ runtime and $O(n)$ space complexity.",
           "metaChips": [
             {
@@ -1479,7 +2274,7 @@
         },
         {
           "id": "find-the-missing-number-in-an-array",
-          "title": "18. Find the Missing Number in an Array",
+          "title": "08. Find the Missing Number in an Array",
           "content": "Given an array `nums` containing $n$ distinct numbers in the range $[0, n]$, return the only number in the range that is missing from the array.\n\n### How It Works & Algorithmic Design\nThis problem can be solved mathematically using **Gauss's Summation Formula** or bit manipulation with **XOR**:\n1. **Mathematical Sum Method**:\n   - The sum of integers from $0$ to $n$ is calculated using the formula $S_n = \\frac{n \\cdot (n + 1)}{2}$.\n   - Calculate the actual sum of elements in `nums`.\n   - The missing number is simply $S_n - \\text{actualSum}$.\n2. **Bit Manipulation (XOR Method)**:\n   - XORing a number with itself yields zero ($a \\oplus a = 0$).\n   - XOR all indices from $0$ to $n$ together with all values in `nums`. Duplicate numbers cancel out, leaving only the missing number.\n\n### Why This Approach Works Best\nBoth methods run in $O(n)$ time complexity and $O(1)$ space without requiring array sorting ($O(n \\log n)$) or extra hash sets ($O(n)$ space).",
           "metaChips": [
             {
@@ -1564,7 +2359,7 @@
         },
         {
           "id": "move-zeroes-to-the-end-of-array",
-          "title": "19. Move Zeroes to the End of Array",
+          "title": "09. Move Zeroes to the End of Array",
           "content": "Given an integer array `nums`, move all `0`s to the end of it while maintaining the relative order of the non-zero elements in-place.\n\n### How It Works & Algorithmic Design\nThis uses a **Two-Pointer Write Boundary** approach:\n1. **Pointer Definition**: Maintain a `insertPos` pointer initialized to index `0`.\n2. **Pass 1 (Shift Non-Zeroes)**: Iterate through the array with pointer $i$. Whenever `nums[i] !== 0`, place `nums[insertPos] = nums[i]` and increment `insertPos++`.\n3. **Pass 2 (Fill Zeroes)**: Once all non-zero elements are moved to the front, loop from `insertPos` to the end of the array and set `nums[i] = 0`.\n\n### Why This Approach Works Best\nThis solves the problem in-place without creating a duplicate array ($O(1)$ space). It executes in linear $O(n)$ time complexity.",
           "metaChips": [
             {
@@ -1649,7 +2444,7 @@
         },
         {
           "id": "find-the-intersection-of-two-arrays",
-          "title": "20. Find Intersection of Two Arrays",
+          "title": "10. Find Intersection of Two Arrays",
           "content": "Given two integer arrays `nums1` and `nums2`, return an array of their unique intersection elements.\n\n### How It Works & Algorithmic Design\nThis problem uses **Hash Set Intersection Filtering**:\n1. **Set Population**: Convert `nums1` into a Hash Set `set1`. Hash Sets store only unique elements and provide $O(1)$ membership checks.\n2. **Filtering**: Initialize a second empty result set `resultSet`.\n3. **Intersection Pass**: Iterate through elements in `nums2`. For every number $x$, if `set1.has(x)`, insert $x$ into `resultSet`.\n4. **Return**: Convert `resultSet` back into an array list.\n\n### Why This Approach Works Best\nChecking every element of `nums2` against `nums1` using nested loops takes $O(n \\times m)$ time. Using a Hash Set reduces total execution time to linear $O(n + m)$ where $n$ and $m$ are the lengths of the two arrays.",
           "metaChips": [
             {
@@ -1733,803 +2528,8 @@
           ]
         },
         {
-          "id": "count-odd-numbers-in-an-array",
-          "title": "21. Count Odd Numbers in an Array",
-          "content": "Given an array of integers, count how many values are odd.\n\n### How It Works & Algorithmic Design\nAn integer is odd when dividing it by `2` leaves a remainder of `1` or `-1`. We can detect this using the modulo operator:\n1. Initialize `count = 0`.\n2. Traverse every element in the array.\n3. Check whether `value % 2 !== 0`.\n4. If the condition is true, increment `count`.\n5. Return the final count.\n\n### Why This Approach Works Best\nEvery element must be inspected once, giving $O(n)$ time complexity. Only one counter is required, so the auxiliary space is $O(1)$.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Counting / Modulo",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(1)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[2, 5, 7, 8, 11, 14]",
-                  "explanation": "The array contains both even and odd numbers."
-                },
-                {
-                  "label": "Evaluation",
-                  "value": "2 -> Even | 5 -> Odd | 7 -> Odd | 8 -> Even | 11 -> Odd | 14 -> Even",
-                  "explanation": "Only odd values increase the counter."
-                },
-                {
-                  "label": "Output",
-                  "value": "3",
-                  "explanation": "The odd numbers are 5, 7, and 11."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Count odd values",
-            "explanation": "Traverse the array and use modulo 2 to determine whether each number is odd.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function countOdd(arr) {\n  let count = 0;\n  for (const value of arr) {\n    if (value % 2 !== 0) count++;\n  }\n  return count;\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function countOdd(arr: number[]): number {\n  let count = 0;\n  for (const value of arr) {\n    if (value % 2 !== 0) count++;\n  }\n  return count;\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static int countOdd(int[] arr) {\n        int count = 0;\n        for (int value : arr) {\n            if (value % 2 != 0) count++;\n        }\n        return count;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def count_odd(arr: list[int]) -> int:\n    count = 0\n    for value in arr:\n        if value % 2 != 0:\n            count += 1\n    return count"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "The modulo operator helps determine whether an integer is odd or even.",
-            "Every element must be checked, so the time complexity is O(n).",
-            "Only a counter is required, giving O(1) auxiliary space."
-          ]
-        },
-        {
-          "id": "calculate-the-average-of-array-elements",
-          "title": "22. Calculate the Average of Array Elements",
-          "content": "Given an array of numbers, calculate the average of all elements.\n\n### How It Works & Algorithmic Design\nThe average is calculated as `sum / count`:\n1. Initialize a `sum` variable to `0`.\n2. Traverse every element and add it to `sum`.\n3. After traversal, divide `sum` by the number of elements.\n4. Handle an empty array separately because division by zero is invalid.\n\n### Why This Approach Works Best\nThe array only needs to be traversed once. The algorithm requires $O(n)$ time and $O(1)$ auxiliary space.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Accumulator",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(1)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[10, 20, 30, 40]",
-                  "explanation": "Four numerical values are provided."
-                },
-                {
-                  "label": "Sum",
-                  "value": "10 + 20 + 30 + 40 = 100",
-                  "explanation": "All values are accumulated."
-                },
-                {
-                  "label": "Output",
-                  "value": "25",
-                  "explanation": "Average = 100 / 4 = 25."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Calculate array average",
-            "explanation": "First calculate the total sum and then divide it by the number of elements.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function average(arr) {\n  if (arr.length === 0) return null;\n  let sum = 0;\n  for (const value of arr) {\n    sum += value;\n  }\n  return sum / arr.length;\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function average(arr: number[]): number | null {\n  if (arr.length === 0) return null;\n  let sum = 0;\n  for (const value of arr) {\n    sum += value;\n  }\n  return sum / arr.length;\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static Double average(int[] arr) {\n        if (arr == null || arr.length == 0) return null;\n        long sum = 0;\n        for (int value : arr) {\n            sum += value;\n        }\n        return (double) sum / arr.length;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def average(arr: list[int]) -> float | None:\n    if not arr:\n        return None\n    total = 0\n    for value in arr:\n        total += value\n    return total / len(arr)"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Average is calculated as total sum divided by number of elements.",
-            "Always handle an empty array before dividing.",
-            "The algorithm runs in O(n) time and O(1) space."
-          ]
-        },
-        {
-          "id": "find-index-of-largest-element",
-          "title": "23. Find the Index of the Largest Element",
-          "content": "Given an array of numbers, find the index of the largest element.\n\n### How It Works & Algorithmic Design\nInstead of storing only the maximum value, maintain the index where the maximum occurs:\n1. Start with `maxIndex = 0`.\n2. Compare each element with `arr[maxIndex]`.\n3. If a larger element is found, update `maxIndex`.\n4. Return the index after completing the scan.\n5. Return `-1` for an empty array.\n\n### Why This Approach Works Best\nA single linear traversal is enough. The algorithm requires $O(n)$ time and $O(1)$ auxiliary space.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Linear Scan",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(1)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[10, 4, 25, 7, 18]",
-                  "explanation": "The largest value is 25."
-                },
-                {
-                  "label": "Index Tracking",
-                  "value": "maxIndex=0 -> 2",
-                  "explanation": "When 25 is encountered, its index becomes the new maximum index."
-                },
-                {
-                  "label": "Output",
-                  "value": "2",
-                  "explanation": "The largest element is located at index 2."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Find index of maximum",
-            "explanation": "Track the index of the largest value instead of only storing the value.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function largestIndex(arr) {\n  if (!arr.length) return -1;\n  let maxIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIndex]) {\n      maxIndex = i;\n    }\n  }\n  return maxIndex;\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function largestIndex(arr: number[]): number {\n  if (!arr.length) return -1;\n  let maxIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] > arr[maxIndex]) {\n      maxIndex = i;\n    }\n  }\n  return maxIndex;\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static int largestIndex(int[] arr) {\n        if (arr == null || arr.length == 0) return -1;\n        int maxIndex = 0;\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] > arr[maxIndex]) {\n                maxIndex = i;\n            }\n        }\n        return maxIndex;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def largest_index(arr: list[int]) -> int:\n    if not arr:\n        return -1\n    max_index = 0\n    for i in range(1, len(arr)):\n        if arr[i] > arr[max_index]:\n            max_index = i\n    return max_index"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Store the index rather than only the maximum value.",
-            "Comparing against arr[maxIndex] avoids maintaining two separate pieces of state.",
-            "The solution uses O(n) time and O(1) space."
-          ]
-        },
-        {
-          "id": "find-index-of-smallest-element",
-          "title": "24. Find the Index of the Smallest Element",
-          "content": "Given an array of numbers, find the index of the smallest element.\n\n### How It Works & Algorithmic Design\nUse the same tracking pattern as maximum-index search, but compare for smaller values:\n1. Initialize `minIndex = 0`.\n2. Traverse the remaining elements.\n3. If `arr[i] < arr[minIndex]`, update `minIndex`.\n4. Return `minIndex`.\n5. Return `-1` if the array is empty.\n\n### Why This Approach Works Best\nNo sorting is required. One pass gives $O(n)$ time with $O(1)$ extra space.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Linear Scan",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(1)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[8, 3, 12, 1, 6]",
-                  "explanation": "The smallest value is 1."
-                },
-                {
-                  "label": "Index Tracking",
-                  "value": "minIndex=0 -> 1 -> 3",
-                  "explanation": "The index changes whenever a smaller value is discovered."
-                },
-                {
-                  "label": "Output",
-                  "value": "3",
-                  "explanation": "The smallest element is at index 3."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Find index of minimum",
-            "explanation": "Maintain the index of the smallest value encountered during the traversal.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function smallestIndex(arr) {\n  if (!arr.length) return -1;\n  let minIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < arr[minIndex]) {\n      minIndex = i;\n    }\n  }\n  return minIndex;\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function smallestIndex(arr: number[]): number {\n  if (!arr.length) return -1;\n  let minIndex = 0;\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < arr[minIndex]) {\n      minIndex = i;\n    }\n  }\n  return minIndex;\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static int smallestIndex(int[] arr) {\n        if (arr == null || arr.length == 0) return -1;\n        int minIndex = 0;\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] < arr[minIndex]) {\n                minIndex = i;\n            }\n        }\n        return minIndex;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def smallest_index(arr: list[int]) -> int:\n    if not arr:\n        return -1\n    min_index = 0\n    for i in range(1, len(arr)):\n        if arr[i] < arr[min_index]:\n            min_index = i\n    return min_index"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Track the index of the smallest element instead of only the value.",
-            "Initialize the index using the first valid element.",
-            "The algorithm runs in O(n) time and O(1) space."
-          ]
-        },
-        {
-          "id": "count-positive-negative-and-zero-values",
-          "title": "25. Count Positive, Negative, and Zero Values",
-          "content": "Given an array of integers, count how many values are positive, negative, and zero.\n\n### How It Works & Algorithmic Design\nEach value belongs to exactly one of three categories:\n1. If `value > 0`, increment the positive counter.\n2. If `value < 0`, increment the negative counter.\n3. Otherwise, increment the zero counter.\n4. Return all three counts.\n\n### Why This Approach Works Best\nA single traversal classifies every element. The algorithm uses $O(n)$ time and $O(1)$ auxiliary space.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Conditional Counting",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(1)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[-3, 5, 0, 8, -2, 0]",
-                  "explanation": "The array contains all three possible categories."
-                },
-                {
-                  "label": "Counts",
-                  "value": "Positive=2 | Negative=2 | Zero=2",
-                  "explanation": "Each number increments exactly one counter."
-                },
-                {
-                  "label": "Output",
-                  "value": "{ positive: 2, negative: 2, zero: 2 }",
-                  "explanation": "The three counters represent the classification."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Count number categories",
-            "explanation": "Use three counters and classify each value using conditional comparisons.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function countTypes(arr) {\n  let positive = 0;\n  let negative = 0;\n  let zero = 0;\n\n  for (const value of arr) {\n    if (value > 0) positive++;\n    else if (value < 0) negative++;\n    else zero++;\n  }\n\n  return { positive, negative, zero };\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function countTypes(arr: number[]): { positive: number; negative: number; zero: number } {\n  let positive = 0;\n  let negative = 0;\n  let zero = 0;\n\n  for (const value of arr) {\n    if (value > 0) positive++;\n    else if (value < 0) negative++;\n    else zero++;\n  }\n\n  return { positive, negative, zero };\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static int[] countTypes(int[] arr) {\n        int positive = 0;\n        int negative = 0;\n        int zero = 0;\n\n        for (int value : arr) {\n            if (value > 0) positive++;\n            else if (value < 0) negative++;\n            else zero++;\n        }\n\n        return new int[]{positive, negative, zero};\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def count_types(arr: list[int]) -> dict:\n    positive = 0\n    negative = 0\n    zero = 0\n\n    for value in arr:\n        if value > 0:\n            positive += 1\n        elif value < 0:\n            negative += 1\n        else:\n            zero += 1\n\n    return {\"positive\": positive, \"negative\": negative, \"zero\": zero}"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Use mutually exclusive conditions when every value belongs to exactly one category.",
-            "Three counters are sufficient for this problem.",
-            "The solution requires O(n) time and O(1) space."
-          ]
-        },
-        {
-          "id": "separate-even-and-odd-numbers",
-          "title": "26. Separate Even and Odd Numbers",
-          "content": "Given an array of integers, create two collections containing the even and odd numbers separately.\n\n### How It Works & Algorithmic Design\nTraverse the input once:\n1. Create an empty collection for even numbers.\n2. Create an empty collection for odd numbers.\n3. For every value, use `value % 2` to determine its category.\n4. Add the value to the corresponding collection.\n5. Return both collections.\n\n### Why This Approach Works Best\nEvery element is inspected once. Because the output itself can contain up to $n$ elements, the auxiliary/output space is $O(n)$.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Filtering / Array Traversal",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(n)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[1, 4, 7, 8, 10, 13]",
-                  "explanation": "Mixed even and odd values."
-                },
-                {
-                  "label": "Separated Values",
-                  "value": "Even=[4,8,10] | Odd=[1,7,13]",
-                  "explanation": "Each number is placed into exactly one output collection."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Separate even and odd values",
-            "explanation": "Create two output arrays and classify each number using modulo.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function separateEvenOdd(arr) {\n  const even = [];\n  const odd = [];\n\n  for (const value of arr) {\n    if (value % 2 === 0) even.push(value);\n    else odd.push(value);\n  }\n\n  return { even, odd };\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function separateEvenOdd(arr: number[]): { even: number[]; odd: number[] } {\n  const even: number[] = [];\n  const odd: number[] = [];\n\n  for (const value of arr) {\n    if (value % 2 === 0) even.push(value);\n    else odd.push(value);\n  }\n\n  return { even, odd };\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "import java.util.*;\n\npublic class Solution {\n    public static Map<String, List<Integer>> separateEvenOdd(int[] arr) {\n        List<Integer> even = new ArrayList<>();\n        List<Integer> odd = new ArrayList<>();\n\n        for (int value : arr) {\n            if (value % 2 == 0) even.add(value);\n            else odd.add(value);\n        }\n\n        Map<String, List<Integer>> result = new HashMap<>();\n        result.put(\"even\", even);\n        result.put(\"odd\", odd);\n        return result;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def separate_even_odd(arr: list[int]) -> dict:\n    even = []\n    odd = []\n\n    for value in arr:\n        if value % 2 == 0:\n            even.append(value)\n        else:\n            odd.append(value)\n\n    return {\"even\": even, \"odd\": odd}"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Modulo provides a simple way to classify even and odd numbers.",
-            "Every input value is visited exactly once.",
-            "The output arrays require O(n) space in the worst case."
-          ]
-        },
-        {
-          "id": "find-the-second-smallest-element",
-          "title": "27. Find the Second Smallest Element",
-          "content": "Find the second smallest distinct element in an array without sorting it.\n\n### How It Works & Algorithmic Design\nMaintain two values: the smallest and second smallest:\n1. Initialize both to positive infinity.\n2. For each value, if it is smaller than the current smallest, move the smallest value into second smallest.\n3. Otherwise, if it is greater than the smallest but smaller than the second smallest, update second smallest.\n4. Return `null` if a distinct second smallest value does not exist.\n\n### Why This Approach Works Best\nSorting would require $O(n \\log n)$ time. Tracking two values allows a single $O(n)$ traversal with $O(1)$ extra space.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Two-Value Tracking",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(1)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[8, 3, 5, 1, 4]",
-                  "explanation": "The smallest value is 1 and the second smallest distinct value is 3."
-                },
-                {
-                  "label": "Tracking",
-                  "value": "smallest=1 | secondSmallest=3",
-                  "explanation": "The two smallest distinct values are tracked during one traversal."
-                },
-                {
-                  "label": "Output",
-                  "value": "3",
-                  "explanation": "3 is the second smallest distinct value."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Find second smallest",
-            "explanation": "Track the two smallest distinct values during a single traversal.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function secondSmallest(arr) {\n  let first = Infinity;\n  let second = Infinity;\n\n  for (const x of arr) {\n    if (x < first) {\n      second = first;\n      first = x;\n    } else if (x > first && x < second) {\n      second = x;\n    }\n  }\n\n  return second === Infinity ? null : second;\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function secondSmallest(arr: number[]): number | null {\n  let first = Infinity;\n  let second = Infinity;\n\n  for (const x of arr) {\n    if (x < first) {\n      second = first;\n      first = x;\n    } else if (x > first && x < second) {\n      second = x;\n    }\n  }\n\n  return second === Infinity ? null : second;\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static Integer secondSmallest(int[] arr) {\n        int first = Integer.MAX_VALUE;\n        int second = Integer.MAX_VALUE;\n\n        for (int x : arr) {\n            if (x < first) {\n                second = first;\n                first = x;\n            } else if (x > first && x < second) {\n                second = x;\n            }\n        }\n\n        return second == Integer.MAX_VALUE ? null : second;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def second_smallest(arr: list[int]) -> int | None:\n    first = float('inf')\n    second = float('inf')\n\n    for x in arr:\n        if x < first:\n            second = first\n            first = x\n        elif first < x < second:\n            second = x\n\n    return None if second == float('inf') else second"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Track the two smallest distinct values instead of sorting.",
-            "The condition x > first prevents duplicate minimum values from becoming second smallest.",
-            "The algorithm runs in O(n) time and O(1) space."
-          ]
-        },
-        {
-          "id": "copy-an-array-without-built-in-copy-methods",
-          "title": "28. Copy an Array Without Using Built-in Copy Methods",
-          "content": "Create a new array containing the same elements as the input array without using built-in array copy methods.\n\n### How It Works & Algorithmic Design\nUse direct traversal:\n1. Create an empty result array.\n2. Visit every element of the source array.\n3. Add each value to the result array.\n4. Return the newly created array.\n\n### Why This Approach Works Best\nThe operation demonstrates basic array traversal and explicit construction. Since a new array containing all $n$ elements is created, the space complexity is $O(n)$.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Traversal / Array Construction",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(n)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[10, 20, 30]",
-                  "explanation": "The source array contains three values."
-                },
-                {
-                  "label": "Copy Process",
-                  "value": "result=[] -> [10] -> [10,20] -> [10,20,30]",
-                  "explanation": "Each source element is manually added to the new array."
-                },
-                {
-                  "label": "Output",
-                  "value": "[10, 20, 30]",
-                  "explanation": "The returned array contains the same values but is a separate array."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Manually copy an array",
-            "explanation": "Create a new array and copy each element one by one.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function copyArray(arr) {\n  const result = [];\n  for (const value of arr) {\n    result.push(value);\n  }\n  return result;\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function copyArray(arr: number[]): number[] {\n  const result: number[] = [];\n  for (const value of arr) {\n    result.push(value);\n  }\n  return result;\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static int[] copyArray(int[] arr) {\n        int[] result = new int[arr.length];\n        for (int i = 0; i < arr.length; i++) {\n            result[i] = arr[i];\n        }\n        return result;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def copy_array(arr: list[int]) -> list[int]:\n    result = []\n    for value in arr:\n        result.append(value)\n    return result"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Manual copying demonstrates basic traversal and array construction.",
-            "The original array remains unchanged.",
-            "Creating a new array requires O(n) additional space."
-          ]
-        },
-        {
-          "id": "find-the-difference-between-maximum-and-minimum",
-          "title": "29. Find the Difference Between Maximum and Minimum",
-          "content": "Given an array of numbers, find the difference between the largest and smallest values.\n\n### How It Works & Algorithmic Design\nInstead of sorting the array:\n1. Track the maximum value.\n2. Track the minimum value.\n3. Traverse the array once and update both when necessary.\n4. Return `max - min`.\n5. Handle an empty array appropriately.\n\n### Why This Approach Works Best\nSorting is unnecessary. Both extremes can be found in one pass, resulting in $O(n)$ time and $O(1)$ auxiliary space.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Linear Scan",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(1)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[4, 10, 2, 8, 15]",
-                  "explanation": "Maximum is 15 and minimum is 2."
-                },
-                {
-                  "label": "Calculation",
-                  "value": "15 - 2 = 13",
-                  "explanation": "Subtract the smallest value from the largest value."
-                },
-                {
-                  "label": "Output",
-                  "value": "13",
-                  "explanation": "The range between the minimum and maximum is 13."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Find max-min difference",
-            "explanation": "Track both extremes during one traversal and subtract them at the end.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function maxMinDifference(arr) {\n  if (!arr.length) return null;\n\n  let min = arr[0];\n  let max = arr[0];\n\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n\n  return max - min;\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function maxMinDifference(arr: number[]): number | null {\n  if (!arr.length) return null;\n\n  let min = arr[0];\n  let max = arr[0];\n\n  for (let i = 1; i < arr.length; i++) {\n    if (arr[i] < min) min = arr[i];\n    if (arr[i] > max) max = arr[i];\n  }\n\n  return max - min;\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static Integer maxMinDifference(int[] arr) {\n        if (arr == null || arr.length == 0) return null;\n\n        int min = arr[0];\n        int max = arr[0];\n\n        for (int i = 1; i < arr.length; i++) {\n            if (arr[i] < min) min = arr[i];\n            if (arr[i] > max) max = arr[i];\n        }\n\n        return max - min;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def max_min_difference(arr: list[int]) -> int | None:\n    if not arr:\n        return None\n\n    minimum = maximum = arr[0]\n    for value in arr[1:]:\n        if value < minimum:\n            minimum = value\n        if value > maximum:\n            maximum = value\n\n    return maximum - minimum"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Maximum and minimum can be found simultaneously.",
-            "Sorting is unnecessary for calculating the range.",
-            "The algorithm requires O(n) time and O(1) auxiliary space."
-          ]
-        },
-        {
-          "id": "check-if-array-contains-a-given-element",
-          "title": "30. Check if an Array Contains a Given Element",
-          "content": "Given an array and a target value, determine whether the target exists in the array.\n\n### How It Works & Algorithmic Design\nUse a basic linear search:\n1. Traverse the array from left to right.\n2. Compare every value with the target.\n3. Return `true` immediately when a match is found.\n4. If the loop completes without finding the target, return `false`.\n\n### Why This Approach Works Best\nFor an unsorted array, there is no information that allows us to skip arbitrary positions. Linear search provides $O(n)$ worst-case time and $O(1)$ auxiliary space.",
-          "metaChips": [
-            {
-              "label": "Difficulty",
-              "value": "Easy",
-              "variant": "success"
-            },
-            {
-              "label": "Pattern",
-              "value": "Linear Search / Boolean Search",
-              "variant": "neutral"
-            },
-            {
-              "label": "Time",
-              "value": "O(n)",
-              "variant": "neutral"
-            },
-            {
-              "label": "Space",
-              "value": "O(1)",
-              "variant": "neutral"
-            }
-          ],
-          "dataCards": [
-            {
-              "title": "Example Walkthrough",
-              "items": [
-                {
-                  "label": "Input",
-                  "value": "[5, 8, 12, 3, 20], Target=12",
-                  "explanation": "The target exists in the array."
-                },
-                {
-                  "label": "Search",
-                  "value": "5 -> 8 -> 12",
-                  "explanation": "The search stops as soon as 12 is found."
-                },
-                {
-                  "label": "Output",
-                  "value": "true",
-                  "explanation": "The target exists at index 2."
-                }
-              ]
-            }
-          ],
-          "codeExample": {
-            "title": "Check whether target exists",
-            "explanation": "Use linear search and return immediately when the target is found.",
-            "tabs": [
-              {
-                "label": "JavaScript",
-                "language": "javascript",
-                "code": "function contains(arr, target) {\n  for (const value of arr) {\n    if (value === target) return true;\n  }\n  return false;\n}"
-              },
-              {
-                "label": "TypeScript",
-                "language": "typescript",
-                "code": "function contains(arr: number[], target: number): boolean {\n  for (const value of arr) {\n    if (value === target) return true;\n  }\n  return false;\n}"
-              },
-              {
-                "label": "Java",
-                "language": "java",
-                "code": "public class Solution {\n    public static boolean contains(int[] arr, int target) {\n        for (int value : arr) {\n            if (value == target) return true;\n        }\n        return false;\n    }\n}"
-              },
-              {
-                "label": "Python",
-                "language": "python",
-                "code": "def contains(arr: list[int], target: int) -> bool:\n    for value in arr:\n        if value == target:\n            return True\n    return False"
-              }
-            ]
-          },
-          "keyTakeaways": [
-            "Linear search can answer existence questions directly.",
-            "Early return avoids unnecessary comparisons when the target is found.",
-            "Worst-case time is O(n), while auxiliary space is O(1)."
-          ]
-        },
-        {
           "id": "count-the-number-of-words-in-a-string",
-          "title": "31. Count the Number of Words in a String",
+          "title": "11. Count the Number of Words in a String",
           "content": "Given a string containing words separated by spaces, count the number of words.\n\n### How It Works & Algorithmic Design\nA simple approach is to split the string into words after trimming surrounding whitespace:\n1. Remove leading and trailing whitespace.\n2. If the resulting string is empty, return `0`.\n3. Split the string using whitespace as the delimiter.\n4. Return the number of resulting words.\n\n### Why This Approach Works Best\nFor an easy-level problem, splitting provides a clear and readable solution. The time complexity is $O(n)$ where $n$ is the string length. The resulting word collection requires $O(n)$ space.",
           "metaChips": [
             {
@@ -2609,7 +2609,7 @@
         },
         {
           "id": "count-digits-in-a-number",
-          "title": "32. Count Digits in a Number",
+          "title": "12. Count Digits in a Number",
           "content": "Given an integer, count how many digits it contains.\n\n### How It Works & Algorithmic Design\nFor a positive integer, repeatedly divide the number by `10`:\n1. Handle `0` as a special case because it contains one digit.\n2. Convert negative values to their absolute value.\n3. Repeatedly divide by `10` using integer division.\n4. Increment the digit counter after every division.\n5. Stop when the number becomes `0`.\n\n### Why This Approach Works Best\nEach iteration removes one decimal digit. Therefore the time complexity is $O(d)$ where $d$ is the number of digits, with $O(1)$ space.",
           "metaChips": [
             {
@@ -2689,7 +2689,7 @@
         },
         {
           "id": "find-the-sum-of-digits-of-a-number",
-          "title": "33. Find the Sum of Digits of a Number",
+          "title": "13. Find the Sum of Digits of a Number",
           "content": "Given an integer, calculate the sum of all its digits.\n\n### How It Works & Algorithmic Design\nUse modulo and integer division:\n1. Convert the number to its absolute value.\n2. Extract the last digit using `n % 10`.\n3. Add the digit to `sum`.\n4. Remove the last digit using integer division by `10`.\n5. Continue until the number becomes `0`.\n\n### Why This Approach Works Best\nEach digit is processed exactly once, resulting in $O(d)$ time where $d$ is the number of digits and $O(1)$ space.",
           "metaChips": [
             {
@@ -2769,7 +2769,7 @@
         },
         {
           "id": "reverse-the-digits-of-a-number",
-          "title": "34. Reverse the Digits of a Number",
+          "title": "14. Reverse the Digits of a Number",
           "content": "Given an integer, reverse the order of its digits.\n\n### How It Works & Algorithmic Design\nBuild the reversed number from right to left:\n1. Extract the last digit using `% 10`.\n2. Shift the current result left by one decimal position using `result * 10`.\n3. Add the extracted digit.\n4. Remove the last digit from the original number using integer division by `10`.\n5. Continue until the original number becomes `0`.\n\n### Why This Approach Works Best\nThe algorithm processes each digit exactly once, requiring $O(d)$ time and $O(1)$ auxiliary space.",
           "metaChips": [
             {
@@ -2849,7 +2849,7 @@
         },
         {
           "id": "check-whether-a-number-is-a-palindrome",
-          "title": "35. Check Whether a Number Is a Palindrome",
+          "title": "15. Check Whether a Number Is a Palindrome",
           "content": "Determine whether a number reads the same from left to right and right to left.\n\n### How It Works & Algorithmic Design\nA number is a palindrome if it equals its reversed form:\n1. Store the original number.\n2. Reverse the number using digit extraction.\n3. Compare the reversed number with the original.\n4. Return `true` when they are equal; otherwise return `false`.\n\n### Why This Approach Works Best\nThe number is processed digit by digit. The algorithm requires $O(d)$ time and $O(1)$ auxiliary space.",
           "metaChips": [
             {
@@ -2929,7 +2929,7 @@
         },
         {
           "id": "count-the-occurrences-of-a-character",
-          "title": "36. Count the Occurrences of a Character",
+          "title": "16. Count the Occurrences of a Character",
           "content": "Given a string and a target character, count how many times the character appears.\n\n### How It Works & Algorithmic Design\nUse a simple counting traversal:\n1. Initialize `count = 0`.\n2. Visit every character in the string.\n3. Compare it with the target character.\n4. Increment the counter when they match.\n5. Return the final count.\n\n### Why This Approach Works Best\nEvery character may contribute to the result, so the entire string must be inspected. The algorithm uses $O(n)$ time and $O(1)$ additional space.",
           "metaChips": [
             {
@@ -3009,7 +3009,7 @@
         },
         {
           "id": "remove-spaces-from-a-string",
-          "title": "37. Remove Spaces from a String",
+          "title": "17. Remove Spaces from a String",
           "content": "Given a string, create a new string with all space characters removed.\n\n### How It Works & Algorithmic Design\nTraverse the string and keep only non-space characters:\n1. Create an empty result string.\n2. Visit each character.\n3. If the character is not a space, append it to the result.\n4. Return the resulting string.\n\n### Why This Approach Works Best\nEvery character must be examined, giving $O(n)$ time. A new string is produced, requiring $O(n)$ output space.",
           "metaChips": [
             {
@@ -3089,7 +3089,7 @@
         },
         {
           "id": "convert-lowercase-characters-to-uppercase",
-          "title": "38. Convert Lowercase Characters to Uppercase",
+          "title": "18. Convert Lowercase Characters to Uppercase",
           "content": "Given a string, convert its lowercase alphabetic characters to uppercase.\n\n### How It Works & Algorithmic Design\nTraverse each character and transform lowercase letters:\n1. Visit each character.\n2. Check whether it is lowercase.\n3. Convert it to uppercase when necessary.\n4. Preserve non-letter characters.\n5. Build and return the transformed string.\n\n### Why This Approach Works Best\nEvery character must be inspected, so the time complexity is $O(n)$. The result requires $O(n)$ output space.",
           "metaChips": [
             {
@@ -3169,7 +3169,7 @@
         },
         {
           "id": "find-the-first-repeated-character",
-          "title": "39. Find the First Repeated Character",
+          "title": "19. Find the First Repeated Character",
           "content": "Given a string, find the first character that appears more than once.\n\n### How It Works & Algorithmic Design\nUse a set to remember characters already encountered:\n1. Create an empty set.\n2. Traverse the string from left to right.\n3. If the current character already exists in the set, return it immediately.\n4. Otherwise, add it to the set.\n5. If no character repeats, return `null` or an equivalent empty value.\n\n### Why This Approach Works Best\nA set provides efficient membership checking. The expected time complexity is $O(n)$ and the additional space complexity is $O(n)$.",
           "metaChips": [
             {
@@ -3249,7 +3249,7 @@
         },
         {
           "id": "check-whether-a-number-is-prime",
-          "title": "40. Check Whether a Number Is Prime",
+          "title": "20. Check Whether a Number Is Prime",
           "content": "Determine whether a given integer is a prime number.\n\n### How It Works & Algorithmic Design\nA prime number greater than `1` has exactly two positive divisors: `1` and itself.\n1. Numbers less than `2` are not prime.\n2. Try dividing the number by integers starting from `2`.\n3. Only test divisors up to the square root of the number.\n4. If any divisor divides evenly, the number is not prime.\n5. Otherwise, it is prime.\n\n### Why This Approach Works Best\nIf a number has a factor larger than its square root, the corresponding paired factor must be smaller than the square root. Therefore checking up to `sqrt(n)` is sufficient. The time complexity is $O(\\sqrt n)$ and space is $O(1)$.",
           "metaChips": [
             {
@@ -3337,7 +3337,7 @@
       "sections": [
         {
           "id": "valid-parentheses-stack",
-          "title": "21. Valid Parentheses",
+          "title": "01. Valid Parentheses",
           "content": "Given a string `s` containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.\n\n### How It Works & Algorithmic Design\nThis uses a **Stack Data Structure** for LIFO (Last-In, First-Out) matching:\n1. **Matching Map**: Define a map of closing brackets to their corresponding opening brackets (`')': '('`, `'}' : '{'`, `']': '['`).\n2. **Stack Operations**: Iterate through character `ch` in string `s`:\n   - If `ch` is an opening bracket (`(`, `{`, `[`), push it onto the stack.\n   - If `ch` is a closing bracket, check the stack top. If the stack is empty or `stack.pop()` does not equal the matching opening bracket, the string is invalid (`return false`).\n3. **Final Check**: After processing all characters, return `true` if `stack.length === 0` (all opened brackets were closed).\n\n### Why This Approach Works Best\nParentheses nesting follows a LIFO sequence. A stack processes nesting levels naturally in $O(n)$ time complexity and $O(n)$ auxiliary space.",
           "metaChips": [
             {
@@ -3417,7 +3417,7 @@
         },
         {
           "id": "binary-search-array",
-          "title": "22. Binary Search",
+          "title": "02. Binary Search",
           "content": "Given a sorted array of integers `nums` and a `target`, write a function to search for `target` in `nums` in $O(\\log n)$ time.\n\n### How It Works & Algorithmic Design\nBinary Search uses **Divide and Conquer** on sorted arrays:\n1. **Pointers**: Set `left = 0`, `right = nums.length - 1`.\n2. **Mid Calculation**: Compute `mid = Math.floor((left + right) / 2)` (or `left + Math.floor((right - left) / 2)` to prevent overflow in fixed integer types).\n3. **Halving Condition**:\n   - If `nums[mid] === target`, return `mid`.\n   - If `nums[mid] < target`, discard left half: `left = mid + 1`.\n   - If `nums[mid] > target`, discard right half: `right = mid - 1`.\n4. **Failure**: Return `-1` if `left > right`.\n\n### Why This Approach Works Best\nHalving the search space each iteration reduces search time from linear $O(n)$ to logarithmic $O(\\log n)$ time complexity.",
           "metaChips": [
             {
@@ -3502,7 +3502,7 @@
         },
         {
           "id": "best-time-to-buy-and-sell-stock",
-          "title": "23. Best Time to Buy and Sell Stock",
+          "title": "03. Best Time to Buy and Sell Stock",
           "content": "Given an array `prices` where `prices[i]` is the stock price on day `i`, return the maximum profit you can achieve from a single transaction.\n\n### How It Works & Algorithmic Design\nThis uses a **Single-Pass Greedy Running Minimum** strategy:\n1. **Variables**: Track `minPrice = Infinity` and `maxProfit = 0`.\n2. **Iteration**: Loop through each stock price in `prices`:\n   - If the current price is lower than `minPrice`, update `minPrice = price`.\n   - Otherwise, calculate potential profit: `price - minPrice`. If this profit exceeds `maxProfit`, update `maxProfit`.\n3. **Return**: Return `maxProfit` after scanning all prices.\n\n### Why This Approach Works Best\nChecking every pair of buying/selling days with nested loops takes $O(n^2)$ time. Tracking the lowest price seen so far allows maximum profit calculation in $O(n)$ time and $O(1)$ space.",
           "metaChips": [
             {
@@ -3582,7 +3582,7 @@
         },
         {
           "id": "max-subarray-kadanes-algorithm",
-          "title": "24. Maximum Subarray (Kadane's Algorithm)",
+          "title": "04. Maximum Subarray (Kadane's Algorithm)",
           "content": "Given an integer array `nums`, find the contiguous subarray with the largest sum and return its sum.\n\n### How It Works & Algorithmic Design\nSolves using **Kadane's Dynamic Programming Algorithm**:\n1. **State Definition**: At index $i$, decide whether to add `nums[i]` to the existing subarray or start a brand new subarray starting at `nums[i]`.\n2. **Transition Formula**: `currentSum = Math.max(nums[i], currentSum + nums[i])`.\n3. **Global Track**: `maxSum = Math.max(maxSum, currentSum)`.\n4. **Initialization**: Set `currentSum = nums[0]` and `maxSum = nums[0]`.\n\n### Why This Approach Works Best\nBrute force checking all contiguous subarrays takes $O(n^2)$ time. Kadane's algorithm makes local optimal decisions at every step, reducing the runtime to optimal linear $O(n)$ time and $O(1)$ auxiliary space.",
           "metaChips": [
             {
@@ -3662,7 +3662,7 @@
         },
         {
           "id": "container-with-most-water",
-          "title": "25. Container With Most Water",
+          "title": "05. Container With Most Water",
           "content": "Given an integer array `height` of length $n$, find two lines that together with the x-axis form a container that holds the most water.\n\n### How It Works & Algorithmic Design\nSolves using **Two Pointers Shrinking Boundary**:\n1. **Pointers**: Position `left = 0` and `right = height.length - 1`.\n2. **Area Calculation**: `width = right - left`. Area = `Math.min(height[left], height[right]) * width`.\n3. **Max Update**: `maxWater = Math.max(maxWater, area)`.\n4. **Pointer Movement Strategy**: To potentially find a taller boundary that compensates for reduced width, move the pointer that points to the **shorter height** (`if (height[left] < height[right]) left++ else right--`).\n\n### Why This Approach Works Best\nEvaluating all pairs of lines takes $O(n^2)$ time. Moving the shorter pointer guarantees that higher potential areas are checked while eliminating inferior choices in $O(n)$ time and $O(1)$ space.",
           "metaChips": [
             {
@@ -3742,7 +3742,7 @@
         },
         {
           "id": "longest-substring-without-repeating-characters",
-          "title": "26. Longest Substring Without Repeating Characters",
+          "title": "06. Longest Substring Without Repeating Characters",
           "content": "Given a string `s`, find the length of the longest substring without repeating characters.\n\n### How It Works & Algorithmic Design\nSolves using the **Variable Sliding Window with Hash Map Indexing**:\n1. **Pointers**: Maintain a sliding window defined by left boundary `left` and right boundary `right`.\n2. **Map Index Tracking**: Use a Hash Map `charIndexMap` to store the last seen index of each character.\n3. **Expansion & Contraction**: Expand `right` across string `s`:\n   - If character `s[right]` was seen inside the current window (`charIndexMap[s[right]] >= left`), update `left = charIndexMap[s[right]] + 1` to skip past the repeating character.\n   - Update `charIndexMap[s[right]] = right`.\n   - Calculate window size (`right - left + 1`) and update `maxLength`.\n\n### Why This Approach Works Best\nInstead of resetting the window or using nested loops ($O(n^2)$), jumping `left` directly past previous duplicate positions ensures each character is processed efficiently in $O(n)$ time and $O(k)$ space.",
           "metaChips": [
             {
@@ -3822,7 +3822,7 @@
         },
         {
           "id": "merge-intervals",
-          "title": "27. Merge Intervals",
+          "title": "07. Merge Intervals",
           "content": "Given an array of `intervals` where `intervals[i] = [start_i, end_i]`, merge all overlapping intervals.\n\n### How It Works & Algorithmic Design\nSolves using **Interval Sorting and Sequential Merging**:\n1. **Sort**: Sort intervals based on their start times (`interval[0]`). This brings overlapping candidate intervals next to each other.\n2. **Iterate & Merge**:\n   - Initialize `merged = [intervals[0]]`.\n   - For each subsequent `interval`:\n     - Get `lastMerged = merged[merged.length - 1]`.\n     - If `interval.start <= lastMerged.end`, an overlap exists. Merge by updating `lastMerged.end = Math.max(lastMerged.end, interval.end)`.\n     - Otherwise, no overlap; push `interval` into `merged`.\n3. **Return**: Return `merged`.\n\n### Why This Approach Works Best\nSorting takes $O(n \\log n)$ time. Once sorted, a single $O(n)$ linear scan processes all merges cleanly.",
           "metaChips": [
             {
@@ -3902,7 +3902,7 @@
         },
         {
           "id": "rotate-image-matrix",
-          "title": "28. Rotate Image (2D Matrix)",
+          "title": "08. Rotate Image (2D Matrix)",
           "content": "Given an $n \\times n$ 2D matrix representing an image, rotate the image by 90 degrees clockwise in-place.\n\n### How It Works & Algorithmic Design\nMathematical transformation through **Transpose then Reverse**:\n1. **Step 1: Transpose Matrix** (Swap rows and columns across main diagonal): \n   - For every $i$ from $0$ to $n-1$ and $j$ from $i+1$ to $n-1$, swap `matrix[i][j]` with `matrix[j][i]`.\n2. **Step 2: Reverse Each Row**:\n   - For each row $i$, reverse elements horizontally (`left` and `right` pointers swapping `matrix[i][left]` and `matrix[i][right]`).\n\n### Why This Approach Works Best\nTranspose + Reverse turns $90^\\circ$ rotation into two clean, in-place matrix ops. Avoids $O(n^2)$ extra memory allocation, achieving true $O(1)$ space and $O(n^2)$ time complexity.",
           "metaChips": [
             {
@@ -3987,7 +3987,7 @@
         },
         {
           "id": "group-anagrams-hashmap",
-          "title": "29. Group Anagrams",
+          "title": "09. Group Anagrams",
           "content": "Given an array of strings `strs`, group the anagrams together in any order.\n\n### How It Works & Algorithmic Design\nSolves using **Hash Map Grouping with Canonical Key Signature**:\n1. **Key Signature**: Two strings are anagrams if and only if their sorted character representations are identical (e.g., `\"eat\"` $\\to$ `\"aet\"` and `\"tea\"` $\\to$ `\"aet\"`).\n2. **Map Setup**: Maintain a Hash Map where key = `sortedStringKey` and value = `array of original strings`.\n3. **Grouping**: Loop through each string `s` in `strs`:\n   - Compute `sortedKey = s.split('').sort().join('')`.\n   - Append `s` to `map[sortedKey]`.\n4. **Return**: Return `Object.values(map)`.\n\n### Why This Approach Works Best\nSorted string keys group all anagram variants into matching buckets in $O(n \\cdot k \\log k)$ time, where $n$ is string count and $k$ is max string length.",
           "metaChips": [
             {
@@ -4067,7 +4067,7 @@
         },
         {
           "id": "product-of-array-except-self",
-          "title": "30. Product of Array Except Self",
+          "title": "10. Product of Array Except Self",
           "content": "Given an integer array `nums`, return an array `answer` such that `answer[i]` is equal to the product of all the elements of `nums` except `nums[i]`, without using division in $O(n)$ time.\n\n### How It Works & Algorithmic Design\nSolves using **Prefix and Suffix Product Accumulation**:\n1. **Left Products Pass**: Create result array `res`. Set `res[0] = 1`. For $i$ from $1$ to $n-1$, compute `res[i] = res[i - 1] * nums[i - 1]` (stores product of all elements to the left of $i$).\n2. **Right Products Pass**: Maintain running `right = 1`. Loop backwards from $n-1$ down to $0$:\n   - `res[i] = res[i] * right`.\n   - Update `right = right * nums[i]`.\n3. **Return**: `res` contains total prefix $\\times$ suffix products for every index.\n\n### Why This Approach Works Best\nAvoids division by zero crashes and achieves linear $O(n)$ time using $O(1)$ extra memory (excluding output array).",
           "metaChips": [
             {
@@ -4152,7 +4152,7 @@
         },
         {
           "id": "3sum-three-pointers",
-          "title": "31. 3Sum",
+          "title": "11. 3Sum",
           "content": "Given an integer array `nums`, return all unique triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.\n\n### How It Works & Algorithmic Design\nSolves using **Sort + Fixed Pivot with Two Pointers**:\n1. **Sort**: Sort array `nums` in ascending order.\n2. **Fixed Loop**: Loop pivot index $i$ from $0$ to $n-3$:\n   - Skip duplicate pivot values (`if (i > 0 && nums[i] === nums[i - 1]) continue`).\n3. **Two Pointer Search**: Set `left = i + 1`, `right = n - 1`:\n   - Compute `sum = nums[i] + nums[left] + nums[right]`.\n   - If `sum === 0`, save triplet, then skip duplicates for `left` and `right` (`left++`, `right--`).\n   - If `sum < 0`, move `left++`.\n   - If `sum > 0`, move `right--`.\n\n### Why This Approach Works Best\nSorting allows $O(n^2)$ time execution while efficiently preventing duplicate triplets.",
           "metaChips": [
             {
@@ -4199,7 +4199,7 @@
             }
           ],
           "codeExample": {
-            "title": "3Sum using sort and two pointers",
+            "title": "1Sum using sort and two pointers",
             "explanation": "Fix pivot and search remaining pair using converging left/right pointers.",
             "tabs": [
               {
@@ -4232,7 +4232,7 @@
         },
         {
           "id": "search-in-rotated-sorted-array",
-          "title": "32. Search in Rotated Sorted Array",
+          "title": "12. Search in Rotated Sorted Array",
           "content": "Given a rotated sorted array `nums` and a `target`, return the index of `target` if it is in `nums`, or `-1` if it is not, in $O(\\log n)$ time.\n\n### How It Works & Algorithmic Design\nSolves using **Modified Binary Search**:\n1. Compute `mid = left + (right - left) / 2`.\n2. **Identify Sorted Half**: Check if `nums[left] <= nums[mid]`:\n   - **Left Half Sorted**: If `nums[left] <= target < nums[mid]`, search left (`right = mid - 1`); else search right (`left = mid + 1`).\n   - **Right Half Sorted**: If `nums[mid] < target <= nums[right]`, search right (`left = mid + 1`); else search left (`right = mid - 1`).\n3. Repeat until `left > right` or target found.\n\n### Why This Approach Works Best\nAt least one half of a rotated sorted array remains strictly sorted at any given mid point, preserving $O(\\log n)$ search efficiency.",
           "metaChips": [
             {
@@ -4317,7 +4317,7 @@
         },
         {
           "id": "coin-change-dp",
-          "title": "33. Coin Change",
+          "title": "13. Coin Change",
           "content": "Given an integer array `coins` and an integer `amount`, return the fewest number of coins needed to make up that amount.\n\n### How It Works & Algorithmic Design\nSolves using **Bottom-Up Unbounded Knapsack Dynamic Programming**:\n1. **DP Array**: Create array `dp` of size `amount + 1`, filled with `Infinity`. Set `dp[0] = 0` (0 coins needed for amount 0).\n2. **State Transition**: For $i$ from $1$ to `amount`:\n   - Loop each coin in `coins`:\n   - If $i - \\text{coin} \\ge 0$, update `dp[i] = Math.min(dp[i], dp[i - coin] + 1)`.\n3. **Result**: Return `dp[amount] === Infinity ? -1 : dp[amount]`.\n\n### Why This Approach Works Best\nGreedy choice fails for arbitrary coin denominations (e.g., coins `[1, 3, 4]`, amount `6` -> Greedy picks `4+1+1` (3 coins) vs DP optimal `3+3` (2 coins)). DP guarantees exact minimal count in $O(\\text{amount} \\times \\text{coins.length})$ time.",
           "metaChips": [
             {
@@ -4397,7 +4397,7 @@
         },
         {
           "id": "climbing-stairs-dp",
-          "title": "34. Climbing Stairs",
+          "title": "14. Climbing Stairs",
           "content": "You are climbing a staircase. It takes `n` steps to reach the top. Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?\n\n### How It Works & Algorithmic Design\nFollows **Fibonacci Sequence State Transition**:\n1. **Base Cases**: To reach step 1 = 1 way. Step 2 = 2 ways (1+1, 2).\n2. **Recurrence**: `ways(n) = ways(n - 1) + ways(n - 2)` (you can reach step $n$ from step $n-1$ taking 1 step or step $n-2$ taking 2 steps).\n3. **Space Optimization**: Maintain two variables `prev2 = 1`, `prev1 = 2` and compute iteratively.\n\n### Why This Approach Works Best\nIterative state tracking computes ways in $O(n)$ time using $O(1)$ extra space, avoiding $O(2^n)$ recursive stack overflow.",
           "metaChips": [
             {
@@ -4477,7 +4477,7 @@
         },
         {
           "id": "house-robber-dp",
-          "title": "35. House Robber",
+          "title": "15. House Robber",
           "content": "You are a professional robber planning to rob houses along a street. Each house has a certain amount of money stashed. Adjacent houses have security systems connected, so you cannot rob two adjacent houses on the same night.\n\n### How It Works & Algorithmic Design\nSolves using **Dynamic Programming Choice State**:\n1. **Choice at House $i$**:\n   - Option 1: Rob House $i$ $\\to$ gain `money[i]` + maximum money from house $i-2$ (`prev2 + money[i]`).\n   - Option 2: Skip House $i$ $\\to$ keep maximum money from house $i-1$ (`prev1`).\n2. **DP Formula**: `curr = Math.max(prev1, prev2 + money[i])`.\n3. **State Update**: Advance `prev2 = prev1` and `prev1 = curr`.\n\n### Why This Approach Works Best\nSolves non-adjacent maximum sub-sequence sum problems in linear $O(n)$ time and constant $O(1)$ space.",
           "metaChips": [
             {
@@ -4557,7 +4557,7 @@
         },
         {
           "id": "reverse-linked-list",
-          "title": "36. Reverse Linked List",
+          "title": "16. Reverse Linked List",
           "content": "Given the head of a singly linked list, reverse the list, and return the reversed list's head.\n\n### How It Works & Algorithmic Design\nSolves using **Three-Pointer Iterative Pointer Reversal**:\n1. **Pointers**: Maintain `prev = null`, `curr = head`, and `next = null`.\n2. **Traversal Loop** (While `curr !== null`):\n   - Save next node: `next = curr.next`.\n   - Reverse pointer direction: `curr.next = prev`.\n   - Shift pointers forward: `prev = curr`, `curr = next`.\n3. **Return**: `prev` now points to the new head of the reversed linked list.\n\n### Why This Approach Works Best\nReverses all link directions in a single pass ($O(n)$ time) without allocating extra nodes or array memory ($O(1)$ space).",
           "metaChips": [
             {
@@ -4637,7 +4637,7 @@
         },
         {
           "id": "linked-list-cycle-floyds-algorithm",
-          "title": "37. Linked List Cycle Detection (Floyd's Algorithm)",
+          "title": "17. Linked List Cycle Detection (Floyd's Algorithm)",
           "content": "Given `head`, the head of a linked list, determine if the linked list has a cycle in it.\n\n### How It Works & Algorithmic Design\nSolves using **Floyd's Tortoise and Hare Cycle Finding Algorithm**:\n1. **Pointers**: Initialize `slow = head` and `fast = head`.\n2. **Traversal**: Advance `slow` by 1 step (`slow = slow.next`) and `fast` by 2 steps (`fast = fast.next.next`).\n3. **Meeting Point**: If a cycle exists, the fast pointer will eventually catch up and equal the slow pointer (`slow === fast` $\\to$ return `true`).\n4. **Termination**: If `fast === null` or `fast.next === null`, a list tail was reached without a cycle $\\to$ return `false`.\n\n### Why This Approach Works Best\nDetects loops without requiring $O(n)$ extra memory hash sets, running in $O(n)$ time complexity and true $O(1)$ space.",
           "metaChips": [
             {
@@ -4717,7 +4717,7 @@
         },
         {
           "id": "merge-two-sorted-lists",
-          "title": "38. Merge Two Sorted Lists",
+          "title": "18. Merge Two Sorted Lists",
           "content": "You are given the heads of two sorted linked lists `list1` and `list2`. Merge the two lists in a one sorted list.\n\n### How It Works & Algorithmic Design\nSolves using **Dummy Node Iterative Pointer Weaving**:\n1. **Dummy Head**: Create a `dummy` sentinel node and pointer `tail = dummy`.\n2. **Compare & Link** (While `list1 !== null` and `list2 !== null`):\n   - If `list1.val <= list2.val`, set `tail.next = list1` and `list1 = list1.next`.\n   - Else, set `tail.next = list2` and `list2 = list2.next`.\n   - Advance `tail = tail.next`.\n3. **Attach Remainder**: `tail.next = list1 !== null ? list1 : list2`.\n4. **Return**: `dummy.next` holds the head of the newly merged sorted list.\n\n### Why This Approach Works Best\nSentinel dummy nodes remove edge-case code for initial head assignments, merging lists in $O(n + m)$ time and $O(1)$ extra space.",
           "metaChips": [
             {
@@ -4797,7 +4797,7 @@
         },
         {
           "id": "maximum-depth-of-binary-tree",
-          "title": "39. Maximum Depth of Binary Tree",
+          "title": "19. Maximum Depth of Binary Tree",
           "content": "Given the root of a binary tree, return its maximum depth.\n\n### How It Works & Algorithmic Design\nSolves using **Recursive Depth-First Search (DFS)**:\n1. **Base Case**: If `root === null`, return `0`.\n2. **Recursive Decomposition**: \n   - Compute left subtree depth: `leftDepth = maxDepth(root.left)`.\n   - Compute right subtree depth: `rightDepth = maxDepth(root.right)`.\n3. **Return**: `Math.max(leftDepth, rightDepth) + 1` (adds $1$ for the current node level).\n\n### Why This Approach Works Best\nRecursively visiting each node processes the entire tree in linear $O(n)$ time while utilizing $O(h)$ call-stack space (where $h$ is tree height).",
           "metaChips": [
             {
@@ -4877,7 +4877,7 @@
         },
         {
           "id": "invert-binary-tree",
-          "title": "40. Invert Binary Tree",
+          "title": "20. Invert Binary Tree",
           "content": "Given the root of a binary tree, invert the tree, and return its root.\n\n### How It Works & Algorithmic Design\nSolves using **Recursive Node Child Swapping**:\n1. **Base Case**: If `root === null`, return `null`.\n2. **Swap Children**: Swap `root.left` and `root.right` using a temporary variable.\n3. **Recursive Step**: \n   - `invertTree(root.left)`.\n   - `invertTree(root.right)`.\n4. **Return**: Return `root` after children are inverted.\n\n### Why This Approach Works Best\nRecursively mirroring left and right pointers in-place converts a binary tree into its mirror image in $O(n)$ time and $O(h)$ space.",
           "metaChips": [
             {
@@ -4952,7 +4952,7 @@
         },
         {
           "id": "validate-binary-search-tree",
-          "title": "41. Validate Binary Search Tree",
+          "title": "21. Validate Binary Search Tree",
           "content": "Given the root of a binary tree, determine if it is a valid binary search tree (BST).\n\n### How It Works & Algorithmic Design\nSolves using **Recursive Range Bound Validation**:\n1. **BST Definition**: For every node, all nodes in its left subtree must be strictly smaller (`val < node.val`), and all nodes in its right subtree must be strictly larger (`val > node.val`).\n2. **Range Propagation**: Pass valid bounds `(min, max)` down recursive calls:\n   - Base Case: `if (node === null) return true`.\n   - Violation: `if (min !== null && node.val <= min) || (max !== null && node.val >= max) return false`.\n   - Recurse Left: `validate(node.left, min, node.val)`.\n   - Recurse Right: `validate(node.right, node.val, max)`.\n\n### Why This Approach Works Best\nValidating global bounds `(min, max)` prevents invalid BST topologies where deep right sub-nodes violate ancestor limits.",
           "metaChips": [
             {
@@ -5032,7 +5032,7 @@
         },
         {
           "id": "binary-tree-level-order-traversal",
-          "title": "42. Binary Tree Level Order Traversal",
+          "title": "22. Binary Tree Level Order Traversal",
           "content": "Given the root of a binary tree, return the level order traversal of its nodes' values (i.e., from left to right, level by level).\n\n### How It Works & Algorithmic Design\nSolves using **Breadth-First Search (BFS) with Queue**:\n1. **Queue Setup**: Initialize a FIFO queue `queue = [root]`.\n2. **Level Loop**: While queue is not empty:\n   - Get `levelSize = queue.length`.\n   - Create `currentLevel = []`.\n   - Loop `levelSize` times:\n     - Dequeue `node = queue.shift()`.\n     - Add `node.val` to `currentLevel`.\n     - Push non-null `node.left` and `node.right` to queue.\n   - Push `currentLevel` to `result`.\n3. **Return**: `result` contains level-by-level array values.\n\n### Why This Approach Works Best\nQueue FIFO processing guarantees nodes are visited strictly level by level in $O(n)$ time and $O(w)$ space (where $w$ is maximum tree width).",
           "metaChips": [
             {
@@ -5107,7 +5107,7 @@
         },
         {
           "id": "lowest-common-ancestor-binary-tree",
-          "title": "43. Lowest Common Ancestor of a Binary Tree",
+          "title": "23. Lowest Common Ancestor of a Binary Tree",
           "content": "Given a binary tree, find the lowest common ancestor (LCA) of two given nodes `p` and `q`.\n\n### How It Works & Algorithmic Design\nSolves using **Recursive DFS Post-Order Traversal**:\n1. **Base Cases**: If `root === null` or `root === p` or `root === q`, return `root`.\n2. **Recurse**: \n   - `left = lowestCommonAncestor(root.left, p, q)`.\n   - `right = lowestCommonAncestor(root.right, p, q)`.\n3. **LCA Decision**:\n   - If both `left !== null` and `right !== null`, `p` and `q` exist in separate subtrees of `root` $\\to$ `root` is the LCA!\n   - If only one side is non-null, return that non-null side (`left || right`).\n\n### Why This Approach Works Best\nPost-order traversal evaluates child subtrees first, correctly bubbling up common ancestor points in $O(n)$ time.",
           "metaChips": [
             {
@@ -5187,7 +5187,7 @@
         },
         {
           "id": "number-of-islands-bfs-dfs",
-          "title": "44. Number of Islands",
+          "title": "24. Number of Islands",
           "content": "Given an $m \\times n$ 2D binary grid `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands.\n\n### How It Works & Algorithmic Design\nSolves using **Grid Graph Exploration (DFS/BFS)**:\n1. **Grid Traversal**: Loop through every cell `grid[r][c]`.\n2. **Land Discovered**: When `grid[r][c] === '1'`:\n   - Increment `islandCount++`.\n   - Launch `sinkIsland(r, c)` (DFS/BFS) to visit all connected land cells in 4 directions (up, down, left, right) and mark them as `'0'` (water) to prevent double counting.\n3. **Return**: `islandCount` after scanning all grid cells.\n\n### Why This Approach Works Best\nSinking land cells in-place eliminates extra `visited` array memory, exploring the grid in $O(m \\times n)$ time and $O(m \\times n)$ recursion stack space.",
           "metaChips": [
             {
@@ -5267,7 +5267,7 @@
         },
         {
           "id": "kth-largest-element-in-an-array",
-          "title": "45. Kth Largest Element in an Array",
+          "title": "25. Kth Largest Element in an Array",
           "content": "Given an integer array `nums` and an integer `k`, return the `k`th largest element in the array.\n\n### How It Works & Algorithmic Design\nSolves using a **Min-Heap Priority Queue of Size K**:\n1. **Min-Heap Maintainer**: Initialize a Min-Heap data structure.\n2. **Iteration**: Loop through each `num` in `nums`:\n   - Push `num` into the min-heap.\n   - If `heap.size > k`, pop the smallest root element.\n3. **Result**: After processing all elements, the min-heap contains the $k$ largest elements. The heap root is the $k$th largest element; return it.\n\n### Why This Approach Works Best\nFull array sorting takes $O(n \\log n)$ time. A min-heap of size $k$ reduces time complexity to optimal $O(n \\log k)$ and space complexity to $O(k)$.",
           "metaChips": [
             {
@@ -5347,7 +5347,7 @@
         },
         {
           "id": "top-k-frequent-elements",
-          "title": "46. Top K Frequent Elements",
+          "title": "26. Top K Frequent Elements",
           "content": "Given an integer array `nums` and an integer `k`, return the `k` most frequent elements.\n\n### How It Works & Algorithmic Design\nSolves using **Bucket Sort Frequency Buckets**:\n1. **Frequency Counting**: Build a Hash Map `freqMap` counting occurrences of each number.\n2. **Bucket Array**: Create an array of lists `buckets` of size `nums.length + 1` where index $i$ represents frequency $i$.\n3. **Bucket Populating**: For `[num, freq]` in `freqMap`, append `num` into `buckets[freq]`.\n4. **Gather Top K**: Loop backwards from bucket index `nums.length` down to `1` and collect elements until `result.length === k`.\n\n### Why This Approach Works Best\nBucket sort eliminates heap operations ($O(n \\log k)$) to solve top-k frequency problems in linear $O(n)$ time and $O(n)$ space.",
           "metaChips": [
             {
@@ -5427,7 +5427,7 @@
         },
         {
           "id": "coin-change-2-dp",
-          "title": "47. Coin Change 2 (Combination Count)",
+          "title": "27. Coin Change 2 (Combination Count)",
           "content": "Given an integer array `coins` and an integer `amount`, return the number of combinations that make up that amount.\n\n### How It Works & Algorithmic Design\nSolves using **Unbounded Knapsack Combination Dynamic Programming**:\n1. **DP Array**: Create array `dp` of size `amount + 1` filled with `0`. Set `dp[0] = 1` (1 way to make amount 0).\n2. **Outer Coin Loop**: Iterate `coin` in `coins` FIRST:\n   - Iterate $i$ from `coin` to `amount`:\n   - `dp[i] += dp[i - coin]`.\n3. **Result**: `dp[amount]` holds the total distinct combination count.\n\n### Why Outer Coin Loop Matters\nLooping `coin` in the outer loop ensures coin ordering does not duplicate combinations (e.g., `1+2` and `2+1` count as 1 valid combination). Runs in $O(\\text{amount} \\times \\text{coins.length})$ time and $O(\\text{amount})$ space.",
           "metaChips": [
             {
@@ -5507,7 +5507,7 @@
         },
         {
           "id": "subsets-backtracking",
-          "title": "48. Subsets (Power Set)",
+          "title": "28. Subsets (Power Set)",
           "content": "Given an integer array `nums` of unique elements, return all possible subsets (the power set).\n\n### How It Works & Algorithmic Design\nSolves using **Backtracking / Decision Tree Search**:\n1. **Decision Tree**: At each element index `start`, decide to either include `nums[start]` in the current subset or exclude it.\n2. **Backtracking Function** `backtrack(start, currentPath)`:\n   - Save copy of `currentPath` into `result`.\n   - Loop $i$ from `start` to `nums.length - 1`:\n     - Include: `currentPath.push(nums[i])`.\n     - Recurse: `backtrack(i + 1, currentPath)`.\n     - Backtrack: `currentPath.pop()`.\n\n### Why This Approach Works Best\nAn array of size $n$ has $2^n$ unique subsets. Backtracking generates all combinations systematically in $O(n \\cdot 2^n)$ time and $O(n)$ call-stack space.",
           "metaChips": [
             {
@@ -5582,7 +5582,7 @@
         },
         {
           "id": "permutations-backtracking",
-          "title": "49. Permutations",
+          "title": "29. Permutations",
           "content": "Given an array `nums` of distinct integers, return all the possible permutations in any order.\n\n### How It Works & Algorithmic Design\nSolves using **Backtracking with Visited State Tracking**:\n1. **Visited Tracking**: Maintain a boolean array or set `visited` to avoid reusing the same element in a single permutation.\n2. **Backtrack Loop**:\n   - If `currentPath.length === nums.length`, save copy of `currentPath` into `res` and return.\n   - Loop $i$ from $0$ to `nums.length - 1`:\n     - If `visited[i]` is true, continue.\n     - Set `visited[i] = true`, push `nums[i]` into `currentPath`.\n     - Recurse: `backtrack()`.\n     - Undo: `visited[i] = false`, `currentPath.pop()`.\n\n### Why This Approach Works Best\nGenerates all $n!$ unique orderings systematically in $O(n \\cdot n!)$ time.",
           "metaChips": [
             {
@@ -5657,7 +5657,7 @@
         },
         {
           "id": "trapping-rain-water-two-pointers",
-          "title": "50. Trapping Rain Water",
+          "title": "30. Trapping Rain Water",
           "content": "Given `n` non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it can trap after raining.\n\n### How It Works & Algorithmic Design\nSolves using **Two Pointers Inward Traversal**:\n1. **Pointers & Max Tracks**: `left = 0`, `right = height.length - 1`, `leftMax = 0`, `rightMax = 0`, `totalWater = 0`.\n2. **Converging Loop** (While `left < right`):\n   - If `height[left] < height[right]`:\n     - If `height[left] >= leftMax`, update `leftMax = height[left]`.\n     - Else, accumulate trapped water: `totalWater += leftMax - height[left]`.\n     - Increment `left++`.\n   - Else:\n     - If `height[right] >= rightMax`, update `rightMax = height[right]`.\n     - Else, accumulate trapped water: `totalWater += rightMax - height[right]`.\n     - Decrement `right--`.\n3. **Return**: `totalWater`.\n\n### Why This Approach Works Best\nWater trapping depends on `Math.min(leftMax, rightMax) - currentHeight`. Moving the smaller height pointer guarantees correct water boundary calculations in single-pass linear $O(n)$ time and $O(1)$ space.",
           "metaChips": [
             {
@@ -6548,7 +6548,7 @@
       "sections": [
         {
           "id": "alien-dictionary-topological-sort",
-          "title": "61. Alien Dictionary",
+          "title": "01. Alien Dictionary",
           "content": "There is a new alien language that uses the Latin alphabet. However, the order among the letters is unknown to you. You are given a list of strings `words` from the alien language's dictionary, where the strings inside `words` are sorted lexicographically by the rules of this new language. Return a string of the unique letters in the new alien language sorted in lexicographically increasing order.\n\n### How It Works & Algorithmic Design\nSolves using **Directed Graph Construction with Kahn's Topological Sort**:\n1. **Graph Nodes**: Initialize adjacency list `adj` and in-degree map `inDegree` for every unique character.\n2. **Edge Construction**: Compare adjacent words `word1` and `word2`:\n   - Find first mismatch index $k$: `char1 = word1[k]`, `char2 = word2[k]`.\n   - Add directed edge `char1 -> char2` and increment `inDegree[char2]++`.\n   - Edge Case: if `word2` is a prefix of `word1` (e.g., `\"abc\"` before `\"ab\"`), language order is invalid $\\to$ return `\"\"`.\n3. **Kahn's BFS**: Process nodes with `inDegree === 0` using a queue.\n4. **Cycle Detection**: If result length does not match total unique characters, a cycle exists $\\to$ return `\"\"`.\n\n### Why This Approach Works Best\nTopological sorting detects illegal circular dependencies while producing a valid linear character ordering in $O(V + E)$ time.",
           "metaChips": [
             {
@@ -6628,7 +6628,7 @@
         },
         {
           "id": "find-median-from-data-stream-dual-heap",
-          "title": "62. Find Median from Data Stream",
+          "title": "02. Find Median from Data Stream",
           "content": "Implement a data structure `MedianFinder` that supports adding numbers from a data stream and finding the median of all elements added so far.\n\n### How It Works & Algorithmic Design\nSolves using **Two Heaps (Max-Heap for Lower Half, Min-Heap for Upper Half)**:\n1. **Data Structure**: Maintain `maxHeap` (stores smaller numbers) and `minHeap` (stores larger numbers).\n2. **`addNum(num)`**:\n   - Push `num` to `maxHeap`.\n   - Balance values: pop root of `maxHeap` and push to `minHeap`.\n   - Balance sizes: if `minHeap.size > maxHeap.size`, pop root of `minHeap` and push to `maxHeap`.\n3. **`findMedian()`**:\n   - If `maxHeap.size > minHeap.size`, median = `maxHeap.peek()`.\n   - Else, median = `(maxHeap.peek() + minHeap.peek()) / 2`.\n\n### Why This Approach Works Best\nInserts numbers in $O(\\log n)$ time and queries median in optimal $O(1)$ constant time.",
           "metaChips": [
             {
@@ -6708,7 +6708,7 @@
         },
         {
           "id": "binary-tree-maximum-path-sum-dfs",
-          "title": "63. Binary Tree Maximum Path Sum",
+          "title": "03. Binary Tree Maximum Path Sum",
           "content": "A path in a binary tree is a sequence of nodes where each pair of adjacent nodes has an edge connecting them. Return the maximum path sum of any non-empty path.\n\n### How It Works & Algorithmic Design\nSolves using **Recursive Post-Order DFS Branch Traversal**:\n1. **Global Max Variable**: Set `maxSum = -Infinity`.\n2. **DFS Function** `gain(node)`:\n   - Base Case: if `node === null`, return `0`.\n   - Compute max gain from subtrees (ignore negative sums): \n     - `leftGain = Math.max(0, gain(node.left))`\n     - `rightGain = Math.max(0, gain(node.right))`\n   - Local inverted-V path sum: `currentPathSum = node.val + leftGain + rightGain`.\n   - Update global max: `maxSum = Math.max(maxSum, currentPathSum)`.\n   - Return single branch gain to parent: `node.val + Math.max(leftGain, rightGain)`.\n\n### Why This Approach Works Best\nEvaluates paths making turning points at any node while passing straight branch sums up to parents in $O(n)$ time and $O(h)$ space.",
           "metaChips": [
             {
@@ -6788,7 +6788,7 @@
         },
         {
           "id": "word-ladder-ii-bfs-dfs",
-          "title": "64. Word Ladder II",
+          "title": "04. Word Ladder II",
           "content": "Given two words, `beginWord` and `endWord`, and a dictionary `wordList`, return all the shortest transformation sequences from `beginWord` to `endWord`.\n\n### How It Works & Algorithmic Design\nSolves using **Bidirectional BFS Level Graph Construction + Backtracking DFS**:\n1. **BFS Level Mapping**: Perform BFS starting from `beginWord`. Build distance map `distMap[word]` storing shortest steps from `beginWord` to every reachable dictionary word.\n2. **DFS Path Backtracking**: Backtrack from `endWord` down to `beginWord`:\n   - Only step to neighbor words where `distMap[neighbor] === distMap[current] - 1`.\n3. **Return**: All collected minimum length paths.\n\n### Why This Approach Works Best\nDecoupling minimum distance calculation (BFS) from path generation (DFS) prevents combinatorial path explosion.",
           "metaChips": [
             {
@@ -6868,7 +6868,7 @@
         },
         {
           "id": "critical-connections-in-a-network-tarjan",
-          "title": "65. Critical Connections in a Network (Tarjan's Bridges)",
+          "title": "05. Critical Connections in a Network (Tarjan's Bridges)",
           "content": "There are `n` servers numbered from `0` to `n - 1` connected by undirected server-to-server `connections`. Return all critical connections (bridges) whose removal disconnects the network.\n\n### How It Works & Algorithmic Design\nSolves using **Tarjan's Bridge Finding DFS Algorithm**:\n1. **Tracking Arrays**: Maintain `discoveryTime` array and `lowestTime` array initialized to `-1`.\n2. **DFS Logic** `dfs(node, parent, time)`:\n   - Set `discoveryTime[node] = lowestTime[node] = time++`.\n   - For each `neighbor` in adjacency list:\n     - If `neighbor === parent`, continue.\n     - If unvisited (`discoveryTime[neighbor] === -1`):\n       - Recurse `dfs(neighbor, node, time)`.\n       - Update `lowestTime[node] = Math.min(lowestTime[node], lowestTime[neighbor])`.\n       - **Bridge Condition**: If `lowestTime[neighbor] > discoveryTime[node]`, connection `(node, neighbor)` is a critical bridge! Push to result.\n     - If already visited: `lowestTime[node] = Math.min(lowestTime[node], discoveryTime[neighbor])`.\n\n### Why This Approach Works Best\nFinds all graph bridges in a single pass $O(V + E)$ linear time without testing node removals iteratively.",
           "metaChips": [
             {
@@ -6948,7 +6948,7 @@
         },
         {
           "id": "reconstruct-itinerary-eulerian-path",
-          "title": "66. Reconstruct Itinerary",
+          "title": "06. Reconstruct Itinerary",
           "content": "You are given a list of airline `tickets` where `tickets[i] = [from_i, to_i]`. Reconstruct the itinerary in order and return it. All tickets must be used, starting from 'JFK'. If there are multiple valid itineraries, return the itinerary that has the smallest lexical order.\n\n### How It Works & Algorithmic Design\nSolves using **Hierholzer's Eulerian Path DFS Algorithm**:\n1. **Sorted Adjacency Map**: Build directed graph using a Min-Heap/Priority Queue for destination neighbors to enforce lexicographical traversal.\n2. **Hierholzer's Post-Order DFS** `dfs(airport)`:\n   - While `adj[airport]` is not empty:\n     - Pop smallest destination neighbor `next = adj[airport].poll()`.\n     - Recurse `dfs(next)`.\n   - Push `airport` onto `result` stack.\n3. **Return**: Reverse `result` stack.\n\n### Why This Approach Works Best\nHierholzer's algorithm traverses every graph edge (ticket) exactly once in $O(E \\log E)$ time, handling back-tracking dead-ends naturally.",
           "metaChips": [
             {
@@ -7028,7 +7028,7 @@
         },
         {
           "id": "shortest-path-to-get-all-keys-bitmask-bfs",
-          "title": "67. Shortest Path to Get All Keys",
+          "title": "07. Shortest Path to Get All Keys",
           "content": "You are given an $m \\times n$ grid where lowercase letters `'a'-'f'` are keys, uppercase letters `'A'-'F'` are locks, `'#'` is a wall, and `'@'` is starting position. Return the minimum number of moves to acquire all keys.\n\n### How It Works & Algorithmic Design\nSolves using **BFS State Space Traversal with Bitmasking**:\n1. **Key Bitmasking**: Identify total key count $K$. Goal state bitmask is `(1 << K) - 1`.\n2. **Visited Set 3D State**: Track `visited[r][c][bitmask]` to allow revisiting grid cells when carrying new key sets.\n3. **BFS Queue Entry**: `(r, c, bitmask, steps)`.\n4. **Cell Evaluation**:\n   - Step onto key `'a'-'f'`: update `newMask = bitmask | (1 << (char - 'a'))`.\n   - Step onto lock `'A'-'F'`: allowed if `(bitmask & (1 << (char - 'A'))) !== 0`.\n   - Reaching `newMask === goalMask`: return `steps + 1` instantly.\n\n### Why This Approach Works Best\nBitmask state representation transforms multi-key path finding into a clean shortest path BFS graph search in $O(m \\times n \\times 2^K)$ time.",
           "metaChips": [
             {
@@ -7108,7 +7108,7 @@
         },
         {
           "id": "trapping-rain-water-ii-3d-priority-queue",
-          "title": "68. Trapping Rain Water II (3D Surface)",
+          "title": "08. Trapping Rain Water II (3D Surface)",
           "content": "Given an $m \\times n$ integer matrix `heightMap` representing the height of each unit cell in a 2D elevation map, return the volume of water it can trap after raining.\n\n### How It Works & Algorithmic Design\nSolves using **Min-Heap Priority Queue Grid Boundary Shrinking**:\n1. **Boundary Priority Queue**: Push all outer boundary cells `(r, c, height)` into Min-Heap. Mark cells as visited.\n2. **Min-Height Processing**: Maintain running `maxBoundaryHeight = 0`. While heap is not empty:\n   - Pop smallest boundary cell `(r, c, h)`.\n   - Update `maxBoundaryHeight = Math.max(maxBoundaryHeight, h)`.\n   - Evaluate 4 neighbors `(nr, nc)`:\n     - If unvisited: mark visited, accumulate trapped water `Math.max(0, maxBoundaryHeight - heightMap[nr][nc])`, and push neighbor to Min-Heap.\n\n### Why This Approach Works Best\nShrinking boundaries inward from lowest boundary height simulates water containment physics in $O(m \\cdot n \\log(m \\cdot n))$ time.",
           "metaChips": [
             {
@@ -7188,7 +7188,7 @@
         },
         {
           "id": "minimum-cost-to-make-at-least-one-valid-path-in-a-grid-01-bfs",
-          "title": "69. Minimum Cost to Make at Least One Valid Path in a Grid",
+          "title": "09. Minimum Cost to Make at Least One Valid Path in a Grid",
           "content": "Given an $m \\times n$ grid where each cell has a sign pointing right, left, down, or up, return the minimum cost to make at least one valid path from `(0,0)` to `(m-1,n-1)`.\n\n### How It Works & Algorithmic Design\nSolves using **0-1 BFS with Double-Ended Queue (Deque)**:\n1. **Distance Matrix**: Maintain `cost[r][c]` initialized to `Infinity`. Set `cost[0][0] = 0`.\n2. **Deque Logic**: \n   - If moving in cell's existing sign direction: **weight 0** $\\to$ push neighbor to **FRONT** of Deque.\n   - If changing cell sign direction: **weight 1** $\\to$ push neighbor to **BACK** of Deque.\n3. **Return**: `cost[m-1][n-1]` when destination is popped.\n\n### Why This Approach Works Best\n0-1 BFS evaluates shortest paths with 0 and 1 edge weights in optimal linear $O(m \\times n)$ time without $O(V \\log V)$ Dijkstra overhead.",
           "metaChips": [
             {
@@ -7268,7 +7268,7 @@
         },
         {
           "id": "swim-in-rising-water-dijkstra",
-          "title": "70. Swim in Rising Water",
+          "title": "10. Swim in Rising Water",
           "content": "You are given an $n \\times n$ integer matrix `grid` where each cell represents the elevation at that point. Rain starts falling and time $t$ increases. You can swim between adjacent cells if elevation at both cells is at most $t$. Return the least time until you can reach `(n-1, n-1)`.\n\n### How It Works & Algorithmic Design\nSolves using **Modified Dijkstra's Algorithm**:\n1. **Min-Heap Priority Queue**: Store `(maxElevationOnPath, r, c)`.\n2. **Initialization**: Push `(grid[0][0], 0, 0)` to heap. Mark `grid[0][0]` visited.\n3. **Dijkstra Loop**:\n   - Pop element `(t, r, c)` with smallest path elevation.\n   - If `r === n-1 && c === n-1`, return `t` instantly.\n   - For each unvisited neighbor `(nr, nc)`:\n     - `newTime = Math.max(t, grid[nr][nc])`.\n     - Push `(newTime, nr, nc)` into heap.\n\n### Why This Approach Works Best\nGreedily picks paths minimizing maximum water height in $O(n^2 \\log n)$ time.",
           "metaChips": [
             {
@@ -7356,7 +7356,7 @@
       "sections": [
         {
           "id": "sliding-window-maximum-deque",
-          "title": "71. Sliding Window Maximum",
+          "title": "01. Sliding Window Maximum",
           "content": "You are given an array of integers `nums`, and a sliding window of size `k` moving from left to right. Return the max sliding window values.\n\n### How It Works & Algorithmic Design\nSolves using **Monotonic Decreasing Double-Ended Queue (Deque)**:\n1. **Deque Invariant**: Maintain index values in `deque` such that elements `nums[deque[i]]` are strictly decreasing.\n2. **Window Processing** (For index $i$ from $0$ to $n-1$):\n   - **Remove Out-of-Bound**: If `deque[0] <= i - k`, pop front.\n   - **Maintain Decreasing Order**: While `nums[i] >= nums[deque[last]]`, pop back.\n   - **Push**: `deque.push(i)`.\n   - **Collect Max**: If $i \\ge k - 1$, push `nums[deque[0]]` to result.\n\n### Why This Approach Works Best\nMaintains sliding window maximums in linear $O(n)$ time using $O(k)$ space without $O(n \\log k)$ heap delays.",
           "metaChips": [
             {
@@ -7436,7 +7436,7 @@
         },
         {
           "id": "largest-rectangle-in-histogram-stack",
-          "title": "72. Largest Rectangle in Histogram",
+          "title": "02. Largest Rectangle in Histogram",
           "content": "Given an array of integers `heights` representing the histogram's bar height where the width of each bar is 1, return the area of the largest rectangle in the histogram.\n\n### How It Works & Algorithmic Design\nSolves using **Monotonic Increasing Stack**:\n1. **Sentinel Padding**: Append height `0` at end of array to flush stack elements at conclusion.\n2. **Stack Stores Indices**: Maintain stack keeping corresponding heights in increasing order.\n3. **Loop Bar Heights** $i$:\n   - While `stack.top` height is greater than `heights[i]`:\n     - Pop height `h = heights[stack.pop()]`.\n     - Width = `stack.isEmpty ? i : i - stack.top - 1`.\n     - `maxArea = Math.max(maxArea, h * width)`.\n   - Push current index $i$.\n\n### Why This Approach Works Best\nMonotonic stack processes every bar height boundary in single-pass linear $O(n)$ time and $O(n)$ space.",
           "metaChips": [
             {
@@ -7516,7 +7516,7 @@
         },
         {
           "id": "maximal-rectangle-2d-matrix-stack",
-          "title": "73. Maximal Rectangle in 2D Binary Matrix",
+          "title": "03. Maximal Rectangle in 2D Binary Matrix",
           "content": "Given a `rows x cols` binary `matrix` filled with `0`'s and `1`'s, find the largest rectangle containing only `1`'s and return its area.\n\n### How It Works & Algorithmic Design\nSolves using **Dynamic Row Histogram Updating + Histogram Stack**:\n1. **Histogram Array**: Maintain `dp` array of size `cols` initialized to `0`.\n2. **Row Traversal**: Loop row by row:\n   - For each cell in row: if `matrix[r][c] === '1'`, `dp[c] += 1`; else `dp[c] = 0`.\n   - Calculate `maxArea = Math.max(maxArea, largestRectangleArea(dp))` using Histogram Monotonic Stack.\n3. **Return**: Maximum overall area found.\n\n### Why This Approach Works Best\nTransforms 2D matrix search into $M$ consecutive histogram sub-problems executing in optimal $O(M \\times N)$ time and $O(N)$ space.",
           "metaChips": [
             {
@@ -7596,7 +7596,7 @@
         },
         {
           "id": "lfu-cache-double-linked-list",
-          "title": "74. LFU Cache (Least Frequently Used)",
+          "title": "04. LFU Cache (Least Frequently Used)",
           "content": "Design and implement a data structure for a Least Frequently Used (LFU) cache supporting `get` and `put` operations in $O(1)$ time complexity.\n\n### How It Works & Algorithmic Design\nSolves using **Hash Map + Doubly Linked Frequency Lists**:\n1. **Key Map**: `keyMap[key] = node` (stores value, frequency, key reference).\n2. **Frequency Map**: `freqMap[freq] = DoublyLinkedList` (LRU ordered list for nodes sharing the same access frequency).\n3. **Track Min Frequency**: Maintain variable `minFreq`.\n4. **Operations**:\n   - `get(key)`: If present, increment node frequency, update doubly linked lists, update `minFreq`, return node value.\n   - `put(key, val)`: If key exists, update value and bump frequency. If new and full capacity reached, remove tail node from `freqMap[minFreq]`. Insert new node with frequency 1 and set `minFreq = 1`.\n\n### Why This Approach Works Best\nDoubly linked frequency buckets achieve strict constant $O(1)$ time for both cache lookup and frequency displacement.",
           "metaChips": [
             {
@@ -7676,7 +7676,7 @@
         },
         {
           "id": "word-search-ii-trie-backtracking",
-          "title": "75. Word Search II (Board Search with Trie)",
+          "title": "05. Word Search II (Board Search with Trie)",
           "content": "Given an $m \\times n$ `board` of characters and a list of strings `words`, return all words on the board.\n\n### How It Works & Algorithmic Design\nSolves using **Prefix Trie Tree + Grid Backtracking DFS**:\n1. **Build Prefix Trie**: Insert all `words` into Trie. Store complete `word` reference at terminal leaf nodes.\n2. **Grid Traversal DFS** `dfs(r, c, trieNode)`:\n   - Base Case: if cell out of bounds or `board[r][c] === '#'` or character not in `trieNode.children`, return.\n   - Matching Child: step into `childNode`.\n   - Word Discovered: if `childNode.word !== null`, push to result and set `childNode.word = null` (prevents duplicates).\n   - Mark visited `board[r][c] = '#'` and recurse 4 directions.\n   - Restore cell `board[r][c] = originalChar`.\n\n### Why This Approach Works Best\nTrie prefix matching prunes search paths across thousands of words simultaneously in $O(M \\cdot N \\cdot 4^L)$ worst-case.",
           "metaChips": [
             {
@@ -7756,7 +7756,7 @@
         },
         {
           "id": "range-sum-query-mutable-segment-tree",
-          "title": "76. Range Sum Query - Mutable (Segment Tree / Fenwick Tree)",
+          "title": "06. Range Sum Query - Mutable (Segment Tree / Fenwick Tree)",
           "content": "Given an integer array `nums`, handle multiple queries of updating an element value and calculating the sum of elements between indices `left` and `right` inclusive.\n\n### How It Works & Algorithmic Design\nSolves using a **Binary Indexed Tree (Fenwick Tree / BIT)**:\n1. **BIT Mechanics**: Array `tree` of size $n+1$ storing prefix sums. Index index relationships use lowest set bit: `i & (-i)`.\n2. **`update(index, val)`**:\n   - Delta = `val - nums[index]`.\n   - `nums[index] = val`.\n   - Loop $i = \\text{index} + 1$ up to $n$: `tree[i] += delta`, advance `i += i & (-i)`.\n3. **`sumRange(left, right)`**:\n   - Query prefix sum $Q(x)$: sum `tree[i]` stepping down `i -= i & (-i)`.\n   - Return $Q(\\text{right} + 1) - Q(\\left\\text{left}\\right)$.\n\n### Why This Approach Works Best\nAchieves logarithmic $O(\\log n)$ time for both updates and range sum queries with minimal $O(n)$ space.",
           "metaChips": [
             {
@@ -7836,7 +7836,7 @@
         },
         {
           "id": "count-of-smaller-numbers-after-self-merge-sort",
-          "title": "77. Count of Smaller Numbers After Self",
+          "title": "07. Count of Smaller Numbers After Self",
           "content": "Given an integer array `nums`, return an integer array `counts` where `counts[i]` is the number of smaller elements to the right of `nums[i]`.\n\n### How It Works & Algorithmic Design\nSolves using **Modified Merge Sort with Right-Side Inversion Counting**:\n1. **Index Tracking**: Create array of index pairs `[value, originalIndex]`.\n2. **Merge Step**: Merge sorted left half and right half:\n   - When picking element from left half because `left[i].val <= right[j].val`:\n     - Accumulate count: `counts[left[i].index] += rightCount` (number of elements taken from right half so far).\n   - When picking element from right half: increment `rightCount++`.\n3. **Return**: Populated `counts` array.\n\n### Why This Approach Works Best\nMerge sort counts inversions across array splits in optimal $O(n \\log n)$ time and $O(n)$ space.",
           "metaChips": [
             {
@@ -7916,7 +7916,7 @@
         },
         {
           "id": "median-of-two-sorted-arrays-binary-search",
-          "title": "78. Median of Two Sorted Arrays",
+          "title": "08. Median of Two Sorted Arrays",
           "content": "Given two sorted arrays `nums1` and `nums2` of size `m` and `n` respectively, return the median of the two sorted arrays in $O(\\log(\\min(m, n)))$ time.\n\n### How It Works & Algorithmic Design\nSolves using **Binary Search Partitioning on Shorter Array**:\n1. **Ensure Shorter Array**: Swap arrays if `nums1.length > nums2.length` so `nums1` is shorter.\n2. **Binary Search**: Search partition point $i$ in `nums1` between $0$ and $m$:\n   - Set `j = Math.floor((m + n + 1) / 2) - i` in `nums2`.\n   - Calculate boundary values: `maxLeft1`, `minRight1`, `maxLeft2`, `minRight2`.\n3. **Partition Check**:\n   - If `maxLeft1 <= minRight2` and `maxLeft2 <= minRight1`, valid median partition found!\n   - Odd combined length: median = `Math.max(maxLeft1, maxLeft2)`.\n   - Even combined length: median = `(Math.max(maxLeft1, maxLeft2) + Math.min(minRight1, minRight2)) / 2`.\n   - If `maxLeft1 > minRight2`: move search left (`high = i - 1`).\n   - Else: move search right (`low = i + 1`).\n\n### Why This Approach Works Best\nHalves partition choices on smaller array achieving optimal $O(\\log(\\min(m, n)))$ runtime.",
           "metaChips": [
             {
@@ -7996,7 +7996,7 @@
         },
         {
           "id": "minimum-cost-to-hire-k-workers-greedy-heap",
-          "title": "79. Minimum Cost to Hire K Workers",
+          "title": "09. Minimum Cost to Hire K Workers",
           "content": "There are `n` workers given by `quality` and `wage` arrays. You want to hire exactly `k` workers such that every worker is paid at least their minimum wage and worker pay is proportional to their quality. Return the minimum cost to form a valid team.\n\n### How It Works & Algorithmic Design\nSolves using **Ratio Sorting + Max-Heap Quality Tracking**:\n1. **Ratio Computation**: For each worker, compute `wage / quality` ratio. Sort workers by this unit ratio in ascending order.\n2. **Max-Heap**: Track top $k$ smallest qualities seen so far using Max-Heap `maxHeap` and running sum `totalQuality`.\n3. **Greedy Traversal**: For each worker ratio $R$:\n   - Add `quality` to `maxHeap` and `totalQuality += quality`.\n   - If `maxHeap.size > k`, pop largest quality `top` and subtract `totalQuality -= top`.\n   - If `maxHeap.size === k`: calculate candidate cost `totalQuality * R` and update `minCost`.\n\n### Why This Approach Works Best\nSorting ratios ensures wage minimums are respected while Max-Heap prunes high quality workers to optimize total cost in $O(n \\log n)$ time.",
           "metaChips": [
             {
@@ -8076,7 +8076,7 @@
         },
         {
           "id": "the-skyline-problem-divide-and-conquer-heap",
-          "title": "80. The Skyline Problem",
+          "title": "10. The Skyline Problem",
           "content": "A city's skyline is the outer contour of the silhouette formed by all the buildings when viewed from a distance. Given the positions and heights of all the buildings `[left, right, height]`, return the key points that characterize the skyline.\n\n### How It Works & Algorithmic Design\nSolves using **Building Event Sorting + Active Max-Heap**:\n1. **Event Points**: Split building `[L, R, H]` into two boundary events: `(L, -H)` (start event) and `(R, H)` (end event).\n2. **Sort Events**: Sort event points primarily by X-coordinate. For ties, sort start events before end events with higher heights first.\n3. **Max-Heap & Max Height Track**:\n   - Maintain `maxHeap` of active building heights initialized with `0`.\n   - For each event point `(x, h)`:\n     - If start event (`h < 0`), add $|h|$ to heap.\n     - If end event (`h > 0`), remove $h$ from heap.\n     - Get `currentMax = maxHeap.peek()`.\n     - If `currentMax !== prevMax`: contour height changed! Record key point `[x, currentMax]` and set `prevMax = currentMax`.\n\n### Why This Approach Works Best\nEvent sorting handles building overlaps cleanly, generating critical key points in $O(n \\log n)$ time.",
           "metaChips": [
             {
@@ -8164,7 +8164,7 @@
       "sections": [
         {
           "id": "reverse-nodes-in-k-group",
-          "title": "81. Reverse Nodes in k-Group",
+          "title": "01. Reverse Nodes in k-Group",
           "content": "Given the head of a linked list, reverse the nodes of the list `k` at a time, and return the modified list. `k` is a positive integer. If the number of nodes is not a multiple of `k`, left-out nodes at the end remain as they are.\n\n### How It Works & Algorithmic Design\nSolves using **Iterative Group Traversal with Pointer Reversal**:\n1. **Lookahead Check**: Verify if at least `k` nodes exist from current head. If fewer, keep them intact.\n2. **Group Reversal**: Reverse `k` nodes in place by adjusting `next` pointers.\n3. **Pointer Rewiring**: Connect previous group's tail to the new head of the reversed group, and connect new tail to the next remaining group.\n\n### Why This Approach Works Best\nReverses complete groups in linear $O(n)$ time using $O(1)$ extra space.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8220,7 +8220,7 @@
         },
         {
           "id": "n-queens-backtracking",
-          "title": "82. N-Queens",
+          "title": "02. N-Queens",
           "content": "The N-Queens puzzle requires placing `n` queens on an $n \\times n$ chessboard such that no two queens attack each other. Return all distinct board configurations.\n\n### How It Works & Algorithmic Design\nSolves using **DFS Backtracking with Sets**:\n1. **Conflict Sets**: Maintain sets for used `cols`, main diagonals (`r - c`), and anti-diagonals (`r + c`).\n2. **Row Placement DFS**: Place queens row by row. For each row $r$, test column $c$:\n   - If column or diagonals are occupied, skip.\n   - Place queen, mark conflict sets, and recurse to row $r + 1$.\n   - Backtrack: remove queen and unmark sets.\n\n### Why This Approach Works Best\nSet lookups determine placement safety in $O(1)$ time, reducing the search space to $O(n!)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8280,7 +8280,7 @@
         },
         {
           "id": "sudoku-solver-backtracking",
-          "title": "83. Sudoku Solver",
+          "title": "03. Sudoku Solver",
           "content": "Write a program to solve a Sudoku puzzle by filling empty cells (`'.'`). A valid solution must satisfy the constraint that digits `'1'-'9'` appear once per row, column, and $3 \\times 3$ sub-box.\n\n### How It Works & Algorithmic Design\nSolves using **Bitmask State Constraint Backtracking**:\n1. **Constraint Hash/Bitmasks**: Track digits used in `rows[r]`, `cols[c]`, and `boxes[boxIdx]`.\n2. **Cell Processing**: Find next empty cell `(r, c)`:\n   - Try placing digits $d \\in [1, 9]$:\n     - Check if bit for $d$ is clear in row, col, and box bitmasks.\n     - Toggle bit mask, update board cell `board[r][c] = d`.\n     - Recurse to next empty cell.\n     - If recursion succeeds, return `true`.\n     - Backtrack: un-toggle bit mask, reset cell to `'.'`.\n\n### Why This Approach Works Best\nBitwise checks make validation $O(1)$, rapidly terminating invalid grid paths.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8336,7 +8336,7 @@
         },
         {
           "id": "expression-add-operators-backtracking",
-          "title": "84. Expression Add Operators",
+          "title": "04. Expression Add Operators",
           "content": "Given a string `num` containing only digits and an integer `target`, return all possibilities to insert binary operators `'+'`, `'-'`, or `'*'` between the digits so that the resulting expression evaluates to `target`.\n\n### How It Works & Algorithmic Design\nSolves using **Operator Choice Backtracking with Multiplication Precedence Tracking**:\n1. **DFS Signature**: `dfs(index, path, eval, multed)`.\n2. **Branch Choice**: Extract substring `currStr = num[index...i]` with numeric value `curr`.\n   - Skip leading zero multi-digit strings (e.g. `'05'`).\n3. **Operations**:\n   - Start position (`index === 0`): `dfs(i + 1, currStr, curr, curr)`.\n   - **Addition `+`**: `dfs(i + 1, path + '+' + currStr, eval + curr, curr)`.\n   - **Subtraction `-`**: `dfs(i + 1, path + '-' + currStr, eval - curr, -curr)`.\n   - **Multiplication `*`**: Undo last term addition then add product: `dfs(i + 1, path + '*' + currStr, eval - multed + multed * curr, multed * curr)`.\n\n### Why This Approach Works Best\nTracking `multed` handles operator precedence naturally during left-to-right recursion.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8388,7 +8388,7 @@
         },
         {
           "id": "basic-calculator-stack",
-          "title": "85. Basic Calculator",
+          "title": "05. Basic Calculator",
           "content": "Given a string `s` representing a valid expression containing digits, `'+'`, `'-'`, `'('`, and `')'`, evaluate the expression and return its value.\n\n### How It Works & Algorithmic Design\nSolves using **Linear Scan Stack Parentheses State Preservation**:\n1. **Variables**: `sum = 0`, `sign = 1`, `stack = []`.\n2. **Scan String**:\n   - Digit: parse complete number $N$, update `sum += sign * N`.\n   - Operator `+`: set `sign = 1`.\n   - Operator `-`: set `sign = -1`.\n   - Open Parenthesis `'('`: push current `sum` and `sign` onto stack, reset `sum = 0`, `sign = 1`.\n   - Close Parenthesis `')'`: pop `prevSign` and `prevSum` from stack; set `sum = prevSum + prevSign * sum`.\n\n### Why This Approach Works Best\nEvaluates nested parenthesis expressions in a single pass $O(n)$ time and $O(n)$ stack space.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8440,7 +8440,7 @@
         },
         {
           "id": "erect-the-fence-convex-hull",
-          "title": "86. Erect the Fence (Convex Hull Graham Scan)",
+          "title": "06. Erect the Fence (Convex Hull Graham Scan)",
           "content": "Given an array `trees` where `trees[i] = [x, y]` represents the location of a tree in the garden, return the coordinates of trees that are located on the perimeter of the fence enclosing all trees (Convex Hull).\n\n### How It Works & Algorithmic Design\nSolves using **Andrew's Monotone Chain Convex Hull Algorithm**:\n1. **Sort**: Sort points primarily by x-coordinate, secondarily by y-coordinate.\n2. **Cross Product Helper**: `cross(p1, p2, p3)` determines orientation of turns.\n3. **Build Upper & Lower Hulls**:\n   - Loop through sorted points and construct lower hull using stack.\n   - Pop points from stack while cross product indicates non-left turn (`cross < 0`).\n   - Repeat procedure in reverse to construct upper hull.\n4. **Combine & Deduplicate**: Merge lower and upper hull sets.\n\n### Why This Approach Works Best\nMonotone chain processes geometric points cleanly in $O(n \\log n)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8492,7 +8492,7 @@
         },
         {
           "id": "max-points-on-a-line-hash-map",
-          "title": "87. Max Points on a Line",
+          "title": "07. Max Points on a Line",
           "content": "Given an array of `points` where `points[i] = [x_i, y_i]` represents a point on the 2D plane, return the maximum number of points that lie on the same straight line.\n\n### How It Works & Algorithmic Design\nSolves using **GCD Reduced Normalized Slope Frequency Maps**:\n1. **Outer Loop**: Pick anchor point $i$.\n2. **Inner Loop**: For each point $j > i$:\n   - Compute $\\Delta x = x_j - x_i$, $\\Delta y = y_j - y_i$.\n   - Normalize slope fraction using Greatest Common Divisor: `g = gcd(|dx|, |dy|)`. Divide both by `g`.\n   - Ensure canonical sign (e.g. `dx > 0` or if `dx === 0`, `dy = 1`).\n   - Store slope string key `\"dy/dx\"` in frequency map.\n3. **Track Maximum**: `maxPoints = Math.max(maxPoints, slopeMap[key] + 1)`.\n\n### Why This Approach Works Best\nNormalizing slopes using GCD avoids floating point precision issues across arbitrary lines in $O(n^2)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8548,7 +8548,7 @@
         },
         {
           "id": "integer-to-english-words-math",
-          "title": "88. Integer to English Words",
+          "title": "08. Integer to English Words",
           "content": "Convert a non-negative integer `num` to its English words representation.\n\n### How It Works & Algorithmic Design\nSolves using **Chunking by Thousands with Static Word Arrays**:\n1. **Static Lookup Arrays**: Define arrays for units `[\"\", \"One\", ...]`, teens `[\"Ten\", \"Eleven\", ...]`, tens `[\"\", \"\", \"Twenty\", ...]`, and thousands `[\"\", \"Thousand\", \"Million\", \"Billion\"]`.\n2. **Three-Digit Helper** `helper(n)`:\n   - If $n < 20$, lookup units/teens.\n   - If $n < 100$, return `tens[n/10] + helper(n%10)`.\n   - If $n \\ge 100$, return `units[n/100] + \" Hundred \" + helper(n%100)`.\n3. **Loop Thousands**: Process `num` in 3-digit chunks, appending thousand group names.\n\n### Why This Approach Works Best\nRecursively converts 3-digit groups in $O(1)$ constant time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8604,7 +8604,7 @@
         },
         {
           "id": "subsets-ii-backtracking-duplicates",
-          "title": "89. Subsets II (Duplicates Handling)",
+          "title": "09. Subsets II (Duplicates Handling)",
           "content": "Given an integer array `nums` that may contain duplicates, return all possible subsets (the power set). The solution set must not contain duplicate subsets.\n\n### How It Works & Algorithmic Design\nSolves using **Sorted Input Backtracking with Duplicate Pruning**:\n1. **Sort**: Sort `nums` so identical values are adjacent.\n2. **Backtracking DFS** `dfs(start, path)`:\n   - Push copy of `path` to results.\n   - Loop $i$ from `start` to `nums.length`:\n     - **Duplicate Pruning**: If $i > \\text{start}$ and `nums[i] === nums[i - 1]`, `continue`.\n     - Add `nums[i]` to `path`.\n     - Recurse `dfs(i + 1, path)`.\n     - Backtrack: remove `nums[i]`.\n\n### Why This Approach Works Best\nPruning duplicate branches at the loop level prevents duplicate subsets without needing post-processing hash sets.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8660,7 +8660,7 @@
         },
         {
           "id": "permutation-sequence-math-factorial",
-          "title": "90. Permutation Sequence",
+          "title": "10. Permutation Sequence",
           "content": "The set `[1, 2, 3, ..., n]` contains `n!` unique permutations. Given `n` and `k`, return the $k$-th permutation sequence.\n\n### How It Works & Algorithmic Design\nSolves using **Factorial Block Deconstruction**:\n1. **Factorial Lookup**: Precompute factorials: `fact[i] = i!`.\n2. **Numbers List**: Build array `numbers = [1, 2, ..., n]`.\n3. **Zero-Indexing**: Set `k = k - 1`.\n4. **Group Selection Loop** (from $i = n$ down to $1$):\n   - Block size $S = (i - 1)!$.\n   - Index $idx = \\lfloor k / S \\rfloor$.\n   - Append `numbers[idx]` to result string and remove from `numbers`.\n   - Update `k = k % S`.\n\n### Why This Approach Works Best\nCalculates the $k$-th permutation directly in $O(n^2)$ time, avoiding $O(n!)$ generation.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8724,7 +8724,7 @@
       "sections": [
         {
           "id": "minimum-window-subsequence-dp",
-          "title": "91. Minimum Window Subsequence",
+          "title": "01. Minimum Window Subsequence",
           "content": "Given strings `s1` and `s2`, return the minimum contiguous substring $W$ of `s1` such that `s2` is a subsequence of $W$.\n\n### How It Works & Algorithmic Design\nSolves using **Two-Pointer Forward Match and Backward Contract Expansion**:\n1. **Forward Match**: Advance `i1` over `s1` matching characters in `s2` via `i2++`.\n2. **Backward Contract**: When `i2 === s2.length` (full subsequence matched):\n   - Set `end = i1`.\n   - Decrement `i1` backward while contracting `s2` index `i2--` to find exact starting index `start`.\n3. **Update Min Window**: Check window length `end - start + 1` against best answer.\n4. **Resume**: Reset `i2 = 0` and resume `i1 = start + 1`.\n\n### Why This Approach Works Best\nCombines forward scanning with backward contraction to evaluate optimal windows in $O(|s1| \\times |s2|)$ time and $O(1)$ space.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8780,7 +8780,7 @@
         },
         {
           "id": "shortest-subarray-with-sum-at-least-k-deque",
-          "title": "92. Shortest Subarray with Sum at Least K",
+          "title": "02. Shortest Subarray with Sum at Least K",
           "content": "Given an integer array `nums` and an integer `k`, return the length of the shortest non-empty subarray of `nums` with a sum of at least `k`.\n\n### How It Works & Algorithmic Design\nSolves using **Prefix Sum Array + Monotonic Double-Ended Queue (Deque)**:\n1. **Prefix Sum**: Build `P[i] = P[i-1] + nums[i-1]` of length $n + 1$.\n2. **Monotonic Deque**: Store indices $i$ in `deque` such that $P[i]$ is strictly increasing.\n3. **Loop Index $i$** from $0$ to $n$:\n   - **Contract Left**: While `P[i] - P[deque[0]] >= k`, update `minLen = Math.min(minLen, i - deque.shift())`.\n   - **Maintain Monotonicity**: While `P[i] <= P[deque[last]]`, pop back (a smaller prefix sum at a larger index is always a better left boundary choice).\n   - Push $i$ onto `deque`.\n\n### Why This Approach Works Best\nHandles negative numbers while finding valid sub-arrays in linear $O(n)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8836,7 +8836,7 @@
         },
         {
           "id": "max-sum-of-rectangle-no-larger-than-k-2d-dp-sorted-set",
-          "title": "93. Max Sum of Rectangle No Larger Than K",
+          "title": "03. Max Sum of Rectangle No Larger Than K",
           "content": "Given an $m \\times n$ matrix and an integer $k$, return the max sum of a rectangle in the matrix such that its sum is no larger than $k$.\n\n### How It Works & Algorithmic Design\nSolves using **1D Sub-Array Projection with Sorted Binary Search TreeSet**:\n1. **Row Interval Bounds**: Fix top row `r1` and bottom row `r2` ($0 \\le r1 \\le r2 < m$).\n2. **1D Projection**: Accumulate row values into 1D array `sums[c] += matrix[r2][c]`.\n3. **Binary Search Prefix Sums**:\n   - Maintain running sum `currSum` and prefix sums in a sorted array/TreeSet `set = [0]`.\n   - Find smallest `P` in `set` such that `currSum - P <= k` $\\to$ `P >= currSum - k`.\n   - If found, `maxSum = Math.max(maxSum, currSum - P)`.\n   - Insert `currSum` into `set`.\n\n### Why This Approach Works Best\nBinary search prefix sets evaluate optimal rectangle bounds in $O(m^2 \\cdot n \\log n)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8892,7 +8892,7 @@
         },
         {
           "id": "count-of-range-sum-merge-sort",
-          "title": "94. Count of Range Sum",
+          "title": "04. Count of Range Sum",
           "content": "Given an integer array `nums` and two integers `lower` and `upper`, return the number of range sums that lie in `[lower, upper]` inclusive.\n\n### How It Works & Algorithmic Design\nSolves using **Prefix Sum Array + Modified Merge Sort**:\n1. **Prefix Sum Array**: `P[i] = P[i-1] + nums[i-1]` for $0 \\le i \\le n$.\n2. **Merge Sort Function** `countWhileMergeSort(left, right)`:\n   - Divide `P` into left and right halves.\n   - For each element $P[i]$ in left half, find two pointers $j$ and $k$ in right half such that $P[j] - P[i] \\ge \\text{lower}$ and $P[k] - P[i] > \\text{upper}$.\n   - Accumulate valid range count: `count += (k - j)`.\n   - Perform standard merge step to keep prefix sub-array sorted.\n\n### Why This Approach Works Best\nEvaluates prefix sum pairs across splits in $O(n \\log n)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -8944,7 +8944,7 @@
         },
         {
           "id": "minimum-cost-to-merge-stones-interval-dp",
-          "title": "95. Minimum Cost to Merge Stones",
+          "title": "05. Minimum Cost to Merge Stones",
           "content": "There are `n` piles of stones arranged in a row. A move consists of merging exactly `k` consecutive piles into one pile. Return the minimum cost to merge all piles into one pile.\n\n### How It Works & Algorithmic Design\nSolves using **Interval Dynamic Programming with Pile Group Reductions**:\n1. **Feasibility Check**: Return `-1` if `(n - 1) % (k - 1) !== 0`.\n2. **Prefix Sums**: `pref[i]` to quickly compute pile segment sums.\n3. **DP State**: `dp[i][j]` = minimum cost to merge piles `i...j` into as few piles as possible.\n4. **Interval Expansion Loop** (`len` from `k` to `n`):\n   - Step split point `m` from `i` to `j-1` with stride `k-1`:\n     - `dp[i][j] = Math.min(dp[i][j], dp[i][m] + dp[m+1][j])`.\n   - If piles `i...j` can be merged down to 1 pile (`(j - i) % (k - 1) === 0`):\n     - `dp[i][j] += pref[j+1] - pref[i]`.\n\n### Why This Approach Works Best\nInterval DP systematically evaluates sub-pile combination choices in $O(n^3 / k)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -9000,7 +9000,7 @@
         },
         {
           "id": "cherry-pickup-ii-3d-grid-dp",
-          "title": "96. Cherry Pickup II (3D Grid DP)",
+          "title": "06. Cherry Pickup II (3D Grid DP)",
           "content": "You are given a `rows x cols` matrix `grid`. You have two robots: Robot 1 starts at `(0, 0)` and Robot 2 starts at `(0, cols - 1)`. Return the maximum cherries collected by both robots.\n\n### How It Works & Algorithmic Design\nSolves using **3D Simultaneous Grid Dynamic Programming**:\n1. **DP State**: Let `dp[r][c1][c2]` be max cherries collected at row $r$ with Robot 1 at column $c_1$ and Robot 2 at column $c_2$.\n2. **Grid Cherry Addition**:\n   - If $c_1 === c_2$, cherries gained = `grid[r][c1]`.\n   - Else, cherries gained = `grid[r][c1] + grid[r][c2]`.\n3. **Transition**: For each candidate column move $(dc_1, dc_2) \\in \\{-1, 0, 1\\}^2$:\n   - `dp[r][c1][c2] = cherry + max(dp[r+1][c1+dc1][c2+dc2])`.\n\n### Why This Approach Works Best\nSaves $O(2^R)$ exponential path choices by moving both robots simultaneously down row $r$ in $O(R \\cdot C^2)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -9056,7 +9056,7 @@
         },
         {
           "id": "shortest-path-visiting-all-nodes-bitmask-bfs",
-          "title": "97. Shortest Path Visiting All Nodes",
+          "title": "07. Shortest Path Visiting All Nodes",
           "content": "You have an undirected connected graph of `n` nodes. Return the length of the shortest path that visits every node.\n\n### How It Works & Algorithmic Design\nSolves using **BFS State Traversal with Bitmasking**:\n1. **State Definition**: Queue stores `(node, bitmask, distance)`.\n2. **Target Bitmask**: Goal mask = `(1 << n) - 1`.\n3. **Queue Initialization**: Push all nodes `(i, 1 << i, 0)` into queue (allowing search to begin from any arbitrary node).\n4. **BFS Step**:\n   - Pop `(curr, mask, dist)`.\n   - If `mask === targetMask`, return `dist`.\n   - For each neighbor in `graph[curr]`:\n     - `newMask = mask | (1 << neighbor)`.\n     - If state `(neighbor, newMask)` is unvisited, mark visited and push to queue.\n\n### Why This Approach Works Best\nBFS guarantees shortest path distance while bitmasking compresses graph visitation states in $O(n \\cdot 2^n)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -9108,7 +9108,7 @@
         },
         {
           "id": "minimum-window-substring-trie-wildcard",
-          "title": "98. Maximum Frequency Stack (FreqStack)",
+          "title": "08. Maximum Frequency Stack (FreqStack)",
           "content": "Design a stack-like data structure that pushes and pops elements, where `pop` removes and returns the most frequent element in the stack. If there is a tie, the element closest to the top of the stack is popped.\n\n### How It Works & Algorithmic Design\nSolves using **Hash Map Frequency Counters + Stack Map Buckets**:\n1. **Freq Map**: `freqMap[val]` stores element frequencies.\n2. **Group Map**: `groupMap[freq]` stores stack of elements sharing exact frequency `freq`.\n3. **Max Frequency Track**: Maintain integer `maxFreq`.\n4. **Operations**:\n   - `push(val)`: Increment `freqMap[val]`, update `maxFreq = Math.max(maxFreq, freq)`, push `val` to `groupMap[freq]`.\n   - `pop()`: Pop element `x` from `groupMap[maxFreq]`. Decrement `freqMap[x]`. If `groupMap[maxFreq]` becomes empty, decrement `maxFreq--`. Return `x`.\n\n### Why This Approach Works Best\nGrouping elements by frequency stack buckets achieves $O(1)$ constant time for both `push` and `pop` operations.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -9164,7 +9164,7 @@
         },
         {
           "id": "minimum-number-of-refueling-stops-heap",
-          "title": "99. Minimum Number of Refueling Stops",
+          "title": "09. Minimum Number of Refueling Stops",
           "content": "A car travels to `target` starting with `startFuel` liters. Along the way are gas `stations` where `stations[i] = [position, fuel]`. Return the minimum number of refueling stops to reach `target`.\n\n### How It Works & Algorithmic Design\nSolves using **Greedy Max-Heap Fuel Selection**:\n1. **Max-Heap**: Store gas amounts of passed stations.\n2. **Traversal**: Loop through stations plus target position:\n   - While current `maxReach < station.position`:\n     - If heap is empty: cannot reach next station $\\to$ return `-1`.\n     - Pop largest available gas amount from heap: `maxReach += maxHeap.pop()`, `stops++`.\n   - Push current station's fuel onto heap.\n3. **Return**: `stops` when target reached.\n\n### Why This Approach Works Best\nGreedily refueling at the largest passed gas stations maximizes distance gained per stop in $O(n \\log n)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
@@ -9224,7 +9224,7 @@
         },
         {
           "id": "tallest-billboard-dp-meet-in-middle",
-          "title": "100. Tallest Billboard (Difference State DP)",
+          "title": "10. Tallest Billboard (Difference State DP)",
           "content": "You are installing a billboard and want it to have the largest possible height. You have a collection of `rods` that can be welded together. Return the maximum possible height of your billboard installation.\n\n### How It Works & Algorithmic Design\nSolves using **Height Difference Dynamic Programming**:\n1. **DP Map State**: Let `dp[diff]` be maximum shorter stand height achievable with height difference `diff` between left and right stands.\n2. **Initialize**: `dp = { 0: 0 }`.\n3. **Rod Addition** (For each rod $x$):\n   - Copy current state map.\n   - For each `(diff, height)` in current DP state:\n     - **Add to Taller Stand**: `newDiff = diff + x`, updated height stays `height`.\n     - **Add to Shorter Stand**: `newDiff = |diff - x|`, updated height becomes `height + min(diff, x)`.\n4. **Return**: `dp[0]` (max height when left and right stands are equal).\n\n### Why This Approach Works Best\nKeying states by height difference $\\Delta$ compresses search complexity to $O(N \\cdot S)$ time.",
           "metaChips": [
             { "label": "Difficulty", "value": "Hard", "variant": "danger" },
