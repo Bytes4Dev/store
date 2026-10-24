@@ -1,6 +1,7 @@
 {
   "templates": [
     "EmberWave",
+    "LuminaryPortfolio",
     "LumenGrid",
     "PixelRiot",
     "CyberLuxe",
