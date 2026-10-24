@@ -1,3 +1,20 @@
 {
-  "templates": ["EmberWave", "LumenGrid", "PixelRiot", "CyberLuxe", "AuraBento", "NovaGrid"]
+  "templates": [
+    "EmberWave",
+    "LumenGrid",
+    "PixelRiot",
+    "CyberLuxe",
+    "AuraBento",
+    "NovaGrid",
+    "SolsticeEditorial",
+    "NeonNoir",
+    "RetroTape",
+    "PastelPlayroom",
+    "OrganicAtelier",
+    "MonoType",
+    "GridHaus",
+    "FrameByFrame",
+    "AquaStudio",
+    "CommandCenter"
+  ]
 }
